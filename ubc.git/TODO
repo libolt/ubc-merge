@@ -1,0 +1,8 @@
+-- For 0.5.0 Release
+- Implement basic offensive scheme
+- Implement basic defensive scheme
+- Implement working menu system.
+- Implement collision detection (ODE?).
+- Implement shot clock and game clock.
+- Implement basic statistics support.
+- Implement basic audio support via OgreAL

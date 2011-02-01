@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Player>
+	<ID>4</ID>
+        <Name>
+		<First>Brian</First>
+		<Last>Darlford</Last>
+	</Name>
+	<Age>28</Age>
+	<Height>74</Height>
+	<Weight>202</Weight>
+        <Model>Player.mesh</Model>
+	<Position>SF</Position>
+	<TeamInitials>klb</TeamInitials>
+</Player>

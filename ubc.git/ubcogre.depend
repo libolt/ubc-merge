@@ -1,0 +1,1592 @@
+# depslib dependency file v1.0
+1155939109 c:\projects\ubcogre\src\players.cpp
+	"players.h"
+
+1164507296 "
+
+1164498017 c:\projects\ubcogre\src\players.h
+	<string>
+	<vector>
+
+1164498017 
+
+1156318406 c:\projects\ubcogre\src\ubcapp.cpp
+	"ubcapp.h"
+	"windows.h"
+
+1164498017 c:\projects\ubcogre\src\ubcapp.h
+	"ogreapplication.h"
+	"basketballs.h"
+	"load.h"
+	"players.h"
+	"teams.h"
+	"tinyxml/tinyxml.h"
+	<OgreStringConverter.h>
+
+1164414327 gConverter.h>
+
+1156546304 c:\projects\ubcogre\src\ogreapplication.h
+	<Ogre.h>
+	<OIS/OIS.h>
+
+1156979776 >
+
+1158166977 c:\projects\ogrenew\ogremain\include\ogre.h
+	"OgrePrerequisites.h"
+	"OgreAnimation.h"
+	"OgreAnimationState.h"
+	"OgreAnimationTrack.h"
+	"OgreAny.h"
+	"OgreArchive.h"
+	"OgreArchiveManager.h"
+	"OgreAxisAlignedBox.h"
+	"OgreBillboardChain.h"
+	"OgreBillboardSet.h"
+	"OgreBone.h"
+	"OgreCamera.h"
+	"OgreConfigFile.h"
+	"OgreControllerManager.h"
+	"OgreDataStream.h"
+	"OgreEntity.h"
+	"OgreException.h"
+	"OgreFrustum.h"
+	"OgreGpuProgram.h"
+	"OgreGpuProgramManager.h"
+	"OgreHardwareBufferManager.h"
+	"OgreHardwareIndexBuffer.h"
+	"OgreHardwarePixelBuffer.h"
+	"OgreHardwareOcclusionQuery.h"
+	"OgreHardwareVertexBuffer.h"
+	"OgreHardwarePixelBuffer.h"
+	"OgreHighLevelGpuProgram.h"
+	"OgreHighLevelGpuProgramManager.h"
+	"OgreKeyFrame.h"
+	"OgreLight.h"
+	"OgreLogManager.h"
+	"OgreManualObject.h"
+	"OgreMaterial.h"
+	"OgreMaterialManager.h"
+	"OgreMaterialSerializer.h"
+	"OgreMath.h"
+	"OgreMatrix3.h"
+	"OgreMatrix4.h"
+	"OgreMesh.h"
+	"OgreMeshManager.h"
+	"OgreMeshSerializer.h"
+	"OgreOverlay.h"
+	"OgreOverlayContainer.h"
+	"OgreOverlayElement.h"
+	"OgreOverlayManager.h"
+	"OgreParticleAffector.h"
+	"OgreParticleEmitter.h"
+	"OgreParticleSystemManager.h"
+	"OgrePass.h"
+	"OgrePatchMesh.h"
+	"OgrePatchSurface.h"
+	"OgreProfiler.h"
+	"OgreRadixSort.h"
+	"OgreRenderQueueInvocation.h"
+	"OgreRenderQueueListener.h"
+	"OgreRenderSystem.h"
+	"OgreRenderTargetListener.h"
+	"OgreRenderTexture.h"
+	"OgreRenderWindow.h"
+	"OgreResourceBackgroundQueue.h"
+	"OgreResourceGroupManager.h"
+	"OgreRibbonTrail.h"
+	"OgreRoot.h"
+	"OgreSceneManager.h"
+	"OgreSceneManagerEnumerator.h"
+	"OgreSceneNode.h"
+	"OgreSimpleRenderable.h"
+	"OgreSkeleton.h"
+	"OgreSkeletonInstance.h"
+	"OgreSkeletonManager.h"
+	"OgreSkeletonSerializer.h"
+	"OgreStaticGeometry.h"
+	"OgreString.h"
+	"OgreStringConverter.h"
+	"OgreStringVector.h"
+	"OgreSubEntity.h"
+	"OgreSubMesh.h"
+	"OgreTechnique.h"
+	"OgreTextureManager.h"
+	"OgreTextureManager.h"
+	"OgreTextureUnitState.h"
+	"OgreUserDefinedObject.h"
+	"OgreVector2.h"
+	"OgreViewport.h"
+	"OgreCompositor.h"
+	"OgreCompositorManager.h"
+	"OgreCompositorChain.h"
+	"OgreCompositorInstance.h"
+	"OgreCompositionTechnique.h"
+	"OgreCompositionPass.h"
+	"OgreCompositionTargetPass.h"
+	"OgreWindowEventUtilities.h"
+	"OgreShadowCameraSetup.h"
+
+1164416066 wCameraSetup.h"
+
+1156321112 wEventUtilities.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogreprerequisites.h
+	"OgrePlatform.h"
+	"OgreMemoryManager.h"
+
+1155988494 yManager.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogreplatform.h
+	"OgreConfig.h"
+	"config.h"
+
+1164498017 
+
+1156321115 ain.h>
+
+1158198082 c:\projects\ogrenew\ogremain\include\ogreconfig.h
+	"config.h"
+
+1138429610 c:\projects\ogrenew\ogremain\include\ogrestdheaders.h
+	<cassert>
+	<cstdio>
+	<cstdlib>
+	<ctime>
+	<cstring>
+	<cstdarg>
+	<cmath>
+	<vector>
+	<map>
+	<string>
+	<set>
+	<list>
+	<deque>
+	<queue>
+	<bitset>
+	<ext/hash_map>
+	<ext/hash_set>
+	<hash_set>
+	<hash_map>
+	<algorithm>
+	<functional>
+	<limits>
+	<fstream>
+	<iostream>
+	<iomanip>
+	<sstream>
+	<sys/types.h>
+	<sys/stat.h>
+	<unistd.h>
+	<unistd.h>
+	<dlfcn.h>
+	<unistd.h>
+	<sys/param.h>
+	<CoreFoundation/CoreFoundation.h>
+	<boost/thread/recursive_mutex.hpp>
+
+1138429610 ead/recursive_mutex.hpp>
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrememorymanager.h
+	"OgrePlatform.h"
+	"OgreStdHeaders.h"
+	"OgreMemoryMacros.h"
+
+1164416065 yMacros.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrememorymacros.h
+
+1164416065 c:\projects\ogrenew\ogremain\include\ogreanimation.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreIteratorWrappers.h"
+	"OgreAnimable.h"
+	"OgreAnimationTrack.h"
+
+1156321116 tionTrack.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogrestring.h
+	"OgrePrerequisites.h"
+	<ext/hash_map>
+
+1156321116 map>
+
+1158007782 c:\projects\ogrenew\ogremain\include\ogreiteratorwrappers.h
+	"OgrePrerequisites.h"
+
+1164240992 quisites.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogreanimable.h
+	"OgrePrerequisites.h"
+	"OgreVector2.h"
+	"OgreVector3.h"
+	"OgreVector4.h"
+	"OgreQuaternion.h"
+	"OgreColourValue.h"
+	"OgreSharedPtr.h"
+	"OgreStringVector.h"
+	"OgreException.h"
+	"OgreAny.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogrevector2.h
+	"OgrePrerequisites.h"
+	"OgreMath.h"
+
+1156321116 h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogremath.h
+	"OgrePrerequisites.h"
+
+1164416068 c:\projects\ogrenew\ogremain\include\ogrevector3.h
+	"OgrePrerequisites.h"
+	"OgreMath.h"
+	"OgreQuaternion.h"
+
+1156321116 rnion.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogrequaternion.h
+	"OgrePrerequisites.h"
+	"OgreMath.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogrevector4.h
+	"OgrePrerequisites.h"
+	"OgreVector3.h"
+
+1156321116 r3.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogrecolourvalue.h
+	"OgrePrerequisites.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogresharedptr.h
+	"OgrePrerequisites.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogrestringvector.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreSharedPtr.h"
+
+1164416067 dPtr.h"
+
+1156895170 c:\projects\ogrenew\ogremain\include\ogreexception.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+
+1156321113 g.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogreany.h
+	"OgrePrerequisites.h"
+	"OgreException.h"
+	"OgreString.h"
+	<algorithm>
+	<typeinfo>
+
+1158532583 c:\projects\ogrenew\ogremain\include\ogreanimationtrack.h
+	"OgrePrerequisites.h"
+	"OgreSimpleSpline.h"
+	"OgreRotationalSpline.h"
+	"OgreKeyFrame.h"
+	"OgreAnimable.h"
+	"OgrePose.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogresimplespline.h
+	"OgrePrerequisites.h"
+	"OgreVector3.h"
+	"OgreMatrix4.h"
+
+1156321113 x4.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrematrix4.h
+	"OgrePrerequisites.h"
+	"OgreVector3.h"
+	"OgreMatrix3.h"
+	"OgreVector4.h"
+	"OgrePlane.h"
+
+1142383658 .h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrematrix3.h
+	"OgrePrerequisites.h"
+	"OgreVector3.h"
+
+1158168338 c:\projects\ogrenew\ogremain\include\ogreplane.h
+	"OgrePrerequisites.h"
+	"OgreVector3.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogrerotationalspline.h
+	"OgrePrerequisites.h"
+	"OgreQuaternion.h"
+
+1158532583 c:\projects\ogrenew\ogremain\include\ogrekeyframe.h
+	"OgrePrerequisites.h"
+	"OgreVector3.h"
+	"OgreQuaternion.h"
+	"OgreAny.h"
+	"OgreHardwareVertexBuffer.h"
+	"OgreIteratorWrappers.h"
+
+1164491091 torWrappers.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrehardwarevertexbuffer.h
+	"OgrePrerequisites.h"
+	"OgreHardwareBuffer.h"
+	"OgreSharedPtr.h"
+	"OgreColourValue.h"
+
+1164416065 rValue.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrehardwarebuffer.h
+	"OgrePrerequisites.h"
+
+1158532583 c:\projects\ogrenew\ogremain\include\ogrepose.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreHardwareVertexBuffer.h"
+	"OgreVector3.h"
+	"OgreIteratorWrappers.h"
+
+1164416065 c:\projects\ogrenew\ogremain\include\ogreanimationstate.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreController.h"
+	"OgreIteratorWrappers.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrecontroller.h
+	"OgrePrerequisites.h"
+	"OgreSharedPtr.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogrearchive.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreDataStream.h"
+	"OgreSharedPtr.h"
+	"OgreStringVector.h"
+
+1156321116 gVector.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogredatastream.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreSharedPtr.h"
+	<istream>
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogrearchivemanager.h
+	"OgrePrerequisites.h"
+	"OgreResourceManager.h"
+	"OgreSingleton.h"
+
+1156321116 eton.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogreresourcemanager.h
+	"OgrePrerequisites.h"
+	"OgreResource.h"
+	"OgreResourceGroupManager.h"
+	"OgreIteratorWrappers.h"
+	"OgreCommon.h"
+	"OgreDataStream.h"
+	"OgreStringVector.h"
+	"OgreScriptLoader.h"
+
+1156321115 tLoader.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogreresource.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreSharedPtr.h"
+	"OgreStringInterface.h"
+
+1164416066 gInterface.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogrestringinterface.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreCommon.h"
+
+1156321112 n.h"
+
+1164416065 c:\projects\ogrenew\ogremain\include\ogrecommon.h
+	"OgreString.h"
+	<utility>
+	<vector>
+	<map>
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogreresourcegroupmanager.h
+	"OgrePrerequisites.h"
+	"OgreSingleton.h"
+	"OgreCommon.h"
+	"OgreDataStream.h"
+	"OgreResource.h"
+	"OgreArchive.h"
+	"OgreIteratorWrappers.h"
+
+1156321115 ve.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogresingleton.h
+	"OgrePrerequisites.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogrescriptloader.h
+	"OgrePrerequisites.h"
+	"OgreDataStream.h"
+	"OgreStringVector.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogreaxisalignedbox.h
+	"OgrePrerequisites.h"
+	"OgreVector3.h"
+	"OgreMatrix4.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogrebillboardchain.h
+	"OgrePrerequisites.h"
+	"OgreMovableObject.h"
+	"OgreRenderable.h"
+
+1156321116 rable.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogremovableobject.h
+	"OgrePrerequisites.h"
+	"OgreRenderQueue.h"
+	"OgreAxisAlignedBox.h"
+	"OgreSphere.h"
+	"OgreShadowCaster.h"
+	"OgreFactoryObj.h"
+	"OgreAnimable.h"
+	"OgreAny.h"
+	"OgreUserDefinedObject.h"
+
+1156321113 efinedObject.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogrerenderqueue.h
+	"OgrePrerequisites.h"
+	"OgreIteratorWrappers.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogresphere.h
+	"OgrePrerequisites.h"
+	"OgreVector3.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogreshadowcaster.h
+	"OgrePrerequisites.h"
+	"OgreRenderable.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogrerenderable.h
+	"OgrePrerequisites.h"
+	"OgreCommon.h"
+	"OgreRenderOperation.h"
+	"OgreMatrix4.h"
+	"OgreMaterial.h"
+	"OgrePlane.h"
+	"OgreGpuProgram.h"
+	"OgreVector4.h"
+	"OgreException.h"
+
+1156321115 tion.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogrerenderoperation.h
+	"OgrePrerequisites.h"
+	"OgreVertexIndexData.h"
+
+1156321115 xIndexData.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogrevertexindexdata.h
+	"OgrePrerequisites.h"
+	"OgreHardwareVertexBuffer.h"
+	"OgreHardwareIndexBuffer.h"
+
+1164416066 areIndexBuffer.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrehardwareindexbuffer.h
+	"OgrePrerequisites.h"
+	"OgreHardwareBuffer.h"
+	"OgreSharedPtr.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogrematerial.h
+	"OgrePrerequisites.h"
+	"OgreResource.h"
+	"OgreIteratorWrappers.h"
+	"OgreCommon.h"
+	"OgreColourValue.h"
+	"OgreBlendMode.h"
+
+1156321113 Mode.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogreblendmode.h
+	"OgrePrerequisites.h"
+	"OgreColourValue.h"
+
+1164416065 c:\projects\ogrenew\ogremain\include\ogregpuprogram.h
+	"OgrePrerequisites.h"
+	"OgreResource.h"
+	"OgreSharedPtr.h"
+	"OgreIteratorWrappers.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrefactoryobj.h
+	"OgrePrerequisites.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogreuserdefinedobject.h
+	"OgrePrerequisites.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogrebillboardset.h
+	"OgrePrerequisites.h"
+	"OgreMovableObject.h"
+	"OgreRenderable.h"
+	"OgreRadixSort.h"
+	"OgreCommon.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogreradixsort.h
+	"OgrePrerequisites.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogrebone.h
+	"OgrePrerequisites.h"
+	"OgreNode.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrenode.h
+	"OgrePrerequisites.h"
+	"OgreMatrix3.h"
+	"OgreMatrix4.h"
+	"OgreQuaternion.h"
+	"OgreString.h"
+	"OgreRenderable.h"
+	"OgreIteratorWrappers.h"
+
+1158166977 c:\projects\ogrenew\ogremain\include\ogrecamera.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreMovableObject.h"
+	"OgreMatrix4.h"
+	"OgreVector3.h"
+	"OgrePlane.h"
+	"OgreQuaternion.h"
+	"OgreCommon.h"
+	"OgreFrustum.h"
+	"OgreRay.h"
+
+1164491090 c:\projects\ogrenew\ogremain\include\ogrefrustum.h
+	"OgrePrerequisites.h"
+	"OgreMovableObject.h"
+	"OgreRenderable.h"
+	"OgreAxisAlignedBox.h"
+	"OgreVertexIndexData.h"
+	"OgreMovablePlane.h"
+
+1156321113 lePlane.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogremovableplane.h
+	"OgrePrerequisites.h"
+	"OgrePlane.h"
+	"OgreMovableObject.h"
+
+1156321113 leObject.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogreray.h
+	"OgrePrerequisites.h"
+	"OgreVector3.h"
+	"OgrePlaneBoundedVolume.h"
+
+1156321116 BoundedVolume.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogreplaneboundedvolume.h
+	"OgrePrerequisites.h"
+	"OgreAxisAlignedBox.h"
+	"OgreSphere.h"
+	"OgreMath.h"
+	"OgrePlane.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogreconfigfile.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreStringVector.h"
+	"OgreIteratorWrappers.h"
+	"OgreDataStream.h"
+
+1156321112 tream.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrecontrollermanager.h
+	"OgrePrerequisites.h"
+	"OgreCommon.h"
+	"OgreSingleton.h"
+	"OgreController.h"
+	"OgrePredefinedControllers.h"
+	"OgreTextureUnitState.h"
+	"OgreSharedPtr.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogrepredefinedcontrollers.h
+	"OgrePrerequisites.h"
+	"OgreCommon.h"
+	"OgreController.h"
+	"OgreFrameListener.h"
+	"OgreGpuProgram.h"
+
+1164416066 ogram.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogreframelistener.h
+	"OgrePrerequisites.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogretextureunitstate.h
+	"OgrePrerequisites.h"
+	"OgreCommon.h"
+	"OgreBlendMode.h"
+	"OgreMatrix4.h"
+	"OgreIteratorWrappers.h"
+	"OgreString.h"
+	"OgreTexture.h"
+
+1155988494 re.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogretexture.h
+	"OgrePrerequisites.h"
+	"OgreHardwareBuffer.h"
+	"OgreResource.h"
+	"OgreImage.h"
+
+1157064473 c:\projects\ogrenew\ogremain\include\ogreimage.h
+	"OgrePrerequisites.h"
+	"OgreCommon.h"
+	"OgrePixelFormat.h"
+	"OgreDataStream.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogrepixelformat.h
+	"OgrePrerequisites.h"
+	"OgreCommon.h"
+
+1164416065 c:\projects\ogrenew\ogremain\include\ogreentity.h
+	"OgrePrerequisites.h"
+	"OgreCommon.h"
+	"OgreString.h"
+	"OgreMovableObject.h"
+	"OgreQuaternion.h"
+	"OgreVector3.h"
+	"OgreHardwareBufferManager.h"
+	"OgreMesh.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogrehardwarebuffermanager.h
+	"OgrePrerequisites.h"
+	"OgreSingleton.h"
+	"OgreHardwareVertexBuffer.h"
+	"OgreHardwareIndexBuffer.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogremesh.h
+	"OgrePrerequisites.h"
+	"OgreResource.h"
+	"OgreVertexIndexData.h"
+	"OgreAxisAlignedBox.h"
+	"OgreVertexBoneAssignment.h"
+	"OgreIteratorWrappers.h"
+	"OgreProgressiveMesh.h"
+	"OgreHardwareVertexBuffer.h"
+	"OgreSkeleton.h"
+	"OgreAnimationTrack.h"
+	"OgrePose.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogrevertexboneassignment.h
+	"OgrePrerequisites.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogreprogressivemesh.h
+	"OgrePrerequisites.h"
+	"OgreVector3.h"
+	"OgreHardwareVertexBuffer.h"
+	"OgreHardwareIndexBuffer.h"
+	"OgreRenderOperation.h"
+
+1156321115 rOperation.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogreskeleton.h
+	"OgrePrerequisites.h"
+	"OgreResource.h"
+	"OgreQuaternion.h"
+	"OgreVector3.h"
+	"OgreIteratorWrappers.h"
+	"OgreStringVector.h"
+
+1164416065 c:\projects\ogrenew\ogremain\include\ogregpuprogrammanager.h
+	"OgrePrerequisites.h"
+	"OgreResourceManager.h"
+	"OgreException.h"
+	"OgreGpuProgram.h"
+	"OgreSingleton.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrehardwarepixelbuffer.h
+	"OgrePrerequisites.h"
+	"OgreHardwareBuffer.h"
+	"OgreSharedPtr.h"
+	"OgrePixelFormat.h"
+	"OgreImage.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrehardwareocclusionquery.h
+	"OgrePrerequisites.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogrehighlevelgpuprogram.h
+	"OgrePrerequisites.h"
+	"OgreGpuProgram.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrehighlevelgpuprogrammanager.h
+	"OgrePrerequisites.h"
+	"OgreResourceManager.h"
+	"OgreSingleton.h"
+	"OgreException.h"
+	"OgreHighLevelGpuProgram.h"
+
+1156321113 evelGpuProgram.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogrelight.h
+	"OgrePrerequisites.h"
+	"OgreColourValue.h"
+	"OgreVector3.h"
+	"OgreVector4.h"
+	"OgreString.h"
+	"OgreMovableObject.h"
+	"OgrePlaneBoundedVolume.h"
+	"OgreShadowCameraSetup.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogrelogmanager.h
+	"OgrePrerequisites.h"
+	"OgreLog.h"
+	"OgreSingleton.h"
+	"OgreString.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogrelog.h
+	"OgrePrerequisites.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogremanualobject.h
+	"OgrePrerequisites.h"
+	"OgreMovableObject.h"
+	"OgreRenderable.h"
+	"OgreResourceGroupManager.h"
+
+1164416066 rceGroupManager.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogrematerialmanager.h
+	"OgrePrerequisites.h"
+	"OgreSingleton.h"
+	"OgreResourceManager.h"
+	"OgreMaterial.h"
+	"OgreStringVector.h"
+	"OgreMaterialSerializer.h"
+	"OgreNoMemoryMacros.h"
+	<boost/thread/tss.hpp>
+	"OgreMemoryMacros.h"
+
+1156321113 ialSerializer.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrematerialserializer.h
+	"OgrePrerequisites.h"
+	"OgreMaterial.h"
+	"OgreBlendMode.h"
+	"OgreTextureUnitState.h"
+	"OgreGpuProgram.h"
+	"OgreStringVector.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogremeshmanager.h
+	"OgrePrerequisites.h"
+	"OgreResourceManager.h"
+	"OgreSingleton.h"
+	"OgreVector3.h"
+	"OgreHardwareBuffer.h"
+	"OgreMesh.h"
+	"OgrePatchMesh.h"
+
+1156321113 Mesh.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogrepatchmesh.h
+	"OgrePrerequisites.h"
+	"OgreMesh.h"
+	"OgrePatchSurface.h"
+
+1156321115 Surface.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogrepatchsurface.h
+	"OgrePrerequisites.h"
+	"OgreVector3.h"
+	"OgreString.h"
+	"OgreRenderOperation.h"
+	"OgreAxisAlignedBox.h"
+
+1164491090 lignedBox.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogremeshserializer.h
+	"OgrePrerequisites.h"
+	"OgreMeshSerializerImpl.h"
+	"OgreSerializer.h"
+
+1156321116 lizer.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogremeshserializerimpl.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreSerializer.h"
+	"OgreMaterial.h"
+	"OgreMesh.h"
+	"OgreEdgeListBuilder.h"
+
+1156321113 istBuilder.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogreserializer.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreDataStream.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogreedgelistbuilder.h
+	"OgrePrerequisites.h"
+	"OgreVector4.h"
+	"OgreHardwareVertexBuffer.h"
+	"OgreRenderOperation.h"
+	"OgreAlignedAllocator.h"
+
+1156321113 edAllocator.h"
+
+1164416065 c:\projects\ogrenew\ogremain\include\ogrealignedallocator.h
+	"OgrePrerequisites.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogreoverlay.h
+	"OgrePrerequisites.h"
+	"OgreSceneNode.h"
+	"OgreIteratorWrappers.h"
+	"OgreMatrix4.h"
+
+1164491090 c:\projects\ogrenew\ogremain\include\ogrescenenode.h
+	"OgrePrerequisites.h"
+	"OgreNode.h"
+	"OgreIteratorWrappers.h"
+	"OgreAxisAlignedBox.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogreoverlaycontainer.h
+	"OgrePrerequisites.h"
+	"OgreOverlayElement.h"
+	"OgreIteratorWrappers.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogreoverlayelement.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreRenderable.h"
+	"OgreStringInterface.h"
+	"OgreOverlayElementCommands.h"
+	"OgreColourValue.h"
+	"OgreRectangle.h"
+
+1156321113 ngle.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogreoverlayelementcommands.h
+	"OgrePrerequisites.h"
+	"OgreStringInterface.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogrerectangle.h
+	"OgrePrerequisites.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogreoverlaymanager.h
+	"OgrePrerequisites.h"
+	"OgreSingleton.h"
+	"OgreStringVector.h"
+	"OgreOverlay.h"
+	"OgreScriptLoader.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogreparticleaffector.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreStringInterface.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogreparticleemitter.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreVector3.h"
+	"OgreColourValue.h"
+	"OgreStringInterface.h"
+	"OgreParticleEmitterCommands.h"
+	"OgreParticle.h"
+
+1156321115 cle.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogreparticleemittercommands.h
+	"OgrePrerequisites.h"
+	"OgreStringInterface.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogreparticle.h
+	"OgrePrerequisites.h"
+	"OgreBillboard.h"
+
+1156321115 oard.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogrebillboard.h
+	"OgrePrerequisites.h"
+	"OgreVector3.h"
+	"OgreColourValue.h"
+	"OgreCommon.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogreparticlesystemmanager.h
+	"OgrePrerequisites.h"
+	"OgreParticleSystem.h"
+	"OgreFrameListener.h"
+	"OgreSingleton.h"
+	"OgreIteratorWrappers.h"
+	"OgreScriptLoader.h"
+	"OgreResourceGroupManager.h"
+
+1164416066 c:\projects\ogrenew\ogremain\include\ogreparticlesystem.h
+	"OgrePrerequisites.h"
+	"OgreVector3.h"
+	"OgreString.h"
+	"OgreParticleIterator.h"
+	"OgreStringInterface.h"
+	"OgreMovableObject.h"
+	"OgreRadixSort.h"
+	"OgreController.h"
+
+1156321115 oller.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogreparticleiterator.h
+	"OgrePrerequisites.h"
+
+1164491090 c:\projects\ogrenew\ogremain\include\ogrepass.h
+	"OgrePrerequisites.h"
+	"OgreGpuProgram.h"
+	"OgreColourValue.h"
+	"OgreBlendMode.h"
+	"OgreCommon.h"
+	"OgreLight.h"
+	"OgreTextureUnitState.h"
+
+1164491090 reUnitState.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogreprofiler.h
+	"OgrePrerequisites.h"
+	"OgreSingleton.h"
+	"OgreString.h"
+	"OgreOverlay.h"
+
+1156321115 ay.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogrerenderqueueinvocation.h
+	"OgrePrerequisites.h"
+	"OgreRenderQueueSortingGrouping.h"
+	"OgreIteratorWrappers.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogrerenderqueuesortinggrouping.h
+	"OgrePrerequisites.h"
+	"OgreIteratorWrappers.h"
+	"OgreMaterial.h"
+	"OgreTechnique.h"
+	"OgrePass.h"
+	"OgreRadixSort.h"
+
+1156321115 Sort.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogretechnique.h
+	"OgrePrerequisites.h"
+	"OgreIteratorWrappers.h"
+	"OgreBlendMode.h"
+	"OgreCommon.h"
+	"OgrePass.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogrerenderqueuelistener.h
+	"OgrePrerequisites.h"
+	"OgreRenderQueue.h"
+
+1156321112 rQueue.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogrerendersystem.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreTextureUnitState.h"
+	"OgreCommon.h"
+	"OgreRenderOperation.h"
+	"OgreRenderSystemCapabilities.h"
+	"OgreRenderTarget.h"
+	"OgreRenderTexture.h"
+	"OgreFrameListener.h"
+	"OgreConfigOptionMap.h"
+	"OgreGpuProgram.h"
+	"OgrePlane.h"
+	"OgreIteratorWrappers.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogrerendersystemcapabilities.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+
+1156456728 c:\projects\ogrenew\ogremain\include\ogrerendertarget.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreTextureManager.h"
+	"OgreViewport.h"
+	"OgreTimer.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogretexturemanager.h
+	"OgrePrerequisites.h"
+	"OgreResourceManager.h"
+	"OgreTexture.h"
+	"OgreSingleton.h"
+
+1164416068 c:\projects\ogrenew\ogremain\include\ogreviewport.h
+	"OgrePrerequisites.h"
+	"OgreCommon.h"
+	"OgreColourValue.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogretimer.h
+	"OgrePrerequisites.h"
+	"OgrePlatform.h"
+	"WIN32/OgreTimerImp.h"
+	"GLX/OgreTimerImp.h"
+	"OSX/OgreTimerImp.h"
+
+1164416067 imerImp.h"
+
+1156321116 eTimerImp.h"
+
+1164416068 c:\projects\ogrenew\ogremain\include\win32\ogretimerimp.h
+	"windows.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\glx\ogretimerimp.h
+	"OgrePrerequisites.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogrerendertexture.h
+	"OgrePrerequisites.h"
+	"OgreRenderTarget.h"
+
+1155988494 rTarget.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogreconfigoptionmap.h
+	"OgrePrerequisites.h"
+	"OgreStringVector.h"
+	"OgreString.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogrerendertargetlistener.h
+	"OgrePrerequisites.h"
+
+1155988494 c:\projects\ogrenew\ogremain\include\ogrerenderwindow.h
+	"OgrePrerequisites.h"
+	"OgreRenderTarget.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogreribbontrail.h
+	"OgrePrerequisites.h"
+	"OgreBillboardChain.h"
+	"OgreNode.h"
+	"OgreIteratorWrappers.h"
+	"OgreFrameListener.h"
+	"OgreControllerManager.h"
+
+1156321115 ollerManager.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogreroot.h
+	"OgrePrerequisites.h"
+	"OgreSingleton.h"
+	"OgreString.h"
+	"OgreSceneManagerEnumerator.h"
+	"OgreResourceGroupManager.h"
+	<exception>
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogrescenemanagerenumerator.h
+	"OgrePrerequisites.h"
+	"OgreSceneManager.h"
+	"OgreSingleton.h"
+	"OgreIteratorWrappers.h"
+
+1164491090 c:\projects\ogrenew\ogremain\include\ogrescenemanager.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreSceneNode.h"
+	"OgrePlane.h"
+	"OgreQuaternion.h"
+	"OgreColourValue.h"
+	"OgreCommon.h"
+	"OgreSceneQuery.h"
+	"OgreAutoParamDataSource.h"
+	"OgreAnimationState.h"
+	"OgreRenderQueue.h"
+	"OgreRenderQueueSortingGrouping.h"
+	"OgreRectangle2D.h"
+	"OgrePixelFormat.h"
+	"OgreResourceGroupManager.h"
+	"OgreTexture.h"
+	"OgreShadowCameraSetup.h"
+	"OgreShadowTextureManager.h"
+
+1164491090 wTextureManager.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogrescenequery.h
+	"OgrePrerequisites.h"
+	"OgreAxisAlignedBox.h"
+	"OgreSphere.h"
+	"OgreRay.h"
+	"OgreRenderOperation.h"
+	"OgrePlaneBoundedVolume.h"
+
+1164416065 c:\projects\ogrenew\ogremain\include\ogreautoparamdatasource.h
+	"OgrePrerequisites.h"
+	"OgreCommon.h"
+	"OgreMatrix4.h"
+	"OgreVector4.h"
+	"OgreLight.h"
+	"OgreColourValue.h"
+
+1156321115 c:\projects\ogrenew\ogremain\include\ogrerectangle2d.h
+	"OgrePrerequisites.h"
+	"OgreSimpleRenderable.h"
+
+1156321115 eRenderable.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogresimplerenderable.h
+	"OgrePrerequisites.h"
+	"OgreMovableObject.h"
+	"OgreRenderable.h"
+	"OgreAxisAlignedBox.h"
+	"OgreMaterial.h"
+
+1156321116 ial.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogreskeletoninstance.h
+	"OgrePrerequisites.h"
+	"OgreSkeleton.h"
+
+1156321116 ton.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogreskeletonmanager.h
+	"OgrePrerequisites.h"
+	"OgreResourceManager.h"
+	"OgreSingleton.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogreskeletonserializer.h
+	"OgrePrerequisites.h"
+	"OgreSkeleton.h"
+	"OgreSerializer.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogrestaticgeometry.h
+	"OgrePrerequisites.h"
+	"OgreMovableObject.h"
+	"OgreRenderable.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogrestringconverter.h
+	"OgrePrerequisites.h"
+	"OgreMath.h"
+	"OgreString.h"
+	"OgreStringVector.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogresubentity.h
+	"OgrePrerequisites.h"
+	"OgreString.h"
+	"OgreRenderable.h"
+	"OgreHardwareBufferManager.h"
+
+1156321116 areBufferManager.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogresubmesh.h
+	"OgrePrerequisites.h"
+	"OgreVertexIndexData.h"
+	"OgreMaterial.h"
+	"OgreRenderOperation.h"
+	"OgreVertexBoneAssignment.h"
+	"OgreProgressiveMesh.h"
+	"OgreAnimationTrack.h"
+
+1164416065 c:\projects\ogrenew\ogremain\include\ogrecompositor.h
+	"OgrePrerequisites.h"
+	"OgreIteratorWrappers.h"
+	"OgreResource.h"
+
+1156321112 rce.h"
+
+1164416065 c:\projects\ogrenew\ogremain\include\ogrecompositormanager.h
+	"OgrePrerequisites.h"
+	"OgreResourceManager.h"
+	"OgreCompositor.h"
+	"OgreRectangle2D.h"
+	"OgreCompositorSerializer.h"
+	"OgreNoMemoryMacros.h"
+	<boost/thread/tss.hpp>
+	"OgreMemoryMacros.h"
+
+1156321112 sitorSerializer.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogrecompositorserializer.h
+	"OgrePrerequisites.h"
+	"OgreDataStream.h"
+
+1157386276 c:\projects\ogrenew\ogremain\include\ogrecompositorchain.h
+	"OgrePrerequisites.h"
+	"OgreRenderTargetListener.h"
+	"OgreRenderQueueListener.h"
+	"OgreCompositorInstance.h"
+	"OgreCompositor.h"
+
+1156321112 sitor.h"
+
+1157386276 c:\projects\ogrenew\ogremain\include\ogrecompositorinstance.h
+	"OgrePrerequisites.h"
+	"OgreMaterial.h"
+	"OgreTexture.h"
+	"OgreRenderQueue.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogrecompositiontechnique.h
+	"OgrePrerequisites.h"
+	"OgrePixelFormat.h"
+	"OgreIteratorWrappers.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogrecompositionpass.h
+	"OgrePrerequisites.h"
+	"OgreMaterial.h"
+	"OgreRenderSystem.h"
+	"OgreRenderQueue.h"
+
+1156321112 c:\projects\ogrenew\ogremain\include\ogrecompositiontargetpass.h
+	"OgrePrerequisites.h"
+	"OgreIteratorWrappers.h"
+
+1156321116 c:\projects\ogrenew\ogremain\include\ogrewindoweventutilities.h
+	"OgrePrerequisites.h"
+	"OgrePlatform.h"
+	<windows.h>
+
+1143424981 c:\projects\ogrenew\dependencies\include\ois\ois.h
+	"OISPrereqs.h"
+	"OISObject.h"
+	"OISMouse.h"
+	"OISKeyboard.h"
+	"OISJoyStick.h"
+	"OISInterface.h"
+	"OISInputManager.h"
+	"OISForceFeedback.h"
+	"OISException.h"
+	"OISEvents.h"
+	"OISEffect.h"
+
+1164498259 c:\projects\ogrenew\dependencies\include\ois\oisprereqs.h
+	<vector>
+	<string>
+	<map>
+	"OISConfig.h"
+
+1155403240 c:\projects\ogrenew\dependencies\include\ois\oisconfig.h
+
+1155397359 c:\projects\ogrenew\dependencies\include\ois\oisobject.h
+	"OISPrereqs.h"
+	"OISInterface.h"
+
+1156473107 ace.h"
+
+1142383658 c:\projects\ogrenew\dependencies\include\ois\oisinterface.h
+	"OISPrereqs.h"
+
+1147670803 s.h"
+
+1164498259 c:\projects\ogrenew\dependencies\include\ois\oismouse.h
+	"OISObject.h"
+	"OISEvents.h"
+
+1155397359 c:\projects\ogrenew\dependencies\include\ois\oisevents.h
+	"OISPrereqs.h"
+
+1155397359 c:\projects\ogrenew\dependencies\include\ois\oiskeyboard.h
+	"OISObject.h"
+	"OISEvents.h"
+
+1164498259 c:\projects\ogrenew\dependencies\include\ois\oisjoystick.h
+	"OISObject.h"
+	"OISEvents.h"
+
+1155397359 c:\projects\ogrenew\dependencies\include\ois\oisinputmanager.h
+	"OISPrereqs.h"
+
+1142383658 c:\projects\ogrenew\dependencies\include\ois\oisforcefeedback.h
+	"OISPrereqs.h"
+	"OISInterface.h"
+	"OISEffect.h"
+
+1147670803 c:\projects\ogrenew\dependencies\include\ois\oiseffect.h
+	"OISPrereqs.h"
+
+1146814523 c:\projects\ogrenew\dependencies\include\ois\oisexception.h
+
+1155939109 c:\projects\ubcogre\src\basketballs.h
+
+1156473960 c:\projects\ubcogre\src\ogreapplication.cpp
+	<config.h>
+	"ogreapplication.h"
+
+1164507297 cation.h"
+
+1157144288 source:/home/libolt/Projects/ubcogre/src/ogreapplication.cpp
+	<config.h>
+	"ogreapplication.h"
+
+1156545836 /home/libolt/Projects/ubcogre/src/ogreapplication.h
+	<Ogre.h>
+	<OIS/OIS.h>
+
+1162623260 source:/home/libolt/Projects/ubcogre/src/players.cpp
+	"players.h"
+
+1162626152 /home/libolt/Projects/ubcogre/src/players.h
+	<string>
+	<vector>
+
+1162283612 source:/home/libolt/Projects/ubcogre/src/ubcapp.cpp
+	"ubcapp.h"
+	"windows.h"
+
+1164414327 /home/libolt/Projects/ubcogre/src/ubcapp.h
+	"ogreapplication.h"
+	"basketballs.h"
+	"load.h"
+	"players.h"
+	"teams.h"
+	"tinyxml/tinyxml.h"
+	<OgreStringConverter.h>
+
+1155613994 /home/libolt/Projects/ubcogre/src/basketballs.h
+
+1162273052 /home/libolt/Projects/ubcogre/src/load.h
+
+1162282965 /home/libolt/Projects/ubcogre/src/teams.h
+	<string>
+
+1156984611 /home/libolt/Projects/ubcogre/src/tinyxml/tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1156653273 /home/libolt/Projects/ubcogre/src/tinyxml/tinystr.h
+	<assert.h>
+	<string.h>
+
+1162881296 source:/home/libolt/Projects/ubcogre/src/defense.cpp
+	"defense.h"
+
+1155364864 /home/libolt/Projects/ubcogre/src/defense.h
+
+1162882605 source:/home/libolt/Projects/ubcogre/src/games.cpp
+	"games.h"
+
+1162969645 /home/libolt/Projects/ubcogre/src/games.h
+
+1162882615 source:/home/libolt/Projects/ubcogre/src/gamestartup.cpp
+	"games.h"
+
+1162625092 source:/home/libolt/Projects/ubcogre/src/load.cpp
+	"ubcapp.h"
+
+1162881237 source:/home/libolt/Projects/ubcogre/src/offense.cpp
+	"offense.h"
+
+1162882760 /home/libolt/Projects/ubcogre/src/offense.h
+
+1162626771 source:/home/libolt/Projects/ubcogre/src/playerdata.cpp
+	"players.h"
+
+1162623198 source:/home/libolt/Projects/ubcogre/src/playergamedata.cpp
+	"players.h"
+
+1162283146 source:/home/libolt/Projects/ubcogre/src/teams.cpp
+	"ubcapp.h"
+
+1156653273 source:/home/libolt/Projects/ubcogre/src/tinyxml/tinystr.cpp
+	"tinystr.h"
+
+1156653273 source:/home/libolt/Projects/ubcogre/src/tinyxml/tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1156653273 source:/home/libolt/Projects/ubcogre/src/tinyxml/tinyxmlerror.cpp
+	"tinyxml.h"
+
+1156653273 source:/home/libolt/Projects/ubcogre/src/tinyxml/tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1164498017 source:c:\projects\ubcogre\src\defense.cpp
+	"defense.h"
+
+1155538710 c:\projects\ubcogre\src\defense.h
+
+1164498018 source:c:\projects\ubcogre\src\games.cpp
+	"games.h"
+
+1164498017 c:\projects\ubcogre\src\games.h
+
+1164498018 source:c:\projects\ubcogre\src\gamestartup.cpp
+	"games.h"
+
+1164498017 source:c:\projects\ubcogre\src\load.cpp
+	"ubcapp.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogreshadowcamerasetup.h
+	"OgrePrerequisites.h"
+	"OgreMovablePlane.h"
+	"OgreSharedPtr.h"
+
+1156321113 c:\projects\ogrenew\ogremain\include\ogrenomemorymacros.h
+
+1164240992 c:\projects\ogrenew\ogremain\include\osx\ogretimerimp.h
+	"OgrePrerequisites.h"
+
+1164416067 c:\projects\ogrenew\ogremain\include\ogreresourcebackgroundqueue.h
+	"OgrePrerequisites.h"
+	"OgreCommon.h"
+	"OgreSingleton.h"
+	"OgreResource.h"
+	<boost/thread/thread.hpp>
+	<boost/thread/condition.hpp>
+
+1164416067 ead/condition.hpp>
+
+1164491091 c:\projects\ogrenew\ogremain\include\ogreshadowtexturemanager.h
+	"OgrePrerequisites.h"
+	"OgreSingleton.h"
+	"OgrePixelFormat.h"
+	"OgreTexture.h"
+	"OgreIteratorWrappers.h"
+
+1164498017 c:\projects\ubcogre\src\load.h
+
+1164498017 c:\projects\ubcogre\src\teams.h
+	<string>
+
+1156980320 c:\projects\ubcogre\src\tinyxml\tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1156979776 c:\projects\ubcogre\src\tinyxml\tinystr.h
+	<assert.h>
+	<string.h>
+
+1164498017 source:c:\projects\ubcogre\src\offense.cpp
+	"offense.h"
+
+1164498018 c:\projects\ubcogre\src\offense.h
+
+1164507297 source:c:\projects\ubcogre\src\ogreapplication.cpp
+	<config.h>
+	"ogreapplication.h"
+
+1164498017 source:c:\projects\ubcogre\src\playerdata.cpp
+	"players.h"
+
+1164498017 source:c:\projects\ubcogre\src\playergamedata.cpp
+	"players.h"
+
+1164498017 source:c:\projects\ubcogre\src\players.cpp
+	"players.h"
+
+1164498017 source:c:\projects\ubcogre\src\teams.cpp
+	"ubcapp.h"
+
+1156979776 source:c:\projects\ubcogre\src\tinyxml\tinystr.cpp
+	"tinystr.h"
+
+1156979776 source:c:\projects\ubcogre\src\tinyxml\tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1156979776 source:c:\projects\ubcogre\src\tinyxml\tinyxmlerror.cpp
+	"tinyxml.h"
+
+1156979776 source:c:\projects\ubcogre\src\tinyxml\tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1164507296 source:c:\projects\ubcogre\src\ubcapp.cpp
+	"ubcapp.h"
+	"windows.h"
+
+1162881296 source:/home/libolt/Projects/ubcogre/src/defense.cpp
+	"defense.h"
+
+1155364864 /home/libolt/Projects/ubcogre/src/defense.h
+
+1162882605 source:/home/libolt/Projects/ubcogre/src/games.cpp
+	"games.h"
+
+1162969645 /home/libolt/Projects/ubcogre/src/games.h
+
+1162882615 source:/home/libolt/Projects/ubcogre/src/gamestartup.cpp
+	"games.h"
+
+1162625092 source:/home/libolt/Projects/ubcogre/src/load.cpp
+	"ubcapp.h"
+
+1164414327 /home/libolt/Projects/ubcogre/src/ubcapp.h
+	"ogreapplication.h"
+	"basketballs.h"
+	"load.h"
+	"players.h"
+	"teams.h"
+	"tinyxml/tinyxml.h"
+	<OgreStringConverter.h>
+
+1156545836 /home/libolt/Projects/ubcogre/src/ogreapplication.h
+	<Ogre.h>
+	<OIS/OIS.h>
+
+1155613994 /home/libolt/Projects/ubcogre/src/basketballs.h
+
+1162273052 /home/libolt/Projects/ubcogre/src/load.h
+
+1162626152 /home/libolt/Projects/ubcogre/src/players.h
+	<string>
+	<vector>
+
+1162282965 /home/libolt/Projects/ubcogre/src/teams.h
+	<string>
+
+1156984611 /home/libolt/Projects/ubcogre/src/tinyxml/tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1156653273 /home/libolt/Projects/ubcogre/src/tinyxml/tinystr.h
+	<assert.h>
+	<string.h>
+
+1162881237 source:/home/libolt/Projects/ubcogre/src/offense.cpp
+	"offense.h"
+
+1162882760 /home/libolt/Projects/ubcogre/src/offense.h
+
+1162626771 source:/home/libolt/Projects/ubcogre/src/playerdata.cpp
+	"players.h"
+
+1162623198 source:/home/libolt/Projects/ubcogre/src/playergamedata.cpp
+	"players.h"
+
+1162623260 source:/home/libolt/Projects/ubcogre/src/players.cpp
+	"players.h"
+
+1162283146 source:/home/libolt/Projects/ubcogre/src/teams.cpp
+	"ubcapp.h"
+
+1156653273 source:/home/libolt/Projects/ubcogre/src/tinyxml/tinystr.cpp
+	"tinystr.h"
+
+1156653273 source:/home/libolt/Projects/ubcogre/src/tinyxml/tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1156653273 source:/home/libolt/Projects/ubcogre/src/tinyxml/tinyxmlerror.cpp
+	"tinyxml.h"
+
+1156653273 source:/home/libolt/Projects/ubcogre/src/tinyxml/tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
