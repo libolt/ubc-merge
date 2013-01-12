@@ -1,2 +1,2 @@
 add_subdirectory (tinyxml)
-add_subdirectory (enet)
+#add_subdirectory (enet)

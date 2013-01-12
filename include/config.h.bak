@@ -1,0 +1,3 @@
+#define BUILD_TYPE "Release"
+#define OGRE_PLUGIN_DIR "c:/users/libolt/builds/ogre-1.8-mingw-build/sdk/bin/release"
+#define UBC_DATADIR "C:/Users/libolt/Projects/ubc.git/data"
