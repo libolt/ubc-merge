@@ -137,7 +137,7 @@ string loader::findFile(string fileName)
         LogManager::getSingletonPtr()->logMessage("failed to find file: " + fileName);
         exit(0);
     }
-
+    return ("");
 }
 
 bool loader::loadXMLFile(string fileName)
@@ -195,6 +195,7 @@ bool loader::loadXMLFile(string fileName)
 //			pElem->QueryDoubleAttribute("timeout",&m_connection.timeout);
         }
     }
+    return false;
 }
 
 bool loader::loadTeams()

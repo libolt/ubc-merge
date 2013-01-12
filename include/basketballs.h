@@ -21,6 +21,8 @@
 #include "OgreVector3.h"
 #endif
 
+#include <string>
+
 class basketballs
 {
 public:
@@ -28,7 +30,6 @@ public:
     basketballs();
     virtual ~basketballs();	// destructor
 
-//	SDL_Rect basketballCoords;
 
 // declaration of functions which access/modify private variables in the class
 

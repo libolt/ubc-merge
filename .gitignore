@@ -1,0 +1,14 @@
+# Compiled sources
+*.o
+*.so
+*.dll
+*.obj
+*.com
+*.class
+*.exe
+# Generated Build system files
+Makefile
+*.cmake
+ubc
+CMakeCache.txt
+CMakeFiles

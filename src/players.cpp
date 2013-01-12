@@ -258,8 +258,8 @@ bool players::changePositions()
 
 int players::checkPlayerMoveStatus(int player, int positionXCoord, int positionYCoord)
 {
-    int playerXCoord;// = playerGame[player].getPlayerXCoord();
-    int playerYCoord;// = playerGame[player].getPlayerYCoord();
+    int playerXCoord = 0;// = playerGame[player].getPlayerXCoord();
+    int playerYCoord = 0;// = playerGame[player].getPlayerYCoord();
 //	int object1X = playerXCoords[player];
 //	int object1Y = playerYCoords[player];
 //	int object1H = playerSprites[player]->h;

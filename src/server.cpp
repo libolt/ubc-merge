@@ -3,6 +3,11 @@
 #include <config.h>
 #endif
 
+#if _MSC_VER
+#define snprintf _snprintf
+#endif
+
+#include <cstdio>
 #include "network.h"
 
 using namespace std;
@@ -10,27 +15,33 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     networking *network = networking::Instance();
+    ENetPeer *peer;
     ENetEvent event;
+    ENetPacket *packet;
 	event = network->getEvent();
 
 	network->serverSetup();
 
-    int x;
+    int x = 0;
     do
     {
         /* Wait up to 1000 milliseconds for an event. */
         while (enet_host_service (network->getServer(), & event, 1000) > 0)
         {
-			cout << "EVENT == " << event.type << endl;
+			std::cout << "EVENT == " << event.type << std::endl;
             switch (event.type)
             {
             case ENET_EVENT_TYPE_CONNECT:
 
-                cout << "A new client connected from %x:%u." <<
+/*                cout << "A new client connected from %x:%u." <<
                         event.peer -> address.host <<
                         event.peer -> address.port << endl;
-
-                /* Store any relevant client information here. */
+                cout << event.peer->address.host << endl;
+*/
+            	printf("A new client connected from %x:%u.",
+            			event.peer -> address.host,
+            			event.peer -> address.port);
+            	/* Store any relevant client information here. */
 //                event.peer->data = "Client information";
                 break;
 
@@ -47,8 +58,14 @@ int main(int argc, char *argv[])
 //				info[0] = Ogre::StringConverter::toString(event.packet->data);
 //				info[0].assign(event.packet->data);
 				char *data, *deta;
-				data = new char[20];
-				sprintf(data, "%s", event.packet->data);
+
+				data = new char[event.packet->dataLength + 1];
+				cout << "size of data = " << sizeof(event.packet->data) << endl;
+				cout << "size of data packet = " << event.packet->dataLength << endl;
+//				sprintf_s(data, event.packet->dataLength + 1,"%s", event.packet->data);
+				snprintf(data,event.packet->dataLength + 1, "%s", event.packet->data);
+//				string data;
+//				strcpy(event.packet->data,data.c_str());
 				info[0] = data;
 				string *receiveData;
 				receiveData = new string;
@@ -86,20 +103,30 @@ int main(int argc, char *argv[])
 //	 			ePacket *pack = new ePacket;(
 //				pack[0] = event.packet->data;
                 /* Clean up the packet now that we're done using it. */
-                enet_packet_destroy (event.packet);
+                cout << "Peer = " << event.peer->incomingPeerID << endl;
+//                exit(0);
 
+				enet_packet_destroy (event.packet);
                 break;
 
             case ENET_EVENT_TYPE_DISCONNECT:
                 printf ("%s disconected.\n", event.peer -> data);
 
                 /* Reset the peer's client information. */
-
                 event.peer -> data = NULL;
             }
+            packet = enet_packet_create ("test",5, ENET_PACKET_FLAG_RELIABLE);
+            cout << "Peer = " << network->getPeer() << endl;
+//            enet_peer_send (network->getPeer(), 0, packet);
+            peer = network->getPeer();
+//            enet_peer_send(peer,0,packet);
+//            exit(0);
+
         }
 
     } while (x != 5);
+
+
     enet_host_destroy(network->getServer());
 
 

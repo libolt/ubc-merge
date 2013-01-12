@@ -12,7 +12,7 @@
 
 #include "games.h"
 #include "ubcapp.h"
-
+#include <string>
 /*
 basketballs* basketballs::pInstance = 0;
 basketballs* basketballs::Instance()
@@ -124,7 +124,7 @@ float basketballs::getMinHeight(void)
 }
 void basketballs::setMinHeight(float MinHeight)
 {
-    minHeight = minHeight;
+    minHeight = MinHeight;
 }
 
 // gets and sets maxHeightReached
@@ -241,7 +241,7 @@ void basketballs::setDribbling(bool Dribbling)
 }
 
 // gets and sets modelName string
-string basketballs::getModelName()
+std::string basketballs::getModelName()
 {
     return (modelName);
 }

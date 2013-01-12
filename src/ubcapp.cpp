@@ -151,10 +151,11 @@ bool UBC::frameStarted()
     String currFPS = StringConverter::toString(lastFPS);
 //    cout << "FPS = " << currFPS << endl;
 
-LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
-
     int newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
     float changeInTime = newTime - oldTime;
+
+    LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
+
 //    std::cout << "oldTime = " << oldTime << std::endl;
 //    std::cout << "newTime = " << newTime << std::endl;
 //    std::cout << "change in time = " << (newTime - oldTime) << std::endl;

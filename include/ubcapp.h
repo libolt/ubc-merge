@@ -41,6 +41,8 @@
 //#include <OgreOde_Core.h>
 #define OIS_DYNAMIC_LIB
 #include <OIS/OIS.h>
+#include "OgreTimer.h"
+#include "OgreVector3.h"
 
 class gameObjects
 {

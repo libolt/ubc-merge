@@ -8,7 +8,7 @@
 #include "playerstate.h"
 #include "teamstate.h"
 
-using namespace std;
+//using namespace std;
 class gameState
 {
     public:

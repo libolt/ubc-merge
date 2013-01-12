@@ -124,8 +124,11 @@ void networking::clientConnect()
         exit (EXIT_FAILURE);
     }
 
+    string ipAddress;
+    cout << "IP Address: " << endl;
+    cin >> ipAddress;
     /* Connect to some.server.net:1234. */
-    enet_address_set_host (& serverAddress, "127.0.0.1");
+    enet_address_set_host (& serverAddress, ipAddress.c_str());
     serverAddress.port = 1234;
 
     /* Initiate the connection, allocating the two channels 0 and 1. */
@@ -142,7 +145,7 @@ void networking::clientConnect()
     if (enet_host_service (client, & event, 5000) > 0 &&
         event.type == ENET_EVENT_TYPE_CONNECT)
     {
-        cout << "Connection to 127.0.0.1:1234 succeeded." << endl;
+        cout << "Connection to " << ipAddress << ":1234 succeeded." << endl;
     }
     else
     {
@@ -151,7 +154,7 @@ void networking::clientConnect()
         /* had run out without any significant event.            */
         enet_peer_reset (peer);
 
-        puts ("Connection to 127.0.0.1:1234 failed.");
+        cout << "Connection to " << ipAddress << ":1234 failed." << endl;
     }
 
 }
@@ -161,7 +164,11 @@ void networking::serverSetup()
     /* Bind the server to the default localhost.     */
     /* A specific host address can be specified by   */
     /* enet_address_set_host (& address, "x.x.x.x"); */
-    listenAddress.host = enet_address_set_host (& listenAddress, "127.0.0.1");
+
+    string ipAddress;
+    cout << "IP Address to bind to:" << endl;
+    cin >> ipAddress;
+    listenAddress.host = enet_address_set_host (& listenAddress, ipAddress.c_str());
     /* Bind the server to port 1234. */
     listenAddress.port = 1234;
 

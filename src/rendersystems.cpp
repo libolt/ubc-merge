@@ -32,13 +32,13 @@ renderSystems::renderSystems()
 
     if (buildType == "Debug")
     {
-        mRoot->loadPlugin("RenderSystem_Direct3D9_d");
-        mRoot->loadPlugin("Plugin_CgProgramManager_d");
+        mRoot->loadPlugin(pluginDir + "/RenderSystem_Direct3D9_d");
+        mRoot->loadPlugin(pluginDir + "/Plugin_CgProgramManager_d");
     }
     else
     {
-        mRoot->loadPlugin(pluginDir + "/RenderSystem_Direct3D9.dll");
-        mRoot->loadPlugin(pluginDir + "/Plugin_CgProgramManager.dll");
+        mRoot->loadPlugin(pluginDir + "/RenderSystem_Direct3D9");
+        mRoot->loadPlugin(pluginDir + "/Plugin_CgProgramManager");
     }
     #elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE
     mRoot->loadPlugin("RenderSystem_GL");
@@ -77,10 +77,9 @@ renderSystems::renderSystems()
  	//we found it, we might as well use it!
  	mRoot->setRenderSystem(selectedRenderSystem);
 //    mRoot->initialise()
-	selectedRenderSystem->setConfigOption("Full Screen","No");
-	selectedRenderSystem->setConfigOption("Video Mode","800 x 600 @ 32-bit colour");
-
-	mWindow = mRoot->initialise(true);
+	selectedRenderSystem->setConfigOption("Full Screen","False");
+	selectedRenderSystem->setConfigOption("Video Mode","1280 x 1024 @ 32-bit colour");
+	mWindow = mRoot->initialise(true, "Ultimate Basketball Challenge");
 
 //    QuickGUI::registerScriptParser();
     ResourceGroupManager *rsm = ResourceGroupManager::getSingletonPtr();
@@ -103,7 +102,7 @@ renderSystems::renderSystems()
 	rsm->initialiseResourceGroup(mResourceGroup);
 	// setup main window; hardcode some defaults for the sake of presentation
 	Ogre::NameValuePairList opts;
-	opts["resolution"] = "800x600";
+	opts["resolution"] = "1280x720";
 	opts["fullscreen"] = "false";
 	opts["vsync"] = "false";
 	// create a rendering window with the title "Ultimate Basketball Challenge"
@@ -139,7 +138,7 @@ renderSystems::renderSystems()
 
 
 //	RenderWindow* mWindow;
-    mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 800, 600, false, &opts);
+//    mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1280, 720, false, &opts);
 
 //	SceneManager* mSceneMgr;
 // mSceneMgr = mRoot->getSceneManager(ST_GENERIC);
