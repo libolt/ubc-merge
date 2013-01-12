@@ -2,6 +2,7 @@
 *.o
 *.so
 *.dll
+*.lib
 *.a
 *.obj
 *.com
@@ -16,3 +17,12 @@ CMakeFiles
 
 # generated header files
 config.h
+
+# executables
+release/client
+release/server
+release/ubc
+debug/client
+debug/server
+debug/ubc
+
