@@ -12,3 +12,6 @@ Makefile
 ubc
 CMakeCache.txt
 CMakeFiles
+
+# generated header files
+config.h
