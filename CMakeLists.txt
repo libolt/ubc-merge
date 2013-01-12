@@ -3,6 +3,7 @@ PROJECT (UBC)
 #INCLUDE(${CMAKE_MODULE_PATH}/FindBoost.cmake)
 SET(CMAKE_MODULE_PATH "${UBC_SOURCE_DIR}/cmake")
 #SET(BOOST_ROOT "c:\users\libolt\builds\boost-mingw\boost")
+set(Boost_USE_MULTITHREADED OFF)
 
 IF (WIN32)
 if( MSVC )
@@ -16,7 +17,7 @@ ENDIF (WIN32)
     INCLUDE (FindOGRE)
     INCLuDE (FindOIS)
 
-    find_package(Boost COMPONENTS thread date_time program_options filesystem system REQUIRED)
+    find_package(Boost COMPONENTS date_time program_options filesystem system REQUIRED)
     find_package(Threads REQUIRED)
 #    MESSAGE("ENET_INCLUDE_DIR = ${ENET_INCLUDE_DIR}")
 #    MESSAGE ("ENET_LIBRARIES = ${ENET_LIBRARIES}")
@@ -29,8 +30,8 @@ ENDIF (WIN32)
     SET (SERVER_SRCS ${UBC_SRC_DIR}/server.cpp)
     SET (UBC_DATA_DIR ${CMAKE_CURRENT_SOURCE_DIR}/data)
 
-    #    file(GLOB UBC_SRCS src/*.cpp)
-    #    file(GLOB UBC_HEADERS include/*.h)
+#    file(GLOB_RECURSE UBC_SRCS src/*.cpp)
+
     ADD_SUBDIRECTORY (include)
     ADD_SUBDIRECTORY (src)
 
