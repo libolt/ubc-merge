@@ -1,52 +1,49 @@
 # - Try to find enet
 # Once done this will define
 #
-#  ENET_FOUND - system has enet
-#  ENET_INCLUDE_DIR - the enet include directory
-#  ENET_LIBRARIES - the libraries needed to use enet
-#  ENET_DEFINITIONS - Compiler switches required for using enet
+# ENET_FOUND - system has enet
+# ENet_INCLUDE_DIRS - the enet include directory
+# ENet_LIBRARIES - the libraries needed to use enet
+#
+# $ENET_HOME is an environment variable used for finding enet.
+#
+# Borrowed from The Mana World
+# http://themanaworld.org/
+#
+# Several changes and additions by Fabian 'x3n' Landau
+# Lots of simplifications by Adrian Friedli
+# > www.orxonox.net <
 
-IF (ENet_INCLUDE_DIR AND ENet_LIBRARY)
-   SET(ENet_FIND_QUIETLY TRUE)
-ENDIF (ENet_INCLUDE_DIR AND ENet_LIBRARY)
+FIND_PATH(ENet_INCLUDE_DIRS enet/enet.h
+    PATHS
+    $ENV{ENET_HOME}/include
+    /usr/local
+    /usr
+    PATH_SUFFIXES include
+    )
 
-# for Windows we rely on the environement variables
-# %INCLUDE% and %LIB%; FIND_LIBRARY checks %LIB%
-# automatically on Windows
-IF(WIN32)
-    FIND_PATH(ENet_INCLUDE_DIR enet/enet.h
-        $ENV{INCLUDE}
+FIND_LIBRARY(ENet_LIBRARY
+    NAMES enet
+    PATHS
+    $ENV{ENET_HOME}
+    /usr/local
+    /usr
+#    PATH_SUFFIXES lib
     )
-    FIND_LIBRARY(ENet_LIBRARY
-        NAMES enet
-    )
-ELSE()
-    FIND_PATH(ENet_INCLUDE_DIR enet/enet.h
-        /usr/include
-        /usr/local/include
-    )
-    FIND_LIBRARY(ENet_LIBRARY
-        NAMES enet
-        PATHS /usr/lib /usr/local/lib
-    )
-ENDIF()
 
-IF (ENet_INCLUDE_DIR AND ENet_LIBRARY)
-    SET(ENET_FOUND TRUE)
-    SET(ENET_INCLUDE_DIR ${ENet_INCLUDE_DIR})
-    SET(ENET_LIBRARIES ${ENet_LIBRARY})
-ELSE ()
-    SET(ENET_FOUND FALSE)
-ENDIF ()
+# handle the QUIETLY and REQUIRED arguments and set ENET_FOUND to TRUE if
+# all listed variables are TRUE
+INCLUDE(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(ENet DEFAULT_MSG ENet_LIBRARY ENet_INCLUDE_DIRS)
 
 IF (ENET_FOUND)
-    IF (NOT ENet_FIND_QUIETLY)
-        MESSAGE(STATUS "Found enet: ${ENet_LIBRARY}")
-    ENDIF (NOT ENet_FIND_QUIETLY)
-ELSE (ENET_FOUND)
-    IF (ENet_FIND_REQUIRED)
-        MESSAGE(FATAL_ERROR "Could NOT find enet")
-    ENDIF (ENet_FIND_REQUIRED)
+    IF(WIN32)
+        SET(WINDOWS_ENET_DEPENDENCIES "ws2_32;winmm")
+        SET(ENet_LIBRARIES ${ENet_LIBRARY} ${WINDOWS_ENET_DEPENDENCIES})
+    ELSE(WIN32)
+        SET(ENet_LIBRARIES ${ENet_LIBRARY})
+    ENDIF(WIN32)
 ENDIF (ENET_FOUND)
 
-MARK_AS_ADVANCED(ENet_INCLUDE_DIR ENet_LIBRARY)
+MARK_AS_ADVANCED(ENet_LIBRARY ENet_LIBRARIES ENet_INCLUDE_DIRS)
+

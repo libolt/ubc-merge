@@ -37,25 +37,49 @@ IF (WIN32) #Windows
 
         SET(MYGUI_LIB_DIR ${MYGUISDK}/lib ${MYGUISDK}/*/lib)
 
-        find_library(MYGUI_LIBRARIES_REL
-                     NAMES MyGUIEngine.lib MyGUI.OgrePlatform.lib
-                     HINTS ${MYGUI_LIB_DIR}
-                     PATH_SUFFIXES "" release relwithdebinfo minsizerel)
+	IF (MSVC)
+            find_library(MYGUI_LIBRARIES_REL
+                         NAMES MyGUIEngine.lib MyGUI.OgrePlatform.lib
+                         HINTS ${MYGUI_LIB_DIR}
+                         PATH_SUFFIXES "" release relwithdebinfo minsizerel)
 
-        find_library(MYGUI_LIBRARIES_DBG
-                     NAMES MyGUIEngine_d.lib MyGUI.OgrePlatform_d.lib
-                     HINTS ${MYGUI_LIB_DIR}
-                     PATH_SUFFIXES "" debug)
+            find_library(MYGUI_LIBRARIES_DBG
+                         NAMES MyGUIEngine_d.lib MyGUI.OgrePlatform_d.lib
+                         HINTS ${MYGUI_LIB_DIR}
+                         PATH_SUFFIXES "" debug)
 
-        find_library(MYGUI_PLATFORM_LIBRARIES_REL
-                     NAMES MyGUI.OgrePlatform.lib
-                     HINTS ${MYGUI_LIB_DIR}
-                     PATH_SUFFIXES "" release relwithdebinfo minsizerel)
+            find_library(MYGUI_PLATFORM_LIBRARIES_REL
+                         NAMES MyGUI.OgrePlatform.lib
+                         HINTS ${MYGUI_LIB_DIR}
+                         PATH_SUFFIXES "" release relwithdebinfo minsizerel)
 
-        find_library(MYGUI_PLATFORM_LIBRARIES_DBG
-                     NAMES MyGUI.OgrePlatform_d.lib
-                     HINTS ${MYGUI_LIB_DIR}
-                     PATH_SUFFIXES "" debug)
+            find_library(MYGUI_PLATFORM_LIBRARIES_DBG
+                         NAMES MyGUI.OgrePlatform_d.lib
+                         HINTS ${MYGUI_LIB_DIR}
+                         PATH_SUFFIXES "" debug)
+	ENDIF (MSVC)
+
+        IF (MINGW)
+            find_library(MYGUI_LIBRARIES_REL
+                         NAMES libMyGUIEngine.dll.a libMyGUI.OgrePlatform.a
+                         HINTS ${MYGUI_LIB_DIR}
+                         PATH_SUFFIXES "" release relwithdebinfo minsizerel)
+
+            find_library(MYGUI_LIBRARIES_DBG
+                         NAMES libMyGUIEngine_d.dll.a libMyGUI.OgrePlatform_d.a
+                         HINTS ${MYGUI_LIB_DIR}
+                         PATH_SUFFIXES "" debug)
+
+            find_library(MYGUI_PLATFORM_LIBRARIES_REL
+                         NAMES libMyGUI.OgrePlatform.a
+                         HINTS ${MYGUI_LIB_DIR}
+                         PATH_SUFFIXES "" release relwithdebinfo minsizerel)
+
+            find_library(MYGUI_PLATFORM_LIBRARIES_DBG
+                         NAMES libMyGUI.OgrePlatform_d.a
+                         HINTS ${MYGUI_LIB_DIR}
+                         PATH_SUFFIXES "" debug)
+        ENDIF (MINGW)
 
         make_library_set(MYGUI_LIBRARIES)
         make_library_set(MYGUI_PLATFORM_LIBRARIES)
