@@ -10,6 +10,7 @@
 *.exe
 # Generated Build system files
 *.cbp
+UBC.layout
 Makefile
 cmake*.cmake
 ubc
