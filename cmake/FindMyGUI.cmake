@@ -17,8 +17,9 @@ include(FindPkgMacros)
     # SET(MYGUI_FIND_QUIETLY TRUE)
 # ENDIF (MYGUI_LIBRARIES AND MYGUI_INCLUDE_DIRS)
 
+MESSAGE(STATUS "Looking for MyGUI")
+
 IF (WIN32) #Windows
-    MESSAGE(STATUS "Looking for MyGUI")
     SET(MYGUISDK $ENV{MYGUI_HOME})
     IF (MYGUISDK)
         findpkg_begin("MYGUI")
