@@ -9,6 +9,7 @@
 *.class
 *.exe
 # Generated Build system files
+*.cbp
 Makefile
 cmake*.cmake
 ubc
@@ -26,3 +27,5 @@ debug/client
 debug/server
 debug/ubc
 
+# Log Files
+Ogre.log
