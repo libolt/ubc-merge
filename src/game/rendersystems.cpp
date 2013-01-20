@@ -81,23 +81,26 @@ renderSystems::renderSystems()
 	selectedRenderSystem->setConfigOption("Video Mode","1280 x 1024 @ 32-bit colour");
 	mWindow = mRoot->initialise(true, "Ultimate Basketball Challenge");
 
+    std::string dataPath = UBC_DATADIR;
+
+
 //    QuickGUI::registerScriptParser();
     ResourceGroupManager *rsm = ResourceGroupManager::getSingletonPtr();
     rsm->createResourceGroup(mResourceGroup);
 	// load the basic resource location(s)
-	rsm->addResourceLocation("../data/Media", "FileSystem", mResourceGroup);
-	rsm->addResourceLocation("../data/Media/fonts", "FileSystem", mResourceGroup);
-	rsm->addResourceLocation("../data/Media/gui", "FileSystem", mResourceGroup);
-	rsm->addResourceLocation("../data/Media/models", "FileSystem", mResourceGroup);
-	rsm->addResourceLocation("../data/Media/materials/textures", "FileSystem", mResourceGroup);
-	rsm->addResourceLocation("../data/Media/materials/programs", "FileSystem", mResourceGroup);
-	rsm->addResourceLocation("../data/Media/materialss/scripts", "FileSystem", mResourceGroup);
-	rsm->addResourceLocation("../data/Media/materials", "FileSystem", mResourceGroup);
-	rsm->addResourceLocation("../data/Media/overlays", "FileSystem", mResourceGroup);
-	rsm->addResourceLocation("../data/Media/packs", "FileSystem", mResourceGroup);
-	rsm->addResourceLocation("../data/Media/skins", "FileSystem", mResourceGroup);
-	rsm->addResourceLocation("../data/Media/skins/qgui", "FileSystem", mResourceGroup);
-	rsm->addResourceLocation("../data/Media/Audio", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/fonts", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/gui", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/models", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/materials/textures", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/materials/programs", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/materialss/scripts", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/materials", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/overlays", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/packs", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/skins", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/skins/qgui", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/Audio", "FileSystem", mResourceGroup);
 
 	rsm->initialiseResourceGroup(mResourceGroup);
 	// setup main window; hardcode some defaults for the sake of presentation

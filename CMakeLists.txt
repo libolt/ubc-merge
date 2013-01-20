@@ -5,13 +5,11 @@ SET(CMAKE_MODULE_PATH "${UBC_SOURCE_DIR}/cmake")
 set(Boost_USE_MULTITHREADED ON)
 
 IF (WIN32)
-if( MSVC )
- # Deactivate warning C4251
- set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4251 /wd4275" )
-
-endif()
+    IF(MSVC)
+        # Deactivate warning C4251
+        SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4251 /wd4275" )
+    ENDIF()
 ENDIF (WIN32)
-#    INCLUDE (FindBoost)
     INCLUDE (FindENet)
     INCLUDE (FindOGRE)
     INCLUDE (FindOIS)
@@ -26,16 +24,16 @@ ENDIF (WIN32)
     SET (UBC_DEPENDENCIES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dependencies)
     SET (UBC_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
     SET (UBC_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-    SET (UBC_SRCS ${UBC_SRC_DIR}/basketballs.cpp ${UBC_SRC_DIR}/courtdata.cpp ${UBC_SRC_DIR}/courtstate.cpp ${UBC_SRC_DIR}/defense.cpp ${UBC_SRC_DIR}/games.cpp ${UBC_SRC_DIR}/gamestate.cpp ${UBC_SRC_DIR}/gui.cpp ${UBC_SRC_DIR}/input.cpp ${UBC_SRC_DIR}/load.cpp ${UBC_SRC_DIR}/network.cpp ${UBC_SRC_DIR}/offense.cpp ${UBC_SRC_DIR}/physics.cpp ${UBC_SRC_DIR}/playerdata.cpp ${UBC_SRC_DIR}/players.cpp ${UBC_SRC_DIR}/playerstate.cpp ${UBC_SRC_DIR}/rendersystems.cpp ${UBC_SRC_DIR}/sound.cpp ${UBC_SRC_DIR}/teamdata.cpp ${UBC_SRC_DIR}/teams.cpp ${UBC_SRC_DIR}/teamstate.cpp ${UBC_SRC_DIR}/ubcapp.cpp)
+    #    SET (UBC_SRCS ${UBC_SRC_DIR}/basketballs.cpp ${UBC_SRC_DIR}/courtdata.cpp ${UBC_SRC_DIR}/courtstate.cpp ${UBC_SRC_DIR}/defense.cpp ${UBC_SRC_DIR}/games.cpp ${UBC_SRC_DIR}/gamestate.cpp ${UBC_SRC_DIR}/gui.cpp ${UBC_SRC_DIR}/input.cpp ${UBC_SRC_DIR}/load.cpp ${UBC_SRC_DIR}/network.cpp ${UBC_SRC_DIR}/offense.cpp ${UBC_SRC_DIR}/physics.cpp ${UBC_SRC_DIR}/playerdata.cpp ${UBC_SRC_DIR}/players.cpp ${UBC_SRC_DIR}/playerstate.cpp ${UBC_SRC_DIR}/rendersystems.cpp ${UBC_SRC_DIR}/sound.cpp ${UBC_SRC_DIR}/teamdata.cpp ${UBC_SRC_DIR}/teams.cpp ${UBC_SRC_DIR}/teamstate.cpp ${UBC_SRC_DIR}/ubcapp.cpp)
     
-    SET (CLIENT_SRCS ${UBC_SRC_DIR}/client.cpp)
-    SET (SERVER_SRCS ${UBC_SRC_DIR}/server.cpp)
+    SET (CLIENT_SRCS ${UBC_SRC_DIR}/network/client.cpp)
+    SET (SERVER_SRCS ${UBC_SRC_DIR}/network/server.cpp)
     SET (UBC_DATA_DIR ${CMAKE_CURRENT_SOURCE_DIR}/data)
 
-    file(GLOB_RECURSE UBC_HEADERS include/*.h)
-#    file(GLOB_RECURSE UBC_SRCS src/*.cpp)
+    FILE(GLOB_RECURSE UBC_HEADERS include/*.h)
+    FILE(GLOB_RECURSE UBC_SRCS src/game/*.cpp)
 
-    ADD_SUBDIRECtory (dependencies)
+    ADD_SUBDIRECTORY (dependencies)
     ADD_SUBDIRECTORY (include)
 #    ADD_SUBDIRECTORY (src)
 
@@ -44,9 +42,43 @@ INCLUDE_DIRECTORIES(${UBC_INCLUDE_DIR} ${UBC_DEPENDENCIES_DIR}/tinyxml  ${ENet_I
 LINK_DIRECTORIES(${UBC_DEPENDENCIES_DIR}/tinyxml ${ENET_LIBDIR} ${Boost_LIBRARY_DIRS} ${OGRE_LIBRARY_DIRS} ${OGRE_DEPENDLIBDIR} ${OIS_LIBRARY_DIRS} ${MYGUI_LIB_DIR} ${OgreOggSound_LIBRARY_DIRS} ${BtOgre_LIBRARY_DIRS})
 
 IF (CMAKE_BUILD_TYPE MATCHES "Debug")
-    ADD_SUBDIRECTORY (debug)
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "bin/debug")
 ELSEIF (CMAKE_BUILD_TYPE MATCHES "Release")
-    ADD_SUBDIRECTORY (release)
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "bin/release")
+ELSEIF (CMAKE_BUILD_TYPE MATCHES "RelWithDebInfo")
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "bin/relwithdebinfo")
 ENDIF (CMAKE_BUILD_TYPE MATCHES "Debug")
 
+
+IF (WIN32)
+    ADD_EXECUTABLE(ubc WIN32 ${UBC_SRCS} ${UBC_HEADERS})
+    ADD_EXECUTABLE(client ${CLIENT_SRCS})
+    ADD_EXECUTABLE(server ${SERVER_SRCS})
+
+ELSEIF (APPLE)
+    INCLUDE_DIRECTORIES (../include ../src/tinyxml ../Dependencies/include)
+    LINK_DIRECTORIES(../src/tinyxml ../Dependencies/lib/Debug)
+    FIND_LIBRARY(OGRE_LIB Ogre)
+    MARK_AS_ADVANCED(OGRE_LIB)
+    FIND_LIBRARY(CG_LIB Cg)
+    MARK_AS_ADVANCED(CG_LIB)
+    FIND_LIBRARY(CARBON_LIB Carbon)
+    MARK_AS_ADVANCED(CARBON_LIB)
+    ADD_EXECUTABLE (ubc ${UBC_SRCS})
+    TARGET_LINK_LIBRARIES( ubc tinyxml ${OGRE_LIB} ${CG_LIB} ${CARBON_LIB}  ois)
+ELSE (APPLE)
+    ADD_CUSTOM_COMMAND(
+        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/config.h
+        COMMAND ${CMAKE_COMMAND} -E  echo ${OGRE_PLUGINDIR} >>  ${CMAKE_CURRENT_SOURCE_DIR}/src/config.h
+    )
+
+    ADD_EXECUTABLE(ubc ${UBC_SRCS} ${UBC_HEADERS})
+    ADD_EXECUTABLE(client ${CLIENT_SRCS} )
+    ADD_EXECUTABLE(server ${SERVER_SRCS} )
+
+ENDIF (WIN32)
+    TARGET_LINK_LIBRARIES(ubc tinyxml ${Boost_LIBRARIES} ${ENet_LIBRARIES} ${OGRE_LIBRARIES} ${OIS_LIBRARIES} ${MYGUI_LIBRARIES} ${OgreOggSound_LIBRARIES} 
+${BtOgre_LIBRARIES})
+    TARGET_LINK_LIBRARIES( client tinyxml ${Boost_LIBRARIES} ${ENet_LIBRARIES} ${OGRE_LIBRARIES} ${OIS_LIBRARIES})
+    TARGET_LINK_LIBRARIES( server tinyxml ${Boost_LIBRARIES} ${ENet_LIBRARIES} ${OGRE_LIBRARIES} ${OIS_LIBRARIES})
 

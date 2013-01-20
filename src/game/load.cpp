@@ -98,7 +98,6 @@ string loader::findFile(string fileName)
     std::vector<std::string> pathArray;
     string dataPath = UBC_DATADIR;
     dataPath += "/";
-
     pathArray = pathSplit(dataPath);
 
 
