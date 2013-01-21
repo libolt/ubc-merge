@@ -24,7 +24,6 @@ ENDIF (WIN32)
     SET (UBC_DEPENDENCIES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dependencies)
     SET (UBC_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
     SET (UBC_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-    #    SET (UBC_SRCS ${UBC_SRC_DIR}/basketballs.cpp ${UBC_SRC_DIR}/courtdata.cpp ${UBC_SRC_DIR}/courtstate.cpp ${UBC_SRC_DIR}/defense.cpp ${UBC_SRC_DIR}/games.cpp ${UBC_SRC_DIR}/gamestate.cpp ${UBC_SRC_DIR}/gui.cpp ${UBC_SRC_DIR}/input.cpp ${UBC_SRC_DIR}/load.cpp ${UBC_SRC_DIR}/network.cpp ${UBC_SRC_DIR}/offense.cpp ${UBC_SRC_DIR}/physics.cpp ${UBC_SRC_DIR}/playerdata.cpp ${UBC_SRC_DIR}/players.cpp ${UBC_SRC_DIR}/playerstate.cpp ${UBC_SRC_DIR}/rendersystems.cpp ${UBC_SRC_DIR}/sound.cpp ${UBC_SRC_DIR}/teamdata.cpp ${UBC_SRC_DIR}/teams.cpp ${UBC_SRC_DIR}/teamstate.cpp ${UBC_SRC_DIR}/ubcapp.cpp)
     
     SET (CLIENT_SRCS ${UBC_SRC_DIR}/network/client.cpp)
     SET (SERVER_SRCS ${UBC_SRC_DIR}/network/server.cpp)
