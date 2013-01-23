@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2006 by Mike McLean   *
+ *   Copyright (C) 2013 by Mike McLean   *
  *   libolt@libolt.net   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
