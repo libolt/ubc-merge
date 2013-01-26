@@ -18,10 +18,10 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "rendersystems.h"
+#include "renderengine.h"
 #include "gui.h"
 #include "config.h"
-#include "sound.h"
+#include "soundengine.h"
 
 #ifndef OGRE_PLUGIN_DIR
 #define OGRE_PLUGIN_DIR
