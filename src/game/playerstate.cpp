@@ -19,7 +19,7 @@
  ***************************************************************************/
 
 #include "playerstate.h"
-#include "rendersystems.h"
+#include "renderengine.h"
 #include "Ogre.h"
 
 using namespace std;

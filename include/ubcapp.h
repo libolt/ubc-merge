@@ -28,8 +28,8 @@
 #include "input.h"
 #include "load.h"
 #include "players.h"
-#include "rendersystems.h"
-#include "sound.h"
+#include "renderengine.h"
+#include "soundengine.h"
 #include "teams.h"
 #include "tinyxml.h"
 

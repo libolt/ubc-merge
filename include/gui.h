@@ -23,7 +23,7 @@
 //#include "QuickGUI.h"
 
 #include "input.h"
-#include "rendersystems.h"
+#include "renderengine.h"
 
 
 //CEGUI::MouseButton convertOgreButtonToCegui(int buttonID);	// converts OIS button press to CEGUI buton press
