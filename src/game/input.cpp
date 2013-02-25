@@ -132,7 +132,7 @@ void inputSystem::seMouseButtonID(OIS::MouseButtonID buttonID)  // sets mouseEve
 bool inputSystem::setup()   // sets up and initializes the OIS Input System
 {
     UBC *ubc = UBC::Instance();
-    renderEngine * render = renderEngine::Instance();
+    renderSystems * render = renderSystems::Instance();
 //              mDebugOverlay = OverlayManager::getSingleton().getByName("Core/DebugOverlay");
 
     LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
@@ -354,7 +354,7 @@ bool inputSystem::processUnbufferedMouseInput()
     using namespace OIS;
 
     UBC *ubc = UBC::Instance();
-    renderEngine *render = renderEngine::Instance();
+    renderSystems *render = renderSystems::Instance();
 
     Ogre::Vector3 mTranslateVector = render->getMTranslateVector();
     Radian mRotX = render->getMRotX();

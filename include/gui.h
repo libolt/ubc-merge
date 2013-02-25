@@ -29,7 +29,7 @@
 //CEGUI::MouseButton convertOgreButtonToCegui(int buttonID);	// converts OIS button press to CEGUI buton press
 
 
-class GUISystem //: public renderEngine //, inputSystem
+class GUISystem //: public renderSystems //, inputSystem
 {
 public:
 

@@ -83,7 +83,7 @@ void GUISystem::createScene()
 bool GUISystem::setupGUI()
 {
     UBC *ubc = UBC::Instance();
-    renderEngine *render = renderEngine::Instance();
+    renderSystems *render = renderSystems::Instance();
 
 
 /*    using QuickGUI::Rect;
