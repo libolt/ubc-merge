@@ -282,7 +282,7 @@ void basketballs::setNode(Ogre::SceneNode *Node)
 // loads the 3D model
 bool basketballs::loadModel()
 {
-    renderSystems *render = renderSystems::Instance();
+    renderEngine *render = renderEngine::Instance();
 
     model = render->getMSceneMgr()->createEntity("basketball", modelName);	// loads the basketball model
 

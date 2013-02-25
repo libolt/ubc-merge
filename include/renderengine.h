@@ -9,7 +9,7 @@
 #include "Ogre.h"
 #endif
 using namespace Ogre;
-class renderSystems
+class renderEngine
 {
 	public:
 
@@ -49,14 +49,14 @@ class renderSystems
     virtual String getMResourceGroup();
     void setMResourceGroup(String resource);
 
-    virtual ~renderSystems();
+    virtual ~renderEngine();
 
-    static renderSystems *Instance();
+    static renderEngine *Instance();
 
 	protected:
-    renderSystems();
-    renderSystems(const renderSystems&);
-    renderSystems& operator= (const renderSystems&);
+    renderEngine();
+    renderEngine(const renderEngine&);
+    renderEngine& operator= (const renderEngine&);
 
     Root *mRoot;
     Camera *mCamera;
@@ -75,7 +75,7 @@ class renderSystems
 
     private:
 
-    static renderSystems *pInstance;
+    static renderEngine *pInstance;
 
 };
 

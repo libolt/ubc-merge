@@ -155,7 +155,7 @@ bool games::assignPlayers()
 
 bool games::setupEnvironment()
 {
-    renderSystems *render = renderSystems::Instance();
+    renderEngine *render = renderEngine::Instance();
 
     // Set ambient light
     render->getMSceneMgr()->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
@@ -225,7 +225,7 @@ bool games::setupState()
 {
     gameState *gameS = gameState::Instance();
     players *player = players::Instance();
-    renderSystems *render = renderSystems::Instance();
+    renderEngine *render = renderEngine::Instance();
     teams *team = teams::Instance();
     loader *load = loader::Instance();
 

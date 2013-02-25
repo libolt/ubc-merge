@@ -27,18 +27,18 @@
 #define OGRE_PLUGIN_DIR
 #endif
 
-renderSystems* renderSystems::pInstance = 0;
-renderSystems* renderSystems::Instance()
+renderEngine* renderEngine::pInstance = 0;
+renderEngine* renderEngine::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new renderSystems; // create sole instance
+        pInstance = new renderEngine; // create sole instance
     }
     return pInstance; // address of sole instance
 }
 
 
-renderSystems::renderSystems()
+renderEngine::renderEngine()
 {
 //    GUISystem *gui = GUISystem::Instance();
 	    SoundSystem *sound = SoundSystem::Instance();
@@ -66,14 +66,14 @@ renderSystems::renderSystems()
     mRoot->loadPlugin(pluginDir + "/RenderSystem_GL");
     mRoot->loadPlugin(pluginDir + "/Plugin_CgProgramManager");
     #endif
-//	Ogre::RenderSystemList *renderSystems = NULL;
+//	Ogre::RenderSystemList *renderEngine = NULL;
 //	Ogre::RenderSystemList::iterator r_it;
-//	renderSystems = mRoot->getAvailableRenderers();
+//	renderEngine = mRoot->getAvailableRenderers();
 //	RenderSystemList *rsList = mRoot->getAvailableRenderers()->begin();
  //   RenderSystemList *rsList = mRoot->getAvailableRenderers().begin();
     RenderSystemList rsList = mRoot->getAvailableRenderers();
 
-/*	r_it = renderSystems->begin();
+/*	r_it = renderEngine->begin();
     	mRoot->setRenderSystem(*r_it);
 	mWindow = mRoot->initialise(false);
 //	exit(0);
@@ -202,115 +202,115 @@ renderSystems::renderSystems()
 
 }
 
-renderSystems::~renderSystems()
+renderEngine::~renderEngine()
 {
 }
 
-Root *renderSystems::getMRoot()
+Root *renderEngine::getMRoot()
 {
     return (mRoot);
 }
-void renderSystems::setMRoot(Root *root)
+void renderEngine::setMRoot(Root *root)
 {
     mRoot = root;
 }
 
-Camera *renderSystems::getMCamera()
+Camera *renderEngine::getMCamera()
 {
     return (mCamera);
 }
-void renderSystems::setMCamera(Camera *camera)
+void renderEngine::setMCamera(Camera *camera)
 {
     mCamera = camera;
 }
 
-SceneManager *renderSystems::getMSceneMgr()
+SceneManager *renderEngine::getMSceneMgr()
 {
     return (mSceneMgr);
 }
-void renderSystems::setMSceneMgr(SceneManager *sceneMgr)
+void renderEngine::setMSceneMgr(SceneManager *sceneMgr)
 {
     mSceneMgr = sceneMgr;
 }
 
-RenderWindow *renderSystems::getMWindow()
+RenderWindow *renderEngine::getMWindow()
 {
     return (mWindow);
 }
-void renderSystems::setMWindow(RenderWindow *window)
+void renderEngine::setMWindow(RenderWindow *window)
 {
     mWindow = window;
 }
 
-Vector3 renderSystems::getMTranslateVector()
+Vector3 renderEngine::getMTranslateVector()
 {
     return (mTranslateVector);
 }
-void renderSystems::setMTranslateVector(Vector3 vector)
+void renderEngine::setMTranslateVector(Vector3 vector)
 {
     mTranslateVector = vector;
 }
 
-Radian renderSystems::getMRotX()
+Radian renderEngine::getMRotX()
 {
     return (mRotX);
 }
-void renderSystems::setMRotX(Radian rotX)
+void renderEngine::setMRotX(Radian rotX)
 {
     mRotX = rotX;
 }
 
-Radian renderSystems::getMRotY()
+Radian renderEngine::getMRotY()
 {
     return (mRotY);
 }
-void renderSystems::setMRotY(Radian rotY)
+void renderEngine::setMRotY(Radian rotY)
 {
     mRotY = rotY;
 }
 
-Real renderSystems::getMMoveSpeed()
+Real renderEngine::getMMoveSpeed()
 {
     return (mMoveSpeed);
 }
-void renderSystems::setMMoveSpeed(Real speed)
+void renderEngine::setMMoveSpeed(Real speed)
 {
     mMoveSpeed = speed;
 }
 
-Degree renderSystems::getMRotateSpeed()
+Degree renderEngine::getMRotateSpeed()
 {
     return (mRotateSpeed);
 }
-void renderSystems::setMRotateSpeed(Degree speed)
+void renderEngine::setMRotateSpeed(Degree speed)
 {
     mRotateSpeed = speed;
 }
 
-float renderSystems::getMMoveScale()
+float renderEngine::getMMoveScale()
 {
     return (mMoveScale);
 }
-void renderSystems::setMMoveScale(float scale)
+void renderEngine::setMMoveScale(float scale)
 {
     mMoveScale = scale;
 }
 
-Degree renderSystems::getMRotScale()
+Degree renderEngine::getMRotScale()
 {
     return (mRotScale);
 }
-void renderSystems::setMRotScale(Degree scale)
+void renderEngine::setMRotScale(Degree scale)
 {
     mRotScale = scale;
 }
 
-String renderSystems::getMResourceGroup()
+String renderEngine::getMResourceGroup()
 {
     return (mResourceGroup);
 }
 
-void renderSystems::setMResourceGroup(String resource)
+void renderEngine::setMResourceGroup(String resource)
 {
     mResourceGroup = resource;
 }

@@ -384,7 +384,7 @@ void playerState::setNode(Ogre::SceneNode *Node)
 bool playerState::loadModel()   // loads the player's 3D model from the file specified in modelName
 {
 
-    renderSystems *render = renderSystems::Instance();
+    renderEngine *render = renderEngine::Instance();
     Ogre::String playerName;	// string which stores the player's name
     playerName += firstName;    // adds the first name to playerName string
     playerName += lastName;     // adds the last name to the playerName string
