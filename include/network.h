@@ -1,14 +1,25 @@
-//
-// C++ Interface: main
-//
-// Description: 
-//
-//
-// Author:  <>, (C) 2007
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
+/***************************************************************************
+ *   Copyright (C) 2013 by Mike McLean   *
+ *   libolt@libolt.net   *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
+
+#ifndef _NETWORK_H_
+#define _NETWORK_H_
 
 #include <iostream>
 #include <stdio.h>
@@ -49,7 +60,7 @@ class networking
 
     virtual ENetEvent getEvent();
     virtual void setEvent(ENetEvent Event);
-   
+
     virtual ENetPeer *getPeer();
     virtual void setPeer(ENetPeer *Peer);
 
@@ -119,7 +130,7 @@ void networking::clientConnect()
 
     if (client == NULL)
     {
-        fprintf (stderr, 
+        fprintf (stderr,
                  "An error occurred while trying to create an ENet client host.\n");
         exit (EXIT_FAILURE);
     }
@@ -132,15 +143,15 @@ void networking::clientConnect()
     serverAddress.port = 1234;
 
     /* Initiate the connection, allocating the two channels 0 and 1. */
-    peer = enet_host_connect (client, & serverAddress, 2, 0);    
-    
+    peer = enet_host_connect (client, & serverAddress, 2, 0);
+
     if (peer == NULL)
     {
-       fprintf (stderr, 
+       fprintf (stderr,
                 "No available peers for initiating an ENet connection.\n");
        exit (EXIT_FAILURE);
     }
-    
+
     /* Wait up to 5 seconds for the connection attempt to succeed. */
     if (enet_host_service (client, & event, 5000) > 0 &&
         event.type == ENET_EVENT_TYPE_CONNECT)
@@ -172,7 +183,7 @@ void networking::serverSetup()
     /* Bind the server to port 1234. */
     listenAddress.port = 1234;
 
-    server = enet_host_create (& listenAddress /* the address to bind the server host to */, 
+    server = enet_host_create (& listenAddress /* the address to bind the server host to */,
                                  32      /* allow up to 32 clients and/or outgoing connections */,
 				 2	/* allows up to 2 channels, 0, 1*/,
                                   0      /* assume any amount of incoming bandwidth */,
@@ -255,3 +266,5 @@ struct ePacket
 	int ID;
 	string data;
 };
+
+#endif

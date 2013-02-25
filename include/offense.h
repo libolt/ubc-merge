@@ -1,11 +1,21 @@
 /***************************************************************************
- *   Copyright (C) 2003 by Mike McLean                                     *
- *   libolt@libolt.net                                                     *
+ *   Copyright (C) 2013 by Mike McLean   *
+ *   libolt@libolt.net   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
 #ifndef _OFFENSE_H_
@@ -23,37 +33,37 @@ public:
 protected:
 
     virtual int execute(void);   // executes selected offense
-    
+
     virtual int pgExecute(void);
-    
+
     virtual int sgExecute(void);
-    
+
     virtual int sfExecute(void);
-    
+
     virtual int pfExecute(void);
-    
+
     virtual int cExecute(void);
-    
+
     virtual int checkPlayerPosition(void);
-    
+
     virtual float *getPlayerStartPos(void); // retrieves playerStartPos value
     virtual void setPlayerStartPos(float *startPos);    // sets playerStartPos value
-    
+
     virtual bool getPlayerStartPosSet(void);    // retrieves playerStartPosSet value
     virtual void setPlayerStartPosSet(bool set);    // sets playerStartPosSet value
-    
+
     virtual bool getPgStartPosSet(void);    // retrieves pgStartPosSet value
     virtual void setPgStartPosSet(bool set);    // sets pgStartPosSet value
-    
+
     virtual bool getSgStartPosSet(void);    // retrieves sgStartPosSet value
     virtual void setSgStartPosSet(bool set);    // sets sgStartPosSet value
-    
+
     virtual bool getSfStartPosSet(void);    // retrieves sfStartPosSet value
     virtual void setSfStartPosSet(bool set);    // sets sfStartPosSet value
-    
+
     virtual bool getPfStartPosSet(void);    // retrieves pfStartPosSet value
     virtual void setPfStartPosSet(bool set);    // sets pfStartPosSet value
-    
+
     virtual bool getCStartPosSet(void);    // retrieves cStartPosSet value
     virtual void setCStartPosSet(bool set);    // sets cStartPosSet value
 
@@ -61,7 +71,7 @@ protected:
 private:
 
     float *playerStartPos;    // stores start Positions for player
-    
+
     bool playerStartPosSet; // value for whether or not players are at their starting positions
     bool pgStartPosSet;     // value for whether a Point Guard's start position is set.
     bool sgStartPosSet;     // value for whether a Shooting Guard's start position is set
@@ -77,7 +87,7 @@ public:
 
     boxOffense();
     virtual ~boxOffense();
-    
+
     courtSide_t getCourtSide(void);
     void setCourtSide(courtSide_t side);
 
