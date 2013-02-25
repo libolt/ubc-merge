@@ -42,7 +42,7 @@ void courtState::setNode(Ogre::SceneNode *Node)
 // loads the 3D Model and attaches it to the node as well as sets coordinates
 bool courtState::loadModel()
 {
-    renderSystems *render = renderSystems::Instance();
+    renderEngine *render = renderEngine::Instance();
 
     model = render->getMSceneMgr()->createEntity("Court", modelName);	// loads the Court model
 

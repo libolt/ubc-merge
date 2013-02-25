@@ -145,7 +145,7 @@ bool UBC::frameStarted()
     games *game = games::Instance();
     inputSystem *input = inputSystem::Instance();
     players *player = players::Instance();
-    renderSystems * render = renderSystems::Instance();
+    renderEngine * render = renderEngine::Instance();
 
     float lastFPS = render->getMWindow()->getLastFPS();
     String currFPS = StringConverter::toString(lastFPS);
@@ -215,7 +215,7 @@ bool UBC::frameEnded()
 
 void UBC::createSceneManager()
 {
-    renderSystems *render = renderSystems::Instance();
+    renderEngine *render = renderEngine::Instance();
 
     // Create the SceneManager, in this case a generic one
     render->setMSceneMgr(render->getMRoot()->createSceneManager(ST_EXTERIOR_CLOSE));
@@ -228,7 +228,7 @@ void UBC::createScene()
     teams *team = teams::Instance();
     players *player = players::Instance();
 //    basketballs *basketball = basketballs::Instance();
-    renderSystems *render = renderSystems::Instance();
+    renderEngine *render = renderEngine::Instance();
 
 
     // basketball
@@ -314,7 +314,7 @@ int main(int argc, char *argv[])
     UBC *ubc = UBC::Instance();
 
     inputSystem *input = inputSystem::Instance();
-    renderSystems *render = renderSystems::Instance();
+    renderEngine *render = renderEngine::Instance();
     GUISystem *gui = GUISystem::Instance();
 //    SoundSystem *sound = SoundSystem::Instance();
 //    gui->setupGUI();
