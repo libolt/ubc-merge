@@ -82,7 +82,7 @@ void GUISystem::createScene()
 // sets up the CEGUI Window
 bool GUISystem::setupGUI()
 {
-    UBC *ubc = UBC::Instance();
+//    UBC *ubc = UBC::Instance();
     renderEngine *render = renderEngine::Instance();
 
 

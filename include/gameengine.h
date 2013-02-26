@@ -20,4 +20,55 @@
 
 #ifndef _GAMEENGINE_H_
 #define _GAMEENGINE_H_
+
+#include "OgreTimer.h"
+#include "OgreVector3.h"
+
+#include "players.h"
+
+class gameEngine : public players
+{
+
+public:
+    virtual ~gameEngine();
+
+    static gameEngine *Instance();
+
+    virtual bool getMenuActive();
+    virtual void setMenuActive(bool active);
+    virtual bool getQuitGame();
+    virtual void setQuitGame(bool quit);
+    virtual Ogre::Timer getLoopTime();
+    virtual void setLoopTIme(Ogre::Timer time);
+    virtual unsigned long getOldTime();
+    virtual void setOldTime(unsigned long time);
+
+    // starts a game
+    virtual bool startGame();
+
+    // quits entire game
+    virtual void quit();
+
+protected:
+    gameEngine();
+    gameEngine(const gameEngine&);
+    gameEngine& operator= (const gameEngine&);
+
+private:
+    int x;
+    int y;
+    int i;
+    int j;
+    Ogre::Vector3 courtTranslateVector;
+    Ogre::Timer loopTime;
+    unsigned long oldTime;
+
+    static gameEngine *pInstance;
+
+    // Flags
+    bool menuActive;	// determines whether or not a menu is active
+    bool quitGame;
+
+};
+
 #endif // _GAMEENGINE_H_

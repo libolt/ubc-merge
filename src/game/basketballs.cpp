@@ -18,7 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "games.h"
+#include "gamestate.h"
 #include "ubcapp.h"
 #include <string>
 /*
@@ -301,8 +301,8 @@ bool basketballs::loadModel()
 Ogre::Vector3 basketballs::calculatePositionChange()
 {
 
-    UBC *ubc = UBC::Instance();
-    games *game = games::Instance();
+ //   UBC *ubc = UBC::Instance();
+    gameState *gameS = gameState::Instance();
 
     Ogre::Vector3 changeInPosition;	// stores the calculated change in position
     Ogre::Vector3 pos = node->getPosition();	// stores the basketball nodes position
@@ -342,7 +342,7 @@ Ogre::Vector3 basketballs::calculatePositionChange()
 
     }
 
-    if(game->getTipOffComplete())
+    if(gameS->getTipOffComplete())
     {
     	tipOff = false;
     }
@@ -394,7 +394,7 @@ Ogre::Vector3 basketballs::calculatePositionChange()
     {
         if (!dribbling && !tipOff)
         {
-            if (!game->getShotComplete())
+            if (!gameS->getShotComplete())
             {
                 // checks if minHeightReached is true
                 if (!minHeightReached)
@@ -417,7 +417,7 @@ Ogre::Vector3 basketballs::calculatePositionChange()
 
                 if (minHeightReached && pos[0] <= startCoords[0] - 50)
                 {
-                    game->setShotComplete(true);
+                    gameS->setShotComplete(true);
                 }
         	}
         }

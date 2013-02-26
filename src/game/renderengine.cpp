@@ -19,9 +19,12 @@
  ***************************************************************************/
 
 #include "renderengine.h"
+#include "gameengine.h"
+#include "gamestate.h"
 #include "gui.h"
 #include "config.h"
 #include "soundengine.h"
+#include "teams.h"
 
 #ifndef OGRE_PLUGIN_DIR
 #define OGRE_PLUGIN_DIR
@@ -313,4 +316,144 @@ String renderEngine::getMResourceGroup()
 void renderEngine::setMResourceGroup(String resource)
 {
     mResourceGroup = resource;
+}
+
+bool renderEngine::frameStarted()
+{
+
+    GUISystem *gui = GUISystem::Instance();
+    gameEngine *gameE = gameEngine::Instance();
+    gameState *gameS = gameState::Instance(); // FIXME: gameState shouldn't be called in render engine
+    inputSystem *input = inputSystem::Instance();
+    players *player = players::Instance();
+    renderEngine * render = renderEngine::Instance();
+
+    float lastFPS = render->getMWindow()->getLastFPS();
+    String currFPS = StringConverter::toString(lastFPS);
+//    cout << "FPS = " << currFPS << endl;
+
+    Ogre:Timer loopTime = gameE->getLoopTime();
+    unsigned long oldTime = gameE->getOldTime();
+    int newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
+    float changeInTime = newTime - oldTime;
+
+    LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
+
+//    std::cout << "oldTime = " << oldTime << std::endl;
+//    std::cout << "newTime = " << newTime << std::endl;
+//    std::cout << "change in time = " << (newTime - oldTime) << std::endl;
+
+
+//    event = new OIS::MouseEvent[1];
+//    gui->mouseMoved(*event);
+//    const OIS::MouseState &ms = input->getMMouse()->getMouseState();
+//    mGUIManager->injectMouseMove( ms.X.rel, ms.Y.rel );
+    gui->updateTime(changeInTime);
+//    exit(0);
+    gui->update();
+    Ogre::Real times;
+    Ogre::FrameEvent evt;
+    times = 0.01f;
+//    cout << "time since last frame = " << times << endl;
+
+    if ((newTime - oldTime) >= 70)
+    {
+
+        gameS->setTipOffComplete(true);
+        gameS->setGameStarted(true);
+        // checks to see if a game has been started
+        if (gameS->getGameStarted() && gameS->getTipOffComplete())
+        {
+            gameS->logic();    // executes the game logic
+        //    player->mAnimationState2->addTime(changeInTime);
+        }
+        else
+        {
+            gameS->executeTipOff();	// executes the game Tip Off
+        }
+
+
+        oldTime = newTime;
+
+    }
+
+        if (input->processInput() == false)
+        {
+            gameE->setQuitGame(true);
+        }
+
+//	std::cout << "Loop Time = " << loopTime.getMilliseconds() << std::endl;
+
+//    return OgreApplication::frameStarted(evt);
+    return true;
+}
+
+bool renderEngine::frameEnded()
+{
+//	mWindow->update();
+//	mRoot->renderOneFrame();
+
+    return true;
+}
+
+void renderEngine::createSceneManager()
+{
+    renderEngine *render = renderEngine::Instance();
+
+    // Create the SceneManager, in this case a generic one
+    render->setMSceneMgr(render->getMRoot()->createSceneManager(ST_EXTERIOR_CLOSE));
+
+}
+
+void renderEngine::createScene()
+{
+    GUISystem *gui = GUISystem::Instance();
+    gameEngine *gameE = gameEngine::Instance();
+    teams *team = teams::Instance();
+    players *player = players::Instance();
+//    basketballs *basketball = basketballs::Instance();
+    renderEngine *render = renderEngine::Instance();
+
+
+    // basketball
+//    bballInstance[0].setNode(render->getMSceneMgr()->getRootSceneNode()->createChildSceneNode("bball"));
+
+    // Player
+//    for (int x = 0; x < 10; ++x)
+//    {
+//        SceneNode *playerNode = player->getNode(x);
+//        playerNode = render->getMSceneMgr()->getRootSceneNode()->createChildSceneNode();
+//        player->setNode(x, playerNode);
+    //		playerNode[x]->pitch ( Degree (-90));
+//    }
+//	mSceneMgr->setWorldGeometry( "terrain.cfg" );
+
+    // Set up GUI system
+//    gui->setupGUI();
+
+    // loads the Main Menu GUI
+//    gui->loadMainMenu();
+
+    // sets up the event handlers for main menu buttons
+//    gui->setupMainMenuEventHandlers();
+
+//    setMenuActive(true);
+
+//    startGame();
+//	setGameStarted(true);
+//	bballInstance[0].setDribbling(true);
+
+/*	vector<players::playerData> playerN = player->getPlayer();
+//		exit(0);
+
+	cout << "size = " << playerN.size() << endl;
+	for (int i = 0; i < playerN.size(); i++)
+	{
+		cout << "FIRST name = " << playerN[i].getPlayerFirstName() << endl;
+	}
+*/
+//	load->loadPlayerFile(
+//	exit(0);
+    gameE->startGame();
+
 }

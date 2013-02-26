@@ -20,7 +20,7 @@
 
 // Input
 
-#include "games.h"
+#include "gameengine.h"
 #include "gamestate.h"
 #include "ubcapp.h"
 
@@ -131,7 +131,7 @@ void inputSystem::seMouseButtonID(OIS::MouseButtonID buttonID)  // sets mouseEve
 
 bool inputSystem::setup()   // sets up and initializes the OIS Input System
 {
-    UBC *ubc = UBC::Instance();
+//    UBC *ubc = UBC::Instance();
     renderEngine * render = renderEngine::Instance();
 //              mDebugOverlay = OverlayManager::getSingleton().getByName("Core/DebugOverlay");
 
@@ -197,10 +197,10 @@ bool inputSystem::processUnbufferedKeyInput()
 {
     using namespace OIS;
 //    basketballs *basketball = basketballs::Instance();
-    games *game = games::Instance();
     gameState *gameS = gameState::Instance();
+    gameEngine *gameE = gameEngine::Instance();
     players *player = players::Instance();
-    UBC *ubc = UBC::Instance();
+//    UBC *ubc = UBC::Instance();
 
     std::vector<basketballs> bballInstance = gameS->getBasketballInstance();
     int playerBall = bballInstance[0].getPlayer();
@@ -233,7 +233,7 @@ bool inputSystem::processUnbufferedKeyInput()
             im->destroyInputSystem(im);
         }
 */
-        ubc->quitGame = true;
+        gameE->setQuitGame(true);
         return false;
     }
 
@@ -336,8 +336,8 @@ bool inputSystem::processUnbufferedKeyInput()
 // FIXME FIXME FIXME!
     if (mKeyboard->isKeyDown(KC_SPACE))
     {
-        game->setShotTaken(true);
-        game->setShotComplete(false);
+        gameS->setShotTaken(true);
+        gameS->setShotComplete(false);
         bballInstance[0].setDribbling(false);
     }
     if (mKeyboard->isKeyDown(KC_J))
@@ -353,7 +353,8 @@ bool inputSystem::processUnbufferedMouseInput()
 {
     using namespace OIS;
 
-    UBC *ubc = UBC::Instance();
+//    UBC *ubc = UBC::Instance();
+    gameEngine *gameE = gameEngine::Instance();
     renderEngine *render = renderEngine::Instance();
 
     Ogre::Vector3 mTranslateVector = render->getMTranslateVector();
@@ -366,7 +367,7 @@ bool inputSystem::processUnbufferedMouseInput()
 
 //    CEGUI::System::getSingleton().injectMouseMove(ms.X.rel,ms.Y.rel);
 
-    if (ubc->getMenuActive())
+    if (gameE->getMenuActive())
     {
         if ( ms.buttonDown( MB_Left) )
         {

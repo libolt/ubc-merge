@@ -73,6 +73,11 @@ class renderEngine
 
     static renderEngine *Instance();
 
+    virtual void createScene();
+    virtual bool frameStarted();
+    virtual bool frameEnded();
+    virtual void createSceneManager();
+
 	protected:
     renderEngine();
     renderEngine(const renderEngine&);

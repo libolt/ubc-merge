@@ -19,7 +19,7 @@
  ***************************************************************************/
 
 #include "OgrePrerequisites.h"
-#include "games.h"
+#include "gameengine.h"
 #include "gamestate.h"
 #include "ubcapp.h"
 
@@ -34,7 +34,7 @@ gameObjects::~ gameObjects()
 }
 
 
-UBC* UBC::pInstance = 0;
+/*UBC* UBC::pInstance = 0;
 UBC* UBC::Instance()
 {
     if (pInstance == 0)  // is it the first call?
@@ -80,7 +80,7 @@ void UBC::setMenuActive(bool active)
 {
     menuActive = active;
 }
-
+*/
 
 /*void UBC::loads(string pFilename)
 {
@@ -138,11 +138,12 @@ void UBC::setMenuActive(bool active)
 }
 */
 //-------------------------------------------------------------------------------------
+/*
 bool UBC::frameStarted()
 {
 
     GUISystem *gui = GUISystem::Instance();
-    games *game = games::Instance();
+    gameState *gameS = gameState::Instance();
     inputSystem *input = inputSystem::Instance();
     players *player = players::Instance();
     renderEngine * render = renderEngine::Instance();
@@ -176,17 +177,17 @@ bool UBC::frameStarted()
     if ((newTime - oldTime) >= 70)
     {
 
-        game->setTipOffComplete(true);
-        game->setGameStarted(true);
+        gameState *gameS = gameState::Instance();setTipOffComplete(true);
+        gameState *gameS = gameState::Instance();setGameStarted(true);
         // checks to see if a game has been started
-        if (game->getGameStarted() && game->getTipOffComplete())
+        if (gameState *gameS = gameState::Instance();getGameStarted() && gameState *gameS = gameState::Instance();getTipOffComplete())
         {
-            game->logic();    // executes the game logic
+            gameState *gameS = gameState::Instance();logic();    // executes the game logic
         //    player->mAnimationState2->addTime(changeInTime);
         }
         else
         {
-            game->executeTipOff();	// executes the game Tip Off
+            gameState *gameS = gameState::Instance();executeTipOff();	// executes the game Tip Off
         }
 
 
@@ -221,7 +222,8 @@ void UBC::createSceneManager()
     render->setMSceneMgr(render->getMRoot()->createSceneManager(ST_EXTERIOR_CLOSE));
 
 }
-
+*/
+/*
 void UBC::createScene()
 {
     GUISystem *gui = GUISystem::Instance();
@@ -258,7 +260,7 @@ void UBC::createScene()
 //    startGame();
 //	setGameStarted(true);
 //	bballInstance[0].setDribbling(true);
-
+*/
 /*	vector<players::playerData> playerN = player->getPlayer();
 //		exit(0);
 
@@ -270,15 +272,15 @@ void UBC::createScene()
 */
 //	load->loadPlayerFile(
 //	exit(0);
-    startGame();
+//    startGame();
 
-}
-
+//}
+/*
 bool UBC::startGame()
 {
-    games *game = games::Instance();
+    gameState *gameS = gameState::Instance();
 
-    game->setupState();
+    gameState *gameS = gameState::Instance();setupState();
 
     return true;
 }
@@ -291,7 +293,7 @@ void UBC::quit()
     input->destroy();
 
 }
-
+*/
 //-------------------------------------------------------------------------------------
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
@@ -311,22 +313,22 @@ int main(int argc, char *argv[])
 #endif
 {
    // Create application object
-    UBC *ubc = UBC::Instance();
-
+ //   UBC *ubc = UBC::Instance();
+    gameEngine *gameE = gameEngine::Instance();
     inputSystem *input = inputSystem::Instance();
     renderEngine *render = renderEngine::Instance();
     GUISystem *gui = GUISystem::Instance();
 //    SoundSystem *sound = SoundSystem::Instance();
 //    gui->setupGUI();
 
-    ubc->createScene();
+    render->createScene();
 //    ubc->startGame();
 
-    while (!ubc->quitGame)
+    while (!gameE->getQuitGame())
     {
 //        ubc->processUnbufferedKeyInput();
 
-        ubc->frameStarted();
+        render->frameStarted();
 		// run the message pump (Eihort)
 		Ogre::WindowEventUtilities::messagePump();
 

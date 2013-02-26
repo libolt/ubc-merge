@@ -59,7 +59,7 @@ public:
     int playerHasBasketball;	// value of the player who has the basketball [0-9];
 };
 
-class UBC : public players, gameObjects //, inputSystem, gameObjects, players
+/* class UBC : public players, gameObjects //, inputSystem, gameObjects, players
 {
 public:
 //	UBC(void);
@@ -107,6 +107,7 @@ private:
 
 
 };
+*/
 
 #endif
 

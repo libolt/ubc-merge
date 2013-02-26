@@ -35,6 +35,30 @@ class gameState
         static gameState *Instance();
         ~gameState();
 
+    // Import from games class
+    virtual bool setupState();   // sets up the game condition
+    virtual bool logic();   // carries out in game logic
+    virtual bool assignTeams(); // assigns the teams which are playing
+    virtual bool assignPlayers();   // assigns the players that are playing.
+
+    virtual bool setupEnvironment();    // sets up the 3D environment for the game
+
+    virtual bool getTipOffComplete();	// retrieves tipOffComplete value
+    virtual void setTipOffComplete(bool complete);	// sets tipOffComplete value
+    virtual bool getGameStarted(void);
+    virtual void setGameStarted(bool started);
+    virtual bool getShotTaken(void);
+    virtual void setShotTaken(bool taken);
+    virtual bool getShotComplete(void);
+    virtual void setShotComplete(bool complete);
+    // end import
+
+
+    // Tip Off execution code.  // Move to proper class
+    virtual bool setupTipOff();	// sets up Tip Off conditions
+    virtual bool executeTipOff();
+
+
         // gets and sets teamID
         std::vector<int> getTeamID(void);
         void setTeamID(std::vector<int> ID);
@@ -97,6 +121,18 @@ class gameState
     std::vector <courtState> courtInstance;  // creates instance of the courtState class
     std::vector <playerState> playerInstance;    // creates instance of the playerState class
     std::vector <teamState>  teamInstance;   // creates instance of the teamState class
+
+// Import from former games class
+    int x;
+    int y;
+    int i;
+    int j;
+
+    bool gameStarted;   // Determines whether or not a basketball game has been started
+    bool shotTaken;	// Determines whether or not a player has shot the ball
+    bool shotComplete;	// Determine whether or not a player's shot is complete
+    bool tipOffComplete;	// Determines whether or not game Tip Off has completed
+
 };
 
 
