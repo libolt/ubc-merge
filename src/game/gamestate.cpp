@@ -178,21 +178,21 @@ bool gameState::setupEnvironment()
 bool gameState::setupTipOff()
 {
 //    basketballs *basketball = basketballs::Instance();
-    gameState *gameS = gameState::Instance();
+//    gameState *gameS = gameState::Instance();
     players *player = players::Instance();
     teams *team = teams::Instance();
 
-    std::vector<basketballs> bballInstance = gameS->getBasketballInstance();
+    std::vector<basketballs> bballInstance = getBasketballInstance();
     SceneNode *bball;
     bball = bballInstance[0].getNode();
     bball->setPosition(0.0f,-20.0f,350.0f);
     bballInstance[0].setNode(bball);
     bballInstance[0].setTipOffStart(true);
 
-    gameS->setBasketballInstance(bballInstance);
+    setBasketballInstance(bballInstance);
 
-    std::vector<int> playerIDS = gameS->getPlayerID();
-    std::vector <playerState> pInstance = gameS->getPlayerInstance();
+    std::vector<int> playerIDS = getPlayerID();
+    std::vector <playerState> pInstance = getPlayerInstance();
 //    std::vector <Ogre::SceneNode*> playerNodes = player->getNode();
 
     pInstance[0].getNode()->setPosition(0.0f,-23.5f,380.0f);
@@ -215,21 +215,21 @@ bool gameState::setupTipOff()
 // executes tip off
 bool gameState::executeTipOff()
 {
-    gameState *gameS = gameState::Instance();
+ //   gameState *gameS = gameState::Instance();
     players *player = players::Instance();
 
-    std::vector<basketballs> bballInstance = gameS->getBasketballInstance();
+    std::vector<basketballs> bballInstance = getBasketballInstance();
 
     bballInstance[0].nodeChangePosition(bballInstance[0].calculatePositionChange());
 
-   gameS->setBasketballInstance(bballInstance);
+   setBasketballInstance(bballInstance);
     return true;
 }
 
 // sets up the game condition
 bool gameState::setupState()
 {
-    gameState *gameS = gameState::Instance();
+//    gameState *gameS = gameState::Instance();
     players *player = players::Instance();
     renderEngine *render = renderEngine::Instance();
     teams *team = teams::Instance();
@@ -245,11 +245,11 @@ bool gameState::setupState()
 
     assignPlayers();  // assigns players currently playing
 
-    gameS->createPlayerInstances(); // creates the player instances based on playerIDS
+    createPlayerInstances(); // creates the player instances based on playerIDS
 
-    gameS->createBasketballInstances(); // creates the basketball instances
+    createBasketballInstances(); // creates the basketball instances
 
-    gameS->createCourtInstances();  // creates the court instances
+    createCourtInstances();  // creates the court instances
 
 
 //        Ogre::Entity *ent;
@@ -257,7 +257,7 @@ bool gameState::setupState()
 //        player->mAnimationState2 = ent->getAnimationState("Walk");
 //        std::vector<Ogre::Entity*> playerModels = player->getModel();
 //        std::vector<Ogre::SceneNode*> playerNodes = player->getNode();
-        std::vector<playerState> pInstance = gameS->getPlayerInstance();
+        std::vector<playerState> pInstance = getPlayerInstance();
         player->mAnimationState2 =  pInstance[5].getModel()->getAnimationState("Walk");
         player->mAnimationState2->setLoop(true);
         player->mAnimationState2->setEnabled(true);
@@ -282,18 +282,18 @@ bool gameState::setupState()
 // carries out in game logic
 bool gameState::logic()
 {
-    gameState *gameS = gameState::Instance();
+//    gameState *gameS = gameState::Instance();
     players *player = players::Instance();
     Ogre::Vector3 playerPos;
 
-	std::vector<basketballs> bballInstance = gameS->getBasketballInstance();
+	std::vector<basketballs> bballInstance = getBasketballInstance();
 	// sets up and starts the dribbling animation
 //	bballInstance[0].setDribblingStart(true);
     bballInstance[0].setPlayer(5);
 
-    gameS->updatePositions();   // updates positions of game world objects
+    updatePositions();   // updates positions of game world objects
 
-    std::vector<playerState> pInstance = gameS->getPlayerInstance();
+    std::vector<playerState> pInstance = getPlayerInstance();
 
 //    LogManager::getSingletonPtr()->logMessage("pInstance pos = " + pInstance[bballInstance[0].getPlayer()].getPosChange());
     bballInstance[0].nodeChangePosition(pInstance[bballInstance[0].getPlayer()].getPosChange());

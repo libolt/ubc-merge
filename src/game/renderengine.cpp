@@ -332,9 +332,12 @@ bool renderEngine::frameStarted()
     String currFPS = StringConverter::toString(lastFPS);
 //    cout << "FPS = " << currFPS << endl;
 
-    Ogre:Timer loopTime = gameE->getLoopTime();
+    Ogre:Timer loopTime; // = gameE->getLoopTime();
+    LogManager::getSingletonPtr()->logMessage("loopTime == " + loopTime.getMilliseconds());
+//    LogManager::getSingletonPtr()->logMessage("gameE->getLoopTime == " + gameE->getLoopTime().getMicroseconds());
+//    exit(0);
     unsigned long oldTime = gameE->getOldTime();
-    int newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
+    int newTime = gameE->loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
     float changeInTime = newTime - oldTime;
 
     LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
@@ -358,7 +361,6 @@ bool renderEngine::frameStarted()
 
     if ((newTime - oldTime) >= 70)
     {
-
         gameS->setTipOffComplete(true);
         gameS->setGameStarted(true);
         // checks to see if a game has been started

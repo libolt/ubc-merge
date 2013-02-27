@@ -48,6 +48,7 @@ public:
 
     // quits entire game
     virtual void quit();
+    Ogre::Timer loopTime;
 
 protected:
     gameEngine();
@@ -60,7 +61,6 @@ private:
     int i;
     int j;
     Ogre::Vector3 courtTranslateVector;
-    Ogre::Timer loopTime;
     unsigned long oldTime;
 
     static gameEngine *pInstance;
