@@ -307,6 +307,7 @@ bool gameState::logic()
     // checks if a player has taken a shot
     if (getShotTaken())
     {
+
         bballInstance[0].setDribbling(false);
     //		bballInstance[0].getNode()->setParent(mSceneMgr->getRootSceneNode());
         Ogre::Vector3 pos = bballInstance[0].getNode()->getPosition();

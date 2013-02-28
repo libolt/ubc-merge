@@ -97,8 +97,13 @@ string loader::findFile(string fileName)
     string filePath;        // stores path to a file
     std::vector<std::string> pathArray;
     string dataPath = UBC_DATADIR;
+
+    LogManager::getSingletonPtr()->logMessage("dataPath = " +dataPath);
+
     dataPath += "/";
     pathArray = pathSplit(dataPath);
+    LogManager::getSingletonPtr()->logMessage("pathArray[0] = " +pathArray[0]);
+    LogManager::getSingletonPtr()->logMessage("pathArray[1] = " +pathArray[1]);
 
 
     for (int x = 0; x < 3; x++)
@@ -107,23 +112,32 @@ string loader::findFile(string fileName)
         {
             filePath.clear();
             // builds path to players.txt
-            filePath.append(pathArray[x]);
-            filePath.append(fileName);
-            fstream fileOpen;
-            //      if (!(lineupFont = TTF_OpenFont(file.c_str(), 20)));
-            fileOpen.open(filePath.c_str(), ios::in);
-            if (!fileOpen)
+            if (x == 1)
             {
-                    LogManager::getSingletonPtr()->logMessage("failed to load " + filePath);
-    //                              exit(0);
+//               filePath.append(":");
             }
+                filePath.append(pathArray[x]);
+                LogManager::getSingletonPtr()->logMessage("pathArray == " + pathArray[x]);
 
-            else
-            {
-//                              cout << "File Exists at: " << filePath << endl;
-                // opens players.txt
-                fileLoaded = true;
-            }
+                filePath.append(fileName);
+                LogManager::getSingletonPtr()->logMessage("filePath = " +filePath);
+//               exit(0);
+                fstream fileOpen;
+                //      if (!(lineupFont = TTF_OpenFont(file.c_str(), 20)));
+                fileOpen.open(filePath.c_str(), ios::in);
+                if (!fileOpen)
+                {
+                        LogManager::getSingletonPtr()->logMessage("failed to load " + filePath);
+        //                              exit(0);
+                }
+
+                else
+                {
+    //                              cout << "File Exists at: " << filePath << endl;
+                    // opens players.txt
+                    fileLoaded = true;
+                }
+
         }
         else
         {
@@ -200,6 +214,8 @@ bool loader::loadXMLFile(string fileName)
 bool loader::loadTeams()
 {
     string teamList = findFile("teams/teams.xml");
+    LogManager::getSingletonPtr()->logMessage("teamList = " +teamList);
+
 //  cout << "teamList = " << teamList << endl;
     loadTeamListFile(teamList);
 

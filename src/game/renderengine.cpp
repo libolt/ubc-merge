@@ -332,10 +332,6 @@ bool renderEngine::frameStarted()
     String currFPS = StringConverter::toString(lastFPS);
 //    cout << "FPS = " << currFPS << endl;
 
-    Ogre:Timer loopTime; // = gameE->getLoopTime();
-    LogManager::getSingletonPtr()->logMessage("loopTime == " + loopTime.getMilliseconds());
-//    LogManager::getSingletonPtr()->logMessage("gameE->getLoopTime == " + gameE->getLoopTime().getMicroseconds());
-//    exit(0);
     unsigned long oldTime = gameE->getOldTime();
     int newTime = gameE->loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
     float changeInTime = newTime - oldTime;
@@ -376,7 +372,7 @@ bool renderEngine::frameStarted()
 
 
         oldTime = newTime;
-
+        gameE->setOldTime(oldTime);
     }
 
         if (input->processInput() == false)
