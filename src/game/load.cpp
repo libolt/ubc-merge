@@ -12,6 +12,8 @@
 
 #include "ubcapp.h"
 
+#include "boost/shared_ptr.hpp"
+
 using namespace std;
 
 loader::loader()
@@ -103,7 +105,7 @@ string loader::findFile(string fileName)
     dataPath += "/";
     pathArray = pathSplit(dataPath);
     LogManager::getSingletonPtr()->logMessage("pathArray[0] = " +pathArray[0]);
-    LogManager::getSingletonPtr()->logMessage("pathArray[1] = " +pathArray[1]);
+ //   LogManager::getSingletonPtr()->logMessage("pathArray[1] = " +pathArray[1]);
 
 
     for (int x = 0; x < 3; x++)
@@ -112,16 +114,15 @@ string loader::findFile(string fileName)
         {
             filePath.clear();
             // builds path to players.txt
-            if (x == 1)
-            {
+//            if (x == 1)
+//            {
 //               filePath.append(":");
-            }
+//            }
                 filePath.append(pathArray[x]);
                 LogManager::getSingletonPtr()->logMessage("pathArray == " + pathArray[x]);
 
                 filePath.append(fileName);
                 LogManager::getSingletonPtr()->logMessage("filePath = " +filePath);
-//               exit(0);
                 fstream fileOpen;
                 //      if (!(lineupFont = TTF_OpenFont(file.c_str(), 20)));
                 fileOpen.open(filePath.c_str(), ios::in);
@@ -144,7 +145,6 @@ string loader::findFile(string fileName)
             return(filePath);
         }
     }
-
     if (!fileLoaded)
     {
         LogManager::getSingletonPtr()->logMessage("failed to find file: " + fileName);

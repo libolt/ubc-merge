@@ -18,12 +18,15 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "boost/shared_array.hpp"
 #include "gamestate.h"
 #include "load.h"
 #include "playerdata.h"
 #include "players.h"
 #include "renderengine.h"
 #include "teams.h"
+
+
 
 gameState *gameState::pInstance = 0;
 
@@ -115,7 +118,7 @@ bool gameState::assignPlayers()
     teams *team = teams::Instance();
 
     std::vector<teamData> teamN = team->getTeamArray(); // stores the contents of teamArray in teamN
-
+//    boost::shared_ptr<teamData> teamN; // = team->getTeamArray(); // stores the contents of teamArray in teamN
     // sets the players used on both teams
     std::vector<int> teamIDS = gameS->getTeamID();  // gets the teamIDs
     std::vector<int> team1Starters;  // stores team 1 starters
@@ -384,6 +387,7 @@ bool gameState::logic()
         {
             LogManager::getSingletonPtr()->logMessage("oldPlayerDirection = " + oldPlayerDirection[i]);
             LogManager::getSingletonPtr()->logMessage("playerDirection = " + playerDirection[i]);
+            LogManager::getSingletonPtr()->logMessage("bball player = " + bballInstance[0].getPlayer());
             pInstance[bballInstance[0].getPlayer()] = pInstance[i];
 //            playerNodes.at(bballInstance[0].getPlayer()) = playerNodes.at(i);  // sets the current player node
             switch (playerDirection[i])
@@ -409,6 +413,7 @@ bool gameState::logic()
                     if (i == bballInstance[0].getPlayer())
                     {
                         bballInstance[0].getNode()->setPosition(playerPos[0] - 0.0f, playerPos[1] - 1.0f, playerPos[2] - 1.50f);
+
                     }
                     break;
                 case 2:

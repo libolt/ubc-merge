@@ -22,7 +22,7 @@
 #define _TEAMS_H_
 
 #include <string>
-
+#include "boost/shared_array.hpp"
 #include "teamdata.h"
 
 // class representing team data
@@ -56,6 +56,7 @@ public:
 
     // returns array of player
     std::vector<teamData> getTeamArray();
+//    boost::shared_array<teamData> getTeamArray();
     // adds to array of player;
     virtual void setTeamArray(teamData data);
 
@@ -66,6 +67,10 @@ protected:
 private:
     static teams *pInstance;
 
+//    boost::shared_ptr<teamData> teamData_managed;
+//    std::vector<boost::shared_ptr<teamData>> teamArray;
+//    boost::shared_array<teamData> teamArray;
+//    typedef boost::shared_ptr<teamData> teamDataPtr;
     std::vector<teamData> teamArray;
     int teamOne;
     int teamTwo;
