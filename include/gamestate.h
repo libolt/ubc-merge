@@ -38,6 +38,8 @@ class gameState
     // Import from games class
     virtual bool setupState();   // sets up the game condition
     virtual bool logic();   // carries out in game logic
+    virtual void shotLogic(Ogre::Vector3 playerPos);   // carries out basketball shot logic
+    virtual void updatePlayerDirections(Ogre::Vector3 playerPos);  // updates the direction players are facing
     virtual bool assignTeams(); // assigns the teams which are playing
     virtual bool assignPlayers();   // assigns the players that are playing.
 
