@@ -327,6 +327,7 @@ bool gameState::logic()
 
     if (i < 200)
     {
+
         j = 0;
         pInstance[bballInstance[0].getPlayer()].getNode()->translate(0.02f, 0.0f, 0.0f);
         playerDirection[1] = 4;
@@ -363,7 +364,7 @@ void gameState::shotLogic(Ogre::Vector3 playerPos)
     {
 
         bballInstance[0].setDribbling(false);
-    //		bballInstance[0].getNode()->setParent(mSceneMgr->getRootSceneNode());
+//    		bballInstance[0].getNode()->setParent(mSceneMgr->getRootSceneNode());
         Ogre::Vector3 pos = bballInstance[0].getNode()->getPosition();
         bballInstance[0].setMaxHeight(pos[1] + 10.0f);
         bballInstance[0].setMinHeight(pos[1] - 10.0f);

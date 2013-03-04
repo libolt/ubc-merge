@@ -224,32 +224,11 @@ void players::setTotalPlayers(int players)
     totalPlayers = players;
 }
 
-
-
-/* void players::setPlayerSprite(int playerNumber,SDL_Surface *sprite)
-{
-	switch (playerNumber)
-	{
-		case 0:
-			playerSprite1 = sprite;
-			break;
-		default:
-			break;
-	}
-}
-
-SDL_Surface *players::getPlayerSprite(int playerNumber)
-{
-	return(0);
-}
-*/
-
-
 // change positions of players nodes
 bool players::changePositions()
 {
     gameState *gameS = gameState::Instance();
-
+//exit(0);
     std::vector <int> playerIDS = gameS->getPlayerID();      // copies playerID values to playerIDS
     std::vector <int>::iterator playersIT;   // iterator for player IDs
 
@@ -268,6 +247,7 @@ bool players::changePositions()
 
 int players::checkPlayerMoveStatus(int player, int positionXCoord, int positionYCoord)
 {
+
     int playerXCoord = 0;// = playerGame[player].getPlayerXCoord();
     int playerYCoord = 0;// = playerGame[player].getPlayerYCoord();
 //	int object1X = playerXCoords[player];

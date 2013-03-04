@@ -43,7 +43,6 @@ basketballs* basketballs::Instance()
 
     direction = 0;	// 0 = stopped 1 = up 2 = down 3 = left 4 = right
 
-//	SDL_Rect basketballCoords;
 
     xCoord = 0;
     yCoord = 0;
@@ -315,6 +314,7 @@ Ogre::Vector3 basketballs::calculatePositionChange()
     // sets up the Tip Off animation if true
     if (tipOffStart)
     {
+
         minHeight = pos[1] - 8.0f;
         minHeightReached = false;
         velocity[1] = 0.90f;	// sets the y velocity of the ball
@@ -392,6 +392,7 @@ Ogre::Vector3 basketballs::calculatePositionChange()
     }
     else
     {
+
         if (!dribbling && !tipOff)
         {
             if (!gameS->getShotComplete())
