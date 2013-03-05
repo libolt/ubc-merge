@@ -19,5 +19,78 @@
  ***************************************************************************/
 
 #include "physicsengine.h"
+#include "renderengine.h"
 
-//#include "OgreBulletDynamics.h"
+physicsEngine* physicsEngine::pInstance = 0;
+physicsEngine* physicsEngine::Instance()
+{
+    if (pInstance == 0)  // is it the first call?
+    {
+        pInstance = new physicsEngine; // create sole instance
+    }
+    return pInstance; // address of sole instance
+}
+
+
+//-------------------------------------------------------------------------------------
+physicsEngine::physicsEngine()
+{
+	    //Bullet initialisation.
+	    broadPhase = new btAxisSweep3(btVector3(-10000,-10000,-10000), btVector3(10000,10000,10000), 1024);
+	    collisionConfig = new btDefaultCollisionConfiguration();
+	    dispatcher = new btCollisionDispatcher(collisionConfig);
+	    solver = new btSequentialImpulseConstraintSolver();
+
+	    world = new btDiscreteDynamicsWorld(dispatcher, broadPhase, solver, collisionConfig);
+        world->setGravity(btVector3(0,-9.8,0));
+
+    //FIXME: Hack to set total number of players for physics to 10, set this to be dynamic
+    btRigidBody *body;
+    for (int i=0; i<10; ++i)
+    {
+ //       playerBody.push_back(*body);
+    }
+
+}
+//-------------------------------------------------------------------------------------
+physicsEngine::~physicsEngine()
+{
+    //Free rigid bodies
+
+    // FIXME!: Fix this so that it relies on a variable that stores total number of players
+    for (int i=0; i<10; ++i)
+    {
+//        world->removeRigidBody(*playerBody[i]);
+    }
+//    delete playerBody->getMotionState();
+//    delete playerBody;
+//    delete playerShape;
+
+    world->removeRigidBody(courtBody);
+    delete courtBody->getMotionState();
+    delete courtBody;
+    delete courtShape->getMeshInterface();
+    delete courtShape;
+
+    //Free Bullet stuff.
+    delete debugDraw;
+    delete world;
+
+    delete solver;
+    delete dispatcher;
+    delete collisionConfig;
+    delete broadPhase;
+
+}
+
+void physicsEngine::setupState(void)
+{
+
+    renderEngine *render = renderEngine::Instance();
+
+    // Debug drawing!
+    debugDraw = new BtOgre::DebugDrawer(render->getMSceneMgr()->getRootSceneNode(), world);
+    world->setDebugDrawer(debugDraw);
+
+
+}

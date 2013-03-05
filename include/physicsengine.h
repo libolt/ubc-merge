@@ -21,6 +21,42 @@
 #ifndef _PHYSICSENGINE_H_
 #define _PHYSICSENGINE_H_
 
+#include <vector>
 
+#include "BtOgrePG.h"
+#include "BtOgreGP.h"
+#include "BtOgreExtras.h"
+
+
+class physicsEngine
+{
+public:
+    virtual ~physicsEngine();	// destructor
+    static physicsEngine *Instance();
+
+    virtual void setupState();  // sets up state of physics engine.
+
+protected:
+    physicsEngine();
+    physicsEngine(const physicsEngine&);
+    physicsEngine &operator = (const physicsEngine&);
+
+private:
+
+    static physicsEngine *pInstance;
+    btDynamicsWorld *world;
+    BtOgre::DebugDrawer *debugDraw;
+    btAxisSweep3 *broadPhase;
+    btDefaultCollisionConfiguration *collisionConfig;
+	btCollisionDispatcher *dispatcher;
+	btSequentialImpulseConstraintSolver *solver;
+	std::vector<btRigidBody> playerBody;
+	std::vector<btCollisionShape> playerShape;
+
+//	Ogre::Entity *mGroundEntity;
+	btRigidBody *courtBody;
+	btBvhTriangleMeshShape *courtShape;
+
+};
 
 #endif // PHYSICS_H_INCLUDED

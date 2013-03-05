@@ -23,6 +23,7 @@
 #include "load.h"
 #include "playerdata.h"
 #include "players.h"
+#include "physicsengine.h"
 #include "renderengine.h"
 #include "teams.h"
 
@@ -237,6 +238,7 @@ bool gameState::setupState()
     renderEngine *render = renderEngine::Instance();
     teams *team = teams::Instance();
     loader *load = loader::Instance();
+    physicsEngine *pEngine = physicsEngine::Instance();
 
     load->loadTeams();  // loads teams from XML files
     load->loadPlayers();    // loads players from XML files
@@ -254,6 +256,7 @@ bool gameState::setupState()
 
     createCourtInstances();  // creates the court instances
 
+    pEngine->setupState();  // sets up the Physics Engine state
 
 //        Ogre::Entity *ent;
 //        ent = player->getModel(0);
