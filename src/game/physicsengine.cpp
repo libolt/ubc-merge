@@ -18,6 +18,10 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "gamestate.h"
+#include "input.h"
+#include "players.h"
+#include "playerstate.h"
 #include "physicsengine.h"
 #include "renderengine.h"
 
@@ -46,9 +50,12 @@ physicsEngine::physicsEngine()
 
     //FIXME: Hack to set total number of players for physics to 10, set this to be dynamic
     btRigidBody *body;
+    btCollisionShape *shape;
     for (int i=0; i<10; ++i)
     {
- //       playerBody.push_back(*body);
+        playerBody.push_back(*body);
+//        playerShape.push_back(new btCollisionShape);
+//        playerShape.push_back(&shape);
     }
 
 }
@@ -93,4 +100,52 @@ void physicsEngine::setupState(void)
     world->setDebugDrawer(debugDraw);
 
 
+}
+
+void physicsEngine::updateState(float changeInTime)
+{
+    inputSystem *input = inputSystem::Instance();
+
+    String CIT = StringConverter::toString(changeInTime);
+
+    LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
+    //Update Bullet world. Don't forget the debugDrawWorld() part!
+//    world->stepSimulation(evt.timeSinceLastFrame, 10);
+    world->stepSimulation(changeInTime, 10);
+    world->debugDrawWorld();
+
+    //Shows debug if F3 key down.
+    debugDraw->setDebugMode(input->getMKeyboard()->isKeyDown(OIS::KC_F3));
+    debugDraw->step();
+
+
+}
+
+void physicsEngine::setupPlayerPhysics()
+{
+    gameState *gameS = gameState::Instance();
+    players *player = players::Instance();
+
+    btCollisionShape *shape;
+    std::vector<playerState> pInstance = gameS->getPlayerInstance();
+//    shape = *playerShape[2];
+    // create shape
+    BtOgre::StaticMeshToShapeConverter converter(pInstance[2].getModel());
+    playerShape2 = converter.createSphere();
+
+    // calculates inertia
+    btScalar mass = 5;
+    btVector3 inertia;
+    playerShape2->calculateLocalInertia(mass, inertia);
+
+    //Create BtOgre MotionState (connects Ogre and Bullet).
+    BtOgre::RigidBodyState *playerState = new BtOgre::RigidBodyState(pInstance[2].getNode());
+
+    //Create the Body.
+    playerBody[2] = new btRigidBody(mass, playerState, playerShape2, inertia);
+    world->addRigidBody(playerBody[2]);
+
+
+
+//    playerShape.push_back(*shape);
 }

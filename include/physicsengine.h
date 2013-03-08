@@ -35,6 +35,10 @@ public:
     static physicsEngine *Instance();
 
     virtual void setupState();  // sets up state of physics engine.
+    virtual void updateState(float changeInTime); // updates the state of the physics engine.
+
+    // sets up object physics
+    virtual void setupPlayerPhysics(); // setsup up player physics
 
 protected:
     physicsEngine();
@@ -52,6 +56,7 @@ private:
 	btSequentialImpulseConstraintSolver *solver;
 	std::vector<btRigidBody> playerBody;
 	std::vector<btCollisionShape> playerShape;
+	btCollisionShape *playerShape2;
 
 //	Ogre::Entity *mGroundEntity;
 	btRigidBody *courtBody;

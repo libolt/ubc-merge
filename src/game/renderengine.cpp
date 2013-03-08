@@ -18,11 +18,13 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "renderengine.h"
+#include "config.h"
+
 #include "gameengine.h"
 #include "gamestate.h"
 #include "gui.h"
-#include "config.h"
+#include "physicsengine.h"
+#include "renderengine.h"
 #include "soundengine.h"
 #include "teams.h"
 
@@ -326,6 +328,7 @@ bool renderEngine::frameStarted()
     gameState *gameS = gameState::Instance(); // FIXME: gameState shouldn't be called in render engine
     inputSystem *input = inputSystem::Instance();
     players *player = players::Instance();
+    physicsEngine *physEngine = physicsEngine::Instance();
     renderEngine * render = renderEngine::Instance();
 
     float lastFPS = render->getMWindow()->getLastFPS();
@@ -375,10 +378,12 @@ bool renderEngine::frameStarted()
         gameE->setOldTime(oldTime);
     }
 
-        if (input->processInput() == false)
-        {
-            gameE->setQuitGame(true);
-        }
+    if (input->processInput() == false)
+    {
+        gameE->setQuitGame(true);
+    }
+
+    physEngine->updateState(changeInTime);
 
 //	std::cout << "Loop Time = " << loopTime.getMilliseconds() << std::endl;
 

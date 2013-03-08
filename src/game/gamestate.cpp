@@ -238,7 +238,7 @@ bool gameState::setupState()
     renderEngine *render = renderEngine::Instance();
     teams *team = teams::Instance();
     loader *load = loader::Instance();
-    physicsEngine *pEngine = physicsEngine::Instance();
+    physicsEngine *physEngine = physicsEngine::Instance();
 
     load->loadTeams();  // loads teams from XML files
     load->loadPlayers();    // loads players from XML files
@@ -256,8 +256,9 @@ bool gameState::setupState()
 
     createCourtInstances();  // creates the court instances
 
-    pEngine->setupState();  // sets up the Physics Engine state
+    physEngine->setupState();  // sets up the Physics Engine state
 
+    physEngine->setupPlayerPhysics(); // sets up physics state for players
 //        Ogre::Entity *ent;
 //        ent = player->getModel(0);
 //        player->mAnimationState2 = ent->getAnimationState("Walk");
