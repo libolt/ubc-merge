@@ -199,18 +199,17 @@ bool gameState::setupTipOff()
     std::vector <playerState> pInstance = getPlayerInstance();
 //    std::vector <Ogre::SceneNode*> playerNodes = player->getNode();
 
-    pInstance[0].getNode()->setPosition(0.0f,-23.5f,380.0f);
     // set initial player coordinates for the tipoff
-    pInstance[0].getNode()->setPosition(0.0f,-23.5f,380.0f);
-    pInstance[1].getNode()->setPosition(5.5f,-23.5f,360.0f);
-    pInstance[2].getNode()->setPosition(-3.0f,-23.5f,360.0f);
-    pInstance[3].getNode()->setPosition(-6.0f,-23.5f,360.0f);
-    pInstance[4].getNode()->setPosition(-0.5f,-23.5f,350.0f);
-    pInstance[5].getNode()->setPosition(-12.0f,-23.5f,360.0f);
-    pInstance[6].getNode()->setPosition(-15.0f,-23.5f,360.0f);
-    pInstance[7].getNode()->setPosition(-6.0f,-23.5f,380.0f);
-    pInstance[8].getNode()->setPosition(-3.0f,-23.5f,370.0f);
-    pInstance[9].getNode()->setPosition(2.5f,-23.5f,350.0f);
+    pInstance[0].getNode()->setPosition(10.0f,-13.5f,380.0f);
+    pInstance[1].getNode()->setPosition(5.5f,-13.5f,360.0f);
+    pInstance[2].getNode()->setPosition(-3.0f,-13.5f,360.0f);
+    pInstance[3].getNode()->setPosition(-6.0f,-13.5f,360.0f);
+    pInstance[4].getNode()->setPosition(-0.5f,-13.5f,350.0f);
+    pInstance[5].getNode()->setPosition(-12.0f,-13.5f,360.0f);
+    pInstance[6].getNode()->setPosition(-15.0f,-13.5f,360.0f);
+    pInstance[7].getNode()->setPosition(-6.0f,-13.5f,380.0f);
+    pInstance[8].getNode()->setPosition(-3.0f,-13.5f,370.0f);
+    pInstance[9].getNode()->setPosition(2.5f,-13.5f,350.0f);
 
 //    player->setNode(playerNodes);   // copies playerNodes std::vector to Node std::vector in players class
     return true;
@@ -225,7 +224,7 @@ bool gameState::executeTipOff()
     std::vector<basketballs> bballInstance = getBasketballInstance();
 
     bballInstance[0].nodeChangePosition(bballInstance[0].calculatePositionChange());
-
+exit(0);
    setBasketballInstance(bballInstance);
     return true;
 }
@@ -259,6 +258,11 @@ bool gameState::setupState()
     physEngine->setupState();  // sets up the Physics Engine state
 
     physEngine->setupPlayerPhysics(); // sets up physics state for players
+
+    physEngine->setupCourtPhysics(); // sets up physics state for court
+
+    physEngine->setupBasketballPhysics(); // sets up physics state for basketball
+
 //        Ogre::Entity *ent;
 //        ent = player->getModel(0);
 //        player->mAnimationState2 = ent->getAnimationState("Walk");
@@ -328,6 +332,7 @@ bool gameState::logic()
 
     std::vector<int> playerDirection = player->getPlayerDirection(); // stores contents of playerDirectdion from players class in local variable
     std::vector<int> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable
+
 
     if (i < 200)
     {

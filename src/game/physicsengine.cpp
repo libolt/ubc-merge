@@ -51,13 +51,15 @@ physicsEngine::physicsEngine()
     //FIXME: Hack to set total number of players for physics to 10, set this to be dynamic
     btRigidBody *body;
     btCollisionShape *shape;
+    BtOgre::RigidBodyState *state;
     for (int i=0; i<10; ++i)
     {
-        playerBody.push_back(*body);
+        playerBody.push_back(body);
+        playerBodyState.push_back(state);
 //        playerShape.push_back(new btCollisionShape);
-//        playerShape.push_back(&shape);
+        playerShape.push_back(shape);
     }
-
+//    playerShape = new btCollisionShape[10];
 }
 //-------------------------------------------------------------------------------------
 physicsEngine::~physicsEngine()
@@ -126,26 +128,80 @@ void physicsEngine::setupPlayerPhysics()
     gameState *gameS = gameState::Instance();
     players *player = players::Instance();
 
-    btCollisionShape *shape;
     std::vector<playerState> pInstance = gameS->getPlayerInstance();
-//    shape = *playerShape[2];
-    // create shape
-    BtOgre::StaticMeshToShapeConverter converter(pInstance[2].getModel());
-    playerShape2 = converter.createSphere();
 
-    // calculates inertia
-    btScalar mass = 5;
-    btVector3 inertia;
-    playerShape2->calculateLocalInertia(mass, inertia);
+    // loops through physics objects for all players
+    for (int i=0; i<1; ++i)
+    {
 
-    //Create BtOgre MotionState (connects Ogre and Bullet).
-    BtOgre::RigidBodyState *playerState = new BtOgre::RigidBodyState(pInstance[2].getNode());
+        // create shape
+        BtOgre::StaticMeshToShapeConverter converter(pInstance[i].getModel());
+        playerShape.at(i) = converter.createSphere();
 
-    //Create the Body.
-    playerBody[2] = new btRigidBody(mass, playerState, playerShape2, inertia);
-    world->addRigidBody(playerBody[2]);
+        // calculates inertia
+        btScalar mass = 5;
+        btVector3 inertia, inertia2;
+        playerShape.at(i)->calculateLocalInertia(mass, inertia);
 
+        //Create BtOgre MotionState (connects Ogre and Bullet).
+    //    BtOgre::RigidBodyState *bodyState = new BtOgre::RigidBodyState(pInstance[2].getNode());
+        playerBodyState.at(i) = new BtOgre::RigidBodyState(pInstance[i].getNode());
+        //Create the Body.
+        playerBody.at(i) = new btRigidBody(mass, playerBodyState.at(i), playerShape.at(i), inertia);
+
+        world->addRigidBody(playerBody.at(i));
+
+    }
 
 
 //    playerShape.push_back(*shape);
+}
+
+void physicsEngine::setupCourtPhysics()
+{
+//    courtState *courtS = courtState::Instance();
+    gameState *gameS = gameState::Instance();
+
+    std::vector<courtState> cInstance = gameS->getCourtInstance();
+
+    //Create the ground shape.
+    BtOgre::StaticMeshToShapeConverter converter(cInstance.at(0).getModel());
+    courtShape = converter.createTrimesh();
+
+    //Create MotionState (no need for BtOgre here, you can use it if you want to though).
+    courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,0,0)));
+
+    //Create the Body.
+    courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
+    world->addRigidBody(courtBody);
+
+}
+
+void physicsEngine::setupBasketballPhysics()
+{
+//    basketballs *bball = basketballs::Instance();
+    gameState *gameS = gameState::Instance();
+
+    std::vector<basketballs> bInstance = gameS->getBasketballInstance();
+
+    //Create the ground shape.
+    BtOgre::StaticMeshToShapeConverter converter(bInstance.at(0).getModel());
+    basketballShape = converter.createTrimesh();
+
+/*
+    btScalar mass = 5;
+    btVector3 inertia, inertia2;
+    basketballShape->calculateLocalInertia(mass, inertia);
+*/
+
+    //Create MotionState (no need for BtOgre here, you can use it if you want to though).
+//    basketballBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,0,0)));
+
+    //Create BtOgre MotionState (connects Ogre and Bullet).
+    basketballBodyState= new BtOgre::RigidBodyState(bInstance.at(0).getNode());
+
+    //Create the Body.
+    basketballBody = new btRigidBody(0, basketballBodyState, basketballShape, btVector3(0,0,0));
+    world->addRigidBody(basketballBody);
+
 }

@@ -39,6 +39,8 @@ public:
 
     // sets up object physics
     virtual void setupPlayerPhysics(); // setsup up player physics
+    virtual void setupCourtPhysics();   // sets up court physics
+    virtual void setupBasketballPhysics(); // sets up basketball physics
 
 protected:
     physicsEngine();
@@ -54,14 +56,21 @@ private:
     btDefaultCollisionConfiguration *collisionConfig;
 	btCollisionDispatcher *dispatcher;
 	btSequentialImpulseConstraintSolver *solver;
-	std::vector<btRigidBody> playerBody;
-	std::vector<btCollisionShape> playerShape;
-	btCollisionShape *playerShape2;
 
-//	Ogre::Entity *mGroundEntity;
+    // players
+	std::vector<btRigidBody *> playerBody;
+	std::vector<btCollisionShape *> playerShape;
+    std::vector<BtOgre::RigidBodyState *> playerBodyState;
+
+    // court
 	btRigidBody *courtBody;
 	btBvhTriangleMeshShape *courtShape;
+    btDefaultMotionState *courtBodyState;
 
+    // basketball
+    btRigidBody *basketballBody;
+    btBvhTriangleMeshShape *basketballShape;
+    BtOgre::RigidBodyState *basketballBodyState;
 };
 
 #endif // PHYSICS_H_INCLUDED
