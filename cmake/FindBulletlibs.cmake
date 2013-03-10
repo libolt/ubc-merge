@@ -17,38 +17,71 @@
 FIND_PATH(BULLET_INCLUDE_DIRS Bullet-C-Api.h
     PATHS
     $ENV{BULLET_HOME}/include
+    $ENV{BULLET_ROOT}/src
     /usr/local
     /usr
     PATH_SUFFIXES bullet
     )
 
-FIND_LIBRARY(BULLETDYNAMICS_LIBRARY
-    NAMES libBulletDynamics.a
+FIND_LIBRARY(BULLETDYNAMICS_LIBRARY_REL
+	NAMES libBulletDynamics.a BulletDynamics
     PATHS
     $ENV{BULLET_HOME}
+    $ENV{BULLET_ROOT}
+    /usr/local
+    /usr
+    PATH_SUFFIXES lib
+    )
+FIND_LIBRARY(BULLETDYNAMICS_LIBRARY_DBG
+	NAMES libBulletDynamics_d.a BulletDynamics_debug
+    PATHS
+    $ENV{BULLET_HOME}
+    $ENV{BULLET_ROOT}
     /usr/local
     /usr
     PATH_SUFFIXES lib
     )
 
-FIND_LIBRARY(BULLETCOLLISION_LIBRARY
-    NAMES libBulletCollision.a
+FIND_LIBRARY(BULLETCOLLISION_LIBRARY_REL
+	NAMES libBulletCollision.a BulletCollision
     PATHS
     $ENV{BULLET_HOME}
+    $ENV{BULLET_ROOT}
+    /usr/local
+    /usr
+    PATH_SUFFIXES lib
+    )
+FIND_LIBRARY(BULLETCOLLISION_LIBRARY_DBG
+	NAMES libBulletCollision_d.a BulletCollision_debug
+    PATHS
+    $ENV{BULLET_HOME}
+    $ENV{BULLET_ROOT}
+    /usr/local
+    /usr
+    PATH_SUFFIXES lib
+   ) 
+FIND_LIBRARY(BULLETLINEARMATH_LIBRARY_REL
+	NAMES libLinearMath.a LinearMath
+    PATHS
+    $ENV{BULLET_HOME}
+    $ENV{BULLET_ROOT}
+    /usr/local
+    /usr
+    PATH_SUFFIXES lib
+    )
+FIND_LIBRARY(BULLETLINEARMATH_LIBRARY_DBG
+	NAMES libLinearMath_d.a LinearMath_debug
+    PATHS
+    $ENV{BULLET_HOME}
+    $ENV{BULLET_ROOT}
     /usr/local
     /usr
     PATH_SUFFIXES lib
     )
 
-FIND_LIBRARY(BULLETLINEARMATH_LIBRARY
-    NAMES libLinearMath.a
-    PATHS
-    $ENV{BULLET_HOME}
-    /usr/local
-    /usr
-    PATH_SUFFIXES lib
-    )
-
+ make_library_set(BULLETDYNAMICS_LIBRARY)
+ make_library_set(BULLETCOLLISION_LIBRARY)
+ make_library_set(BULLETLINEARMATH_LIBRARY)
 
 # handle the QUIETLY and REQUIRED arguments and set ENET_FOUND to TRUE if
 # all listed variables are TRUE

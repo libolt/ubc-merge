@@ -14,16 +14,16 @@
 # Lots of simplifications by Adrian Friedli
 # > www.orxonox.net <
 
-FIND_PATH(OgreOggSound_INCLUDE_DIRS OgreOggSound/OgreOggSound.h
+FIND_PATH(OgreOggSound_INCLUDE_DIRS OgreOggSound.h
     PATHS
     $ENV{OGREOGGSOUND_HOME}/include
     /usr/local
     /usr
-    PATH_SUFFIXES include
+    PATH_SUFFIXES include OgreOggSound
     )
 
 FIND_LIBRARY(OgreOggSound_LIBRARY
-	NAMES libogreoggsound.dll.a libOgreOggSound.so
+	NAMES libogreoggsound.dll.a ogreoggsound libOgreOggSound.so
     PATHS
     $ENV{OGREOGGSOUND_HOME}
     /usr/local
