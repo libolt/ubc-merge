@@ -52,6 +52,7 @@ physicsEngine::physicsEngine()
     btRigidBody *body;
     btCollisionShape *shape;
     BtOgre::RigidBodyState *state;
+//    btDefaultMotionState *state;
     for (int i=0; i<10; ++i)
     {
         playerBody.push_back(body);
@@ -113,6 +114,7 @@ void physicsEngine::updateState(float changeInTime)
     LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
     //Update Bullet world. Don't forget the debugDrawWorld() part!
 //    world->stepSimulation(evt.timeSinceLastFrame, 10);
+    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
     world->stepSimulation(changeInTime, 10);
     world->debugDrawWorld();
 
@@ -131,7 +133,7 @@ void physicsEngine::setupPlayerPhysics()
     std::vector<playerState> pInstance = gameS->getPlayerInstance();
 
     // loops through physics objects for all players
-    for (int i=0; i<1; ++i)
+    for (int i=0; i<10; ++i)
     {
 
         // create shape
@@ -146,6 +148,7 @@ void physicsEngine::setupPlayerPhysics()
         //Create BtOgre MotionState (connects Ogre and Bullet).
     //    BtOgre::RigidBodyState *bodyState = new BtOgre::RigidBodyState(pInstance[2].getNode());
         playerBodyState.at(i) = new BtOgre::RigidBodyState(pInstance[i].getNode());
+//        playerBodyState.at(i) = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,0,0)));
         //Create the Body.
         playerBody.at(i) = new btRigidBody(mass, playerBodyState.at(i), playerShape.at(i), inertia);
 

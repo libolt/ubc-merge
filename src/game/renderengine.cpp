@@ -52,6 +52,9 @@ renderEngine::renderEngine()
 
     const String pluginDir = OGRE_PLUGIN_DIR;
 
+//    string pluginDir;
+//    const char pluginDir = OGRE_PLUGIN_DIR;
+
     #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
     const String buildType = BUILD_TYPE;
 
@@ -383,7 +386,10 @@ bool renderEngine::frameStarted()
         gameE->setQuitGame(true);
     }
 
+    if (changeInTime >= 1000.0/60.0)
+    {
     physEngine->updateState(changeInTime);
+    }
 
 //	std::cout << "Loop Time = " << loopTime.getMilliseconds() << std::endl;
 
