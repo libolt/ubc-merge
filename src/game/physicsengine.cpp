@@ -114,7 +114,7 @@ void physicsEngine::updateState(float changeInTime)
     LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
     //Update Bullet world. Don't forget the debugDrawWorld() part!
 //    world->stepSimulation(evt.timeSinceLastFrame, 10);
-    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
+//    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
     world->stepSimulation(changeInTime, 10);
     world->debugDrawWorld();
 

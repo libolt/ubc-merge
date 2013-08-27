@@ -46,7 +46,7 @@ renderEngine* renderEngine::Instance()
 renderEngine::renderEngine()
 {
 //    GUISystem *gui = GUISystem::Instance();
-	    SoundSystem *sound = SoundSystem::Instance();
+    SoundSystem *sound = SoundSystem::Instance();
 
     mRoot = new Ogre::Root("", "", "Ogre.log");
 
