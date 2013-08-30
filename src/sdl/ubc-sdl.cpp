@@ -22,7 +22,53 @@
 
 // main
 
-int main(void)
+int main(int argc, char *argv[])
 {
+
+    if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0) {
+        fprintf(stderr,
+                "\nUnable to initialize SDL:  %s\n",
+                SDL_GetError()
+               );
+        return 1;
+    }
+
+
+	SDL_Window *sdlWindow = SDL_CreateWindow("title",
+	                             SDL_WINDOWPOS_UNDEFINED,
+	                             SDL_WINDOWPOS_UNDEFINED,
+	                             0, 0,
+	                             SDL_WINDOW_FULLSCREEN_DESKTOP);
+
+    SDL_SysWMinfo sysInfo;
+    SDL_VERSION( &sysInfo.version );
+
+    SDLTest_CommonState *state;
+
+    #if defined(WIN32) && !defined(UNIX)
+		HWND hWnd;
+        hWnd = sysInfo.info.win.window;
+    #elif defined(UNIX) && !defined(WIN32)
+       unsigned long hWnd = 0;
+       hWnd = sysInfo.info.x11.window;
+    #else
+    /* Error, both can't be defined or undefined same time */
+    #endif
+
+    Ogre::Root *mRoot;
+    Ogre::Camera *mCamera;
+    Ogre::SceneManager *mSceneMgr;
+    Ogre::RenderWindow *mWindow;
+   //	InputReader* mInputDevice;
+
+    Ogre::NameValuePairList misc;
+
+    Ogre::String strWindowHandle = Ogre::StringConverter::toString( hWnd);
+    misc["parentWindowHandle"] = strWindowHandle;
+
+    mWindow = mRoot->createRenderWindow("MainRenderWindow", state->window_w, state->window_h, false, &misc);
+    mWindow->setVisible( true );
+
+    atexit(SDL_Quit);
 
 }
