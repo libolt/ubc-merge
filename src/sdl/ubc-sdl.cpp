@@ -34,21 +34,20 @@ int main(int argc, char *argv[])
     }
 
 
-	SDL_Window *sdlWindow = SDL_CreateWindow("title",
+	SDL_Window *sdlWindow = SDL_CreateWindow("MainRenderWindow",
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED,
-	                             0, 0,
-	                             SDL_WINDOW_FULLSCREEN_DESKTOP);
+	                             1024, 768, 0);
 
     SDL_SysWMinfo sysInfo;
     SDL_VERSION( &sysInfo.version );
 
     SDLTest_CommonState *state;
 
-    #if defined(WIN32) && !defined(UNIX)
+    #if defined(WIN32) && !defined(__linux__)
 		HWND hWnd;
         hWnd = sysInfo.info.win.window;
-    #elif defined(UNIX) && !defined(WIN32)
+    #elif defined(__linux__) && !defined(WIN32)
        unsigned long hWnd = 0;
        hWnd = sysInfo.info.x11.window;
     #else
@@ -63,10 +62,66 @@ int main(int argc, char *argv[])
 
     Ogre::NameValuePairList misc;
 
-    Ogre::String strWindowHandle = Ogre::StringConverter::toString( hWnd);
-    misc["parentWindowHandle"] = strWindowHandle;
+    mRoot = new Ogre::Root("", "", "Ogre.log");
 
-    mWindow = mRoot->createRenderWindow("MainRenderWindow", state->window_w, state->window_h, false, &misc);
+    const Ogre::String pluginDir = OGRE_PLUGIN_DIR;
+
+//    string pluginDir;
+//    const char pluginDir = OGRE_PLUGIN_DIR;
+
+    #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+    const String buildType = BUILD_TYPE;
+
+    if (buildType == "Debug")
+    {
+        mRoot->loadPlugin(pluginDir + "/RenderSystem_Direct3D9_d");
+        mRoot->loadPlugin(pluginDir + "/Plugin_CgProgramManager_d");
+    }
+    else
+    {
+        mRoot->loadPlugin(pluginDir + "/RenderSystem_Direct3D9");
+        mRoot->loadPlugin(pluginDir + "/Plugin_CgProgramManager");
+    }
+    #elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+    mRoot->loadPlugin("RenderSystem_GL");
+    #else
+    mRoot->loadPlugin(pluginDir + "/RenderSystem_GL");
+    mRoot->loadPlugin(pluginDir + "/Plugin_CgProgramManager");
+    #endif
+
+    Ogre::RenderSystemList rsList = mRoot->getAvailableRenderers();
+
+/*	r_it = renderEngine->begin();
+    	mRoot->setRenderSystem(*r_it);
+	mWindow = mRoot->initialise(false);
+//	exit(0);
+*/
+	int c=0;
+	bool foundit = false;
+	Ogre::RenderSystem *selectedRenderSystem=0;
+	while(c < (int) rsList.size())
+	{
+		selectedRenderSystem = rsList.at(c);
+   		Ogre::String rname = selectedRenderSystem->getName();
+   		if(rname.compare("OpenGL Rendering Subsystem")==0)
+		{
+     			foundit=true;
+     			break;
+   		}
+   		c++; // <-- oh how clever
+ 	}
+// 	if(!foundit) exit(1); //we didn't find it...
+
+ 	//we found it, we might as well use it!
+ 	mRoot->setRenderSystem(selectedRenderSystem);
+
+
+    Ogre::String strWindowHandle = Ogre::StringConverter::toString((unsigned long)(sysInfo.info.x11.window));
+//    Ogre::String strWidth = Ogre::StringConverter::toString(state->window_w);
+    misc["parentWindowHandle"] = strWindowHandle;
+//    std::cout << strWidth << std::endl;
+//    exit(0);
+    mWindow = mRoot->createRenderWindow("MainRenderWindow", 1024, 768, false, &misc);
     mWindow->setVisible( true );
 
     atexit(SDL_Quit);
