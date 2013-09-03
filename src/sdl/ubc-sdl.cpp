@@ -172,7 +172,7 @@ int main(int argc, char *argv[])
 
 	// this next bit is for the sake of the input handler
 //	unsigned long hWnd;
-	mWindow->getCustomAttribute("WINDOW", &hWnd);
+	mWindow->getCustomAttribute("WINDOW", &winHandle);
 
     SDL_Event event;
     bool done;
@@ -182,8 +182,23 @@ int main(int argc, char *argv[])
     unsigned long oldTime = 0;
     Ogre::Timer loopTime;
     loopTime.reset();
+
+    // models
+    Ogre::SceneNode *playerNode;
+    Ogre::Entity *playerModel;
+    playerNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Player");
+    playerModel = mSceneMgr->createEntity("Player", "Player.mesh");
+
+    // attaches the model to the playerNode
+    playerNode->attachObject(playerModel);
+    // sets the size of playerNode
+//    playerNode->setScale(0.28f,0.28f,0.28f);
+    // sets the direction of playerNode
+//    playerNode->yaw ( Degree (-270));
+
+
     while (!done)
-	{
+    {
 
         lastFPS = mWindow->getLastFPS();
         String currFPS = StringConverter::toString(lastFPS);
@@ -209,8 +224,10 @@ int main(int argc, char *argv[])
 					  done = true;
 			}
 		 }
+
+		mRoot->renderOneFrame();
 //		std::cout << "done = " << done << std::endl;
-	  }
+    }
 
     	atexit(SDL_Quit);
 
