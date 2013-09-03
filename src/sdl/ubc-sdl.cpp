@@ -24,8 +24,10 @@
 
 int main(int argc, char *argv[])
 {
+//    renderEngine * render = renderEngine::Instance();
+//    gameEngine *gameE = gameEngine::Instance();
 
-    if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0) {
+	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0) {
         fprintf(stderr,
                 "\nUnable to initialize SDL:  %s\n",
                 SDL_GetError()
@@ -37,44 +39,48 @@ int main(int argc, char *argv[])
 	SDL_Window *sdlWindow = SDL_CreateWindow("MainRenderWindow",
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED,
-	                             1024, 768, 0);
+	                             1024,768, 0);
 
     SDL_SysWMinfo sysInfo;
     SDL_VERSION( &sysInfo.version );
 
     SDLTest_CommonState *state;
 
+    if (SDL_GetWindowWMInfo(sdlWindow, &sysInfo) <= 0)
+    {
+    	assert( false );
+    }
+
+    int x = 0;
+
+
+  Ogre::String winHandle;
     #if defined(WIN32) && !defined(__linux__)
 		HWND hWnd;
-        hWnd = sysInfo.info.win.window;
-    #elif defined(__linux__) && !defined(WIN32)
-       unsigned long hWnd = 0;
-       hWnd = sysInfo.info.x11.window;
-    #else
-    /* Error, both can't be defined or undefined same time */
+//        hWnd = sysInfo.info.win.window;
+		winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.win.window);
+		#elif defined(__linux__) && !defined(WIN32)
+        winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.x11.window);
+	#else
+    // Error, both can't be defined or undefined same time
     #endif
 
     Ogre::Root *mRoot;
     Ogre::Camera *mCamera;
     Ogre::SceneManager *mSceneMgr;
     Ogre::RenderWindow *mWindow;
-   //	InputReader* mInputDevice;
 
     Ogre::NameValuePairList misc;
 
     mRoot = new Ogre::Root("", "", "Ogre.log");
-
     const Ogre::String pluginDir = OGRE_PLUGIN_DIR;
 
-//    string pluginDir;
-//    const char pluginDir = OGRE_PLUGIN_DIR;
-
     #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-    const String buildType = BUILD_TYPE;
+    const Ogre::String buildType = BUILD_TYPE;
 
     if (buildType == "Debug")
     {
-        mRoot->loadPlugin(pluginDir + "/RenderSystem_Direct3D9_d");
+        mRoot->loadPlugin(pluginDir + "/RenderSystem_GL_d");
         mRoot->loadPlugin(pluginDir + "/Plugin_CgProgramManager_d");
     }
     else
@@ -91,11 +97,12 @@ int main(int argc, char *argv[])
 
     Ogre::RenderSystemList rsList = mRoot->getAvailableRenderers();
 
-/*	r_it = renderEngine->begin();
-    	mRoot->setRenderSystem(*r_it);
-	mWindow = mRoot->initialise(false);
+
+//	r_it = renderEngine->begin();
+//    	mRoot->setRenderSystem(*r_it);
+//	mWindow = mRoot->initialise(false);
 //	exit(0);
-*/
+
 	int c=0;
 	bool foundit = false;
 	Ogre::RenderSystem *selectedRenderSystem=0;
@@ -110,20 +117,101 @@ int main(int argc, char *argv[])
    		}
    		c++; // <-- oh how clever
  	}
-// 	if(!foundit) exit(1); //we didn't find it...
 
- 	//we found it, we might as well use it!
+	//we found it, we might as well use it!
  	mRoot->setRenderSystem(selectedRenderSystem);
+	selectedRenderSystem->setConfigOption("Full Screen","False");
+	selectedRenderSystem->setConfigOption("Video Mode","1024 x 768 @ 32-bit colour");
+//	mWindow = mRoot->initialise(true, "Ultimate Basketball Challenge");
+	mWindow = mRoot->initialise(false, "");
+
+    std::string dataPath = UBC_DATADIR;
+
+    Ogre::String mResourceGroup;  // stores resource locations
+//    QuickGUI::registerScriptParser();
+    Ogre::ResourceGroupManager *rsm = Ogre::ResourceGroupManager::getSingletonPtr();
+    rsm->createResourceGroup(mResourceGroup);
+	// load the basic resource location(s)
+	rsm->addResourceLocation(dataPath + "/Media", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/fonts", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/gui", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/models", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/materials/textures", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/materials/programs", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/materialss/scripts", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/materials", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/overlays", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/packs", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/skins", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/skins/qgui", "FileSystem", mResourceGroup);
+	rsm->addResourceLocation(dataPath + "/Media/Audio", "FileSystem", mResourceGroup);
+
+	rsm->initialiseResourceGroup(mResourceGroup);
 
 
-    Ogre::String strWindowHandle = Ogre::StringConverter::toString((unsigned long)(sysInfo.info.x11.window));
-//    Ogre::String strWidth = Ogre::StringConverter::toString(state->window_w);
-    misc["parentWindowHandle"] = strWindowHandle;
-//    std::cout << strWidth << std::endl;
-//    exit(0);
+    misc["parentWindowHandle"] = winHandle; //
+
     mWindow = mRoot->createRenderWindow("MainRenderWindow", 1024, 768, false, &misc);
     mWindow->setVisible( true );
 
-    atexit(SDL_Quit);
+	mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC); // for OGRE 1.2 Dagon
+
+    mCamera = mSceneMgr->createCamera("camera");
+    // Position it at 500 in Z direction
+    mCamera->setPosition(Ogre::Vector3(0,0,450));
+    // Look back along -Z
+    mCamera->lookAt(Ogre::Vector3(0,0,-300));
+
+	mCamera->setNearClipDistance(5);
+    Ogre::Viewport *vp = mWindow->addViewport(mCamera);
+    vp->setBackgroundColour(Ogre::ColourValue(0,0,0));
+
+	// most examples get the viewport size to calculate this; for now, we'll just
+	// set it to 4:3 the easy way
+	mCamera->setAspectRatio((Ogre::Real)1.333333);
+
+	// this next bit is for the sake of the input handler
+//	unsigned long hWnd;
+	mWindow->getCustomAttribute("WINDOW", &hWnd);
+
+    SDL_Event event;
+    bool done;
+    float lastFPS = 0.0f;
+    float changeInTime;
+    int newTime;
+    unsigned long oldTime = 0;
+    Ogre::Timer loopTime;
+    loopTime.reset();
+    while (!done)
+	{
+
+        lastFPS = mWindow->getLastFPS();
+        String currFPS = StringConverter::toString(lastFPS);
+    //    cout << "FPS = " << currFPS << endl;
+
+//        unsigned long oldTime = gameE->getOldTime();
+        newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
+        changeInTime = newTime - oldTime;
+
+        LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
+
+		if (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_QUIT)
+			{
+				done = true;
+			}
+
+			if (event.type == SDL_KEYDOWN)
+			{
+//				SDLKey keyPressed = event.key.keysym.sym;
+			if(event.key.keysym.sym == SDLK_q)
+					  done = true;
+			}
+		 }
+//		std::cout << "done = " << done << std::endl;
+	  }
+
+    	atexit(SDL_Quit);
 
 }

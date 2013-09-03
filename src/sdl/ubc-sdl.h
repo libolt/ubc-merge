@@ -28,4 +28,7 @@
 #include "Ogre.h"
 #include <OgreStringConverter.h>
 #include "OgreString.h"
+#include "renderengine.h"
+#include "gameengine.h"
+
 #endif
