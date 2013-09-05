@@ -135,7 +135,9 @@ bool inputSystem::setup()   // sets up and initializes the OIS Input System
     renderEngine * render = renderEngine::Instance();
 //              mDebugOverlay = OverlayManager::getSingleton().getByName("Core/DebugOverlay");
 
-    LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
+    LogManager::getSingletonPtr()->logMessage("*** Initializing SDL Input System ***");
+
+    /* Old OIS Code
     ParamList pl;
     size_t windowHnd = 0;
     std::ostringstream windowHndStr;
@@ -160,12 +162,14 @@ bool inputSystem::setup()   // sets up and initializes the OIS Input System
 //    windowResized(ubc->getMWindow());
     //Register as a Window listener
 //    WindowEventUtilities::addWindowEventListener(ubc->getMWindow(), this);
+  */
 
     return true;
 }
 
 bool inputSystem::destroy() // destroys the OIS Input System and related objects
 {
+/* Old OIS Code
     if(im)
     {
         im->destroyInputObject(mMouse);
@@ -173,19 +177,21 @@ bool inputSystem::destroy() // destroys the OIS Input System and related objects
         im->destroyInputObject(mJoy);
         im->destroyInputSystem(im);
     }
-
+*/
     return true;
 }
 
 bool inputSystem::processInput()	// processes all input
 {
-    // processes keyboard input
+
+/* Old OIS Code
+// processes keyboard input
     if (processUnbufferedKeyInput() == false)
     {
         return false;
     }
     // processes mouse input
-/*    if (processUnbufferedMouseInput() == false)
+    if (processUnbufferedMouseInput() == false)
     {
         return false;
     }
@@ -195,7 +201,27 @@ bool inputSystem::processInput()	// processes all input
 
 bool inputSystem::processUnbufferedKeyInput()
 {
-    using namespace OIS;
+
+	if (SDL_PollEvent(&inputEvent))
+	{
+//		if (vent.type == SDL_QUIT)
+//		{
+//			done = true;
+//		}
+
+		if (inputEvent.type == SDL_KEYDOWN)
+		{
+	//				SDLKey keyPressed = event.key.keysym.sym;
+		if(inputevent.key.keysym.sym == SDLK_q)
+//				  done = true;
+			std::cout << "Q!" << std::endl;
+		}
+	 }
+
+
+
+	/* Old OIS Code
+	using namespace OIS;
 //    basketballs *basketball = basketballs::Instance();
     gameState *gameS = gameState::Instance();
     gameEngine *gameE = gameEngine::Instance();
@@ -225,14 +251,14 @@ bool inputSystem::processUnbufferedKeyInput()
 
         //Only close for window that created OIS (mWindow)
         //		InputManager* im = 0;//::getSingletonPtr();
- /*       if( im )
-        {
-            im->destroyInputObject( mMouse );
-            im->destroyInputObject( mKeyboard );
-            im->destroyInputObject( mJoy );
-            im->destroyInputSystem(im);
-        }
-*/
+//        if( im )
+//        {
+//            im->destroyInputObject( mMouse );
+//            im->destroyInputObject( mKeyboard );
+//            im->destroyInputObject( mJoy );
+//            im->destroyInputSystem(im);
+//        }
+
         gameE->setQuitGame(true);
         return false;
     }
@@ -297,41 +323,41 @@ bool inputSystem::processUnbufferedKeyInput()
     gameS->setPlayerInstance(pInstance);
 //    player->setPosChange(pos);
 
-/*
+
     // Move camera forward by keypress.
-    if(mKeyboard->isKeyDown(KC_UP))
-    {
-        mTranslateVector.z = -mMoveScale;
-    }
+//    if(mKeyboard->isKeyDown(KC_UP))
+//    {
+//        mTranslateVector.z = -mMoveScale;
+//    }
+//
+//    // Move camera backward by keypress.
+//    if(mKeyboard->isKeyDown(KC_DOWN))
+//    {
+//        mTranslateVector.z = mMoveScale;
+//    }
+//
+//    if(mKeyboard->isKeyDown(KC_PGUP))
+//    {
+//        // Move camera up
+//        mTranslateVector.y = mMoveScale;
+//    }
+//
+//    if(mKeyboard->isKeyDown(KC_PGDOWN))
+//    {
+//        // Move camera down
+//        mTranslateVector.y = -mMoveScale;
+//    }
+//
+//    if(mKeyboard->isKeyDown(KC_RIGHT))
+//    {
+//        mCamera->yaw(-mRotScale);
+//    }
+//
+//    if(mKeyboard->isKeyDown(KC_LEFT))
+//    {
+//        mCamera->yaw(mRotScale);
+//    }
 
-    // Move camera backward by keypress.
-    if(mKeyboard->isKeyDown(KC_DOWN))
-    {
-        mTranslateVector.z = mMoveScale;
-    }
-
-    if(mKeyboard->isKeyDown(KC_PGUP))
-    {
-        // Move camera up
-        mTranslateVector.y = mMoveScale;
-    }
-
-    if(mKeyboard->isKeyDown(KC_PGDOWN))
-    {
-        // Move camera down
-        mTranslateVector.y = -mMoveScale;
-    }
-
-    if(mKeyboard->isKeyDown(KC_RIGHT))
-    {
-        mCamera->yaw(-mRotScale);
-    }
-
-    if(mKeyboard->isKeyDown(KC_LEFT))
-    {
-        mCamera->yaw(mRotScale);
-    }
-*/
 
 // FIXME FIXME FIXME!
     if (mKeyboard->isKeyDown(KC_SPACE))
@@ -344,6 +370,7 @@ bool inputSystem::processUnbufferedKeyInput()
     {
         return false;
     }
+    */
     // Return true to continue rendering
     return true;
 
@@ -351,6 +378,7 @@ bool inputSystem::processUnbufferedKeyInput()
 
 bool inputSystem::processUnbufferedMouseInput()
 {
+	/* Old OIS Code
     using namespace OIS;
 
 //    UBC *ubc = UBC::Instance();
@@ -382,22 +410,22 @@ bool inputSystem::processUnbufferedMouseInput()
 
     else
     {
-  /*      if( ms.buttonDown( MB_Right ) )
-        {
-            mTranslateVector.x += ms.X.rel * 0.13;
-            mTranslateVector.y -= ms.Y.rel * 0.13;
-        }
-        else
-        {
-            mRotX = Degree(-ms.X.rel * 0.13);
-            mRotY = Degree(-ms.Y.rel * 0.13);
-        }
-*/
+//        if( ms.buttonDown( MB_Right ) )
+//        {
+//            mTranslateVector.x += ms.X.rel * 0.13;
+//            mTranslateVector.y -= ms.Y.rel * 0.13;
+//        }
+//        else
+//        {
+//            mRotX = Degree(-ms.X.rel * 0.13);
+//            mRotY = Degree(-ms.Y.rel * 0.13);
+//        }
+
     }
 
     render->setMTranslateVector(mTranslateVector);
     render->setMRotX(mRotX);
     render->setMRotY(mRotY);
-
+*/
     return true;
 }

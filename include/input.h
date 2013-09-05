@@ -22,6 +22,8 @@
 #define _INPUT_H_
 
 #include "OIS/OIS.h"
+#include "SDL.h"
+#include "SDL_syswm.h"
 
 // input class
 class inputSystem
@@ -30,13 +32,18 @@ public:
 
 	static inputSystem *Instance();
 
-    virtual bool setup();   // sets up and initializes the OIS Input System
+    virtual bool setup();   // sets up and initializes the  Input System
     virtual bool destroy(); // destroys the OIS Input system and related objects
 
     virtual bool processInput();	// processes all input
     virtual bool processUnbufferedKeyInput();	// reads in unbuffered key presses
     virtual bool processUnbufferedMouseInput();	// reads in unbuffered mouse input
 
+    // SDL Input functions
+    virtual SDL_Event getInputEvent();   // retrieves inputEvent
+    void setInputEvent(SDL_Event input); // sets inputEvent
+
+    // Old OIS Input code
     virtual OIS::InputManager *getIM(); // retrieves the im input manager
     void setIM(OIS::InputManager *IM);  // sets the im input manager
 
@@ -70,7 +77,8 @@ protected:
 	inputSystem& operator= (const inputSystem&);
 
     virtual ~inputSystem();
-
+    // SDL Input
+    SDL_Event inputEvent;
     //OIS Input devices
     OIS::Mouse *mMouse;
     OIS::Keyboard *mKeyboard;
