@@ -302,10 +302,13 @@ void UBC::quit()
 #include "windows.h"
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+//#ifdef __cplusplus
+//extern "C" {
+//#endif
 
+/* SDL Conversion in progress
+ *
+ *
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT )
 #else
@@ -345,4 +348,4 @@ int main(int argc, char *argv[])
 #ifdef __cplusplus
 }
 #endif
-
+*/

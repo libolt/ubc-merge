@@ -24,7 +24,7 @@
 #include "OIS/OIS.h"
 #include "SDL.h"
 #include "SDL_syswm.h"
-
+#include "Ogre.h"
 // input class
 class inputSystem
 {
@@ -42,6 +42,9 @@ public:
     // SDL Input functions
     virtual SDL_Event getInputEvent();   // retrieves inputEvent
     void setInputEvent(SDL_Event input); // sets inputEvent
+
+    virtual Ogre::String getKeyPressed(); // retrieves keyPressed
+    void setKeyPressed(Ogre::String key); // sets keyPressed
 
     // Old OIS Input code
     virtual OIS::InputManager *getIM(); // retrieves the im input manager
@@ -79,6 +82,7 @@ protected:
     virtual ~inputSystem();
     // SDL Input
     SDL_Event inputEvent;
+
     //OIS Input devices
     OIS::Mouse *mMouse;
     OIS::Keyboard *mKeyboard;
@@ -92,6 +96,7 @@ protected:
 private:
 	static inputSystem *pInstance;
 
+	Ogre::String keyPressed;
 
 };
 

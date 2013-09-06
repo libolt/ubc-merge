@@ -30,5 +30,22 @@
 #include "OgreString.h"
 #include "renderengine.h"
 #include "gameengine.h"
+#include "input.h"
 
+class UBC
+{
+public:
+	virtual ~UBC();	// destructor
+
+	virtual bool getQuitGame();
+	void setQuitGame(bool quit);
+protected:
+    UBC();
+//    UBC(const UBC&);
+//    UBC &operator= (const UBC&);
+private:
+//    static UBC *pInstance;
+
+    bool quitGame;
+};
 #endif

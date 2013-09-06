@@ -47,6 +47,27 @@ inputSystem::~inputSystem()
 {
 }
 
+SDL_Event inputSystem::getInputEvent()
+{
+	return (inputEvent);
+}
+
+void inputSystem::setInputEvent(SDL_Event input)
+{
+	inputEvent = input;
+}
+
+
+Ogre::String inputSystem::getKeyPressed() // retrieves keyPressed
+{
+	return(keyPressed);
+}
+
+void inputSystem::setKeyPressed(Ogre::String key)
+{
+	keyPressed = key;
+}
+
 OIS::InputManager *inputSystem::getIM() // retrieves the im input manager
 {
     return (im);
@@ -129,10 +150,11 @@ void inputSystem::seMouseButtonID(OIS::MouseButtonID buttonID)  // sets mouseEve
     mouseButtonID = buttonID;
 }
 
+
 bool inputSystem::setup()   // sets up and initializes the OIS Input System
 {
 //    UBC *ubc = UBC::Instance();
-    renderEngine * render = renderEngine::Instance();
+//    renderEngine * render = renderEngine::Instance();
 //              mDebugOverlay = OverlayManager::getSingleton().getByName("Core/DebugOverlay");
 
     LogManager::getSingletonPtr()->logMessage("*** Initializing SDL Input System ***");
@@ -184,12 +206,13 @@ bool inputSystem::destroy() // destroys the OIS Input System and related objects
 bool inputSystem::processInput()	// processes all input
 {
 
-/* Old OIS Code
-// processes keyboard input
+    // processes keyboard input
     if (processUnbufferedKeyInput() == false)
     {
         return false;
     }
+
+/* FIXME for SDL
     // processes mouse input
     if (processUnbufferedMouseInput() == false)
     {
@@ -204,19 +227,38 @@ bool inputSystem::processUnbufferedKeyInput()
 
 	if (SDL_PollEvent(&inputEvent))
 	{
-//		if (vent.type == SDL_QUIT)
-//		{
-//			done = true;
-//		}
+        switch (inputEvent.type)
+        {
+        case SDL_KEYDOWN:
+            break;
+        case SDL_KEYUP:
+            // if escape is pressed, quit
+            switch (inputEvent.key.keysym.sym)
+            {
+            case SDLK_UP:
+            	keyPressed = "up";
+            	break;
+            case SDLK_DOWN:
+            	keyPressed = "down";
+            	break;
+            case SDLK_LEFT:
+            	keyPressed = "left";
+            	break;
+            case SDLK_RIGHT:
+            	keyPressed = "right";
+            	break;
+            case SDLK_q:
+            	keyPressed = "q";
+            	break;
+            }
+ //               status = 1; // set status to 1 to exit main loop
+            break;
+        case SDL_QUIT:
+ //           status = 1;
+            break;
+        }
 
-		if (inputEvent.type == SDL_KEYDOWN)
-		{
-	//				SDLKey keyPressed = event.key.keysym.sym;
-		if(inputevent.key.keysym.sym == SDLK_q)
-//				  done = true;
-			std::cout << "Q!" << std::endl;
-		}
-	 }
+    }
 
 
 

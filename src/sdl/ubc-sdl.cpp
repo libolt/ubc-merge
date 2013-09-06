@@ -20,14 +20,34 @@
 
 #include "ubc-sdl.h"
 
+UBC::UBC()
+{
+	quitGame = false;
+}
+
+UBC::~UBC()
+{
+
+}
+
+bool UBC::getQuitGame()
+{
+	return (quitGame);
+}
+
+void UBC::setQuitGame(bool quit)
+{
+    quitGame = quit;
+}
 // main
 
 int main(int argc, char *argv[])
 {
-//    renderEngine * render = renderEngine::Instance();
-//    gameEngine *gameE = gameEngine::Instance();
 
-	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0) {
+    renderEngine * render = renderEngine::Instance();
+    gameEngine *gameE = gameEngine::Instance();
+
+/*	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0) {
         fprintf(stderr,
                 "\nUnable to initialize SDL:  %s\n",
                 SDL_GetError()
@@ -52,8 +72,26 @@ int main(int argc, char *argv[])
     }
 
     int x = 0;
+*/
+    render->initSDL(); // Initializes the SDL Subsystem
+    render->initOgre(); // Initializes the Ogre Subsystem
+    render->createScene(); // creates rendering scene.
+
+    while (!gameE->getQuitGame())
+    {
+//        ubc->processUnbufferedKeyInput();
+
+//        render->frameStarted();
+		// run the message pump (Eihort)
+//		Ogre::WindowEventUtilities::messagePump();
+
+		render->getMRoot()->renderOneFrame();
+
+    }
 
 
+
+  /*
   Ogre::String winHandle;
     #if defined(WIN32) && !defined(__linux__)
 		HWND hWnd;
@@ -74,13 +112,14 @@ int main(int argc, char *argv[])
 
     mRoot = new Ogre::Root("", "", "Ogre.log");
     const Ogre::String pluginDir = OGRE_PLUGIN_DIR;
+    inputSystem *input = inputSystem::Instance();
 
     #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
     const Ogre::String buildType = BUILD_TYPE;
 
     if (buildType == "Debug")
     {
-        mRoot->loadPlugin(pluginDir + "/RenderSystem_GL_d");
+        mRoot->loadPlugin(pluginDir + "/RenderSystem_Direct3D9_d");
         mRoot->loadPlugin(pluginDir + "/Plugin_CgProgramManager_d");
     }
     else
@@ -201,34 +240,27 @@ int main(int argc, char *argv[])
     {
 
         lastFPS = mWindow->getLastFPS();
-        String currFPS = StringConverter::toString(lastFPS);
+        Ogre::String currFPS = Ogre::StringConverter::toString(lastFPS);
     //    cout << "FPS = " << currFPS << endl;
 
 //        unsigned long oldTime = gameE->getOldTime();
         newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
         changeInTime = newTime - oldTime;
 
-        LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
+        Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
 
-		if (SDL_PollEvent(&event))
-		{
-			if (event.type == SDL_QUIT)
-			{
-				done = true;
-			}
-
-			if (event.type == SDL_KEYDOWN)
-			{
-//				SDLKey keyPressed = event.key.keysym.sym;
-			if(event.key.keysym.sym == SDLK_q)
-					  done = true;
-			}
-		 }
-
+        if (input->processInput())
+            {
+        		Ogre::String keyPressed = input->getKeyPressed();
+        		if (keyPressed == "q")
+        		{
+        	        done = true;
+        		}
+        	}
 		mRoot->renderOneFrame();
 //		std::cout << "done = " << done << std::endl;
     }
-
+*/
     	atexit(SDL_Quit);
 
 }

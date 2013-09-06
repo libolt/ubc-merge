@@ -34,8 +34,8 @@ ENDIF (WIN32)
     FILE(GLOB_RECURSE UBC_HEADERS include/*.h)
     FILE(GLOB_RECURSE UBC_SRCS src/game/*.cpp)
 
-    FILE(GLOB_RECURSE UBC_SDL_HEADERS src/sdl/*.h include/input.h)
-    FILE(GLOB_RECURSE UBC_SDL_SRCS src/sdl/*.cpp src/game/input.cpp)
+    FILE(GLOB_RECURSE UBC_SDL_HEADERS src/sdl/*.h include/input.h include/renderengine.h)
+    FILE(GLOB_RECURSE UBC_SDL_SRCS src/sdl/*.cpp src/game/*.cpp)
 
 
 # UBC SDL/OGRE Experiment

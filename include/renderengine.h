@@ -25,7 +25,9 @@
 #include "Ogre/OgreMemoryMacros.h"
 #include "Ogre/Ogre.h"
 #else
-//#include "OgreMemoryMacros.h"
+#include "SDL.h"
+#include "SDL_syswm.h"
+#include "SDL_test_common.h"
 #include "Ogre.h"
 #endif
 using namespace Ogre;
@@ -73,6 +75,8 @@ class renderEngine
 
     static renderEngine *Instance();
 
+    virtual bool initSDL();
+    virtual bool initOgre();
     virtual void createScene();
     virtual bool frameStarted();
     virtual bool frameEnded();
@@ -83,6 +87,12 @@ class renderEngine
     renderEngine(const renderEngine&);
     renderEngine& operator= (const renderEngine&);
 
+    // SDL code
+    SDL_Window *sdlWindow;
+    SDL_SysWMinfo sysInfo;
+    SDLTest_CommonState *state;
+
+    // Ogre code
     Root *mRoot;
     Camera *mCamera;
     SceneManager *mSceneMgr;
