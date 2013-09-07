@@ -98,6 +98,8 @@ class renderEngine
     SceneManager *mSceneMgr;
     RenderWindow *mWindow;
     Ogre::Viewport *viewPort;
+    Ogre::String mResourceGroup;  // stores resource locations
+
     //	InputReader* mInputDevice;
     Ogre::Vector3 mTranslateVector;
     Radian mRotX, mRotY;
@@ -106,7 +108,7 @@ class renderEngine
     float mMoveScale;
     Degree mRotScale;
 
-    String mResourceGroup;  // stores resource locations
+
     Real mTimeUntilNextToggle ;
 
     private:

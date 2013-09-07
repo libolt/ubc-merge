@@ -83,6 +83,9 @@ protected:
     // SDL Input
     SDL_Event inputEvent;
 
+    int mouseX; // stores the X coordinate of the mouse.
+    int mouseY; // stores the Y coordinate of the mouse.
+
     //OIS Input devices
     OIS::Mouse *mMouse;
     OIS::Keyboard *mKeyboard;

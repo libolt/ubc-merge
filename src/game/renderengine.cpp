@@ -151,14 +151,14 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 
 	    std::string dataPath = UBC_DATADIR;
 
-	    Ogre::String mResourceGroup;  // stores resource locations
-	//    QuickGUI::registerScriptParser();
+	    mResourceGroup = "UBCData";
 	    Ogre::ResourceGroupManager *rsm = Ogre::ResourceGroupManager::getSingletonPtr();
 	    rsm->createResourceGroup(mResourceGroup);
 		// load the basic resource location(s)
 		rsm->addResourceLocation(dataPath + "/Media", "FileSystem", mResourceGroup);
 		rsm->addResourceLocation(dataPath + "/Media/fonts", "FileSystem", mResourceGroup);
 		rsm->addResourceLocation(dataPath + "/Media/gui", "FileSystem", mResourceGroup);
+		rsm->addResourceLocation(dataPath + "/Media/MyGUI_Media", "FileSystem", mResourceGroup);
 		rsm->addResourceLocation(dataPath + "/Media/models", "FileSystem", mResourceGroup);
 		rsm->addResourceLocation(dataPath + "/Media/materials/textures", "FileSystem", mResourceGroup);
 		rsm->addResourceLocation(dataPath + "/Media/materials/programs", "FileSystem", mResourceGroup);

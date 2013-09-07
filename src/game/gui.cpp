@@ -86,9 +86,10 @@ bool GUISystem::initMyGUI()
     Ogre::RenderWindow *mWindow = render->getMWindow();
     Ogre::SceneManager *mSceneMgr = render->getMSceneMgr();
 	mPlatform = new MyGUI::OgrePlatform();
-	mPlatform->initialise(mWindow, mSceneMgr); // mWindow is Ogre::RenderWindow*, mSceneManager is Ogre::SceneManager*
+	mPlatform->initialise(mWindow, mSceneMgr, "UBCData"); // mWindow is Ogre::RenderWindow*, mSceneManager is Ogre::SceneManager*
 	mGUI = new MyGUI::Gui();
 	mGUI->initialise();
+
 	return true;
 }
 

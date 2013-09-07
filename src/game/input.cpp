@@ -40,6 +40,8 @@ inputSystem* inputSystem::Instance()
 // inputSystem constructor
 inputSystem::inputSystem()
 {
+	mouseX = 0;
+	mouseY = 0;
     setup();
 }
 
@@ -157,7 +159,8 @@ bool inputSystem::setup()   // sets up and initializes the OIS Input System
 //    renderEngine * render = renderEngine::Instance();
 //              mDebugOverlay = OverlayManager::getSingleton().getByName("Core/DebugOverlay");
 
-    LogManager::getSingletonPtr()->logMessage("*** Initializing SDL Input System ***");
+    Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing SDL Input System ***");
+    SDL_ShowCursor(0); // Hides the SDL Cursor in favor of the MyGUI Cursor
 
     /* Old OIS Code
     ParamList pl;
@@ -212,13 +215,11 @@ bool inputSystem::processInput()	// processes all input
         return false;
     }
 
-/* FIXME for SDL
     // processes mouse input
     if (processUnbufferedMouseInput() == false)
     {
         return false;
     }
-*/
     return true;
 }
 
@@ -420,6 +421,29 @@ bool inputSystem::processUnbufferedKeyInput()
 
 bool inputSystem::processUnbufferedMouseInput()
 {
+	int x, y;
+	SDL_MouseMotionEvent motion;
+
+	if (SDL_PollEvent(&inputEvent))
+	{
+        switch (inputEvent.type)
+        {
+        case SDL_MOUSEMOTION:
+            break;
+        case SDL_QUIT:
+ //           status = 1;
+            break;
+        }
+
+    }
+
+	SDL_GetMouseState(&x,&y);
+//    Ogre::LogManager::getSingletonPtr()->logMessage("Mouse X = "  +Ogre::StringConverter::toString(x));
+	if (mouseX != x || mouseY != y)
+	{
+		MyGUI::InputManager::getInstance().injectMouseMove(x,y,0);
+	}
+
 	/* Old OIS Code
     using namespace OIS;
 

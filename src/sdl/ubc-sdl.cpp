@@ -85,6 +85,7 @@ int main(int argc, char *argv[])
     render->initSDL(); // Initializes the SDL Subsystem
     render->initOgre(); // Initializes the Ogre Subsystem
     render->createScene(); // creates rendering scene.
+    gui->initMyGUI(); // Initializes MyGUI
     gui->createButton(); // creates a MyGUI button.
 
     inputSystem *input = inputSystem::Instance();
@@ -114,7 +115,7 @@ int main(int argc, char *argv[])
         	        gameE->setQuitGame(true);
         		}
         	}
-
+//    	MyGUI::InputManager::getInstance().injectMouseMove(10,10,0);
 		render->getMRoot()->renderOneFrame();
 
     }
