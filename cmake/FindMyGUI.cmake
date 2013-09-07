@@ -107,7 +107,7 @@ ELSE (WIN32) #Unix
                 SET(MYGUI_LIBRARIES ${MYGUI_LIBRARIES} CACHE STRING "")
             ELSE (MYGUI_INCLUDE_DIRS)
                 FIND_PATH(MYGUI_INCLUDE_DIRS MyGUI.h PATHS /usr/local/include /usr/include PATH_SUFFIXES MyGUI MYGUI)
-                FIND_LIBRARY(MYGUI_LIBRARIES myguistatic PATHS /usr/lib /usr/local/lib)
+		FIND_LIBRARY(MYGUI_LIBRARIES myguistatic MyGUI.OgrePlatform PATHS /usr/lib /usr/local/lib)
                 SET(MYGUI_LIB_DIR ${MYGUI_LIBRARIES})
                 STRING(REGEX REPLACE "(.*)/.*" "\\1" MYGUI_LIB_DIR "${MYGUI_LIB_DIR}")
                 STRING(REGEX REPLACE ".*/" "" MYGUI_LIBRARIES "${MYGUI_LIBRARIES}")
@@ -115,7 +115,7 @@ ELSE (WIN32) #Unix
         ELSE (NOT APPLE)
             SET(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${MYGUI_DEPENDENCIES_DIR} ${OGRE_DEPENDENCIES_DIR})
             FIND_PATH(MYGUI_INCLUDE_DIRS MyGUI.h PATHS /usr/local/include /usr/include PATH_SUFFIXES MyGUI MYGUI)
-            FIND_LIBRARY(MYGUI_LIBRARIES MyGUIEngineStatic PATHS /usr/lib /usr/local/lib)
+	    FIND_LIBRARY(MYGUI_LIBRARIES MyGUIEngineStatic MyGUI.OgrePlatform PATHS /usr/lib /usr/local/lib)
             SET(MYGUI_LIB_DIR ${MYGUI_LIBRARIES})
             STRING(REGEX REPLACE "(.*)/.*" "\\1" MYGUI_LIB_DIR "${MYGUI_LIB_DIR}")
             STRING(REGEX REPLACE ".*/" "" MYGUI_LIBRARIES "${MYGUI_LIBRARIES}")
@@ -126,7 +126,7 @@ ELSE (WIN32) #Unix
     ELSE(MYGUI_STATIC)
         # Linux shared library
         FIND_PATH(MYGUI_INCLUDE_DIRS MyGUI.h PATHS /usr/local/include /usr/include PATH_SUFFIXES MyGUI MYGUI)
-        FIND_LIBRARY(MYGUI_LIBRARIES MyGUIEngine PATHS /usr/lib /usr/local/lib)
+	FIND_LIBRARY(MYGUI_LIBRARIES MyGUIEngine MyGUI.OgrePlatform PATHS /usr/lib /usr/local/lib)
         STRING(REGEX REPLACE "(.*)/.*" "\\1" MYGUI_LIB_DIR "${MYGUI_LIBRARIES}")
     ENDIF(MYGUI_STATIC)
 

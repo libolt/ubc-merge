@@ -46,6 +46,16 @@ int main(int argc, char *argv[])
 
     renderEngine * render = renderEngine::Instance();
     gameEngine *gameE = gameEngine::Instance();
+    GUISystem *gui = GUISystem::Instance();
+
+    float lastFPS = 0.0f;
+    float changeInTime;
+    int newTime;
+    unsigned long oldTime = 0;
+    Ogre::Timer loopTime;
+    loopTime.reset();
+
+
 /*	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0) {
         fprintf(stderr,
                 "\nUnable to initialize SDL:  %s\n",
@@ -75,6 +85,8 @@ int main(int argc, char *argv[])
     render->initSDL(); // Initializes the SDL Subsystem
     render->initOgre(); // Initializes the Ogre Subsystem
     render->createScene(); // creates rendering scene.
+    gui->createButton(); // creates a MyGUI button.
+
     inputSystem *input = inputSystem::Instance();
 
     while (!gameE->getQuitGame())
@@ -84,7 +96,17 @@ int main(int argc, char *argv[])
 //        render->frameStarted();
 		// run the message pump (Eihort)
 //		Ogre::WindowEventUtilities::messagePump();
-        if (input->processInput())
+        lastFPS = render->getMWindow()->getLastFPS();
+        Ogre::String currFPS = Ogre::StringConverter::toString(lastFPS);
+    //    cout << "FPS = " << currFPS << endl;
+
+//        unsigned long oldTime = gameE->getOldTime();
+        newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
+        changeInTime = newTime - oldTime;
+
+        Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
+
+    	if (input->processInput())
             {
         		Ogre::String keyPressed = input->getKeyPressed();
         		if (keyPressed == "q")

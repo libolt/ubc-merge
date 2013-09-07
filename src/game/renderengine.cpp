@@ -186,9 +186,9 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	    mCamera->lookAt(Ogre::Vector3(0,0,-300));
 
 		mCamera->setNearClipDistance(5);
-	    Ogre::Viewport *vp = mWindow->addViewport(mCamera);
-	    vp->setBackgroundColour(Ogre::ColourValue(0,0,0));
-
+	    viewPort = mWindow->addViewport(mCamera);
+	    viewPort->setBackgroundColour(Ogre::ColourValue(0,0,0));
+	    viewPort->setOverlaysEnabled(true);	// sets overlays true so that MyGUI can render
 		// most examples get the viewport size to calculate this; for now, we'll just
 		// set it to 4:3 the easy way
 		mCamera->setAspectRatio((Ogre::Real)1.333333);

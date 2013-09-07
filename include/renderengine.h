@@ -97,7 +97,8 @@ class renderEngine
     Camera *mCamera;
     SceneManager *mSceneMgr;
     RenderWindow *mWindow;
-//	InputReader* mInputDevice;
+    Ogre::Viewport *viewPort;
+    //	InputReader* mInputDevice;
     Ogre::Vector3 mTranslateVector;
     Radian mRotX, mRotY;
     Real mMoveSpeed;

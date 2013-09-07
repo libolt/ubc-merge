@@ -17,8 +17,8 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-
-#include "ubcapp.h"
+#include "gui.h"
+//#include "ubcapp.h"
 #include "config.h"
 //#include "MyGUI.h"
 //#include "MyGUI_OgrePlatform.h"
@@ -79,6 +79,30 @@ void GUISystem::createScene()
  //   setupMainMenuEventHandlers();
 }
 
+// Initializes MyGUI
+bool GUISystem::initMyGUI()
+{
+    renderEngine *render = renderEngine::Instance();
+    Ogre::RenderWindow *mWindow = render->getMWindow();
+    Ogre::SceneManager *mSceneMgr = render->getMSceneMgr();
+	mPlatform = new MyGUI::OgrePlatform();
+	mPlatform->initialise(mWindow, mSceneMgr); // mWindow is Ogre::RenderWindow*, mSceneManager is Ogre::SceneManager*
+	mGUI = new MyGUI::Gui();
+	mGUI->initialise();
+	return true;
+}
+
+bool GUISystem::createButton()
+{
+	button = mGUI->createWidget<MyGUI::Button>("Button", 10, 10, 300, 26, MyGUI::Align::Default, "Main");
+	button->setCaption("exit");
+	// set callback
+	//button->eventMouseButtonClick += MyGUI::newDelegate(CLASS_POINTER, &CLASS_NAME::METHOD_NAME); // CLASS_POINTER is pointer to instance of a CLASS_NAME (usually '''this''')
+	// or
+	//button->eventMouseButtonClick += MyGUI::newDelegate(STATIC_METHOD_NAME);
+	//button->eventMouseButtonClick += MyGUI::newDelegate(GLOBAL_FUNC_NAME);
+	return true;
+}
 // sets up the CEGUI Window
 bool GUISystem::setupGUI()
 {

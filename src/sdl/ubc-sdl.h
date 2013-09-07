@@ -22,6 +22,7 @@
 #define _UBC_SDL_H_
 
 #include "config.h"
+#include "gui.h"
 #include "SDL.h"
 #include "SDL_syswm.h"
 #include "SDL_test_common.h"

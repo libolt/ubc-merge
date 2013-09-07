@@ -40,6 +40,10 @@
 
 //#include "QuickGUI.h"
 
+#include "MyGUI.h"
+#include "MyGUI_OgrePlatform.h"
+#include "MyGUI_OgreRenderManager.h"
+
 #include "input.h"
 #include "renderengine.h"
 
@@ -72,7 +76,11 @@ public:
 //    CEGUI::Window *getMEditorGuiSheet();
 //    void setMEditorGuiSheet(CEGUI::Window *sheet);
 
+    virtual bool initMyGUI();	// Initializes MyGUI
+    virtual bool createButton(); // creates a MyGUI button
 
+
+    // Old QuickGUI Code
     virtual bool setupGUI();	// sets up the QuickGUI Window
     virtual bool update();   // updates the GUI
     virtual void updateTime(float time);
@@ -129,6 +137,10 @@ protected:
 private:
 
     static GUISystem *pInstance;
+    MyGUI::Gui *mGUI;
+    MyGUI::OgrePlatform *mPlatform;
+    MyGUI::ButtonPtr button;
+
 };
 
 #endif // GUI_H_INCLUDED
