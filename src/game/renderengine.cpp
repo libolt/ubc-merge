@@ -181,7 +181,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 		mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC); // for OGRE 1.2 Dagon
 	    mCamera = mSceneMgr->createCamera("camera");
 	    // Position it at 500 in Z direction
-	    mCamera->setPosition(Ogre::Vector3(0,0,450));
+	    mCamera->setPosition(Ogre::Vector3(0,0,455));
 	    // Look back along -Z
 	    mCamera->lookAt(Ogre::Vector3(0,0,-300));
 
@@ -195,8 +195,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 
 		// this next bit is for the sake of the input handler
 	//	unsigned long hWnd;
-		mWindow->getCustomAttribute("WINDOW", &winHandle);
-
+//		mWindow->getCustomAttribute("WINDOW", &winHandle);
 /* Old Initialization code
 		mRoot = new Ogre::Root("", "", "Ogre.log");
 

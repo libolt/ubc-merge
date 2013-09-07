@@ -46,7 +46,6 @@ int main(int argc, char *argv[])
 
     renderEngine * render = renderEngine::Instance();
     gameEngine *gameE = gameEngine::Instance();
-
 /*	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0) {
         fprintf(stderr,
                 "\nUnable to initialize SDL:  %s\n",
@@ -76,6 +75,7 @@ int main(int argc, char *argv[])
     render->initSDL(); // Initializes the SDL Subsystem
     render->initOgre(); // Initializes the Ogre Subsystem
     render->createScene(); // creates rendering scene.
+    inputSystem *input = inputSystem::Instance();
 
     while (!gameE->getQuitGame())
     {
@@ -84,6 +84,14 @@ int main(int argc, char *argv[])
 //        render->frameStarted();
 		// run the message pump (Eihort)
 //		Ogre::WindowEventUtilities::messagePump();
+        if (input->processInput())
+            {
+        		Ogre::String keyPressed = input->getKeyPressed();
+        		if (keyPressed == "q")
+        		{
+        	        gameE->setQuitGame(true);
+        		}
+        	}
 
 		render->getMRoot()->renderOneFrame();
 
