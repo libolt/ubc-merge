@@ -10,7 +10,7 @@
         <Property key="Caption" value="Exit"/>
     </Widget>
     <Widget type="EditBox" skin="EditBox" position="362 175 300 26" align="Default" layer="Main" name="ipAddressBox">
-        <Property key="Caption" value="IP Address"/>
+        <Property key="Caption" value=""/>
         <Property key="Colour" value="0.321637 0.312233 0.312233"/>
         <Property key="Enabled" value="true"/>
         <Property key="FontName" value="DejaVuSansFont_15"/>

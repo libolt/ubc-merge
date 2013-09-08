@@ -228,43 +228,241 @@ bool inputSystem::processInput()	// processes all input
 bool inputSystem::processUnbufferedKeyInput()
 {
 
-	if (SDL_PollEvent(&inputEvent))
+	if (MyGUI::InputManager::getInstance().isFocusKey())	// checks if a MyGUI widget has key focus
 	{
-        switch (inputEvent.type)
-        {
-        case SDL_KEYDOWN:
-            break;
-        case SDL_KEYUP:
-            // if escape is pressed, quit
-            switch (inputEvent.key.keysym.sym)
-            {
-            case SDLK_UP:
-            	keyPressed = "up";
-            	break;
-            case SDLK_DOWN:
-            	keyPressed = "down";
-            	break;
-            case SDLK_LEFT:
-            	keyPressed = "left";
-            	break;
-            case SDLK_RIGHT:
-            	keyPressed = "right";
-            	break;
-            case SDLK_q:
-            	keyPressed = "q";
-            	break;
-            }
- //               status = 1; // set status to 1 to exit main loop
-            break;
-        case SDL_QUIT:
- //           status = 1;
-            break;
-        }
+		if (SDL_PollEvent(&inputEvent))
+		{
+	        switch (inputEvent.type)
+	        {
+	        case SDL_KEYDOWN:
+				switch (inputEvent.key.keysym.sym)
+				{
+					case SDLK_RETURN:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Return, MyGUI::KeyCode::Return);
+					break;
+					case SDLK_BACKSPACE:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Backspace, 0);
+					break;
+					case SDLK_ESCAPE:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Escape, 0);
+					break;
+					case SDLK_TAB:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Tab, 0);
+					break;
+					case SDLK_SPACE:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Space, ' ');
+					break;
+					case SDLK_LSHIFT:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::LeftShift, 0);
+					break;
+					case SDLK_LCTRL:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::LeftControl, 0);
+					break;
+					case SDLK_LALT:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::LeftAlt, 0);
+					break;
+					case SDLK_LGUI:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::LeftWindows, 0);
+					break;
+					case SDLK_RSHIFT:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::RightShift, 0);
+					break;
+					case SDLK_RCTRL:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::RightControl, 0);
+					break;
+					case SDLK_RALT:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::RightAlt, 0);
+					break;
+					case SDLK_RGUI:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::RightWindows, 0);
+					break;
+					case SDLK_MENU:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::RightWindow, 0);
+					break;
+					case SDLK_CAPSLOCK:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Capital, 0);
+					break;
+					case SDLK_F1:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F1, 0);
+					break;
+					case SDLK_F2:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F2, 0);
+					break;
+					case SDLK_F3:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F3, 0);
+					break;
+					case SDLK_F4:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F4, 0);
+					break;
+					case SDLK_F5:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F5, 0);
+					break;
+					case SDLK_F6:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F6, 0);
+					break;
+					case SDLK_F7:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F7, 0);
+					break;
+					case SDLK_F8:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F8, 0);
+					break;
+					case SDLK_F9:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F9, 0);
+					break;
+					case SDLK_F10:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F10, 0);
+					break;
+					case SDLK_F11:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F11, 0);
+					break;
+					case SDLK_F12:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F12, 0);
+					break;
+					case SDLK_UP:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::ArrowUp, 0);
+					break;
+					case SDLK_DOWN:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::ArrowDown, 0);
+					break;
+					case SDLK_LEFT:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::ArrowLeft, 0);
+					break;
+					case SDLK_RIGHT:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::ArrowRight, 0);
+					break;
+					case SDLK_SCROLLLOCK:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::ScrollLock, 0);
+					break;
+					case SDLK_HOME:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Home, 0);
+					break;
+					case SDLK_PAUSE:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Pause, 0);
+					break;
+					case SDLK_INSERT:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Insert, 0);
+					break;
+					case SDLK_PAGEUP:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::PageUp, 0);
+					break;
+					case SDLK_DELETE:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Delete, 0);
+					break;
+					case SDLK_END:
+					MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::End, 0);
+					break;
+					case SDLK_PAGEDOWN:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::PageDown, 0);
+					break;
+					case SDLK_NUMLOCKCLEAR:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::NumLock, 0);
+					break;
+					case SDLK_KP_DIVIDE:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Divide, 0);
+					break;
+					case SDLK_KP_MULTIPLY:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Multiply, 0);
+					break;
+					case SDLK_KP_MINUS:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Minus, 0);
+					break;
+					case SDLK_KP_ENTER:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::NumpadEnter, 0);
+					break;
+					case SDLK_KP_0:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Numpad0, '0');
+					break;
+					case SDLK_KP_1:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Numpad1, '1');
+					break;
+					case SDLK_KP_2:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Numpad2, '2');
+					break;
+					case SDLK_KP_3:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Numpad3, '3');
+					break;
+					case SDLK_KP_4:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Numpad4, '4');
+					break;
+					case SDLK_KP_5:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Numpad5, '5');
+					break;
+					case SDLK_KP_6:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Numpad6, '6');
+					break;
+					case SDLK_KP_7:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Numpad7, '7');
+					break;
+					case SDLK_KP_8:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Numpad8, '8');
+					break;
+					case SDLK_KP_9:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Numpad9, '9');
+					break;
+					case SDLK_6:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Enum(6), '6');
+					break;
+					default:
+						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Enum(inputEvent.key.keysym.sym), inputEvent.key.keysym.sym);
+					break;
+				}
+	            break;
+	        case SDL_KEYUP:
+				switch (inputEvent.key.keysym.sym)
+				{
+					case SDLK_PERIOD:
+//						MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Period, 0);
+					break;
+					default:
+						MyGUI::InputManager::getInstance().injectKeyRelease(MyGUI::KeyCode::Enum(inputEvent.key.keysym.sym));
+						break;
+				}
+	            break;
+	        case SDL_QUIT:
+	 //           status = 1;
+	            break;
+	        }
+		}
+//		exit(0);
 
-    }
+	}
+	else	// Processes input normally when MyGUI Widget not focused
+	{
+		if (SDL_PollEvent(&inputEvent))
+		{
+			switch (inputEvent.type)
+			{
+			case SDL_KEYDOWN:
+				break;
+			case SDL_KEYUP:
+				// if escape is pressed, quit
+				switch (inputEvent.key.keysym.sym)
+				{
+				case SDLK_UP:
+					keyPressed = "up";
+					break;
+				case SDLK_DOWN:
+					keyPressed = "down";
+					break;
+				case SDLK_LEFT:
+					keyPressed = "left";
+					break;
+				case SDLK_RIGHT:
+					keyPressed = "right";
+					break;
+				case SDLK_q:
+					keyPressed = "q";
+					break;
+				}
+	 //               status = 1; // set status to 1 to exit main loop
+				break;
+			case SDL_QUIT:
+	 //           status = 1;
+				break;
+			}
 
-
-
+		}
+	}
 	/* Old OIS Code
 	using namespace OIS;
 //    basketballs *basketball = basketballs::Instance();
