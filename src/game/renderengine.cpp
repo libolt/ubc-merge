@@ -64,7 +64,7 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
     }
 
 
-	sdlWindow = SDL_CreateWindow("MainRenderWindow",
+	sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             1024,768, 0);
@@ -85,10 +85,8 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 {
 	//    GUISystem *gui = GUISystem::Instance();
 	//    SoundSystem *sound = SoundSystem::Instance();
-	Ogre::NameValuePairList misc;
-	Ogre::String winHandle;
 	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-		winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.win.window);
+		winHandle = Ogre::StringConverter::toString((unsigned long int)sysInfo.info.win.window);
 	#elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
 		winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.x11.window);
 	#else
@@ -140,14 +138,16 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	     			break;
 	   		}
 	   		c++; // <-- oh how clever
-	 	}
+	   		std::cout << c++ << std::endl;
+		}
 
 		//we found it, we might as well use it!
 	 	mRoot->setRenderSystem(selectedRenderSystem);
-		selectedRenderSystem->setConfigOption("Full Screen","False");
+/*		selectedRenderSystem->setConfigOption("Full Screen","False");
 		selectedRenderSystem->setConfigOption("Video Mode","1024 x 768 @ 32-bit colour");
-	//	mWindow = mRoot->initialise(true, "Ultimate Basketball Challenge");
-		mWindow = mRoot->initialise(false, "");
+*/
+		//	mWindow = mRoot->initialise(true, "Ultimate Basketball Challenge");
+		mWindow = mRoot->initialise(false, "Ultimate Basketball Challenge");
 
 	    std::string dataPath = UBC_DATADIR;
 
@@ -173,9 +173,9 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 		rsm->initialiseResourceGroup(mResourceGroup);
 
 
-	    misc["parentWindowHandle"] = winHandle; //
+	    misc["externalWindowHandle"] = winHandle; //
 
-	    mWindow = mRoot->createRenderWindow("MainRenderWindow", 1024, 768, false, &misc);
+	    mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1024, 768, false, &misc);
 	    mWindow->setVisible( true );
 
 		mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC); // for OGRE 1.2 Dagon
@@ -192,10 +192,13 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 		// most examples get the viewport size to calculate this; for now, we'll just
 		// set it to 4:3 the easy way
 		mCamera->setAspectRatio((Ogre::Real)1.333333);
+//	    Ogre::LogManager::getSingletonPtr()->logMessage("winHandle = " +winHandle);
 
 		// this next bit is for the sake of the input handler
 	//	unsigned long hWnd;
 //		mWindow->getCustomAttribute("WINDOW", &winHandle);
+
+
 /* Old Initialization code
 		mRoot = new Ogre::Root("", "", "Ogre.log");
 
@@ -490,7 +493,7 @@ bool renderEngine::frameStarted()
     int newTime = gameE->loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
     float changeInTime = newTime - oldTime;
 
-    LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
+    Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
 
 //    std::cout << "oldTime = " << oldTime << std::endl;
 //    std::cout << "newTime = " << newTime << std::endl;

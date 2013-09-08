@@ -99,7 +99,6 @@ int main(int argc, char *argv[])
 //		Ogre::WindowEventUtilities::messagePump();
         lastFPS = render->getMWindow()->getLastFPS();
         Ogre::String currFPS = Ogre::StringConverter::toString(lastFPS);
-    //    cout << "FPS = " << currFPS << endl;
 
 //        unsigned long oldTime = gameE->getOldTime();
         newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
@@ -115,7 +114,6 @@ int main(int argc, char *argv[])
         	        gameE->setQuitGame(true);
         		}
         	}
-//    	MyGUI::InputManager::getInstance().injectMouseMove(10,10,0);
 		render->getMRoot()->renderOneFrame();
 
     }

@@ -98,7 +98,9 @@ class renderEngine
     SceneManager *mSceneMgr;
     RenderWindow *mWindow;
     Ogre::Viewport *viewPort;
-    Ogre::String mResourceGroup;  // stores resource locations
+    Ogre::String mResourceGroup;  	// stores resource locations
+	Ogre::NameValuePairList misc;	// options to pass to mWindow during creation
+	Ogre::String winHandle;			// window handle
 
     //	InputReader* mInputDevice;
     Ogre::Vector3 mTranslateVector;

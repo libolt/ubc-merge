@@ -42,7 +42,7 @@
 
 #include "MyGUI.h"
 #include "MyGUI_OgrePlatform.h"
-#include "MyGUI_OgreRenderManager.h"
+//#include "MyGUI_OgreRenderManager.h"
 
 #include "input.h"
 #include "renderengine.h"
