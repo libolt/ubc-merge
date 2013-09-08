@@ -85,7 +85,8 @@ protected:
 
     int mouseX; // stores the X coordinate of the mouse.
     int mouseY; // stores the Y coordinate of the mouse.
-
+    int mouseLeftClick;	// stores state of Left mouse button
+    int mouseRightClick; // stores state of Right mouse button;
     //OIS Input devices
     OIS::Mouse *mMouse;
     OIS::Keyboard *mKeyboard;

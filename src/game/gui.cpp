@@ -93,16 +93,65 @@ bool GUISystem::initMyGUI()
 	return true;
 }
 
-bool GUISystem::createButton()
+bool GUISystem::createMainMenuButtons()
 {
-	button = mGUI->createWidget<MyGUI::Button>("Button", 10, 10, 300, 26, MyGUI::Align::Default, "Main");
-	button->setCaption("exit");
+	MyGUI::LayoutManager::getInstance().loadLayout("MainMenu.layout");
+//	startGameButton = mGUI->createWidget<MyGUI::Button>("Button", 362, 100, 300, 26, MyGUI::Align::Default, "Main");
+//	startGameButton->setCaption("Start Game");
+	startGameButton = mGUI->findWidget<MyGUI::Button>("startGameButton");
+	startGameButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::startGameButtonClicked);
+
+//	optionsButton = mGUI->createWidget<MyGUI::Button>("Button", 362, 125, 300, 26, MyGUI::Align::Default, "Main");
+//	optionsButton->setCaption("Options");
+	optionsButton = mGUI->findWidget<MyGUI::Button>("optionsButton");
+	optionsButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::optionsButtonClicked);
+
+//	exitButton = mGUI->createWidget<MyGUI::Button>("Button", 362, 150, 300, 26, MyGUI::Align::Default, "Main");
+//	exitButton->setCaption("Exit");
+	exitButton = mGUI->findWidget<MyGUI::Button>("exitButton");
+	exitButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::exitButtonClicked);
+
+	ipAddressBox = mGUI->findWidget<MyGUI::EditBox>("ipAddressBox");
+	ipAddressBox->setVisible(true);
 	// set callback
 	//button->eventMouseButtonClick += MyGUI::newDelegate(CLASS_POINTER, &CLASS_NAME::METHOD_NAME); // CLASS_POINTER is pointer to instance of a CLASS_NAME (usually '''this''')
 	// or
 	//button->eventMouseButtonClick += MyGUI::newDelegate(STATIC_METHOD_NAME);
 	//button->eventMouseButtonClick += MyGUI::newDelegate(GLOBAL_FUNC_NAME);
 	return true;
+}
+void GUISystem::startGameButtonClicked(MyGUI::Widget *_sender)
+{
+    renderEngine * render = renderEngine::Instance();
+
+	hideMenuWidgets();
+
+    render->createScene();
+}
+
+void GUISystem::optionsButtonClicked(MyGUI::Widget *_sender)
+{
+//	MyGUI::Widget *widget = MyGUI::InputManager::getInstance().getMouseFocusWidget();
+//	_sender->_get
+//	std::cout << "Button clicked is " << widget-> << std::endl;
+}
+void GUISystem::exitButtonClicked(MyGUI::Widget *_sender)
+{
+//	MyGUI::Widget *widget = MyGUI::InputManager::getInstance().getMouseFocusWidget();
+//	_sender->_get
+//	std::cout << "Button clicked is " << widget-> << std::endl;
+	exit(0);
+}
+
+void GUISystem::hideMenuWidgets()
+{
+	startGameButton->setVisible(false);
+	optionsButton->setVisible(false);
+	exitButton->setVisible(false);
+}
+void GUISystem::quit()
+{
+	exit(0);
 }
 // sets up the CEGUI Window
 bool GUISystem::setupGUI()

@@ -42,6 +42,8 @@ inputSystem::inputSystem()
 {
 	mouseX = 0;
 	mouseY = 0;
+	mouseLeftClick = -1;
+	mouseRightClick = -1;
     setup();
 }
 
@@ -422,22 +424,59 @@ bool inputSystem::processUnbufferedKeyInput()
 bool inputSystem::processUnbufferedMouseInput()
 {
 	int x, y;
+	int state = -1;
 	SDL_MouseMotionEvent motion;
+	SDL_GetMouseState(&x,&y);
 
-	if (SDL_PollEvent(&inputEvent))
+	SDL_PumpEvents();
+	state = SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(1);
+	std::cout << "Mouse State = " << state << std::endl;
+
+	if (MyGUI::InputManager::getInstance().isFocusMouse())
+	{
+		std::cout << "focused" << std::endl;
+		if(state == 1)
+		{
+			mouseLeftClick = 1;
+	   	 MyGUI::InputManager::getInstance().injectMousePress(x, y, MyGUI::MouseButton::Enum(0));
+
+	//		exit(0);
+		}
+		else if (state == 0 && mouseLeftClick == 1) //if (SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(1) == 0)
+		{
+			mouseLeftClick = 0;
+		   	 MyGUI::InputManager::getInstance().injectMouseRelease(x, y, MyGUI::MouseButton::Enum(0));
+
+		}
+	}
+
+/*	if (SDL_PollEvent(&inputEvent))
 	{
         switch (inputEvent.type)
         {
         case SDL_MOUSEMOTION:
+     //   	exit(1);
             break;
+        case SDL_MOUSEBUTTONDOWN:
+        	switch (inputEvent.button.button)
+        	case SDL_BUTTON_LEFT:
+        	//	exit(0);
+        	break;
+        	//	exit(0);
+        	 MyGUI::InputManager::getInstance().injectMousePress(x, y, MyGUI::MouseButton::Enum(inputEvent.button.button));
+        	break;
+        case SDL_MOUSEBUTTONUP:
+       	    MyGUI::InputManager::getInstance().injectMousePress(x, y, MyGUI::MouseButton::Enum(inputEvent.button.button));
+       	 //   exit(2);
+       	    break;
         case SDL_QUIT:
  //           status = 1;
             break;
         }
 
     }
+*/
 
-	SDL_GetMouseState(&x,&y);
 //    Ogre::LogManager::getSingletonPtr()->logMessage("Mouse X = "  +Ogre::StringConverter::toString(x));
 	if (mouseX != x || mouseY != y)
 	{

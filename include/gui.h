@@ -77,7 +77,7 @@ public:
 //    void setMEditorGuiSheet(CEGUI::Window *sheet);
 
     virtual bool initMyGUI();	// Initializes MyGUI
-    virtual bool createButton(); // creates a MyGUI button
+    virtual bool createMainMenuButtons(); // creates a MyGUI button
 
 
     // Old QuickGUI Code
@@ -126,7 +126,14 @@ protected:
     virtual void createScene();
     virtual bool frameStarted();
     virtual bool frameEnded();
+    virtual void quit();
 
+    // MyGUI functions
+    virtual void startGameButtonClicked(MyGUI::Widget *_sender);
+    virtual void optionsButtonClicked(MyGUI::Widget *_sender);
+    virtual void exitButtonClicked(MyGUI::Widget *_sender);
+
+    virtual void hideMenuWidgets();
 /*    QuickGUI::GUIManager *mGUIManager;
     QuickGUI::Sheet *mSheet;
 
@@ -139,8 +146,14 @@ private:
     static GUISystem *pInstance;
     MyGUI::Gui *mGUI;
     MyGUI::OgrePlatform *mPlatform;
-    MyGUI::ButtonPtr button;
 
+    // button widgets
+    MyGUI::Button *exitButton;
+    MyGUI::Button *startGameButton;
+    MyGUI::Button *optionsButton;
+
+    // text widgets
+    MyGUI::EditBox *ipAddressBox;
 };
 
 #endif // GUI_H_INCLUDED
