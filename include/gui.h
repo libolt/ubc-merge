@@ -78,7 +78,7 @@ public:
 
     virtual bool initMyGUI();	// Initializes MyGUI
     virtual bool createMainMenuButtons(); // creates a MyGUI button
-
+    virtual bool createNetworkSetupGUI();	// creates GUI for network setup screen.
 
     // Old QuickGUI Code
     virtual bool setupGUI();	// sets up the QuickGUI Window
@@ -132,6 +132,8 @@ protected:
     virtual void startGameButtonClicked(MyGUI::Widget *_sender);
     virtual void optionsButtonClicked(MyGUI::Widget *_sender);
     virtual void exitButtonClicked(MyGUI::Widget *_sender);
+    virtual void serverButtonClicked(MyGUI::Widget *_sender);
+    virtual void clientButtonClicked(MyGUI::Widget *_sender);
 
     virtual void hideMenuWidgets();
 /*    QuickGUI::GUIManager *mGUIManager;
@@ -151,6 +153,8 @@ private:
     MyGUI::Button *exitButton;
     MyGUI::Button *startGameButton;
     MyGUI::Button *optionsButton;
+    MyGUI::Button *serverButton;
+    MyGUI::Button *clientButton;
 
     // text widgets
     MyGUI::EditBox *ipAddressBox;

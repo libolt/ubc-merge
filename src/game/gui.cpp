@@ -18,6 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 #include "gui.h"
+#include "network.h"
 //#include "ubcapp.h"
 #include "config.h"
 //#include "MyGUI.h"
@@ -111,8 +112,6 @@ bool GUISystem::createMainMenuButtons()
 	exitButton = mGUI->findWidget<MyGUI::Button>("exitButton");
 	exitButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::exitButtonClicked);
 
-	ipAddressBox = mGUI->findWidget<MyGUI::EditBox>("ipAddressBox");
-	ipAddressBox->setVisible(true);
 	// set callback
 	//button->eventMouseButtonClick += MyGUI::newDelegate(CLASS_POINTER, &CLASS_NAME::METHOD_NAME); // CLASS_POINTER is pointer to instance of a CLASS_NAME (usually '''this''')
 	// or
@@ -120,27 +119,64 @@ bool GUISystem::createMainMenuButtons()
 	//button->eventMouseButtonClick += MyGUI::newDelegate(GLOBAL_FUNC_NAME);
 	return true;
 }
-void GUISystem::startGameButtonClicked(MyGUI::Widget *_sender)
+
+bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup screen
+{
+	MyGUI::LayoutManager::getInstance().loadLayout("NetworkSetupMenu.layout");
+
+	ipAddressBox = mGUI->findWidget<MyGUI::EditBox>("ipAddressBox"); // loads IP Address EditBox
+	ipAddressBox->setVisible(true);
+
+	serverButton = mGUI->findWidget<MyGUI::Button>("serverButton"); // loads Server Button
+	serverButton->setVisible(true);
+	serverButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::serverButtonClicked);
+
+	clientButton = mGUI->findWidget<MyGUI::Button>("clientButton"); // loads Client Button
+	clientButton->setVisible(true);
+	clientButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::clientButtonClicked);
+
+
+	return true;
+}
+
+
+void GUISystem::startGameButtonClicked(MyGUI::Widget *_sender)	// handles startGameButton click event
 {
     renderEngine * render = renderEngine::Instance();
 
-	hideMenuWidgets();
+	hideMenuWidgets();	// Hides the widgets from the main menu
+	createNetworkSetupGUI();	// creates the GUI for the Network Setup Screen
 
-    render->createScene();
+//    render->createScene();	// creates rendering scene.
 }
 
-void GUISystem::optionsButtonClicked(MyGUI::Widget *_sender)
+void GUISystem::optionsButtonClicked(MyGUI::Widget *_sender)	// handles optionsButton click event
 {
 //	MyGUI::Widget *widget = MyGUI::InputManager::getInstance().getMouseFocusWidget();
 //	_sender->_get
 //	std::cout << "Button clicked is " << widget-> << std::endl;
 }
-void GUISystem::exitButtonClicked(MyGUI::Widget *_sender)
+void GUISystem::exitButtonClicked(MyGUI::Widget *_sender)	// handles exitButton click event
 {
 //	MyGUI::Widget *widget = MyGUI::InputManager::getInstance().getMouseFocusWidget();
 //	_sender->_get
 //	std::cout << "Button clicked is " << widget-> << std::endl;
 	exit(0);
+}
+
+void GUISystem::serverButtonClicked(MyGUI::Widget *_sender)	// handles serverButton click event
+{
+    networkEngine * network = networkEngine::Instance();
+    network->setIPAddress(ipAddressBox->getCaption());	// sets the neworkEngine's ipAddress string to that of the caption
+    network->networkServer();
+
+}
+
+void GUISystem::clientButtonClicked(MyGUI::Widget *_sender)	// handles clientButton click event
+{
+    networkEngine * network = networkEngine::Instance();
+    network->setIPAddress(ipAddressBox->getCaption());	// sets the neworkEngine's ipAddress string to that of the caption
+    network->networkClient();
 }
 
 void GUISystem::hideMenuWidgets()

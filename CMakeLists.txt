@@ -27,8 +27,8 @@ ENDIF (WIN32)
     SET (UBC_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
     SET (UBC_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-    SET (CLIENT_SRCS ${UBC_SRC_DIR}/network/client.cpp)
-    SET (SERVER_SRCS ${UBC_SRC_DIR}/network/server.cpp)
+    SET (CLIENT_SRCS ${UBC_SRC_DIR}/network/client.cpp ${UBC_SRC_DIR}/game/networkengine.cpp)
+    SET (SERVER_SRCS ${UBC_SRC_DIR}/network/server.cpp ${UBC_SRC_DIR}/game/networkengine.cpp)
     SET (UBC_DATA_DIR ${CMAKE_CURRENT_SOURCE_DIR}/data)
 
     FILE(GLOB_RECURSE UBC_HEADERS include/*.h)
