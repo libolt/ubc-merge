@@ -34,14 +34,23 @@ public:
 
     static gameEngine *Instance();
 
-    virtual bool getMenuActive();
-    virtual void setMenuActive(bool active);
-    virtual bool getQuitGame();
-    virtual void setQuitGame(bool quit);
-    virtual Ogre::Timer getLoopTime();
-    virtual void setLoopTIme(Ogre::Timer time);
-    virtual unsigned long getOldTime();
-    virtual void setOldTime(unsigned long time);
+    virtual bool getMenuActive();					// retrieves menuActive variable
+    virtual void setMenuActive(bool active);		// sets menuActive variable
+
+    virtual bool getQuitGame();						// retrieves quitGame variable
+    virtual void setQuitGame(bool quit);			// sets quitGame variable
+
+    virtual bool getServerRunning();				// retrieves serverRunning variable
+    virtual void setServerRunning(bool server);		// sets serverRunning variable
+
+    virtual bool getClientRunning();				// retrieves clientRunning variable
+    virtual void setClientRunning(bool client);		// sets clientRunning variable
+
+    virtual Ogre::Timer getLoopTime();				// retrieves loopTime variable
+    virtual void setLoopTIme(Ogre::Timer time);		// sets loopTime variable
+
+    virtual unsigned long getOldTime();				// retrieves oldTime varaible
+    virtual void setOldTime(unsigned long time);	// sets oldTime variasble
 
     // starts a game
     virtual bool startGame();
@@ -67,7 +76,9 @@ private:
 
     // Flags
     bool menuActive;	// determines whether or not a menu is active
-    bool quitGame;
+    bool quitGame;		// if set then triggers the shutdown process for the game
+    bool serverRunning;	// if set triggers the network server code
+    bool clientRunning;	// if set triggers the network client code
 
 };
 

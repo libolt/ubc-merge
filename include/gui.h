@@ -135,7 +135,8 @@ protected:
     virtual void serverButtonClicked(MyGUI::Widget *_sender);
     virtual void clientButtonClicked(MyGUI::Widget *_sender);
 
-    virtual void hideMenuWidgets();
+    virtual void hideMainMenuWidgets();			// hides all widgets tied to the Main Menu
+    virtual void hideNetworkSetupWidgets();		// hides all widgets tied to the Network Setup Menu
 /*    QuickGUI::GUIManager *mGUIManager;
     QuickGUI::Sheet *mSheet;
 

@@ -93,6 +93,8 @@ class networkEngine
     ENetHost *server;
     ENetPacket *packet;
 
+    bool serverSetupComplete;
+    bool clientConnected;
 };
 
 

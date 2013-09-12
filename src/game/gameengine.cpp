@@ -53,6 +53,9 @@ gameEngine::gameEngine()
 
     menuActive = false;
     quitGame = false;
+    serverRunning = false;
+    clientRunning = false;
+
 }
 //-------------------------------------------------------------------------------------
 gameEngine::~gameEngine()
@@ -97,6 +100,26 @@ bool gameEngine::getQuitGame()
 void gameEngine::setQuitGame(bool quit)
 {
     quitGame = quit;
+}
+
+bool gameEngine::getServerRunning()
+{
+	return (serverRunning);
+}
+
+void gameEngine::setServerRunning(bool server)
+{
+	serverRunning = server;
+}
+
+bool gameEngine::getClientRunning()
+{
+	return (clientRunning);
+}
+
+void gameEngine::setClientRunning(bool client)
+{
+	clientRunning = client;
 }
 
 bool gameEngine::startGame()

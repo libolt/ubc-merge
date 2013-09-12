@@ -144,7 +144,7 @@ void GUISystem::startGameButtonClicked(MyGUI::Widget *_sender)	// handles startG
 {
     renderEngine * render = renderEngine::Instance();
 
-	hideMenuWidgets();	// Hides the widgets from the main menu
+	hideMainMenuWidgets();	// Hides the widgets from the main menu
 	createNetworkSetupGUI();	// creates the GUI for the Network Setup Screen
 
 //    render->createScene();	// creates rendering scene.
@@ -167,23 +167,36 @@ void GUISystem::exitButtonClicked(MyGUI::Widget *_sender)	// handles exitButton 
 void GUISystem::serverButtonClicked(MyGUI::Widget *_sender)	// handles serverButton click event
 {
     networkEngine * network = networkEngine::Instance();
+
+    hideNetworkSetupWidgets();	// Hides Network Setup Menu widgets
     network->setIPAddress(ipAddressBox->getCaption());	// sets the neworkEngine's ipAddress string to that of the caption
-    network->networkServer();
+//    network->networkServer();
+    network->serverSetup();
 
 }
 
 void GUISystem::clientButtonClicked(MyGUI::Widget *_sender)	// handles clientButton click event
 {
     networkEngine * network = networkEngine::Instance();
+
+    hideNetworkSetupWidgets();	// Hides Network Setup Menu widgets
     network->setIPAddress(ipAddressBox->getCaption());	// sets the neworkEngine's ipAddress string to that of the caption
-    network->networkClient();
+//    network->networkClient();
+    network->clientConnect();
 }
 
-void GUISystem::hideMenuWidgets()
+void GUISystem::hideMainMenuWidgets()	// hides the widgets tied to the Main Menu
 {
 	startGameButton->setVisible(false);
 	optionsButton->setVisible(false);
 	exitButton->setVisible(false);
+}
+
+void GUISystem::hideNetworkSetupWidgets()	// hides the widgets tied to the Network Setup Menu
+{
+	ipAddressBox->setVisible(false);
+	serverButton->setVisible(false);
+	clientButton->setVisible(false);
 }
 void GUISystem::quit()
 {

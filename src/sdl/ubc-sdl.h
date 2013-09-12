@@ -32,6 +32,7 @@
 #include "renderengine.h"
 #include "gameengine.h"
 #include "input.h"
+#include "network.h"
 
 class UBC
 {

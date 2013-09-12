@@ -47,6 +47,7 @@ int main(int argc, char *argv[])
     renderEngine * render = renderEngine::Instance();
     gameEngine *gameE = gameEngine::Instance();
     GUISystem *gui = GUISystem::Instance();
+    networkEngine *network = networkEngine::Instance();
 
     float lastFPS = 0.0f;
     float changeInTime;
@@ -103,7 +104,21 @@ int main(int argc, char *argv[])
 //        unsigned long oldTime = gameE->getOldTime();
         newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
         changeInTime = newTime - oldTime;
+        if (changeInTime >= 1000)
+        {
+        	if (gameE->getServerRunning())
+        	{
+        		network->networkServer();	// Runs network server code
+        	}
+        	if (gameE->getClientRunning())
+        	{
+        		network->networkClient();	// runs network client code
+        	}
+            Ogre::LogManager::getSingletonPtr()->logMessage("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
 
+        	oldTime = newTime;
+
+        }
         Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
 
     	if (input->processInput())
