@@ -16,6 +16,7 @@
 networkEngine::networkEngine()
 {
     initialize();
+    counter = 0;
     clientID = 0;
     clientConnected = false;
     serverSetupComplete = false;
@@ -112,21 +113,24 @@ void networkEngine::clientConnect()
 void networkEngine::networkClient()
 {
 //    ENetPeer *peer;
-//    ENetPacket *packet;
+    ENetPacket *packet2;
 //    clientConnect();
 
 // do something here
     int x = 1;
 //    do
- //   {
+//   {
 
         // Wait up to 1000 milliseconds for an event.
 //        ENetHost *client = network->getClient();
 //	ENetEvent event; // = network->getEvent();
 //	event = network->getEvent();
+
     // processes client event ever 0 seconds.
 	while (enet_host_service (client, &event, 0) > 0)
-	//while (enet_host_service (network->getClient(), & network->getEvent(), 1000) > 0)
+	{
+	}
+		//while (enet_host_service (network->getClient(), & network->getEvent(), 1000) > 0)
 //    {
       /*      switch (network->getEvent().type)
             {
@@ -193,6 +197,7 @@ void networkEngine::networkClient()
         // Create a reliable packet of size 7 containing "packet\0"
  //       packet = enet_packet_create (sendData,strlen(sendData) + 1, ENET_PACKET_FLAG_RELIABLE);
         packet = enet_packet_create("test",5,ENET_PACKET_FLAG_RELIABLE);
+        packet2 = enet_packet_create("test2",6,ENET_PACKET_FLAG_RELIABLE);
         // Extend the packet so and append the string "foo", so it now
         // contains "packetfoo\0"
 //        enet_packet_resize (packet, strlen ("packetfoo") + 1);
@@ -202,9 +207,11 @@ void networkEngine::networkClient()
         /* One could also broadcast the packet by         */
         /* enet_host_broadcast (host, 0, packet);         */
 //        peer = network->getPeer();
+        std::cout << "Sending packets to server." << std::endl;
         enet_peer_send (peer, 0, packet);
-
- //   } while (x != 0);
+        enet_peer_send (peer, 0, packet2);
+//	}
+//    } while (x != 0);
 //    enet_host_destroy(client);
 
 }
@@ -213,35 +220,31 @@ void networkEngine::serverSetup()
 {
     gameEngine *gameE = gameEngine::Instance();
 
-    if (!serverSetupComplete)
-    {
-    /* Bind the server to the default localhost.     */
-    /* A specific host address can be specified by   */
-    /* enet_address_set_host (& address, "x.x.x.x"); */
+/* Bind the server to the default localhost.     */
+/* A specific host address can be specified by   */
+/* enet_address_set_host (& address, "x.x.x.x"); */
 
 // Old Pre-GUI ip address input code
 //    string ipAddress;
 //    cout << "IP Address to bind to:" << endl;
 //    cin >> ipAddress;
 
-		listenAddress.host = enet_address_set_host (& listenAddress, ipAddress.c_str());
-		/* Bind the server to port 1234. */
-		listenAddress.port = 1234;
+	listenAddress.host = enet_address_set_host (& listenAddress, ipAddress.c_str());
+	/* Bind the server to port 1234. */
+	listenAddress.port = 1234;
 
-		server = enet_host_create (& listenAddress /* the address to bind the server host to */,
-									 32      /* allow up to 32 clients and/or outgoing connections */,
-					 2	/* allows up to 2 channels, 0, 1*/,
-									  0      /* assume any amount of incoming bandwidth */,
-									  0      /* assume any amount of outgoing bandwidth */);
-		if (server == NULL)
-		{
-			cerr << "An error occurred while trying to create an ENet server host." << endl;
-			exit (EXIT_FAILURE);
-		}
+	server = enet_host_create (& listenAddress /* the address to bind the server host to */,
+								 32      /* allow up to 32 clients and/or outgoing connections */,
+				 2	/* allows up to 2 channels, 0, 1*/,
+								  0      /* assume any amount of incoming bandwidth */,
+								  0      /* assume any amount of outgoing bandwidth */);
+	if (server == NULL)
+	{
+		cerr << "An error occurred while trying to create an ENet server host." << endl;
+		exit (EXIT_FAILURE);
+	}
 
-		gameE->setServerRunning(true);
-		serverSetupComplete = true;
-    }
+	gameE->setServerRunning(true);
 }
 
 void networkEngine::networkServer()

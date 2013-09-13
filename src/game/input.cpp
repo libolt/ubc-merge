@@ -628,11 +628,11 @@ bool inputSystem::processUnbufferedMouseInput()
 
 	SDL_PumpEvents();
 	state = SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(1);
-	std::cout << "Mouse State = " << state << std::endl;
+//	std::cout << "Mouse State = " << state << std::endl;
 
 	if (MyGUI::InputManager::getInstance().isFocusMouse())
 	{
-		std::cout << "focused" << std::endl;
+//		std::cout << "focused" << std::endl;
 		if(state == 1)
 		{
 			mouseLeftClick = 1;

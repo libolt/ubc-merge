@@ -114,12 +114,12 @@ int main(int argc, char *argv[])
         	{
         		network->networkClient();	// runs network client code
         	}
-            Ogre::LogManager::getSingletonPtr()->logMessage("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
+//            Ogre::LogManager::getSingletonPtr()->logMessage("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
 
         	oldTime = newTime;
 
         }
-        Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
+//        Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
 
     	if (input->processInput())
             {

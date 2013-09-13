@@ -80,6 +80,7 @@ class networkEngine
 
     private:
 
+    int counter;
     static networkEngine *pInstance;
 
     int clientID;	// defines the client ID number used to identify which client is communicating with the server
