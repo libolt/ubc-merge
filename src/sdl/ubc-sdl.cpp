@@ -46,8 +46,10 @@ int main(int argc, char *argv[])
 
     renderEngine * render = renderEngine::Instance();
     gameEngine *gameE = gameEngine::Instance();
-    GUISystem *gui = GUISystem::Instance();
+    gameState *gameS = gameState::Instance();
+   GUISystem *gui = GUISystem::Instance();
     networkEngine *network = networkEngine::Instance();
+    players *player = players::Instance();
 
     float lastFPS = 0.0f;
     float changeInTime;
@@ -98,13 +100,20 @@ int main(int argc, char *argv[])
 //        render->frameStarted();
 		// run the message pump (Eihort)
 //		Ogre::WindowEventUtilities::messagePump();
+
+    	if (gameE->getCreateScene())
+    	{
+    		render->createScene();
+    		gameE->setCreateScene(false);
+    		gameE->setRenderScene(true);
+    	}
         lastFPS = render->getMWindow()->getLastFPS();
         Ogre::String currFPS = Ogre::StringConverter::toString(lastFPS);
 
 //        unsigned long oldTime = gameE->getOldTime();
         newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
         changeInTime = newTime - oldTime;
-        if (changeInTime >= 1000)
+        if (changeInTime >= 100)
         {
         	if (gameE->getServerRunning())
         	{
@@ -112,9 +121,23 @@ int main(int argc, char *argv[])
         	}
         	if (gameE->getClientRunning())
         	{
-        		network->networkClient();	// runs network client code
+//        		network->networkClient();	// runs network client code
         	}
 //            Ogre::LogManager::getSingletonPtr()->logMessage("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
+           	if (gameE->getRenderScene())
+            {
+        		std::vector <playerState> playerInstance = gameS->getPlayerInstance();
+        		Ogre::Vector3 Pos = Ogre::Vector3(-0.150f, 0.0f, 0.0f);
+        		playerInstance[0].getNode()->translate(Pos);
+
+        		// network movement of player
+        		if (gameE->getMovePlayer())
+        		{
+        			Pos = Ogre::Vector3(0.0f, 0.400f, 0.0f);
+        			playerInstance[1].getNode()->translate(Pos);
+        			gameE->setMovePlayer(false);
+        		}
+           	}
 
         	oldTime = newTime;
 
@@ -128,7 +151,19 @@ int main(int argc, char *argv[])
         		{
         	        gameE->setQuitGame(true);
         		}
+        		else if (keyPressed == "up" && gameE->getClientRunning())
+        		{
+        			std::cout << "keyPressed State = " << keyPressed << std::endl;
+        			network->sendPacket(keyPressed);
+        		}
+        		else
+        		{
+
+        		}
         	}
+
+ 			//        player->getNode(0)->translate(Pos);
+//        pInstance[bballInstance[0].getPlayer()].getNode()->translate(-0.02f,0.0f,0.0f);
 		render->getMRoot()->renderOneFrame();
 
     }

@@ -194,9 +194,10 @@ void networkEngine::networkClient()
         cout << "sendData = " << sendData << endl;
         cout << "size of sendData = " << strlen(sendData) << endl;
 */
+		Ogre::String dataTest = "data data";
         // Create a reliable packet of size 7 containing "packet\0"
  //       packet = enet_packet_create (sendData,strlen(sendData) + 1, ENET_PACKET_FLAG_RELIABLE);
-        packet = enet_packet_create("test",5,ENET_PACKET_FLAG_RELIABLE);
+        packet = enet_packet_create(dataTest.c_str(),strlen(dataTest.c_str())+1,ENET_PACKET_FLAG_RELIABLE);
         packet2 = enet_packet_create("test2",6,ENET_PACKET_FLAG_RELIABLE);
         // Extend the packet so and append the string "foo", so it now
         // contains "packetfoo\0"
@@ -250,6 +251,7 @@ void networkEngine::serverSetup()
 void networkEngine::networkServer()
 {
 //	serverSetup();
+    gameEngine *gameE = gameEngine::Instance();
 
     int x = 0;
 //    do
@@ -336,8 +338,14 @@ void networkEngine::networkServer()
                 /* Clean up the packet now that we're done using it. */
                 cout << "Peer = " << event.peer->incomingPeerID << endl;
 //                exit(0);
+                cout << "info = " << info[0] << endl;
 
-				enet_packet_destroy (event.packet);
+                // test code to enable player movement based on network data
+				if (info[0] == "up")
+				{
+					gameE->setMovePlayer(true);
+				}
+                enet_packet_destroy (event.packet);
                 break;
 
             case ENET_EVENT_TYPE_DISCONNECT:
@@ -359,6 +367,16 @@ void networkEngine::networkServer()
 
 
 //    enet_host_destroy(server);
+
+}
+
+void networkEngine::sendPacket(Ogre::String packetData)
+{
+	while (enet_host_service (client, &event, 0) > 0)
+	{
+	}
+    packet = enet_packet_create(packetData.c_str(),strlen(packetData.c_str())+1,ENET_PACKET_FLAG_RELIABLE);
+    enet_peer_send (peer, 0, packet);
 
 }
 

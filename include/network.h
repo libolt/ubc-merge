@@ -48,6 +48,8 @@ class networkEngine
     virtual void serverSetup();	// setup server.
     virtual void networkServer();	// Server code
 
+    virtual void sendPacket(Ogre::String packetData);	// sends a packet to the peer
+
     virtual int getClientID();	// returns the value of clientID variable;
     virtual void setClientID(int ID);  // sets the value of clientID variable;
 

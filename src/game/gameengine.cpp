@@ -55,7 +55,9 @@ gameEngine::gameEngine()
     quitGame = false;
     serverRunning = false;
     clientRunning = false;
-
+    createScene = false;
+    renderScene = false;
+    movePlayer = false;
 }
 //-------------------------------------------------------------------------------------
 gameEngine::~gameEngine()
@@ -122,6 +124,35 @@ void gameEngine::setClientRunning(bool client)
 	clientRunning = client;
 }
 
+bool gameEngine::getCreateScene()
+{
+	return (createScene);
+}
+
+void gameEngine::setCreateScene(bool scene)
+{
+	createScene = scene;
+}
+
+bool gameEngine::getRenderScene()
+{
+	return (renderScene);
+}
+
+void gameEngine::setRenderScene(bool scene)
+{
+	renderScene = scene;
+}
+
+bool gameEngine::getMovePlayer()
+{
+	return (movePlayer);
+}
+
+void gameEngine::setMovePlayer(bool player)
+{
+	movePlayer = player;
+}
 bool gameEngine::startGame()
 {
 //    gameState *gameS = gameState::Instance();

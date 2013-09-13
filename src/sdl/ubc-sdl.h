@@ -31,8 +31,12 @@
 #include "OgreString.h"
 #include "renderengine.h"
 #include "gameengine.h"
+#include "gamestate.h"
 #include "input.h"
 #include "network.h"
+#include "players.h"
+#include "playerdata.h"
+#include "playerstate.h"
 
 class UBC
 {

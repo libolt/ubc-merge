@@ -19,6 +19,7 @@
  ***************************************************************************/
 #include "gui.h"
 #include "network.h"
+#include "gameengine.h"
 //#include "ubcapp.h"
 #include "config.h"
 //#include "MyGUI.h"
@@ -167,22 +168,27 @@ void GUISystem::exitButtonClicked(MyGUI::Widget *_sender)	// handles exitButton 
 void GUISystem::serverButtonClicked(MyGUI::Widget *_sender)	// handles serverButton click event
 {
     networkEngine * network = networkEngine::Instance();
+    gameEngine * gameE = gameEngine::Instance();
 
     hideNetworkSetupWidgets();	// Hides Network Setup Menu widgets
     network->setIPAddress(ipAddressBox->getCaption());	// sets the neworkEngine's ipAddress string to that of the caption
 //    network->networkServer();
     network->serverSetup();
+    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scene
 
 }
 
 void GUISystem::clientButtonClicked(MyGUI::Widget *_sender)	// handles clientButton click event
 {
     networkEngine * network = networkEngine::Instance();
+    gameEngine * gameE = gameEngine::Instance();
 
     hideNetworkSetupWidgets();	// Hides Network Setup Menu widgets
     network->setIPAddress(ipAddressBox->getCaption());	// sets the neworkEngine's ipAddress string to that of the caption
 //    network->networkClient();
     network->clientConnect();
+    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scenetop
+
 }
 
 void GUISystem::hideMainMenuWidgets()	// hides the widgets tied to the Main Menu

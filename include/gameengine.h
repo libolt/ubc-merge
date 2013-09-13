@@ -46,11 +46,20 @@ public:
     virtual bool getClientRunning();				// retrieves clientRunning variable
     virtual void setClientRunning(bool client);		// sets clientRunning variable
 
+    virtual bool getCreateScene();					// retrieves createScene variable
+    virtual void setCreateScene(bool scene);		// sets createScene variable
+
+    virtual bool getRenderScene();					// retrieves renderScene variable
+    virtual void setRenderScene(bool scene);		// sets renderScene variable
+
+    virtual bool getMovePlayer();					// retrieves movePlayer variable
+    virtual void setMovePlayer(bool player);		    // sets movePlayer variable
+
     virtual Ogre::Timer getLoopTime();				// retrieves loopTime variable
     virtual void setLoopTIme(Ogre::Timer time);		// sets loopTime variable
 
-    virtual unsigned long getOldTime();				// retrieves oldTime varaible
-    virtual void setOldTime(unsigned long time);	// sets oldTime variasble
+    virtual unsigned long getOldTime();				// retrieves oldTime variable
+    virtual void setOldTime(unsigned long time);	// sets oldTime variable
 
     // starts a game
     virtual bool startGame();
@@ -79,7 +88,9 @@ private:
     bool quitGame;		// if set then triggers the shutdown process for the game
     bool serverRunning;	// if set triggers the network server code
     bool clientRunning;	// if set triggers the network client code
-
+    bool createScene;	// if set triggers the render system's createScene function
+    bool renderScene;	// if set triggers the render system's scene rendering function
+    bool movePlayer;	// if set triggers movement of a player for testing netwoirk code
 };
 
 #endif // _GAMEENGINE_H_
