@@ -22,6 +22,7 @@
 
 teamState::teamState()
 {
+	playerType = ' ';
     assists = 0;
     blocks = 0;
     fouls = 0;
@@ -35,6 +36,14 @@ teamState::~teamState()
 {
 }
 
+Ogre::String teamState::getPlayerType()	// retrieves playerType variable
+{
+	return (playerType);
+}
+void teamState::setPlayerType(Ogre::String type)	// sets playerType variable
+{
+	playerType = type;
+}
 int teamState::getAssists(void)   // retrieves assists
 {
     return (assists);
@@ -113,6 +122,15 @@ int teamState::getTimeouts(void)  // retrieves timeouts
 void teamState::setTimeouts(int timeout)  // sets timeouts
 {
     timeouts = timeout;
+}
+
+int teamState::getTurnovers() // retrieves turnovers variable
+{
+	return (turnovers);
+}
+void teamState::setTurnovers(int turnover)    // sets turnovers variable
+{
+	turnovers = turnover;
 }
 
 int teamState::getFieldGoalsAttempted(void)   // retrieves fieldGoalsAttempted

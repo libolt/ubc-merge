@@ -100,13 +100,13 @@ void gameState::setShotComplete(bool complete)
 // assigns teams that are playing to the game state machine
 bool gameState::assignTeams()
 {
-    gameState *gameS = gameState::Instance();
+//    gameState *gameS = gameState::Instance();
 
     // sets the teams that are playing to teamID
     std::vector<int> teamIDS;
-    teamIDS.push_back(1);
-    teamIDS.push_back(2);
-    gameS->setTeamID(teamIDS);
+    teamID.push_back(1);	// hard codes team with ID = 1 as first team, code needs reworking
+    teamID.push_back(2);	// hard codes team with ID = 2 as second team, code needs reworking
+//    gameS->setTeamID(teamIDS);
 
     return true;
 }
@@ -129,6 +129,7 @@ bool gameState::assignPlayers()
     {
         if (teamN[x].getID() == teamIDS[0])     // checks if teamN's ID matches that of teamIDS[0]
         {
+
             team1Starters = teamN[x].getStarters();     // copies the starters to the team1Starters std::vector
         }
         else if (teamN[x].getID() == teamIDS[1])        // checks if teamN's ID matches taht of teamIDs[1]
@@ -248,6 +249,8 @@ bool gameState::setupState()
     assignTeams();    // assigns teams playing
 
     assignPlayers();  // assigns players currently playing
+
+    createTeamInstances();	// creates the team instances
 
     createPlayerInstances(); // creates the player instances based on playerIDS
 
@@ -579,6 +582,7 @@ bool gameState::createPlayerInstances()
 
     std::vector <playerData> playerN = player->getPlayer(); // copies Player values to playerN
     std::vector <int>::iterator playerIT;
+    int x = 0;
     for (playerIT = playerID.begin(); playerIT != playerID.end(); ++playerIT)   // loops through playerID std::vector
     {
             playerState pInstance;  // creates a new instance of playerState
@@ -631,6 +635,10 @@ void gameState::setTeamInstance(std::vector<teamState> Instance)
 // creates team Instances
 bool gameState::createTeamInstances()
 {
+	teamState tInstance;
+	teamInstance.push_back(tInstance);	// adds empty teamState to teamInstance vector
+	teamInstance.push_back(tInstance);	// adds empty teamState to teamInstance vector
+
     return true;
 }
 

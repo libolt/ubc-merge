@@ -96,6 +96,7 @@ void networkEngine::clientConnect()
 			event.type == ENET_EVENT_TYPE_CONNECT)
 		{
 			cout << "Connection to " << ipAddress << ":1234 succeeded." << endl;
+			clientEstablishedConnection = true; // Tells other code that this instance is a network client
 		}
 		else
 		{
@@ -277,6 +278,7 @@ void networkEngine::networkServer()
             	/* Store any relevant client information here. */
 //                event.peer->data = "Client information";
 //            	exit(0);
+            	serverReceivedConnection = true;	// Tells code that a client has connected
                 break;
 
             case ENET_EVENT_TYPE_RECEIVE:

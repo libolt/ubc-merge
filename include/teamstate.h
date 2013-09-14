@@ -22,6 +22,7 @@
 #define _TEAMSATE_H_
 
 #include <vector>
+#include "OgreString.h"
 
 using namespace std;
 
@@ -32,63 +33,66 @@ class teamState
         teamState();
         ~teamState();
 
-        int getAssists(void);   // retrieves assists
-        void setAssists(int assist);    // sets assists
+        virtual Ogre::String getPlayerType();	// retrieves playerType variable
+        virtual void setPlayerType(Ogre::String type);	// sets playerType variable
 
-        int getBlocks(void);    // retrieves blocks
-        void setBlocks(int block);  // sets blocks
+        virtual int getAssists();   // retrieves assists variable
+        virtual void setAssists(int assist);    // sets assists variable
 
-        int getFouls(void); // retrieves fouls
-        void setFouls(int foul);    // sets fouls
+        virtual int getBlocks();    // retrieves blocks variable
+        virtual void setBlocks(int block);  // sets blocks variable
 
-        int getRebounds(void);  // retrieves rebounds
-        void setRebounds(int rebound);  // sets rebounds
+        virtual int getFouls(); // retrieves fouls variable
+        virtual void setFouls(int foul);    // sets fouls variable
 
-        int getOffensiveRebounds(void); // retrieves offensiveRebounds
-        void setOffensiveRebounds(int rebounds);    // sets offensiveRebounds
+        virtual int getRebounds();  // retrieves rebounds variable
+        virtual void setRebounds(int rebound);  // sets rebounds variable
 
-        int getDefensiveRebounds(void); // retrieves defensiveRebounds
-        void setDefensiveRebounds(int rebounds);    // sets defensiveRebounds
+        virtual int getOffensiveRebounds(); // retrieves offensiveRebounds variable
+        virtual void setOffensiveRebounds(int rebounds);    // sets offensiveRebounds variable
 
-        int getSteals(void);    // retrieves steals
-        void setSteals(int steal);  // sets steals
+        virtual int getDefensiveRebounds(); // retrieves defensiveRebounds variable
+        virtual void setDefensiveRebounds(int rebounds);    // sets defensiveRebounds variable
 
-        int getTechnicals(void);    // retrieves technicals
-        void setTechnicals(int technical);  // sets technicals
+        virtual int getSteals();    // retrieves steals variable
+        virtual void setSteals(int steal);  // sets steals variable
 
-        int getTimeouts(void);  // retrieves timeouts
-        void setTimeouts(int timeout);  // sets timeouts
+        virtual int getTechnicals();    // retrieves technicals variable
+        virtual void setTechnicals(int technical);  // sets technicals variable
 
-        int getTurnovers(void); // retrieves turnovers
-        void setTurnovers(int turnover);    // sets turnovers
+        virtual int getTimeouts();  // retrieves timeouts variable
+        virtual void setTimeouts(int timeout);  // sets timeouts variable
 
-        int getFieldGoalsAttempted(void);   // retrieves fieldGoalsAttempted
-        void setFieldGoalsAttempted(int fieldGoals);    // sets fieldGoalsAttempted
+        virtual int getTurnovers(); // retrieves turnovers variable
+        virtual void setTurnovers(int turnover);    // sets turnovers variable
 
-        int getFieldGoalsMade(void);    // retrieves fieldGoalsMade
-        void setFieldGoalsMade(int fieldGoals); // sets fieldGoalsMade
+        virtual int getFieldGoalsAttempted();   // retrieves fieldGoalsAttempted variable
+        virtual void setFieldGoalsAttempted(int fieldGoals);    // sets fieldGoalsAttempted variable
 
-        int getThreePointersAttempted(void);   // retrieves threePointersAttempted
-        void setThreePointersAttempted(int threePointers);  // sets threePointersAttempted
+        virtual int getFieldGoalsMade();    // retrieves fieldGoalsMade variable
+        virtual void setFieldGoalsMade(int fieldGoals); // sets fieldGoalsMade variable
 
-        int getThreePointersMade(void);    // retrieves threePointersMade
-        void setThreePointersMade(int threePointers);   // sets threePointersMade
+        virtual int getThreePointersAttempted();   // retrieves threePointersAttempted variable
+        virtual void setThreePointersAttempted(int threePointers);  // sets threePointersAttempted variable
 
-        int getFreeThrowsAttempted();   // retrieves freeThrowsAttempted
-        void setFreeThrowsAttempted(int freeThrows);    // sets freeThrowsAttempted
+        virtual int getThreePointersMade();    // retrieves threePointersMade variable
+        virtual void setThreePointersMade(int threePointers);   // sets threePointersMade variable
 
-        int getFreeThrowsMade();    // retrieves freeThrowsMade
-        void setFreeThrowsMade(int freeThrows); // sets freeThrowsMade
+        virtual int getFreeThrowsAttempted();   // retrieves freeThrowsAttempted variable
+        virtual void setFreeThrowsAttempted(int freeThrows);    // sets freeThrowsAttempted variable
 
-        std::vector<int> getPlayerID();  // retrieves playerID
-        void setPlayerID(std::vector<int> ID);   // sets playerID
+        virtual int getFreeThrowsMade();    // retrieves freeThrowsMade variable
+        virtual void setFreeThrowsMade(int freeThrows); // sets freeThrowsMade variable
 
-        std::vector<int> getStarterID(); // retrieves starterID
-        void setStarterID(std::vector<int> ID);  // sets starterID
+        virtual std::vector<int> getPlayerID();  // retrieves playerID variable
+        virtual void setPlayerID(std::vector<int> ID);   // sets playerID variable
+
+        virtual std::vector<int> getStarterID(); // retrieves starterID variable
+        virtual void setStarterID(std::vector<int> ID);  // sets starterID variable
 
     protected:
     private:
-
+        Ogre::String playerType;	// stores the type of player in control of the team (human,network,ai) are valid values
         int assists;    // stores number of assists team has.
         int blocks; // stores the total number of blocks.
         int fouls;  // stores the total number of fouls.

@@ -137,12 +137,24 @@ int main(int argc, char *argv[])
         			playerInstance[1].getNode()->translate(Pos);
         			gameE->setMovePlayer(false);
         		}
+        		std::vector<teamState> teamInstance = gameS->getTeamInstance();
+        		teamInstance[0].setPlayerType("human");	// sets playerType for teamInstance 0 to human
+        		if (network->getServerReceivedConnection() && teamInstance[1].getPlayerType() != "network")
+        		{
+        			cout << "no network player" << endl;
+        			teamInstance[1].setPlayerType("network");
+        		}
            	}
 
         	oldTime = newTime;
 
         }
-//        Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
+
+        if (network->getClientEstablishedConnection())
+        {
+
+        }
+        //        Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
 
     	if (input->processInput())
             {
