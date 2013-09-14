@@ -48,6 +48,12 @@ class networkEngine
     virtual void serverSetup();	// setup server.
     virtual void networkServer();	// Server code
 
+    virtual bool getClientEstablishedConnection();					// retrieves clientEstablishedConnection variable
+    virtual void setClientEstablishedConnection(bool connection);	// sets clientEstablishedConnection variable
+
+    virtual bool getServerReceivedConnection();						// retrieves serverReceivedConnection variable
+    virtual void setServerReceivedConnection(bool connection);		// sets serverReceivedConnection variable
+
     virtual void sendPacket(Ogre::String packetData);	// sends a packet to the peer
 
     virtual int getClientID();	// returns the value of clientID variable;
@@ -97,7 +103,8 @@ class networkEngine
     ENetPacket *packet;
 
     bool serverSetupComplete;
-    bool clientConnected;
+    bool clientEstablishedConnection;	// stores whether or not a connection from client to server was successful
+    bool serverReceivedConnection;		// stores whether or not server received a client connection.
 };
 
 

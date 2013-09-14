@@ -27,6 +27,7 @@ using namespace std;
 playerState::playerState()
 {
     playerID = 0;
+    networkControlled = false;
     playerXCoord = 0;
     playerYCoord = 0;
     offDef = 0;
@@ -65,6 +66,16 @@ int playerState::getPlayerID(void)
 void playerState::setPlayerID(int id)
 {
     playerID = id;
+}
+
+bool playerState::getNetworkControlled()
+{
+	return (networkControlled);
+}
+
+void playerState::setNetworkControlled(bool controlled)
+{
+	networkControlled = controlled;
 }
 
 string playerState::getFirstName(void)

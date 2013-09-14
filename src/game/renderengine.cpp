@@ -102,7 +102,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 
 	    if (buildType == "Debug")
 	    {
-	        mRoot->loadPlugin(pluginDir + "/RenderSystem_Direct3D9_d");
+	        mRoot->loadPlugin(pluginDir + "/RenderSystem_Direct3D9_d.dll");
 	        mRoot->loadPlugin(pluginDir + "/Plugin_CgProgramManager_d");
 	    }
 	    else

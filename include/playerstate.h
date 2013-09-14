@@ -33,9 +33,11 @@
         playerState();
         ~playerState();
 
-        int getPlayerID();
-        virtual void setPlayerID(int id);
+        virtual int getPlayerID();								// retrieves playerID variable
+        virtual void setPlayerID(int id);						// sets playerID variable
 
+        virtual bool getNetworkControlled();					// retrieves networkControlled variable
+        virtual void setNetworkControlled(bool controlled);		// sets networkControlled variable
         std::string getFirstName(void);
         void setFirstName(std::string first);
 
@@ -142,6 +144,8 @@
     private:
 
         int playerID;
+
+        bool networkControlled;	// if true player is controlled by a nework client.
 
         std::string firstName;   // stores the first name of the player
 

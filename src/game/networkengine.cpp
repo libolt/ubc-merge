@@ -18,7 +18,8 @@ networkEngine::networkEngine()
     initialize();
     counter = 0;
     clientID = 0;
-    clientConnected = false;
+    clientEstablishedConnection = false;
+    serverReceivedConnection = false;
     serverSetupComplete = false;
 }
 
@@ -55,7 +56,7 @@ void networkEngine::clientConnect()
 {
     gameEngine *gameE = gameEngine::Instance();
 
-    if (!clientConnected)
+    if (!clientEstablishedConnection)
     {
 
 		client = enet_host_create (NULL /* create a client host */,
@@ -106,7 +107,7 @@ void networkEngine::clientConnect()
 			cout << "Connection to " << ipAddress << ":1234 failed." << endl;
 		}
 		gameE->setClientRunning(true);
-		clientConnected = true;
+		clientEstablishedConnection = true;
     }
 }
 
@@ -257,7 +258,7 @@ void networkEngine::networkServer()
 //    do
 //    {
         /* Wait up to 1000 milliseconds for an event. */
-        while (enet_host_service (server, & event, 0) > 0)
+        while (enet_host_service (server, & event, 1) > 0)
         {
 //        	exit(0);
 			std::cout << "EVENT == " << event.type << std::endl;
@@ -380,7 +381,25 @@ void networkEngine::sendPacket(Ogre::String packetData)
 
 }
 
+bool networkEngine::getClientEstablishedConnection()
+{
+	return (clientEstablishedConnection);
+}
 
+void networkEngine::setClientEstablishedConnection(bool connection)
+{
+	clientEstablishedConnection = connection;
+}
+
+bool networkEngine::getServerReceivedConnection()
+{
+	return (serverReceivedConnection);
+}
+
+void networkEngine::setServerReceivedConnection(bool connection)
+{
+	serverReceivedConnection = connection;
+}
 int networkEngine::getClientID()
 {
 	return (clientID);
