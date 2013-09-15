@@ -39,7 +39,10 @@ class gameState
     virtual bool setupState();   // sets up the game condition
     virtual bool logic();   // carries out in game logic
     virtual void shotLogic(Ogre::Vector3 playerPos);   // carries out basketball shot logic
+    virtual void processNetworkEvents();	// processes events received from network connection.
+    virtual void processNetworkPlayerEvents();	// processes player evernts received from network connection
     virtual void updatePlayerDirections(Ogre::Vector3 playerPos);  // updates the direction players are facing
+    virtual void updatePlayerMovements();	// updates the movement status of players
     virtual bool assignTeams(); // assigns the teams which are playing
     virtual bool assignPlayers();   // assigns the players that are playing.
 
@@ -99,7 +102,7 @@ class gameState
         bool createCourtInstances();
 
         // updates positions of gameState objects
-        bool updatePositions();
+        virtual bool updatePositions();
 
     protected:
         gameState();

@@ -126,34 +126,13 @@ int main(int argc, char *argv[])
 //            Ogre::LogManager::getSingletonPtr()->logMessage("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
            	if (gameE->getRenderScene())
             {
-        		std::vector <playerState> playerInstance = gameS->getPlayerInstance();
-        		Ogre::Vector3 Pos = Ogre::Vector3(-0.150f, 0.0f, 0.0f);
-        		playerInstance[0].getNode()->translate(Pos);
-
-        		// network movement of player
-        		if (gameE->getMovePlayer())
-        		{
-        			Pos = Ogre::Vector3(0.0f, 0.400f, 0.0f);
-        			playerInstance[1].getNode()->translate(Pos);
-        			gameE->setMovePlayer(false);
-        		}
-        		std::vector<teamState> teamInstance = gameS->getTeamInstance();
-        		teamInstance[0].setPlayerType("human");	// sets playerType for teamInstance 0 to human
-        		if (network->getServerReceivedConnection() && teamInstance[1].getPlayerType() != "network")
-        		{
-        			cout << "no network player" << endl;
-        			teamInstance[1].setPlayerType("network");
-        		}
+           		gameS->logic();
            	}
 
         	oldTime = newTime;
 
         }
 
-        if (network->getClientEstablishedConnection())
-        {
-
-        }
         //        Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
 
     	if (input->processInput())
@@ -165,8 +144,27 @@ int main(int argc, char *argv[])
         		}
         		else if (keyPressed == "up" && gameE->getClientRunning())
         		{
-        			std::cout << "keyPressed State = " << keyPressed << std::endl;
-        			network->sendPacket(keyPressed);
+        			Ogre::String packetData;
+        			packetData = "player6" + keyPressed;
+        			network->sendPacket(packetData);
+        		}
+        		else if (keyPressed == "down" && gameE->getClientRunning())
+        		{
+        			Ogre::String packetData;
+        			packetData = "player6" + keyPressed;
+        			network->sendPacket(packetData);
+        		}
+        		else if (keyPressed == "left" && gameE->getClientRunning())
+        		{
+        			Ogre::String packetData;
+        			packetData = "player6" + keyPressed;
+        			network->sendPacket(packetData);
+        		}
+        		else if (keyPressed == "right" && gameE->getClientRunning())
+        		{
+        			Ogre::String packetData;
+        			packetData = "player6" + keyPressed;
+        			network->sendPacket(packetData);
         		}
         		else
         		{

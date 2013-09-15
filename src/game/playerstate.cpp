@@ -52,6 +52,7 @@ playerState::playerState()
     freeThrowsAttempted = 0;
     freeThrowsMade = 0;
     posChange = Ogre::Vector3(0.0f,0.0f,0.0f);
+    movement = false;
 }
 
 playerState::~playerState()
@@ -425,6 +426,23 @@ bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D mod
     return true;
 }
 
+bool playerState::getMovement()	// returns movement variable
+{
+	return (movement);
+}
+void playerState::setMovement(bool move)	// sets movement variable
+{
+	movement = move;
+}
+
+directions playerState::getDirection()	// returns direction variable
+{
+	return (direction);
+}
+void playerState::setDirection(directions direct)	// sets direction variable
+{
+	direction = direct;
+}
 // gets and sets posChange
 Ogre::Vector3 playerState::getPosChange()
 {

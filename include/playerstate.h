@@ -26,122 +26,132 @@
 
 #include <vector>
 #include <string>
-   class playerState
+
+#include "enums.h"
+
+class playerState
     {
     public:
 
         playerState();
         ~playerState();
 
+
         virtual int getPlayerID();								// retrieves playerID variable
         virtual void setPlayerID(int id);						// sets playerID variable
 
         virtual bool getNetworkControlled();					// retrieves networkControlled variable
         virtual void setNetworkControlled(bool controlled);		// sets networkControlled variable
-        std::string getFirstName(void);
-        void setFirstName(std::string first);
 
-        std::string getLastName(void);
-        void setLastName(std::string last);
+        virtual std::string getFirstName(void);
+        virtual void setFirstName(std::string first);
 
-        int getAge(void);
-        void setAge(int age);
+        virtual std::string getLastName(void);
+        virtual void setLastName(std::string last);
 
-        int getHeight(void);
-        void setHeight(int height);
+        virtual int getAge(void);
+        virtual void setAge(int age);
 
-        int getWeight(void);
-        void setWeight(int weight);
+        virtual int getHeight(void);
+        virtual void setHeight(int height);
 
+        virtual int getWeight(void);
+        virtual void setWeight(int weight);
 
-
-        int getPlayerXCoord();
+        virtual int getPlayerXCoord();
         virtual void setPlayerXCoord(int XCoord);
 
-        int getPlayerYCoord();
+        virtual int getPlayerYCoord();
         virtual void setPlayerYCoord(int YCoord);
 
 
-        int getOffDef();
+        virtual int getOffDef();
         virtual void setOffDef(int set);
 
-        int getDefending();
+        virtual int getDefending();
         virtual void setDefending(int set);
 
-        int getPosition();
+        virtual int getPosition();
         virtual void setPosition(int set);
 
-        bool getUserControlled();
+        virtual bool getUserControlled();
         virtual void setUserControlled(bool set);
 
-        int getUser();
+        virtual int getUser();
         virtual void setUser(int set);
 
-        int getPoints();
+        virtual int getPoints();
         virtual void setPoints(int total);
 
-        int getFouls();
+        virtual int getFouls();
         virtual void setFoulds(int total);
 
-        int getOffensiveRebounds();
+        virtual int getOffensiveRebounds();
         virtual void setOffensiveRebounds(int rebounds);
 
-        int getDefensiveRebounds();
+        virtual int getDefensiveRebounds();
         virtual void setDefensiveRebounds(int rebounds);
 
-        int getTotalRebounds();
+        virtual int getTotalRebounds();
         virtual void setTotalReboundS(int rebounds);
 
-        int getStamina();
+        virtual int getStamina();
         virtual void setStamina(int total);
 
-        int getSteals();
+        virtual int getSteals();
         virtual void setSteals(int total);
 
-        int getBlocks();
+        virtual int getBlocks();
         virtual void setBlocks(int total);
 
-        int getTurnovers();
+        virtual int getTurnovers();
         virtual void setTurnovers(int total);
 
-        int getAssists();
+        virtual int getAssists();
         virtual void setAssists(int total);
 
-        int getFieldGoalsAttemped();
+        virtual int getFieldGoalsAttemped();
         virtual void setFieldGoalsAttempted(int attempted);
 
-        int getFieldGoalsMade();
+        virtual int getFieldGoalsMade();
         virtual void setFieldGoalsmade(int made);
 
-        int getThreePointersAttempted();
+        virtual int getThreePointersAttempted();
         virtual void setThreePointersAttempted(int attempted);
 
-        int getThreePointersMade();
+        virtual int getThreePointersMade();
         virtual void setThreePointersMade(int made);
 
-        int getFreeThrowsAttempted();
+        virtual int getFreeThrowsAttempted();
         virtual void setFreeThrowsAttempted(int attempted);
 
-        int getFreeThrowsMade();
+        virtual int getFreeThrowsMade();
         virtual void setFreeThrowsMade(int made);
 
-        std::string getModelName();
+        virtual std::string getModelName();
         virtual void setModelName(std::string name);
 
-        Ogre::Entity *getModel();
+        virtual Ogre::Entity *getModel();
         virtual void setModel(Ogre::Entity *Model);
 
-        Ogre::SceneNode *getNode();
+        virtual Ogre::SceneNode *getNode();
         virtual void setNode(Ogre::SceneNode *Node);
 
-        bool loadModel();   // loads the 3D model from file specified in modelName
+        virtual bool loadModel();   // loads the 3D model from file specified in modelName
 
-        bool updatePosition();  // updates the X, Y and Z coordinates of the 3D model
+        virtual bool updatePosition();  // updates the X, Y and Z coordinates of the 3D model
 
-        Ogre::Vector3 getPosChange();	// retrieves value of posChange
+        virtual bool getMovement();	// returns movement variable
+        virtual void setMovement(bool move);	// sets movement variable
+
+        virtual directions getDirection();	// returns direction variable
+        virtual void setDirection(directions direct);	// sets direction variable
+
+        virtual Ogre::Vector3 getPosChange();	// returns value of posChange
         void setPosChange(Ogre::Vector3 change);	// sets value of posChange
 
     private:
+
 
         int playerID;
 
@@ -227,8 +237,13 @@
         // stores the name of the 3D model representing the player
         std::string modelName;
 
+        bool movement; // if true then player is moving
+
+        directions direction;	// stores direction player is moving
+
         // stores value of players' position changes during logic updates
         Ogre::Vector3 posChange;
+
 
         // Stores the 3D model that represents the player
         Ogre::Entity *model;

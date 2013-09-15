@@ -21,6 +21,7 @@ networkEngine::networkEngine()
     clientEstablishedConnection = false;
     serverReceivedConnection = false;
     serverSetupComplete = false;
+    packetReceived = false;
 }
 
 networkEngine::~networkEngine()
@@ -282,32 +283,43 @@ void networkEngine::networkServer()
                 break;
 
             case ENET_EVENT_TYPE_RECEIVE:
+				char *data; // char array that stores data received in the packet
+
                 printf ("A packet of length %u containing %s was received from %s on channel %u.\n",
                         event.packet -> dataLength,
                         event.packet -> data,
                         event.peer -> data,
                         event.channelID);
 
-				cout << "event.packet->data = " << event.packet->data << endl;
+                packetReceived = true;	// lets code know that a packet was received
+//				cout << "event.packet->data = " << event.packet->data << endl;
+
+				data = new char[event.packet->dataLength + 1];	// creates array the size of the packet data + 1
+				snprintf(data,event.packet->dataLength + 1, "%s", event.packet->data);	// copies contents of packet to data variable
+
+				receivedData = data;	// copies conetents of data array to receivedData Ogre::String variable
+
+/*
 				Ogre::String *info;
 				info = new Ogre::String;
 //				info[0] = Ogre::StringConverter::toString(event.packet->data);
 //				info[0].assign(event.packet->data);
-				char *data, *deta;
+//				char *data, *deta;
 
 				data = new char[event.packet->dataLength + 1];
 				cout << "size of data = " << sizeof(event.packet->data) << endl;
 				cout << "size of data packet = " << event.packet->dataLength << endl;
 //				sprintf_s(data, event.packet->dataLength + 1,"%s", event.packet->data);
 				snprintf(data,event.packet->dataLength + 1, "%s", event.packet->data);
+
 //				string data;
 //				strcpy(event.packet->data,data.c_str());
 				info[0] = data;
-				string *receiveData;
-				receiveData = new string;
-				receiveData[0] = info[0];
+//				string *receiveData;
+//				receiveData = new string;
+//				receiveData[0] = info[0];
 				cout << "data = " << data << endl;
-				cout << "receiveData = " << receiveData[0] << endl;
+//				cout << "receiveData = " << receiveData[0] << endl;
 //				cout << "DAMN = " << Ogre::StringConverter::parseInt(damn[0]) << endl;
 //				cout << "DAMN = " << Ogre::StringConverter::isNumber(damn[0]) << endl;
 				packetType pType;
@@ -338,23 +350,27 @@ void networkEngine::networkServer()
 
 //	 			ePacket *pack = new ePacket;(
 //				pack[0] = event.packet->data;
-                /* Clean up the packet now that we're done using it. */
+                // Clean up the packet now that we're done using it.
                 cout << "Peer = " << event.peer->incomingPeerID << endl;
 //                exit(0);
                 cout << "info = " << info[0] << endl;
 
+*/
                 // test code to enable player movement based on network data
-				if (info[0] == "up")
+
+/*				if (receivedData == "up")
 				{
 					gameE->setMovePlayer(true);
 				}
+*/
+
                 enet_packet_destroy (event.packet);
                 break;
 
             case ENET_EVENT_TYPE_DISCONNECT:
                 printf ("%s disconected.\n", event.peer -> data);
 
-                /* Reset the peer's client information. */
+                // Reset the peer's client information.
                 event.peer -> data = NULL;
             }
             packet = enet_packet_create ("test",5, ENET_PACKET_FLAG_RELIABLE);
@@ -420,6 +436,25 @@ Ogre::String networkEngine::getIPAddress()	// returns ipAddress string
 void networkEngine::setIPAddress(Ogre::String IP)	// sets ipAddress string
 {
 	ipAddress = IP;
+}
+
+Ogre::String networkEngine::getReceivedData()	// returns receivedData variable
+{
+	return (receivedData);
+}
+
+bool networkEngine::getPacketReceived()								// returns packetReceived variable
+{
+	return (packetReceived);
+}
+void networkEngine::setPacketReceived(bool received)					// sets packetReceived variable
+{
+	packetReceived = received;
+}
+
+void networkEngine::setReceivedData(Ogre::String data)	// sets receivedData variable
+{
+	receivedData = data;
 }
 
 ENetAddress networkEngine::getListenAddress()

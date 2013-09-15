@@ -33,7 +33,7 @@ using namespace std;
 
 enum packetType { PLAYER, BALL, COURT };
 enum packetData { MOVE, SHOOT, PASS };
-enum movementDirection { FORWARD, BACKWARD, LEFT, RIGHT };
+//enum movementDirection { FORWARD, BACKWARD, LEFT, RIGHT };
 
 class networkEngine
 {
@@ -48,11 +48,14 @@ class networkEngine
     virtual void serverSetup();	// setup server.
     virtual void networkServer();	// Server code
 
-    virtual bool getClientEstablishedConnection();					// retrieves clientEstablishedConnection variable
+    virtual bool getClientEstablishedConnection();					// returns clientEstablishedConnection variable
     virtual void setClientEstablishedConnection(bool connection);	// sets clientEstablishedConnection variable
 
-    virtual bool getServerReceivedConnection();						// retrieves serverReceivedConnection variable
+    virtual bool getServerReceivedConnection();						// returns serverReceivedConnection variable
     virtual void setServerReceivedConnection(bool connection);		// sets serverReceivedConnection variable
+
+    virtual bool getPacketReceived();								// returns packetReceived variable
+    virtual void setPacketReceived(bool received);					// sets packetReceived variable
 
     virtual void sendPacket(Ogre::String packetData);	// sends a packet to the peer
 
@@ -61,23 +64,27 @@ class networkEngine
 
     virtual Ogre::String getIPAddress();	// returns the value of the ipAddress string
     virtual void setIPAddress(Ogre::String IP);	// sets the value of the ipAddress string
-    virtual ENetAddress getListenAddress();
-    virtual void setListenAddress(ENetAddress address);
 
-    virtual ENetAddress getServerAddress();
-    virtual void setServerAddress(ENetAddress address);
+    virtual Ogre::String getReceivedData();	// returns receivedData variable
+    virtual void setReceivedData(Ogre::String data);
 
-    virtual ENetHost *getClient();
-    virtual void setClient(ENetHost *Client);
+    virtual ENetAddress getListenAddress();	// returns listenAddress variable
+    virtual void setListenAddress(ENetAddress address);	// sets listenAddress variable
 
-    virtual ENetEvent getEvent();
-    virtual void setEvent(ENetEvent Event);
+    virtual ENetAddress getServerAddress();	// returns serverAddress variable
+    virtual void setServerAddress(ENetAddress address);	// sets serverAddress variable
 
-    virtual ENetPeer *getPeer();
-    virtual void setPeer(ENetPeer *Peer);
+    virtual ENetHost *getClient();	//	returns client variable
+    virtual void setClient(ENetHost *Client);	// sets client variable
 
-    virtual ENetHost *getServer();
-    virtual void setServer(ENetHost *Server);
+    virtual ENetEvent getEvent();	// returns event variable
+    virtual void setEvent(ENetEvent Event);	// sets event variable
+
+    virtual ENetPeer *getPeer();	// returns peer variable
+    virtual void setPeer(ENetPeer *Peer);	// sets peer variable
+
+    virtual ENetHost *getServer();	// returns server variable
+    virtual void setServer(ENetHost *Server);	// sets server variable
 
     static networkEngine *Instance();
 
@@ -93,6 +100,9 @@ class networkEngine
 
     int clientID;	// defines the client ID number used to identify which client is communicating with the server
     Ogre::String ipAddress; // stores IP Address used for either server or client code
+    Ogre::String receivedData; // stores received packet data
+    bool packetReceived;	// if set then a packet was received from remote connection
+
     // ENET related code
     ENetAddress listenAddress;
     ENetAddress serverAddress;
