@@ -297,7 +297,6 @@ bool gameState::setupState()
 // carries out in game logic
 bool gameState::logic()
 {
-//    gameState *gameS = gameState::Instance();
 	networkEngine *network = networkEngine::Instance();
     players *player = players::Instance();
     Ogre::Vector3 playerPos;
@@ -345,6 +344,7 @@ bool gameState::logic()
     std::vector<int> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable
 
 
+    // movement test code
     if (i < 200)
     {
 
@@ -373,7 +373,6 @@ bool gameState::logic()
             i = 0;
         }
     }
-
 
     updatePlayerDirections(playerPos);
     updatePlayerMovements();	// updates movement of player objects
@@ -476,19 +475,26 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 	// checks what is at the end of the receivedData string
 	if (Ogre::StringUtil::endsWith(receivedData, "up"))	// checks if player moved upward
 	{
-		Ogre::Vector3 Pos = Ogre::Vector3(0.0f, 0.400f, 0.0f);
-		playerInstance[playerNumber].getNode()->translate(Pos);
+//		Ogre::Vector3 Pos = Ogre::Vector3(0.0f, 0.400f, 0.0f);
+//		playerInstance[playerNumber].getNode()->translate(Pos);
+		playerInstance[playerNumber].setMovement(true);
+		playerInstance[playerNumber].setDirection(UP);
+
 	}
 	else if (Ogre::StringUtil::endsWith(receivedData, "down"))	// checks if player moved downward
 	{
-		Ogre::Vector3 Pos = Ogre::Vector3(0.0f, -0.400f, 0.0f);
-		playerInstance[playerNumber].getNode()->translate(Pos);
+//		Ogre::Vector3 Pos = Ogre::Vector3(0.0f, -0.400f, 0.0f);
+//		playerInstance[playerNumber].getNode()->translate(Pos);
+		playerInstance[playerNumber].setMovement(true);
+		playerInstance[playerNumber].setDirection(DOWN);
 
 	}
 	else if (Ogre::StringUtil::endsWith(receivedData, "left")) // checks if player moved left
 	{
-		Ogre::Vector3 Pos = Ogre::Vector3(-0.400f, 0.0f, 0.0f);
-		playerInstance[playerNumber].getNode()->translate(Pos);
+//		Ogre::Vector3 Pos = Ogre::Vector3(-0.400f, 0.0f, 0.0f);
+//		playerInstance[playerNumber].getNode()->translate(Pos);
+		playerInstance[playerNumber].setMovement(true);
+		playerInstance[playerNumber].setDirection(LEFT);
 
 	}
 	else if (Ogre::StringUtil::endsWith(receivedData, "right"))	// checks if player moved right
@@ -651,7 +657,7 @@ void gameState::updatePlayerMovements()	// updates player movements
 
 	for (int i = 0; i < 10; ++i)
 	{
-		if (playerInstance[i].getMovement())
+		if (playerInstance[i].getMovement())	// if true sets coordinate change accordingly
 		{
 			if (playerInstance[i].getDirection() == UP)
 			{
@@ -672,9 +678,15 @@ void gameState::updatePlayerMovements()	// updates player movements
 			{
 				posChange = Ogre::Vector3(0.400f, 0.0f, 0.0f);
 				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
-				playerInstance[i].setMovement(false);
 			}
 		}
+		else if (!playerInstance[i].getMovement())	// if false then sets their coordinate changes to 0.0
+		{
+			posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
+			playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
+
+		}
+		playerInstance[i].setMovement(false);
 	}
 }
 

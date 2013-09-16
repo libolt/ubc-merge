@@ -132,42 +132,43 @@ void networkEngine::networkClient()
     // processes client event ever 0 seconds.
 	while (enet_host_service (client, &event, 0) > 0)
 	{
+        switch (event.type)
+        {
+        case ENET_EVENT_TYPE_CONNECT:
+            printf("A new client connected from %x:%u.\n",
+                    event.peer -> address.host,
+                    event.peer -> address.port);
+
+            // Store any relevant client information here.
+     //       event.peer->data = "Client information";
+            exit(0);
+            break;
+
+        case ENET_EVENT_TYPE_RECEIVE:
+            printf ("A packet of length %u containing %s was received from %s on channel %u.\n",
+                    event.packet -> dataLength,
+                    event.packet -> data,
+                    event.peer -> data,
+                    event.channelID);
+
+            // Clean up the packet now that we're done using it.
+            enet_packet_destroy (event.packet);
+            exit(0);
+            break;
+
+        case ENET_EVENT_TYPE_DISCONNECT:
+            printf ("%s disconected.\n", event.peer -> data);
+
+            // Reset the peer's client information.
+
+            event.peer -> data = NULL;
+        }
 	}
 		//while (enet_host_service (network->getClient(), & network->getEvent(), 1000) > 0)
 //    {
-      /*      switch (network->getEvent().type)
-            {
-            case ENET_EVENT_TYPE_CONNECT:
-                printf("A new client connected from %x:%u.\n",
-                        network->getEvent().peer -> address.host,
-                        network->getEvent().peer -> address.port);
+//       }
 
-                // Store any relevant client information here.
-         //       event.peer->data = "Client information";
-                exit(0);
-                break;
-
-            case ENET_EVENT_TYPE_RECEIVE:
-                printf ("A packet of length %u containing %s was received from %s on channel %u.\n",
-                        network->getEvent().packet -> dataLength,
-                        network->getEvent().packet -> data,
-                        network->getEvent().peer -> data,
-                        network->getEvent().channelID);
-
-                // Clean up the packet now that we're done using it.
-                enet_packet_destroy (network->getEvent().packet);
-                exit(0);
-                break;
-
-            case ENET_EVENT_TYPE_DISCONNECT:
-                printf ("%s disconected.\n", network->getEvent().peer -> data);
-
-                // Reset the peer's client information.
-
-                network->getEvent().peer -> data = NULL;
-            }*/
- //       }
-/*
+	/*
         float *y = new float[1];
         y[0] = 20;
 		packetType pType;
@@ -196,7 +197,10 @@ void networkEngine::networkClient()
         sendData = "flapjackstackwacktack";
         cout << "sendData = " << sendData << endl;
         cout << "size of sendData = " << strlen(sendData) << endl;
-*/
+
+
+
+
 		Ogre::String dataTest = "data data";
         // Create a reliable packet of size 7 containing "packet\0"
  //       packet = enet_packet_create (sendData,strlen(sendData) + 1, ENET_PACKET_FLAG_RELIABLE);
@@ -207,9 +211,9 @@ void networkEngine::networkClient()
 //        enet_packet_resize (packet, strlen ("packetfoo") + 1);
 //        strcpy (&packet->data [strlen ("packet")], "foo");
 
-        /* Send the packet to the peer over channel id 0. */
-        /* One could also broadcast the packet by         */
-        /* enet_host_broadcast (host, 0, packet);         */
+        // Send the packet to the peer over channel id 0.
+        // One could also broadcast the packet by
+        // enet_host_broadcast (host, 0, packet);
 //        peer = network->getPeer();
         std::cout << "Sending packets to server." << std::endl;
         enet_peer_send (peer, 0, packet);
@@ -217,6 +221,7 @@ void networkEngine::networkClient()
 //	}
 //    } while (x != 0);
 //    enet_host_destroy(client);
+*/
 
 }
 
@@ -391,10 +396,21 @@ void networkEngine::networkServer()
 
 void networkEngine::sendPacket(Ogre::String packetData)
 {
-	while (enet_host_service (client, &event, 0) > 0)
+	gameEngine *gameE = gameEngine::Instance();
+
+	if (gameE->getServerRunning())
 	{
+		while (enet_host_service (server, &event, 0) > 0)
+		{
+		}
 	}
-    packet = enet_packet_create(packetData.c_str(),strlen(packetData.c_str())+1,ENET_PACKET_FLAG_RELIABLE);
+	else if (gameE->getClientRunning())
+	{
+		while (enet_host_service (client, &event, 0) > 0)
+		{
+		}
+	}
+	packet = enet_packet_create(packetData.c_str(),strlen(packetData.c_str())+1,ENET_PACKET_FLAG_RELIABLE);
     enet_peer_send (peer, 0, packet);
 
 }
