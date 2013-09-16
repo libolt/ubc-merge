@@ -141,19 +141,29 @@ void networkEngine::networkClient()
 
             // Store any relevant client information here.
      //       event.peer->data = "Client information";
-            exit(0);
+//            exit(0);
             break;
 
         case ENET_EVENT_TYPE_RECEIVE:
+			char *data; // char array that stores data received in the packet
+
             printf ("A packet of length %u containing %s was received from %s on channel %u.\n",
                     event.packet -> dataLength,
                     event.packet -> data,
                     event.peer -> data,
                     event.channelID);
 
+            packetReceived = true;	// lets code know that a packet was received
+//				cout << "event.packet->data = " << event.packet->data << endl;
+
+			data = new char[event.packet->dataLength + 1];	// creates array the size of the packet data + 1
+			snprintf(data,event.packet->dataLength + 1, "%s", event.packet->data);	// copies contents of packet to data variable
+
+			receivedData = data;	// copies conetents of data array to receivedData Ogre::String variable
+
             // Clean up the packet now that we're done using it.
             enet_packet_destroy (event.packet);
-            exit(0);
+//            exit(0);
             break;
 
         case ENET_EVENT_TYPE_DISCONNECT:
@@ -284,6 +294,7 @@ void networkEngine::networkServer()
             	/* Store any relevant client information here. */
 //                event.peer->data = "Client information";
 //            	exit(0);
+            	peer = event.peer;	// stores the peer connection for later use.
             	serverReceivedConnection = true;	// Tells code that a client has connected
                 break;
 

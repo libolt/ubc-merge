@@ -344,7 +344,7 @@ bool gameState::logic()
     std::vector<int> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable
 
 
-    // movement test code
+/*    // movement test code
     if (i < 200)
     {
 
@@ -373,7 +373,7 @@ bool gameState::logic()
             i = 0;
         }
     }
-
+*/
     updatePlayerDirections(playerPos);
     updatePlayerMovements();	// updates movement of player objects
 
@@ -659,6 +659,7 @@ void gameState::updatePlayerMovements()	// updates player movements
 	{
 		if (playerInstance[i].getMovement())	// if true sets coordinate change accordingly
 		{
+
 			if (playerInstance[i].getDirection() == UP)
 			{
 				posChange = Ogre::Vector3(0.0f, 0.400f, 0.0f);
