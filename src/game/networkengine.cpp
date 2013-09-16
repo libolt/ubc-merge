@@ -410,6 +410,8 @@ void networkEngine::sendPacket(Ogre::String packetData)
 		{
 		}
 	}
+	cout << "packetData == " << packetData << endl;
+	cout << "Peer == " << peer << endl;
 	packet = enet_packet_create(packetData.c_str(),strlen(packetData.c_str())+1,ENET_PACKET_FLAG_RELIABLE);
     enet_peer_send (peer, 0, packet);
 
