@@ -133,7 +133,15 @@ void gameEngine::setCreateScene(bool scene)
 {
 	createScene = scene;
 }
+bool gameEngine::getSceneCreated()
+{
+	return (sceneCreated);
+}
 
+void gameEngine::setSceneCreated(bool created)
+{
+	sceneCreated = created;
+}
 bool gameEngine::getRenderScene()
 {
 	return (renderScene);

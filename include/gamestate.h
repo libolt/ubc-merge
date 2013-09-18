@@ -48,6 +48,7 @@ class gameState
 
     virtual bool setupEnvironment();    // sets up the 3D environment for the game
 
+
     virtual bool getTipOffComplete();	// retrieves tipOffComplete value
     virtual void setTipOffComplete(bool complete);	// sets tipOffComplete value
     virtual bool getGameStarted(void);
@@ -127,7 +128,15 @@ class gameState
     std::vector <playerState> playerInstance;    // creates instance of the playerState class
     std::vector <teamState>  teamInstance;   // creates instance of the teamState class
 
-// Import from former games class
+    std::vector <Ogre::String> playerModelsLoaded; // creates a vector of strings that holds the models which are loaded
+    bool basketballModelLoaded;	// stores whether basketball model has been loaded
+    bool courtModelLoaded;	// stores whether court model has been loaded
+
+    bool setupEnvironmentCompleted;	// stores whether environment has been setup
+    bool teamInstancesCreated;		// stores whether team instances have been created
+    bool playerInstancesCreated;	// stores whether player instances have been created
+    bool sceneCreated;				// stores whether the scene has been created
+    // Import from former games class
     int x;
     int y;
     int i;

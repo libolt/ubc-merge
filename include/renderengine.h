@@ -77,7 +77,7 @@ class renderEngine
 
     virtual bool initSDL();
     virtual bool initOgre();
-    virtual void createScene();
+    virtual bool createScene();
     virtual bool frameStarted();
     virtual bool frameEnded();
     virtual void createSceneManager();

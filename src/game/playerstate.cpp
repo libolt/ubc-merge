@@ -79,24 +79,34 @@ void playerState::setNetworkControlled(bool controlled)
 	networkControlled = controlled;
 }
 
-string playerState::getFirstName(void)
+Ogre::String playerState::getFirstName(void)
 {
     return(firstName);
 }
 
-void playerState::setFirstName(string first)
+void playerState::setFirstName(Ogre::String first)
 {
     firstName = first;
 }
 
-string playerState::getLastName(void)
+Ogre::String playerState::getLastName(void)
 {
     return(lastName);
 }
 
-void playerState::setLastName(string last)
+void playerState::setLastName(Ogre::String last)
 {
     lastName = last;
+}
+
+Ogre::String playerState::getPlayerName(void)
+{
+    return(playerName);
+}
+
+void playerState::setPlayerName(Ogre::String name)
+{
+    playerName = name;
 }
 
 int playerState::getAge(void)
@@ -397,12 +407,11 @@ bool playerState::loadModel()   // loads the player's 3D model from the file spe
 {
 
     renderEngine *render = renderEngine::Instance();
-    Ogre::String playerName;	// string which stores the player's name
-    playerName += firstName;    // adds the first name to playerName string
-    playerName += lastName;     // adds the last name to the playerName string
+//    playerName += firstName;    // adds the first name to playerName string
+//    playerName += lastName;     // adds the last name to the playerName string
 
 //        playerName += Ogre::StringConverter::toString(playerNum);
-    LogManager::getSingletonPtr()->logMessage("playerName == ");
+    LogManager::getSingletonPtr()->logMessage("playerName == " +playerName);
     // creates and instantiates the playerNode object
     node = render->getMSceneMgr()->getRootSceneNode()->createChildSceneNode(playerName);
     // sets the player model
@@ -415,12 +424,12 @@ bool playerState::loadModel()   // loads the player's 3D model from the file spe
     node->setScale(0.28f,0.28f,0.28f);
     // sets the direction of playerNode
     node->yaw ( Degree (-270));
-
     return true;
 }
 
 bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D model
 {
+	cout << "posChange = " << posChange << endl;
      node->translate(posChange);
 
     return true;

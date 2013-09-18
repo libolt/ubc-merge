@@ -49,6 +49,9 @@ public:
     virtual bool getCreateScene();					// retrieves createScene variable
     virtual void setCreateScene(bool scene);		// sets createScene variable
 
+    virtual bool getSceneCreated();					// returns sceneCreated variable
+    virtual void setSceneCreated(bool created);		// sets sceneCreated variable
+
     virtual bool getRenderScene();					// retrieves renderScene variable
     virtual void setRenderScene(bool scene);		// sets renderScene variable
 
@@ -89,6 +92,7 @@ private:
     bool serverRunning;	// if set triggers the network server code
     bool clientRunning;	// if set triggers the network client code
     bool createScene;	// if set triggers the render system's createScene function
+    bool sceneCreated;	// stores whether scene has been created
     bool renderScene;	// if set triggers the render system's scene rendering function
     bool movePlayer;	// if set triggers movement of a player for testing netwoirk code
 };

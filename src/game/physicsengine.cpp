@@ -127,6 +127,7 @@ void physicsEngine::updateState(float changeInTime)
 
 void physicsEngine::setupPlayerPhysics()
 {
+	/*
     gameState *gameS = gameState::Instance();
     players *player = players::Instance();
 
@@ -156,7 +157,7 @@ void physicsEngine::setupPlayerPhysics()
 
     }
 
-
+*/
 //    playerShape.push_back(*shape);
 }
 

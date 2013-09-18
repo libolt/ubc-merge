@@ -174,7 +174,7 @@ void GUISystem::serverButtonClicked(MyGUI::Widget *_sender)	// handles serverBut
     network->setIPAddress(ipAddressBox->getCaption());	// sets the neworkEngine's ipAddress string to that of the caption
 //    network->networkServer();
     network->serverSetup();
-    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scene
+//    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scene
 
 }
 
@@ -187,7 +187,7 @@ void GUISystem::clientButtonClicked(MyGUI::Widget *_sender)	// handles clientBut
     network->setIPAddress(ipAddressBox->getCaption());	// sets the neworkEngine's ipAddress string to that of the caption
 //    network->networkClient();
     network->clientConnect();
-    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scenetop
+//    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scenetop
 
 }
 

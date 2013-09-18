@@ -565,7 +565,7 @@ void renderEngine::createSceneManager()
 
 }
 
-void renderEngine::createScene()
+bool renderEngine::createScene()
 {
     GUISystem *gui = GUISystem::Instance();
     gameEngine *gameE = gameEngine::Instance();

@@ -43,6 +43,11 @@ gameState *gameState::Instance()
 
 gameState::gameState()
 {
+	basketballModelLoaded = false;
+	courtModelLoaded = false;
+	setupEnvironmentCompleted = false;
+	teamInstancesCreated = false;
+	playerInstancesCreated = false;
     gameStarted = false;
     shotTaken = false;
     shotComplete = false;
@@ -226,7 +231,7 @@ bool gameState::executeTipOff()
     std::vector<basketballs> basketballInstance = getBasketballInstance();
 
     basketballInstance[0].nodeChangePosition(basketballInstance[0].calculatePositionChange());
-exit(0);
+//exit(0);
    setBasketballInstance(basketballInstance);
     return true;
 }
@@ -251,13 +256,35 @@ bool gameState::setupState()
 
     assignPlayers();  // assigns players currently playing
 
-    createTeamInstances();	// creates the team instances
+    if (!teamInstancesCreated)	// checks if teamInstances have been created
+    {
+    	if(createTeamInstances())	// creates the team instances
+    	{
+    		teamInstancesCreated = true;
+    	}
+    }
+    if (!playerInstancesCreated)	// checks if playerInstances have been created
+    {
+    	if (createPlayerInstances()) // creates the player instances based on playerIDS
+		{
+    		playerInstancesCreated = true;
+		}
+    }
+    if (!basketballModelLoaded)	// checks if court model has been loaded
+    {
+    	if (createBasketballInstances()) // creates the basketball instances
+    	{
+    		basketballModelLoaded = true;
+    	}
+    }
 
-    createPlayerInstances(); // creates the player instances based on playerIDS
-
-    createBasketballInstances(); // creates the basketball instances
-
-    createCourtInstances();  // creates the court instances
+    if (!courtModelLoaded)
+    {
+        if (createCourtInstances())  // creates the court instances
+        {
+        	courtModelLoaded = true;
+        }
+    }
 
     physEngine->setupState();  // sets up the Physics Engine state
 
@@ -272,10 +299,10 @@ bool gameState::setupState()
 //        player->mAnimationState2 = ent->getAnimationState("Walk");
 //        std::vector<Ogre::Entity*> playerModels = player->getModel();
 //        std::vector<Ogre::SceneNode*> playerNodes = player->getNode();
-        std::vector<playerState> pInstance = getPlayerInstance();
-        player->mAnimationState2 =  pInstance[5].getModel()->getAnimationState("Walk");
-        player->mAnimationState2->setLoop(true);
-        player->mAnimationState2->setEnabled(true);
+    std::vector<playerState> pInstance = getPlayerInstance();
+    player->mAnimationState2 =  pInstance[5].getModel()->getAnimationState("Walk");
+    player->mAnimationState2->setLoop(true);
+    player->mAnimationState2->setEnabled(true);
 //        player->setModel(playerModels);
 //    Ogre::Vector3 playerPos = playerNodes.at(0)->getPosition();
 //    Ogre::Vector3 offset;
@@ -286,7 +313,13 @@ bool gameState::setupState()
 //	bball->setPosition(playerPos[0] +2.0f, playerPos[1] + 4.0f, playerPos[2] - 1.0f);
 //    exit(0);
 
-    setupEnvironment();
+    if (!setupEnvironmentCompleted)	// checks if environment has been setup
+    {
+    	if(setupEnvironment())	// sets up environment
+    	{
+    		setupEnvironmentCompleted = true;
+    	}
+    }
 //	loads("../../data/players/players.xml");
 
     setupTipOff();	// sets up tip off conditions
@@ -731,6 +764,7 @@ bool gameState::createPlayerInstances()
 
     std::vector <playerData> playerN = player->getPlayer(); // copies Player values to playerN
     std::vector <int>::iterator playerIT;
+//    std::vector <playerState>::iterator pInstanceIT;
     int x = 0;
     for (playerIT = playerID.begin(); playerIT != playerID.end(); ++playerIT)   // loops through playerID std::vector
     {
@@ -738,15 +772,29 @@ bool gameState::createPlayerInstances()
             pInstance.setModelName(playerN[*playerIT].getModel());  // copies the model name from the playerData std::vector to the pInstance class
             pInstance.setFirstName(playerN[*playerIT].getFirstName());  // copies the first name from the playerData std::vector to the pInstance class
             pInstance.setLastName(playerN[*playerIT].getLastName());    // copies the last name from the playerData std::vector to the pInstance class
+            pInstance.setPlayerName(playerN[*playerIT].getFirstName() + playerN[*playerIT].getLastName());
             pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
             playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.
     }
-//    exit(0);
 //    std::vector <playerState>::iterator pInstanceIT;
+
     int pInstanceIT = 0;
     for (pInstanceIT = 0; pInstanceIT < playerInstance.size(); ++pInstanceIT)
     {
-        playerInstance[pInstanceIT].loadModel();
+    	if (std::find(playerModelsLoaded.begin(), playerModelsLoaded.end(), playerInstance[pInstanceIT].getPlayerName()) != playerModelsLoaded.end())
+    	{
+    		cout << "Found Player Name in list of loaded Models, NOT Loading" << endl;
+
+    	}
+    	else
+    	{
+			if (playerInstance[pInstanceIT].loadModel())	// if player model loads successfully add to loaded models vector
+			{
+				playerModelsLoaded.push_back(playerInstance[pInstanceIT].getPlayerName());
+			}
+    	}
+            x += 1;
+            cout << "x = " << x << endl;
     }
     return true;
 }
@@ -815,7 +863,10 @@ bool gameState::createCourtInstances()
 // updates positions of gameState objects
 bool gameState::updatePositions()
 {
-    for (int x = 0; x < playerInstance.size(); ++x)
+	std::vector<playerState>::iterator playerIT;
+	cout << "Size = " << playerInstance.size() << endl;
+	for (playerIT = playerInstance.begin(); playerIT != playerInstance.end(); ++playerIT)
+//	for (int x = 0; x < playerInstance.size(); ++x)
     {
         playerInstance[x].updatePosition();
     }

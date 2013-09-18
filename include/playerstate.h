@@ -37,17 +37,20 @@ class playerState
         ~playerState();
 
 
-        virtual int getPlayerID();								// retrieves playerID variable
+        virtual int getPlayerID();								// returns playerID variable
         virtual void setPlayerID(int id);						// sets playerID variable
 
-        virtual bool getNetworkControlled();					// retrieves networkControlled variable
+        virtual bool getNetworkControlled();					// returns networkControlled variable
         virtual void setNetworkControlled(bool controlled);		// sets networkControlled variable
 
-        virtual std::string getFirstName(void);
-        virtual void setFirstName(std::string first);
+        virtual Ogre::String getFirstName(void);				// returns firstName variable
+        virtual void setFirstName(Ogre::String first);			// sets firstName variable
 
-        virtual std::string getLastName(void);
-        virtual void setLastName(std::string last);
+        virtual Ogre::String getLastName(void);					// returns lastName variable
+        virtual void setLastName(Ogre::String last);			// sets lastName variable
+
+        virtual Ogre::String getPlayerName(void);				// returns playerName variable
+        virtual void setPlayerName(Ogre::String name);			// sets playerName variable
 
         virtual int getAge(void);
         virtual void setAge(int age);
@@ -155,11 +158,12 @@ class playerState
 
         int playerID;
 
-        bool networkControlled;	// if true player is controlled by a nework client.
+        bool networkControlled;	// if true player is controlled by a network client.
 
-        std::string firstName;   // stores the first name of the player
+        Ogre::String firstName;   // stores the first name of the player
 
-        std::string lastName;    // stores the last name of the player
+        Ogre::String lastName;    // stores the last name of the player
+        Ogre::String playerName;	// string which stores the player's full name
 
         int age;    // stores the age of the player
 
@@ -250,6 +254,7 @@ class playerState
 
         // stores the Scene Node that represents the player
         Ogre::SceneNode *node;
+
     };
 
 

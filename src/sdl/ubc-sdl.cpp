@@ -101,16 +101,22 @@ int main(int argc, char *argv[])
 		// run the message pump (Eihort)
 //		Ogre::WindowEventUtilities::messagePump();
 
-/*    	if (network->getServerReceivedConnection() || network->getClientEstablishedConnection())	// checks if server and client are connected
+    	if (network->getServerReceivedConnection() || network->getClientEstablishedConnection())	// checks if server and client are connected
     	{
-    		gameE->setCreateScene(true);
+    		if (!gameE->getSceneCreated())
+    		{
+    			gameE->setCreateScene(true);
+    		}
     	}
-*/
+
     	if (gameE->getCreateScene())
     	{
-    		render->createScene();
-    		gameE->setCreateScene(false);
-    		gameE->setRenderScene(true);
+    		if (render->createScene())
+    		{
+    			gameE->setCreateScene(false);
+    			gameE->setRenderScene(true);
+    			gameE->setSceneCreated(true);
+    		}
     	}
         lastFPS = render->getMWindow()->getLastFPS();
         Ogre::String currFPS = Ogre::StringConverter::toString(lastFPS);
