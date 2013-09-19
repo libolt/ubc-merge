@@ -203,3 +203,20 @@ void teamState::setStarterID(std::vector<int> ID)  // sets starterID
 {
     starterID = ID;
 }
+
+bool teamState::getOffense()	// returns offense variable
+{
+	return (offense);
+}
+void teamState::setOffense(bool set)	// sets offense variable
+{
+	offense = set;
+}
+bool teamState::getDefense()	// returns defense variable
+{
+	return (defense);
+}
+void teamState::setDefense(bool set)	// sets defense variable
+{
+	defense = set;
+}

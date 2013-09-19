@@ -28,6 +28,8 @@ offenses::offenses()
     {
         playerStartPos[i] = 0.0f;
     }
+
+
 }
 
 offenses::~offenses()

@@ -20,7 +20,10 @@
 
 #include "gameengine.h"
 #include "gamestate.h"
+#include "gui.h"
 #include "input.h"
+#include "network.h"
+#include "renderengine.h"
 
 gameEngine* gameEngine::pInstance = 0;
 gameEngine* gameEngine::Instance()
@@ -52,6 +55,7 @@ gameEngine::gameEngine()
     oldTime = 0;
 
     menuActive = false;
+    start = false;
     quitGame = false;
     serverRunning = false;
     clientRunning = false;
@@ -176,5 +180,194 @@ void gameEngine::quit()
     using namespace OIS;
     inputSystem *input = inputSystem::Instance();
     input->destroy();
+
+}
+
+void gameEngine::gameLoop()	// Main Game Loop
+{
+    renderEngine * render = renderEngine::Instance();
+    gameState *gameS = gameState::Instance();
+    GUISystem *gui = GUISystem::Instance();
+    inputSystem *input = inputSystem::Instance();
+    networkEngine *network = networkEngine::Instance();
+    players *player = players::Instance();
+
+    float lastFPS = 0.0f;	// stores value of last Frames Per Second
+    float changeInTime;		// stores change in time
+    int newTime;	// stores new time
+    unsigned long oldTime = 0;	// stores old time
+    Ogre::Timer loopTime;	// loop timer
+    loopTime.reset();	// resets the timer
+
+	   while (!quitGame)
+	    {
+	//        ubc->processUnbufferedKeyInput();
+
+	//        render->frameStarted();
+			// run the message pump (Eihort)
+	//		Ogre::WindowEventUtilities::messagePump();
+
+	    	if (network->getServerReceivedConnection() || network->getClientEstablishedConnection())	// checks if server and client are connected
+	    	{
+	    		if (!sceneCreated)
+	    		{
+	    			createScene = true;
+	    		}
+	    	}
+
+	    	if (createScene)	// checks if the scene should be created
+	    	{
+	    		if (render->createScene())
+	    		{
+	    			createScene = false;
+	    			start = true;
+//	    			renderScene = true;
+	    			sceneCreated = true;
+	    		}
+	    	}
+	    	if (start)	// checks if it's time to start the game
+	    	{
+	    		if (startGame())
+	    		{
+	    			start = false;
+	    			renderScene = true;
+	    		}
+	    	}
+	        lastFPS = render->getMWindow()->getLastFPS();
+	        Ogre::String currFPS = Ogre::StringConverter::toString(lastFPS);
+
+	//        unsigned long oldTime = gameE->getOldTime();
+	        newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
+	        changeInTime = newTime - oldTime;
+	        if (changeInTime >= 100)
+	        {
+	        	if (serverRunning)
+	        	{
+	        		network->networkServer();	// Runs network server code
+	        	}
+	        	if (clientRunning)
+	        	{
+	        		network->networkClient();	// runs network client code
+	        	}
+	//            Ogre::LogManager::getSingletonPtr()->logMessage("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
+	           	if (renderScene)
+	            {
+	           		gameS->logic();
+	           	}
+
+	        	oldTime = newTime;
+
+	        }
+
+	        //        Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
+
+	    	if (input->processInput())
+	        {
+				std::vector<playerState> playerInstance = gameS->getPlayerInstance();
+
+				if (clientRunning)	// checks if game is running in client mode
+				{
+					Ogre::String keyPressed = input->getKeyPressed();
+					if (keyPressed == "q")
+					{
+						quitGame =true;
+					}
+					else if (keyPressed == "up")
+					{
+						Ogre::String packetData;
+						playerInstance[6].setMovement(true);
+						playerInstance[6].setDirection(UP);
+						gameS->setPlayerInstance(playerInstance);
+						packetData = "player6" + keyPressed;
+						network->sendPacket(packetData);
+					}
+					else if (keyPressed == "down")
+					{
+						Ogre::String packetData;
+						playerInstance[6].setMovement(true);
+						playerInstance[6].setDirection(DOWN);
+						gameS->setPlayerInstance(playerInstance);
+						packetData = "player6" + keyPressed;
+						network->sendPacket(packetData);
+					}
+					else if (keyPressed == "left")
+					{
+						Ogre::String packetData;
+						playerInstance[6].setMovement(true);
+						playerInstance[6].setDirection(LEFT);
+						gameS->setPlayerInstance(playerInstance);
+						packetData = "player6" + keyPressed;
+						network->sendPacket(packetData);
+					}
+					else if (keyPressed == "right")
+					{
+						Ogre::String packetData;
+						playerInstance[6].setMovement(true);
+						playerInstance[6].setDirection(RIGHT);
+						gameS->setPlayerInstance(playerInstance);
+						packetData = "player6" + keyPressed;
+						network->sendPacket(packetData);
+					}
+					else
+					{
+
+					}
+	    		}
+				else if (serverRunning)	// checks if game is running in server mode
+				{
+					Ogre::String keyPressed = input->getKeyPressed();
+					if (keyPressed == "q")
+					{
+						quitGame = true;
+					}
+					else if (keyPressed == "up")
+					{
+						Ogre::String packetData;
+						playerInstance[0].setMovement(true);
+						playerInstance[0].setDirection(UP);
+						gameS->setPlayerInstance(playerInstance);
+						packetData = "player0" + keyPressed;
+						network->sendPacket(packetData);
+					}
+					else if (keyPressed == "down")
+					{
+						Ogre::String packetData;
+						playerInstance[0].setMovement(true);
+						playerInstance[0].setDirection(DOWN);
+						gameS->setPlayerInstance(playerInstance);
+						packetData = "player0" + keyPressed;
+						network->sendPacket(packetData);
+					}
+					else if (keyPressed == "left")
+					{
+						Ogre::String packetData;
+						playerInstance[0].setMovement(true);
+						playerInstance[0].setDirection(LEFT);
+						gameS->setPlayerInstance(playerInstance);
+						packetData = "player0" + keyPressed;
+						network->sendPacket(packetData);
+					}
+					else if (keyPressed == "right")
+					{
+						Ogre::String packetData;
+						playerInstance[0].setMovement(true);
+						playerInstance[0].setDirection(RIGHT);
+						gameS->setPlayerInstance(playerInstance);
+						packetData = "player0" + keyPressed;
+						network->sendPacket(packetData);
+					}
+					else
+					{
+
+					}
+	    		}
+
+	        }
+
+	 			//        player->getNode(0)->translate(Pos);
+	//        pInstance[bballInstance[0].getPlayer()].getNode()->translate(-0.02f,0.0f,0.0f);
+			render->getMRoot()->renderOneFrame();
+
+	    }
 
 }

@@ -614,6 +614,6 @@ bool renderEngine::createScene()
 */
 //	load->loadPlayerFile(
 //	exit(0);
-    gameE->startGame();
+  //  gameE->startGame();
 
 }

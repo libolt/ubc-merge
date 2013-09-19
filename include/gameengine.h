@@ -69,6 +69,9 @@ public:
 
     // quits entire game
     virtual void quit();
+
+    virtual void gameLoop();	// runs the Main loop for the game
+
     Ogre::Timer loopTime;
 
 protected:
@@ -88,6 +91,7 @@ private:
 
     // Flags
     bool menuActive;	// determines whether or not a menu is active
+    bool start;			// if set then starts running game logic
     bool quitGame;		// if set then triggers the shutdown process for the game
     bool serverRunning;	// if set triggers the network server code
     bool clientRunning;	// if set triggers the network client code

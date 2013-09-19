@@ -90,6 +90,12 @@ class teamState
         virtual std::vector<int> getStarterID(); // retrieves starterID variable
         virtual void setStarterID(std::vector<int> ID);  // sets starterID variable
 
+        virtual bool getOffense();	// returns offense variable
+        virtual void setOffense(bool set);	// sets offense variable
+
+        virtual bool getDefense();	// returns defense variable
+        virtual void setDefense(bool set);	// sets defense variable
+
     protected:
     private:
         Ogre::String playerType;	// stores the type of player in control of the team (human,network,ai) are valid values
@@ -113,6 +119,9 @@ class teamState
         std::vector<int> playerID;    // stores the player IDs from the teams class
 //        std::vector<int> playersOnCourt; // stores which players are currently ont he court.
         std::vector<int> starterID;  // stores the IDs of which players are listed as starters.
+
+        bool offense;	// if set then the team is on offense
+        bool defense;	// if set then the team is on defense
 
 };
 

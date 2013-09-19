@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2006 by Mike McLean   *
+ *   Copyright (C) 2013 by Mike McLean   *
  *   libolt@libolt.net   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -127,18 +127,16 @@ bool gameState::assignPlayers()
     std::vector<teamData> teamN = team->getTeamArray(); // stores the contents of teamArray in teamN
 //    boost::shared_ptr<teamData> teamN; // = team->getTeamArray(); // stores the contents of teamArray in teamN
     // sets the players used on both teams
-    std::vector<int> teamIDS = gameS->getTeamID();  // gets the teamIDs
     std::vector<int> team1Starters;  // stores team 1 starters
     std::vector<int> team2Starters;  // stores team 2 starters
-
     for (int x = 0; x < teamN.size(); ++x)      // loops through teamN std::vector
     {
-        if (teamN[x].getID() == teamIDS[0])     // checks if teamN's ID matches that of teamIDS[0]
+        if (teamN[x].getID() == teamID[0])     // checks if teamN's ID matches that of teamIDS[0]
         {
 
             team1Starters = teamN[x].getStarters();     // copies the starters to the team1Starters std::vector
         }
-        else if (teamN[x].getID() == teamIDS[1])        // checks if teamN's ID matches taht of teamIDs[1]
+        else if (teamN[x].getID() == teamID[1])        // checks if teamN's ID matches taht of teamIDs[1]
         {
             team2Starters = teamN[x].getStarters();     // copies the startesr to the team2Starters std::vector
         }
@@ -154,6 +152,7 @@ bool gameState::assignPlayers()
     // loops through team 1 starters and assigns them to playerIDS std::vector
     for (playersIT = team1Starters.begin(); playersIT != team1Starters.end(); ++playersIT)
     {
+    	cout << "playersIT == " << *playersIT << endl;
         playerIDS.push_back(*playersIT);
     }
 
@@ -559,6 +558,8 @@ void gameState::updatePlayerDirections(Ogre::Vector3 playerPos)
 	std::vector<basketballs> basketballInstance = getBasketballInstance();
     std::vector<Ogre::SceneNode>::iterator playersIT;
 
+
+    cout << "playerID == " << pInstance[4].getPlayerID() << endl;
     // checks if a player's direction has changed and rotates the model accordingly.
 //    for(playersIT = playerNodes.begin(); playersIT != playerNodes.end(); ++playersIT)
     for (int i = 0; i < 10; i++)
@@ -863,11 +864,14 @@ bool gameState::createCourtInstances()
 // updates positions of gameState objects
 bool gameState::updatePositions()
 {
+	int x = 0;
 	std::vector<playerState>::iterator playerIT;
 	cout << "Size = " << playerInstance.size() << endl;
-	for (playerIT = playerInstance.begin(); playerIT != playerInstance.end(); ++playerIT)
-//	for (int x = 0; x < playerInstance.size(); ++x)
-    {
+//	for (playerIT = playerInstance.begin(); playerIT != playerInstance.end(); ++playerIT)
+	for (int x = 0; x < playerInstance.size(); ++x)
+	{
+//		x += 1;
+		cout << "X = " << x << endl;
         playerInstance[x].updatePosition();
     }
 
