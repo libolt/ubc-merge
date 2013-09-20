@@ -133,3 +133,12 @@ int offenses::checkPlayerPosition(void)
 {
     return(0);
 }
+
+offenseTypes offenses::getOffenseType()// returns offenseType variable
+{
+	return (offenseType);
+}
+void offenses::setOffenseType(offenseTypes offense)	// sets offenseType variable;
+{
+	offenseType = offense;
+}

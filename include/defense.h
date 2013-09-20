@@ -21,38 +21,41 @@
 #ifndef _DEFENSE_H_
 #define _DEFENSE_H_
 
+#include "enums.h"
+
 class defenses
 {
 public:
 
-    int getTeamOnDefense(void);
-    void setTeamOnDefense(int team);
+    virtual int getTeamOnDefense();					// returns teamOnDefense variable
+    virtual void setTeamOnDefense(int team);		// sets teamOnDefense variable
 
-    bool getManToMan(void);
-    void setManToMan(bool man);
+    virtual defenseTypes getDefenseType();			// returns defenseType variable
+    virtual void setDefenseType(defenseTypes type);	// sets defenseType variable;
 
-    bool getZone(void);
-    void setZone(bool zone);
+    virtual bool getSetupDefense();					// returns setupDefense variable
+    virtual void setSetupDefense(bool defense);		// sets setupDefense variable
 
-    bool getDefenseSet(void);
-    void setDefenseSet(bool set);
+    virtual bool getDefenseSet();					// returns defenseSet variable
+    virtual void setDefenseSet(bool set);			// sets defenseSet variable
 
 
-    bool getManToManSet(void);
+    bool getManToManSet();
     void setManToManSet(bool set);
 
-    bool getZoneSet(void);
+    bool getZoneSet();
     void setZoneSet(bool set);
 
     // sets up defense
-    bool setupDefense(void);
-    bool setupManToManDefense(void);
-    bool setupZoneDefense(void);
+    virtual bool setupTeamDefense();				// sets up the team's defense
+    virtual bool setupManToManDefense();			// sets up man to man defense
+    virtual bool setupZoneDefense();			// sets up zone defense
 
     // executes defense
-    int executeDefense(void);
-    int executeManToManDefense(void);
-    int executeZoneDefense(void);
+    virtual bool executeDefense();	// executes defense routines
+    virtual bool executeManToManDefense();	// executes man to man defense routines
+    virtual bool executeZoneDefense();	// executes zone defense routines
+
 
 
     static defenses *Instance();
@@ -60,16 +63,20 @@ protected:
     defenses();
     defenses(const defenses&);
     defenses& operator= (const defenses&);
+    ~defenses();
 private:
     static defenses *pInstance;
 
+    defenseTypes defenseType;	// stores type of defense being played
 
     int teamOnDefense;
+
+    bool setupDefense;	// Determines whether to execute the defensive setup code
+    bool defenseSet;	// Determines wether the defense has been setup
 
     bool manToMan;
     bool zone;
 
-    bool defenseSet;
     bool manToManSet;
     bool zoneSet;
 
