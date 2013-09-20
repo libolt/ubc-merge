@@ -21,42 +21,39 @@
 #ifndef _UBCAPP_H_
 #define _UBCAPP_H_
 
-//#include "ogreapplication.h"
+
 #include "config.h"
 #include "gui.h"
-#include "basketballs.h"
-#include "input.h"
-#include "load.h"
-#include "players.h"
+#include "SDL.h"
+#include "SDL_syswm.h"
+#include "SDL_test_common.h"
+#include "Ogre.h"
+#include "OgreStringConverter.h" 
+#include "OgreString.h"
 #include "renderengine.h"
-#include "soundengine.h"
-#include "teams.h"
-#include "tinyxml.h"
+#include "gameengine.h"
+#include "gamestate.h"
+#include "input.h"
+#include "network.h"
+#include "players.h"
+#include "playerdata.h"
+#include "playerstate.h"
 
-#ifdef __APPLE__
-#include <Ogre/OgreStringConverter.h>
-#else
-#include <OgreStringConverter.h>
-#endif
-//#include <OgreOde_Core.h>
-#define OIS_DYNAMIC_LIB
-#include <OIS/OIS.h>
-#include "OgreTimer.h"
-#include "OgreVector3.h"
-
-class gameObjects
+class UBC
 {
-
 public:
-    gameObjects(void);
-    virtual ~gameObjects();
+	virtual ~UBC();	// destructor
 
-//protected:
+	virtual bool getQuitGame();
+	void setQuitGame(bool quit);
+protected:
+    UBC();
+//    UBC(const UBC&);
+//    UBC &operator= (const UBC&);
+private:
+//    static UBC *pInstance;
 
-
-
-    // Variables;
-    int playerHasBasketball;	// value of the player who has the basketball [0-9];
+    bool quitGame;
 };
 
 /* class UBC : public players, gameObjects //, inputSystem, gameObjects, players

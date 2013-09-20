@@ -22,7 +22,7 @@
 #define _TEAMS_H_
 
 #include <string>
-#include "boost/shared_array.hpp"
+//#include "boost/shared_array.hpp"
 #include "teamdata.h"
 
 // class representing team data
