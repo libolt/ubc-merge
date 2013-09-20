@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2006 by Mike McLean   *
+ *   Copyright (C) 2013 by Mike McLean   *
  *   libolt@libolt.net   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -20,3 +20,77 @@
 
 #include "defense.h"
 
+defenses::defenses() // constructor
+{
+	teamOnDefense = -1;
+}
+
+defenses::~defenses() // destructor
+{
+
+}
+
+int defenses::getTeamOnDefense(void)			// returns teamOnDefense variable
+{
+	return (teamOnDefense);
+}
+void defenses::setTeamOnDefense(int team)	// sets teamOnDefense variable
+{
+	teamOnDefense = team;
+}
+defenseTypes defenses::getDefenseType()	// returns defenseType variable
+{
+	return (defenseType);
+}
+void defenses::setDefenseType(defenseTypes type)	// sets defenseType variable;
+{
+	defenseType = type;
+}
+
+bool defenses::getSetupDefense()					// returns setupDefense variable
+{
+	return (setupDefense);
+}
+void defenses::setSetupDefense(bool defense)		// sets setupDefense variable
+{
+
+}
+
+bool defenses::getDefenseSet()					// returns defenseSet variable
+{
+	return (defenseSet);
+}
+void defenses::setDefenseSet(bool set)			// sets defenseSet variable
+{
+	defenseSet = set;
+}
+
+bool defenses::setupTeamDefense()				// sets up the team's defense
+{
+	return (true);
+}
+
+bool defenses::setupManToManDefense()			// sets up man to man defense
+{
+	return (true);
+}
+
+bool defenses::setupZoneDefense()				// sets up zone defense
+{
+	return (true);
+}
+
+bool defenses::executeDefense()					// executes defense routines
+{
+	return (true);
+}
+
+bool defenses::executeManToManDefense()			// executes man to man defense routines
+{
+	return (true);
+}
+
+bool defenses::executeZoneDefense()	// executes zone defense routines
+{
+	return (true);
+}

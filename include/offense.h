@@ -21,7 +21,7 @@
 #ifndef _OFFENSE_H_
 #define _OFFENSE_H_
 
-enum courtSide_t {RIGHT, LEFT};
+#include "enums.h"
 
 class offenses
 {
@@ -67,7 +67,8 @@ protected:
     virtual bool getCStartPosSet(void);    // retrieves cStartPosSet value
     virtual void setCStartPosSet(bool set);    // sets cStartPosSet value
 
-
+    virtual offenseTypes getOffenseType(void);	// returns offenseType variable
+    virtual void setOffenseType(offenseTypes type);	// sets offenseType variable;
 private:
 
     float *playerStartPos;    // stores start Positions for player
@@ -78,6 +79,8 @@ private:
     bool sfStartPosSet;     // value for whether a Small Forward's start position is set
     bool pfStartPosSet;     // value for whether a Power Forward's start position is set
     bool cStartPosSet;      // value for whether a Center's start position is set
+
+    offenseTypes offenseType;	// Stores which offense is being run
 
 };
 
