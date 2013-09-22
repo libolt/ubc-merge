@@ -25,15 +25,6 @@
 
 
 
-gameObjects::gameObjects()
-{
-}
-
-gameObjects::~ gameObjects()
-{
-}
-
-
 UBC::UBC()
 {
 	quitGame = false;

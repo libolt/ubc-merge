@@ -24,6 +24,9 @@
 #include <string>
 #include <vector>
 
+#include "Ogre.h"
+#include "tinyxml.h"
+
 using namespace std;
 
 class loader

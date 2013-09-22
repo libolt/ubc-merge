@@ -18,7 +18,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "ubcapp.h"
+#include "teams.h"
+#include "players.h"
 
 using namespace std;
 

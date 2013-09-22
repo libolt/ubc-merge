@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2004 by Mike McLean                                     *
+ *   Copyright (C) 20013 by Mike McLean                                     *
  *   libolt@libolt.net                                                     *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -8,9 +8,13 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "config.h"
+#include "load.h"
 #include "playerdata.h"
+#include "players.h"
+#include "teams.h"
 
-#include "ubcapp.h"
+//#include "ubcapp.h"
 
 #include "boost/shared_ptr.hpp"
 
@@ -100,11 +104,11 @@ string loader::findFile(string fileName)
     std::vector<std::string> pathArray;
     string dataPath = UBC_DATADIR;
 
-    LogManager::getSingletonPtr()->logMessage("dataPath = " +dataPath);
+    Ogre::LogManager::getSingletonPtr()->logMessage("dataPath = " +dataPath);
 
     dataPath += "/";
     pathArray = pathSplit(dataPath);
-    LogManager::getSingletonPtr()->logMessage("pathArray[0] = " +pathArray[0]);
+    Ogre::LogManager::getSingletonPtr()->logMessage("pathArray[0] = " +pathArray[0]);
  //   LogManager::getSingletonPtr()->logMessage("pathArray[1] = " +pathArray[1]);
 
 
@@ -119,16 +123,16 @@ string loader::findFile(string fileName)
 //               filePath.append(":");
 //            }
                 filePath.append(pathArray[x]);
-                LogManager::getSingletonPtr()->logMessage("pathArray == " + pathArray[x]);
+                Ogre::LogManager::getSingletonPtr()->logMessage("pathArray == " + pathArray[x]);
 
                 filePath.append(fileName);
-                LogManager::getSingletonPtr()->logMessage("filePath = " +filePath);
+                Ogre::LogManager::getSingletonPtr()->logMessage("filePath = " +filePath);
                 fstream fileOpen;
                 //      if (!(lineupFont = TTF_OpenFont(file.c_str(), 20)));
                 fileOpen.open(filePath.c_str(), ios::in);
                 if (!fileOpen)
                 {
-                        LogManager::getSingletonPtr()->logMessage("failed to load " + filePath);
+                        Ogre::LogManager::getSingletonPtr()->logMessage("failed to load " + filePath);
         //                              exit(0);
                 }
 
@@ -147,7 +151,7 @@ string loader::findFile(string fileName)
     }
     if (!fileLoaded)
     {
-        LogManager::getSingletonPtr()->logMessage("failed to find file: " + fileName);
+        Ogre::LogManager::getSingletonPtr()->logMessage("failed to find file: " + fileName);
         exit(0);
     }
     return ("");
@@ -214,7 +218,7 @@ bool loader::loadXMLFile(string fileName)
 bool loader::loadTeams()
 {
     string teamList = findFile("teams/teams.xml");
-    LogManager::getSingletonPtr()->logMessage("teamList = " +teamList);
+    Ogre::LogManager::getSingletonPtr()->logMessage("teamList = " +teamList);
 
 //  cout << "teamList = " << teamList << endl;
     loadTeamListFile(teamList);
