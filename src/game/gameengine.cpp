@@ -259,7 +259,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	        }
 
-	        //        Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
+	                Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
 
 	    	if (input->processInput())
 	        {
