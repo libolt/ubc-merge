@@ -50,7 +50,7 @@ int networkEngine::initialize()
         return EXIT_FAILURE;
     }
     atexit (enet_deinitialize);
-
+    return (0);
 }
 
 void networkEngine::clientConnect()
@@ -172,6 +172,10 @@ void networkEngine::networkClient()
             // Reset the peer's client information.
 
             event.peer -> data = NULL;
+        break;
+
+        case ENET_EVENT_TYPE_NONE:
+        break;
         }
 	}
 		//while (enet_host_service (network->getClient(), & network->getEvent(), 1000) > 0)
@@ -388,6 +392,10 @@ void networkEngine::networkServer()
 
                 // Reset the peer's client information.
                 event.peer -> data = NULL;
+                break;
+                case ENET_EVENT_TYPE_NONE:
+                break;
+
             }
             packet = enet_packet_create ("test",5, ENET_PACKET_FLAG_RELIABLE);
             cout << "Peer = " << peer << endl;
@@ -395,7 +403,6 @@ void networkEngine::networkServer()
 //            peer = network->getPeer();
 //            enet_peer_send(peer,0,packet);
 //            exit(0);
-
         }
 
 //    } while (x != 5);
