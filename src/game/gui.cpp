@@ -229,7 +229,7 @@ bool GUISystem::setupGUI()
     mGUIManager->setSceneManager(render->getMSceneMgr());
 
     mSheet = mGUIManager->getDefaultSheet();
-/*		QuickGUI::Image* logoImage = mSheet->createImage();
+		QuickGUI::Image* logoImage = mSheet->createImage();
 		//logoImage->setDimensions(Rect(16,42,240,180));
 		logoImage->setDimensions(Rect(-240,-180,1,1));
 

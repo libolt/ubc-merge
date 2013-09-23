@@ -566,9 +566,12 @@ void gameState::updatePlayerDirections(Ogre::Vector3 playerPos)
     {
         if (oldPlayerDirection[i] != playerDirection[i])
         {
-            LogManager::getSingletonPtr()->logMessage("oldPlayerDirection = " + oldPlayerDirection[i]);
-            LogManager::getSingletonPtr()->logMessage("playerDirection = " + playerDirection[i]);
-            LogManager::getSingletonPtr()->logMessage("bball player = " + basketballInstance[0].getPlayer());
+        	Ogre::String oldPlayerDirect = Ogre::StringConverter::toString(oldPlayerDirection[i]);
+        	Ogre::String playerDirect = Ogre::StringConverter::toString(playerDirection[i]);
+        	Ogre::String bballPlayer = Ogre::StringConverter::toString(basketballInstance[0].getPlayer());
+            LogManager::getSingletonPtr()->logMessage("oldPlayerDirection = " + oldPlayerDirect);
+            LogManager::getSingletonPtr()->logMessage("playerDirection = " + playerDirect);
+            LogManager::getSingletonPtr()->logMessage("bball player = " + bballPlayer);
             pInstance[basketballInstance[0].getPlayer()] = pInstance[i];
 //            playerNodes.at(basketballInstance[0].getPlayer()) = playerNodes.at(i);  // sets the current player node
             switch (playerDirection[i])

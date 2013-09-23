@@ -567,10 +567,10 @@ void renderEngine::createSceneManager()
 
 bool renderEngine::createScene()
 {
-    GUISystem *gui = GUISystem::Instance();
-    gameEngine *gameE = gameEngine::Instance();
-    teams *team = teams::Instance();
-    players *player = players::Instance();
+//    GUISystem *gui = GUISystem::Instance();
+//    gameEngine *gameE = gameEngine::Instance();
+//    teams *team = teams::Instance();
+//    players *player = players::Instance();
 //    basketballs *basketball = basketballs::Instance();
 //    renderEngine *render = renderEngine::Instance();
 
@@ -615,5 +615,5 @@ bool renderEngine::createScene()
 //	load->loadPlayerFile(
 //	exit(0);
   //  gameE->startGame();
-
+return (true);
 }
