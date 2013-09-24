@@ -24,10 +24,11 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include "enet/enet.h"
+
 #include "OgreString.h"
 #include "OgreStringConverter.h"
 #include "Ogre.h"
+#include "enet/enet.h" 
 
 using namespace std;
 

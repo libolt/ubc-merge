@@ -18,7 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "boost/shared_array.hpp"
+//#include "boost/shared_array.hpp"
 #include "gamestate.h"
 #include "load.h"
 #include "network.h"
