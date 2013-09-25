@@ -53,7 +53,7 @@ LOCAL_SRC_FILES :=	$(UBC_SRC_DIR)/basketballs.cpp \
 	$(UBC_SRC_DIR)/teamstate.cpp \
 	$(UBC_SRC_DIR)/ubcapp.cpp 
 
-LOCAL_SHARED_LIBRARIES := SDL2
+LOCAL_SHARED_LIBRARIES := SDL2 BtOgre 
 
 LOCAL_LDLIBS := -L/extSdCard/AppProjects/OgreSDK/Ogre/lib/armeabi-v7a -L/extSdCard/AppProjects/OgreSDK/Dependencies/lib/armeabi-v7a
 LOCAL_LDLIBS += -lRenderSystem_GLES2Static -lOgreMainStatic -lGLESv1_CM -llog
