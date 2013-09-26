@@ -12,6 +12,7 @@ MYGUI_PATH := $(BUILD_ROOT)/mygui
 SDL_PATH := $(BUILD_ROOT)/SDL2-2.0.0 
 OGRE_PATH := ../../OgreSDK/Ogre
 OGREDEPS_PATH := ../../OgreSDK/Dependencies
+OGRESAMPLES_PATH := ../../OgreSDK/Samples
 UBC_ROOT := $(BUILD_ROOT)/ubc
 UBC_SRC_DIR := $(UBC_ROOT)/src/game
 
@@ -41,7 +42,7 @@ LOCAL_LDLIBS	:= -landroid -lc -lm -ldl -llog -lEGL -lGLESv2
 LOCAL_LDLIBS	+= -L$(OGRE_PATH)/lib/armeabi-v7a -L$(OGREDEPS_PATH)/lib/armeabi-v7a 
 LOCAL_LDLIBS	+= -lRenderSystem_GLES2Static -lOgreRTShaderSystemStatic -lOgreOverlayStatic -lOgreMainStatic
 LOCAL_LDLIBS	+= -lzzip -lz -lFreeImage -lfreetype -lOIS -lmesa -lglsl_optimizer 
-LOCAL_LDLIBS += $(OGREDEPS_PATH)/lib/armeabi-v7a/libsupc++.a $(OGREDEPS_PATH)/lib/armeabi-v7a/libstdc++.a ../$(OGRESAMPLES_PATH)/GLES2/obj/local/armeabi-v7a/libcpufeatures.a 
+LOCAL_LDLIBS += $(OGREDEPS_PATH)/lib/armeabi-v7a/libsupc++.a $(OGREDEPS_PATH)/lib/armeabi-v7a/libstdc++.a $(OGRESAMPLES_PATH)/GLES2/obj/local/armeabi-v7a/libcpufeatures.a 
 
 LOCAL_CFLAGS := -frtti -fexceptions
 
