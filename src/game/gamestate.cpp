@@ -245,6 +245,7 @@ bool gameState::setupState()
     loader *load = loader::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();
 
+    Ogre::LogManager::getSingletonPtr()->logMessage("Setting up state!");
     load->loadTeams();  // loads teams from XML files
     load->loadPlayers();    // loads players from XML files
 
@@ -346,7 +347,7 @@ bool gameState::logic()
 
 
 
-//    LogManager::getSingletonPtr()->logMessage("pInstance pos = " + pInstance[basketballInstance[0].getPlayer()].getPosChange());
+//    Ogre::LogManager::getSingletonPtr()->logMessage("pInstance pos = " + pInstance[basketballInstance[0].getPlayer()].getPosChange());
     basketballInstance[0].nodeChangePosition(playerInstance[basketballInstance[0].getPlayer()].getPosChange());
     if (basketballInstance[0].getPlayer() >= 0)
     {

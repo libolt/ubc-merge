@@ -181,13 +181,23 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 
 		rsm->initialiseResourceGroup(mResourceGroup);
 
+   //Ogre::LogManager::getSingletonPtr()->logMessage("Rendering!");
+ 	  misc["externalWindowHandle"] = winHandle; //
+    
+   #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID 
+   config = AConfiguration_new();
+   AConfiguration_fromAssetManager(config, app->activity->assetManager);
+   //gAssetMgr = app->activity->assetManager;
+		 misc["androidConfig"] = Ogre::StringConverter::toString((int)config);
+                           
+				
+   mWindow = mRoot->createRenderWindow("UBC", 0, 0, false, &misc);
+   #else
+	  mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1024, 768, false, &misc);
+	  #endif 
+	  mWindow->setVisible( true );
 
-	    misc["externalWindowHandle"] = winHandle; //
-
-	    mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1024, 768, false, &misc);
-	    mWindow->setVisible( true );
-
-		mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC); // for OGRE 1.2 Dagon
+ 		 mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC); // for OGRE 1.2 Dagon
 	    mCamera = mSceneMgr->createCamera("camera");
 	    // Position it at 500 in Z direction
 	    mCamera->setPosition(Ogre::Vector3(0,0,455));

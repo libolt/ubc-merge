@@ -110,6 +110,8 @@ class renderEngine
         struct android_app* app;
         //static 
         Ogre::StaticPluginLoader* gStaticPluginLoader;
+        AConfiguration* config;
+        
     #endif 
     // SDL code
     SDL_Window *sdlWindow;

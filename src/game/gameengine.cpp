@@ -366,8 +366,12 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	 			//        player->getNode(0)->translate(Pos);
 	//        pInstance[bballInstance[0].getPlayer()].getNode()->translate(-0.02f,0.0f,0.0f);
-			render->getMRoot()->renderOneFrame();
 
+    if( render->getMWindow() != NULL && render->getMWindow()->isActive())
+		{
+    render->getMWindow()->windowMovedOrResized();
+			render->getMRoot()->renderOneFrame();
+  } 
 	    }
 
 }
