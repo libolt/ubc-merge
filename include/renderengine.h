@@ -108,7 +108,8 @@ class renderEngine
 
     #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID 
         struct android_app* app;
-        static Ogre::StaticPluginLoader* gStaticPluginLoader = NULL
+        //static 
+        Ogre::StaticPluginLoader* gStaticPluginLoader;
     #endif 
     // SDL code
     SDL_Window *sdlWindow;

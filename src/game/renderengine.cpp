@@ -46,7 +46,7 @@ renderEngine* renderEngine::Instance()
 renderEngine::renderEngine()
 {
 
-
+    gStaticPluginLoader = NULL;
 }
 
 renderEngine::~renderEngine()
