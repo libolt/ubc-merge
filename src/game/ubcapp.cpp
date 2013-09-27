@@ -68,6 +68,8 @@ int main(int argc, char *argv[])
 
     gameE->gameLoop();
 
+
+
   /*
   Ogre::String winHandle;
     #if defined(WIN32) && !defined(__linux__)

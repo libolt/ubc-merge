@@ -85,13 +85,16 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 {
 	//    GUISystem *gui = GUISystem::Instance();
 	//    SoundSystem *sound = SoundSystem::Instance();
-	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-		winHandle = Ogre::StringConverter::toString((unsigned long int)sysInfo.info.win.window);
-	#elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
-		winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.x11.window);
-	#else
-	// Error, both can't be defined or undefined same time
-	#endif
+
+    #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+		      winHandle = Ogre::StringConverter::toString((unsigned long int)sysInfo.info.win.window);
+	   #elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+		      winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.x11.window);
+	   #elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID 
+	       winHandle =  Ogre::StringConverter::toString((int)app->window);     
+	   #else
+	    // Error, both can't be defined or undefined same time
+	   #endif
 
 	    mRoot = new Ogre::Root("", "", "Ogre.log");
 	    const Ogre::String pluginDir = OGRE_PLUGIN_DIR;
@@ -110,6 +113,12 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	        mRoot->loadPlugin(pluginDir + "/RenderSystem_Direct3D9");
 	        mRoot->loadPlugin(pluginDir + "/Plugin_CgProgramManager");
 	    }
+	    #elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+//	    mRoot->loadPlugin();
+         #ifdef OGRE_STATIC_LIB
+             gStaticPluginLoader = new Ogre::StaticPluginLoader();
+             gStaticPluginLoader->load();
+         #endif
 	    #elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 	    mRoot->loadPlugin("RenderSystem_GL");
 	    #else
