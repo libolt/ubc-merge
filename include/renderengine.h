@@ -21,15 +21,34 @@
 #ifndef _RENDERENGINE_H_
 #define _RENDERENGINE_H_
 
-#ifdef __APPLE__
-#include "Ogre/OgreMemoryMacros.h"
-#include "Ogre/Ogre.h"
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    #define OGRE_STATIC_GLES2
+    #define OGRE_STATIC_ParticleFX
+//    #define OGRE_STATIC_OctreeSceneManager
+    #include "OgreStaticPluginLoader.h"
+    
+
+    #include <EGL/egl.h>
+    #include <android/log.h>
+    #include <android_native_app_glue.h>
+  
+//    #include "RTShaderHelper.h"
+    #include "Android/OgreAndroidEGLWindow.h"
+    #include "Android/OgreAPKFileSystemArchive.h"
+    #include "Android/OgreAPKZipArchive.h"
+
+
+#elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+    #include "Ogre/OgreMemoryMacros.h"
+    #include "Ogre/Ogre.h"
 #else
+    #include "Ogre.h"
+#endif
+
 #include "SDL.h"
 #include "SDL_syswm.h"
 #include "SDL_test_common.h"
-#include "Ogre.h"
-#endif
+
 using namespace Ogre;
 class renderEngine
 {
@@ -87,6 +106,13 @@ class renderEngine
     renderEngine(const renderEngine&);
     renderEngine& operator= (const renderEngine&);
 
+    #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID 
+        struct android_app* app;
+        //static 
+        Ogre::StaticPluginLoader* gStaticPluginLoader;
+        AConfiguration* config;
+        
+    #endif 
     // SDL code
     SDL_Window *sdlWindow;
     SDL_SysWMinfo sysInfo;
