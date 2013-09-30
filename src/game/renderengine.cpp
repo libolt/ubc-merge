@@ -46,7 +46,9 @@ renderEngine* renderEngine::Instance()
 renderEngine::renderEngine()
 {
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     gStaticPluginLoader = NULL;
+#endif
 }
 
 renderEngine::~renderEngine()
@@ -90,8 +92,8 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 		      winHandle = Ogre::StringConverter::toString((unsigned long int)sysInfo.info.win.window);
 	   #elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
 		      winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.x11.window);
-	   #elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID 
-	       winHandle =  Ogre::StringConverter::toString((int)app->window);     
+	   #elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	       winHandle =  Ogre::StringConverter::toString((int)app->window);
 	   #else
 	    // Error, both can't be defined or undefined same time
 	   #endif
@@ -183,18 +185,18 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 
    //Ogre::LogManager::getSingletonPtr()->logMessage("Rendering!");
  	  misc["externalWindowHandle"] = winHandle; //
-    
-   #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID 
+
+   #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
    config = AConfiguration_new();
    AConfiguration_fromAssetManager(config, app->activity->assetManager);
    //gAssetMgr = app->activity->assetManager;
 		 misc["androidConfig"] = Ogre::StringConverter::toString((int)config);
-                           
-				
+
+
    mWindow = mRoot->createRenderWindow("UBC", 0, 0, false, &misc);
    #else
 	  mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1024, 768, false, &misc);
-	  #endif 
+	  #endif
 	  mWindow->setVisible( true );
 
  		 mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC); // for OGRE 1.2 Dagon

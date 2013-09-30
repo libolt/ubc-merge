@@ -103,6 +103,7 @@ void physicsEngine::setupState(void)
     world->setDebugDrawer(debugDraw);
 
 
+
 }
 
 void physicsEngine::updateState(float changeInTime)
@@ -111,7 +112,7 @@ void physicsEngine::updateState(float changeInTime)
 
     String CIT = StringConverter::toString(changeInTime);
 
-    LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
+    Ogre::LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
     //Update Bullet world. Don't forget the debugDrawWorld() part!
 //    world->stepSimulation(evt.timeSinceLastFrame, 10);
 //    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
@@ -127,7 +128,7 @@ void physicsEngine::updateState(float changeInTime)
 
 void physicsEngine::setupPlayerPhysics()
 {
-	/*
+
     gameState *gameS = gameState::Instance();
     players *player = players::Instance();
 
@@ -157,7 +158,7 @@ void physicsEngine::setupPlayerPhysics()
 
     }
 
-*/
+
 //    playerShape.push_back(*shape);
 }
 

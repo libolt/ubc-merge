@@ -51,63 +51,12 @@ void android_main(struct android_app* state)
 {
     app_dummy();
 
-    renderEngine * render = renderEngine::Instance();
-    gameEngine *gameE = gameEngine::Instance();
-    GUISystem *gui = GUISystem::Instance();
-    render->initSDL(); // Initializes the SDL Subsystem
-
-    render->initOgre(); // Initializes the Ogre Subsystem
-    
-    gui->initMyGUI(); // Initializes MyGUI
-    gui->createMainMenuButtons(); // creates a MyGUI button.
-
-    inputSystem *input = inputSystem::Instance();
-
-
-    gameE->gameLoop();
-    
-/*
-    
-	if(gRoot == NULL)
-	{
-		gRoot = new Ogre::Root();
-#ifdef OGRE_STATIC_LIB
-        gStaticPluginLoader = new Ogre::StaticPluginLoader();
-        gStaticPluginLoader->load();
-#endif
-        gRoot->setRenderSystem(gRoot->getAvailableRenderers().at(0));
-        gRoot->initialise(false);	
-	}			
-			
-    state->onAppCmd = &handleCmd;
-    state->onInputEvent = &handleInput;
-    
-    int ident, events;
-    struct android_poll_source* source;
-    
-    while (true)
-    {
-        while ((ident = ALooper_pollAll(0, NULL, &events, (void**)&source)) >= 0)
-        {
-            if (source != NULL)
-                source->process(state, source);
-            
-            if (state->destroyRequested != 0)
-                return;
-        }
-        
-		if(gRenderWnd != NULL && gRenderWnd->isActive())
-		{
-			gRenderWnd->windowMovedOrResized();
-			gRoot->renderOneFrame();
-		}
-    } */
-}
-
 #else
 
 int main(int argc, char *argv[])
 {
+
+#endif
 
     renderEngine * render = renderEngine::Instance();
     gameEngine *gameE = gameEngine::Instance();
@@ -304,7 +253,7 @@ int main(int argc, char *argv[])
 
 }
 
-#endif
+
 
 /*UBC* UBC::pInstance = 0;
 UBC* UBC::Instance()
