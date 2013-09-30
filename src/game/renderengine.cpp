@@ -98,6 +98,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	    // Error, both can't be defined or undefined same time
 	   #endif
 
+std::cout << "winHandle = " << winHandle << std::endl;
 	    mRoot = new Ogre::Root("", "", "Ogre.log");
 	    const Ogre::String pluginDir = OGRE_PLUGIN_DIR;
 	    inputSystem *input = inputSystem::Instance();
@@ -188,7 +189,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 
    #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
    config = AConfiguration_new();
-   AConfiguration_fromAssetManager(config, app->activity->assetManager);
+//  AConfiguration_fromAssetManager(config, app->activity->assetManager);
    //gAssetMgr = app->activity->assetManager;
 		 misc["androidConfig"] = Ogre::StringConverter::toString((int)config);
 
@@ -197,6 +198,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
    #else
 	  mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1024, 768, false, &misc);
 	  #endif
+/*	  
 	  mWindow->setVisible( true );
 
  		 mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC); // for OGRE 1.2 Dagon
@@ -213,6 +215,8 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 		// most examples get the viewport size to calculate this; for now, we'll just
 		// set it to 4:3 the easy way
 		mCamera->setAspectRatio((Ogre::Real)1.333333);
+*/
+
 //	    Ogre::LogManager::getSingletonPtr()->logMessage("winHandle = " +winHandle);
 
 		// this next bit is for the sake of the input handler
