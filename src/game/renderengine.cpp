@@ -129,6 +129,10 @@ std::cout << "winHandle = " << winHandle << std::endl;
 	    mRoot->loadPlugin(pluginDir + "/Plugin_CgProgramManager");
 	    #endif
 
+    #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+        mRoot->setRenderSystem(mRoot->getAvailableRenderers().at(0));
+        mRoot->initialise(false);	
+    #else
 	    Ogre::RenderSystemList rsList = mRoot->getAvailableRenderers();
 
 
@@ -160,6 +164,8 @@ std::cout << "winHandle = " << winHandle << std::endl;
 */
 		//	mWindow = mRoot->initialise(true, "Ultimate Basketball Challenge");
 		mWindow = mRoot->initialise(false, "Ultimate Basketball Challenge");
+#endif 
+
 
 	    std::string dataPath = UBC_DATADIR;
 
