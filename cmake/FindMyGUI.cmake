@@ -28,12 +28,14 @@ IF (WIN32) #Windows
 
         find_path(MYGUI_INCLUDE_DIRS
                   MyGUI.h
-                  "${MYGUISDK}/MyGUIEngine/include"
+		  "${MYGUISDK}/MyGUIEngine/include"
+                  "${MYGUISDK}/include/MYGUI"
                   NO_DEFAULT_PATH)
 
         find_path(MYGUI_PLATFORM_INCLUDE_DIRS
                   MyGUI_OgrePlatform.h
                   "${MYGUISDK}/Platforms/Ogre/OgrePlatform/include"
+                  "${MYGUISDK}/include/MYGUI"
                   NO_DEFAULT_PATH)
 
         SET(MYGUI_LIB_DIR ${MYGUISDK}/lib ${MYGUISDK}/*/lib)

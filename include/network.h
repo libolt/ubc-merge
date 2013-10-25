@@ -21,6 +21,7 @@
 #ifndef _NETWORK_H_
 #define _NETWORK_H_
 
+#include "enet/enet.h"
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,7 +29,6 @@
 #include "OgreString.h"
 #include "OgreStringConverter.h"
 #include "Ogre.h"
-#include "enet/enet.h" 
 
 using namespace std;
 

@@ -422,6 +422,7 @@ int main(int argc, char *argv[])
 */
     	atexit(SDL_Quit);
 
+	return (0);
 }
 
 #endif
