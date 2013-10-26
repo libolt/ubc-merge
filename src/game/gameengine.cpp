@@ -212,6 +212,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	    		if (!sceneCreated)
 	    		{
 	    			createScene = true;
+	    			exit(0);
 	    		}
 	    	}
 
@@ -369,9 +370,9 @@ void gameEngine::gameLoop()	// Main Game Loop
 
     if( render->getMWindow() != NULL && render->getMWindow()->isActive())
 		{
-    render->getMWindow()->windowMovedOrResized();
+    		render->getMWindow()->windowMovedOrResized();
 			render->getMRoot()->renderOneFrame();
-  } 
+  }
 	    }
 
 }
