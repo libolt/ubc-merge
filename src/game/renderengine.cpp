@@ -131,7 +131,7 @@ std::cout << "winHandle = " << winHandle << std::endl;
 
     #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
         mRoot->setRenderSystem(mRoot->getAvailableRenderers().at(0));
-        mRoot->initialise(false);	
+        mRoot->initialise(false);
     #else
 	    Ogre::RenderSystemList rsList = mRoot->getAvailableRenderers();
 
@@ -164,7 +164,7 @@ std::cout << "winHandle = " << winHandle << std::endl;
 */
 		//	mWindow = mRoot->initialise(true, "Ultimate Basketball Challenge");
 		mWindow = mRoot->initialise(false, "Ultimate Basketball Challenge");
-#endif 
+#endif
 
 
 	    std::string dataPath = UBC_DATADIR;
@@ -204,7 +204,7 @@ std::cout << "winHandle = " << winHandle << std::endl;
    #else
 	  mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1024, 768, false, &misc);
 	  #endif
-/*	  
+
 	  mWindow->setVisible( true );
 
  		 mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC); // for OGRE 1.2 Dagon
@@ -221,7 +221,7 @@ std::cout << "winHandle = " << winHandle << std::endl;
 		// most examples get the viewport size to calculate this; for now, we'll just
 		// set it to 4:3 the easy way
 		mCamera->setAspectRatio((Ogre::Real)1.333333);
-*/
+
 
 //	    Ogre::LogManager::getSingletonPtr()->logMessage("winHandle = " +winHandle);
 
@@ -572,7 +572,7 @@ bool renderEngine::frameStarted()
     {
     physEngine->updateState(changeInTime);
     }
-
+exit(0);
 //	std::cout << "Loop Time = " << loopTime.getMilliseconds() << std::endl;
 
 //    return OgreApplication::frameStarted(evt);

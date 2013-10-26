@@ -122,7 +122,7 @@ void physicsEngine::updateState(float changeInTime)
     //Shows debug if F3 key down.
     debugDraw->setDebugMode(input->getMKeyboard()->isKeyDown(OIS::KC_F3));
     debugDraw->step();
-
+exit(0);
 
 }
 
