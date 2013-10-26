@@ -13,6 +13,10 @@
 #include "network.h"
 #include "gameengine.h"
 
+#if _MSC_VER
+#define snprintf _snprintf
+#endif
+
 networkEngine::networkEngine()
 {
     initialize();

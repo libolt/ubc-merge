@@ -19,15 +19,14 @@
  ***************************************************************************/
 
 //#include "boost/shared_array.hpp"
+#include "network.h"
 #include "gamestate.h"
 #include "load.h"
-#include "network.h"
 #include "playerdata.h"
 #include "players.h"
 #include "physicsengine.h"
 #include "renderengine.h"
 #include "teams.h"
-
 
 
 gameState *gameState::pInstance = 0;

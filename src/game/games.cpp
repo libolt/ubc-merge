@@ -22,7 +22,7 @@
 #include "gamestate.h"
 #include "Ogre.h"
 #include "players.h"
-#include "ubcapp.h"
+
 /*
 games *games::pInstance = 0;
 
