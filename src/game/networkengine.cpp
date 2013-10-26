@@ -278,7 +278,7 @@ void networkEngine::networkServer()
 {
 //	serverSetup();
     gameEngine *gameE = gameEngine::Instance();
-
+   Ogre::String addressHost, addressPort, packetData, packetDataLength, packetPeer, packetChannelID;
     int x = 0;
 //    do
 //    {
@@ -299,6 +299,9 @@ void networkEngine::networkServer()
             	printf("A new client connected from %x:%u.",
             			event.peer -> address.host,
             			event.peer -> address.port);
+            	addressHost = Ogre::StringConverter::toString(event.peer->address.host);
+            	addressPort = Ogre::StringConverter::toString(event.peer->address.port);
+            	Ogre::LogManager::getSingletonPtr()->logMessage("A new client connected from " + addressHost + ":" + addressPort);
             	/* Store any relevant client information here. */
 //                event.peer->data = "Client information";
 //            	exit(0);
@@ -315,6 +318,12 @@ void networkEngine::networkServer()
                         event.peer -> data,
                         event.channelID);
 
+                // converts and writes data to Ogre.log for packet
+                packetData = Ogre::StringConverter::toString(event.packet->data);
+                packetDataLength = Ogre::StringConverter::toString(event.packet->dataLength);
+                packetPeer = Ogre::StringConverter::toString(event.peer->data);
+                packetChannelID = Ogre::StringConverter::toString(event.channelID);
+                Ogre::LogManager::getSingletonPtr()->logMessage("A packet of length " +packetDataLength + " containing " +packetData + " was received from " +packetPeer + " on channel " +packetChannelID);
                 packetReceived = true;	// lets code know that a packet was received
 //				cout << "event.packet->data = " << event.packet->data << endl;
 

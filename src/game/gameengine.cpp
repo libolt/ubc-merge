@@ -212,7 +212,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	    		if (!sceneCreated)
 	    		{
 	    			createScene = true;
-	    			exit(0);
+//	    			exit(0);
 	    		}
 	    	}
 
@@ -260,7 +260,8 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	        }
 
-	                Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
+	        // writes Framerate to Ogre.log
+//	                Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
 
 	    	if (input->processInput())
 	        {
