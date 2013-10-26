@@ -285,7 +285,6 @@ void networkEngine::networkServer()
         /* Wait up to 1000 milliseconds for an event. */
         while (enet_host_service (server, & event, 1) > 0)
         {
-//        	exit(0);
 			std::cout << "EVENT == " << event.type << std::endl;
             switch (event.type)
             {
@@ -396,7 +395,7 @@ void networkEngine::networkServer()
 					gameE->setMovePlayer(true);
 				}
 */
-
+				exit(0);
                 enet_packet_destroy (event.packet);
                 break;
 
