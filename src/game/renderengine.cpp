@@ -221,6 +221,10 @@ std::cout << "winHandle = " << winHandle << std::endl;
 		// most examples get the viewport size to calculate this; for now, we'll just
 		// set it to 4:3 the easy way
 		mCamera->setAspectRatio((Ogre::Real)1.333333);
+<<<<<<< HEAD
+=======
+
+>>>>>>> acca668115c0ea8dbf8408d98b6d75f625cd0bab
 
 //	    Ogre::LogManager::getSingletonPtr()->logMessage("winHandle = " +winHandle);
 
@@ -571,7 +575,7 @@ bool renderEngine::frameStarted()
     {
     physEngine->updateState(changeInTime);
     }
-
+exit(0);
 //	std::cout << "Loop Time = " << loopTime.getMilliseconds() << std::endl;
 
 //    return OgreApplication::frameStarted(evt);
