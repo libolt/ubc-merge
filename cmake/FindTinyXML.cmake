@@ -16,24 +16,24 @@
 
 FIND_PATH(TinyXML_INCLUDE_DIRS tinyxml.h
     PATHS
-    $ENV{TINYXML_HOME}/include
+    $ENV{TINYXML_HOME}
     /usr/local
     /usr
     PATH_SUFFIXES include
     )
 IF (WIN32)
 FIND_LIBRARY(TinyXML_LIBRARIES_REL
-    NAMES TinyXML libTinyXML.a
+    NAMES tinyxml libtinyxml.a
     PATHS
-    $ENV{TINYXML_HOME}
+    $ENV{TINYXML_HOME}/lib/Release
     /usr/local
     /usr
     )
 
 FIND_LIBRARY(TinyXML_LIBRARIES_DBG
-    NAMES TinyXML_Debug libTinyXML_d.a
+    NAMES tinyxml_Debug tinyxml libTinyXML_d.a
     PATHS
-    $ENV{TINYXML_HOME}
+    $ENV{TINYXML_HOME}/lib/Debug
     /usr/local
     /usr
     )

@@ -159,7 +159,7 @@ string loader::findFile(string fileName)
 
 bool loader::loadXMLFile(string fileName)
 {
-    TiXmlDocument doc(fileName);
+    TiXmlDocument doc(fileName.c_str());
     if (!doc.LoadFile()) return(false);
 
     TiXmlHandle hDoc(&doc);
@@ -240,7 +240,7 @@ bool loader::loadTeamListFile(string fileName)
     std::vector<std::string> files;
 
 //	players::playerData player;
-    TiXmlDocument doc(fileName);
+    TiXmlDocument doc(fileName.c_str());
 
     if (!doc.LoadFile()) return(false);
 
@@ -290,7 +290,7 @@ bool loader::loadTeamFile(string fileName)
     string Initials;
     string Logo;
 
-    TiXmlDocument doc(fileName);
+    TiXmlDocument doc(fileName.c_str());
 
     if (!doc.LoadFile()) return(false);
 
@@ -376,7 +376,7 @@ bool loader::loadPlayerListFile( string fileName)
 {
     std::vector<std::string> playerFiles;
     players *player = players::Instance();
-    TiXmlDocument doc(fileName);
+    TiXmlDocument doc(fileName.c_str());
 
 
     if (!doc.LoadFile()) return(false);
@@ -428,7 +428,7 @@ bool loader::loadPlayerFile(string fileName)
     string position;
     string teamInitials;
     playerData player;
-    TiXmlDocument doc(fileName);
+    TiXmlDocument doc(fileName.c_str());
 
 
     if (!doc.LoadFile()) return(false);
@@ -526,7 +526,7 @@ bool loader::loadPlayerFile(string fileName)
 }
 bool loader::loadUserFile(string fileName)
 {
-    TiXmlDocument doc(fileName);
+    TiXmlDocument doc(fileName.c_str());
     if (!doc.LoadFile()) return(false);
 
     TiXmlHandle hDoc(&doc);
