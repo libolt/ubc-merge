@@ -59,6 +59,7 @@ gameEngine::gameEngine()
     quitGame = false;
     serverRunning = false;
     clientRunning = false;
+    sceneCreated = false;
     createScene = false;
     renderScene = false;
     movePlayer = false;
@@ -212,7 +213,6 @@ void gameEngine::gameLoop()	// Main Game Loop
 	    		if (!sceneCreated)
 	    		{
 	    			createScene = true;
-//	    			exit(0);
 	    		}
 	    	}
 

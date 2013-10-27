@@ -306,6 +306,7 @@ void networkEngine::networkServer()
 //            	exit(0);
             	peer = event.peer;	// stores the peer connection for later use.
             	serverReceivedConnection = true;	// Tells code that a client has connected
+ //           	exit(0);
                 break;
 
             case ENET_EVENT_TYPE_RECEIVE:
@@ -395,7 +396,7 @@ void networkEngine::networkServer()
 					gameE->setMovePlayer(true);
 				}
 */
-				exit(0);
+//				exit(0);
                 enet_packet_destroy (event.packet);
                 break;
 
