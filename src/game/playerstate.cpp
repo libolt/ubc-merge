@@ -429,7 +429,8 @@ bool playerState::loadModel()   // loads the player's 3D model from the file spe
 
 bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D model
 {
-	cout << "posChange = " << posChange << endl;
+	Ogre::LogManager::getSingletonPtr()->logMessage("posChange = " +Ogre::StringConverter::toString(posChange));
+//	cout << "posChange = " << posChange << endl;
      node->translate(posChange);
 
     return true;

@@ -331,6 +331,7 @@ bool gameState::logic()
 {
 	networkEngine *network = networkEngine::Instance();
     players *player = players::Instance();
+    physicsEngine *physEngine = physicsEngine::Instance();
     Ogre::Vector3 playerPos;
 //    std::vector<playerState> pInstance = getPlayerInstance();
 //	std::vector<basketballs> basketballInstance = getBasketballInstance();
@@ -342,6 +343,9 @@ bool gameState::logic()
     {
     	processNetworkEvents();	// processes data received from the network
     }
+
+    physEngine->updateState();
+
     updatePositions();   // updates positions of game world objects
 
 
@@ -558,8 +562,8 @@ void gameState::updatePlayerDirections(Ogre::Vector3 playerPos)
 	std::vector<basketballs> basketballInstance = getBasketballInstance();
     std::vector<Ogre::SceneNode>::iterator playersIT;
 
-
-    cout << "playerID == " << pInstance[4].getPlayerID() << endl;
+    Ogre::String playerID = Ogre::StringConverter::toString(pInstance[4].getPlayerID());
+    Ogre::LogManager::getSingletonPtr()->logMessage("playerID == " +playerID);
     // checks if a player's direction has changed and rotates the model accordingly.
 //    for(playersIT = playerNodes.begin(); playersIT != playerNodes.end(); ++playersIT)
     for (int i = 0; i < 10; i++)
@@ -787,7 +791,8 @@ bool gameState::createPlayerInstances()
     {
     	if (std::find(playerModelsLoaded.begin(), playerModelsLoaded.end(), playerInstance[pInstanceIT].getPlayerName()) != playerModelsLoaded.end())
     	{
-    		cout << "Found Player Name in list of loaded Models, NOT Loading" << endl;
+//    		cout << "Found Player Name in list of loaded Models, NOT Loading" << endl;
+    	    Ogre::LogManager::getSingletonPtr()->logMessage("Found Player Name in list of loaded Models, NOT Loading");
 
     	}
     	else
@@ -869,12 +874,13 @@ bool gameState::updatePositions()
 {
 	int x = 0;
 	std::vector<playerState>::iterator playerIT;
-	cout << "Size = " << playerInstance.size() << endl;
-//	for (playerIT = playerInstance.begin(); playerIT != playerInstance.end(); ++playerIT)
+//	cout << "Size = " << playerInstance.size() << endl;
+	Ogre::LogManager::getSingletonPtr()->logMessage("Size = " +Ogre::StringConverter::toString(playerInstance.size()));
+	//	for (playerIT = playerInstance.begin(); playerIT != playerInstance.end(); ++playerIT)
 	for (int x = 0; x < playerInstance.size(); ++x)
 	{
 //		x += 1;
-		cout << "X = " << x << endl;
+//		cout << "X = " << x << endl;
         playerInstance[x].updatePosition();
     }
 

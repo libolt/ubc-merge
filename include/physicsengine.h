@@ -35,7 +35,7 @@ public:
     static physicsEngine *Instance();
 
     virtual void setupState();  // sets up state of physics engine.
-    virtual void updateState(float changeInTime); // updates the state of the physics engine.
+    virtual void updateState(); // updates the state of the physics engine.
 
     // sets up object physics
     virtual void setupPlayerPhysics(); // setsup up player physics

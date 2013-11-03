@@ -270,7 +270,6 @@ void networkEngine::serverSetup()
 		cerr << "An error occurred while trying to create an ENet server host." << endl;
 		exit (EXIT_FAILURE);
 	}
-
 	gameE->setServerRunning(true);
 }
 
@@ -290,14 +289,10 @@ void networkEngine::networkServer()
             {
             case ENET_EVENT_TYPE_CONNECT:
 
-/*                cout << "A new client connected from %x:%u." <<
-                        event.peer -> address.host <<
-                        event.peer -> address.port << endl;
-                cout << event.peer->address.host << endl;
-*/
-            	printf("A new client connected from %x:%u.",
+/*            	printf("A new client connected from %x:%u.",
             			event.peer -> address.host,
             			event.peer -> address.port);
+*/
             	addressHost = Ogre::StringConverter::toString(event.peer->address.host);
             	addressPort = Ogre::StringConverter::toString(event.peer->address.port);
             	Ogre::LogManager::getSingletonPtr()->logMessage("A new client connected from " + addressHost + ":" + addressPort);
@@ -325,78 +320,12 @@ void networkEngine::networkServer()
                 packetChannelID = Ogre::StringConverter::toString(event.channelID);
                 Ogre::LogManager::getSingletonPtr()->logMessage("A packet of length " +packetDataLength + " containing " +packetData + " was received from " +packetPeer + " on channel " +packetChannelID);
                 packetReceived = true;	// lets code know that a packet was received
-//				cout << "event.packet->data = " << event.packet->data << endl;
 
 				data = new char[event.packet->dataLength + 1];	// creates array the size of the packet data + 1
 				snprintf(data,event.packet->dataLength + 1, "%s", event.packet->data);	// copies contents of packet to data variable
 
 				receivedData = data;	// copies conetents of data array to receivedData Ogre::String variable
 
-/*
-				Ogre::String *info;
-				info = new Ogre::String;
-//				info[0] = Ogre::StringConverter::toString(event.packet->data);
-//				info[0].assign(event.packet->data);
-//				char *data, *deta;
-
-				data = new char[event.packet->dataLength + 1];
-				cout << "size of data = " << sizeof(event.packet->data) << endl;
-				cout << "size of data packet = " << event.packet->dataLength << endl;
-//				sprintf_s(data, event.packet->dataLength + 1,"%s", event.packet->data);
-				snprintf(data,event.packet->dataLength + 1, "%s", event.packet->data);
-
-//				string data;
-//				strcpy(event.packet->data,data.c_str());
-				info[0] = data;
-//				string *receiveData;
-//				receiveData = new string;
-//				receiveData[0] = info[0];
-				cout << "data = " << data << endl;
-//				cout << "receiveData = " << receiveData[0] << endl;
-//				cout << "DAMN = " << Ogre::StringConverter::parseInt(damn[0]) << endl;
-//				cout << "DAMN = " << Ogre::StringConverter::isNumber(damn[0]) << endl;
-				packetType pType;
-				packetData pData;
-				movementDirection mDirection;
-				//pType = Ogre::StringConverter::parseInt(damn[0]);
-//				cout << "atoi = " <<  Ogre::StringConverter::parseInt(damn[0]) << endl;
-
-				string *Type;
-				Type = new string;
-				string *Data;
-				Data = new string;
-				string *Direction;
-				Direction = new string;
-				Type[0] = receiveData[0][0];
-				Data[0] = receiveData[0][1];
-				Direction[0] = receiveData[0][2];
-				cout << "Type[0] = " << Type[0] << endl;
-				cout << "Data[0]" << Data[0] << endl;
-				cout << "Direction[0]" << Direction[0] << endl;
-				pType = static_cast<packetType>(Ogre::StringConverter::parseInt(Type[0]));
-				pData = static_cast<packetData>(Ogre::StringConverter::parseInt(Data[0]));
-				mDirection = static_cast<movementDirection>(Ogre::StringConverter::parseInt(Direction[0]));
-
-				cout << "Packet Type = " << pType << endl;
-				cout << "Packet Data = " << pData << endl;
-				cout << "Movement Direction = " << mDirection << endl;
-
-//	 			ePacket *pack = new ePacket;(
-//				pack[0] = event.packet->data;
-                // Clean up the packet now that we're done using it.
-                cout << "Peer = " << event.peer->incomingPeerID << endl;
-//                exit(0);
-                cout << "info = " << info[0] << endl;
-
-*/
-                // test code to enable player movement based on network data
-
-/*				if (receivedData == "up")
-				{
-					gameE->setMovePlayer(true);
-				}
-*/
-//				exit(0);
                 enet_packet_destroy (event.packet);
                 break;
 
@@ -410,18 +339,7 @@ void networkEngine::networkServer()
                 break;
 
             }
-            packet = enet_packet_create ("test",5, ENET_PACKET_FLAG_RELIABLE);
-            cout << "Peer = " << peer << endl;
-//            enet_peer_send (network->getPeer(), 0, packet);
-//            peer = network->getPeer();
-//            enet_peer_send(peer,0,packet);
-//            exit(0);
         }
-
-//    } while (x != 5);
-
-
-//    enet_host_destroy(server);
 
 }
 

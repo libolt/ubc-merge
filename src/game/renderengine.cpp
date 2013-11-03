@@ -97,8 +97,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	   #else
 	    // Error, both can't be defined or undefined same time
 	   #endif
-
-std::cout << "winHandle = " << winHandle << std::endl;
+//std::cout << "winHandle = " << winHandle << std::endl;
 	    mRoot = new Ogre::Root("", "", "Ogre.log");
 	    const Ogre::String pluginDir = OGRE_PLUGIN_DIR;
 	    inputSystem *input = inputSystem::Instance();
@@ -507,7 +506,7 @@ void renderEngine::setMResourceGroup(String resource)
 
 bool renderEngine::frameStarted()
 {
-
+exit(0);
     GUISystem *gui = GUISystem::Instance();
     gameEngine *gameE = gameEngine::Instance();
     gameState *gameS = gameState::Instance(); // FIXME: gameState shouldn't be called in render engine
@@ -570,7 +569,7 @@ bool renderEngine::frameStarted()
 
     if (changeInTime >= 1000.0/60.0)
     {
-    physEngine->updateState(changeInTime);
+    physEngine->updateState();
     }
 exit(0);
 //	std::cout << "Loop Time = " << loopTime.getMilliseconds() << std::endl;

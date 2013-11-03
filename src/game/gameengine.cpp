@@ -53,6 +53,7 @@ gameEngine::gameEngine()
     j = 0;
     loopTime.reset();
     oldTime = 0;
+    changeInTime = 0;
 
     menuActive = false;
     start = false;
@@ -74,6 +75,7 @@ bool gameEngine::getMenuActive()
 {
     return(menuActive);
 }
+
 void gameEngine::setMenuActive(bool active)
 {
     menuActive = active;
@@ -95,9 +97,30 @@ unsigned long gameEngine::getOldTime()
 {
     return(oldTime);
 }
+
 void gameEngine::setOldTime(unsigned long time)
 {
     oldTime = time;
+}
+
+unsigned long gameEngine::getChangeInTime()
+{
+	return (changeInTime);
+}
+
+void gameEngine::setChangeInTime(unsigned long change)
+{
+	changeInTime = change;
+}
+
+void gameEngine::updateChangeInTime()
+{
+
+    unsigned long newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
+
+    changeInTime = newTime - oldTime;	// calculates change between new and old time
+
+
 }
 
 bool gameEngine::getQuitGame()
@@ -194,9 +217,9 @@ void gameEngine::gameLoop()	// Main Game Loop
     players *player = players::Instance();
 
     float lastFPS = 0.0f;	// stores value of last Frames Per Second
-    float changeInTime;		// stores change in time
-    int newTime;	// stores new time
-    unsigned long oldTime = 0;	// stores old time
+//    float changeInTime;		// stores change in time
+//    int newTime;	// stores new time
+//    unsigned long oldTime = 0;	// stores old time
     Ogre::Timer loopTime;	// loop timer
     loopTime.reset();	// resets the timer
 
@@ -237,11 +260,14 @@ void gameEngine::gameLoop()	// Main Game Loop
 	        lastFPS = render->getMWindow()->getLastFPS();
 	        Ogre::String currFPS = Ogre::StringConverter::toString(lastFPS);
 
-	//        unsigned long oldTime = gameE->getOldTime();
-	        newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
-	        changeInTime = newTime - oldTime;
+	        updateChangeInTime();	// calculates the change in time.
+
+//	        Ogre::LogManager::getSingletonPtr()->logMessage("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
+
+	        // updates game logic every 100 milliseconds
 	        if (changeInTime >= 100)
 	        {
+//	        	exit(0);
 	        	if (serverRunning)
 	        	{
 	        		network->networkServer();	// Runs network server code
@@ -256,7 +282,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	           		gameS->logic();
 	           	}
 
-	        	oldTime = newTime;
+	        	oldTime = loopTime.getMilliseconds();
 
 	        }
 

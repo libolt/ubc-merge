@@ -18,6 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "gameengine.h"
 #include "gamestate.h"
 #include "input.h"
 #include "players.h"
@@ -106,9 +107,14 @@ void physicsEngine::setupState(void)
 
 }
 
-void physicsEngine::updateState(float changeInTime)
+void physicsEngine::updateState()
 {
+	gameEngine *gameE = gameEngine::Instance();
     inputSystem *input = inputSystem::Instance();
+
+    unsigned long changeInTime;	// stores change in time.
+
+    changeInTime = gameE->getChangeInTime();
 
     String CIT = StringConverter::toString(changeInTime);
 
@@ -119,10 +125,12 @@ void physicsEngine::updateState(float changeInTime)
     world->stepSimulation(changeInTime, 10);
     world->debugDrawWorld();
 
+
+    // FIX FOR SDL!!
     //Shows debug if F3 key down.
-    debugDraw->setDebugMode(input->getMKeyboard()->isKeyDown(OIS::KC_F3));
+//    debugDraw->setDebugMode(input->getMKeyboard()->isKeyDown(OIS::KC_F3));
     debugDraw->step();
-exit(0);
+//exit(0);
 
 }
 
@@ -135,7 +143,7 @@ void physicsEngine::setupPlayerPhysics()
     std::vector<playerState> pInstance = gameS->getPlayerInstance();
 
     // loops through physics objects for all players
-    for (int i=0; i<10; ++i)
+    for (int i=0; i<1; ++i)
     {
 
         // create shape
