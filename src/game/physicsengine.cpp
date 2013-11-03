@@ -128,7 +128,7 @@ exit(0);
 
 void physicsEngine::setupPlayerPhysics()
 {
-
+//   exit(0);
     gameState *gameS = gameState::Instance();
     players *player = players::Instance();
 
