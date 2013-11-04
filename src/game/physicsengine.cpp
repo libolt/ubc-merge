@@ -41,13 +41,14 @@ physicsEngine* physicsEngine::Instance()
 physicsEngine::physicsEngine()
 {
 	    //Bullet initialisation.
-	    broadPhase = new btAxisSweep3(btVector3(-10000,-10000,-10000), btVector3(10000,10000,10000), 1024);
-	    collisionConfig = new btDefaultCollisionConfiguration();
-	    dispatcher = new btCollisionDispatcher(collisionConfig);
-	    solver = new btSequentialImpulseConstraintSolver();
+//	    broadPhase = new btAxisSweep3(btVector3(-10000,-10000,-10000), btVector3(10000,10000,10000), 1024);
+	broadPhase = new btDbvtBroadphase();
+	collisionConfig = new btDefaultCollisionConfiguration();
+	dispatcher = new btCollisionDispatcher(collisionConfig);
+	solver = new btSequentialImpulseConstraintSolver();
 
-	    world = new btDiscreteDynamicsWorld(dispatcher, broadPhase, solver, collisionConfig);
-        world->setGravity(btVector3(0,-9.8,0));
+	world = new btDiscreteDynamicsWorld(dispatcher, broadPhase, solver, collisionConfig);
+    world->setGravity(btVector3(0,-9.8,0));
 
     //FIXME: Hack to set total number of players for physics to 10, set this to be dynamic
     btRigidBody *body;
@@ -80,7 +81,7 @@ physicsEngine::~physicsEngine()
     world->removeRigidBody(courtBody);
     delete courtBody->getMotionState();
     delete courtBody;
-    delete courtShape->getMeshInterface();
+//    delete courtShape->getMeshInterface();
     delete courtShape;
 
     //Free Bullet stuff.
@@ -122,7 +123,9 @@ void physicsEngine::updateState()
     //Update Bullet world. Don't forget the debugDrawWorld() part!
 //    world->stepSimulation(evt.timeSinceLastFrame, 10);
 //    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
-    world->stepSimulation(changeInTime, 10);
+
+//    world->stepSimulation(changeInTime, 10);
+    world->stepSimulation(1/60.f,10);
     world->debugDrawWorld();
 
 
@@ -151,14 +154,16 @@ void physicsEngine::setupPlayerPhysics()
         playerShape.at(i) = converter.createSphere();
 
         // calculates inertia
-        btScalar mass = 5;
+        btScalar mass = 1;
         btVector3 inertia, inertia2;
+        inertia = btVector3(0,0,0);
         playerShape.at(i)->calculateLocalInertia(mass, inertia);
 
         //Create BtOgre MotionState (connects Ogre and Bullet).
     //    BtOgre::RigidBodyState *bodyState = new BtOgre::RigidBodyState(pInstance[2].getNode());
+        pInstance[0].getNode()->setPosition(10.0f,100.0f,350.0f);
         playerBodyState.at(i) = new BtOgre::RigidBodyState(pInstance[i].getNode());
-//        playerBodyState.at(i) = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,0,0)));
+//        playerBodyState.at(i) = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(10.0f,-13.5f,380.0f)));
         //Create the Body.
         playerBody.at(i) = new btRigidBody(mass, playerBodyState.at(i), playerShape.at(i), inertia);
 
@@ -179,10 +184,13 @@ void physicsEngine::setupCourtPhysics()
 
     //Create the ground shape.
     BtOgre::StaticMeshToShapeConverter converter(cInstance.at(0).getModel());
-    courtShape = converter.createTrimesh();
+//    courtShape = converter.createTrimesh();
+//    courtShape = converter.createBox();
+    courtShape = new btStaticPlaneShape(btVector3(0,1,0),1);
+
 
     //Create MotionState (no need for BtOgre here, you can use it if you want to though).
-    courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,0,0)));
+    courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-1,0)));
 
     //Create the Body.
     courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));

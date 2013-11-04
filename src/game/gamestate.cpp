@@ -343,6 +343,8 @@ bool gameState::logic()
     {
     	processNetworkEvents();	// processes data received from the network
     }
+    Ogre::LogManager::getSingletonPtr()->logMessage(("Player's current position: "  +Ogre::StringConverter::toString(playerInstance[0].getNode()->getPosition())));
+    Ogre::LogManager::getSingletonPtr()->logMessage(("Court's current position: "  +Ogre::StringConverter::toString(courtInstance[0].getNode()->getPosition())));
 
     physEngine->updateState();
 

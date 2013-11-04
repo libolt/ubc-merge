@@ -52,7 +52,8 @@ private:
     static physicsEngine *pInstance;
     btDynamicsWorld *world;
     BtOgre::DebugDrawer *debugDraw;
-    btAxisSweep3 *broadPhase;
+//    btAxisSweep3 *broadPhase;
+    btBroadphaseInterface *broadPhase;
     btDefaultCollisionConfiguration *collisionConfig;
 	btCollisionDispatcher *dispatcher;
 	btSequentialImpulseConstraintSolver *solver;
@@ -64,8 +65,9 @@ private:
 //    std::vector<btDefaultMotionState *> playerBodyState;
     // court
 	btRigidBody *courtBody;
-	btBvhTriangleMeshShape *courtShape;
-    btDefaultMotionState *courtBodyState;
+//	btBvhTriangleMeshShape *courtShape;
+	btCollisionShape *courtShape;
+	btDefaultMotionState *courtBodyState;
 
     // basketball
     btRigidBody *basketballBody;

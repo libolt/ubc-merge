@@ -432,7 +432,6 @@ bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D mod
 	Ogre::LogManager::getSingletonPtr()->logMessage("posChange = " +Ogre::StringConverter::toString(posChange));
 //	cout << "posChange = " << posChange << endl;
      node->translate(posChange);
-
     return true;
 }
 
