@@ -48,7 +48,7 @@ class gameState
 
     virtual bool setupEnvironment();    // sets up the 3D environment for the game
 
-
+    virtual void setPlayerStartPositions();	// sets the initial coordinates for the players.
     virtual bool getTipOffComplete();	// retrieves tipOffComplete value
     virtual void setTipOffComplete(bool complete);	// sets tipOffComplete value
     virtual bool getGameStarted(void);

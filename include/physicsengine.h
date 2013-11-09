@@ -59,9 +59,9 @@ private:
 	btSequentialImpulseConstraintSolver *solver;
 
     // players
-	std::vector<btRigidBody *> playerBody;
-	std::vector<btCollisionShape *> playerShape;
-    std::vector<BtOgre::RigidBodyState *> playerBodyState;
+//	std::vector<btRigidBody *> playerBody;
+//	std::vector<btCollisionShape *> playerShape;
+//    std::vector<BtOgre::RigidBodyState *> playerBodyState;
 //    std::vector<btDefaultMotionState *> playerBodyState;
     // court
 	btRigidBody *courtBody;

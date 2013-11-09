@@ -27,6 +27,11 @@
 #include <vector>
 #include <string>
 
+#include "BtOgrePG.h"
+#include "BtOgreGP.h"
+#include "BtOgreExtras.h"
+
+
 #include "enums.h"
 
 class playerState
@@ -139,6 +144,9 @@ class playerState
 
         virtual Ogre::SceneNode *getNode();
         virtual void setNode(Ogre::SceneNode *Node);
+
+        virtual btRigidBody *getPhysBody();	// returns physBody variable
+        virtual void setPhysBody(btRigidBody *body);
 
         virtual bool loadModel();   // loads the 3D model from file specified in modelName
 
@@ -255,6 +263,8 @@ class playerState
         // stores the Scene Node that represents the player
         Ogre::SceneNode *node;
 
+        // stores the physics object that represents the player
+        btRigidBody *physBody;
     };
 
 

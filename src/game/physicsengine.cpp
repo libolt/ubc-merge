@@ -51,17 +51,17 @@ physicsEngine::physicsEngine()
     world->setGravity(btVector3(0,-9.8,0));
 
     //FIXME: Hack to set total number of players for physics to 10, set this to be dynamic
-    btRigidBody *body;
+//    btRigidBody *body;
     btCollisionShape *shape;
     BtOgre::RigidBodyState *state;
 //    btDefaultMotionState *state;
-    for (int i=0; i<10; ++i)
-    {
-        playerBody.push_back(body);
-        playerBodyState.push_back(state);
+//    for (int i=0; i<10; ++i)
+//    {
+//        playerBody.push_back(body);
+//        playerBodyState.push_back(state);
 //        playerShape.push_back(new btCollisionShape);
-        playerShape.push_back(shape);
-    }
+//        playerShape.push_back(shape);
+//    }
 //    playerShape = new btCollisionShape[10];
 }
 //-------------------------------------------------------------------------------------
@@ -111,6 +111,7 @@ void physicsEngine::setupState(void)
 void physicsEngine::updateState()
 {
 	gameEngine *gameE = gameEngine::Instance();
+	gameState *gameS = gameState::Instance();
     inputSystem *input = inputSystem::Instance();
 
     unsigned long changeInTime;	// stores change in time.
@@ -123,6 +124,9 @@ void physicsEngine::updateState()
     //Update Bullet world. Don't forget the debugDrawWorld() part!
 //    world->stepSimulation(evt.timeSinceLastFrame, 10);
 //    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
+//    playerBody.at(2)->translate( btVector3( 0.0f, 10.0f, 0.0f ) );
+    std::vector<playerState> pInstance = gameS->getPlayerInstance();
+//    pInstance[2].getPhysBody()->translate(btVector3 (0,0.4,0));
 
 //    world->stepSimulation(changeInTime, 10);
     world->stepSimulation(1/10.f,10);
@@ -145,33 +149,39 @@ void physicsEngine::setupPlayerPhysics()
 
     std::vector<playerState> pInstance = gameS->getPlayerInstance();
 
+    btRigidBody *playerBody;
+    btCollisionShape *playerShape;
+    BtOgre::RigidBodyState *playerBodyState;
+
     // loops through physics objects for all players
     for (int i=0; i<10; ++i)
     {
 
         // create shape
         BtOgre::StaticMeshToShapeConverter converter(pInstance[i].getModel());
-        playerShape.at(i) = converter.createSphere();
+
+        playerShape = converter.createSphere();
 
         // calculates inertia
         btScalar mass = 1;
         btVector3 inertia, inertia2;
         inertia = btVector3(0,0,0);
-        playerShape.at(i)->calculateLocalInertia(mass, inertia);
+        playerShape->calculateLocalInertia(mass, inertia);
 
         //Create BtOgre MotionState (connects Ogre and Bullet).
     //    BtOgre::RigidBodyState *bodyState = new BtOgre::RigidBodyState(pInstance[2].getNode());
-        pInstance[0].getNode()->setPosition(10.0f,100.0f,350.0f);
-        playerBodyState.at(i) = new BtOgre::RigidBodyState(pInstance[i].getNode());
+        playerBodyState = new BtOgre::RigidBodyState(pInstance[i].getNode());
 //        playerBodyState.at(i) = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(10.0f,-13.5f,380.0f)));
         //Create the Body.
-        playerBody.at(i) = new btRigidBody(mass, playerBodyState.at(i), playerShape.at(i), inertia);
-
-        world->addRigidBody(playerBody.at(i));
-
+//        playerBody.at(i) = new btRigidBody(mass, playerBodyState.at(i), playerShape.at(i), inertia);
+        playerBody = new btRigidBody(mass, playerBodyState, playerShape, inertia);
+        pInstance[i].setPhysBody(playerBody);
+//        world->addRigidBody(playerBody.at(i));
+        world->addRigidBody(pInstance[i].getPhysBody());
     }
 
-
+    gameS->setPlayerInstance(pInstance);
+pInstance[0].getPhysBody()->translate(btVector3 (0,1,0));
 //    playerShape.push_back(*shape);
 }
 
@@ -191,7 +201,6 @@ void physicsEngine::setupCourtPhysics()
 
     //Create MotionState (no need for BtOgre here, you can use it if you want to though).
     courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-25,0)));
-//    courtBodyState->setWorldTransform()
     //Create the Body.
     courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
     world->addRigidBody(courtBody);

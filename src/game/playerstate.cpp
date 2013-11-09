@@ -403,6 +403,15 @@ void playerState::setNode(Ogre::SceneNode *Node)
     node = Node;
 }
 
+btRigidBody *playerState::getPhysBody()	  // returns physBody variable
+{
+	return (physBody);
+}
+void playerState::setPhysBody(btRigidBody *body)  	// sets physBody variable
+{
+	physBody = body;
+}
+
 bool playerState::loadModel()   // loads the player's 3D model from the file specified in modelName
 {
 
@@ -431,8 +440,12 @@ bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D mod
 {
 	Ogre::LogManager::getSingletonPtr()->logMessage("posChange = " +Ogre::StringConverter::toString(posChange));
 //	cout << "posChange = " << posChange << endl;
-     node->translate(posChange);
-    return true;
+    node->translate(posChange);
+	btVector3 change; // = btVector3(0,0,0);
+	change = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
+	physBody->translate(change);
+//	physBody->translate(btVector3(0,0,0));
+	return true;
 }
 
 bool playerState::getMovement()	// returns movement variable
