@@ -125,7 +125,7 @@ void physicsEngine::updateState()
 //    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
 
 //    world->stepSimulation(changeInTime, 10);
-    world->stepSimulation(1/60.f,10);
+    world->stepSimulation(1/10.f,10);
     world->debugDrawWorld();
 
 
@@ -146,7 +146,7 @@ void physicsEngine::setupPlayerPhysics()
     std::vector<playerState> pInstance = gameS->getPlayerInstance();
 
     // loops through physics objects for all players
-    for (int i=0; i<1; ++i)
+    for (int i=0; i<10; ++i)
     {
 
         // create shape
@@ -190,8 +190,8 @@ void physicsEngine::setupCourtPhysics()
 
 
     //Create MotionState (no need for BtOgre here, you can use it if you want to though).
-    courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-1,0)));
-
+    courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-25,0)));
+//    courtBodyState->setWorldTransform()
     //Create the Body.
     courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
     world->addRigidBody(courtBody);
