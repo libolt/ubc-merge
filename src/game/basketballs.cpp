@@ -278,6 +278,16 @@ void basketballs::setNode(Ogre::SceneNode *Node)
     node = Node;
 }
 
+btRigidBody *basketballs::getPhysBody()	// retrieves physBody variable
+{
+	return (physBody);
+}
+
+void basketballs::setPhysBody(btRigidBody *body)	// sets physBody variable
+{
+	physBody = body;
+}
+
 // loads the 3D model
 bool basketballs::loadModel()
 {
@@ -300,7 +310,7 @@ bool basketballs::loadModel()
 Ogre::Vector3 basketballs::calculatePositionChange()
 {
 
- //   UBC *ubc = UBC::Instance();
+	//   UBC *ubc = UBC::Instance();
     gameState *gameS = gameState::Instance();
 
     Ogre::Vector3 changeInPosition;	// stores the calculated change in position
@@ -310,7 +320,7 @@ Ogre::Vector3 basketballs::calculatePositionChange()
     changeInPosition[0] = 0.0f;
     changeInPosition[1] = 0.0f;
     changeInPosition[2] = 0.0f;
-
+/*
     // sets up the Tip Off animation if true
     if (tipOffStart)
     {
@@ -423,7 +433,7 @@ Ogre::Vector3 basketballs::calculatePositionChange()
         	}
         }
     }
-
+*/
     return(changeInPosition);
 }
 

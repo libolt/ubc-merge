@@ -213,16 +213,18 @@ void physicsEngine::setupBasketballPhysics()
     gameState *gameS = gameState::Instance();
 
     std::vector<basketballs> bInstance = gameS->getBasketballInstance();
+    btRigidBody *bballBody;
 
     //Create the ground shape.
     BtOgre::StaticMeshToShapeConverter converter(bInstance.at(0).getModel());
-    basketballShape = converter.createTrimesh();
+    basketballShape = converter.createSphere();
 
-/*
-    btScalar mass = 5;
+
+    btScalar mass = 1;
     btVector3 inertia, inertia2;
+    inertia = btVector3(0,0,0);
     basketballShape->calculateLocalInertia(mass, inertia);
-*/
+
 
     //Create MotionState (no need for BtOgre here, you can use it if you want to though).
 //    basketballBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,0,0)));
@@ -231,7 +233,11 @@ void physicsEngine::setupBasketballPhysics()
     basketballBodyState= new BtOgre::RigidBodyState(bInstance.at(0).getNode());
 
     //Create the Body.
-    basketballBody = new btRigidBody(0, basketballBodyState, basketballShape, btVector3(0,0,0));
-    world->addRigidBody(basketballBody);
+    bballBody = new btRigidBody(mass, basketballBodyState, basketballShape, inertia);
 
+    bInstance[0].setPhysBody(bballBody);
+
+    world->addRigidBody(bInstance[0].getPhysBody());
+
+    gameS->setBasketballInstance(bInstance);
 }
