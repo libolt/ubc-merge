@@ -292,7 +292,7 @@ bool gameState::setupState()
     }
 
     setPlayerStartPositions();	// sets starting positions for the players
-    basketballInstance[0].getNode()->setPosition(12.0f,100.0f,350.0f);
+    basketballInstance[0].getNode()->setPosition(12.0f,5.0f,350.0f);
 
     physEngine->setupState();  // sets up the Physics Engine state
 

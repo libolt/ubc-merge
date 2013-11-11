@@ -50,6 +50,10 @@ physicsEngine::physicsEngine()
 	world = new btDiscreteDynamicsWorld(dispatcher, broadPhase, solver, collisionConfig);
     world->setGravity(btVector3(0,-9.8,0));
 
+    contactInfo = world->getSolverInfo();
+    contactInfo.m_restingContactRestitutionThreshold = 1e30;
+    contactInfo.m_restitution = 1.3f;
+    contactInfo.m_friction = 1.5f;
     //FIXME: Hack to set total number of players for physics to 10, set this to be dynamic
 //    btRigidBody *body;
     btCollisionShape *shape;
@@ -192,6 +196,11 @@ void physicsEngine::setupCourtPhysics()
 
     std::vector<courtState> cInstance = gameS->getCourtInstance();
 
+    btScalar mass = 0;
+    btVector3 inertia, inertia2;
+    inertia = btVector3(0,0,0);
+
+
     //Create the ground shape.
     BtOgre::StaticMeshToShapeConverter converter(cInstance.at(0).getModel());
 //    courtShape = converter.createTrimesh();
@@ -201,8 +210,15 @@ void physicsEngine::setupCourtPhysics()
 
     //Create MotionState (no need for BtOgre here, you can use it if you want to though).
     courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-25,0)));
+
+    btRigidBody::btRigidBodyConstructionInfo info(mass,courtBodyState,courtShape,inertia); //motion state would actually be non-null in most real usages
+    info.m_restitution = 1.0f;
+    info.m_friction = 15.5f;
+
     //Create the Body.
-    courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
+//    courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
+    courtBody = new btRigidBody(info);
+
     world->addRigidBody(courtBody);
 
 }
@@ -225,15 +241,20 @@ void physicsEngine::setupBasketballPhysics()
     inertia = btVector3(0,0,0);
     basketballShape->calculateLocalInertia(mass, inertia);
 
+    basketballBodyState= new BtOgre::RigidBodyState(bInstance.at(0).getNode());
+
+    btRigidBody::btRigidBodyConstructionInfo info(mass,basketballBodyState,basketballShape,inertia); //motion state would actually be non-null in most real usages
+    info.m_restitution = 1.0f;
+//    info.m_friction = 2.0f;
 
     //Create MotionState (no need for BtOgre here, you can use it if you want to though).
 //    basketballBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,0,0)));
 
     //Create BtOgre MotionState (connects Ogre and Bullet).
-    basketballBodyState= new BtOgre::RigidBodyState(bInstance.at(0).getNode());
 
     //Create the Body.
-    bballBody = new btRigidBody(mass, basketballBodyState, basketballShape, inertia);
+//    bballBody = new btRigidBody(mass, basketballBodyState, basketballShape, inertia);
+    bballBody = new btRigidBody(info);
 
     bInstance[0].setPhysBody(bballBody);
 

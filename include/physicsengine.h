@@ -26,7 +26,7 @@
 #include "BtOgrePG.h"
 #include "BtOgreGP.h"
 #include "BtOgreExtras.h"
-
+#include "BulletDynamics/Dynamics/btRigidBody.h"
 
 class physicsEngine
 {
@@ -57,6 +57,8 @@ private:
     btDefaultCollisionConfiguration *collisionConfig;
 	btCollisionDispatcher *dispatcher;
 	btSequentialImpulseConstraintSolver *solver;
+
+	btContactSolverInfo contactInfo;
 
     // players
 //	std::vector<btRigidBody *> playerBody;
