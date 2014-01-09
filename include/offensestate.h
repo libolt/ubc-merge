@@ -21,4 +21,23 @@
 #ifndef _OFFENSESTATE_H_
 #define _OFFENSESTATE_H_
 
+#include "OgreVector3.h"
+
+class offenseState
+{
+public:
+
+	offenseState(); // constructor
+
+	virtual Ogre::Vector3 *getStartPositions();	// retrieves startPositions variable
+	virtual void setStartPositions(Ogre::Vector3 *positions);	// sets startPositions
+
+	virtual void setupState();
+
+private:
+
+    Ogre::Vector3 *startPositions;
+};
+
 #endif
+

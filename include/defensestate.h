@@ -21,4 +21,10 @@
 #ifndef _DEFENSESTATE_H_
 #define _DEFENSESTATE_H_
 
+class defenseState
+{
+public:
+private:
+};
+
 #endif

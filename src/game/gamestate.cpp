@@ -356,10 +356,13 @@ bool gameState::logic()
     Ogre::LogManager::getSingletonPtr()->logMessage(("Court's current position: "  +Ogre::StringConverter::toString(courtInstance[0].getNode()->getPosition())));
     Ogre::LogManager::getSingletonPtr()->logMessage(("Basketball's current position: "  +Ogre::StringConverter::toString(basketballInstance[0].getNode()->getPosition())));
 
+//    physEngine->updateState();
+//   playerInstance[0].setMovement(true);
+//   playerInstance[0].setDirection(RIGHT);
+    physEngine->updateState();
 
     updatePositions();   // updates positions of game world objects
 
-    physEngine->updateState();
 
 
 //    Ogre::LogManager::getSingletonPtr()->logMessage("pInstance pos = " + pInstance[basketballInstance[0].getPlayer()].getPosChange());
@@ -730,7 +733,7 @@ void gameState::updatePlayerMovements()	// updates player movements
 			}
 			else if (playerInstance[i].getDirection() == RIGHT)
 			{
-				posChange = Ogre::Vector3(0.400f, 0.0f, 0.0f);
+				posChange = Ogre::Vector3(0.0400f, 0.0f, 0.0f);
 				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 		}

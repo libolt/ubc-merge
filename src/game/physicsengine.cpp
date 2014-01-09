@@ -123,15 +123,13 @@ void physicsEngine::updateState()
     changeInTime = gameE->getChangeInTime();
 
     String CIT = StringConverter::toString(changeInTime);
+    std::vector<playerState> pInstance = gameS->getPlayerInstance();
 
     Ogre::LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
     //Update Bullet world. Don't forget the debugDrawWorld() part!
 //    world->stepSimulation(evt.timeSinceLastFrame, 10);
 //    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
 //    playerBody.at(2)->translate( btVector3( 0.0f, 10.0f, 0.0f ) );
-    std::vector<playerState> pInstance = gameS->getPlayerInstance();
-//    pInstance[2].getPhysBody()->translate(btVector3 (0,0.4,0));
-
 //    world->stepSimulation(changeInTime, 10);
     world->stepSimulation(1/10.f,10);
     world->debugDrawWorld();
@@ -231,7 +229,7 @@ void physicsEngine::setupBasketballPhysics()
     std::vector<basketballs> bInstance = gameS->getBasketballInstance();
     btRigidBody *bballBody;
 
-    //Create the ground shape.
+    //Create the basketball shape.
     BtOgre::StaticMeshToShapeConverter converter(bInstance.at(0).getModel());
     basketballShape = converter.createSphere();
 

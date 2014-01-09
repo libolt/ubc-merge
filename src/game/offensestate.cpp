@@ -19,3 +19,24 @@
  ***************************************************************************/
 
 #include "offensestate.h"
+
+offenseState::offenseState()
+{
+	startPositions = new Ogre::Vector3[5];
+}
+
+
+Ogre::Vector3 *offenseState::getStartPositions()	// retrieves startPositions variable
+{
+	return (startPositions);
+}
+
+void offenseState::setStartPositions(Ogre::Vector3 *positions)	// sets startPositions
+{
+	startPositions = positions;
+}
+
+void offenseState::setupState()
+{
+	startPositions[0] = Ogre::Vector3(5.0f,-13.5f,380.0f);
+}

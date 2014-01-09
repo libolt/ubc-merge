@@ -443,7 +443,7 @@ bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D mod
     node->translate(posChange);
 	btVector3 change; // = btVector3(0,0,0);
 	change = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
-	physBody->translate(change);
+	physBody->translate(change); // moves physics body in unison with the model
 //	physBody->translate(btVector3(0,0,0));
 	return true;
 }
