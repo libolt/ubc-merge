@@ -50,6 +50,7 @@ gameState::gameState()
     gameStarted = false;
     shotTaken = false;
     shotComplete = false;
+    teamWithBall = -1;
     tipOffComplete = false;
 
     currentQuarter = FIRST;
@@ -101,6 +102,14 @@ void gameState::setShotComplete(bool complete)
     shotComplete = complete;
 }
 
+int gameState::getTeamWithBall(void)		// retrieves teamWithBall value
+{
+	return (teamWithBall);
+}
+void gameState::setTeamWithBall(int ball)	// sets teamWithBall value
+{
+	teamWithBall = ball;
+}
 
 // assigns teams that are playing to the game state machine
 bool gameState::assignTeams()
@@ -243,7 +252,6 @@ bool gameState::executeTipOff()
 // sets up the game condition
 bool gameState::setupState()
 {
-//    gameState *gameS = gameState::Instance();
     players *player = players::Instance();
     renderEngine *render = renderEngine::Instance();
     teams *team = teams::Instance();
@@ -332,6 +340,8 @@ bool gameState::setupState()
 
     setupTipOff();	// sets up tip off conditions
 
+    teamWithBall = 0;	// FIXME! Temporarily hard code team controlling ball
+
     return true;
 }
 
@@ -393,6 +403,27 @@ bool gameState::logic()
 
     std::vector<int> playerDirection = player->getPlayerDirection(); // stores contents of playerDirectdion from players class in local variable
     std::vector<int> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable
+
+    // Initiates offense or defense for a team depending on value of teamWithBall
+    if (teamWithBall == 0)	// if 0 puts team 0 on offense and team 1 on defense
+    {
+    	teamInstance[0].setOffense(true);
+    	teamInstance[0].setDefense(false);
+
+    	teamInstance[1].setOffense(false);
+    	teamInstance[1].setDefense(true);
+    }
+    else if (teamWithBall == 1)  // if 1 puts team 1 on offense and team 0 on defense
+    {
+    	teamInstance[0].setOffense(false);
+    	teamInstance[0].setDefense(true);
+
+    	teamInstance[1].setOffense(true);
+    	teamInstance[1].setDefense(false);
+    }
+    else
+    {
+    }
 
 
 /*    // movement test code
