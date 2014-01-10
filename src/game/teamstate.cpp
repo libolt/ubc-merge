@@ -30,6 +30,8 @@ teamState::teamState()
     steals = 0;
     technicals = 0;
     timeouts = 0;
+
+    offenseS = new offenseState;
 }
 
 teamState::~teamState()

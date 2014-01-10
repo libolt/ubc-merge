@@ -1,17 +1,29 @@
-//
-// C++ Implementation: network
-//
-// Description:
-//
-//
-// Author: Mike McLean <libolt@libolt.net>, (C) 2007
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
+/***************************************************************************
+ *   Copyright (C) 2013 by Mike McLean   *
+ *   libolt@libolt.net   *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
 
 #include "network.h"
 #include "gameengine.h"
+
+#if _MSC_VER
+#define snprintf _snprintf
+#endif
 
 networkEngine::networkEngine()
 {
@@ -266,7 +278,6 @@ void networkEngine::serverSetup()
 		cerr << "An error occurred while trying to create an ENet server host." << endl;
 		exit (EXIT_FAILURE);
 	}
-
 	gameE->setServerRunning(true);
 }
 
@@ -274,32 +285,31 @@ void networkEngine::networkServer()
 {
 //	serverSetup();
     gameEngine *gameE = gameEngine::Instance();
-
+   Ogre::String addressHost, addressPort, packetData, packetDataLength, packetPeer, packetChannelID;
     int x = 0;
 //    do
 //    {
         /* Wait up to 1000 milliseconds for an event. */
         while (enet_host_service (server, & event, 1) > 0)
         {
-//        	exit(0);
 			std::cout << "EVENT == " << event.type << std::endl;
             switch (event.type)
             {
             case ENET_EVENT_TYPE_CONNECT:
 
-/*                cout << "A new client connected from %x:%u." <<
-                        event.peer -> address.host <<
-                        event.peer -> address.port << endl;
-                cout << event.peer->address.host << endl;
-*/
-            	printf("A new client connected from %x:%u.",
+/*            	printf("A new client connected from %x:%u.",
             			event.peer -> address.host,
             			event.peer -> address.port);
+*/
+            	addressHost = Ogre::StringConverter::toString(event.peer->address.host);
+            	addressPort = Ogre::StringConverter::toString(event.peer->address.port);
+            	Ogre::LogManager::getSingletonPtr()->logMessage("A new client connected from " + addressHost + ":" + addressPort);
             	/* Store any relevant client information here. */
 //                event.peer->data = "Client information";
 //            	exit(0);
             	peer = event.peer;	// stores the peer connection for later use.
             	serverReceivedConnection = true;	// Tells code that a client has connected
+ //           	exit(0);
                 break;
 
             case ENET_EVENT_TYPE_RECEIVE:
@@ -311,78 +321,18 @@ void networkEngine::networkServer()
                         event.peer -> data,
                         event.channelID);
 
+                // converts and writes data to Ogre.log for packet
+                packetData = Ogre::StringConverter::toString(event.packet->data);
+                packetDataLength = Ogre::StringConverter::toString(event.packet->dataLength);
+                packetPeer = Ogre::StringConverter::toString(event.peer->data);
+                packetChannelID = Ogre::StringConverter::toString(event.channelID);
+                Ogre::LogManager::getSingletonPtr()->logMessage("A packet of length " +packetDataLength + " containing " +packetData + " was received from " +packetPeer + " on channel " +packetChannelID);
                 packetReceived = true;	// lets code know that a packet was received
-//				cout << "event.packet->data = " << event.packet->data << endl;
 
 				data = new char[event.packet->dataLength + 1];	// creates array the size of the packet data + 1
 				snprintf(data,event.packet->dataLength + 1, "%s", event.packet->data);	// copies contents of packet to data variable
 
 				receivedData = data;	// copies conetents of data array to receivedData Ogre::String variable
-
-/*
-				Ogre::String *info;
-				info = new Ogre::String;
-//				info[0] = Ogre::StringConverter::toString(event.packet->data);
-//				info[0].assign(event.packet->data);
-//				char *data, *deta;
-
-				data = new char[event.packet->dataLength + 1];
-				cout << "size of data = " << sizeof(event.packet->data) << endl;
-				cout << "size of data packet = " << event.packet->dataLength << endl;
-//				sprintf_s(data, event.packet->dataLength + 1,"%s", event.packet->data);
-				snprintf(data,event.packet->dataLength + 1, "%s", event.packet->data);
-
-//				string data;
-//				strcpy(event.packet->data,data.c_str());
-				info[0] = data;
-//				string *receiveData;
-//				receiveData = new string;
-//				receiveData[0] = info[0];
-				cout << "data = " << data << endl;
-//				cout << "receiveData = " << receiveData[0] << endl;
-//				cout << "DAMN = " << Ogre::StringConverter::parseInt(damn[0]) << endl;
-//				cout << "DAMN = " << Ogre::StringConverter::isNumber(damn[0]) << endl;
-				packetType pType;
-				packetData pData;
-				movementDirection mDirection;
-				//pType = Ogre::StringConverter::parseInt(damn[0]);
-//				cout << "atoi = " <<  Ogre::StringConverter::parseInt(damn[0]) << endl;
-
-				string *Type;
-				Type = new string;
-				string *Data;
-				Data = new string;
-				string *Direction;
-				Direction = new string;
-				Type[0] = receiveData[0][0];
-				Data[0] = receiveData[0][1];
-				Direction[0] = receiveData[0][2];
-				cout << "Type[0] = " << Type[0] << endl;
-				cout << "Data[0]" << Data[0] << endl;
-				cout << "Direction[0]" << Direction[0] << endl;
-				pType = static_cast<packetType>(Ogre::StringConverter::parseInt(Type[0]));
-				pData = static_cast<packetData>(Ogre::StringConverter::parseInt(Data[0]));
-				mDirection = static_cast<movementDirection>(Ogre::StringConverter::parseInt(Direction[0]));
-
-				cout << "Packet Type = " << pType << endl;
-				cout << "Packet Data = " << pData << endl;
-				cout << "Movement Direction = " << mDirection << endl;
-
-//	 			ePacket *pack = new ePacket;(
-//				pack[0] = event.packet->data;
-                // Clean up the packet now that we're done using it.
-                cout << "Peer = " << event.peer->incomingPeerID << endl;
-//                exit(0);
-                cout << "info = " << info[0] << endl;
-
-*/
-                // test code to enable player movement based on network data
-
-/*				if (receivedData == "up")
-				{
-					gameE->setMovePlayer(true);
-				}
-*/
 
                 enet_packet_destroy (event.packet);
                 break;
@@ -397,18 +347,7 @@ void networkEngine::networkServer()
                 break;
 
             }
-            packet = enet_packet_create ("test",5, ENET_PACKET_FLAG_RELIABLE);
-            cout << "Peer = " << peer << endl;
-//            enet_peer_send (network->getPeer(), 0, packet);
-//            peer = network->getPeer();
-//            enet_peer_send(peer,0,packet);
-//            exit(0);
         }
-
-//    } while (x != 5);
-
-
-//    enet_host_destroy(server);
 
 }
 

@@ -23,6 +23,7 @@
 
 #include <vector>
 #include "OgreString.h"
+#include "offenseState.h"
 
 using namespace std;
 
@@ -122,6 +123,8 @@ class teamState
 
         bool offense;	// if set then the team is on offense
         bool defense;	// if set then the team is on defense
+
+        offenseState *offenseS;
 
 };
 

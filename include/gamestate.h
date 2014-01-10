@@ -45,20 +45,18 @@ class gameState
     virtual void updatePlayerMovements();	// updates the movement status of players
     virtual bool assignTeams(); // assigns the teams which are playing
     virtual bool assignPlayers();   // assigns the players that are playing.
-
     virtual bool setupEnvironment();    // sets up the 3D environment for the game
-
-
+    virtual void setPlayerStartPositions();	// sets the initial coordinates for the players.
     virtual bool getTipOffComplete();	// retrieves tipOffComplete value
     virtual void setTipOffComplete(bool complete);	// sets tipOffComplete value
-    virtual bool getGameStarted(void);
-    virtual void setGameStarted(bool started);
-    virtual bool getShotTaken(void);
-    virtual void setShotTaken(bool taken);
-    virtual bool getShotComplete(void);
-    virtual void setShotComplete(bool complete);
-    // end import
-
+    virtual bool getGameStarted(void);	// retrieves the gameStarted value
+    virtual void setGameStarted(bool started);	// sets gameStarted value
+    virtual bool getShotTaken(void);		// retrieves shotTaken value
+    virtual void setShotTaken(bool taken);	// sets shotTaken value
+    virtual bool getShotComplete(void);	// retrieves shotComplete value
+    virtual void setShotComplete(bool complete);	// sets shotComplete value
+    virtual int getTeamWithBall(void);		// retrieves teamWithBall value
+    virtual void setTeamWithBall(int ball);	// sets teamWithBall value
 
     // Tip Off execution code.  // Move to proper class
     virtual bool setupTipOff();	// sets up Tip Off conditions
@@ -136,17 +134,12 @@ class gameState
     bool teamInstancesCreated;		// stores whether team instances have been created
     bool playerInstancesCreated;	// stores whether player instances have been created
     bool sceneCreated;				// stores whether the scene has been created
-    // Import from former games class
-    int x;
-    int y;
-    int i;
-    int j;
-
     bool gameStarted;   // Determines whether or not a basketball game has been started
     bool shotTaken;	// Determines whether or not a player has shot the ball
     bool shotComplete;	// Determine whether or not a player's shot is complete
     bool tipOffComplete;	// Determines whether or not game Tip Off has completed
 
+    int teamWithBall; // stores which team has control of the basketball, valid values are 0 or 1
 };
 
 

@@ -64,6 +64,11 @@ public:
     virtual unsigned long getOldTime();				// retrieves oldTime variable
     virtual void setOldTime(unsigned long time);	// sets oldTime variable
 
+    virtual unsigned long getChangeInTime();			// retrieves changeInTime variable
+    virtual void setChangeInTime(unsigned long change);	// sets changeInTime variable
+
+    virtual void updateChangeInTime();					// updates the game timer variables
+
     // starts a game
     virtual bool startGame();
 
@@ -73,6 +78,7 @@ public:
     virtual void gameLoop();	// runs the Main loop for the game
 
     Ogre::Timer loopTime;
+
 
 protected:
     gameEngine();
@@ -85,7 +91,10 @@ private:
     int i;
     int j;
     Ogre::Vector3 courtTranslateVector;
-    unsigned long oldTime;
+
+    // time variables
+    unsigned long oldTime;	// stores the last reading of the timer.
+    unsigned long changeInTime; // stores the difference between current reading of the timer and the previous reading.
 
     static gameEngine *pInstance;
 

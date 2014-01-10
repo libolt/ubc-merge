@@ -18,40 +18,25 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef _UBC_SDL_H_
-#define _UBC_SDL_H_
+#include "offensestate.h"
 
-#include "config.h"
-#include "gui.h"
-#include "SDL.h"
-#include "SDL_syswm.h"
-#include "SDL_test_common.h"
-#include "Ogre.h"
-#include <OgreStringConverter.h>
-#include "OgreString.h"
-#include "renderengine.h"
-#include "gameengine.h"
-#include "gamestate.h"
-#include "input.h"
-#include "network.h"
-#include "players.h"
-#include "playerdata.h"
-#include "playerstate.h"
-
-class UBC
+offenseState::offenseState()
 {
-public:
-	virtual ~UBC();	// destructor
+	startPositions = new Ogre::Vector3[5];
+}
 
-	virtual bool getQuitGame();
-	void setQuitGame(bool quit);
-protected:
-    UBC();
-//    UBC(const UBC&);
-//    UBC &operator= (const UBC&);
-private:
-//    static UBC *pInstance;
 
-    bool quitGame;
-};
-#endif
+Ogre::Vector3 *offenseState::getStartPositions()	// retrieves startPositions variable
+{
+	return (startPositions);
+}
+
+void offenseState::setStartPositions(Ogre::Vector3 *positions)	// sets startPositions
+{
+	startPositions = positions;
+}
+
+void offenseState::setupState()
+{
+	startPositions[0] = Ogre::Vector3(5.0f,-13.5f,380.0f);
+}

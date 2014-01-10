@@ -18,60 +18,26 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "courtstate.h"
-#include "renderengine.h"
+#ifndef _OFFENSESTATE_H_
+#define _OFFENSESTATE_H_
 
-courtState::courtState()
-{
-}
+#include "OgreVector3.h"
 
-courtState::~courtState()
+class offenseState
 {
-}
+public:
 
-// gets and sets modelName
-std::string courtState::getModelName()
-{
-    return (modelName);
-}
-void courtState::setModelName(std::string name)
-{
-    modelName = name;
-}
+	offenseState(); // constructor
 
-// gets and sets model
-Ogre::Entity *courtState::getModel()
-{
-    return (model);
-}
-void courtState::setModel(Ogre::Entity *Model)
-{
-    model = Model;
-}
+	virtual Ogre::Vector3 *getStartPositions();	// retrieves startPositions variable
+	virtual void setStartPositions(Ogre::Vector3 *positions);	// sets startPositions
 
-// gets and sets node
-Ogre::SceneNode *courtState::getNode()
-{
-    return (node);
-}
-void courtState::setNode(Ogre::SceneNode *Node)
-{
-    node = Node;
-}
+	virtual void setupState();
 
-// loads the 3D Model and attaches it to the node as well as sets coordinates
-bool courtState::loadModel()
-{
-    renderEngine *render = renderEngine::Instance();
+private:
 
-    model = render->getMSceneMgr()->createEntity("Court", modelName);	// loads the Court model
+    Ogre::Vector3 *startPositions;
+};
 
-    // creates the courtNode
-    node = render->getMSceneMgr()->getRootSceneNode()->createChildSceneNode("court");
-    // attaches the court model to the courtNode
-    node->attachObject(model);
-    // sets the position of courtNode
-    node->setPosition(0.0f,-20.0f,400.0f);
+#endif
 
-    return true;
-}

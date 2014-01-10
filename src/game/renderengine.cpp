@@ -97,8 +97,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	   #else
 	    // Error, both can't be defined or undefined same time
 	   #endif
-
-std::cout << "winHandle = " << winHandle << std::endl;
+//std::cout << "winHandle = " << winHandle << std::endl;
 	    mRoot = new Ogre::Root("", "", "Ogre.log");
 	    const Ogre::String pluginDir = OGRE_PLUGIN_DIR;
 	    inputSystem *input = inputSystem::Instance();
@@ -131,7 +130,7 @@ std::cout << "winHandle = " << winHandle << std::endl;
 
     #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
         mRoot->setRenderSystem(mRoot->getAvailableRenderers().at(0));
-        mRoot->initialise(false);	
+        mRoot->initialise(false);
     #else
 	    Ogre::RenderSystemList rsList = mRoot->getAvailableRenderers();
 
@@ -164,7 +163,7 @@ std::cout << "winHandle = " << winHandle << std::endl;
 */
 		//	mWindow = mRoot->initialise(true, "Ultimate Basketball Challenge");
 		mWindow = mRoot->initialise(false, "Ultimate Basketball Challenge");
-#endif 
+#endif
 
 
 	    std::string dataPath = UBC_DATADIR;
@@ -204,7 +203,7 @@ std::cout << "winHandle = " << winHandle << std::endl;
    #else
 	  mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1024, 768, false, &misc);
 	  #endif
-/*	  
+
 	  mWindow->setVisible( true );
 
  		 mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC); // for OGRE 1.2 Dagon
@@ -221,7 +220,7 @@ std::cout << "winHandle = " << winHandle << std::endl;
 		// most examples get the viewport size to calculate this; for now, we'll just
 		// set it to 4:3 the easy way
 		mCamera->setAspectRatio((Ogre::Real)1.333333);
-*/
+
 
 //	    Ogre::LogManager::getSingletonPtr()->logMessage("winHandle = " +winHandle);
 
@@ -507,7 +506,7 @@ void renderEngine::setMResourceGroup(String resource)
 
 bool renderEngine::frameStarted()
 {
-
+exit(0);
     GUISystem *gui = GUISystem::Instance();
     gameEngine *gameE = gameEngine::Instance();
     gameState *gameS = gameState::Instance(); // FIXME: gameState shouldn't be called in render engine
@@ -535,9 +534,7 @@ bool renderEngine::frameStarted()
 //    gui->mouseMoved(*event);
 //    const OIS::MouseState &ms = input->getMMouse()->getMouseState();
 //    mGUIManager->injectMouseMove( ms.X.rel, ms.Y.rel );
-    gui->updateTime(changeInTime);
 //    exit(0);
-    gui->update();
     Ogre::Real times;
     Ogre::FrameEvent evt;
     times = 0.01f;
@@ -570,9 +567,9 @@ bool renderEngine::frameStarted()
 
     if (changeInTime >= 1000.0/60.0)
     {
-    physEngine->updateState(changeInTime);
+    physEngine->updateState();
     }
-
+exit(0);
 //	std::cout << "Loop Time = " << loopTime.getMilliseconds() << std::endl;
 
 //    return OgreApplication::frameStarted(evt);

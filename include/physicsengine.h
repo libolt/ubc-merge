@@ -26,7 +26,7 @@
 #include "BtOgrePG.h"
 #include "BtOgreGP.h"
 #include "BtOgreExtras.h"
-
+#include "BulletDynamics/Dynamics/btRigidBody.h"
 
 class physicsEngine
 {
@@ -35,7 +35,7 @@ public:
     static physicsEngine *Instance();
 
     virtual void setupState();  // sets up state of physics engine.
-    virtual void updateState(float changeInTime); // updates the state of the physics engine.
+    virtual void updateState(); // updates the state of the physics engine.
 
     // sets up object physics
     virtual void setupPlayerPhysics(); // setsup up player physics
@@ -52,24 +52,29 @@ private:
     static physicsEngine *pInstance;
     btDynamicsWorld *world;
     BtOgre::DebugDrawer *debugDraw;
-    btAxisSweep3 *broadPhase;
+//    btAxisSweep3 *broadPhase;
+    btBroadphaseInterface *broadPhase;
     btDefaultCollisionConfiguration *collisionConfig;
 	btCollisionDispatcher *dispatcher;
 	btSequentialImpulseConstraintSolver *solver;
 
+	btContactSolverInfo contactInfo;
+
     // players
-	std::vector<btRigidBody *> playerBody;
-	std::vector<btCollisionShape *> playerShape;
-    std::vector<BtOgre::RigidBodyState *> playerBodyState;
+//	std::vector<btRigidBody *> playerBody;
+//	std::vector<btCollisionShape *> playerShape;
+//    std::vector<BtOgre::RigidBodyState *> playerBodyState;
 //    std::vector<btDefaultMotionState *> playerBodyState;
     // court
 	btRigidBody *courtBody;
-	btBvhTriangleMeshShape *courtShape;
-    btDefaultMotionState *courtBodyState;
+//	btBvhTriangleMeshShape *courtShape;
+	btCollisionShape *courtShape;
+	btDefaultMotionState *courtBodyState;
 
     // basketball
     btRigidBody *basketballBody;
-    btBvhTriangleMeshShape *basketballShape;
+ //   btBvhTriangleMeshShape *basketballShape;
+    btCollisionShape *basketballShape;
     BtOgre::RigidBodyState *basketballBodyState;
 };
 

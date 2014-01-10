@@ -31,6 +31,11 @@
 
 #include <string>
 
+#include "BtOgrePG.h"
+#include "BtOgreGP.h"
+#include "BtOgreExtras.h"
+
+
 class basketballs
 {
 public:
@@ -118,6 +123,9 @@ public:
     Ogre::SceneNode *getNode();
     virtual void setNode(Ogre::SceneNode *node);
 
+    virtual btRigidBody *getPhysBody();	// retrieves physBody variable
+    virtual void setPhysBody(btRigidBody *body);	// sets physBody variable
+
     bool loadModel();   // loads the 3D model from file specified in modelName
 
     virtual void nodeChangePosition(Ogre::Vector3 pos); // changes the position of the Node
@@ -144,6 +152,11 @@ private:
     Ogre::Entity *model;    // stores 3d model
 
     Ogre::SceneNode *node;  // stores node 3d model is attached to
+
+    // stores the physics object that represents the player
+    btRigidBody *physBody;
+
+
     float maxHeight;
     bool maxHeightReached;
 
