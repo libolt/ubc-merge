@@ -56,8 +56,7 @@ void UBC::setQuitGame(bool quit)
 // void android_main(struct android_app* state)
 //{
 //    app_dummy();
-
-static Ogre::RenderWindow* gRenderWnd = NULL;
+//static Ogre::RenderWindow* gRenderWnd  = NULL;
 static Ogre::Root* gRoot = NULL;
 static Ogre::StaticPluginLoader* gStaticPluginLoader = NULL;
 static AAssetManager* gAssetMgr = NULL; 
@@ -82,6 +81,8 @@ static Ogre::DataStreamPtr openAPKFile(const Ogre::String& fileName)
 		
 static void setupScene()
 {
+
+    renderEngine * render = renderEngine::Instance();
 	Ogre::ConfigFile cf;
     cf.load(openAPKFile("resources.cfg"));
 	
@@ -108,7 +109,7 @@ static void setupScene()
 	gMatListener = new Ogre::ShaderGeneratorTechniqueResolverListener();
 	Ogre::MaterialManager::getSingleton().addListener(gMatListener);
 	
-	gSceneMgr = gRoot->createSceneManager(Ogre::ST_GENERIC);
+	gSceneMgr = render->getMRoot()->createSceneManager(Ogre::ST_GENERIC);
 	Ogre::RTShader::ShaderGenerator::getSingletonPtr()->addSceneManager(gSceneMgr);
 		
 	Ogre::Camera* camera = gSceneMgr->createCamera("MyCam");
@@ -128,7 +129,7 @@ static void setupScene()
 	camera->lookAt(0,0,0);
 	camera->setAutoAspectRatio(true);
 
-	Ogre::Viewport* vp = gRenderWnd->addViewport(camera);
+	Ogre::Viewport* vp = render->getMWindow()->addViewport(camera);
 	vp->setBackgroundColour(Ogre::ColourValue(1,0,0));	
 	vp->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);	
 
@@ -141,40 +142,50 @@ static int32_t handleInput(struct android_app* app, AInputEvent* event)
 
 static void handleCmd(struct android_app* app, int32_t cmd)
 {
+
+    renderEngine * render = renderEngine::Instance();
     switch (cmd) 
     {
         case APP_CMD_SAVE_STATE:
             break;
         case APP_CMD_INIT_WINDOW:
-            if(app->window && gRoot)
+            if(app->window && render->getMRoot())
             {
+            
                 AConfiguration* config = AConfiguration_new();
+                
                 AConfiguration_fromAssetManager(config, app->activity->assetManager);
+
                 gAssetMgr = app->activity->assetManager;
-				
-                if(!gRenderWnd)
+				            
+                if(!render->getMWindow())
                 {
-				    Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKFileSystemArchiveFactory(app->activity->assetManager) );
-					Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKZipArchiveFactory(app->activity->assetManager) );
-				
+                
+				               Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKFileSystemArchiveFactory(app->activity->assetManager));
+				           //    exit(0); 
+					              Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKZipArchiveFactory(app->activity->assetManager));
+				            //   exit(0); 
                     Ogre::NameValuePairList opt;
                     opt["externalWindowHandle"] = Ogre::StringConverter::toString((int)app->window);
                     opt["androidConfig"] = Ogre::StringConverter::toString((int)config);
-                           
-					gRenderWnd = gRoot->createRenderWindow("OgreWindow", 0, 0, false, &opt); 
-		
-					setupScene();
+      
+                    Ogre::RenderWindow *mWindow = render->getMWindow();        
+                    exit(0);             
+					              mWindow = render->getMRoot()->createRenderWindow("OgreWindow", 0, 0, false, &opt); 
+		                 render->setMWindow(mWindow);
+		                    exit(0);
+					              setupScene();
                 }
                 else
                 {
-					static_cast<Ogre::AndroidEGLWindow*>(gRenderWnd)->_createInternalResources(app->window, config);
+					              static_cast<Ogre::AndroidEGLWindow*>(render->getMWindow() )->_createInternalResources(app->window, config);
                 }
                 AConfiguration_delete(config);
             }
             break;
         case APP_CMD_TERM_WINDOW:
-            if(gRoot && gRenderWnd)
-				static_cast<Ogre::AndroidEGLWindow*>(gRenderWnd)->_destroyInternalResources();
+            if(render->getMRoot() && render->getMWindow() )
+				static_cast<Ogre::AndroidEGLWindow*>(render->getMWindow() )->_destroyInternalResources();
             break;
         case APP_CMD_GAINED_FOCUS:
             break;
@@ -187,15 +198,19 @@ void android_main(struct android_app* state)
 {
     app_dummy();
     
-	if(gRoot == NULL)
+    renderEngine * render = renderEngine::Instance();
+	if(render->getMRoot() == NULL)
 	{
-		gRoot = new Ogre::Root();
+	    Ogre::Root *mRoot = render->getMRoot();
+		   mRoot = new Ogre::Root();
+		   render->setMRoot(mRoot);
+		   
 #ifdef OGRE_STATIC_LIB
         gStaticPluginLoader = new Ogre::StaticPluginLoader();
         gStaticPluginLoader->load();
 #endif
-        gRoot->setRenderSystem(gRoot->getAvailableRenderers().at(0));
-        gRoot->initialise(false);	
+        render->getMRoot()->setRenderSystem(render->getMRoot()->getAvailableRenderers().at(0));
+        render->getMRoot()->initialise(false);	
 	}			
 			
     state->onAppCmd = &handleCmd;
@@ -215,10 +230,10 @@ void android_main(struct android_app* state)
                 return;
         }
         
-		if(gRenderWnd != NULL && gRenderWnd->isActive())
+		if(render->getMWindow()  != NULL && render->getMWindow()->isActive())
 		{
-			gRenderWnd->windowMovedOrResized();
-			gRoot->renderOneFrame();
+			render->getMWindow()->windowMovedOrResized();
+			render->getMRoot()->renderOneFrame();
 		}
     }
 }
