@@ -19,3 +19,31 @@
  ***************************************************************************/
 
 #include "defensestate.h"
+
+defenseState::defenseState() // constructor
+{
+	execute = false;
+}
+
+bool defenseState::getExecute()	// retrieves the value of execute variable
+{
+	return (execute);
+}
+void defenseState::setExecute(bool ex)	// sets the value of the execute variable
+{
+	execute = ex;
+}
+
+void defenseState::setupState()		// sets up initial state of the object
+{
+
+}
+void defenseState::updateState()	// updates the state of the object
+{
+
+	if (execute)
+	{
+
+	}
+
+}

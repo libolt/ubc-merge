@@ -23,7 +23,9 @@
 
 #include <vector>
 #include "OgreString.h"
+
 #include "offenseState.h"
+#include "defenseState.h"
 
 using namespace std;
 
@@ -97,6 +99,7 @@ class teamState
         virtual bool getDefense();	// returns defense variable
         virtual void setDefense(bool set);	// sets defense variable
 
+        virtual void updateState();	// updates the state of the teamState object
     protected:
     private:
         Ogre::String playerType;	// stores the type of player in control of the team (human,network,ai) are valid values
@@ -124,7 +127,8 @@ class teamState
         bool offense;	// if set then the team is on offense
         bool defense;	// if set then the team is on defense
 
-        offenseState *offenseS;
+        offenseState *offenseInstance;
+        defenseState *defenseInstance;
 
 };
 

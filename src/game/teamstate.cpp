@@ -31,7 +31,8 @@ teamState::teamState()
     technicals = 0;
     timeouts = 0;
 
-    offenseS = new offenseState;
+    offenseInstance = new offenseState;
+    defenseInstance = new defenseState;
 }
 
 teamState::~teamState()
@@ -221,4 +222,27 @@ bool teamState::getDefense()	// returns defense variable
 void teamState::setDefense(bool set)	// sets defense variable
 {
 	defense = set;
+}
+
+
+void teamState::updateState()	// updates the state of the object
+{
+	// checks whether to execute offense or defense logic
+	if (offense == true && defense == false)
+	{
+		offenseInstance->setExecute(true);
+		defenseInstance->setExecute(false);
+	}
+	else if (defense == true && offense == false)
+	{
+		offenseInstance->setExecute(true);
+		defenseInstance->setExecute(false);
+	}
+	else
+	{
+
+	}
+
+	offenseInstance->updateState();	// updates the state of the offenseInstance object
+	defenseInstance->updateState(); // updates the state of the defenseInstance object
 }

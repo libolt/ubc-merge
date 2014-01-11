@@ -24,7 +24,20 @@
 class defenseState
 {
 public:
+
+	defenseState();	// constructor
+
+	virtual bool getExecute();	// retrieves the value of execute variable
+	virtual void setExecute(bool ex);	// sets the value of the execute variable
+
+	virtual void setupState();		// sets up initial state of the object
+
+	virtual void updateState();	// updates the state of the object
+
 private:
+
+	bool execute;	// If set then execute the defense logic
+
 };
 
 #endif

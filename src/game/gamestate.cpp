@@ -425,37 +425,10 @@ bool gameState::logic()
     {
     }
 
+    // updates the state of each team
+    teamInstance[0].updateState();
+    teamInstance[1].updateState();
 
-/*    // movement test code
-    if (i < 200)
-    {
-
-        j = 0;
-//        playerInstance[basketballInstance[0].getPlayer()].getNode()->translate(0.02f, 0.0f, 0.0f);
-//        playerDirection[1] = 4;
-        playerInstance[basketballInstance[0].getPlayer()].setMovement(true);
-        playerInstance[basketballInstance[0].getPlayer()].setDirection(RIGHT);
-        playerInstance[basketballInstance[0].getPlayer()].setPosChange(Ogre::Vector3(0.02f, 0.0f, 0.0f));
-        i++;
-    }
-    else
-    {
-        if (j < 200)
-        {
-//            playerInstance[basketballInstance[0].getPlayer()].getNode()->translate(-0.02f,0.0f,0.0f);
-//            playerDirection[1] = 3;
-            playerInstance[basketballInstance[0].getPlayer()].setMovement(true);
-            playerInstance[basketballInstance[0].getPlayer()].setDirection(LEFT);
-            playerInstance[basketballInstance[0].getPlayer()].setPosChange(Ogre::Vector3(-0.02f, 0.0f, 0.0f));
-
-        	j++;
-    	}
-        else
-        {
-            i = 0;
-        }
-    }
-*/
     updatePlayerDirections(playerPos);
     updatePlayerMovements();	// updates movement of player objects
 

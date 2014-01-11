@@ -23,20 +23,29 @@
 
 #include "OgreVector3.h"
 
+
 class offenseState
 {
 public:
 
 	offenseState(); // constructor
 
-	virtual Ogre::Vector3 *getStartPositions();	// retrieves startPositions variable
-	virtual void setStartPositions(Ogre::Vector3 *positions);	// sets startPositions
+	virtual bool getExecute();	// retrieves the value of execute variable
+	virtual void setExecute(bool ex);	// sets the value of the execute variable
 
-	virtual void setupState();
+	virtual Ogre::Vector3 *getStartPositions();	// retrieves the value of the startPositions variable
+	virtual void setStartPositions(Ogre::Vector3 *positions);	// sets the value startPositions variable
+
+	virtual void setupState();		// sets up initial state of the object
+
+	virtual void updateState();	// updates the state of the object
+
 
 private:
 
-    Ogre::Vector3 *startPositions;
+	bool execute;	// If set then execute the offense logic
+
+    Ogre::Vector3 *startPositions;		// stores the positions for players get to in order to execute offense
 };
 
 #endif
