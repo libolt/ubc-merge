@@ -21,7 +21,7 @@
 #ifndef _ENUMS_H_
 #define _ENUMS_H_
 
-        enum directions { UP, DOWN, LEFT, RIGHT };	// direction objects are moving
+        enum directions { UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT };	// direction objects are moving
         enum defenseTypes { MANTOMAN, FULLCOURT, HALFCOURT, ZONE };	// type of defense being played
         enum offenseTypes { BOX, PICKANDROLL, MOTION, ISOLATION };	// type of offense being played
         enum courtSide_t {RIGHTSIDE, LEFTSIDE};	// stores which side of the court the offensive team is on

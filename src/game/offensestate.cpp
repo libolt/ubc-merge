@@ -27,6 +27,11 @@ offenseState::offenseState() // constructor
 	execute = false;
 	startPositions = new Ogre::Vector3[5];
 	startPositions[0] = Ogre::Vector3(5.0f,-13.5f,380.0f); // FIXME! doesn't belong here
+	startPositions[1]	= Ogre::Vector3(3.0f,-12.5f,375.0f);
+	startPositions[2]	= Ogre::Vector3(4.0f,-14.5f,385.0f);
+	startPositions[3]	= Ogre::Vector3(6.0f,-11.5f,377.0f);
+	startPositions[4]	= Ogre::Vector3(3.0f,-13.5f,378.0f);
+
 }
 
 bool offenseState::getExecute()	// retrieves the value of execute variable
@@ -57,13 +62,91 @@ void offenseState::updateState()	// updates the state of the object
 {
     gameState *gameS = gameState::Instance();
     std::vector<playerState> playerInstance = gameS->getPlayerInstance();
-    Ogre::Vector3 playerPos = playerInstance[0].getNode()->getPosition();
-	if (execute)
+    Ogre::Vector3 *playerPos = new Ogre::Vector3[5];
+
+    for (int p = 0; p < 5; ++p)
+    {
+    	playerPos[p] = playerInstance[p].getNode()->getPosition();
+    }
+
+    if (execute)
 	{
-		if (playerPos[0] > startPositions[0][0])
+		for (int x = 0; x < 5; ++x)
 		{
-		    playerInstance[0].setMovement(true);
-		    playerInstance[0].setDirection(LEFT);
+			// checks the X & Y positions and moves player accordingly
+			if (playerPos[x][0] > startPositions[x][0])
+			{
+				if (playerPos[x][1] < startPositions[x][1])
+				{
+					playerInstance[x].setMovement(true);
+					playerInstance[x].setDirection(UPLEFT);
+				}
+				else if (playerPos[x][1] > startPositions[x][1])
+				{
+					playerInstance[x].setMovement(true);
+					playerInstance[x].setDirection(UPRIGHT);
+				}
+				else
+				{
+					playerInstance[x].setMovement(true);
+					playerInstance[x].setDirection(UP);
+				}
+			}
+			else if (playerPos[x][0] < startPositions[x][0])
+			{
+				if (playerPos[x][1] < startPositions[x][1])
+				{
+					playerInstance[x].setMovement(true);
+					playerInstance[x].setDirection(DOWNLEFT);
+				}
+				else if (playerPos[x][1] > startPositions[x][1])
+				{
+					playerInstance[x].setMovement(true);
+					playerInstance[x].setDirection(DOWNRIGHT);
+				}
+				else
+				{
+					playerInstance[x].setMovement(true);
+					playerInstance[x].setDirection(DOWN);
+				}
+			}
+			else
+			{
+			}
+
+			// checks the X position and moves player accordingly
+			if (playerPos[x][0] > startPositions[x][0])
+			{
+				playerInstance[x].setMovement(true);
+				playerInstance[x].setDirection(LEFT);
+
+			}
+			else if (playerPos[x][0] < startPositions[x][0])
+			{
+				playerInstance[x].setMovement(true);
+				playerInstance[x].setDirection(RIGHT);
+			}
+			else
+			{
+			}
+
+			// checks the Y position and moves player accordingly
+			if (playerPos[x][1] > startPositions[x][1])
+			{
+				playerInstance[x].setMovement(true);
+				playerInstance[x].setDirection(DOWN);
+
+			}
+			else if (playerPos[x][1] < startPositions[x][1])
+			{
+				playerInstance[x].setMovement(true);
+				playerInstance[x].setDirection(UP);
+			}
+			else
+			{
+			}
+
+
 
 		}
 	}

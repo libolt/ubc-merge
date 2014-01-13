@@ -740,6 +740,27 @@ void gameState::updatePlayerMovements()	// updates player movements
 				posChange = Ogre::Vector3(0.0400f, 0.0f, 0.0f);
 				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
+			else if (playerInstance[i].getDirection() == UPLEFT)
+			{
+				posChange = Ogre::Vector3(-0.400f, 0.400f, 0.0f);
+				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
+			}
+			else if (playerInstance[i].getDirection() == UPRIGHT)
+			{
+				posChange = Ogre::Vector3(-0.400f, 0.400f, 0.0f);
+				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
+			}
+			else if (playerInstance[i].getDirection() == DOWNLEFT)
+			{
+				posChange = Ogre::Vector3(-0.400f, -0.400f, 0.0f);
+				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
+			}
+			else if (playerInstance[i].getDirection() == DOWNRIGHT)
+			{
+				posChange = Ogre::Vector3(0.400f, -0.400f, 0.0f);
+				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
+			}
+
 		}
 		else if (!playerInstance[i].getMovement())	// if false then sets their coordinate changes to 0.0
 		{
