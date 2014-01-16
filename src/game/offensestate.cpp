@@ -146,6 +146,7 @@ void offenseState::updateState()	// updates the state of the object
 			{
 			}
 
+			Ogre::LogManager::getSingletonPtr()->logMessage("playerDirection = " +Ogre::StringConverter::toString(playerInstance[3].getDirection()));
 
 
 		}

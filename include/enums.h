@@ -21,8 +21,21 @@
 #ifndef _ENUMS_H_
 #define _ENUMS_H_
 
-        enum directions { UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT };	// direction objects are moving
-        enum defenseTypes { MANTOMAN, FULLCOURT, HALFCOURT, ZONE };	// type of defense being played
-        enum offenseTypes { BOX, PICKANDROLL, MOTION, ISOLATION };	// type of offense being played
-        enum courtSide_t {RIGHTSIDE, LEFTSIDE};	// stores which side of the court the offensive team is on
+    enum directions { UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT };	// direction objects are moving
+    enum defenseTypes { MANTOMAN, FULLCOURT, HALFCOURT, ZONE };	// type of defense being played
+    enum offenseTypes { BOX, PICKANDROLL, MOTION, ISOLATION };	// type of offense being played
+    enum courtSide_t {RIGHTSIDE, LEFTSIDE};	// stores which side of the court the offensive team is on
+
+     // Physics bit masks
+    #define BIT(x) (1<<(x))
+
+    enum collisiontypes
+    {
+        COL_NOTHING = 0, //<Collide with nothing
+        COL_COURT = BIT(0), // Collide with court
+        COL_TEAM1 = BIT(1), //<Collide with teammate
+        COL_TEAM2 = BIT(2), //<Collide with walls
+        COL_POWERUP = BIT(3) //<Collide with powerups
+    };
+
 #endif /* ENUMS_H_ */

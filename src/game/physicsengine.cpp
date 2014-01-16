@@ -179,11 +179,21 @@ void physicsEngine::setupPlayerPhysics()
         playerBody = new btRigidBody(mass, playerBodyState, playerShape, inertia);
         pInstance[i].setPhysBody(playerBody);
 //        world->addRigidBody(playerBody.at(i));
-        world->addRigidBody(pInstance[i].getPhysBody());
+        if (i <= 4)
+        {
+            world->addRigidBody(pInstance[i].getPhysBody(), COL_TEAM1, COL_COURT^COL_TEAM2);
+        }
+        else if (i >= 5)
+        {
+            world->addRigidBody(pInstance[i].getPhysBody(), COL_TEAM2, COL_COURT^COL_TEAM1);
+        }
+        else
+        {
+        }
     }
 
     gameS->setPlayerInstance(pInstance);
-pInstance[0].getPhysBody()->translate(btVector3 (0,1,0));
+    pInstance[0].getPhysBody()->translate(btVector3 (0,1,0));
 //    playerShape.push_back(*shape);
 }
 
@@ -217,7 +227,7 @@ void physicsEngine::setupCourtPhysics()
 //    courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
     courtBody = new btRigidBody(info);
 
-    world->addRigidBody(courtBody);
+    world->addRigidBody(courtBody, COL_COURT, COL_TEAM1^COL_TEAM2);
 
 }
 

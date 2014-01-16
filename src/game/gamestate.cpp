@@ -352,7 +352,6 @@ bool gameState::logic()
     players *player = players::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();
     Ogre::Vector3 playerPos;
-//    std::vector<playerState> pInstance = getPlayerInstance();
 //	std::vector<basketballs> basketballInstance = getBasketballInstance();
 	// sets up and starts the dribbling animation
 //	basketballInstance[0].setDribblingStart(true);
@@ -362,7 +361,7 @@ bool gameState::logic()
     {
     	processNetworkEvents();	// processes data received from the network
     }
-    Ogre::LogManager::getSingletonPtr()->logMessage(("Player's current position: "  +Ogre::StringConverter::toString(playerInstance[0].getNode()->getPosition())));
+    Ogre::LogManager::getSingletonPtr()->logMessage(("Player's current position: "  +Ogre::StringConverter::toString(playerInstance[3].getNode()->getPosition())));
     Ogre::LogManager::getSingletonPtr()->logMessage(("Court's current position: "  +Ogre::StringConverter::toString(courtInstance[0].getNode()->getPosition())));
     Ogre::LogManager::getSingletonPtr()->logMessage(("Basketball's current position: "  +Ogre::StringConverter::toString(basketballInstance[0].getNode()->getPosition())));
 
