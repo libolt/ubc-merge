@@ -73,6 +73,110 @@ void offenseState::updateState()	// updates the state of the object
 	{
 		for (int x = 0; x < 5; ++x)
 		{
+			// checks if both x and y coordinates need to be updated
+			if (playerPos[x][0] != startPositions[x][0] && playerPos[x][1] != startPositions[x][1])
+			{
+				Ogre::LogManager::getSingletonPtr()->logMessage("X & Y");
+				if (playerPos[x][0] > startPositions[x][0])
+				{
+					if (playerPos[x][1] < startPositions[x][1])
+					{
+						playerInstance[x].setMovement(true);
+						playerInstance[x].setDirection(UPLEFT);
+						Ogre::LogManager::getSingletonPtr()->logMessage("UPLEFT");
+					}
+					else if (playerPos[x][1] > startPositions[x][1])
+					{
+						playerInstance[x].setMovement(true);
+						playerInstance[x].setDirection(UPRIGHT);
+						Ogre::LogManager::getSingletonPtr()->logMessage("UPRIGHT");
+					}
+					else
+					{
+						playerInstance[x].setMovement(true);
+						playerInstance[x].setDirection(UP);
+						Ogre::LogManager::getSingletonPtr()->logMessage("UP");
+					}
+				}
+				else if (playerPos[x][0] < startPositions[x][0])
+				{
+					if (playerPos[x][1] < startPositions[x][1])
+					{
+						playerInstance[x].setMovement(true);
+						playerInstance[x].setDirection(DOWNLEFT);
+						Ogre::LogManager::getSingletonPtr()->logMessage("DOWNLEFT");
+					}
+					else if (playerPos[x][1] > startPositions[x][1])
+					{
+						playerInstance[x].setMovement(true);
+						playerInstance[x].setDirection(DOWNRIGHT);
+						Ogre::LogManager::getSingletonPtr()->logMessage("DOWNRIGHT");
+
+					}
+					else
+					{
+						playerInstance[x].setMovement(true);
+						playerInstance[x].setDirection(DOWN);
+						Ogre::LogManager::getSingletonPtr()->logMessage("DOWN");
+
+					}
+				}
+				else
+				{
+				}
+
+				//				exit(0);
+			}
+			else if (playerPos[x][0] != startPositions[x][0])
+			{
+				// checks the X position and moves player accordingly
+				if (playerPos[x][0] > startPositions[x][0])
+				{
+					playerInstance[x].setMovement(true);
+					playerInstance[x].setDirection(LEFT);
+					Ogre::LogManager::getSingletonPtr()->logMessage("LEFT");
+				}
+				else if (playerPos[x][0] < startPositions[x][0])
+				{
+					playerInstance[x].setMovement(true);
+					playerInstance[x].setDirection(RIGHT);
+					Ogre::LogManager::getSingletonPtr()->logMessage("RIGHT");
+				}
+				else
+				{
+				}
+				Ogre::LogManager::getSingletonPtr()->logMessage("X");
+//				exit(0);
+			}
+			else if (playerPos[x][1] != startPositions[x][1])
+			{
+				// checks the Y position and moves player accordingly
+				if (playerPos[x][1] > startPositions[x][1])
+				{
+					playerInstance[x].setMovement(true);
+					playerInstance[x].setDirection(DOWN);
+					Ogre::LogManager::getSingletonPtr()->logMessage("DOWN");
+
+
+				}
+				else if (playerPos[x][1] < startPositions[x][1])
+				{
+					playerInstance[x].setMovement(true);
+					playerInstance[x].setDirection(UP);
+					Ogre::LogManager::getSingletonPtr()->logMessage("UP");
+				}
+				else
+				{
+				}
+				Ogre::LogManager::getSingletonPtr()->logMessage("Y");
+//				exit(0);
+			}
+			else
+			{
+
+			}
+
+/*
 			// checks the X & Y positions and moves player accordingly
 			if (playerPos[x][0] > startPositions[x][0])
 			{
@@ -80,16 +184,19 @@ void offenseState::updateState()	// updates the state of the object
 				{
 					playerInstance[x].setMovement(true);
 					playerInstance[x].setDirection(UPLEFT);
+					Ogre::LogManager::getSingletonPtr()->logMessage("UPLEFT");
 				}
 				else if (playerPos[x][1] > startPositions[x][1])
 				{
 					playerInstance[x].setMovement(true);
 					playerInstance[x].setDirection(UPRIGHT);
+					Ogre::LogManager::getSingletonPtr()->logMessage("UPRIGHT");
 				}
 				else
 				{
 					playerInstance[x].setMovement(true);
 					playerInstance[x].setDirection(UP);
+					Ogre::LogManager::getSingletonPtr()->logMessage("UP");
 				}
 			}
 			else if (playerPos[x][0] < startPositions[x][0])
@@ -98,16 +205,21 @@ void offenseState::updateState()	// updates the state of the object
 				{
 					playerInstance[x].setMovement(true);
 					playerInstance[x].setDirection(DOWNLEFT);
+					Ogre::LogManager::getSingletonPtr()->logMessage("DOWNLEFT");
 				}
 				else if (playerPos[x][1] > startPositions[x][1])
 				{
 					playerInstance[x].setMovement(true);
 					playerInstance[x].setDirection(DOWNRIGHT);
+					Ogre::LogManager::getSingletonPtr()->logMessage("DOWNRIGHT");
+
 				}
 				else
 				{
 					playerInstance[x].setMovement(true);
 					playerInstance[x].setDirection(DOWN);
+					Ogre::LogManager::getSingletonPtr()->logMessage("DOWN");
+
 				}
 			}
 			else
@@ -119,12 +231,13 @@ void offenseState::updateState()	// updates the state of the object
 			{
 				playerInstance[x].setMovement(true);
 				playerInstance[x].setDirection(LEFT);
-
+				Ogre::LogManager::getSingletonPtr()->logMessage("LEFT");
 			}
 			else if (playerPos[x][0] < startPositions[x][0])
 			{
 				playerInstance[x].setMovement(true);
 				playerInstance[x].setDirection(RIGHT);
+				Ogre::LogManager::getSingletonPtr()->logMessage("RIGHT");
 			}
 			else
 			{
@@ -135,17 +248,20 @@ void offenseState::updateState()	// updates the state of the object
 			{
 				playerInstance[x].setMovement(true);
 				playerInstance[x].setDirection(DOWN);
+				Ogre::LogManager::getSingletonPtr()->logMessage("DOWN");
+
 
 			}
 			else if (playerPos[x][1] < startPositions[x][1])
 			{
 				playerInstance[x].setMovement(true);
 				playerInstance[x].setDirection(UP);
+				Ogre::LogManager::getSingletonPtr()->logMessage("UP");
 			}
 			else
 			{
 			}
-
+*/
 			Ogre::LogManager::getSingletonPtr()->logMessage("playerDirection = " +Ogre::StringConverter::toString(playerInstance[3].getDirection()));
 
 
