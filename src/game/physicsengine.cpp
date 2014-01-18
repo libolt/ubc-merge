@@ -131,7 +131,7 @@ void physicsEngine::updateState()
 //    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
 //    playerBody.at(2)->translate( btVector3( 0.0f, 10.0f, 0.0f ) );
 //    world->stepSimulation(changeInTime, 10);
-//    world->stepSimulation(1/10.f,10);
+    world->stepSimulation(1/10.f,10);
     world->debugDrawWorld();
 
 

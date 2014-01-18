@@ -361,6 +361,8 @@ bool gameState::logic()
     {
     	processNetworkEvents();	// processes data received from the network
     }
+
+//    Ogre::LogManager::getSingletonPtr()->logMessage(("Player's start position: "  +Ogre::StringConverter::toString(playerInstance[3].getNode()->getPosition())));
     Ogre::LogManager::getSingletonPtr()->logMessage(("Player's current position: "  +Ogre::StringConverter::toString(playerInstance[3].getNode()->getPosition())));
     Ogre::LogManager::getSingletonPtr()->logMessage(("Court's current position: "  +Ogre::StringConverter::toString(courtInstance[0].getNode()->getPosition())));
     Ogre::LogManager::getSingletonPtr()->logMessage(("Basketball's current position: "  +Ogre::StringConverter::toString(basketballInstance[0].getNode()->getPosition())));
@@ -721,12 +723,12 @@ void gameState::updatePlayerMovements()	// updates player movements
 
 			if (playerInstance[i].getDirection() == UP)
 			{
-				posChange = Ogre::Vector3(0.0f, 0.400f, 0.0f);
+				posChange = Ogre::Vector3(0.0f, 0.0f, -0.400f);
 				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 			else if (playerInstance[i].getDirection() == DOWN)
 			{
-				posChange = Ogre::Vector3(0.0f, -0.400f, 0.0f);
+				posChange = Ogre::Vector3(0.0f, 0.0f, 0.400f);
 				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 			else if (playerInstance[i].getDirection() == LEFT)
@@ -736,27 +738,27 @@ void gameState::updatePlayerMovements()	// updates player movements
 			}
 			else if (playerInstance[i].getDirection() == RIGHT)
 			{
-				posChange = Ogre::Vector3(0.0400f, 0.0f, 0.0f);
+				posChange = Ogre::Vector3(0.400f, 0.0f, 0.0f);
 				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 			else if (playerInstance[i].getDirection() == UPLEFT)
 			{
-				posChange = Ogre::Vector3(-0.400f, 0.400f, 0.0f);
+				posChange = Ogre::Vector3(-0.400f, 0.0f, -0.400f);
 				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 			else if (playerInstance[i].getDirection() == UPRIGHT)
 			{
-				posChange = Ogre::Vector3(-0.400f, 0.400f, 0.0f);
+				posChange = Ogre::Vector3(0.400f, 0.0f, -0.400f);
 				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 			else if (playerInstance[i].getDirection() == DOWNLEFT)
 			{
-				posChange = Ogre::Vector3(-0.400f, -0.400f, 0.0f);
+				posChange = Ogre::Vector3(-0.400f, 0.0f, 0.400f);
 				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 			else if (playerInstance[i].getDirection() == DOWNRIGHT)
 			{
-				posChange = Ogre::Vector3(0.400f, -0.400f, 0.0f);
+				posChange = Ogre::Vector3(0.400f, 0.0f, 0.400f);
 				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 
