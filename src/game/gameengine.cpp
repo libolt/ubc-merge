@@ -231,13 +231,24 @@ void gameEngine::gameLoop()	// Main Game Loop
 			// run the message pump (Eihort)
 	//		Ogre::WindowEventUtilities::messagePump();
 
-	    	if (network->getServerReceivedConnection() || network->getClientEstablishedConnection())	// checks if server and client are connected
-	    	{
-	    		if (!sceneCreated)
-	    		{
-	    			createScene = true;
-	    		}
-	    	}
+		   if (gameS->getGameType() == SINGLE)
+		   {
+				if (!sceneCreated)
+				{
+					createScene = true;
+				}
+
+		   }
+		   else if (gameS->getGameType() == MULTI)
+		   {
+				if (network->getServerReceivedConnection() || network->getClientEstablishedConnection())	// checks if server and client are connected
+				{
+					if (!sceneCreated)
+					{
+						createScene = true;
+					}
+				}
+		   }
 
 	    	if (createScene)	// checks if the scene should be created
 	    	{
@@ -293,57 +304,11 @@ void gameEngine::gameLoop()	// Main Game Loop
 	        {
 				std::vector<playerState> playerInstance = gameS->getPlayerInstance();
 
-				if (clientRunning)	// checks if game is running in client mode
+				if (gameS->getGameType() == SINGLE)
 				{
 					Ogre::String keyPressed = input->getKeyPressed();
-					if (keyPressed == "q")
-					{
-						quitGame =true;
-					}
-					else if (keyPressed == "up")
-					{
-						Ogre::String packetData;
-						playerInstance[6].setMovement(true);
-						playerInstance[6].setDirection(UP);
-						gameS->setPlayerInstance(playerInstance);
-						packetData = "player6" + keyPressed;
-						network->sendPacket(packetData);
-					}
-					else if (keyPressed == "down")
-					{
-						Ogre::String packetData;
-						playerInstance[6].setMovement(true);
-						playerInstance[6].setDirection(DOWN);
-						gameS->setPlayerInstance(playerInstance);
-						packetData = "player6" + keyPressed;
-						network->sendPacket(packetData);
-					}
-					else if (keyPressed == "left")
-					{
-						Ogre::String packetData;
-						playerInstance[6].setMovement(true);
-						playerInstance[6].setDirection(LEFT);
-						gameS->setPlayerInstance(playerInstance);
-						packetData = "player6" + keyPressed;
-						network->sendPacket(packetData);
-					}
-					else if (keyPressed == "right")
-					{
-						Ogre::String packetData;
-						playerInstance[6].setMovement(true);
-						playerInstance[6].setDirection(RIGHT);
-						gameS->setPlayerInstance(playerInstance);
-						packetData = "player6" + keyPressed;
-						network->sendPacket(packetData);
-					}
-					else
-					{
+					int playerWithBall = gameS->getPlayerWithBall();
 
-					}
-	    		}
-				else if (serverRunning)	// checks if game is running in server mode
-				{
-					Ogre::String keyPressed = input->getKeyPressed();
 					if (keyPressed == "q")
 					{
 						quitGame = true;
@@ -351,45 +316,136 @@ void gameEngine::gameLoop()	// Main Game Loop
 					else if (keyPressed == "up")
 					{
 						Ogre::String packetData;
-						playerInstance[0].setMovement(true);
-						playerInstance[0].setDirection(UP);
+						playerInstance[playerWithBall].setMovement(true);
+						playerInstance[playerWithBall].setDirection(UP);
 						gameS->setPlayerInstance(playerInstance);
-						packetData = "player0" + keyPressed;
-						network->sendPacket(packetData);
 					}
 					else if (keyPressed == "down")
 					{
 						Ogre::String packetData;
-						playerInstance[0].setMovement(true);
-						playerInstance[0].setDirection(DOWN);
+						playerInstance[playerWithBall].setMovement(true);
+						playerInstance[playerWithBall].setDirection(DOWN);
 						gameS->setPlayerInstance(playerInstance);
-						packetData = "player0" + keyPressed;
-						network->sendPacket(packetData);
 					}
 					else if (keyPressed == "left")
 					{
 						Ogre::String packetData;
-						playerInstance[0].setMovement(true);
-						playerInstance[0].setDirection(LEFT);
+						playerInstance[playerWithBall].setMovement(true);
+						playerInstance[playerWithBall].setDirection(LEFT);
 						gameS->setPlayerInstance(playerInstance);
-						packetData = "player0" + keyPressed;
-						network->sendPacket(packetData);
 					}
 					else if (keyPressed == "right")
 					{
 						Ogre::String packetData;
-						playerInstance[0].setMovement(true);
-						playerInstance[0].setDirection(RIGHT);
+						playerInstance[playerWithBall].setMovement(true);
+						playerInstance[playerWithBall].setDirection(RIGHT);
 						gameS->setPlayerInstance(playerInstance);
-						packetData = "player0" + keyPressed;
-						network->sendPacket(packetData);
 					}
+
+				}
+
+				else if (gameS->getGameType() == MULTI)
+				{
+					if (clientRunning)	// checks if game is running in client mode
+					{
+						Ogre::String keyPressed = input->getKeyPressed();
+						if (keyPressed == "q")
+						{
+							quitGame =true;
+						}
+						else if (keyPressed == "up")
+						{
+							Ogre::String packetData;
+							playerInstance[6].setMovement(true);
+							playerInstance[6].setDirection(UP);
+							gameS->setPlayerInstance(playerInstance);
+							packetData = "player6" + keyPressed;
+							network->sendPacket(packetData);
+						}
+						else if (keyPressed == "down")
+						{
+							Ogre::String packetData;
+							playerInstance[6].setMovement(true);
+							playerInstance[6].setDirection(DOWN);
+							gameS->setPlayerInstance(playerInstance);
+							packetData = "player6" + keyPressed;
+							network->sendPacket(packetData);
+						}
+						else if (keyPressed == "left")
+						{
+							Ogre::String packetData;
+							playerInstance[6].setMovement(true);
+							playerInstance[6].setDirection(LEFT);
+							gameS->setPlayerInstance(playerInstance);
+							packetData = "player6" + keyPressed;
+							network->sendPacket(packetData);
+						}
+						else if (keyPressed == "right")
+						{
+							Ogre::String packetData;
+							playerInstance[6].setMovement(true);
+							playerInstance[6].setDirection(RIGHT);
+							gameS->setPlayerInstance(playerInstance);
+							packetData = "player6" + keyPressed;
+							network->sendPacket(packetData);
+						}
+						else
+						{
+
+						}
+					}
+					else if (serverRunning)	// checks if game is running in server mode
+					{
+						Ogre::String keyPressed = input->getKeyPressed();
+						if (keyPressed == "q")
+						{
+							quitGame = true;
+						}
+						else if (keyPressed == "up")
+						{
+							Ogre::String packetData;
+							playerInstance[0].setMovement(true);
+							playerInstance[0].setDirection(UP);
+							gameS->setPlayerInstance(playerInstance);
+							packetData = "player0" + keyPressed;
+							network->sendPacket(packetData);
+						}
+						else if (keyPressed == "down")
+						{
+							Ogre::String packetData;
+							playerInstance[0].setMovement(true);
+							playerInstance[0].setDirection(DOWN);
+							gameS->setPlayerInstance(playerInstance);
+							packetData = "player0" + keyPressed;
+							network->sendPacket(packetData);
+						}
+						else if (keyPressed == "left")
+						{
+							Ogre::String packetData;
+							playerInstance[0].setMovement(true);
+							playerInstance[0].setDirection(LEFT);
+							gameS->setPlayerInstance(playerInstance);
+							packetData = "player0" + keyPressed;
+							network->sendPacket(packetData);
+						}
+						else if (keyPressed == "right")
+						{
+							Ogre::String packetData;
+							playerInstance[0].setMovement(true);
+							playerInstance[0].setDirection(RIGHT);
+							gameS->setPlayerInstance(playerInstance);
+							packetData = "player0" + keyPressed;
+							network->sendPacket(packetData);
+						}
+						else
+						{
+						}
+					}
+
 					else
 					{
-
 					}
-	    		}
-
+				}
 	        }
 
 	 			//        player->getNode(0)->translate(Pos);

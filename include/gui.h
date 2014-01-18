@@ -55,7 +55,8 @@ protected:
     GUISystem& operator= (const GUISystem&);
 
     // MyGUI functions
-    virtual void startGameButtonClicked(MyGUI::Widget *_sender);
+    virtual void startSingleGameButtonClicked(MyGUI::Widget *_sender);
+    virtual void startMultiGameButtonClicked(MyGUI::Widget *_sender);
     virtual void optionsButtonClicked(MyGUI::Widget *_sender);
     virtual void exitButtonClicked(MyGUI::Widget *_sender);
     virtual void serverButtonClicked(MyGUI::Widget *_sender);
@@ -72,7 +73,8 @@ private:
 
     // button widgets
     MyGUI::Button *exitButton;
-    MyGUI::Button *startGameButton;
+    MyGUI::Button *startSingleGameButton;
+    MyGUI::Button *startMultiGameButton;
     MyGUI::Button *optionsButton;
     MyGUI::Button *serverButton;
     MyGUI::Button *clientButton;

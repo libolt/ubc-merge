@@ -35,7 +35,7 @@ class gameState
         static gameState *Instance();
         ~gameState();
 
-    // Import from games class
+
     virtual bool setupState();   // sets up the game condition
     virtual bool logic();   // carries out in game logic
     virtual void shotLogic(Ogre::Vector3 playerPos);   // carries out basketball shot logic
@@ -47,6 +47,9 @@ class gameState
     virtual bool assignPlayers();   // assigns the players that are playing.
     virtual bool setupEnvironment();    // sets up the 3D environment for the game
     virtual void setPlayerStartPositions();	// sets the initial coordinates for the players.
+
+    virtual gameTypes getGameType(); // retrieves the value of gameType
+    virtual void setGameType(gameTypes type);	  // sets the value of gameType
     virtual bool getTipOffComplete();	// retrieves tipOffComplete value
     virtual void setTipOffComplete(bool complete);	// sets tipOffComplete value
     virtual bool getGameStarted(void);	// retrieves the gameStarted value
@@ -57,6 +60,8 @@ class gameState
     virtual void setShotComplete(bool complete);	// sets shotComplete value
     virtual int getTeamWithBall(void);		// retrieves teamWithBall value
     virtual void setTeamWithBall(int ball);	// sets teamWithBall value
+    virtual int getPlayerWithBall(void);	// retrives the value of playerWithBall
+    virtual void setPlayerWithBall(int ball);	// sets the value of playerWithBall
 
     // Tip Off execution code.  // Move to proper class
     virtual bool setupTipOff();	// sets up Tip Off conditions
@@ -110,7 +115,7 @@ class gameState
     private:
     static gameState *pInstance;
 
-    enum quarters { FIRST, SECOND, THIRD, FOURTH }; // defines the quarters within the game
+    gameTypes gameType;	// Indicates whether a single or multi player game is being played.
     quarters currentQuarter;    // defines which quarter the game is in.
 
     float gameTimeLeft; // Indicates the time left in the game
@@ -140,6 +145,7 @@ class gameState
     bool tipOffComplete;	// Determines whether or not game Tip Off has completed
 
     int teamWithBall; // stores which team has control of the basketball, valid values are 0 or 1
+    int playerWithBall;	// stores which player has control of the basketball, valid values are 0 - 9
 };
 
 

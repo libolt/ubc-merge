@@ -51,6 +51,7 @@ gameState::gameState()
     shotTaken = false;
     shotComplete = false;
     teamWithBall = -1;
+    playerWithBall = -1;
     tipOffComplete = false;
 
     currentQuarter = FIRST;
@@ -60,6 +61,15 @@ gameState::gameState()
 }
 gameState::~gameState()
 {
+}
+
+gameTypes gameState::getGameType() // retrieves the value of gameType
+{
+	return(gameType);
+}
+void gameState::setGameType(gameTypes type)	  // sets the value of gameType
+{
+	gameType = type;
 }
 
 // gets and sets tipOffComplete
@@ -109,6 +119,15 @@ int gameState::getTeamWithBall(void)		// retrieves teamWithBall value
 void gameState::setTeamWithBall(int ball)	// sets teamWithBall value
 {
 	teamWithBall = ball;
+}
+
+int gameState::getPlayerWithBall(void) 	// retrives the value of playerWithBall
+{
+	return (playerWithBall);
+}
+void gameState::setPlayerWithBall(int ball)	// sets the value of playerWithBall
+{
+	playerWithBall = ball;
 }
 
 // assigns teams that are playing to the game state machine
@@ -341,6 +360,7 @@ bool gameState::setupState()
     setupTipOff();	// sets up tip off conditions
 
     teamWithBall = 0;	// FIXME! Temporarily hard code team controlling ball
+    playerWithBall = 9; // FIXME! Temporarily ahrd code player controlling ball
 
     return true;
 }

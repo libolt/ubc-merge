@@ -21,6 +21,7 @@
 #include "network.h"
 #include "gui.h"
 #include "gameengine.h"
+#include "gamestate.h"
 #include "config.h"
 
 GUISystem* GUISystem::pInstance = 0;
@@ -68,8 +69,11 @@ bool GUISystem::createMainMenuButtons()
 	MyGUI::LayoutManager::getInstance().loadLayout("MainMenu.layout");
 //	startGameButton = mGUI->createWidget<MyGUI::Button>("Button", 362, 100, 300, 26, MyGUI::Align::Default, "Main");
 //	startGameButton->setCaption("Start Game");
-	startGameButton = mGUI->findWidget<MyGUI::Button>("startGameButton");
-	startGameButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::startGameButtonClicked);
+	startSingleGameButton = mGUI->findWidget<MyGUI::Button>("startSingleGameButton");
+	startSingleGameButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::startSingleGameButtonClicked);
+
+	startMultiGameButton = mGUI->findWidget<MyGUI::Button>("startMultiGameButton");
+	startMultiGameButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::startMultiGameButtonClicked);
 
 //	optionsButton = mGUI->createWidget<MyGUI::Button>("Button", 362, 125, 300, 26, MyGUI::Align::Default, "Main");
 //	optionsButton->setCaption("Options");
@@ -109,10 +113,24 @@ bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup s
 }
 
 
-void GUISystem::startGameButtonClicked(MyGUI::Widget *_sender)	// handles startGameButton click event
+void GUISystem::startSingleGameButtonClicked(MyGUI::Widget *_sender)	// handles startSingleGameButton click event
 {
     renderEngine * render = renderEngine::Instance();
+    gameState *gameS = gameState::Instance();
 
+    gameS->setGameType(SINGLE);
+	hideMainMenuWidgets();	// Hides the widgets from the main menu
+//	createNetworkSetupGUI();	// creates the GUI for the Network Setup Screen
+
+//    render->createScene();	// creates rendering scene.
+}
+
+void GUISystem::startMultiGameButtonClicked(MyGUI::Widget *_sender)	// handles startMultiGameButton click event
+{
+    renderEngine * render = renderEngine::Instance();
+    gameState *gameS = gameState::Instance();
+
+    gameS->setGameType(MULTI);
 	hideMainMenuWidgets();	// Hides the widgets from the main menu
 	createNetworkSetupGUI();	// creates the GUI for the Network Setup Screen
 
@@ -161,7 +179,8 @@ void GUISystem::clientButtonClicked(MyGUI::Widget *_sender)	// handles clientBut
 
 void GUISystem::hideMainMenuWidgets()	// hides the widgets tied to the Main Menu
 {
-	startGameButton->setVisible(false);
+	startSingleGameButton->setVisible(false);
+	startMultiGameButton->setVisible(false);
 	optionsButton->setVisible(false);
 	exitButton->setVisible(false);
 }
