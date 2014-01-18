@@ -24,8 +24,8 @@
 #include <vector>
 #include "OgreString.h"
 
-#include "offenseState.h"
-#include "defenseState.h"
+#include "offensestate.h"
+#include "defensestate.h"
 
 using namespace std;
 
