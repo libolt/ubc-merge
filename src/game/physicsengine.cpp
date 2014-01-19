@@ -227,7 +227,7 @@ void physicsEngine::setupCourtPhysics()
 //    courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
     courtBody = new btRigidBody(info);
 
-    world->addRigidBody(courtBody, COL_COURT, COL_TEAM1^COL_TEAM2);
+    world->addRigidBody(courtBody, COL_COURT, COL_BBALL^COL_TEAM1^COL_TEAM2);
 
 }
 
@@ -252,7 +252,7 @@ void physicsEngine::setupBasketballPhysics()
     basketballBodyState= new BtOgre::RigidBodyState(bInstance.at(0).getNode());
 
     btRigidBody::btRigidBodyConstructionInfo info(mass,basketballBodyState,basketballShape,inertia); //motion state would actually be non-null in most real usages
-    info.m_restitution = 1.0f;
+    info.m_restitution = 0.98f;
 //    info.m_friction = 2.0f;
 
     //Create MotionState (no need for BtOgre here, you can use it if you want to though).
@@ -266,7 +266,7 @@ void physicsEngine::setupBasketballPhysics()
 
     bInstance[0].setPhysBody(bballBody);
 
-    world->addRigidBody(bInstance[0].getPhysBody());
+    world->addRigidBody(bInstance[0].getPhysBody(), COL_BBALL, COL_COURT);
 
     gameS->setBasketballInstance(bInstance);
 }

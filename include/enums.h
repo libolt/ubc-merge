@@ -35,9 +35,9 @@
     {
         COL_NOTHING = 0, //<Collide with nothing
         COL_COURT = BIT(0), // Collide with court
-        COL_TEAM1 = BIT(1), //<Collide with teammate
-        COL_TEAM2 = BIT(2), //<Collide with walls
-        COL_POWERUP = BIT(3) //<Collide with powerups
+        COL_BBALL = BIT(1), // Collide with basketball
+        COL_TEAM1 = BIT(2), //<Collide with team1
+        COL_TEAM2 = BIT(3) //<Collide with team2
     };
 
 #endif /* ENUMS_H_ */
