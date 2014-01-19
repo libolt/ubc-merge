@@ -252,7 +252,7 @@ void physicsEngine::setupBasketballPhysics()
     basketballBodyState= new BtOgre::RigidBodyState(bInstance.at(0).getNode());
 
     btRigidBody::btRigidBodyConstructionInfo info(mass,basketballBodyState,basketballShape,inertia); //motion state would actually be non-null in most real usages
-    info.m_restitution = 0.98f;
+    info.m_restitution = 0.55f;
 //    info.m_friction = 2.0f;
 
     //Create MotionState (no need for BtOgre here, you can use it if you want to though).

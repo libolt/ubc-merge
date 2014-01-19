@@ -239,7 +239,7 @@ bool gameState::setupTipOff()
 //    std::vector<basketballs> basketballInstance = getBasketballInstance();
     SceneNode *bball;
     bball = basketballInstance[0].getNode();
-    bball->setPosition(12.0f,100.0f,350.0f);
+    bball->setPosition(-11.4f,100.0f,358.0f);
     basketballInstance[0].setNode(bball);
     basketballInstance[0].setTipOffStart(true);
     setBasketballInstance(basketballInstance);
@@ -319,7 +319,7 @@ bool gameState::setupState()
     }
 
     setPlayerStartPositions();	// sets starting positions for the players
-    basketballInstance[0].getNode()->setPosition(12.0f,5.0f,350.0f);
+    basketballInstance[0].getNode()->setPosition(1.4f,5.0f,366.0f);
 
     physEngine->setupState();  // sets up the Physics Engine state
 
@@ -383,7 +383,7 @@ bool gameState::logic()
     }
 
 //    Ogre::LogManager::getSingletonPtr()->logMessage(("Player's start position: "  +Ogre::StringConverter::toString(playerInstance[3].getNode()->getPosition())));
-    Ogre::LogManager::getSingletonPtr()->logMessage(("Player's current position: "  +Ogre::StringConverter::toString(playerInstance[3].getNode()->getPosition())));
+    Ogre::LogManager::getSingletonPtr()->logMessage(("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition())));
     Ogre::LogManager::getSingletonPtr()->logMessage(("Court's current position: "  +Ogre::StringConverter::toString(courtInstance[0].getNode()->getPosition())));
     Ogre::LogManager::getSingletonPtr()->logMessage(("Basketball's current position: "  +Ogre::StringConverter::toString(basketballInstance[0].getNode()->getPosition())));
 

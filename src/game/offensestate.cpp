@@ -62,6 +62,8 @@ void offenseState::updateState()	// updates the state of the object
 {
     gameState *gameS = gameState::Instance();
     std::vector<playerState> playerInstance = gameS->getPlayerInstance();
+
+    int playerWithBall = gameS->getPlayerWithBall();
     Ogre::Vector3 *playerPos = new Ogre::Vector3[5];
 
     for (int p = 0; p < 5; ++p)
@@ -177,8 +179,8 @@ void offenseState::updateState()	// updates the state of the object
 
 			}
 
-		    Ogre::LogManager::getSingletonPtr()->logMessage("Player's start position: "  +Ogre::StringConverter::toString(startPositions[3]));
-		    Ogre::LogManager::getSingletonPtr()->logMessage(("Player's current position: "  +Ogre::StringConverter::toString(playerInstance[3].getNode()->getPosition())));
+		    Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's start position: "  +Ogre::StringConverter::toString(startPositions[playerWithBall]));
+		    Ogre::LogManager::getSingletonPtr()->logMessage(("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition())));
 
 			Ogre::LogManager::getSingletonPtr()->logMessage("playerDirection = " +Ogre::StringConverter::toString(playerInstance[3].getDirection()));
 
