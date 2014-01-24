@@ -26,6 +26,23 @@
 #include "physicsengine.h"
 #include "renderengine.h"
 
+//RESULT CALLBACK FOR DETECTION OF COLLIDING PAIRS; found code here ---> http://www.ogre3d.org/forums/viewtopic.php?f=2&t=64815&p=428681
+struct   MyContactResultCallback : public btCollisionWorld::ContactResultCallback
+{
+	bool m_connected;
+	MyContactResultCallback() :m_connected(false)
+	{
+	}
+//	virtual btScalar addSingleResult(btManifoldPoint& cp,   const btCollisionObject* colObj0,int partId0,int index0,const btCollisionObject* colObj1,int partId1,int index1)
+	virtual btScalar addSingleResult(btManifoldPoint& cp,    const btCollisionObjectWrapper* colObj0Wrap,int partId0,int index0,const btCollisionObjectWrapper* colObj1Wrap,int partId1,int index1)
+	{
+		if (cp.getDistance()<=0)
+			m_connected = true;
+		return 1.f;
+	}
+};
+MyContactResultCallback result;
+
 physicsEngine* physicsEngine::pInstance = 0;
 physicsEngine* physicsEngine::Instance()
 {
@@ -124,6 +141,7 @@ void physicsEngine::updateState()
 
     String CIT = StringConverter::toString(changeInTime);
     std::vector<playerState> pInstance = gameS->getPlayerInstance();
+    std::vector<basketballs> bInstance = gameS->getBasketballInstance();
 
     Ogre::LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
     //Update Bullet world. Don't forget the debugDrawWorld() part!
@@ -135,6 +153,7 @@ void physicsEngine::updateState()
     world->debugDrawWorld();
 
 
+    world->contactPairTest(bInstance[0].getPhysBody(), pInstance[9].getPhysBody(), result);
     // FIX FOR SDL!!
     //Shows debug if F3 key down.
 //    debugDraw->setDebugMode(input->getMKeyboard()->isKeyDown(OIS::KC_F3));
@@ -162,7 +181,7 @@ void physicsEngine::setupPlayerPhysics()
         // create shape
         BtOgre::StaticMeshToShapeConverter converter(pInstance[i].getModel());
 
-        playerShape = converter.createSphere();
+        playerShape = converter.createCapsule();
 
         // calculates inertia
         btScalar mass = 1;
@@ -177,15 +196,17 @@ void physicsEngine::setupPlayerPhysics()
         //Create the Body.
 //        playerBody.at(i) = new btRigidBody(mass, playerBodyState.at(i), playerShape.at(i), inertia);
         playerBody = new btRigidBody(mass, playerBodyState, playerShape, inertia);
+ //       playerBody->setActivationState(DISABLE_DEACTIVATION);
+
         pInstance[i].setPhysBody(playerBody);
 //        world->addRigidBody(playerBody.at(i));
         if (i <= 4)
         {
-            world->addRigidBody(pInstance[i].getPhysBody(), COL_TEAM1, COL_COURT^COL_TEAM2);
+            world->addRigidBody(pInstance[i].getPhysBody(), COL_TEAM1, team1CollidesWith);
         }
         else if (i >= 5)
         {
-            world->addRigidBody(pInstance[i].getPhysBody(), COL_TEAM2, COL_COURT^COL_TEAM1);
+            world->addRigidBody(pInstance[i].getPhysBody(), COL_TEAM2, team2CollidesWith);
         }
         else
         {
@@ -227,7 +248,7 @@ void physicsEngine::setupCourtPhysics()
 //    courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
     courtBody = new btRigidBody(info);
 
-    world->addRigidBody(courtBody, COL_COURT, COL_BBALL^COL_TEAM1^COL_TEAM2);
+    world->addRigidBody(courtBody, COL_COURT, courtCollidesWith);
 
 }
 
@@ -244,7 +265,7 @@ void physicsEngine::setupBasketballPhysics()
     basketballShape = converter.createSphere();
 
 
-    btScalar mass = 1;
+    btScalar mass = 0.5f;
     btVector3 inertia, inertia2;
     inertia = btVector3(0,0,0);
     basketballShape->calculateLocalInertia(mass, inertia);
@@ -263,10 +284,11 @@ void physicsEngine::setupBasketballPhysics()
     //Create the Body.
 //    bballBody = new btRigidBody(mass, basketballBodyState, basketballShape, inertia);
     bballBody = new btRigidBody(info);
-
+//    bballBody->setActivationState(DISABLE_DEACTIVATION);
+//    bballBody->setCollisionFlags(bballBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
     bInstance[0].setPhysBody(bballBody);
 
-    world->addRigidBody(bInstance[0].getPhysBody(), COL_BBALL, COL_COURT);
+    world->addRigidBody(bInstance[0].getPhysBody(), COL_BBALL, bballCollidesWith);
 
     gameS->setBasketballInstance(bInstance);
 }
