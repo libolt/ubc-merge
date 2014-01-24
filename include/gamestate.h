@@ -52,6 +52,11 @@ class gameState
     virtual void setGameType(gameTypes type);	  // sets the value of gameType
     virtual bool getTipOffComplete();	// retrieves tipOffComplete value
     virtual void setTipOffComplete(bool complete);	// sets tipOffComplete value
+    virtual bool getBallTipped();	// retrieves the value of the ballTipped variable
+    virtual void setBallTipped(bool tipped);	// sets the value of the ballTipped variable
+    virtual int getBallTippedToPlayer();	// retrieves the value of the ballTippedToPlayer variable
+    virtual void setBallTippedToPlayer(int player);	// sets the value of the ballTippedToPlayer variable
+
     virtual bool getGameStarted(void);	// retrieves the gameStarted value
     virtual void setGameStarted(bool started);	// sets gameStarted value
     virtual bool getShotTaken(void);		// retrieves shotTaken value
@@ -142,7 +147,11 @@ class gameState
     bool gameStarted;   // Determines whether or not a basketball game has been started
     bool shotTaken;	// Determines whether or not a player has shot the ball
     bool shotComplete;	// Determine whether or not a player's shot is complete
+
+    // Tip Off variables
     bool tipOffComplete;	// Determines whether or not game Tip Off has completed
+    bool ballTipped;	//	stores whether or not the ball has been tipped
+    int ballTippedToPlayer;	// stores which player the ball has been tipped to
 
     int teamWithBall; // stores which team has control of the basketball, valid values are 0 or 1
     int playerWithBall;	// stores which player has control of the basketball, valid values are 0 - 9

@@ -26,22 +26,6 @@
 #include "physicsengine.h"
 #include "renderengine.h"
 
-//RESULT CALLBACK FOR DETECTION OF COLLIDING PAIRS; found code here ---> http://www.ogre3d.org/forums/viewtopic.php?f=2&t=64815&p=428681
-struct   MyContactResultCallback : public btCollisionWorld::ContactResultCallback
-{
-	bool m_connected;
-	MyContactResultCallback() :m_connected(false)
-	{
-	}
-//	virtual btScalar addSingleResult(btManifoldPoint& cp,   const btCollisionObject* colObj0,int partId0,int index0,const btCollisionObject* colObj1,int partId1,int index1)
-	virtual btScalar addSingleResult(btManifoldPoint& cp,    const btCollisionObjectWrapper* colObj0Wrap,int partId0,int index0,const btCollisionObjectWrapper* colObj1Wrap,int partId1,int index1)
-	{
-		if (cp.getDistance()<=0)
-			m_connected = true;
-		return 1.f;
-	}
-};
-MyContactResultCallback result;
 
 physicsEngine* physicsEngine::pInstance = 0;
 physicsEngine* physicsEngine::Instance()
@@ -75,15 +59,9 @@ physicsEngine::physicsEngine()
 //    btRigidBody *body;
     btCollisionShape *shape;
     BtOgre::RigidBodyState *state;
-//    btDefaultMotionState *state;
-//    for (int i=0; i<10; ++i)
-//    {
-//        playerBody.push_back(body);
-//        playerBodyState.push_back(state);
-//        playerShape.push_back(new btCollisionShape);
-//        playerShape.push_back(shape);
-//    }
-//    playerShape = new btCollisionShape[10];
+
+    pairCollided = false;
+
 }
 //-------------------------------------------------------------------------------------
 physicsEngine::~physicsEngine()
@@ -116,6 +94,14 @@ physicsEngine::~physicsEngine()
 
 }
 
+bool physicsEngine::getPairCollided()	// retrieves value of pairCollided variable
+{
+	return (pairCollided);
+}
+void physicsEngine::setPairCollided(bool collided)	// sets value of pairCollided variable
+{
+	pairCollided = collided;
+}
 void physicsEngine::setupState(void)
 {
 
@@ -126,39 +112,6 @@ void physicsEngine::setupState(void)
     world->setDebugDrawer(debugDraw);
 
 
-
-}
-
-void physicsEngine::updateState()
-{
-	gameEngine *gameE = gameEngine::Instance();
-	gameState *gameS = gameState::Instance();
-    inputSystem *input = inputSystem::Instance();
-
-    unsigned long changeInTime;	// stores change in time.
-
-    changeInTime = gameE->getChangeInTime();
-
-    String CIT = StringConverter::toString(changeInTime);
-    std::vector<playerState> pInstance = gameS->getPlayerInstance();
-    std::vector<basketballs> bInstance = gameS->getBasketballInstance();
-
-    Ogre::LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
-    //Update Bullet world. Don't forget the debugDrawWorld() part!
-//    world->stepSimulation(evt.timeSinceLastFrame, 10);
-//    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
-//    playerBody.at(2)->translate( btVector3( 0.0f, 10.0f, 0.0f ) );
-//    world->stepSimulation(changeInTime, 10);
-    world->stepSimulation(1/10.f,10);
-    world->debugDrawWorld();
-
-
-    world->contactPairTest(bInstance[0].getPhysBody(), pInstance[9].getPhysBody(), result);
-    // FIX FOR SDL!!
-    //Shows debug if F3 key down.
-//    debugDraw->setDebugMode(input->getMKeyboard()->isKeyDown(OIS::KC_F3));
-    debugDraw->step();
-//exit(0);
 
 }
 
@@ -203,10 +156,13 @@ void physicsEngine::setupPlayerPhysics()
         if (i <= 4)
         {
             world->addRigidBody(pInstance[i].getPhysBody(), COL_TEAM1, team1CollidesWith);
+ //       	world->addRigidBody(pInstance[i].getPhysBody());
         }
         else if (i >= 5)
         {
             world->addRigidBody(pInstance[i].getPhysBody(), COL_TEAM2, team2CollidesWith);
+//        	world->addRigidBody(pInstance[i].getPhysBody());
+
         }
         else
         {
@@ -249,7 +205,7 @@ void physicsEngine::setupCourtPhysics()
     courtBody = new btRigidBody(info);
 
     world->addRigidBody(courtBody, COL_COURT, courtCollidesWith);
-
+//    world->addRigidBody(courtBody);
 }
 
 void physicsEngine::setupBasketballPhysics()
@@ -273,7 +229,7 @@ void physicsEngine::setupBasketballPhysics()
     basketballBodyState= new BtOgre::RigidBodyState(bInstance.at(0).getNode());
 
     btRigidBody::btRigidBodyConstructionInfo info(mass,basketballBodyState,basketballShape,inertia); //motion state would actually be non-null in most real usages
-    info.m_restitution = 0.55f;
+    info.m_restitution = 0.85f;
 //    info.m_friction = 2.0f;
 
     //Create MotionState (no need for BtOgre here, you can use it if you want to though).
@@ -289,6 +245,79 @@ void physicsEngine::setupBasketballPhysics()
     bInstance[0].setPhysBody(bballBody);
 
     world->addRigidBody(bInstance[0].getPhysBody(), COL_BBALL, bballCollidesWith);
-
+//    world->addRigidBody(bInstance[0].getPhysBody());
     gameS->setBasketballInstance(bInstance);
+}
+
+void physicsEngine::updateState()
+{
+	gameEngine *gameE = gameEngine::Instance();
+	gameState *gameS = gameState::Instance();
+    inputSystem *input = inputSystem::Instance();
+
+    unsigned long changeInTime;	// stores change in time.
+
+    changeInTime = gameE->getChangeInTime();
+
+    String CIT = StringConverter::toString(changeInTime);
+
+    Ogre::LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
+    //Update Bullet world. Don't forget the debugDrawWorld() part!
+//    world->stepSimulation(evt.timeSinceLastFrame, 10);
+//    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
+//    playerBody.at(2)->translate( btVector3( 0.0f, 10.0f, 0.0f ) );
+//    world->stepSimulation(changeInTime, 10);
+    world->stepSimulation(1/10.f,10);
+    world->debugDrawWorld();
+
+    if (!gameS->getTipOffComplete())
+    {
+    	if (!gameS->getBallTipped())
+    	{
+    		tipOffCollisionCheck();
+    	}
+    	else
+    	{
+
+    	}
+    }
+
+    // FIX FOR SDL!!
+    //Shows debug if F3 key down.
+//    debugDraw->setDebugMode(input->getMKeyboard()->isKeyDown(OIS::KC_F3));
+    debugDraw->step();
+//exit(0);
+
+}
+
+void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's center has made contact with the ball
+{
+	gameState *gameS = gameState::Instance();
+
+    std::vector<playerState> pInstance = gameS->getPlayerInstance();
+    std::vector<basketballs> bInstance = gameS->getBasketballInstance();
+
+	MyContactResultCallback tipOffResult;
+
+    // checks if player 9 touched the basketball
+    world->contactPairTest(bInstance[0].getPhysBody(), pInstance[4].getPhysBody(), tipOffResult);
+    if (pairCollided)
+    {
+    	gameS->setBallTipped(true);
+    	gameS->setBallTippedToPlayer(0);
+    	//    	gameS->setTipOffComplete(true);
+//    	exit(0);
+    }
+
+    // checks if player 9 touched the basketball
+    world->contactPairTest(bInstance[0].getPhysBody(), pInstance[9].getPhysBody(), tipOffResult);
+    if (pairCollided)
+    {
+    	gameS->setBallTipped(true);
+    	gameS->setBallTippedToPlayer(5);
+
+//    	gameS->setTipOffComplete(true);
+//    	exit(0);
+    }
+
 }

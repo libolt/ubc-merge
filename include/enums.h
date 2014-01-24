@@ -28,7 +28,8 @@
     enum offenseTypes { BOX, PICKANDROLL, MOTION, ISOLATION };	// type of offense being played
     enum courtSide_t {RIGHTSIDE, LEFTSIDE};	// stores which side of the court the offensive team is on
 
-     // Physics bit masks
+
+    // Physics bit masks
     #define BIT(x) (1<<(x))
 
     enum collisiontypes

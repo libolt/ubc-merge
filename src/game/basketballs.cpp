@@ -326,6 +326,10 @@ Ogre::Vector3 basketballs::calculatePositionChange()
 void basketballs::nodeChangePosition(Ogre::Vector3 pos) // changes the position of the Node
 {
     node->translate(pos);
+	btVector3 change; // = btVector3(0,0,0);
+	change = BtOgre::Convert::toBullet(pos); // converts from Ogre::Vector3 to btVector3
+	physBody->translate(change); // moves physics body in unison with the model
+
 }
 
 int basketballs::getPlayer()

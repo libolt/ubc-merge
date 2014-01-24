@@ -52,7 +52,10 @@ gameState::gameState()
     shotComplete = false;
     teamWithBall = -1;
     playerWithBall = -1;
+
     tipOffComplete = false;
+    ballTipped = false;
+    ballTippedToPlayer = -1;
 
     currentQuarter = FIRST;
     gameTimeLeft = 0.0f;
@@ -82,6 +85,23 @@ void gameState::setTipOffComplete(bool complete)
     tipOffComplete = complete;
 }
 
+bool gameState::getBallTipped()	// retrieves the value of the ballTipped variable
+{
+	return (ballTipped);
+}
+void gameState::setBallTipped(bool tipped)	// sets the value of the ballTipped variable
+{
+	ballTipped = tipped;
+}
+
+int gameState::getBallTippedToPlayer()	// retrieves the value of the ballTippedToPlayer variable
+{
+	return (ballTippedToPlayer);
+}
+void gameState::setBallTippedToPlayer(int player)	// sets the value of the ballTippedToPlayer variable
+{
+	ballTippedToPlayer = player;
+}
 // gets and sets gameStarted
 bool gameState::getGameStarted(void)
 {
@@ -225,7 +245,7 @@ void gameState::setPlayerStartPositions()	// sets the initial coordinates for th
     playerInstance[6].getNode()->setPosition(-15.0f,-13.5f,360.0f);
     playerInstance[7].getNode()->setPosition(-6.0f,-13.5f,380.0f);
     playerInstance[8].getNode()->setPosition(-3.0f,-13.5f,370.0f);
-    playerInstance[9].getNode()->setPosition(2.5f,-13.5f,350.0f);
+    playerInstance[9].getNode()->setPosition(1.0f,-13.5f,366.0f);
 
 }
 // sets up tip off conditions
@@ -394,12 +414,8 @@ bool gameState::logic()
 
     updatePositions();   // updates positions of game world objects
 
-    if (basketballInstance[0].getPhysBody()->hasContactResponse())
-    {
-
-    }
-
-//    Ogre::LogManager::getSingletonPtr()->logMessage("pInstance pos = " + pInstance[basketballInstance[0].getPlayer()].getPosChange());
+/*
+    Ogre::LogManager::getSingletonPtr()->logMessage("pInstance pos = " + pInstance[basketballInstance[0].getPlayer()].getPosChange());
     basketballInstance[0].nodeChangePosition(playerInstance[basketballInstance[0].getPlayer()].getPosChange());
     if (basketballInstance[0].getPlayer() >= 0)
     {
@@ -409,6 +425,8 @@ bool gameState::logic()
 //        playerPos = player->getNode(basketballInstance[0].getPlayer())->getPosition();
     }
 //    exit(0);
+*/
+
 
     if (getShotTaken() && !getShotComplete())
     {
@@ -421,9 +439,9 @@ bool gameState::logic()
 //    bball->setPosition(basketballInstance[0].calculatePositionChange());
 //    basketballInstance[0].setNode(bball);
 
-    Ogre::Vector3 change = basketballInstance[0].calculatePositionChange();
+//    Ogre::Vector3 change = basketballInstance[0].calculatePositionChange();
 //    cout << "Calced Pos change = " << basketballInstance[0].calculatePositionChange() << endl;
-    basketballInstance[0].nodeChangePosition(basketballInstance[0].calculatePositionChange());
+//    basketballInstance[0].nodeChangePosition(basketballInstance[0].calculatePositionChange());
 
     std::vector<int> playerDirection = player->getPlayerDirection(); // stores contents of playerDirectdion from players class in local variable
     std::vector<int> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable

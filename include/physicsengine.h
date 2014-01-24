@@ -34,13 +34,19 @@ public:
     virtual ~physicsEngine();	// destructor
     static physicsEngine *Instance();
 
+    virtual bool getPairCollided();	// retrieves value of pairCollided variable
+    virtual void setPairCollided(bool collided);	// sets value of pairCollided variable
+
     virtual void setupState();  // sets up state of physics engine.
-    virtual void updateState(); // updates the state of the physics engine.
 
     // sets up object physics
-    virtual void setupPlayerPhysics(); // setsup up player physics
-    virtual void setupCourtPhysics();   // sets up court physics
     virtual void setupBasketballPhysics(); // sets up basketball physics
+    virtual void setupCourtPhysics();   // sets up court physics
+    virtual void setupPlayerPhysics(); // setsup up player physics
+
+    virtual void updateState(); // updates the state of the physics engine.
+
+    virtual void tipOffCollisionCheck();	// checks whether team 1 or team 2's center made contact with ball
 
 protected:
     physicsEngine();
@@ -76,14 +82,42 @@ private:
     btCollisionShape *basketballShape;
     BtOgre::RigidBodyState *basketballBodyState;
 
-
+    bool pairCollided;
     // contact result callback
 
     // collisions
     int courtCollidesWith = COL_BBALL | COL_TEAM1 | COL_TEAM2;	// determines what the court collides with
-    int bballCollidesWith = COL_COURT | COL_TEAM1 | COL_TEAM2;	// determines what the basketball collides with
-    int team1CollidesWith = COL_COURT | COL_BBALL | COL_TEAM2;	// determines what team1 collides with
-    int team2CollidesWith = COL_COURT | COL_BBALL | COL_TEAM1;	// determiens what team2 collides with
+    int bballCollidesWith = COL_COURT; // | COL_TEAM1 | COL_TEAM2;	// determines what the basketball collides with
+    int team1CollidesWith = COL_COURT; // | COL_BBALL | COL_TEAM2;	// determines what team1 collides with
+    int team2CollidesWith = COL_COURT; // | COL_BBALL | COL_TEAM1;	// determiens what team2 collides with
+
 };
+
+    //RESULT CALLBACK FOR DETECTION OF COLLIDING PAIRS; found code here ---> http://www.ogre3d.org/forums/viewtopic.php?f=2&t=64815&p=428681
+    struct MyContactResultCallback : public btCollisionWorld::ContactResultCallback
+    {
+    	physicsEngine *physE = physicsEngine::Instance();
+    	bool m_connected;
+        MyContactResultCallback() :m_connected(false)
+    	{
+    	}
+    //	virtual btScalar addSingleResult(btManifoldPoint& cp,   const btCollisionObject* colObj0,int partId0,int index0,const btCollisionObject* colObj1,int partId1,int index1)
+    	virtual btScalar addSingleResult(btManifoldPoint& cp,    const btCollisionObjectWrapper* colObj0Wrap,int partId0,int index0,const btCollisionObjectWrapper* colObj1Wrap,int partId1,int index1)
+    	{
+
+    		if (cp.getDistance()<=0)
+    		{
+    			m_connected = true;
+    			physE->setPairCollided(true);
+    //		    exit(0);
+    		}
+    		else
+    		{
+    			physE->setPairCollided(false);
+    		}
+    		return 1.f;
+    	}
+    };
+
 
 #endif // PHYSICS_H_INCLUDED
