@@ -155,13 +155,17 @@ void physicsEngine::setupPlayerPhysics()
 //        world->addRigidBody(playerBody.at(i));
         if (i <= 4)
         {
-            world->addRigidBody(pInstance[i].getPhysBody(), COL_TEAM1, team1CollidesWith);
- //       	world->addRigidBody(pInstance[i].getPhysBody());
+            pInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
+
+//            world->addRigidBody(pInstance[i].getPhysBody(), COL_TEAM1, team1CollidesWith);
+        	world->addRigidBody(pInstance[i].getPhysBody());
         }
         else if (i >= 5)
         {
-            world->addRigidBody(pInstance[i].getPhysBody(), COL_TEAM2, team2CollidesWith);
-//        	world->addRigidBody(pInstance[i].getPhysBody());
+            pInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
+
+//            world->addRigidBody(pInstance[i].getPhysBody(), COL_TEAM2, team2CollidesWith);
+        	world->addRigidBody(pInstance[i].getPhysBody());
 
         }
         else
@@ -204,8 +208,8 @@ void physicsEngine::setupCourtPhysics()
 //    courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
     courtBody = new btRigidBody(info);
 
-    world->addRigidBody(courtBody, COL_COURT, courtCollidesWith);
-//    world->addRigidBody(courtBody);
+//    world->addRigidBody(courtBody, COL_COURT, courtCollidesWith);
+    world->addRigidBody(courtBody);
 }
 
 void physicsEngine::setupBasketballPhysics()
@@ -221,7 +225,7 @@ void physicsEngine::setupBasketballPhysics()
     basketballShape = converter.createSphere();
 
 
-    btScalar mass = 0.5f;
+    btScalar mass = 0.05f;
     btVector3 inertia, inertia2;
     inertia = btVector3(0,0,0);
     basketballShape->calculateLocalInertia(mass, inertia);
@@ -244,8 +248,9 @@ void physicsEngine::setupBasketballPhysics()
 //    bballBody->setCollisionFlags(bballBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
     bInstance[0].setPhysBody(bballBody);
 
-    world->addRigidBody(bInstance[0].getPhysBody(), COL_BBALL, bballCollidesWith);
-//    world->addRigidBody(bInstance[0].getPhysBody());
+//    world->addRigidBody(bInstance[0].getPhysBody(), COL_BBALL, bballCollidesWith);
+    world->addRigidBody(bInstance[0].getPhysBody());
+
     gameS->setBasketballInstance(bInstance);
 }
 
@@ -299,7 +304,7 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 
 	MyContactResultCallback tipOffResult;
 
-    // checks if player 9 touched the basketball
+    // checks if player 4 touched the basketball
     world->contactPairTest(bInstance[0].getPhysBody(), pInstance[4].getPhysBody(), tipOffResult);
     if (pairCollided)
     {
@@ -313,8 +318,11 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
     world->contactPairTest(bInstance[0].getPhysBody(), pInstance[9].getPhysBody(), tipOffResult);
     if (pairCollided)
     {
+        bInstance[0].getPhysBody()->setActivationState(DISABLE_SIMULATION);
+
     	gameS->setBallTipped(true);
     	gameS->setBallTippedToPlayer(5);
+        bInstance[0].getPhysBody()->forceActivationState(DISABLE_SIMULATION);
 
 //    	gameS->setTipOffComplete(true);
 //    	exit(0);

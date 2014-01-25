@@ -97,7 +97,7 @@ private:
     struct MyContactResultCallback : public btCollisionWorld::ContactResultCallback
     {
     	physicsEngine *physE = physicsEngine::Instance();
-    	bool m_connected;
+    	bool m_connected = false;
         MyContactResultCallback() :m_connected(false)
     	{
     	}
@@ -107,7 +107,7 @@ private:
 
     		if (cp.getDistance()<=0)
     		{
-    			m_connected = true;
+   			m_connected = true;
     			physE->setPairCollided(true);
     //		    exit(0);
     		}

@@ -236,16 +236,16 @@ void gameState::setPlayerStartPositions()	// sets the initial coordinates for th
 
     // set initial player coordinates for the tipoff
 
-    playerInstance[0].getNode()->setPosition(10.0f,-13.5f,380.0f);
-    playerInstance[1].getNode()->setPosition(5.5f,-13.5f,360.0f);
-    playerInstance[2].getNode()->setPosition(-3.0f,-13.5f,360.0f);
-    playerInstance[3].getNode()->setPosition(-6.0f,-13.5f,360.0f);
-    playerInstance[4].getNode()->setPosition(-0.5f,-13.5f,350.0f);
-    playerInstance[5].getNode()->setPosition(-12.0f,-13.5f,360.0f);
-    playerInstance[6].getNode()->setPosition(-15.0f,-13.5f,360.0f);
-    playerInstance[7].getNode()->setPosition(-6.0f,-13.5f,380.0f);
-    playerInstance[8].getNode()->setPosition(-3.0f,-13.5f,370.0f);
-    playerInstance[9].getNode()->setPosition(1.0f,-13.5f,366.0f);
+    playerInstance[0].getNode()->setPosition(10.0f,-23.5f,380.0f);
+    playerInstance[1].getNode()->setPosition(15.5f,-23.5f,360.0f);
+    playerInstance[2].getNode()->setPosition(13.0f,-23.5f,360.0f);
+    playerInstance[3].getNode()->setPosition(16.0f,-23.5f,360.0f);
+    playerInstance[4].getNode()->setPosition(19.5f,-23.5f,350.0f);
+    playerInstance[5].getNode()->setPosition(-22.0f,-23.5f,360.0f);
+    playerInstance[6].getNode()->setPosition(-15.0f,-23.5f,360.0f);
+    playerInstance[7].getNode()->setPosition(-16.0f,-23.5f,380.0f);
+    playerInstance[8].getNode()->setPosition(-3.0f,-23.5f,370.0f);
+    playerInstance[9].getNode()->setPosition(1.0f,-23.5f,366.0f);
 
 }
 // sets up tip off conditions
