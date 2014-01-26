@@ -68,6 +68,7 @@ basketballs* basketballs::Instance()
     team = 0;
     player = 0;
 
+
 }
 
 basketballs::~basketballs()
@@ -302,6 +303,8 @@ bool basketballs::loadModel()
     node->attachObject(model);
     // sets the size of the bball node
     node->setScale(0.25f,0.25f,0.25f);
+    node->setPosition(0.0f,0.0f,0.0f);
+
 
    return true;
 }

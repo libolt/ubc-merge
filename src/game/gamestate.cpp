@@ -251,7 +251,7 @@ void gameState::setPlayerStartPositions()	// sets the initial coordinates for th
 
 void gameState::setBasketballStartPositions()// sets the initial coordinates for the basketball(s)
 {
-	basketballInstance[0].getNode()->setPosition(0.8f,5.0f,352.0f);
+	basketballInstance[0].getNode()->setPosition(0.8f,30.0f,352.0f);
 }
 // sets up tip off conditions
 bool gameState::setupTipOff()
@@ -263,12 +263,12 @@ bool gameState::setupTipOff()
 
 //    std::vector<basketballs> basketballInstance = getBasketballInstance();
     SceneNode *bball;
-    bball = basketballInstance[0].getNode();
+/*    bball = basketballInstance[0].getNode();
     bball->setPosition(1.4f,5.0f,352.0f);
     basketballInstance[0].setNode(bball);
     basketballInstance[0].setTipOffStart(true);
     setBasketballInstance(basketballInstance);
-
+*/
 //    std::vector<int> playerIDS = getPlayerID();
 //    std::vector <playerState> pInstance = getPlayerInstance();
 //    std::vector <Ogre::SceneNode*> playerNodes = player->getNode();
@@ -287,9 +287,9 @@ bool gameState::executeTipOff()
 
     std::vector<basketballs> basketballInstance = getBasketballInstance();
 
-    basketballInstance[0].nodeChangePosition(basketballInstance[0].calculatePositionChange());
+//    basketballInstance[0].nodeChangePosition(basketballInstance[0].calculatePositionChange());
 //exit(0);
-   setBasketballInstance(basketballInstance);
+//   setBasketballInstance(basketballInstance);
     return true;
 }
 
@@ -476,7 +476,7 @@ bool gameState::logic()
     std::vector<int> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable
 
     // Initiates offense or defense for a team depending on value of teamWithBall
-    if (teamWithBall == 0)	// if 0 puts team 0 on offense and team 1 on defense
+/*    if (teamWithBall == 0)	// if 0 puts team 0 on offense and team 1 on defense
     {
     	teamInstance[0].setOffense(true);
     	teamInstance[0].setDefense(false);
@@ -495,7 +495,7 @@ bool gameState::logic()
     else
     {
     }
-
+*/
     // updates the state of each team
     teamInstance[0].updateState();
     teamInstance[1].updateState();
@@ -690,7 +690,7 @@ void gameState::updatePlayerDirections(Ogre::Vector3 playerPos)
                     }
                     if (i == basketballInstance[0].getPlayer())
                     {
-                        basketballInstance[0].getNode()->setPosition(playerPos[0] - 0.0f, playerPos[1] - 1.0f, playerPos[2] - 1.50f);
+ //FIXME                       basketballInstance[0].getNode()->setPosition(playerPos[0] - 0.0f, playerPos[1] - 1.0f, playerPos[2] - 1.50f);
 
                     }
                     break;
@@ -714,7 +714,7 @@ void gameState::updatePlayerDirections(Ogre::Vector3 playerPos)
                     }
                     if (i == basketballInstance[0].getPlayer())
                     {
-                        basketballInstance[0].getNode()->setPosition(playerPos[0] - 0.0f, playerPos[1] - 1.0f, playerPos[2] + 1.50f);
+//FIXME                        basketballInstance[0].getNode()->setPosition(playerPos[0] - 0.0f, playerPos[1] - 1.0f, playerPos[2] + 1.50f);
                     }
                     break;
             case 3:
@@ -737,7 +737,7 @@ void gameState::updatePlayerDirections(Ogre::Vector3 playerPos)
                 }
                 if (i == basketballInstance[0].getPlayer())
                 {
-                    basketballInstance[0].getNode()->setPosition(playerPos[0] - 2.0f, playerPos[1] - 1.0f, playerPos[2] - 1.50f);
+//FIXME                    basketballInstance[0].getNode()->setPosition(playerPos[0] - 2.0f, playerPos[1] - 1.0f, playerPos[2] - 1.50f);
                 }
                 break;
             case 4:
@@ -760,7 +760,7 @@ void gameState::updatePlayerDirections(Ogre::Vector3 playerPos)
                 }
                 if (i == basketballInstance[0].getPlayer())
                 {
-                    basketballInstance[0].getNode()->setPosition(playerPos[0] + 2.0f, playerPos[1] - 1.0f, playerPos[2] - 1.50f);
+//FIXME                    basketballInstance[0].getNode()->setPosition(playerPos[0] + 2.0f, playerPos[1] - 1.0f, playerPos[2] - 1.50f);
                 }
                 break;
             default:

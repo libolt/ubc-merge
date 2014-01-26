@@ -243,6 +243,6 @@ void teamState::updateState()	// updates the state of the object
 
 	}
 
-	offenseInstance->updateState();	// updates the state of the offenseInstance object
-	defenseInstance->updateState(); // updates the state of the defenseInstance object
+//	offenseInstance->updateState();	// updates the state of the offenseInstance object
+//	defenseInstance->updateState(); // updates the state of the defenseInstance object
 }

@@ -272,7 +272,8 @@ void physicsEngine::updateState()
 //    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
 //    playerBody.at(2)->translate( btVector3( 0.0f, 10.0f, 0.0f ) );
 //    world->stepSimulation(changeInTime, 10);
-    world->stepSimulation(1/10.f,10);
+//    world->stepSimulation(1/100.f,3);
+    world->stepSimulation(changeInTime/1000, 1);
     world->debugDrawWorld();
 
     if (!gameS->getTipOffComplete())
@@ -314,7 +315,7 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 			gameS->setPlayerWithBall(gameS->getBallTippedToPlayer());
     	    gameS->setTipOffComplete(true);
 
-//			exit(0);
+			exit(0);
 		}
 	}
 	else
@@ -332,12 +333,12 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 			gameS->setBallTippedToPlayer(0);
 			bInstance[0].getPhysBody()->forceActivationState(DISABLE_SIMULATION);
 			bInstance[0].getPhysBody()->forceActivationState(DISABLE_DEACTIVATION);
-			bInstance[0].getPhysBody()->applyForce(btVector3(-3.0f,-2.0f,0.0f),btVector3(10.0f,0.0f,0.0f));
+			bInstance[0].getPhysBody()->applyForce(btVector3(-5.0f,-5.0f,0.0f),btVector3(10.0f,0.0f,0.0f));
 			pInstance[4].getPhysBody()->forceActivationState(DISABLE_SIMULATION);
 //			Ogre::LogManager::getSingletonPtr()->logMessage("Player tipped to = 0");
 //			Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(gameS->getBallTipped()));
 			//    	gameS->setTipOffComplete(true);
-//	     	exit(0);
+//         	exit(0);
 		}
 	}
 	else
