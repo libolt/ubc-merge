@@ -304,32 +304,64 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 
 	MyContactResultCallback tipOffResult;
 
-    // checks if player 4 touched the basketball
-    world->contactPairTest(bInstance[0].getPhysBody(), pInstance[4].getPhysBody(), tipOffResult);
-    if (pairCollided)
-    {
-    	gameS->setBallTipped(true);
-    	gameS->setBallTippedToPlayer(0);
-        bInstance[0].getPhysBody()->forceActivationState(DISABLE_SIMULATION);
-        Ogre::LogManager::getSingletonPtr()->logMessage("Player tipped to = 0");
+	if (gameS->getBallTipped())
+	{
+		exit(0);
+		world->contactPairTest(bInstance[0].getPhysBody(), pInstance[0].getPhysBody(), tipOffResult);
+		if (pairCollided)
+		{
+			exit(0);
+		}
+	}
+	else
+	{
 
-    	//    	gameS->setTipOffComplete(true);
-     	exit(0);
-    }
+	}
+    // checks if player 4 touched the basketball
+	if (!gameS->getBallTipped())
+	{
+		world->contactPairTest(bInstance[0].getPhysBody(), pInstance[4].getPhysBody(), tipOffResult);
+		if (pairCollided)
+		{
+			gameS->setBallTipped(true);
+			gameS->setBallTippedToPlayer(0);
+			bInstance[0].getPhysBody()->forceActivationState(DISABLE_SIMULATION);
+			bInstance[0].getPhysBody()->forceActivationState(DISABLE_DEACTIVATION);
+			bInstance[0].getPhysBody()->applyForce(btVector3(-3.0f,-2.0f,0.0f),btVector3(10.0f,0.0f,0.0f));
+			pInstance[4].getPhysBody()->forceActivationState(DISABLE_SIMULATION);
+			Ogre::LogManager::getSingletonPtr()->logMessage("Player tipped to = 0");
+			Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(gameS->getBallTipped()));
+			//    	gameS->setTipOffComplete(true);
+	     	exit(0);
+		}
+	}
+	else
+	{
+
+	}
+
 
     // checks if player 9 touched the basketball
-    world->contactPairTest(bInstance[0].getPhysBody(), pInstance[9].getPhysBody(), tipOffResult);
-    if (pairCollided)
-    {
-        bInstance[0].getPhysBody()->setActivationState(DISABLE_SIMULATION);
+	if (!gameS->getBallTipped())
+	{
+		world->contactPairTest(bInstance[0].getPhysBody(), pInstance[9].getPhysBody(), tipOffResult);
+		if (pairCollided)
+		{
+			bInstance[0].getPhysBody()->setActivationState(DISABLE_SIMULATION);
 
-    	gameS->setBallTipped(true);
-    	gameS->setBallTippedToPlayer(5);
-        bInstance[0].getPhysBody()->forceActivationState(DISABLE_SIMULATION);
-        Ogre::LogManager::getSingletonPtr()->logMessage("Player tipped to = 5");
+			gameS->setBallTipped(true);
+			gameS->setBallTippedToPlayer(5);
+			bInstance[0].getPhysBody()->forceActivationState(DISABLE_SIMULATION);
+			Ogre::LogManager::getSingletonPtr()->logMessage("Player tipped to = 5");
 
-//    	gameS->setTipOffComplete(true);
-    	exit(0);
-    }
+	//    	gameS->setTipOffComplete(true);
+			exit(0);
+		}
+	}
+
+	else
+	{
+
+	}
 
 }
