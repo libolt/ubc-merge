@@ -273,19 +273,22 @@ void physicsEngine::updateState()
 //    playerBody.at(2)->translate( btVector3( 0.0f, 10.0f, 0.0f ) );
 //    world->stepSimulation(changeInTime, 10);
 //    world->stepSimulation(1/100.f,3);
-    world->stepSimulation(changeInTime/1000, 1);
-    world->debugDrawWorld();
-
-    if (!gameS->getTipOffComplete())
+    if (changeInTime >= 1000)
     {
-//    	if (!gameS->getBallTipped())
-//    	{
-    		tipOffCollisionCheck();
-//    	}
-//    	else
-//    	{
+		world->stepSimulation(changeInTime/1000, 1);
+		world->debugDrawWorld();
 
-//    	}
+		if (!gameS->getTipOffComplete())
+		{
+	//    	if (!gameS->getBallTipped())
+	//    	{
+				tipOffCollisionCheck();
+	//    	}
+	//    	else
+	//    	{
+
+	//    	}
+		}
     }
 
     // FIX FOR SDL!!
