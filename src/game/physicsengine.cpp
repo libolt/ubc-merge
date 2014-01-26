@@ -277,14 +277,14 @@ void physicsEngine::updateState()
 
     if (!gameS->getTipOffComplete())
     {
-    	if (!gameS->getBallTipped())
-    	{
+//    	if (!gameS->getBallTipped())
+//    	{
     		tipOffCollisionCheck();
-    	}
-    	else
-    	{
+//    	}
+//    	else
+//    	{
 
-    	}
+//    	}
     }
 
     // FIX FOR SDL!!
@@ -306,11 +306,15 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 
 	if (gameS->getBallTipped())
 	{
-		exit(0);
-		world->contactPairTest(bInstance[0].getPhysBody(), pInstance[0].getPhysBody(), tipOffResult);
+//		exit(0);
+		pairCollided = false;
+		world->contactPairTest(bInstance[0].getPhysBody(), pInstance[gameS->getBallTippedToPlayer()].getPhysBody(), tipOffResult);
 		if (pairCollided)
 		{
-			exit(0);
+			gameS->setPlayerWithBall(gameS->getBallTippedToPlayer());
+    	    gameS->setTipOffComplete(true);
+
+//			exit(0);
 		}
 	}
 	else
@@ -320,6 +324,7 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
     // checks if player 4 touched the basketball
 	if (!gameS->getBallTipped())
 	{
+		pairCollided = false;
 		world->contactPairTest(bInstance[0].getPhysBody(), pInstance[4].getPhysBody(), tipOffResult);
 		if (pairCollided)
 		{
@@ -329,10 +334,10 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 			bInstance[0].getPhysBody()->forceActivationState(DISABLE_DEACTIVATION);
 			bInstance[0].getPhysBody()->applyForce(btVector3(-3.0f,-2.0f,0.0f),btVector3(10.0f,0.0f,0.0f));
 			pInstance[4].getPhysBody()->forceActivationState(DISABLE_SIMULATION);
-			Ogre::LogManager::getSingletonPtr()->logMessage("Player tipped to = 0");
-			Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(gameS->getBallTipped()));
+//			Ogre::LogManager::getSingletonPtr()->logMessage("Player tipped to = 0");
+//			Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(gameS->getBallTipped()));
 			//    	gameS->setTipOffComplete(true);
-	     	exit(0);
+//	     	exit(0);
 		}
 	}
 	else
@@ -344,6 +349,7 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
     // checks if player 9 touched the basketball
 	if (!gameS->getBallTipped())
 	{
+		pairCollided = false;
 		world->contactPairTest(bInstance[0].getPhysBody(), pInstance[9].getPhysBody(), tipOffResult);
 		if (pairCollided)
 		{
@@ -355,7 +361,7 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 			Ogre::LogManager::getSingletonPtr()->logMessage("Player tipped to = 5");
 
 	//    	gameS->setTipOffComplete(true);
-			exit(0);
+//			exit(0);
 		}
 	}
 

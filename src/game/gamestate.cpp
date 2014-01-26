@@ -414,6 +414,28 @@ bool gameState::logic()
     Ogre::LogManager::getSingletonPtr()->logMessage(("Court's current position: "  +Ogre::StringConverter::toString(courtInstance[0].getNode()->getPosition())));
     Ogre::LogManager::getSingletonPtr()->logMessage(("Basketball's current position: "  +Ogre::StringConverter::toString(basketballInstance[0].getNode()->getPosition())));
 
+    if (tipOffComplete)
+    {
+    	if (playerWithBall >= 0)
+    	{
+    		if(playerWithBall <5)
+    		{
+    			teamWithBall = 0;
+    		}
+    		else if (playerWithBall >4)
+    		{
+    			teamWithBall = 1;
+    		}
+    		else
+    		{
+
+    		}
+    	}
+    	else
+    	{
+
+    	}
+    }
 //    physEngine->updateState();
 //   playerInstance[0].setMovement(true);
 //   playerInstance[0].setDirection(RIGHT);
