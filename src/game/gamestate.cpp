@@ -236,17 +236,22 @@ void gameState::setPlayerStartPositions()	// sets the initial coordinates for th
 
     // set initial player coordinates for the tipoff
 
-    playerInstance[0].getNode()->setPosition(10.0f,-23.5f,380.0f);
-    playerInstance[1].getNode()->setPosition(15.5f,-23.5f,360.0f);
-    playerInstance[2].getNode()->setPosition(13.0f,-23.5f,360.0f);
-    playerInstance[3].getNode()->setPosition(16.0f,-23.5f,360.0f);
-    playerInstance[4].getNode()->setPosition(19.5f,-23.5f,350.0f);
-    playerInstance[5].getNode()->setPosition(-22.0f,-23.5f,360.0f);
-    playerInstance[6].getNode()->setPosition(-15.0f,-23.5f,360.0f);
-    playerInstance[7].getNode()->setPosition(-16.0f,-23.5f,380.0f);
-    playerInstance[8].getNode()->setPosition(-3.0f,-23.5f,370.0f);
-    playerInstance[9].getNode()->setPosition(1.0f,-23.5f,366.0f);
+    playerInstance[0].getNode()->setPosition(14.4f,-23.5f,352.0f);
+    playerInstance[1].getNode()->setPosition(2.0f,-23.5f,347.6f);
+    playerInstance[2].getNode()->setPosition(2.0f,-23.5f,360.0f);
+    playerInstance[3].getNode()->setPosition(5.2f,-23.5f,351.6f);
+    playerInstance[4].getNode()->setPosition(1.6f,-23.5f,352.0f);
+    playerInstance[5].getNode()->setPosition(-12.8f,-23.5f,352.0f);
+    playerInstance[6].getNode()->setPosition(-0.8f,-23.5f,347.6f);
+    playerInstance[7].getNode()->setPosition(-0.8f,-23.5f,360.8f);
+    playerInstance[8].getNode()->setPosition(4.4f,-23.5f,348.8f);
+    playerInstance[9].getNode()->setPosition(-0.4f,-23.5f,352.0f);
 
+}
+
+void gameState::setBasketballStartPositions()// sets the initial coordinates for the basketball(s)
+{
+	basketballInstance[0].getNode()->setPosition(0.8f,5.0f,352.0f);
 }
 // sets up tip off conditions
 bool gameState::setupTipOff()
@@ -259,7 +264,7 @@ bool gameState::setupTipOff()
 //    std::vector<basketballs> basketballInstance = getBasketballInstance();
     SceneNode *bball;
     bball = basketballInstance[0].getNode();
-    bball->setPosition(-11.4f,100.0f,358.0f);
+    bball->setPosition(1.4f,5.0f,352.0f);
     basketballInstance[0].setNode(bball);
     basketballInstance[0].setTipOffStart(true);
     setBasketballInstance(basketballInstance);
@@ -339,7 +344,9 @@ bool gameState::setupState()
     }
 
     setPlayerStartPositions();	// sets starting positions for the players
-    basketballInstance[0].getNode()->setPosition(1.4f,5.0f,366.0f);
+    setBasketballStartPositions();	// sets starting positions for all basketballs that are instantiated
+
+//    basketballInstance[0].getNode()->setPosition(1.4f,5.0f,366.0f);
 
     physEngine->setupState();  // sets up the Physics Engine state
 
@@ -379,7 +386,7 @@ bool gameState::setupState()
 
     setupTipOff();	// sets up tip off conditions
 
-    teamWithBall = 0;	// FIXME! Temporarily hard code team controlling ball
+//    teamWithBall = 0;	// FIXME! Temporarily hard code team controlling ball
     playerWithBall = 9; // FIXME! Temporarily ahrd code player controlling ball
 
     return true;

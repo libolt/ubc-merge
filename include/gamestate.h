@@ -47,6 +47,7 @@ class gameState
     virtual bool assignPlayers();   // assigns the players that are playing.
     virtual bool setupEnvironment();    // sets up the 3D environment for the game
     virtual void setPlayerStartPositions();	// sets the initial coordinates for the players.
+    virtual void setBasketballStartPositions();	// sets the initial coordinates for the basketball(s).
 
     virtual gameTypes getGameType(); // retrieves the value of gameType
     virtual void setGameType(gameTypes type);	  // sets the value of gameType
