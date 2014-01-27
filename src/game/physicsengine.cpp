@@ -268,7 +268,7 @@ void physicsEngine::updateState()
 
     currentTime = gameE->getLoopTime().getMilliseconds();
 
-    if (currentTime - oldTime >= 1000)
+    if (currentTime - oldTime >= 1000 && currentTime - oldTime <= 1200)
     {
     	changeInTime = currentTime - oldTime;
     	oldTime = currentTime;
@@ -277,18 +277,18 @@ void physicsEngine::updateState()
 
     String CIT = StringConverter::toString(changeInTime);
 
-    Ogre::LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
     //Update Bullet world. Don't forget the debugDrawWorld() part!
 //    world->stepSimulation(evt.timeSinceLastFrame, 10);
 //    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
 //    playerBody.at(2)->translate( btVector3( 0.0f, 10.0f, 0.0f ) );
 //    world->stepSimulation(changeInTime, 10);
-//    world->stepSimulation(1/100.f,3);
-    if (changeInTime >= 1000)
+    world->stepSimulation(1.f,1);
+/*    if (changeInTime >= 1000)
     {
+        Ogre::LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
 		world->stepSimulation(changeInTime/1000, 1);
 		world->debugDrawWorld();
-
+*/
 		if (!gameS->getTipOffComplete())
 		{
 	//    	if (!gameS->getBallTipped())
@@ -300,7 +300,7 @@ void physicsEngine::updateState()
 
 	//    	}
 		}
-    }
+//    }
 
     // FIX FOR SDL!!
     //Shows debug if F3 key down.
