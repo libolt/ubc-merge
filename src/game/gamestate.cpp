@@ -56,6 +56,7 @@ gameState::gameState()
     tipOffComplete = false;
     ballTipped = false;
     ballTippedToPlayer = -1;
+    ballTipForceApplied = false;
 
     currentQuarter = FIRST;
     gameTimeLeft = 0.0f;
@@ -102,6 +103,16 @@ void gameState::setBallTippedToPlayer(int player)	// sets the value of the ballT
 {
 	ballTippedToPlayer = player;
 }
+
+bool gameState::getBallTipForceApplied()	// retrieves the value of ballTipForceApplied
+{
+	return (ballTipForceApplied);
+}
+void gameState::setBallTipForceApplied(bool tip)	// sets the value of ballTipForceApplied
+{
+	ballTipForceApplied = tip;
+}
+
 // gets and sets gameStarted
 bool gameState::getGameStarted(void)
 {
