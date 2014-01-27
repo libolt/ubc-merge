@@ -23,6 +23,10 @@
 
 #include "Ogre.h"
 
+#include "BtOgrePG.h"
+#include "BtOgreGP.h"
+#include "BtOgreExtras.h"
+
 class courtState
 {
     public:
@@ -42,6 +46,9 @@ class courtState
     Ogre::SceneNode *getNode();
     virtual void setNode(Ogre::SceneNode *Node);
 
+    virtual btRigidBody *getPhysBody();	// retrieves physBody variable
+    virtual void setPhysBody(btRigidBody *body);	// sets physBody variable
+
     // loads the 3D Model and attaches it to the node as well as sets coordinates
     virtual bool loadModel();
 
@@ -52,6 +59,10 @@ class courtState
     Ogre::Entity *model;    // stores the 3D Model representing the court
 
     Ogre::SceneNode *node;  // stores the node the 3D Model is attached to
+
+    // stores the physics object that represents the player
+    btRigidBody *physBody;
+
 };
 
 #endif // COURTSTATE_H_INCLUDED

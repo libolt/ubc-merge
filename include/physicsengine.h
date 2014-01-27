@@ -47,7 +47,7 @@ public:
     virtual void updateState(); // updates the state of the physics engine.
 
     virtual void tipOffCollisionCheck();	// checks whether team 1 or team 2's center made contact with ball
-
+    virtual void ballDribbling();	// simulates basketball dribble
 protected:
     physicsEngine();
     physicsEngine(const physicsEngine&);
@@ -71,13 +71,13 @@ private:
 //    std::vector<BtOgre::RigidBodyState *> playerBodyState;
 //    std::vector<btDefaultMotionState *> playerBodyState;
     // court
-	btRigidBody *courtBody;
+//	btRigidBody *courtBody;
 //	btBvhTriangleMeshShape *courtShape;
 	btCollisionShape *courtShape;
-	btDefaultMotionState *courtBodyState;
-
+//	btDefaultMotionState *courtBodyState;
+	BtOgre::RigidBodyState *courtBodyState;
     // basketball
-    btRigidBody *basketballBody;
+//    btRigidBody *basketballBody;
  //   btBvhTriangleMeshShape *basketballShape;
     btCollisionShape *basketballShape;
     BtOgre::RigidBodyState *basketballBodyState;

@@ -59,6 +59,18 @@ void courtState::setNode(Ogre::SceneNode *Node)
     node = Node;
 }
 
+btRigidBody *courtState::getPhysBody()	// retrieves physBody variable
+{
+	return (physBody);
+}
+
+void courtState::setPhysBody(btRigidBody *body)	// sets physBody variable
+{
+	physBody = body;
+
+}
+
+
 // loads the 3D Model and attaches it to the node as well as sets coordinates
 bool courtState::loadModel()
 {

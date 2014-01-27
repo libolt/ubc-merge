@@ -161,6 +161,16 @@ void gameState::setPlayerWithBall(int ball)	// sets the value of playerWithBall
 	playerWithBall = ball;
 }
 
+bool gameState::getPlayerWithBallDribbling()	// retrieves the value of playerWithBallDribbling
+{
+	return (playerWithBallDribbling);
+}
+void gameState::setPlayerWithBallDribbling(bool dribbling)	// sets the value of playerWithBallDribbling
+{
+	playerWithBallDribbling = dribbling;
+}
+
+
 // assigns teams that are playing to the game state machine
 bool gameState::assignTeams()
 {
@@ -262,7 +272,8 @@ void gameState::setPlayerStartPositions()	// sets the initial coordinates for th
 
 void gameState::setBasketballStartPositions()// sets the initial coordinates for the basketball(s)
 {
-	basketballInstance[0].getNode()->setPosition(0.8f,1.0f,352.0f);
+	basketballInstance[0].getNode()->setPosition(0.8f,31.0f,352.0f);
+	courtInstance[0].getNode()->setPosition(0.0f,-40,400);
 }
 // sets up tip off conditions
 bool gameState::setupTipOff()

@@ -67,8 +67,10 @@ class gameState
     virtual void setShotComplete(bool complete);	// sets shotComplete value
     virtual int getTeamWithBall(void);		// retrieves teamWithBall value
     virtual void setTeamWithBall(int ball);	// sets teamWithBall value
-    virtual int getPlayerWithBall(void);	// retrives the value of playerWithBall
+    virtual int getPlayerWithBall();	// retrives the value of playerWithBall
     virtual void setPlayerWithBall(int ball);	// sets the value of playerWithBall
+    virtual bool getPlayerWithBallDribbling();	// retrieves the value of playerWithBallDribbling
+    virtual void setPlayerWithBallDribbling(bool dribbling);	// sets the value of playerWithBallDribbling
 
     // Tip Off execution code.  // Move to proper class
     virtual bool setupTipOff();	// sets up Tip Off conditions
@@ -158,6 +160,7 @@ class gameState
 
     int teamWithBall; // stores which team has control of the basketball, valid values are 0 or 1
     int playerWithBall;	// stores which player has control of the basketball, valid values are 0 - 9
+    bool playerWithBallDribbling;	// stores whether the player with the ball is dribbling
 };
 
 
