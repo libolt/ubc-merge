@@ -262,7 +262,7 @@ void gameState::setPlayerStartPositions()	// sets the initial coordinates for th
 
 void gameState::setBasketballStartPositions()// sets the initial coordinates for the basketball(s)
 {
-	basketballInstance[0].getNode()->setPosition(0.8f,30.0f,352.0f);
+	basketballInstance[0].getNode()->setPosition(0.8f,1.0f,352.0f);
 }
 // sets up tip off conditions
 bool gameState::setupTipOff()
