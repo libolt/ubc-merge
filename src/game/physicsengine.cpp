@@ -264,6 +264,7 @@ void physicsEngine::updateState()
     inputSystem *input = inputSystem::Instance();
 
     btScalar currentTime;
+    btScalar fixedTimeStep;
 //    unsigned long loopChangeInTime;	// stores change in time.
 
     currentTime = gameE->getLoopTime().getMilliseconds();
@@ -273,6 +274,7 @@ void physicsEngine::updateState()
     	changeInTime = currentTime - oldTime;
     	oldTime = currentTime;
     }
+    fixedTimeStep = btScalar(1.)/btScalar(60.);
 //    loopChangeInTime = gameE->getChangeInTime();
 
     String CIT = StringConverter::toString(changeInTime);
@@ -282,7 +284,7 @@ void physicsEngine::updateState()
 //    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
 //    playerBody.at(2)->translate( btVector3( 0.0f, 10.0f, 0.0f ) );
 //    world->stepSimulation(changeInTime, 10);
-    world->stepSimulation(1.f,1);
+    world->stepSimulation(changeInTime/1000,1,fixedTimeStep);
 //    if (changeInTime >= 1000)
 //    {
         Ogre::LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
