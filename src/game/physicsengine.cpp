@@ -57,6 +57,9 @@ physicsEngine::physicsEngine()
     contactInfo.m_friction = 1.5f;
     //FIXME: Hack to set total number of players for physics to 10, set this to be dynamic
 //    btRigidBody *body;
+    changeInTime = 0;
+    oldTime = 0;
+
     btCollisionShape *shape;
     BtOgre::RigidBodyState *state;
 
@@ -260,9 +263,17 @@ void physicsEngine::updateState()
 	gameState *gameS = gameState::Instance();
     inputSystem *input = inputSystem::Instance();
 
-    unsigned long changeInTime;	// stores change in time.
+    btScalar currentTime;
+//    unsigned long loopChangeInTime;	// stores change in time.
 
-    changeInTime = gameE->getChangeInTime();
+    currentTime = gameE->getLoopTime().getMilliseconds();
+
+    if (currentTime - oldTime >= 1000)
+    {
+    	changeInTime = currentTime - oldTime;
+    	oldTime = currentTime;
+    }
+//    loopChangeInTime = gameE->getChangeInTime();
 
     String CIT = StringConverter::toString(changeInTime);
 

@@ -82,6 +82,11 @@ private:
     btCollisionShape *basketballShape;
     BtOgre::RigidBodyState *basketballBodyState;
 
+
+    // timer variables
+    btScalar changeInTime;
+    btScalar oldTime;
+
     bool pairCollided;
     // contact result callback
 
