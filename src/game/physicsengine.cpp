@@ -283,12 +283,12 @@ void physicsEngine::updateState()
 //    playerBody.at(2)->translate( btVector3( 0.0f, 10.0f, 0.0f ) );
 //    world->stepSimulation(changeInTime, 10);
     world->stepSimulation(1.f,1);
-/*    if (changeInTime >= 1000)
-    {
+//    if (changeInTime >= 1000)
+//    {
         Ogre::LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
-		world->stepSimulation(changeInTime/1000, 1);
-		world->debugDrawWorld();
-*/
+//		world->stepSimulation(changeInTime/1000, 1);
+//		world->debugDrawWorld();
+
 		if (!gameS->getTipOffComplete())
 		{
 	//    	if (!gameS->getBallTipped())
