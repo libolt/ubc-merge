@@ -268,7 +268,7 @@ void physicsEngine::updateState()
 
     currentTime = gameE->getLoopTime().getMilliseconds();
 
-    if (currentTime - oldTime >= 1000 && currentTime - oldTime <= 1200)
+//    if (currentTime - oldTime >= 1000 && currentTime - oldTime <= 1200)
     {
     	changeInTime = currentTime - oldTime;
     	oldTime = currentTime;
