@@ -74,8 +74,8 @@ private:
 //	btRigidBody *courtBody;
 //	btBvhTriangleMeshShape *courtShape;
 	btCollisionShape *courtShape;
-//	btDefaultMotionState *courtBodyState;
-	BtOgre::RigidBodyState *courtBodyState;
+	btDefaultMotionState *courtBodyState;
+//	BtOgre::RigidBodyState *courtBodyState;
     // basketball
 //    btRigidBody *basketballBody;
  //   btBvhTriangleMeshShape *basketballShape;

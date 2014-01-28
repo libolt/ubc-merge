@@ -197,14 +197,14 @@ void physicsEngine::setupCourtPhysics()
     //Create the ground shape.
     BtOgre::StaticMeshToShapeConverter converter(cInstance.at(0).getModel());
 //    courtShape = converter.createTrimesh();
-    courtShape = converter.createBox();
-//    courtShape = new btStaticPlaneShape(btVector3(0,1,0),1);
+//    courtShape = converter.createBox();
+    courtShape = new btStaticPlaneShape(btVector3(0,1,0),1);
 //    courtShape->;
 //s    courtShape->
     //Create MotionState (no need for BtOgre here, you can use it if you want to though).
-//    courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-25,0)));
+    courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-25,0)));
 //    courtBodyState = new BtOgre::RigidBodyState(cInstance[0].getNode());
-    courtBodyState = new BtOgre::RigidBodyState(cInstance.at(0).getNode());
+//    courtBodyState = new BtOgre::RigidBodyState(cInstance.at(0).getNode());
     btRigidBody::btRigidBodyConstructionInfo info(mass,courtBodyState,courtShape,inertia); //motion state would actually be non-null in most real usages
     info.m_restitution = 1.0f;
     info.m_friction = 15.5f;
