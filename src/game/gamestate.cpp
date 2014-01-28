@@ -997,7 +997,8 @@ void gameState::setCourtInstance(std::vector<courtState> Instance)
 bool gameState::createCourtInstances()
 {
     courtState cInstance;  // creates an instance of the courtState class
-    cInstance.setModelName("court.mesh");
+//    cInstance.setModelName("court.mesh");
+    cInstance.setModelName("Court_CourtFloor.mesh");
     cInstance.loadModel();
     courtInstance.push_back(cInstance);
 

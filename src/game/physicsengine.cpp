@@ -197,9 +197,9 @@ void physicsEngine::setupCourtPhysics()
     //Create the ground shape.
     BtOgre::StaticMeshToShapeConverter converter(cInstance.at(0).getModel());
 //    courtShape = converter.createTrimesh();
-//    courtShape = converter.createBox();
+    courtShape = converter.createBox();
 //    courtShape = new btStaticPlaneShape(btVector3(0,1,0),1);
-    courtShape->;
+//    courtShape->;
 //s    courtShape->
     //Create MotionState (no need for BtOgre here, you can use it if you want to though).
 //    courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-25,0)));
