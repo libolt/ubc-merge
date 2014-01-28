@@ -273,7 +273,7 @@ void gameState::setPlayerStartPositions()	// sets the initial coordinates for th
 void gameState::setBasketballStartPositions()// sets the initial coordinates for the basketball(s)
 {
 	basketballInstance[0].getNode()->setPosition(0.8f,31.0f,352.0f);
-	courtInstance[0].getNode()->setPosition(0.0f,-40,400);
+	courtInstance[0].getNode()->setPosition(0.0f,-20,400);
 }
 // sets up tip off conditions
 bool gameState::setupTipOff()
@@ -998,7 +998,7 @@ bool gameState::createCourtInstances()
 {
     courtState cInstance;  // creates an instance of the courtState class
 //    cInstance.setModelName("court.mesh");
-    cInstance.setModelName("Court_CourtFloor.mesh");
+    cInstance.setModelName("Plane.mesh");
     cInstance.loadModel();
     courtInstance.push_back(cInstance);
 
