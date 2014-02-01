@@ -64,6 +64,7 @@ gameState::gameState()
     gameTimeLeft = 0.0f;
     quarterTimeLeft = 0.0f;
     finished = false;
+
 }
 gameState::~gameState()
 {
@@ -277,6 +278,19 @@ void gameState::setPlayerStartPositions()	// sets the initial coordinates for th
     playerInstance[7].getNode()->setPosition(-0.8f,-23.5f,360.8f);
     playerInstance[8].getNode()->setPosition(4.4f,-23.5f,348.8f);
     playerInstance[9].getNode()->setPosition(-0.4f,-23.5f,352.0f);
+
+
+    // sets starting player Directions
+    playerInstance[0].setDirection(RIGHT);
+    playerInstance[1].setDirection(RIGHT);
+    playerInstance[2].setDirection(RIGHT);
+    playerInstance[3].setDirection(RIGHT);
+    playerInstance[4].setDirection(RIGHT);
+    playerInstance[5].setDirection(RIGHT);
+    playerInstance[6].setDirection(RIGHT);
+    playerInstance[7].setDirection(RIGHT);
+    playerInstance[8].setDirection(RIGHT);
+    playerInstance[9].setDirection(RIGHT);
 
 }
 
@@ -669,9 +683,12 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 void gameState::updatePlayerDirections(Ogre::Vector3 playerPos)
 {
     players *player = players::Instance();
+
+    directions playerDirection, oldPlayerDirection;
+
 //    std::vector<playerState> pInstance = getPlayerInstance();
-    std::vector<int> playerDirection = player->getPlayerDirection(); // stores contents of playerDirectdion from players class in local variable
-    std::vector<int> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable
+ //   std::vector<int> playerDirection = player->getPlayerDirection(); // stores contents of playerDirectdion from players class in local variable
+//    std::vector<int> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable
 	std::vector<basketballs> basketballInstance = getBasketballInstance();
     std::vector<Ogre::SceneNode>::iterator playersIT;
 
@@ -679,10 +696,13 @@ void gameState::updatePlayerDirections(Ogre::Vector3 playerPos)
     Ogre::LogManager::getSingletonPtr()->logMessage("playerID == " +playerID);
     // checks if a player's direction has changed and rotates the model accordingly.
 //    for(playersIT = playerNodes.begin(); playersIT != playerNodes.end(); ++playersIT)
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < playerInstance.size(); ++i)
     {
-        if (oldPlayerDirection[i] != playerDirection[i])
+    	playerDirection = playerInstance[i].getDirection();
+    	oldPlayerDirection = playerInstance[i].getOldDirection();
+        if (oldPlayerDirection != playerDirection)
         {
+        	/*
         	Ogre::String oldPlayerDirect = Ogre::StringConverter::toString(oldPlayerDirection[i]);
         	Ogre::String playerDirect = Ogre::StringConverter::toString(playerDirection[i]);
         	Ogre::String bballPlayer = Ogre::StringConverter::toString(basketballInstance[0].getPlayer());
@@ -691,116 +711,81 @@ void gameState::updatePlayerDirections(Ogre::Vector3 playerPos)
             Ogre::LogManager::getSingletonPtr()->logMessage("bball player = " + bballPlayer);
             playerInstance[basketballInstance[0].getPlayer()] = playerInstance[i];
 //            playerNodes.at(basketballInstance[0].getPlayer()) = playerNodes.at(i);  // sets the current player node
-            switch (playerDirection[i])
+            */
+            switch (oldPlayerDirection)
             {
-                case 1:
-                    switch(oldPlayerDirection[i])
+                case UP:
+                 	switch (playerDirection)
                     {
-                        case 0:
-                            playerInstance[i].getNode()->yaw(Degree (90));
-                            break;
-                        case 2:
+                        case DOWN:
                             playerInstance[i].getNode()->yaw(Degree (180));
                             break;
-                        case 3:
+                        case LEFT:
                             playerInstance[i].getNode()->yaw(Degree (270));
                             break;
-                        case 4:
+                        case RIGHT:
                             playerInstance[i].getNode()->yaw(Degree (90));
                             break;
                         default:
                             break;
                     }
-                    if (i == basketballInstance[0].getPlayer())
+                	break;
+                case DOWN:
+                	switch (playerDirection)
                     {
- //FIXME                       basketballInstance[0].getNode()->setPosition(playerPos[0] - 0.0f, playerPos[1] - 1.0f, playerPos[2] - 1.50f);
-
-                    }
-                    break;
-                case 2:
-                    switch(oldPlayerDirection[i])
-                    {
-                        case 0:
-                            playerInstance[i].getNode()->yaw(Degree (270));
-                            break;
-                    	case 1:
+                        case UP:
                             playerInstance[i].getNode()->yaw(Degree (180));
                             break;
-                    	case 3:
+                        case LEFT:
                             playerInstance[i].getNode()->yaw(Degree (90));
                             break;
-                    	case 4:
+                        case RIGHT:
                             playerInstance[i].getNode()->yaw(Degree (270));
                             break;
                         default:
-                        break;
+                            break;
                     }
-                    if (i == basketballInstance[0].getPlayer())
-                    {
-//FIXME                        basketballInstance[0].getNode()->setPosition(playerPos[0] - 0.0f, playerPos[1] - 1.0f, playerPos[2] + 1.50f);
-                    }
-                    break;
-            case 3:
-                switch(oldPlayerDirection[i])
-                {
-                    case 0:
-                        playerInstance[i].getNode()->yaw(Degree (180));
-                        break;
-                    case 1:
-                        playerInstance[i].getNode()->yaw(Degree (90));
-            		break;
-                    case 2:
-                        playerInstance[i].getNode()->yaw(Degree (270));
-                        break;
-                    case 4:
-                        playerInstance[i].getNode()->yaw(Degree (180));
-                        break;
-                    default:
-                        break;
-                }
-                if (i == basketballInstance[0].getPlayer())
-                {
-//FIXME                    basketballInstance[0].getNode()->setPosition(playerPos[0] - 2.0f, playerPos[1] - 1.0f, playerPos[2] - 1.50f);
-                }
-                break;
-            case 4:
-                switch(oldPlayerDirection[i])
-                {
-                    case 0:
-                        playerInstance[i].getNode()->yaw(Degree (0));
-                        break;
-                    case 1:
-                        playerInstance[i].getNode()->yaw(Degree (270));
-                        break;
-                    case 2:
-                        playerInstance[i].getNode()->yaw(Degree (90));
-                        break;
-                    case 3:
-                        playerInstance[i].getNode()->yaw(Degree (180));
-                        break;
-                    default:
-                        break;
-                }
-                if (i == basketballInstance[0].getPlayer())
-                {
-//FIXME                    basketballInstance[0].getNode()->setPosition(playerPos[0] + 2.0f, playerPos[1] - 1.0f, playerPos[2] - 1.50f);
-                }
-                break;
-            default:
-                break;
+                	break;
+                	case LEFT:
+                    	switch (playerDirection)
+                        {
+                            case UP:
+                                playerInstance[i].getNode()->yaw(Degree (90));
+                                break;
+                            case DOWN:
+                                playerInstance[i].getNode()->yaw(Degree (270));
+                                break;
+                            case RIGHT:
+                                playerInstance[i].getNode()->yaw(Degree (180));
+                                break;
+                            default:
+                                break;
+                        }
+                    	break;
+					case RIGHT:
+						switch (playerDirection)
+						{
+							case UP:
+								playerInstance[i].getNode()->yaw(Degree (270));
+								break;
+							case DOWN:
+								playerInstance[i].getNode()->yaw(Degree (90));
+								break;
+							case LEFT:
+								playerInstance[i].getNode()->yaw(Degree (180));
+								break;
+							default:
+								break;
+						}
+						break;
+                default:
+                	break;
             }
-//      playerNode->yaw(Degree (90));
-//      playerNode[0]->rotate(Vector3(0, 0, 1), Degree (90), Node::TS_LOCAL);
-//      playerDirection[0] = 0;
-//      playerDirectionChanged[i] = false;
         }
 
-        oldPlayerDirection[i] = playerDirection[i];
+        oldPlayerDirection = playerDirection;
+        playerInstance[i].setOldDirection(oldPlayerDirection);  // copies contents of oldPlayerDirection to the oldDirection variable
     }
-    player->setPlayerDirection(playerDirection);    // copies contents of playerDirection to similarly named variabl in class
-    player->setOldPlayerDirection(oldPlayerDirection);  // copies contents of oldPlayer direction to similarly named variable in class
-//    player->setNode(playerNodes);   // sets playerNodes to the node std::vector
-
 }
 
 void gameState::updatePlayerMovements()	// updates player movements

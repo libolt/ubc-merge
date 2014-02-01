@@ -158,6 +158,9 @@ class playerState
         virtual directions getDirection();	// returns direction variable
         virtual void setDirection(directions direct);	// sets direction variable
 
+        virtual directions getOldDirection();	// returns the value of the oldDirection variable
+        virtual void setOldDirection(directions direct);	// sets the value of the oldDirection variable
+
         virtual Ogre::Vector3 getPosChange();	// returns value of posChange
         void setPosChange(Ogre::Vector3 change);	// sets value of posChange
 
@@ -252,6 +255,7 @@ class playerState
         bool movement; // if true then player is moving
 
         directions direction;	// stores direction player is moving
+        directions oldDirection; // stores the previous player direction.
 
         // stores value of players' position changes during logic updates
         Ogre::Vector3 posChange;

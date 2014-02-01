@@ -465,6 +465,15 @@ void playerState::setDirection(directions direct)	// sets direction variable
 {
 	direction = direct;
 }
+
+directions playerState::getOldDirection()	// returns the value of the oldDirection variable
+{
+	return (oldDirection);
+}
+void playerState::setOldDirection(directions direct)	// sets the value of the oldDirection variable
+{
+	oldDirection = direct;
+}
 // gets and sets posChange
 Ogre::Vector3 playerState::getPosChange()
 {
