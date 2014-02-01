@@ -68,6 +68,7 @@ basketballs* basketballs::Instance()
     team = 0;
     player = 0;
 
+    posChange = Ogre::Vector3(0,0,0);
 
 }
 
@@ -289,6 +290,15 @@ void basketballs::setPhysBody(btRigidBody *body)	// sets physBody variable
 	physBody = body;
 }
 
+Ogre::Vector3 basketballs::getPosChange()	// retrieves the value of posChange
+{
+	return (posChange);
+}
+void basketballs::setPosChange(Ogre::Vector3 change)	// sets the value of posChange
+{
+	posChange = change;
+}
+
 // loads the 3D model
 bool basketballs::loadModel()
 {
@@ -326,11 +336,11 @@ Ogre::Vector3 basketballs::calculatePositionChange()
     return(changeInPosition);
 }
 
-void basketballs::nodeChangePosition(Ogre::Vector3 pos) // changes the position of the Node
+void basketballs::updatePosition() // updates the position of the basketball
 {
-    node->translate(pos);
+    node->translate(posChange);
 	btVector3 change; // = btVector3(0,0,0);
-	change = BtOgre::Convert::toBullet(pos); // converts from Ogre::Vector3 to btVector3
+	change = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
 	physBody->translate(change); // moves physics body in unison with the model
 
 }

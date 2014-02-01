@@ -126,9 +126,12 @@ public:
     virtual btRigidBody *getPhysBody();	// retrieves physBody variable
     virtual void setPhysBody(btRigidBody *body);	// sets physBody variable
 
+    virtual Ogre::Vector3 getPosChange();	// retrieves the value of posChange
+    virtual void setPosChange(Ogre::Vector3 change);	// sets the value of posChange
+
     bool loadModel();   // loads the 3D model from file specified in modelName
 
-    virtual void nodeChangePosition(Ogre::Vector3 pos); // changes the position of the Node
+    virtual void updatePosition(); // updates the position of the basketball
 
     Ogre::Vector3 calculatePositionChange();	// calculates the change in position of the basketball model in x,y,z coordinates
 
@@ -156,6 +159,7 @@ private:
     // stores the physics object that represents the player
     btRigidBody *physBody;
 
+    Ogre::Vector3 posChange;
 
     float maxHeight;
     bool maxHeightReached;

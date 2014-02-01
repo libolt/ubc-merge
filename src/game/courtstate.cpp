@@ -80,10 +80,12 @@ bool courtState::loadModel()
 
     // creates the courtNode
     node = render->getMSceneMgr()->getRootSceneNode()->createChildSceneNode("court");
+
     // attaches the court model to the courtNode
     node->attachObject(model);
     // sets the position of courtNode
 //    node->setPosition(0.0f,-20.0f,400.0f);
+    node->setScale(1.8f,1.8f,1.8f);
 
     return true;
 }

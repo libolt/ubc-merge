@@ -51,13 +51,15 @@ gameState::gameState()
     shotTaken = false;
     shotComplete = false;
     teamWithBall = -1;
-    playerWithBall = -1;
+    playerWithBall = 9;
+
 
     tipOffComplete = false;
     ballTipped = false;
     ballTippedToPlayer = -1;
     ballTipForceApplied = false;
-
+    playerWithBallDribbling = false;
+    bballBounce = -1;
     currentQuarter = FIRST;
     gameTimeLeft = 0.0f;
     quarterTimeLeft = 0.0f;
@@ -170,6 +172,14 @@ void gameState::setPlayerWithBallDribbling(bool dribbling)	// sets the value of 
 	playerWithBallDribbling = dribbling;
 }
 
+int gameState::getBballBounce()	// retrieves the value of bballBounce
+{
+	return (bballBounce);
+}
+void gameState::setBballBounce(int bounce)	// sets the value of bballBounce
+{
+	bballBounce = bounce;
+}
 
 // assigns teams that are playing to the game state machine
 bool gameState::assignTeams()
@@ -273,7 +283,7 @@ void gameState::setPlayerStartPositions()	// sets the initial coordinates for th
 void gameState::setBasketballStartPositions()// sets the initial coordinates for the basketball(s)
 {
 	basketballInstance[0].getNode()->setPosition(0.8f,31.0f,352.0f);
-	courtInstance[0].getNode()->setPosition(0.0f,-20,400);
+	courtInstance[0].getNode()->setPosition(0.0f,-27.5,360);
 }
 // sets up tip off conditions
 bool gameState::setupTipOff()
@@ -461,23 +471,11 @@ bool gameState::logic()
 //    physEngine->updateState();
 //   playerInstance[0].setMovement(true);
 //   playerInstance[0].setDirection(RIGHT);
+
+
     physEngine->updateState();
 
     updatePositions();   // updates positions of game world objects
-
-/*
-    Ogre::LogManager::getSingletonPtr()->logMessage("pInstance pos = " + pInstance[basketballInstance[0].getPlayer()].getPosChange());
-    basketballInstance[0].nodeChangePosition(playerInstance[basketballInstance[0].getPlayer()].getPosChange());
-    if (basketballInstance[0].getPlayer() >= 0)
-    {
-        playerPos = playerInstance[basketballInstance[0].getPlayer()].getNode()->getPosition();
-
-//        exit(0);
-//        playerPos = player->getNode(basketballInstance[0].getPlayer())->getPosition();
-    }
-//    exit(0);
-*/
-
 
     if (getShotTaken() && !getShotComplete())
     {
@@ -522,8 +520,11 @@ bool gameState::logic()
     teamInstance[0].updateState();
     teamInstance[1].updateState();
 
+
     updatePlayerDirections(playerPos);
     updatePlayerMovements();	// updates movement of player objects
+
+    updateBasketballMovements(); // updates movement of basketball object(s)
 
     return true;
 }
@@ -808,64 +809,66 @@ void gameState::updatePlayerMovements()	// updates player movements
 
 	posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
 
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < playerInstance.size(); ++i)
 	{
 		if (playerInstance[i].getMovement())	// if true sets coordinate change accordingly
 		{
-
 			if (playerInstance[i].getDirection() == UP)
 			{
 				posChange = Ogre::Vector3(0.0f, 0.0f, -0.400f);
-				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 			else if (playerInstance[i].getDirection() == DOWN)
 			{
 				posChange = Ogre::Vector3(0.0f, 0.0f, 0.400f);
-				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 			else if (playerInstance[i].getDirection() == LEFT)
 			{
 				posChange = Ogre::Vector3(-0.400f, 0.0f, 0.0f);
 //			    playerInstance[i].getPhysBody()->setLinearVelocity(btVector3(0.4,0,0));
-
-				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 			else if (playerInstance[i].getDirection() == RIGHT)
 			{
 				posChange = Ogre::Vector3(0.400f, 0.0f, 0.0f);
-				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 			else if (playerInstance[i].getDirection() == UPLEFT)
 			{
 				posChange = Ogre::Vector3(-0.400f, 0.0f, -0.400f);
-				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 			else if (playerInstance[i].getDirection() == UPRIGHT)
 			{
 				posChange = Ogre::Vector3(0.400f, 0.0f, -0.400f);
-				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 			else if (playerInstance[i].getDirection() == DOWNLEFT)
 			{
 				posChange = Ogre::Vector3(-0.400f, 0.0f, 0.400f);
-				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 			else if (playerInstance[i].getDirection() == DOWNRIGHT)
 			{
 				posChange = Ogre::Vector3(0.400f, 0.0f, 0.400f);
-				playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 			}
 
 		}
 		else if (!playerInstance[i].getMovement())	// if false then sets their coordinate changes to 0.0
 		{
 			posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
-			playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
-
 		}
+
+		playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
 		playerInstance[i].setMovement(false);
 	}
 }
+
+void gameState::updateBasketballMovements()	// updates player movement(s)
+{
+	Ogre::Vector3 posChange;
+	if (playerWithBall >= 0 && tipOffComplete == true)	// verifies that the playerWithBall variable is set to a valid number
+	{
+
+		basketballInstance[0].setPosChange(playerInstance[playerWithBall].getPosChange());	// sets the posChange for current basketballInstance
+	}
+
+}
+
 
 // gets and sets teamID
 std::vector<int> gameState::getTeamID(void)
@@ -998,7 +1001,7 @@ bool gameState::createCourtInstances()
 {
     courtState cInstance;  // creates an instance of the courtState class
 //    cInstance.setModelName("court.mesh");
-    cInstance.setModelName("Plane.mesh");
+    cInstance.setModelName("Court.mesh");
     cInstance.loadModel();
     courtInstance.push_back(cInstance);
 
@@ -1013,6 +1016,8 @@ bool gameState::updatePositions()
 //	cout << "Size = " << playerInstance.size() << endl;
 	Ogre::LogManager::getSingletonPtr()->logMessage("Size = " +Ogre::StringConverter::toString(playerInstance.size()));
 	//	for (playerIT = playerInstance.begin(); playerIT != playerInstance.end(); ++playerIT)
+
+	// updates the player positions on the court
 	for (int x = 0; x < playerInstance.size(); ++x)
 	{
 //		x += 1;
@@ -1020,6 +1025,12 @@ bool gameState::updatePositions()
 		Ogre::LogManager::getSingletonPtr()->logMessage("updatePositions X = " +Ogre::StringConverter::toString(x));
         playerInstance[x].updatePosition();
     }
+
+	// updates the basketball(s) position on the court
+	for (int x = 0; x < basketballInstance.size(); ++x)
+	{
+		basketballInstance[x].updatePosition();
+	}
 
     return true;
 }

@@ -43,6 +43,7 @@ class gameState
     virtual void processNetworkPlayerEvents();	// processes player evernts received from network connection
     virtual void updatePlayerDirections(Ogre::Vector3 playerPos);  // updates the direction players are facing
     virtual void updatePlayerMovements();	// updates the movement status of players
+    virtual void updateBasketballMovements();	// updates the movement of basketball(s)
     virtual bool assignTeams(); // assigns the teams which are playing
     virtual bool assignPlayers();   // assigns the players that are playing.
     virtual bool setupEnvironment();    // sets up the 3D environment for the game
@@ -71,6 +72,8 @@ class gameState
     virtual void setPlayerWithBall(int ball);	// sets the value of playerWithBall
     virtual bool getPlayerWithBallDribbling();	// retrieves the value of playerWithBallDribbling
     virtual void setPlayerWithBallDribbling(bool dribbling);	// sets the value of playerWithBallDribbling
+    virtual int getBballBounce();	// retrieves the value of bballBounce
+    virtual void setBballBounce(int bounce);	// sets the value of bballBounce
 
     // Tip Off execution code.  // Move to proper class
     virtual bool setupTipOff();	// sets up Tip Off conditions
@@ -161,6 +164,8 @@ class gameState
     int teamWithBall; // stores which team has control of the basketball, valid values are 0 or 1
     int playerWithBall;	// stores which player has control of the basketball, valid values are 0 - 9
     bool playerWithBallDribbling;	// stores whether the player with the ball is dribbling
+
+    int bballBounce;	// stores which direction the ball is bouncing;
 };
 
 
