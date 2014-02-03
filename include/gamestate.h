@@ -41,9 +41,11 @@ class gameState
     virtual void shotLogic(Ogre::Vector3 playerPos);   // carries out basketball shot logic
     virtual void processNetworkEvents();	// processes events received from network connection.
     virtual void processNetworkPlayerEvents();	// processes player evernts received from network connection
-    virtual void updatePlayerDirections(Ogre::Vector3 playerPos);  // updates the direction players are facing
+    virtual void updateDirectionsAndMovements();	// updates the movement and directions of game world objecxts
+    virtual void updatePlayerDirections();  // updates the direction players are facing
     virtual void updatePlayerMovements();	// updates the movement status of players
     virtual void updateBasketballMovements();	// updates the movement of basketball(s)
+    virtual void updateBasketballDirections();	// updates the direction of basketball(s)
     virtual bool assignTeams(); // assigns the teams which are playing
     virtual bool assignPlayers();   // assigns the players that are playing.
     virtual bool setupEnvironment();    // sets up the 3D environment for the game
