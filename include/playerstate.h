@@ -148,10 +148,6 @@ class playerState
         virtual btRigidBody *getPhysBody();	// returns physBody variable
         virtual void setPhysBody(btRigidBody *body);
 
-        virtual bool loadModel();   // loads the 3D model from file specified in modelName
-
-        virtual bool updatePosition();  // updates the X, Y and Z coordinates of the 3D model
-
         virtual bool getMovement();	// returns movement variable
         virtual void setMovement(bool move);	// sets movement variable
 
@@ -161,8 +157,26 @@ class playerState
         virtual directions getOldDirection();	// returns the value of the oldDirection variable
         virtual void setOldDirection(directions direct);	// sets the value of the oldDirection variable
 
-        virtual Ogre::Vector3 getPosChange();	// returns value of posChange
-        void setPosChange(Ogre::Vector3 change);	// sets value of posChange
+        virtual Ogre::Vector3 getPosChange();	// returns the value of the posChange variable
+        void setPosChange(Ogre::Vector3 change);	// sets the value of the posChange variable
+
+        virtual bool getPassBall();	// returns the value of the passBall variable
+        virtual void setPassBall(bool ball);	// sets the value of the passBall variable
+
+        virtual bool getPassCalculated();	// returns the value of the passCalculated variable
+        virtual void setPassCalculated(bool calc);	// sets the value of the passCalculatedvariable
+
+        virtual bool getPassCompleted();	// returns the value of the passCompleted variable
+        virtual void setPassCompleted(bool completed);	// sets the value of the passCompleted variable
+
+        virtual int getPassToPlayer();	// returns the value of the passToPlayer variable
+        virtual void setPassToPlayer(int player);	// sets the value of the passToPlayer variable
+
+        virtual bool loadModel();   // loads the 3D model from file specified in modelName
+
+        virtual bool updatePosition();  // updates the X, Y and Z coordinates of the 3D model
+
+        virtual void calculatePass();	// calculates which player to pass the ball to
 
     private:
 
@@ -260,6 +274,11 @@ class playerState
         // stores value of players' position changes during logic updates
         Ogre::Vector3 posChange;
 
+        // Passing variables
+        bool passBall;	// stores whether a player is to pass the ball to another player or not.
+        bool passCalculated;	// stores whether or not the player to pass ball to has been calculated
+        bool passCompleted;	// stores whether or not the pass has been completed
+        int passToPlayer;	// stores the value of the player to be passed to.
 
         // Stores the 3D model that represents the player
         Ogre::Entity *model;

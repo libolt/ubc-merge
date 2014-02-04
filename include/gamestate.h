@@ -76,6 +76,7 @@ class gameState
     virtual void setPlayerWithBallDribbling(bool dribbling);	// sets the value of playerWithBallDribbling
     virtual int getBballBounce();	// retrieves the value of bballBounce
     virtual void setBballBounce(int bounce);	// sets the value of bballBounce
+    virtual void executePass();		// executes the pass between players
 
     // Tip Off execution code.  // Move to proper class
     virtual bool setupTipOff();	// sets up Tip Off conditions

@@ -528,6 +528,9 @@ bool inputSystem::processUnbufferedKeyInput()
 				case SDLK_RIGHT:
 					keyPressed = "right";
 					break;
+				case SDLK_RALT:
+					keyPressed = "rightAlt";
+					break;
 				case SDLK_q:
 					keyPressed = "q";
 					break;

@@ -225,6 +225,8 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	   while (!quitGame)
 	    {
+			std::vector<playerState> playerInstance = gameS->getPlayerInstance();	// stores th player instances
+
 	//        ubc->processUnbufferedKeyInput();
 
 	//        render->frameStarted();
@@ -302,7 +304,6 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	    	if (input->processInput())
 	        {
-				std::vector<playerState> playerInstance = gameS->getPlayerInstance();
 
 				if (gameS->getGameType() == SINGLE)
 				{
@@ -341,11 +342,18 @@ void gameEngine::gameLoop()	// Main Game Loop
 						playerInstance[playerWithBall].setDirection(RIGHT);
 						gameS->setPlayerInstance(playerInstance);
 					}
+					else if (keyPressed == "rightAlt")
+					{
+						playerInstance[playerWithBall].setPassBall(true);
+						playerInstance[playerWithBall].setPassCalculated(false);
+				    	gameS->setPlayerInstance(playerInstance);
+				}
 
 				}
 
 				else if (gameS->getGameType() == MULTI)
 				{
+					int playerWithBall = gameS->getPlayerWithBall();
 					if (clientRunning)	// checks if game is running in client mode
 					{
 						Ogre::String keyPressed = input->getKeyPressed();
@@ -389,9 +397,17 @@ void gameEngine::gameLoop()	// Main Game Loop
 							packetData = "player6" + keyPressed;
 							network->sendPacket(packetData);
 						}
-						else
+						else if (keyPressed == "rightAlt")
 						{
-
+							Ogre::String packetData;
+							playerInstance[playerWithBall].setPassBall(true);
+							playerInstance[playerWithBall].setPassCalculated(false);
+					    	gameS->setPlayerInstance(playerInstance);
+					    	packetData = "player6" + keyPressed;
+					    	network->sendPacket(packetData);
+						}
+					    else
+						{
 						}
 					}
 					else if (serverRunning)	// checks if game is running in server mode
@@ -437,6 +453,15 @@ void gameEngine::gameLoop()	// Main Game Loop
 							packetData = "player0" + keyPressed;
 							network->sendPacket(packetData);
 						}
+						else if (keyPressed == "rightAlt")
+						{
+							Ogre::String packetData;
+							playerInstance[playerWithBall].setPassBall(true);
+							playerInstance[playerWithBall].setPassCalculated(false);
+					    	gameS->setPlayerInstance(playerInstance);
+					    	packetData = "player0" + keyPressed;
+					    	network->sendPacket(packetData);
+						}
 						else
 						{
 						}
@@ -447,7 +472,6 @@ void gameEngine::gameLoop()	// Main Game Loop
 					}
 				}
 	        }
-
 	 			//        player->getNode(0)->translate(Pos);
 	//        pInstance[bballInstance[0].getPlayer()].getNode()->translate(-0.02f,0.0f,0.0f);
 

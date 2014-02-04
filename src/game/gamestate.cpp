@@ -474,8 +474,21 @@ bool gameState::logic()
     		}
     		else
     		{
-
     		}
+
+    	    if (playerInstance[playerWithBall].getPassBall())	// checks if the player with ball is passing it.
+    	    {
+    	    	if (!playerInstance[playerWithBall].getPassCalculated())
+    	    	{
+    	    		playerInstance[playerWithBall].calculatePass();
+    	    	}
+    	    	else
+    	    	{
+    	    	}
+    	    }
+    	    else
+    	    {
+    	    }
     	}
     	else
     	{
@@ -492,7 +505,8 @@ bool gameState::logic()
 
     updatePositions();   // updates positions of game world objects
 
-    if (getShotTaken() && !getShotComplete())
+
+    if (getShotTaken() && !getShotComplete())	// checks if a player takes a shot
     {
         shotLogic(playerPos);
     }
@@ -1016,6 +1030,46 @@ void gameState::updateBasketballDirections()	// updates basketball direction(s)
 
 }
 
+void gameState::executePass()		// executes the pass between players
+{
+	int passToPlayer = playerInstance[playerWithBall].getPassToPlayer();
+
+	Ogre::Vector3 playerWithBallCoords = playerInstance[playerWithBall].getNode()->getPosition();
+	Ogre::Vector3 passToPlayerCoords = playerInstance[passToPlayer].getNode()->getPosition();
+	Ogre::Vector3 bballPosChange;
+
+	if (playerWithBallCoords[0] < passToPlayerCoords[0])
+	{
+		if (playerWithBallCoords[2] < passToPlayerCoords[2])
+		{
+	    	basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(15,0,15));
+		}
+		else if (playerWithBallCoords[2] > passToPlayerCoords[2])
+		{
+	    	basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(15,0,-15));
+		}
+		else
+		{
+		}
+	}
+	else if (playerWithBallCoords[0] > passToPlayerCoords[0])
+	{
+		if (playerWithBallCoords[2] < passToPlayerCoords[2])
+		{
+	    	basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(-15,0,15));
+		}
+		else if (playerWithBallCoords[2] > passToPlayerCoords[2])
+		{
+	    	basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(-15,0,-15));
+		}
+		else
+		{
+		}
+	}
+	else
+	{
+	}
+}
 
 // gets and sets teamID
 std::vector<int> gameState::getTeamID(void)
