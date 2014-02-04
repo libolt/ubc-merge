@@ -46,33 +46,6 @@ public:
     virtual Ogre::String getKeyPressed(); // retrieves keyPressed
     void setKeyPressed(Ogre::String key); // sets keyPressed
 
-    // Old OIS Input code
-    virtual OIS::InputManager *getIM(); // retrieves the im input manager
-    void setIM(OIS::InputManager *IM);  // sets the im input manager
-
-    virtual OIS::Mouse *getMMouse();    // retrieves mMouse
-    void setMMouse(OIS::Mouse *mouse);  // sets mMouse
-
-    virtual OIS::Keyboard *getMKeyboard();    // retrieves mKeyboard
-    void setMKeyboard(OIS::Keyboard *keyboard);  // sets mKeyboard
-
-    virtual OIS::JoyStick *getMJoy();    // retrieves mJoy
-    void setMJoy(OIS::JoyStick *joystick);  // sets mJoy
-
-    virtual bool getBufferedKeys();    // retrieves bufferedKeys
-    void setBufferedKeys(bool keys);  // sets bufferedKeys
-
-    virtual bool getBufferedMouse();    // retrieves bufferedMouse
-    void setBufferedMouse(bool mouse);  // sets bufferedMouse
-
-    virtual bool getBufferedJoy();    // retrieves bufferedJoy
-    void setBufferedJoy(bool joy);  // sets bufferedJoy
-
-    virtual OIS::MouseEvent *getMouseEvent();   // retrieves mouseEvent
-    void seMouseEvent(OIS::MouseEvent *event);  // sets mouseEvent
-
-    virtual OIS::MouseButtonID getMouseButtonID();   // retrieves mouseEvent
-    void seMouseButtonID(OIS::MouseButtonID buttonID);  // sets mouseEvent
 
 protected:
 	inputSystem();
@@ -87,16 +60,7 @@ protected:
     int mouseY; // stores the Y coordinate of the mouse.
     int mouseLeftClick;	// stores state of Left mouse button
     int mouseRightClick; // stores state of Right mouse button;
-    //OIS Input devices
-    OIS::Mouse *mMouse;
-    OIS::Keyboard *mKeyboard;
-    OIS::JoyStick *mJoy;
-    OIS::InputManager *im;
-    bool bufferedKeys;
-    bool bufferedMouse;
-    bool bufferedJoy;
-    OIS::MouseEvent *mouseEvent;
-    OIS::MouseButtonID mouseButtonID;
+
 private:
 	static inputSystem *pInstance;
 
