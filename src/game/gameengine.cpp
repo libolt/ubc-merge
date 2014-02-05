@@ -346,7 +346,8 @@ void gameEngine::gameLoop()	// Main Game Loop
 					{
 						playerInstance[playerWithBall].setPassBall(true);
 						playerInstance[playerWithBall].setPassCalculated(false);
-				    	gameS->setPlayerInstance(playerInstance);
+						gameS->setPlayerWithBallDribbling(false);
+						gameS->setPlayerInstance(playerInstance);
 				}
 
 				}
@@ -402,6 +403,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 							Ogre::String packetData;
 							playerInstance[playerWithBall].setPassBall(true);
 							playerInstance[playerWithBall].setPassCalculated(false);
+							gameS->setPlayerWithBallDribbling(false);
 					    	gameS->setPlayerInstance(playerInstance);
 					    	packetData = "player6" + keyPressed;
 					    	network->sendPacket(packetData);
@@ -459,6 +461,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 							playerInstance[playerWithBall].setPassBall(true);
 							playerInstance[playerWithBall].setPassCalculated(false);
 					    	gameS->setPlayerInstance(playerInstance);
+							gameS->setPlayerWithBallDribbling(false);
 					    	packetData = "player0" + keyPressed;
 					    	network->sendPacket(packetData);
 						}

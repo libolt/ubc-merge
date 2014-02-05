@@ -557,6 +557,7 @@ void playerState::calculatePass()	// calculates which player to pass the ball to
 	{
 	}
 
+	passCalculated = true;
 //	Ogre::LogManager::getSingletonPtr()->logMessage("Player to pass to =   " +Ogre::StringConverter::toString(passToPlayer));
 
 //	exit(0);

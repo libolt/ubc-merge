@@ -48,6 +48,7 @@ public:
 
     virtual void tipOffCollisionCheck();	// checks whether team 1 or team 2's center made contact with ball
     virtual void ballDribbling();	// simulates basketball dribble
+    virtual void passCollisionCheck();	// checks whether the ball has collided with the player being passed to
 protected:
     physicsEngine();
     physicsEngine(const physicsEngine&);

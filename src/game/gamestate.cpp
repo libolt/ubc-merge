@@ -484,6 +484,7 @@ bool gameState::logic()
     	    	}
     	    	else
     	    	{
+    	    		executePass();
     	    	}
     	    }
     	    else
@@ -1037,7 +1038,6 @@ void gameState::executePass()		// executes the pass between players
 	Ogre::Vector3 playerWithBallCoords = playerInstance[playerWithBall].getNode()->getPosition();
 	Ogre::Vector3 passToPlayerCoords = playerInstance[passToPlayer].getNode()->getPosition();
 	Ogre::Vector3 bballPosChange;
-
 	if (playerWithBallCoords[0] < passToPlayerCoords[0])
 	{
 		if (playerWithBallCoords[2] < passToPlayerCoords[2])

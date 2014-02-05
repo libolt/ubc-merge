@@ -273,6 +273,9 @@ void physicsEngine::updateState()
     btScalar fixedTimeStep;
 
     std::vector<basketballs> bInstance = gameS->getBasketballInstance();
+    std::vector<playerState> playerInstance = gameS->getPlayerInstance();
+
+    int playerWithBall = gameS->getPlayerWithBall();
 
 //    unsigned long loopChangeInTime;	// stores change in time.
 
@@ -342,7 +345,7 @@ void physicsEngine::updateState()
 //			bInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,-10,0));
 	}
 //    }
-	if (gameS->getPlayerWithBallDribbling())
+	if (gameS->getPlayerWithBallDribbling()) // checks if the player with ball is dribbling and updates accordingly
 	{
 		ballDribbling();
 	}
@@ -351,6 +354,14 @@ void physicsEngine::updateState()
 
 	}
 
+	if (playerInstance[playerWithBall].getPassBall())
+	{
+		passCollisionCheck();
+	}
+	else
+	{
+
+	}
     // FIX FOR SDL!!
     //Shows debug if F3 key down.
 //    debugDraw->setDebugMode(input->getMKeyboard()->isKeyDown(OIS::KC_F3));
@@ -480,7 +491,6 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
 
     pairCollided = false;
     world->contactPairTest(bInstance[0].getPhysBody(), cInstance[0].getPhysBody(), courtCollideResult);
-//	exit(0);
 	if (pairCollided)
 	{
 //		gameS->setPlayerWithBall(gameS->getBallTippedToPlayer());
@@ -493,4 +503,25 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
 //			exit(0);
 	}
 
+}
+
+void physicsEngine::passCollisionCheck()	// checks whether the ball has collided with the player being passed to
+{
+	gameState *gameS = gameState::Instance();
+
+    std::vector<playerState> playerInstance = gameS->getPlayerInstance();
+    std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
+
+    int playerWithBall = gameS->getPlayerWithBall();
+    int passToPlayer = playerInstance[playerWithBall].getPassToPlayer();
+	MyContactResultCallback passCollideResult;
+	Ogre::LogManager::getSingletonPtr()->logMessage("Basketball Coords = " +Ogre::StringConverter::toString(basketballInstance[0].getNode()->getPosition()));
+	Ogre::LogManager::getSingletonPtr()->logMessage("Player pass to Coords = " +Ogre::StringConverter::toString(playerInstance[passToPlayer].getNode()->getPosition()));
+
+    pairCollided = false;
+    world->contactPairTest(basketballInstance[0].getPhysBody(), playerInstance[0].getPhysBody(), passCollideResult);
+	if (pairCollided)
+	{
+		exit(0);
+	}
 }
