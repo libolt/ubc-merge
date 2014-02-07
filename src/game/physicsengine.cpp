@@ -64,6 +64,7 @@ physicsEngine::physicsEngine()
     BtOgre::RigidBodyState *state;
 
     pairCollided = false;
+    passCollision = false;
 
 }
 //-------------------------------------------------------------------------------------
@@ -104,6 +105,15 @@ bool physicsEngine::getPairCollided()	// retrieves value of pairCollided variabl
 void physicsEngine::setPairCollided(bool collided)	// sets value of pairCollided variable
 {
 	pairCollided = collided;
+}
+
+bool physicsEngine::getPassCollision()	// retrieves the value of passCollision variable
+{
+	return(passCollision);
+}
+void physicsEngine::setPassCollision(bool collision)	// sets the value of passCollision variable
+{
+	passCollision = collision;
 }
 void physicsEngine::setupState(void)
 {
@@ -337,12 +347,16 @@ void physicsEngine::updateState()
 	{
 				tipOffCollisionCheck();
 	}
-	else
+	else if (!playerInstance[playerWithBall].getPassBall())
 	{
 		gameS->setPlayerWithBallDribbling(true);
 //			bInstance[0].getPhysBody()->forceActivationState(ACTIVE_TAG);
 //        	bInstance[0].getPhysBody()->applyForce(btVector3(-0.0f, -31.0f, 0.0f),btVector3(0.0f,0.0f,0.0f));
 //			bInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,-10,0));
+	}
+	else
+	{
+
 	}
 //    }
 	if (gameS->getPlayerWithBallDribbling()) // checks if the player with ball is dribbling and updates accordingly
@@ -519,9 +533,9 @@ void physicsEngine::passCollisionCheck()	// checks whether the ball has collided
 	Ogre::LogManager::getSingletonPtr()->logMessage("Player pass to Coords = " +Ogre::StringConverter::toString(playerInstance[passToPlayer].getNode()->getPosition()));
 
     pairCollided = false;
-    world->contactPairTest(basketballInstance[0].getPhysBody(), playerInstance[0].getPhysBody(), passCollideResult);
+    world->contactPairTest(basketballInstance[0].getPhysBody(), playerInstance[passToPlayer].getPhysBody(), passCollideResult);
 	if (pairCollided)
 	{
-		exit(0);
+		passCollision = true;
 	}
 }

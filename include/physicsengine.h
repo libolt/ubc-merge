@@ -37,6 +37,9 @@ public:
     virtual bool getPairCollided();	// retrieves value of pairCollided variable
     virtual void setPairCollided(bool collided);	// sets value of pairCollided variable
 
+    virtual bool getPassCollision();	// retrieves the value of passCollision variable
+    virtual void setPassCollision(bool collision);	// sets the value of passCollision variable
+
     virtual void setupState();  // sets up state of physics engine.
 
     // sets up object physics
@@ -89,6 +92,8 @@ private:
     btScalar oldTime;
 
     bool pairCollided;
+
+    bool passCollision;	// stores whether a ball has collided with player during a pass
     // contact result callback
 
     // collisions
