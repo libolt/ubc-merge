@@ -79,6 +79,69 @@ void gameState::setGameType(gameTypes type)	  // sets the value of gameType
 	gameType = type;
 }
 
+// gets and sets courtInstance std::vector
+std::vector <courtState> gameState::getCourtInstance()
+{
+    return (courtInstance);
+}
+void gameState::setCourtInstance(std::vector<courtState> Instance)
+{
+    courtInstance = Instance;
+}
+
+// gets and sets teamID
+std::vector<int> gameState::getTeamID(void)
+{
+    return (teamID);
+}
+void gameState::setTeamID(std::vector<int> ID)
+{
+    teamID = ID;
+}
+
+// gets and sets plaeyrID
+
+std::vector<int> gameState::getPlayerID(void)
+{
+    return (playerID);
+}
+void gameState::setPlayerID(std::vector<int> ID)
+{
+    playerID = ID;
+}
+
+// gets and sets playerInstance std::vector
+std::vector <playerState> gameState::getPlayerInstance()
+{
+    return (playerInstance);
+}
+
+void gameState::setPlayerInstance(std::vector<playerState> pInstance)
+{
+    playerInstance = pInstance;
+}
+
+
+// gets and sets teamInstance
+std::vector <teamState> gameState::getTeamInstance()
+{
+    return (teamInstance);
+}
+void gameState::setTeamInstance(std::vector<teamState> Instance)
+{
+    teamInstance = Instance;
+}
+
+// gets and sets basketballInstance std::vector
+std::vector <basketballs> gameState::getBasketballInstance()
+{
+    return (basketballInstance);
+}
+ void gameState::setBasketballInstance(std::vector<basketballs> bballInstance)
+{
+    basketballInstance = bballInstance;
+}
+
 // gets and sets tipOffComplete
 bool gameState::getTipOffComplete()
 {
@@ -247,6 +310,83 @@ bool gameState::assignPlayers()
 
     return true;
 }
+
+// creates the player Instances for the particular game
+
+bool gameState::createPlayerInstances()
+{
+    players *player = players::Instance();
+
+    std::vector <playerData> playerN = player->getPlayer(); // copies Player values to playerN
+    std::vector <int>::iterator playerIT;
+//    std::vector <playerState>::iterator pInstanceIT;
+    int x = 0;
+    for (playerIT = playerID.begin(); playerIT != playerID.end(); ++playerIT)   // loops through playerID std::vector
+    {
+            playerState pInstance;  // creates a new instance of playerState
+            pInstance.setModelName(playerN[*playerIT].getModel());  // copies the model name from the playerData std::vector to the pInstance class
+            pInstance.setFirstName(playerN[*playerIT].getFirstName());  // copies the first name from the playerData std::vector to the pInstance class
+            pInstance.setLastName(playerN[*playerIT].getLastName());    // copies the last name from the playerData std::vector to the pInstance class
+            pInstance.setPlayerName(playerN[*playerIT].getFirstName() + playerN[*playerIT].getLastName());
+            pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
+            playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.
+    }
+//    std::vector <playerState>::iterator pInstanceIT;
+
+    int pInstanceIT = 0;
+    for (pInstanceIT = 0; pInstanceIT < playerInstance.size(); ++pInstanceIT)
+    {
+    	if (std::find(playerModelsLoaded.begin(), playerModelsLoaded.end(), playerInstance[pInstanceIT].getPlayerName()) != playerModelsLoaded.end())
+    	{
+//    		cout << "Found Player Name in list of loaded Models, NOT Loading" << endl;
+    	    Ogre::LogManager::getSingletonPtr()->logMessage("Found Player Name in list of loaded Models, NOT Loading");
+
+    	}
+    	else
+    	{
+			if (playerInstance[pInstanceIT].loadModel())	// if player model loads successfully add to loaded models vector
+			{
+				playerModelsLoaded.push_back(playerInstance[pInstanceIT].getPlayerName());
+			}
+    	}
+            x += 1;
+            cout << "x = " << x << endl;
+    }
+    return true;
+}
+
+// creates basketball Instances
+bool gameState::createBasketballInstances()
+{
+    basketballs bballInstance;  // creates an instance of the basketballs class
+    bballInstance.setModelName("bball.mesh");
+    bballInstance.loadModel();
+    basketballInstance.push_back(bballInstance);
+    return true;
+}
+
+// creates team Instances
+bool gameState::createTeamInstances()
+{
+	teamState tInstance;
+	teamInstance.push_back(tInstance);	// adds empty teamState to teamInstance vector
+	teamInstance.push_back(tInstance);	// adds empty teamState to teamInstance vector
+
+    return true;
+}
+
+// creates court Instances
+bool gameState::createCourtInstances()
+{
+    courtState cInstance;  // creates an instance of the courtState class
+//    cInstance.setModelName("court.mesh");
+    cInstance.setModelName("Court.mesh");
+    cInstance.loadModel();
+    courtInstance.push_back(cInstance);
+
+    return true;
+}
+
 
 bool gameState::setupEnvironment()
 {
@@ -1071,143 +1211,7 @@ void gameState::executePass()		// executes the pass between players
 	}
 }
 
-// gets and sets teamID
-std::vector<int> gameState::getTeamID(void)
-{
-    return (teamID);
-}
-void gameState::setTeamID(std::vector<int> ID)
-{
-    teamID = ID;
-}
 
-// gets and sets plaeyrID
-
-std::vector<int> gameState::getPlayerID(void)
-{
-    return (playerID);
-}
-void gameState::setPlayerID(std::vector<int> ID)
-{
-    playerID = ID;
-}
-
-// gets and sets playerInstance std::vector
-std::vector <playerState> gameState::getPlayerInstance()
-{
-    return (playerInstance);
-}
-
-void gameState::setPlayerInstance(std::vector<playerState> pInstance)
-{
-    playerInstance = pInstance;
-}
-
-// creates the player Instances for the particular game
-
-bool gameState::createPlayerInstances()
-{
-    players *player = players::Instance();
-
-    std::vector <playerData> playerN = player->getPlayer(); // copies Player values to playerN
-    std::vector <int>::iterator playerIT;
-//    std::vector <playerState>::iterator pInstanceIT;
-    int x = 0;
-    for (playerIT = playerID.begin(); playerIT != playerID.end(); ++playerIT)   // loops through playerID std::vector
-    {
-            playerState pInstance;  // creates a new instance of playerState
-            pInstance.setModelName(playerN[*playerIT].getModel());  // copies the model name from the playerData std::vector to the pInstance class
-            pInstance.setFirstName(playerN[*playerIT].getFirstName());  // copies the first name from the playerData std::vector to the pInstance class
-            pInstance.setLastName(playerN[*playerIT].getLastName());    // copies the last name from the playerData std::vector to the pInstance class
-            pInstance.setPlayerName(playerN[*playerIT].getFirstName() + playerN[*playerIT].getLastName());
-            pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
-            playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.
-    }
-//    std::vector <playerState>::iterator pInstanceIT;
-
-    int pInstanceIT = 0;
-    for (pInstanceIT = 0; pInstanceIT < playerInstance.size(); ++pInstanceIT)
-    {
-    	if (std::find(playerModelsLoaded.begin(), playerModelsLoaded.end(), playerInstance[pInstanceIT].getPlayerName()) != playerModelsLoaded.end())
-    	{
-//    		cout << "Found Player Name in list of loaded Models, NOT Loading" << endl;
-    	    Ogre::LogManager::getSingletonPtr()->logMessage("Found Player Name in list of loaded Models, NOT Loading");
-
-    	}
-    	else
-    	{
-			if (playerInstance[pInstanceIT].loadModel())	// if player model loads successfully add to loaded models vector
-			{
-				playerModelsLoaded.push_back(playerInstance[pInstanceIT].getPlayerName());
-			}
-    	}
-            x += 1;
-            cout << "x = " << x << endl;
-    }
-    return true;
-}
-
-// gets and sets basketballInstance std::vector
-std::vector <basketballs> gameState::getBasketballInstance()
-{
-    return (basketballInstance);
-}
- void gameState::setBasketballInstance(std::vector<basketballs> bballInstance)
-{
-    basketballInstance = bballInstance;
-}
-
-// creates basketball Instances
-bool gameState::createBasketballInstances()
-{
-    basketballs bballInstance;  // creates an instance of the basketballs class
-    bballInstance.setModelName("bball.mesh");
-    bballInstance.loadModel();
-    basketballInstance.push_back(bballInstance);
-    return true;
-}
-
-// gets and sets teamInstance
-std::vector <teamState> gameState::getTeamInstance()
-{
-    return (teamInstance);
-}
-void gameState::setTeamInstance(std::vector<teamState> Instance)
-{
-    teamInstance = Instance;
-}
-
-// creates team Instances
-bool gameState::createTeamInstances()
-{
-	teamState tInstance;
-	teamInstance.push_back(tInstance);	// adds empty teamState to teamInstance vector
-	teamInstance.push_back(tInstance);	// adds empty teamState to teamInstance vector
-
-    return true;
-}
-
-// gets and sets courtInstance std::vector
-std::vector <courtState> gameState::getCourtInstance()
-{
-    return (courtInstance);
-}
-void gameState::setCourtInstance(std::vector<courtState> Instance)
-{
-    courtInstance = Instance;
-}
-
-// creates court Instances
-bool gameState::createCourtInstances()
-{
-    courtState cInstance;  // creates an instance of the courtState class
-//    cInstance.setModelName("court.mesh");
-    cInstance.setModelName("Court.mesh");
-    cInstance.loadModel();
-    courtInstance.push_back(cInstance);
-
-    return true;
-}
 
 // updates positions of gameState objects
 bool gameState::updatePositions()
