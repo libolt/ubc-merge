@@ -104,12 +104,12 @@ private:
 
 };
 
-    //RESULT CALLBACK FOR DETECTION OF COLLIDING PAIRS; found code here ---> http://www.ogre3d.org/forums/viewtopic.php?f=2&t=64815&p=428681
+    // Collision Callback
     struct MyContactResultCallback : public btCollisionWorld::ContactResultCallback
     {
-    	physicsEngine *physE = physicsEngine::Instance();
-    	bool m_connected = false;
-        MyContactResultCallback() :m_connected(false)
+//    	physicsEngine *physE = physicsEngine::Instance();
+    	bool m_connected;
+        MyContactResultCallback() m_connected(false)
     	{
     	}
     //	virtual btScalar addSingleResult(btManifoldPoint& cp,   const btCollisionObject* colObj0,int partId0,int index0,const btCollisionObject* colObj1,int partId1,int index1)
@@ -118,13 +118,13 @@ private:
 
     		if (cp.getDistance()<=0)
     		{
-   			m_connected = true;
-    			physE->setPairCollided(true);
+   			    m_connected = true;
+//    			physE->setPairCollided(true);
     //		    exit(0);
     		}
     		else
     		{
-    			physE->setPairCollided(false);
+//    			physE->setPairCollided(false);
     		}
     		return 1.f;
     	}

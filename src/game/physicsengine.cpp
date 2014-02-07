@@ -528,13 +528,13 @@ void physicsEngine::passCollisionCheck()	// checks whether the ball has collided
 
     int playerWithBall = gameS->getPlayerWithBall();
     int passToPlayer = playerInstance[playerWithBall].getPassToPlayer();
-	MyContactResultCallback passCollideResult;
+	MyContactResultCallback passCollisionResult;
 	Ogre::LogManager::getSingletonPtr()->logMessage("Basketball Coords = " +Ogre::StringConverter::toString(basketballInstance[0].getNode()->getPosition()));
 	Ogre::LogManager::getSingletonPtr()->logMessage("Player pass to Coords = " +Ogre::StringConverter::toString(playerInstance[passToPlayer].getNode()->getPosition()));
 
     pairCollided = false;
-    world->contactPairTest(basketballInstance[0].getPhysBody(), playerInstance[passToPlayer].getPhysBody(), passCollideResult);
-	if (pairCollided)
+    world->contactPairTest(basketballInstance[0].getPhysBody(), playerInstance[passToPlayer].getPhysBody(), passCollisionResult);
+	if (passCollisionResult.m_connected)
 	{
 		passCollision = true;
 	}
