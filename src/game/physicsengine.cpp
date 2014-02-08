@@ -380,7 +380,7 @@ void physicsEngine::updateState()
 	//    playerBody.at(2)->translate( btVector3( 0.0f, 10.0f, 0.0f ) );
 	//    world->stepSimulation(changeInTime, 10);
 
-	    world->stepSimulation(changeInTime,1,fixedTimeStep);
+	    world->stepSimulation(changeInTime,10,fixedTimeStep);
 
 	// FIX FOR SDL!!
     //Shows debug if F3 key down.
