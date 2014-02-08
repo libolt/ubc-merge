@@ -287,31 +287,6 @@ void physicsEngine::updateState()
 
     int playerWithBall = gameS->getPlayerWithBall();
 
-//    unsigned long loopChangeInTime;	// stores change in time.
-
-    currentTime = gameE->getLoopTime().getMilliseconds();
-
-//    if (currentTime - oldTime >= 1000 && currentTime - oldTime <= 1200)
-    {
-    	changeInTime = currentTime - oldTime;
-    	oldTime = currentTime;
-    }
-    fixedTimeStep = btScalar(1.)/btScalar(180.);
-//    loopChangeInTime = gameE->getChangeInTime();
-
-    String CIT = StringConverter::toString(changeInTime);
-    String currTime = StringConverter::toString(currentTime);
-
-    Ogre::LogManager::getSingletonPtr()->logMessage("Current Time = " +currTime);
-    Ogre::LogManager::getSingletonPtr()->logMessage("Change In Time = " +CIT);
-
-    //Update Bullet world. Don't forget the debugDrawWorld() part!
-//    world->stepSimulation(evt.timeSinceLastFrame, 10);
-//    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
-//    playerBody.at(2)->translate( btVector3( 0.0f, 10.0f, 0.0f ) );
-//    world->stepSimulation(changeInTime, 10);
-
-    world->stepSimulation(changeInTime/1000,1,fixedTimeStep);
 
     Ogre::LogManager::getSingletonPtr()->logMessage("ballTipped = " + Ogre::StringConverter::toString(gameS->getBallTipped()));
 
@@ -343,7 +318,7 @@ void physicsEngine::updateState()
     }
     //    if (changeInTime >= 1000)
 //    {
-    Ogre::LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
+//    Ogre::LogManager::getSingletonPtr()->logMessage("Physics changeInTime = " + CIT);
 //		world->stepSimulation(changeInTime/1000, 1);
 //		world->debugDrawWorld();
 
@@ -380,7 +355,34 @@ void physicsEngine::updateState()
 	{
 
 	}
-    // FIX FOR SDL!!
+
+	//    unsigned long loopChangeInTime;	// stores change in time.
+
+	    currentTime = gameE->getLoopTime().getMilliseconds();
+
+	//    if (currentTime - oldTime >= 1000 && currentTime - oldTime <= 1200)
+	    {
+	    	changeInTime = (currentTime - oldTime)/1000;
+	    	oldTime = currentTime;
+	    }
+	    fixedTimeStep = btScalar(1.)/btScalar(60.);
+	//    loopChangeInTime = gameE->getChangeInTime();
+
+	    String CIT = StringConverter::toString(changeInTime);
+	    String currTime = StringConverter::toString(currentTime);
+
+	    Ogre::LogManager::getSingletonPtr()->logMessage("Current Time = " +currTime);
+	    Ogre::LogManager::getSingletonPtr()->logMessage("Change In Time = " +CIT);
+
+	    //Update Bullet world. Don't forget the debugDrawWorld() part!
+	//    world->stepSimulation(evt.timeSinceLastFrame, 10);
+	//    playerBodyState.at(0)->setWorldTransForm(btTransform *transform)
+	//    playerBody.at(2)->translate( btVector3( 0.0f, 10.0f, 0.0f ) );
+	//    world->stepSimulation(changeInTime, 10);
+
+	    world->stepSimulation(changeInTime,1,fixedTimeStep);
+
+	// FIX FOR SDL!!
     //Shows debug if F3 key down.
 //    debugDraw->setDebugMode(input->getMKeyboard()->isKeyDown(OIS::KC_F3));
     debugDraw->step();
