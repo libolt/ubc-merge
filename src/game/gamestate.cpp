@@ -1192,8 +1192,8 @@ void gameState::executePass()		// executes the pass between players
 	Ogre::Vector3 playerWithBallCoords = playerInstance[playerWithBall].getNode()->getPosition();
 	Ogre::Vector3 passToPlayerCoords = playerInstance[passToPlayer].getNode()->getPosition();
 	Ogre::Vector3 bballCoords = basketballInstance[0].getNode()->getPosition();
-	btVector3 bballPosChange;
-	btVector3 bballPhysCoords;
+	btVector3 bballPosChange = btVector3(0,0,0);
+	btVector3 bballPhysCoords = btVector3(0,0,0);
 	btTransform transform;
 
     Ogre::LogManager::getSingletonPtr()->logMessage("Basketball = " + Ogre::StringConverter::toString(bballCoords));

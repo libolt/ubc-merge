@@ -108,8 +108,8 @@ private:
     struct MyContactResultCallback : public btCollisionWorld::ContactResultCallback
     {
 //    	physicsEngine *physE = physicsEngine::Instance();
-    	bool m_connected;
-        MyContactResultCallback() m_connected(false)
+    	bool collision = false;
+        MyContactResultCallback() : collision(false)
     	{
     	}
     //	virtual btScalar addSingleResult(btManifoldPoint& cp,   const btCollisionObject* colObj0,int partId0,int index0,const btCollisionObject* colObj1,int partId1,int index1)
@@ -118,7 +118,7 @@ private:
 
     		if (cp.getDistance()<=0)
     		{
-   			    m_connected = true;
+   			    collision = true;
 //    			physE->setPairCollided(true);
     //		    exit(0);
     		}

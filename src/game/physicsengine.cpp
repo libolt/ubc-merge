@@ -300,6 +300,10 @@ void physicsEngine::updateState()
 //    loopChangeInTime = gameE->getChangeInTime();
 
     String CIT = StringConverter::toString(changeInTime);
+    String currTime = StringConverter::toString(currentTime);
+
+    Ogre::LogManager::getSingletonPtr()->logMessage("Current Time = " +currTime);
+    Ogre::LogManager::getSingletonPtr()->logMessage("Change In Time = " +CIT);
 
     //Update Bullet world. Don't forget the debugDrawWorld() part!
 //    world->stepSimulation(evt.timeSinceLastFrame, 10);
@@ -398,7 +402,7 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 //		exit(0);
 		pairCollided = false;
 		world->contactPairTest(bInstance[0].getPhysBody(), pInstance[gameS->getBallTippedToPlayer()].getPhysBody(), tipOffResult);
-		if (pairCollided)
+		if (tipOffResult.collision)
 		{
 			gameS->setPlayerWithBall(gameS->getBallTippedToPlayer());
 			gameS->setBallTipForceApplied(false);
@@ -420,7 +424,7 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 //		exit(0);
 		pairCollided = false;
 		world->contactPairTest(bInstance[0].getPhysBody(), pInstance[4].getPhysBody(), tipOffResult);
-		if (pairCollided)
+		if (tipOffResult.collision)
 		{
 			gameS->setBallTipped(true);
 			gameS->setBallTippedToPlayer(0);
@@ -450,7 +454,7 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 	{
 		pairCollided = false;
 		world->contactPairTest(bInstance[0].getPhysBody(), pInstance[9].getPhysBody(), tipOffResult);
-		if (pairCollided)
+		if (tipOffResult.collision)
 		{
 //			bInstance[0].getPhysBody()->setActivationState(DISABLE_SIMULATION);
 
@@ -480,7 +484,7 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
     std::vector<basketballs> bInstance = gameS->getBasketballInstance();
     std::vector<courtState> cInstance = gameS->getCourtInstance();
 
-	MyContactResultCallback courtCollideResult;
+	MyContactResultCallback courtCollisionResult;
 
 	Ogre::Vector3 bballPos = bInstance[0].getNode()->getPosition();
     Ogre::Vector3 courtPos = cInstance[0].getNode()->getPosition();
@@ -504,8 +508,8 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
     }
 
     pairCollided = false;
-    world->contactPairTest(bInstance[0].getPhysBody(), cInstance[0].getPhysBody(), courtCollideResult);
-	if (pairCollided)
+    world->contactPairTest(bInstance[0].getPhysBody(), cInstance[0].getPhysBody(), courtCollisionResult);
+	if (courtCollisionResult.collision)
 	{
 //		gameS->setPlayerWithBall(gameS->getBallTippedToPlayer());
 //		gameS->setBallTipForceApplied(false);
@@ -534,8 +538,9 @@ void physicsEngine::passCollisionCheck()	// checks whether the ball has collided
 
     pairCollided = false;
     world->contactPairTest(basketballInstance[0].getPhysBody(), playerInstance[passToPlayer].getPhysBody(), passCollisionResult);
-	if (passCollisionResult.m_connected)
+	if (passCollisionResult.collision)
 	{
 		passCollision = true;
+//		exit(0);
 	}
 }
