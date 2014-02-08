@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 2.6)
+PROJECT (UBC)
 #INCLUDE(${CMAKE_MODULE_PATH}/FindBoost.cmake)
 SET(CMAKE_MODULE_PATH "${UBC_SOURCE_DIR}/cmake")
 set(Boost_USE_MULTITHREADED ON)
