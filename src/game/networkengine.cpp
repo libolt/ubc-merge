@@ -53,6 +53,136 @@ networkEngine* networkEngine::Instance()
     return pInstance; // address of sole instance
 }
 
+bool networkEngine::getIsClient()	// returns the value of the isClient variable
+{
+	return (isClient);
+}
+void networkEngine::setIsClient(bool client)	// sets the value of the isClient variable
+{
+	isClient = client;
+}
+
+bool networkEngine::getIsServer()	// returns the value of the isServer variable
+{
+	return (isServer);
+}
+void networkEngine::setIsServer(bool server)	// sets the value of the isServer variable
+{
+	isServer = server;
+}
+
+bool networkEngine::getClientEstablishedConnection()
+{
+	return (clientEstablishedConnection);
+}
+
+void networkEngine::setClientEstablishedConnection(bool connection)
+{
+	clientEstablishedConnection = connection;
+}
+
+bool networkEngine::getServerReceivedConnection()
+{
+	return (serverReceivedConnection);
+}
+
+void networkEngine::setServerReceivedConnection(bool connection)
+{
+	serverReceivedConnection = connection;
+}
+int networkEngine::getClientID()
+{
+	return (clientID);
+}
+
+void networkEngine::setClientID(int ID)
+{
+	clientID = ID;
+}
+
+Ogre::String networkEngine::getIPAddress()	// returns ipAddress string
+{
+	return(ipAddress);
+}
+
+void networkEngine::setIPAddress(Ogre::String IP)	// sets ipAddress string
+{
+	ipAddress = IP;
+}
+
+Ogre::String networkEngine::getReceivedData()	// returns receivedData variable
+{
+	return (receivedData);
+}
+void networkEngine::setReceivedData(Ogre::String data)	// sets receivedData variable
+{
+	receivedData = data;
+}
+
+bool networkEngine::getPacketReceived()								// returns packetReceived variable
+{
+	return (packetReceived);
+}
+void networkEngine::setPacketReceived(bool received)					// sets packetReceived variable
+{
+	packetReceived = received;
+}
+
+ENetAddress networkEngine::getListenAddress()
+{
+    return (listenAddress);
+}
+void networkEngine::setListenAddress(ENetAddress address)
+{
+    listenAddress = address;
+}
+
+ENetAddress networkEngine::getServerAddress()
+{
+    return (serverAddress);
+}
+
+void networkEngine::setServerAddress(ENetAddress address)
+{
+    serverAddress = address;
+}
+
+ENetHost *networkEngine::getClient()
+{
+    return (client);
+}
+void networkEngine::setClient(ENetHost *Client)
+{
+    client = Client;
+}
+
+ENetEvent networkEngine::getEvent()
+{
+    return (event);
+}
+void networkEngine::setEvent(ENetEvent Event)
+{
+    event = Event;
+}
+
+ENetPeer *networkEngine::getPeer()
+{
+    return (peer);
+}
+void networkEngine::setPeer(ENetPeer *Peer)
+{
+    peer = Peer;
+}
+
+ENetHost *networkEngine::getServer()
+{
+    return (server);
+}
+void networkEngine::setServer(ENetHost *Server)
+{
+    server = Server;
+}
+
 
 int networkEngine::initialize()
 {
@@ -372,119 +502,6 @@ void networkEngine::sendPacket(Ogre::String packetData)
 	packet = enet_packet_create(packetData.c_str(),strlen(packetData.c_str())+1,ENET_PACKET_FLAG_RELIABLE);
     enet_peer_send (peer, 0, packet);
 
-}
-
-bool networkEngine::getClientEstablishedConnection()
-{
-	return (clientEstablishedConnection);
-}
-
-void networkEngine::setClientEstablishedConnection(bool connection)
-{
-	clientEstablishedConnection = connection;
-}
-
-bool networkEngine::getServerReceivedConnection()
-{
-	return (serverReceivedConnection);
-}
-
-void networkEngine::setServerReceivedConnection(bool connection)
-{
-	serverReceivedConnection = connection;
-}
-int networkEngine::getClientID()
-{
-	return (clientID);
-}
-
-void networkEngine::setClientID(int ID)
-{
-	clientID = ID;
-}
-
-Ogre::String networkEngine::getIPAddress()	// returns ipAddress string
-{
-	return(ipAddress);
-}
-
-void networkEngine::setIPAddress(Ogre::String IP)	// sets ipAddress string
-{
-	ipAddress = IP;
-}
-
-Ogre::String networkEngine::getReceivedData()	// returns receivedData variable
-{
-	return (receivedData);
-}
-
-bool networkEngine::getPacketReceived()								// returns packetReceived variable
-{
-	return (packetReceived);
-}
-void networkEngine::setPacketReceived(bool received)					// sets packetReceived variable
-{
-	packetReceived = received;
-}
-
-void networkEngine::setReceivedData(Ogre::String data)	// sets receivedData variable
-{
-	receivedData = data;
-}
-
-ENetAddress networkEngine::getListenAddress()
-{
-    return (listenAddress);
-}
-void networkEngine::setListenAddress(ENetAddress address)
-{
-    listenAddress = address;
-}
-
-ENetAddress networkEngine::getServerAddress()
-{
-    return (serverAddress);
-}
-
-void networkEngine::setServerAddress(ENetAddress address)
-{
-    serverAddress = address;
-}
-
-ENetHost *networkEngine::getClient()
-{
-    return (client);
-}
-void networkEngine::setClient(ENetHost *Client)
-{
-    client = Client;
-}
-
-ENetEvent networkEngine::getEvent()
-{
-    return (event);
-}
-void networkEngine::setEvent(ENetEvent Event)
-{
-    event = Event;
-}
-
-ENetPeer *networkEngine::getPeer()
-{
-    return (peer);
-}
-void networkEngine::setPeer(ENetPeer *Peer)
-{
-    peer = Peer;
-}
-
-ENetHost *networkEngine::getServer()
-{
-    return (server);
-}
-void networkEngine::setServer(ENetHost *Server)
-{
-    server = Server;
 }
 
 

@@ -172,11 +172,21 @@ class playerState
         virtual int getPassToPlayer();	// returns the value of the passToPlayer variable
         virtual void setPassToPlayer(int player);	// sets the value of the passToPlayer variable
 
+        virtual bool getShotTaken(void);		// retrieves the value of the shotTaken variable
+        virtual void setShotTaken(bool taken);	// sets the value of the shotTaken variable
+
+        virtual bool getShotComplete(void);	// retrieves the value of the shotComplete variable
+        virtual void setShotComplete(bool complete);	// sets the value of the shotComplete variable
+
+        virtual void updateState();	// updates the state of the object
+
         virtual bool loadModel();   // loads the 3D model from file specified in modelName
 
         virtual bool updatePosition();  // updates the X, Y and Z coordinates of the 3D model
 
         virtual void calculatePass();	// calculates which player to pass the ball to
+
+        virtual void shotLogic(Ogre::Vector3 playerPos);   // carries out basketball shot logic
 
     private:
 
@@ -279,6 +289,10 @@ class playerState
         bool passCalculated;	// stores whether or not the player to pass ball to has been calculated
         bool passCompleted;	// stores whether or not the pass has been completed
         int passToPlayer;	// stores the value of the player to be passed to.
+
+        // Shooting variables
+        bool shotTaken;	// Determines whether or not a player has shot the ball
+        bool shotComplete;	// Determine whether or not a player's shot is complete
 
         // Stores the 3D model that represents the player
         Ogre::Entity *model;

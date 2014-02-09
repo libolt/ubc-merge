@@ -58,9 +58,10 @@ void offenseState::setupState()		// sets up initial state of the object
 	startPositions[0] = Ogre::Vector3(5.0f,-13.5f,380.0f);
 }
 
+// FIXME! update for class reorganization
 void offenseState::updateState()	// updates the state of the object
 {
-    gameState *gameS = gameState::Instance();
+/*    teamState *teamS = gameState::Instance();
     std::vector<playerState> playerInstance = gameS->getPlayerInstance();
 
     int playerWithBall = gameS->getPlayerWithBall();
@@ -189,4 +190,5 @@ void offenseState::updateState()	// updates the state of the object
 	}
 
 	gameS->setPlayerInstance(playerInstance);
+*/
 }

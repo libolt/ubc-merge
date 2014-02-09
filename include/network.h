@@ -42,12 +42,12 @@ class networkEngine
 
 //    networkEngine();
     virtual ~networkEngine();
-    virtual int initialize();	// initialize networkEngine code
-    virtual void clientConnect();	// setup client connection.
-    virtual void networkClient();	// Client code
 
-    virtual void serverSetup();	// setup server.
-    virtual void networkServer();	// Server code
+    virtual bool getIsClient();	// returns the value of the isClient variable
+    virtual void setIsClient(bool client);	// sets the value of the isClient variable
+
+    virtual bool getIsServer();	// returns the value of the isServer variable
+    virtual void setIsServer(bool server);	// sets the value of the isServer variable
 
     virtual bool getClientEstablishedConnection();					// returns clientEstablishedConnection variable
     virtual void setClientEstablishedConnection(bool connection);	// sets clientEstablishedConnection variable
@@ -57,8 +57,6 @@ class networkEngine
 
     virtual bool getPacketReceived();								// returns packetReceived variable
     virtual void setPacketReceived(bool received);					// sets packetReceived variable
-
-    virtual void sendPacket(Ogre::String packetData);	// sends a packet to the peer
 
     virtual int getClientID();	// returns the value of clientID variable;
     virtual void setClientID(int ID);  // sets the value of clientID variable;
@@ -87,6 +85,15 @@ class networkEngine
     virtual ENetHost *getServer();	// returns server variable
     virtual void setServer(ENetHost *Server);	// sets server variable
 
+    virtual int initialize();	// initialize networkEngine code
+    virtual void clientConnect();	// setup client connection.
+    virtual void networkClient();	// Client code
+
+    virtual void serverSetup();	// setup server.
+    virtual void networkServer();	// Server code
+
+    virtual void sendPacket(Ogre::String packetData);	// sends a packet to the peer
+
     static networkEngine *Instance();
 
     protected:
@@ -113,7 +120,9 @@ class networkEngine
     ENetHost *server;
     ENetPacket *packet;
 
-    bool serverSetupComplete;
+    bool isClient;	// stores whether or not this instance is the client
+    bool isServer; // stores whethr or not this instance is the server
+    bool serverSetupComplete;	// stores whether or not the server is setup and running
     bool clientEstablishedConnection;	// stores whether or not a connection from client to server was successful
     bool serverReceivedConnection;		// stores whether or not server received a client connection.
 };

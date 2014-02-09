@@ -192,7 +192,6 @@ void gameEngine::setMovePlayer(bool player)
 bool gameEngine::startGame()
 {
 //    gameState *gameS = gameState::Instance();
-
     gameState *gameS = gameState::Instance();
     gameS->setupState();
 
@@ -225,16 +224,17 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	   while (!quitGame)
 	    {
-			std::vector<playerState> playerInstance = gameS->getPlayerInstance();	// stores th player instances
+//			std::vector<playerState> playerInstance = gameS->getPlayerInstance();	// stores th player instances
 
 	//        ubc->processUnbufferedKeyInput();
 
 	//        render->frameStarted();
 			// run the message pump (Eihort)
 	//		Ogre::WindowEventUtilities::messagePump();
-
+//		   exit(0);
 		   if (gameS->getGameType() == SINGLE)
 		   {
+
 				if (!sceneCreated)
 				{
 					createScene = true;
@@ -276,7 +276,6 @@ void gameEngine::gameLoop()	// Main Game Loop
 	        updateChangeInTime();	// calculates the change in time.
 
 //	        Ogre::LogManager::getSingletonPtr()->logMessage("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
-
 	        // updates game logic every 100 milliseconds
 	        if (changeInTime >= 100)
 	        {
@@ -289,7 +288,9 @@ void gameEngine::gameLoop()	// Main Game Loop
 	        	{
 	        		network->networkClient();	// runs network client code
 	        	}
-	//            Ogre::LogManager::getSingletonPtr()->logMessage("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
+
+
+//            Ogre::LogManager::getSingletonPtr()->logMessage("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
 	           	if (renderScene)
 	            {
 	           		gameS->logic();
@@ -305,116 +306,16 @@ void gameEngine::gameLoop()	// Main Game Loop
 	    	if (input->processInput())
 	        {
 
-				if (gameS->getGameType() == SINGLE)
-				{
-					Ogre::String keyPressed = input->getKeyPressed();
-					int playerWithBall = gameS->getPlayerWithBall();
+	    		if (gameS->getTeamInstancesCreated())
+                {
+					if (gameS->getGameType() == SINGLE)
+					{
 
-					if (keyPressed == "q")
-					{
-						quitGame = true;
-					}
-					else if (keyPressed == "up")
-					{
-						Ogre::String packetData;
-						playerInstance[playerWithBall].setMovement(true);
-						playerInstance[playerWithBall].setDirection(UP);
-						gameS->setPlayerInstance(playerInstance);
-					}
-					else if (keyPressed == "down")
-					{
-						Ogre::String packetData;
-						playerInstance[playerWithBall].setMovement(true);
-						playerInstance[playerWithBall].setDirection(DOWN);
-						gameS->setPlayerInstance(playerInstance);
-					}
-					else if (keyPressed == "left")
-					{
-						Ogre::String packetData;
-						playerInstance[playerWithBall].setMovement(true);
-						playerInstance[playerWithBall].setDirection(LEFT);
-						gameS->setPlayerInstance(playerInstance);
-					}
-					else if (keyPressed == "right")
-					{
-						Ogre::String packetData;
-						playerInstance[playerWithBall].setMovement(true);
-						playerInstance[playerWithBall].setDirection(RIGHT);
-						gameS->setPlayerInstance(playerInstance);
-					}
-					else if (keyPressed == "rightAlt")
-					{
-						playerInstance[playerWithBall].setPassBall(true);
-						playerInstance[playerWithBall].setPassCalculated(false);
-						gameS->setPlayerWithBallDribbling(false);
-						gameS->setPlayerInstance(playerInstance);
-				}
-
-				}
-
-				else if (gameS->getGameType() == MULTI)
-				{
-					int playerWithBall = gameS->getPlayerWithBall();
-					if (clientRunning)	// checks if game is running in client mode
-					{
+						std::vector<teamState> teamInstance = gameS->getTeamInstance();
+						std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
+//						exit(0);
 						Ogre::String keyPressed = input->getKeyPressed();
-						if (keyPressed == "q")
-						{
-							quitGame =true;
-						}
-						else if (keyPressed == "up")
-						{
-							Ogre::String packetData;
-							playerInstance[6].setMovement(true);
-							playerInstance[6].setDirection(UP);
-							gameS->setPlayerInstance(playerInstance);
-							packetData = "player6" + keyPressed;
-							network->sendPacket(packetData);
-						}
-						else if (keyPressed == "down")
-						{
-							Ogre::String packetData;
-							playerInstance[6].setMovement(true);
-							playerInstance[6].setDirection(DOWN);
-							gameS->setPlayerInstance(playerInstance);
-							packetData = "player6" + keyPressed;
-							network->sendPacket(packetData);
-						}
-						else if (keyPressed == "left")
-						{
-							Ogre::String packetData;
-							playerInstance[6].setMovement(true);
-							playerInstance[6].setDirection(LEFT);
-							gameS->setPlayerInstance(playerInstance);
-							packetData = "player6" + keyPressed;
-							network->sendPacket(packetData);
-						}
-						else if (keyPressed == "right")
-						{
-							Ogre::String packetData;
-							playerInstance[6].setMovement(true);
-							playerInstance[6].setDirection(RIGHT);
-							gameS->setPlayerInstance(playerInstance);
-							packetData = "player6" + keyPressed;
-							network->sendPacket(packetData);
-						}
-						else if (keyPressed == "rightAlt")
-						{
-							Ogre::String packetData;
-							playerInstance[playerWithBall].setPassBall(true);
-							playerInstance[playerWithBall].setPassCalculated(false);
-							gameS->setPlayerWithBallDribbling(false);
-					    	gameS->setPlayerInstance(playerInstance);
-					    	packetData = "player6" + keyPressed;
-					    	network->sendPacket(packetData);
-						}
-					    else
-						{
-						}
-					}
-					else if (serverRunning)	// checks if game is running in server mode
-					{
-						Ogre::String keyPressed = input->getKeyPressed();
+						int playerWithBall = teamInstance[0].getPlayerWithBall();
 						if (keyPressed == "q")
 						{
 							quitGame = true;
@@ -422,59 +323,174 @@ void gameEngine::gameLoop()	// Main Game Loop
 						else if (keyPressed == "up")
 						{
 							Ogre::String packetData;
-							playerInstance[0].setMovement(true);
-							playerInstance[0].setDirection(UP);
-							gameS->setPlayerInstance(playerInstance);
-							packetData = "player0" + keyPressed;
-							network->sendPacket(packetData);
+							playerInstance[playerWithBall].setMovement(true);
+							playerInstance[playerWithBall].setDirection(UP);
+							teamInstance[0].setPlayerInstance(playerInstance);
 						}
 						else if (keyPressed == "down")
 						{
 							Ogre::String packetData;
-							playerInstance[0].setMovement(true);
-							playerInstance[0].setDirection(DOWN);
-							gameS->setPlayerInstance(playerInstance);
-							packetData = "player0" + keyPressed;
-							network->sendPacket(packetData);
+							playerInstance[playerWithBall].setMovement(true);
+							playerInstance[playerWithBall].setDirection(DOWN);
+							teamInstance[0].setPlayerInstance(playerInstance);
 						}
 						else if (keyPressed == "left")
 						{
 							Ogre::String packetData;
-							playerInstance[0].setMovement(true);
-							playerInstance[0].setDirection(LEFT);
-							gameS->setPlayerInstance(playerInstance);
-							packetData = "player0" + keyPressed;
-							network->sendPacket(packetData);
+							playerInstance[playerWithBall].setMovement(true);
+							playerInstance[playerWithBall].setDirection(LEFT);
+							teamInstance[0].setPlayerInstance(playerInstance);
 						}
 						else if (keyPressed == "right")
 						{
 							Ogre::String packetData;
-							playerInstance[0].setMovement(true);
-							playerInstance[0].setDirection(RIGHT);
-							gameS->setPlayerInstance(playerInstance);
-							packetData = "player0" + keyPressed;
-							network->sendPacket(packetData);
+							playerInstance[playerWithBall].setMovement(true);
+							playerInstance[playerWithBall].setDirection(RIGHT);
+							teamInstance[0].setPlayerInstance(playerInstance);
 						}
 						else if (keyPressed == "rightAlt")
 						{
-							Ogre::String packetData;
 							playerInstance[playerWithBall].setPassBall(true);
 							playerInstance[playerWithBall].setPassCalculated(false);
-					    	gameS->setPlayerInstance(playerInstance);
-							gameS->setPlayerWithBallDribbling(false);
-					    	packetData = "player0" + keyPressed;
-					    	network->sendPacket(packetData);
+							teamInstance[0].setPlayerWithBallDribbling(false);
+							teamInstance[0].setPlayerInstance(playerInstance);
+					}
+
+					}
+
+					else if (gameS->getGameType() == MULTI)
+					{
+						std::vector<teamState> teamInstance = gameS->getTeamInstance();
+						int teamWithBall = gameS->getTeamWithBall();
+						int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
+						if (clientRunning)	// checks if game is running in client mode
+						{
+							std::vector<playerState> playerInstance = teamInstance[1].getPlayerInstance();
+							Ogre::String keyPressed = input->getKeyPressed();
+							if (keyPressed == "q")
+							{
+								quitGame =true;
+							}
+							else if (keyPressed == "up")
+							{
+								Ogre::String packetData;
+								playerInstance[0].setMovement(true);
+								playerInstance[0].setDirection(UP);
+								teamInstance[1].setPlayerInstance(playerInstance);
+								packetData = "player0" + keyPressed;
+								network->sendPacket(packetData);
+							}
+							else if (keyPressed == "down")
+							{
+								Ogre::String packetData;
+								playerInstance[0].setMovement(true);
+								playerInstance[0].setDirection(DOWN);
+								teamInstance[1].setPlayerInstance(playerInstance);
+								packetData = "player0" + keyPressed;
+								network->sendPacket(packetData);
+							}
+							else if (keyPressed == "left")
+							{
+								Ogre::String packetData;
+								playerInstance[0].setMovement(true);
+								playerInstance[0].setDirection(LEFT);
+								teamInstance[1].setPlayerInstance(playerInstance);
+								packetData = "player0" + keyPressed;
+								network->sendPacket(packetData);
+							}
+							else if (keyPressed == "right")
+							{
+								Ogre::String packetData;
+								playerInstance[0].setMovement(true);
+								playerInstance[0].setDirection(RIGHT);
+								teamInstance[1].setPlayerInstance(playerInstance);
+								packetData = "player0" + keyPressed;
+								network->sendPacket(packetData);
+							}
+							else if (keyPressed == "rightAlt")
+							{
+								Ogre::String packetData;
+								playerInstance[playerWithBall].setPassBall(true);
+								playerInstance[playerWithBall].setPassCalculated(false);
+								teamInstance[1].setPlayerWithBallDribbling(false);
+								teamInstance[1].setPlayerInstance(playerInstance);
+								packetData = "player0" + keyPressed;
+								network->sendPacket(packetData);
+							}
+							else
+							{
+							}
 						}
+						else if (serverRunning)	// checks if game is running in server mode
+						{
+							std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
+							Ogre::String keyPressed = input->getKeyPressed();
+							if (keyPressed == "q")
+							{
+								quitGame = true;
+							}
+							else if (keyPressed == "up")
+							{
+								Ogre::String packetData;
+								playerInstance[0].setMovement(true);
+								playerInstance[0].setDirection(UP);
+								teamInstance[0].setPlayerInstance(playerInstance);
+								packetData = "player0" + keyPressed;
+								network->sendPacket(packetData);
+							}
+							else if (keyPressed == "down")
+							{
+								Ogre::String packetData;
+								playerInstance[0].setMovement(true);
+								playerInstance[0].setDirection(DOWN);
+								teamInstance[0].setPlayerInstance(playerInstance);
+								packetData = "player0" + keyPressed;
+								network->sendPacket(packetData);
+							}
+							else if (keyPressed == "left")
+							{
+								Ogre::String packetData;
+								playerInstance[0].setMovement(true);
+								playerInstance[0].setDirection(LEFT);
+								teamInstance[0].setPlayerInstance(playerInstance);
+								packetData = "player0" + keyPressed;
+								network->sendPacket(packetData);
+							}
+							else if (keyPressed == "right")
+							{
+								Ogre::String packetData;
+								playerInstance[0].setMovement(true);
+								playerInstance[0].setDirection(RIGHT);
+								teamInstance[0].setPlayerInstance(playerInstance);
+								packetData = "player0" + keyPressed;
+								network->sendPacket(packetData);
+							}
+							else if (keyPressed == "rightAlt")
+							{
+								Ogre::String packetData;
+								playerInstance[playerWithBall].setPassBall(true);
+								playerInstance[playerWithBall].setPassCalculated(false);
+								teamInstance[0].setPlayerWithBallDribbling(false);
+								teamInstance[0].setPlayerInstance(playerInstance);
+								packetData = "player0" + keyPressed;
+								network->sendPacket(packetData);
+							}
+							else
+							{
+							}
+						}
+
 						else
 						{
 						}
-					}
+				    }
+                }
 
-					else
-					{
-					}
-				}
-	        }
+            }
+	    	else
+	    	{
+	    	}
+
 	 			//        player->getNode(0)->translate(Pos);
 	//        pInstance[bballInstance[0].getPlayer()].getNode()->translate(-0.02f,0.0f,0.0f);
 

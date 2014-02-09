@@ -227,11 +227,13 @@ void players::setTotalPlayers(int players)
 // change positions of players nodes
 bool players::changePositions()
 {
+	/*
     gameState *gameS = gameState::Instance();
 //exit(0);
     std::vector <int> playerIDS = gameS->getPlayerID();      // copies playerID values to playerIDS
     std::vector <int>::iterator playersIT;   // iterator for player IDs
 
+    std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector <playerState> pInstance = gameS->getPlayerInstance();
 //	cout << "posChange[0] = " << posChange[0] << endl;
     for (int i = 0; i < 10; i++)
@@ -242,6 +244,7 @@ bool players::changePositions()
 //        pInstance[i].getNode()->translate(posChange[i]);
 //        node[*playersIT]->translate(posChange[*playersIT]);
     }
+    */
     return true;
 }
 

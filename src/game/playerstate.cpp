@@ -57,6 +57,9 @@ playerState::playerState()
     passBall = false;
     passCalculated = false;
     passToPlayer = -1;
+    shotTaken = false;
+    shotComplete = false;
+
 }
 
 playerState::~playerState()
@@ -488,7 +491,25 @@ void playerState::setPassToPlayer(int player)	// sets the value of the passToPla
 	passToPlayer = player;
 }
 
+// gets and sets shotTaken
+bool playerState::getShotTaken(void)
+{
+    return(shotTaken);
+}
+void playerState::setShotTaken(bool taken)
+{
+    shotTaken = taken;
+}
 
+// gets and sets shotComplete
+bool playerState::getShotComplete(void)
+{
+    return(shotComplete);
+}
+void playerState::setShotComplete(bool complete)
+{
+    shotComplete = complete;
+}
 
 bool playerState::loadModel()   // loads the player's 3D model from the file specified in modelName
 {
@@ -514,6 +535,16 @@ bool playerState::loadModel()   // loads the player's 3D model from the file spe
     return true;
 }
 
+void playerState::updateState()
+{
+	Ogre::Vector3 playerPos;
+    if (shotTaken && !shotComplete)	// checks if a player takes a shot
+    {
+        shotLogic(playerPos);
+    }
+
+}
+
 bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D model
 {
 	Ogre::LogManager::getSingletonPtr()->logMessage("posChange = " +Ogre::StringConverter::toString(posChange));
@@ -529,10 +560,12 @@ bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D mod
 void playerState::calculatePass()	// calculates which player to pass the ball to
 {
 	gameState *gameS = gameState::Instance();
-	int playerWithBall = gameS->getPlayerWithBall();
+	std::vector<teamState> teamInstance = gameS->getTeamInstance();
+	int teamWithBall = gameS->getTeamWithBall();
+	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
 
-	if (playerWithBall < 5)	// checks if the player belongs to the first team
-	{
+//	if (playerWithBall < 5)	// checks if the player belongs to the first team
+//	{
 		if (playerWithBall +1 < 5)	// checks if the player + 1 is still on the first team
 		{
 			passToPlayer = playerWithBall +1;
@@ -541,7 +574,8 @@ void playerState::calculatePass()	// calculates which player to pass the ball to
 		{
 			passToPlayer = 0;
 		}
-	}
+//	}
+/*
 	else if (playerWithBall > 4)	// checks if the player belongs to the second team
 	{
 		if (playerWithBall + 1 < 10)	// checks if the player + 1 is still on the second team
@@ -556,10 +590,56 @@ void playerState::calculatePass()	// calculates which player to pass the ball to
 	else
 	{
 	}
-
+*/
 	passCalculated = true;
 //	Ogre::LogManager::getSingletonPtr()->logMessage("Player to pass to =   " +Ogre::StringConverter::toString(passToPlayer));
 
 //	exit(0);
 }
 
+void playerState::shotLogic(Ogre::Vector3 playerPos)
+{
+	/*S
+    players *player = players::Instance();
+//    Ogre::Vector3 playerPos;
+    std::vector<basketballs> basketballInstance = getBasketballInstance();
+    std::vector<playerState> pInstance = getPlayerInstance();
+
+    // checks if a player has taken a shot
+    if (getShotTaken())
+    {
+
+        basketballInstance[0].setDribbling(false);
+//    		basketballInstance[0].getNode()->setParent(mSceneMgr->getRootSceneNode());
+        Ogre::Vector3 pos = basketballInstance[0].getNode()->getPosition();
+        basketballInstance[0].setMaxHeight(pos[1] + 10.0f);
+        basketballInstance[0].setMinHeight(pos[1] - 10.0f);
+        Ogre::Vector3 velocity;
+        Ogre::Vector3 startCoords;
+        startCoords[0] = playerPos[0] + 1.0f;
+        startCoords[1] = playerPos[1] + 1.0f;
+        startCoords[2] = playerPos[2] + 1.0f;
+        velocity[0] = 0.90f;
+        velocity[1] = 0.80f;
+        velocity[2] = 0.0f;
+        basketballInstance[0].setVelocity(velocity);
+        basketballInstance[0].setStartCoords(startCoords);
+        basketballInstance[0].getNode()->setPosition(startCoords);
+        setShotTaken(false);
+        setShotComplete(false);
+        basketballInstance[0].setMaxHeightReached(false);
+        basketballInstance[0].setMinHeightReached(false);
+    //		basketballInstance[0].setPlayer(-1);
+    }
+
+    if (getShotComplete())
+    {
+
+        basketballInstance[0].setPlayer(5);
+        basketballInstance[0].setDribblingStart(true);
+        playerPos = pInstance[basketballInstance[0].getPlayer()].getNode()->getPosition();
+        basketballInstance[0].getNode()->setPosition(playerPos[0] +2.0f, playerPos[1] + 4.0f, playerPos[2] - 1.0f);
+        setShotComplete(false);
+    }
+*/
+}
