@@ -33,6 +33,7 @@ playerData::playerData()
     height = 0;
     weight = 0;
     ID = 0;
+    teamID = -1;
 
     active = false;
 
@@ -103,6 +104,14 @@ void playerData::setID(int playerID)
     ID = playerID;
 }
 
+int playerData::getTeamID(void)	// retrieves the value for the teamID variable
+{
+	return (teamID);
+}
+void playerData::setTeamID(int id)	// sets the value for the teamID variable
+{
+	teamID = id;
+}
 bool playerData::getActive(void)
 {
     return(active);

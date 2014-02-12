@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <Player>
 	<ID>4</ID>
+	<TeamID>0</TeamID>
         <Name>
 		<First>Brian</First>
 		<Last>Darlford</Last>

@@ -84,6 +84,24 @@ void gameState::setCourtInstance(std::vector<courtState> Instance)
     courtInstance = Instance;
 }
 
+std::vector<teamData> gameState::getTeamDataInstance()		// retrieves the value of  the teamDataInstance variable
+{
+	return (teamDataInstance);
+}
+void gameState::setTeamDataInstances(std::vector<teamData> instance)	// sets the value of the teamDataInstance variable;
+{
+	teamDataInstance = instance;
+}
+std::vector<playerData> gameState::getPlayerDataInstance()		// retrieves the value of  the playerDataInstance variable
+{
+	return (playerDataInstance);
+}
+
+void gameState::setPlayerDataInstances(std::vector<playerData> instance)	// sets the value of the playerDataInstance variable;
+{
+	playerDataInstance = instance;
+}
+
 // gets and sets teamID
 std::vector<int> gameState::getTeamID(void)
 {
@@ -207,6 +225,14 @@ void gameState::setTeamInstancesCreated(bool created)	// sets the value of the t
 	teamInstancesCreated = created;
 }
 
+bool gameState::getBasketballModelLoaded()	// gets the value of the basketballModelLoaded variable
+{
+	return (basketballModelLoaded);
+}
+void gameState::setBasketballModelLoaded(bool loaded)	// sets the value of the basketballModelLoaded variable
+{
+	basketballModelLoaded = loaded;
+}
 // assigns teams that are playing to the game state machine
 bool gameState::assignTeams()
 {
@@ -295,6 +321,8 @@ bool gameState::createTeamInstances()
 
 	teamInstance[0].setTeamNumber(0);
 	teamInstance[1].setTeamNumber(1);
+	teamInstance[0].setupState();
+	teamInstance[1].setupState();
 //	exit(0);
     return true;
 }
@@ -430,12 +458,6 @@ bool gameState::setupState()
 
     physEngine->setupState();  // sets up the Physics Engine state
 
-    physEngine->setupPlayerPhysics(); // sets up physics state for players
-
-    physEngine->setupCourtPhysics(); // sets up physics state for court
-
-    physEngine->setupBasketballPhysics(); // sets up physics state for basketball
-
 //        Ogre::Entity *ent;
 //        ent = player->getModel(0);
 //        player->mAnimationState2 = ent->getAnimationState("Walk");
@@ -464,7 +486,6 @@ bool gameState::setupState()
     setupTipOff();	// sets up tip off conditions
 
 //    teamWithBall = 0;	// FIXME! Temporarily hard code team controlling ball
-//    exit(0);
 
     return true;
 }
@@ -472,6 +493,7 @@ bool gameState::setupState()
 // carries out in game logic
 bool gameState::logic()
 {
+
 	networkEngine *network = networkEngine::Instance();
     players *player = players::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();
@@ -516,6 +538,7 @@ bool gameState::logic()
 
     physEngine->updateState();
     updateDirectionsAndMovements();
+//	exit(0);
 
     updatePositions();   // updates positions of game world objects
 
@@ -555,12 +578,16 @@ bool gameState::logic()
     {
     }
 */
-//    exit(0);
     // updates the state of each team
-    teamInstance[0].updateState();
-    teamInstance[1].updateState();
-
-
+    if (teamInstancesCreated)
+    {
+    	teamInstance[0].updateState();
+    	teamInstance[1].updateState();
+    }
+    else
+    {
+    }
+    exit(0);
     return true;
 }
 
@@ -675,9 +702,14 @@ void gameState::updateDirectionsAndMovements()
 {
     directions playerDirection, oldPlayerDirection;
 
-    updateBasketballMovements();	// updates the movement of basketball objec(s)
-    updateBasketballDirections(); // updates direction of basketball object(s)
-
+    if (teamWithBall >= 0)
+    {
+		updateBasketballMovements();	// updates the movement of basketball objec(s)
+		updateBasketballDirections(); // updates direction of basketball object(s)
+    }
+    else
+    {
+    }
 }
 
 // FIXME! Update for new teamState and playerState organizations
@@ -686,6 +718,7 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
 {
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
+	exit(0);
 	directions playerDirection = playerInstance[playerWithBall].getDirection();
 	directions oldPlayerDirection = playerInstance[playerWithBall].getOldDirection();
 

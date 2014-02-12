@@ -128,10 +128,11 @@ string loader::findFile(string fileName)
         {
             filePath.clear();
             // builds path to players.txt
-//            if (x == 1)
-//            {
-//               filePath.append(":");
-//            }
+/*            if (x == 1)
+            {
+               filePath.append(":");
+            }
+            */
                 filePath.append(pathArray[x]);
                 Ogre::LogManager::getSingletonPtr()->logMessage("pathArray == " + pathArray[x]);
 
@@ -238,6 +239,8 @@ bool loader::loadTeams()
     for (it = teamFiles.begin(); it != teamFiles.end(); ++it)
     {
         loadTeamFile(findFile("teams/" + *it));
+        Ogre::LogManager::getSingletonPtr()->logMessage("team = " +*it);
+
     }
 
     return true;
@@ -291,8 +294,12 @@ bool loader::loadTeamListFile(string fileName)
 
 bool loader::loadTeamFile(string fileName)
 {
-    teams *team = teams::Instance();
+//    teams *team = teams::Instance();
+	gameState *gameS = gameState::Instance();
+
+	std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
     teamData teamD;
+
     int ID;
     string City;
     string Name;
@@ -353,6 +360,9 @@ bool loader::loadTeamFile(string fileName)
     {
         Logo = pElem->GetText();
     }
+//    Ogre::LogManager::getSingletonPtr()->logMessage("team name = " +Name);
+//    Ogre::LogManager::getSingletonPtr()->logMessage("team city = " +City);
+
 
     teamD.setID(ID);
     teamD.setCity(City);
@@ -361,7 +371,9 @@ bool loader::loadTeamFile(string fileName)
     teamD.setInits(Initials);
     teamD.setLogoFile(Logo);
 
-    team->setTeamArray(teamD);
+//    team->setTeamArray(teamD);
+   teamDataInstance.push_back(teamD);
+   gameS->setTeamDataInstances(teamDataInstance);
 
     return true;
 }
@@ -427,10 +439,13 @@ bool loader::loadPlayerListFile( string fileName)
 
 bool loader::loadPlayerFile(string fileName)
 {
-    players *playerG = players::Instance();
+	gameState *gameS = gameState::Instance();
+    playerData playerD;;
+    std::vector<playerData> playerDataInstance = gameS->getPlayerDataInstance();
     string firstName;
     string lastName;
     int ID;
+    int teamID;
     int age;
     int height;
     int weight;
@@ -520,17 +535,28 @@ bool loader::loadPlayerFile(string fileName)
 //        cout << "ID = " << ID << endl;
     }
 
-    player.setFirstName(firstName);
-    player.setLastName(lastName);
-    player.setAge(age);
-    player.setHeight(height);
-    player.setWeight(weight);
-	player.setID(ID);
-    player.setModel(model);
-    player.setTeamInits(teamInitials);
-    player.setPosition(position);
-    playerG->addPlayer(player);
-//	vector<players::playerData> playerN = playerG->getPlayer();
+    pElem=hRoot.FirstChild("TeamID").Element();
+    if (pElem)
+    {
+        teamID = atoi(pElem->GetText());
+//        cout << "ID = " << ID << endl;
+    }
+
+    playerD.setFirstName(firstName);
+    playerD.setLastName(lastName);
+    playerD.setAge(age);
+    playerD.setHeight(height);
+    playerD.setWeight(weight);
+	playerD.setID(ID);
+	playerD.setTeamID(teamID);
+    playerD.setModel(model);
+    playerD.setTeamInits(teamInitials);
+    playerD.setPosition(position);
+
+    playerDataInstance.push_back(playerD);
+
+    gameS->setPlayerDataInstances(playerDataInstance);
+    //	vector<players::playerData> playerN = playerG->getPlayer();
 
     return true;
 }

@@ -33,35 +33,38 @@ class playerData
         playerData();
         ~playerData();
 
-        string getFirstName(void);
-        void setFirstName(string first);
+        string getFirstName(void);	// retrieves the value for the firstName variable
+        void setFirstName(string first);	// sets the value for the firstName variable
 
-        string getLastName(void);
-        void setLastName(string last);
+        string getLastName(void);	// retrieves the value for the lastName variable
+        void setLastName(string last);	// sets the value for the lastName variable
 
-        int getAge(void);
-        void setAge(int age);
+        int getAge(void);	// retrieves the value for the age variable
+        void setAge(int age);	// sets the value for the age variable
 
-        int getHeight(void);
-        void setHeight(int height);
+        int getHeight(void);	// retrieves the value for the height variable
+        void setHeight(int height);	// sets the value for the height variable
 
-        int getWeight(void);
-        void setWeight(int weight);
+        int getWeight(void);		// retrieves the value for the weight variable
+        void setWeight(int weight);	// sets the value for the weight variable
 
-        int getID(void);
-        void setID(int id);
+        int getID(void);	// retrieves the value for the ID variable.
+        void setID(int id);	// sets the value for the ID variable.
 
-        bool getActive(void);
-        void setActive(bool active);
+        int getTeamID(void);	// retrieves the value for the teamID variable
+        void setTeamID(int id);	// sets the value for the teamID variable
 
-        string getTeamInits(void);  // gets the value of teamInits
-        void setTeamInits(string inits);    // sets the value of teamInits
+        bool getActive(void);	// retrieves the value of the active variable
+        void setActive(bool active);	// sets the value of the active variable
 
-        string getPosition();   // gets the vlaue of position
-        virtual void setPosition(string Position); // sets the value of position
+        string getTeamInits(void);  // retrieves the value of the teamInits variable
+        void setTeamInits(string inits);    // sets the value of the teamInits variable
 
-        string getModel();  // gets the value of model
-        virtual void setModel(string Model);    // sets the value of model
+        string getPosition();   // retrieves the value of the position variable
+        virtual void setPosition(string Position); // sets the value of the position variable
+
+        string getModel();  // retrieves the value of the model variable
+        virtual void setModel(string Model);    // sets the value of the model variable
 
         int getFieldGoalRating(void);
         void setFieldGoalRating(int rating);
@@ -113,6 +116,7 @@ class playerData
         int height; // stores the height in centimeters of the player
         int weight; // stores the weight of the player in pounds.
         int ID; // stores the unique ID of the player.
+        int teamID;	// stores the unique ID of the team the player plays for.
 
         // if player is playing this is true
         bool active;
