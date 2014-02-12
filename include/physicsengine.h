@@ -34,18 +34,27 @@ public:
     virtual ~physicsEngine();	// destructor
     static physicsEngine *Instance();
 
-    virtual bool getPairCollided();	// retrieves value of pairCollided variable
-    virtual void setPairCollided(bool collided);	// sets value of pairCollided variable
+    virtual bool getPlayerPhysicsSetup();	// retrieves the value of the playerPhysicsSetup variable
+    virtual void setPlayerPhysicsSetup(bool setup);	// sets the value of the playerPhysicsSetup variable
 
-    virtual bool getPassCollision();	// retrieves the value of passCollision variable
-    virtual void setPassCollision(bool collision);	// sets the value of passCollision variable
+    virtual bool getBasketballlPhysicsSetup();	// retrieves the value of the playerPhysicsSetup variable
+    virtual void setBasketballPhysicsSetup(bool setup);	// sets the value of the playerPhysicsSetup variable
+
+    virtual bool getCourtPhysicsSetup();	// retrieves the value of the playerPhysicsSetup variable
+    virtual void setCourtPhysicsSetup(bool setup);	// sets the value of the playerPhysicsSetup variable
+
+    virtual bool getPairCollided();	// retrieves value of thepairCollided variable
+    virtual void setPairCollided(bool collided);	// sets value of thepairCollided variable
+
+    virtual bool getPassCollision();	// retrieves the value of the passCollision variable
+    virtual void setPassCollision(bool collision);	// sets the value of the passCollision variable
 
     virtual void setupState();  // sets up state of physics engine.
 
     // sets up object physics
-    virtual void setupBasketballPhysics(); // sets up basketball physics
-    virtual void setupCourtPhysics();   // sets up court physics
-    virtual void setupPlayerPhysics(); // setsup up player physics
+    virtual bool setupBasketballPhysics(); // sets up basketball physics
+    virtual bool setupCourtPhysics();   // sets up court physics
+    virtual bool setupPlayerPhysics(); // setsup up player physics
 
     virtual void updateState(); // updates the state of the physics engine.
 
@@ -91,6 +100,9 @@ private:
     btScalar changeInTime;
     btScalar oldTime;
 
+    bool playerPhysicsSetup;
+    bool basketballPhysicsSetup;
+    bool courtPhysicsSetup;
     bool pairCollided;
 
     bool passCollision;	// stores whether a ball has collided with player during a pass

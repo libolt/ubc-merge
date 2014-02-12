@@ -42,7 +42,7 @@ teamState::teamState()
     playerWithBall = 9;
     playerWithBallDribbling = false;
 
-    setupState();
+//    setupState();
 }
 
 teamState::~teamState()
@@ -275,15 +275,17 @@ void teamState::setPlayerWithBallDribbling(bool dribbling)	// sets the value of 
 
 void teamState::setupState()	// sets up the state of the object
 {
+	physicsEngine *physEngine = physicsEngine::Instance();
     if (!playerInstancesCreated)	// checks if playerInstances have been created
     {
     	if (createPlayerInstances()) // creates the player instances based on playerIDS
 		{
     		playerInstancesCreated = true;
+//        	exit(0);
 		}
     }
-    exit(0);
     setPlayerStartPositions();	// sets starting positions for the players
+
     playerWithBall = 9; // FIXME! Temporarily ahrd code player controlling ball
 
 /*    player->mAnimationState2 =  playerInstance[5].getModel()->getAnimationState("Walk");
@@ -293,88 +295,143 @@ void teamState::setupState()	// sets up the state of the object
 }
 void teamState::updateState()	// updates the state of the object
 {
+//	exit(0);
 	gameState *gameS = gameState::Instance();
 	physicsEngine *physEngine = physicsEngine::Instance();
 
-	std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
-	// checks whether to execute offense or defense logic
-	if (offense == true && defense == false)
+	if (gameS->getBasketballModelLoaded() && playerInstancesCreated)
 	{
-		offenseInstance->setExecute(true);
-		defenseInstance->setExecute(false);
-	}
-	else if (defense == true && offense == false)
-	{
-		offenseInstance->setExecute(true);
-		defenseInstance->setExecute(false);
+		std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
+
+//		exit(0);
+		// checks whether to execute offense or defense logic
+		if (offense == true && defense == false)
+		{
+			offenseInstance->setExecute(true);
+			defenseInstance->setExecute(false);
+		}
+		else if (defense == true && offense == false)
+		{
+			offenseInstance->setExecute(true);
+			defenseInstance->setExecute(false);
+		}
+		else
+		{
+
+		}
+
+		if (gameS->getTipOffComplete())
+		{
+			exit(0);
+			if (playerInstance[playerWithBall].getPassBall())	// checks if the player with ball is passing it.
+			{
+				exit(0);
+				if (!playerInstance[playerWithBall].getPassCalculated())
+				{
+					Ogre::Vector3 bballPos;
+					Ogre::Vector3 playerPos;
+					playerInstance[playerWithBall].calculatePass();
+
+					//sets the basketball Height;
+					bballPos = basketballInstance[0].getNode()->getPosition();
+					playerPos = playerInstance[playerWithBall].getNode()->getPosition();
+					bballPos[1] = playerPos[1];
+					basketballInstance[0].getNode()->setPosition(bballPos);
+				}
+				else if (physEngine->getPassCollision())	// checks if ball has collided with player being passed to.
+				{
+					playerInstance[playerWithBall].setPassBall(false);	// player is no longer passing the ball
+					playerWithBall = playerInstance[playerWithBall].getPassToPlayer(); // playerWithBall has changed
+					physEngine->setPassCollision(false);	// resets the pass collision state
+
+				}
+				else
+				{
+					executePass();
+				}
+
+			}
+			else
+			{
+
+			}
+			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
+			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's name: "  +playerInstance[playerWithBall].getPlayerName());
+			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition()));
+		}
+
+		updatePlayerMovements();	// updates movement of player objects
+		updatePlayerDirections();	// updates the direction the players are facing
+//		exit(0);
+
+
+		if (physEngine->getPlayerPhysicsSetup())	// makes sure player physics are setup before modifying physics positions
+		{
+			updatePositions();
+		}
+		else
+		{
+		}
+//		Ogre::LogManager::getSingletonPtr()->logMessage("Team ==  "  +Ogre::StringConverter::toString(teamNumber));
+
+		//		exit(0);
 	}
 	else
 	{
-
 	}
-
-	if (gameS->getTipOffComplete())
-	{
-        if (playerInstance[playerWithBall].getPassBall())	// checks if the player with ball is passing it.
-    	{
-    	    if (!playerInstance[playerWithBall].getPassCalculated())
-    	    {
-    	        Ogre::Vector3 bballPos;
-    	    	Ogre::Vector3 playerPos;
-    	    	playerInstance[playerWithBall].calculatePass();
-
-    	    	//sets the basketball Height;
-    	    	bballPos = basketballInstance[0].getNode()->getPosition();
-    	    	playerPos = playerInstance[playerWithBall].getNode()->getPosition();
-    	    	bballPos[1] = playerPos[1];
-    	    	basketballInstance[0].getNode()->setPosition(bballPos);
-    	    }
-    	    else if (physEngine->getPassCollision())	// checks if ball has collided with player being passed to.
-    	    {
-    	    	playerInstance[playerWithBall].setPassBall(false);	// player is no longer passing the ball
-    	    	playerWithBall = playerInstance[playerWithBall].getPassToPlayer(); // playerWithBall has changed
-    	    	physEngine->setPassCollision(false);	// resets the pass collision state
-
-    	    }
-    	    else
-    	    {
-    	    	executePass();
-    	    }
-
-    	}
-	else
-	{
-
-	}
-	}
-    updatePlayerMovements();	// updates movement of player objects
-    updatePlayerDirections();	// updates the direction the players are facing
-
-    updatePositions();
-    Ogre::LogManager::getSingletonPtr()->logMessage(("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition())));
-
+	exit(0);
 //	offenseInstance->updateState();	// updates the state of the offenseInstance object
 //	defenseInstance->updateState(); // updates the state of the defenseInstance object
 }
 
 bool teamState::createPlayerInstances()
 {
-    players *player = players::Instance();
+//    players *player = players::Instance();
 
-    std::vector <playerData> playerN = player->getPlayer(); // copies Player values to playerN
-    std::vector <int>::iterator playerIT;
+	gameState *gameS = gameState::Instance();
+
+	std::vector<playerData> playerDataInstance = gameS->getPlayerDataInstance();
+	int x = 0;
+	//	int playerID =
+//    std::vector <playerData> playerN = player->getPlayer(); // copies Player values to playerN
+    std::vector <playerData>::iterator playerIT;
 //    std::vector <playerState>::iterator pInstanceIT;
-    int x = 0;
-    for (playerIT = playerID.begin(); playerIT != playerID.end(); ++playerIT)   // loops through playerID std::vector
+    Ogre::LogManager::getSingletonPtr()->logMessage("Creating players");
+
+
+    Ogre::LogManager::getSingletonPtr()->logMessage("playerDataInstance size = " +Ogre::StringConverter::toString(playerDataInstance.size()));
+//    exit(0);
+//    for (playerIT = playerDataInstance.begin(); playerIT != playerDataInstance.end(); ++playerIT)   // loops through playerID std::vector
+    for (int i = 0;i < playerDataInstance.size(); ++i)
     {
+
             playerState pInstance;  // creates a new instance of playerState
-            pInstance.setModelName(playerN[*playerIT].getModel());  // copies the model name from the playerData std::vector to the pInstance class
-            pInstance.setFirstName(playerN[*playerIT].getFirstName());  // copies the first name from the playerData std::vector to the pInstance class
-            pInstance.setLastName(playerN[*playerIT].getLastName());    // copies the last name from the playerData std::vector to the pInstance class
-            pInstance.setPlayerName(playerN[*playerIT].getFirstName() + playerN[*playerIT].getLastName());
+/*            pInstance.setModelName(playerDataInstance[playerIT].getModel());  // copies the model name from the playerData std::vector to the pInstance class
+            pInstance.setFirstName(playerDataInstance[*playerIT]->getFirstName());  // copies the first name from the playerData std::vector to the pInstance class
+            pInstance.setLastName(playerDataInstance[*playerIT]->getLastName());    // copies the last name from the playerData std::vector to the pInstance class
+            pInstance.setPlayerName(playerDataInstance[*playerIT]->getFirstName() + playerN[*playerIT]->getLastName());
             pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
-            playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.
+*/
+//    	    Ogre::LogManager::getSingletonPtr()->logMessage("Player Team ID = " +Ogre::StringConverter::toString(playerDataInstance[i].getTeamID()));
+//    	    Ogre::LogManager::getSingletonPtr()->logMessage("Team Number = " +Ogre::StringConverter::toString(teamNumber));
+
+            if (playerDataInstance[i].getTeamID() == teamNumber)	// checks if player is assigned to this team
+            {
+				pInstance.setModelName(playerDataInstance[i].getModel());
+				pInstance.setFirstName(playerDataInstance[i].getFirstName());  // copies the first name from the playerData std::vector to the pInstance class
+				pInstance.setLastName(playerDataInstance[i].getLastName());    // copies the last name from the playerData std::vector to the pInstance class
+				pInstance.setPlayerName(playerDataInstance[i].getFirstName() + " " +playerDataInstance[i].getLastName());
+				pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
+				playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.
+				Ogre::LogManager::getSingletonPtr()->logMessage("player name = " +pInstance.getPlayerName());
+            }
+            else
+            {
+            }
     }
+    Ogre::LogManager::getSingletonPtr()->logMessage("playerInstance size = " +Ogre::StringConverter::toString(playerInstance.size()));
+
+//    exit(0);
 //    std::vector <playerState>::iterator pInstanceIT;
 
     int pInstanceIT = 0;
@@ -391,6 +448,9 @@ bool teamState::createPlayerInstances()
 			if (playerInstance[pInstanceIT].loadModel())	// if player model loads successfully add to loaded models vector
 			{
 				playerModelsLoaded.push_back(playerInstance[pInstanceIT].getPlayerName());
+	    	    Ogre::LogManager::getSingletonPtr()->logMessage("Loading Player Model");
+//	    	    exit(0);
+
 			}
     	}
             x += 1;
@@ -473,10 +533,9 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 void teamState::updatePlayerDirections()
 {
 	gameState *gameS = gameState::Instance();
-    players *player = players::Instance();
+//    playerState *player = players::Instance();
 
     directions playerDirection, oldPlayerDirection;
-
 //    std::vector<playerState> pInstance = getPlayerInstance();
  //   std::vector<int> playerDirection = player->getPlayerDirection(); // stores contents of playerDirectdion from players class in local variable
 //    std::vector<int> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable
@@ -484,6 +543,7 @@ void teamState::updatePlayerDirections()
     std::vector<Ogre::SceneNode>::iterator playersIT;
 
     Ogre::String playerID = Ogre::StringConverter::toString(playerInstance[4].getPlayerID());
+//    exit(0);
     Ogre::LogManager::getSingletonPtr()->logMessage("playerID == " +playerID);
     // checks if a player's direction has changed and rotates the model accordingly.
 //    for(playersIT = playerNodes.begin(); playersIT != playerNodes.end(); ++playersIT)

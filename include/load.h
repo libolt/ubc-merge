@@ -27,6 +27,8 @@
 #include "Ogre.h"
 #include "tinyxml.h"
 
+#include "gamestate.h"
+
 using namespace std;
 
 class loader

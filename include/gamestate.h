@@ -27,6 +27,8 @@
 #include "courtstate.h"
 #include "playerstate.h"
 #include "teamstate.h"
+#include "teamdata.h"
+#include "playerdata.h"
 
 //using namespace std;
 class gameState
@@ -69,46 +71,54 @@ class gameState
     virtual bool getTeamInstancesCreated();	// gets the value of the teamInstancesCreated variable
     virtual void setTeamInstancesCreated(bool created);	// sets the value of the teamInstancesCreated variable
 
+    virtual bool getBasketballModelLoaded();	// gets the value of the basketballModelLoaded variable
+    virtual void setBasketballModelLoaded(bool loaded);	// sets the value of the basketballModelLoaded variable
+
     // Tip Off execution code.  // Move to proper class
     virtual bool setupTipOff();	// sets up Tip Off conditions
     virtual bool executeTipOff();
 
+    virtual std::vector<teamData> getTeamDataInstance();	// retrieves the value of  the teamDataInstance variable
+    virtual void setTeamDataInstances(std::vector<teamData> instance);	// sets the value of the teamDataInstance variable;
 
-        // gets and sets teamID
-        std::vector<int> getTeamID(void);
-        void setTeamID(std::vector<int> ID);
+    virtual std::vector<playerData> getPlayerDataInstance();	// retrieves the value of  the playerDataInstance variable
+    virtual void setPlayerDataInstances(std::vector<playerData> instance);	// sets the value of the playerDataInstance variable;
 
-        // gets and sets playerID
-        std::vector<int> getPlayerID(void);
-        void setPlayerID(std::vector<int> ID);
+	// gets and sets teamID
+	std::vector<int> getTeamID(void);
+	void setTeamID(std::vector<int> ID);
+
+	// gets and sets playerID
+	std::vector<int> getPlayerID(void);
+	void setPlayerID(std::vector<int> ID);
 
 
-        // gets and sets basketballInstance std::vector
-        std::vector <basketballs> getBasketballInstance();
-        void setBasketballInstance(std::vector<basketballs> bballInstance);
+	// gets and sets basketballInstance std::vector
+	std::vector <basketballs> getBasketballInstance();
+	void setBasketballInstance(std::vector<basketballs> bballInstance);
 
-        // creates basketball Instances
-        bool createBasketballInstances();
+	// creates basketball Instances
+	bool createBasketballInstances();
 
-        // gets and sets teamInstance
-        std::vector <teamState> getTeamInstance();
-        void setTeamInstance(std::vector<teamState> Instance);
+	// gets and sets teamInstance
+	std::vector <teamState> getTeamInstance();
+	void setTeamInstance(std::vector<teamState> Instance);
 
-        // creates team Instances
-        bool createTeamInstances();
+	// creates team Instances
+	bool createTeamInstances();
 
-        // gets and sets courtInstance std::vector
-        std::vector <courtState> getCourtInstance();
-        void setCourtInstance(std::vector<courtState> Instance);
+	// gets and sets courtInstance std::vector
+	std::vector <courtState> getCourtInstance();
+	void setCourtInstance(std::vector<courtState> Instance);
 
-        // creates court Instances
-        bool createCourtInstances();
+	// creates court Instances
+	bool createCourtInstances();
 
-        virtual bool setupState();   // sets up the game condition
-        virtual bool logic();   // carries out in game logic
+	virtual bool setupState();   // sets up the game condition
+	virtual bool logic();   // carries out in game logic
 
-        // updates positions of gameState objects
-        virtual bool updatePositions();
+	// updates positions of gameState objects
+	virtual bool updatePositions();
 
     protected:
         gameState();
@@ -124,6 +134,9 @@ class gameState
     float quarterTimeLeft;  // incates the time left in the current quarter
 
     bool finished;  // indicates whether a game is finished.
+
+    std::vector<teamData> teamDataInstance;	// stores the array of teams loaded from the xml files
+    std::vector<playerData> playerDataInstance;	// stores the array of the players loaded from the xml files
 
     std::vector<int> teamID;      // std::vector that stores the IDs of the 2 teams currently playing
     std::vector<int> playerID;       // std::vector that stores the IDs of the players currently being used.

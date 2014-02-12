@@ -1,15 +1,15 @@
 <?xml version="1.0" ?>
 <Player>
-	<ID>9</ID>
+	<ID>17</ID>
 	<TeamID>3</TeamID>
         <Name>
-		<First>John</First>
-		<Last>Dona</Last>
+		<First>Victor</First>
+		<Last>Chemkov</Last>
 	</Name>
-	<Age>22</Age>
-	<Height>77</Height>
-	<Weight>215</Weight>
+	<Age>35</Age>
+	<Height>80</Height>
+	<Weight>246</Weight>
         <Model>Player.mesh</Model>
-	<Position>SG</Position>
+	<Position>PF</Position>
 	<TeamInitials>ssc</TeamInitials>
 </Player>
