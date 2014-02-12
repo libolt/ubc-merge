@@ -97,10 +97,10 @@ private:
     // contact result callback
 
     // collisions
-    int courtCollidesWith = COL_BBALL | COL_TEAM1 | COL_TEAM2;	// determines what the court collides with
-    int bballCollidesWith = COL_COURT; // | COL_TEAM1 | COL_TEAM2;	// determines what the basketball collides with
-    int team1CollidesWith = COL_COURT; // | COL_BBALL | COL_TEAM2;	// determines what team1 collides with
-    int team2CollidesWith = COL_COURT; // | COL_BBALL | COL_TEAM1;	// determiens what team2 collides with
+    int courtCollidesWith;	// determines what the court collides with
+    int bballCollidesWith;	// determines what the basketball collides with
+    int team1CollidesWith;	// determines what team1 collides with
+    int team2CollidesWith;  // | COL_BBALL | COL_TEAM1;	// determiens what team2 collides with
 
 };
 
@@ -108,7 +108,7 @@ private:
     struct MyContactResultCallback : public btCollisionWorld::ContactResultCallback
     {
 //    	physicsEngine *physE = physicsEngine::Instance();
-    	bool collision = false;
+    	bool collision;
         MyContactResultCallback() : collision(false)
     	{
     	}
