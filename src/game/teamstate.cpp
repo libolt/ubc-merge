@@ -42,6 +42,8 @@ teamState::teamState()
     playerWithBall = 9;
     playerWithBallDribbling = false;
 
+    humanPlayer = -1;
+
 //    setupState();
 }
 
@@ -254,6 +256,15 @@ void teamState::setPlayerInstance(std::vector<playerState> pInstance)
     playerInstance = pInstance;
 }
 
+bool teamState::getPlayerInstancesCreated()	// retrieves the value of the playerInstancesCreated variable
+{
+	return (playerInstancesCreated);
+}
+void teamState::setPlayerInstancesCreated(bool created)	// sets the value of the playerInstancesCreated variable
+{
+	playerInstancesCreated = created;
+}
+
 int teamState::getPlayerWithBall(void) 	// retrives the value of playerWithBall
 {
 	return (playerWithBall);
@@ -272,6 +283,14 @@ void teamState::setPlayerWithBallDribbling(bool dribbling)	// sets the value of 
 	playerWithBallDribbling = dribbling;
 }
 
+int teamState::getHumanPlayer()		// retrieves the value of the humanPlayer variable
+{
+	return (humanPlayer);
+}
+void teamState::setHumanPlayer(int player)		// sets the value of the human player variable
+{
+	humanPlayer = player;
+}
 
 void teamState::setupState()	// sets up the state of the object
 {
@@ -286,8 +305,8 @@ void teamState::setupState()	// sets up the state of the object
     }
     setPlayerStartPositions();	// sets starting positions for the players
 
-    playerWithBall = 9; // FIXME! Temporarily ahrd code player controlling ball
-
+    playerWithBall = 4; // FIXME! Temporarily ahrd code player controlling ball
+    humanPlayer = 4;	// sets the human controlled player to the center for tip off
 /*    player->mAnimationState2 =  playerInstance[5].getModel()->getAnimationState("Walk");
     player->mAnimationState2->setLoop(true);
     player->mAnimationState2->setEnabled(true);
@@ -322,10 +341,10 @@ void teamState::updateState()	// updates the state of the object
 
 		if (gameS->getTipOffComplete())
 		{
-			exit(0);
+//			exit(0);
 			if (playerInstance[playerWithBall].getPassBall())	// checks if the player with ball is passing it.
 			{
-				exit(0);
+//				exit(0);
 				if (!playerInstance[playerWithBall].getPassCalculated())
 				{
 					Ogre::Vector3 bballPos;
@@ -379,7 +398,7 @@ void teamState::updateState()	// updates the state of the object
 	else
 	{
 	}
-	exit(0);
+//	exit(0);
 //	offenseInstance->updateState();	// updates the state of the offenseInstance object
 //	defenseInstance->updateState(); // updates the state of the defenseInstance object
 }
@@ -651,14 +670,17 @@ void teamState::updatePlayerMovements()	// updates player movements
 	Ogre::Vector3 posChange;	// stores change in position
 
 	posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
-
 	for (int i = 0; i < playerInstance.size(); ++i)
 	{
+        Ogre::LogManager::getSingletonPtr()->logMessage("i == " +Ogre::StringConverter::toString(i));
+
 		if (playerInstance[i].getMovement())	// if true sets coordinate change accordingly
 		{
+//			exit(0);
 			if (playerInstance[i].getDirection() == UP)
 			{
 				posChange = Ogre::Vector3(0.0f, 0.0f, -0.400f);
+//				exit(0);
 			}
 			else if (playerInstance[i].getDirection() == DOWN)
 			{
@@ -697,14 +719,17 @@ void teamState::updatePlayerMovements()	// updates player movements
 		}
 
 		playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
-		if (i != playerWithBall)	// only updates movement flag if player doesn't have ball
+/*		if (i != playerWithBall)	// only updates movement flag if player doesn't have ball
 		{
-			playerInstance[i].setMovement(false);
+		playerInstance[i].setMovement(false);
 		}
 		else
 		{
-		}
+		}	*/
+		playerInstance[i].setMovement(false);
 	}
+
+//	exit(0);
 }
 
 // FIXME! update for class reorganization

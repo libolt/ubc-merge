@@ -136,6 +136,7 @@ private:
     		}
     		else
     		{
+    			collision = false;
 //    			physE->setPairCollided(false);
     		}
     		return 1.f;

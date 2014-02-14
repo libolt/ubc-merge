@@ -315,46 +315,55 @@ void gameEngine::gameLoop()	// Main Game Loop
 						std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
 //						exit(0);
 						Ogre::String keyPressed = input->getKeyPressed();
-						int playerWithBall = teamInstance[0].getPlayerWithBall();
-						if (keyPressed == "q")
+						int humanPlayer = teamInstance[0].getHumanPlayer();
+						if (teamInstance[0].getPlayerInstancesCreated())
 						{
-							quitGame = true;
+							if (keyPressed == "q")
+							{
+								quitGame = true;
+							}
+							else if (keyPressed == "up")
+							{
+								Ogre::String packetData;
+								playerInstance[humanPlayer].setMovement(true);
+								playerInstance[humanPlayer].setDirection(UP);
+								teamInstance[0].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
+
+							}
+							else if (keyPressed == "down")
+							{
+								Ogre::String packetData;
+								playerInstance[humanPlayer].setMovement(true);
+								playerInstance[humanPlayer].setDirection(DOWN);
+								teamInstance[0].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
+							}
+							else if (keyPressed == "left")
+							{
+								Ogre::String packetData;
+								playerInstance[humanPlayer].setMovement(true);
+								playerInstance[humanPlayer].setDirection(LEFT);
+								teamInstance[0].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
+							}
+							else if (keyPressed == "right")
+							{
+								Ogre::String packetData;
+								playerInstance[humanPlayer].setMovement(true);
+								playerInstance[humanPlayer].setDirection(RIGHT);
+								teamInstance[0].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
+							}
+							else if (keyPressed == "rightAlt")
+							{
+								playerInstance[humanPlayer].setPassBall(true);
+								playerInstance[humanPlayer].setPassCalculated(false);
+								teamInstance[0].setPlayerWithBallDribbling(false);
+								teamInstance[0].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
+							}
 						}
-						else if (keyPressed == "up")
-						{
-							Ogre::String packetData;
-							playerInstance[playerWithBall].setMovement(true);
-							playerInstance[playerWithBall].setDirection(UP);
-							teamInstance[0].setPlayerInstance(playerInstance);
-						}
-						else if (keyPressed == "down")
-						{
-							Ogre::String packetData;
-							playerInstance[playerWithBall].setMovement(true);
-							playerInstance[playerWithBall].setDirection(DOWN);
-							teamInstance[0].setPlayerInstance(playerInstance);
-						}
-						else if (keyPressed == "left")
-						{
-							Ogre::String packetData;
-							playerInstance[playerWithBall].setMovement(true);
-							playerInstance[playerWithBall].setDirection(LEFT);
-							teamInstance[0].setPlayerInstance(playerInstance);
-						}
-						else if (keyPressed == "right")
-						{
-							Ogre::String packetData;
-							playerInstance[playerWithBall].setMovement(true);
-							playerInstance[playerWithBall].setDirection(RIGHT);
-							teamInstance[0].setPlayerInstance(playerInstance);
-						}
-						else if (keyPressed == "rightAlt")
-						{
-							playerInstance[playerWithBall].setPassBall(true);
-							playerInstance[playerWithBall].setPassCalculated(false);
-							teamInstance[0].setPlayerWithBallDribbling(false);
-							teamInstance[0].setPlayerInstance(playerInstance);
-					}
 
 					}
 
@@ -377,6 +386,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 								playerInstance[0].setMovement(true);
 								playerInstance[0].setDirection(UP);
 								teamInstance[1].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
 								packetData = "player0" + keyPressed;
 								network->sendPacket(packetData);
 							}
@@ -386,6 +396,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 								playerInstance[0].setMovement(true);
 								playerInstance[0].setDirection(DOWN);
 								teamInstance[1].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
 								packetData = "player0" + keyPressed;
 								network->sendPacket(packetData);
 							}
@@ -395,6 +406,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 								playerInstance[0].setMovement(true);
 								playerInstance[0].setDirection(LEFT);
 								teamInstance[1].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
 								packetData = "player0" + keyPressed;
 								network->sendPacket(packetData);
 							}
@@ -404,6 +416,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 								playerInstance[0].setMovement(true);
 								playerInstance[0].setDirection(RIGHT);
 								teamInstance[1].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
 								packetData = "player0" + keyPressed;
 								network->sendPacket(packetData);
 							}
@@ -414,6 +427,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 								playerInstance[playerWithBall].setPassCalculated(false);
 								teamInstance[1].setPlayerWithBallDribbling(false);
 								teamInstance[1].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
 								packetData = "player0" + keyPressed;
 								network->sendPacket(packetData);
 							}
@@ -435,6 +449,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 								playerInstance[0].setMovement(true);
 								playerInstance[0].setDirection(UP);
 								teamInstance[0].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
 								packetData = "player0" + keyPressed;
 								network->sendPacket(packetData);
 							}
@@ -444,6 +459,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 								playerInstance[0].setMovement(true);
 								playerInstance[0].setDirection(DOWN);
 								teamInstance[0].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
 								packetData = "player0" + keyPressed;
 								network->sendPacket(packetData);
 							}
@@ -453,6 +469,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 								playerInstance[0].setMovement(true);
 								playerInstance[0].setDirection(LEFT);
 								teamInstance[0].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
 								packetData = "player0" + keyPressed;
 								network->sendPacket(packetData);
 							}
@@ -462,6 +479,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 								playerInstance[0].setMovement(true);
 								playerInstance[0].setDirection(RIGHT);
 								teamInstance[0].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
 								packetData = "player0" + keyPressed;
 								network->sendPacket(packetData);
 							}
@@ -472,6 +490,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 								playerInstance[playerWithBall].setPassCalculated(false);
 								teamInstance[0].setPlayerWithBallDribbling(false);
 								teamInstance[0].setPlayerInstance(playerInstance);
+								gameS->setTeamInstance(teamInstance);
 								packetData = "player0" + keyPressed;
 								network->sendPacket(packetData);
 							}

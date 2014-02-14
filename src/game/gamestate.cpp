@@ -587,7 +587,7 @@ bool gameState::logic()
     else
     {
     }
-    exit(0);
+//    exit(0);
     return true;
 }
 
@@ -718,7 +718,7 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
 {
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
-	exit(0);
+//	exit(0);
 	directions playerDirection = playerInstance[playerWithBall].getDirection();
 	directions oldPlayerDirection = playerInstance[playerWithBall].getOldDirection();
 

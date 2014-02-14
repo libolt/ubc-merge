@@ -104,12 +104,19 @@ class teamState
         virtual void setDefense(bool set);	// sets defense variable
 
         // gets and sets playerInstance std::vector
-        std::vector <playerState> getPlayerInstance();
-        void setPlayerInstance(std::vector<playerState> pInstance);
-        virtual int getPlayerWithBall();	// retrives the value of playerWithBall
-        virtual void setPlayerWithBall(int ball);	// sets the value of playerWithBall
-        virtual bool getPlayerWithBallDribbling();	// retrieves the value of playerWithBallDribbling
-        virtual void setPlayerWithBallDribbling(bool dribbling);	// sets the value of playerWithBallDribbling
+        virtual std::vector <playerState> getPlayerInstance();
+        virtual void setPlayerInstance(std::vector<playerState> pInstance);
+
+        virtual bool getPlayerInstancesCreated();	// retrieves the value of the playerInstancesCreated variable
+        virtual void setPlayerInstancesCreated(bool created);	// sets the value of the playerInstancesCreated variable
+
+        virtual int getPlayerWithBall();	// retrieves the value of the playerWithBall variable
+        virtual void setPlayerWithBall(int ball);	// sets the value of the playerWithBall variable
+        virtual bool getPlayerWithBallDribbling();	// retrieves the value of the playerWithBallDribbling variable
+        virtual void setPlayerWithBallDribbling(bool dribbling);	// sets the value of the playerWithBallDribbling variable
+
+        virtual int getHumanPlayer();		// retrieves the value of the humanPlayer variable
+        virtual void setHumanPlayer(int player);	// sets the value of the human player variable
 
         // creates player Instances
         bool createPlayerInstances();
@@ -157,8 +164,10 @@ class teamState
         std::vector <playerState> playerInstance;    // creates instance of the playerState class
         std::vector <Ogre::String> playerModelsLoaded; // creates a vector of strings that holds the models which are loaded
         bool playerInstancesCreated;	// stores whether player instances have been created
-        int playerWithBall;	// stores which player has control of the basketball, valid values are 0 - 9
+        int playerWithBall;	// stores which player has control of the basketball, valid values are 0 - 4
         bool playerWithBallDribbling;	// stores whether the player with the ball is dribbling
+
+        int humanPlayer;	// stores which player is human controlled
 
         offenseState *offenseInstance;
         defenseState *defenseInstance;
