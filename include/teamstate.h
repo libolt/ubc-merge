@@ -115,6 +115,9 @@ class teamState
         virtual bool getPlayerWithBallDribbling();	// retrieves the value of the playerWithBallDribbling variable
         virtual void setPlayerWithBallDribbling(bool dribbling);	// sets the value of the playerWithBallDribbling variable
 
+        virtual bool getHumanControlled();		// retrieves the value of the humanControlled variable
+        virtual void setHumanControlled(bool controlled);		// sets the value of the humanControlled variable
+
         virtual int getHumanPlayer();		// retrieves the value of the humanPlayer variable
         virtual void setHumanPlayer(int player);	// sets the value of the human player variable
 
@@ -167,6 +170,7 @@ class teamState
         int playerWithBall;	// stores which player has control of the basketball, valid values are 0 - 4
         bool playerWithBallDribbling;	// stores whether the player with the ball is dribbling
 
+        bool humanControlled;	// stores whether the team object is controlled by a human player;
         int humanPlayer;	// stores which player is human controlled
 
         offenseState *offenseInstance;

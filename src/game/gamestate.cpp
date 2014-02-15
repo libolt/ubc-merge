@@ -321,6 +321,8 @@ bool gameState::createTeamInstances()
 
 	teamInstance[0].setTeamNumber(0);
 	teamInstance[1].setTeamNumber(1);
+	teamInstance[0].setHumanControlled(true);
+	teamInstance[1].setHumanControlled(true);
 	teamInstance[0].setupState();
 	teamInstance[1].setupState();
 //	exit(0);
@@ -424,7 +426,8 @@ bool gameState::setupState()
     {
     	if(createTeamInstances())	// creates the team instances
     	{
-    		teamInstancesCreated = true;
+    	    Ogre::LogManager::getSingletonPtr()->logMessage("TIC!");
+   		teamInstancesCreated = true;
     	}
     }
 

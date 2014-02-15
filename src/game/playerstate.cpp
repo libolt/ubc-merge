@@ -553,7 +553,7 @@ bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D mod
 //	cout << "posChange = " << posChange << endl;
     node->translate(posChange);
 	btVector3 change = btVector3(0,0,0);
-//	change = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
+	change = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
 	Ogre::LogManager::getSingletonPtr()->logMessage("playerPhysicsSetup = " +Ogre::StringConverter::toString(physEngine->getPlayerPhysicsSetup()));
 
 	physBody->translate(change); // moves physics body in unison with the model
@@ -564,11 +564,12 @@ bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D mod
 
 void playerState::calculatePass()	// calculates which player to pass the ball to
 {
+	exit(0);
+
 	gameState *gameS = gameState::Instance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 	int teamWithBall = gameS->getTeamWithBall();
 	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
-
 //	if (playerWithBall < 5)	// checks if the player belongs to the first team
 //	{
 		if (playerWithBall +1 < 5)	// checks if the player + 1 is still on the first team

@@ -398,25 +398,29 @@ void physicsEngine::updateState()
 
 		if (gameS->getBallTipped() && gameS->getBallTipForceApplied())
 		{
-			if (gameS->getBallTippedToPlayer() == 0)
+			if (gameS->getBallTippedToTeam() == 0)
 			{
-	//		bInstance[0].getPhysBody()->forceActivationState(ACTIVE_TAG);
-	//    	bInstance[0].getPhysBody()->applyForce(btVector3(1.20f, -1.60f, 0.0f),btVector3(0.0f,0.0f,0.0f));
-				bInstance[0].getPhysBody()->setLinearVelocity(btVector3(20,0,0));
-	//    	gameS->setBallTipForceApplied(true);
+				if (gameS->getBallTippedToPlayer() == 0)
+				{
+//					exit(0);
+		//		bInstance[0].getPhysBody()->forceActivationState(ACTIVE_TAG);
+		//    	bInstance[0].getPhysBody()->applyForce(btVector3(1.20f, -1.60f, 0.0f),btVector3(0.0f,0.0f,0.0f));
+					bInstance[0].getPhysBody()->setLinearVelocity(btVector3(20,0,0));
+//					exit(0);
+		//    	gameS->setBallTipForceApplied(true);
 
+				}
+//			Ogre::LogManager::getSingletonPtr()->logMessage("player tipped to = " +Ogre::StringConverter::toString(gameS->getBallTippedToPlayer()));
 			}
-			else if (gameS->getBallTippedToPlayer() == 5)
+//			exit(0);
+			else if (gameS->getBallTippedToTeam() == 1)
 			{
-	//        	bInstance[0].getPhysBody()->applyForce(btVector3(-1.20f, -1.60f, 0.0f),btVector3(0.0f,0.0f,0.0f));
-				bInstance[0].getPhysBody()->setLinearVelocity(btVector3(-20,0,0));
+				if (gameS->getBallTippedToPlayer() == 0)
+				{
+					bInstance[0].getPhysBody()->setLinearVelocity(btVector3(-20,0,0));
 
+				}
 			}
-			else
-			{
-			}
-
-
 		}
 		else
 		{
@@ -433,9 +437,33 @@ void physicsEngine::updateState()
 					tipOffCollisionCheck();
 		}
 //		else if (!playerInstance[playerWithBall].getPassBall())
-		else
+		else if (gameS->getTipOffComplete())
 		{
+			if (teamWithBall >= 0)
+			{
+	//			exit(0);
+				if (teamInstance[teamWithBall].getPlayerWithBallDribbling()) // checks if the player with ball is dribbling and updates accordingly
+				{
+//					exit(0);
+					ballDribbling();
+					Ogre::LogManager::getSingletonPtr()->logMessage("Human Player = " +Ogre::StringConverter::toString(teamInstance[1].getHumanPlayer()));
+
+				}
+/*				else if (!teamInstance[teamWithBall].getPlayerWithBallDribbling()) // checks if the player with ball is dribbling and updates accordingly
+				{
+					exit(0);
+					cout << "dah" << endl;
+
+				}*/
+				else
+				{
+					Ogre::LogManager::getSingletonPtr()->logMessage("Not Dribbling");
+
+				}
+				Ogre::LogManager::getSingletonPtr()->logMessage("A Team Has Ball");
+
 			playerInstance = teamInstance[teamWithBall].getPlayerInstance();
+			playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
 			if (!playerInstance[playerWithBall].getPassBall())
 			{
 				teamInstance[teamWithBall].setPlayerWithBallDribbling(true);
@@ -451,19 +479,11 @@ void physicsEngine::updateState()
 			{
 			}
 		}
-//		else
-//		{
-//		}
-	//    }
-		if (teamInstance[teamWithBall].getPlayerWithBallDribbling()) // checks if the player with ball is dribbling and updates accordingly
-		{
-			ballDribbling();
-		}
 		else
 		{
-
 		}
-
+    }
+		Ogre::LogManager::getSingletonPtr()->logMessage("Time");
 
 		//    unsigned long loopChangeInTime;	// stores change in time.
 
@@ -523,20 +543,33 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 	if (gameS->getBallTipped())		// if basketball has been tipped checks for collision between ball and player it was tipped to
 	{
 //		exit(0);
+		Ogre::LogManager::getSingletonPtr()->logMessage("Physics team ball tipped to = " +Ogre::StringConverter::toString(ballTippedToTeam));
+
 		std::vector<playerState> playerInstance = teamInstance[ballTippedToTeam].getPlayerInstance();
 		world->contactPairTest(bInstance[0].getPhysBody(), playerInstance[gameS->getBallTippedToPlayer()].getPhysBody(), tipOffResult);
 		if (tipOffResult.collision)
 		{
-			teamInstance[ballTippedToTeam].setPlayerWithBall(gameS->getBallTippedToPlayer());
 			gameS->setBallTipForceApplied(false);
 //        	bInstance[0].getPhysBody()->applyForce(btVector3(-1.0f, 0.50f, 0.0f),btVector3(0.0f,0.0f,0.0f));
 //			bInstance[0].getPhysBody()->forceActivationState(ISLAND_SLEEPING);
 			bInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,0,0));
     	    gameS->setTipOffComplete(true);
     	    gameS->setTeamWithBall(ballTippedToTeam);
+			teamInstance[ballTippedToTeam].setPlayerWithBall(gameS->getBallTippedToPlayer());
+			teamInstance[ballTippedToTeam].setHumanPlayer(gameS->getBallTippedToPlayer());
+			teamInstance[ballTippedToTeam].setPlayerWithBallDribbling(true);
+			gameS->setTeamInstance(teamInstance);
+
+			int humanPlayer = teamInstance[ballTippedToTeam].getHumanPlayer();
+			Ogre::LogManager::getSingletonPtr()->logMessage("ballTippedToTeam" +Ogre::StringConverter::toString(ballTippedToTeam));
+
+			Ogre::LogManager::getSingletonPtr()->logMessage("human player tipped to = " +Ogre::StringConverter::toString(humanPlayer));
+
 
 //			exit(0);
 		}
+
+
 	}
 	else
 	{
@@ -586,8 +619,11 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 				Ogre::LogManager::getSingletonPtr()->logMessage("Ball Tipped");
 				gameS->setBallTipped(true);
 				gameS->setBallTippedToTeam(x);
+				Ogre::LogManager::getSingletonPtr()->logMessage("Tipped X = " +Ogre::StringConverter::toString(x));
+//				exit(0);
 				gameS->setBallTippedToPlayer(0);
 			    gameS->setBallTipForceApplied(true);
+			    tipOffResult.collision = false;
 			}
 		}
 	}

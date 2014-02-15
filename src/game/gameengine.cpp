@@ -312,59 +312,124 @@ void gameEngine::gameLoop()	// Main Game Loop
 					{
 
 						std::vector<teamState> teamInstance = gameS->getTeamInstance();
-						std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
 //						exit(0);
 						Ogre::String keyPressed = input->getKeyPressed();
-						int humanPlayer = teamInstance[0].getHumanPlayer();
+						int teamWithBall = gameS->getTeamWithBall();
+//						int humanPlayer = teamInstance[teamWithBall].getHumanPlayer();
 						if (teamInstance[0].getPlayerInstancesCreated())
 						{
-							if (keyPressed == "q")
-							{
-								quitGame = true;
-							}
-							else if (keyPressed == "up")
-							{
-								Ogre::String packetData;
-								playerInstance[humanPlayer].setMovement(true);
-								playerInstance[humanPlayer].setDirection(UP);
-								teamInstance[0].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
+//							exit(0);
+							std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
 
-							}
-							else if (keyPressed == "down")
+							if (teamInstance[0].getHumanControlled())
 							{
-								Ogre::String packetData;
-								playerInstance[humanPlayer].setMovement(true);
-								playerInstance[humanPlayer].setDirection(DOWN);
-								teamInstance[0].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
-							}
-							else if (keyPressed == "left")
-							{
-								Ogre::String packetData;
-								playerInstance[humanPlayer].setMovement(true);
-								playerInstance[humanPlayer].setDirection(LEFT);
-								teamInstance[0].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
-							}
-							else if (keyPressed == "right")
-							{
-								Ogre::String packetData;
-								playerInstance[humanPlayer].setMovement(true);
-								playerInstance[humanPlayer].setDirection(RIGHT);
-								teamInstance[0].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
-							}
-							else if (keyPressed == "rightAlt")
-							{
-								playerInstance[humanPlayer].setPassBall(true);
-								playerInstance[humanPlayer].setPassCalculated(false);
-								teamInstance[0].setPlayerWithBallDribbling(false);
-								teamInstance[0].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
+								int humanPlayer = teamInstance[0].getHumanPlayer();
+								if (keyPressed == "q")
+								{
+									quitGame = true;
+								}
+								else if (keyPressed == "up")
+								{
+									Ogre::String packetData;
+									playerInstance[humanPlayer].setMovement(true);
+									playerInstance[humanPlayer].setDirection(UP);
+									Ogre::LogManager::getSingletonPtr()->logMessage("Human Player keypress = " +Ogre::StringConverter::toString(humanPlayer));
+
+									teamInstance[0].setPlayerInstance(playerInstance);
+									gameS->setTeamInstance(teamInstance);
+
+								}
+								else if (keyPressed == "down")
+								{
+									Ogre::String packetData;
+									playerInstance[humanPlayer].setMovement(true);
+									playerInstance[humanPlayer].setDirection(DOWN);
+									teamInstance[0].setPlayerInstance(playerInstance);
+									gameS->setTeamInstance(teamInstance);
+								}
+								else if (keyPressed == "left")
+								{
+									Ogre::String packetData;
+									playerInstance[humanPlayer].setMovement(true);
+									playerInstance[humanPlayer].setDirection(LEFT);
+									teamInstance[0].setPlayerInstance(playerInstance);
+									gameS->setTeamInstance(teamInstance);
+								}
+								else if (keyPressed == "right")
+								{
+									Ogre::String packetData;
+									playerInstance[humanPlayer].setMovement(true);
+									playerInstance[humanPlayer].setDirection(RIGHT);
+									teamInstance[0].setPlayerInstance(playerInstance);
+									gameS->setTeamInstance(teamInstance);
+								}
+								else if (keyPressed == "rightAlt")
+								{
+									playerInstance[humanPlayer].setPassBall(true);
+									playerInstance[humanPlayer].setPassCalculated(false);
+									teamInstance[0].setPlayerWithBallDribbling(false);
+									teamInstance[0].setPlayerInstance(playerInstance);
+									gameS->setTeamInstance(teamInstance);
+								}
 							}
 						}
 
+						if (teamInstance[1].getPlayerInstancesCreated())
+						{
+							std::vector<playerState> playerInstance = teamInstance[1].getPlayerInstance();
+
+							if (teamInstance[1].getHumanControlled())
+							{
+								int humanPlayer = teamInstance[1].getHumanPlayer();
+								if (keyPressed == "q")
+								{
+									quitGame = true;
+								}
+								else if (keyPressed == "w")
+								{
+									Ogre::String packetData;
+									playerInstance[humanPlayer].setMovement(true);
+									playerInstance[humanPlayer].setDirection(UP);
+									Ogre::LogManager::getSingletonPtr()->logMessage("Human Player keypress = " +Ogre::StringConverter::toString(humanPlayer));
+
+									teamInstance[1].setPlayerInstance(playerInstance);
+									gameS->setTeamInstance(teamInstance);
+
+								}
+								else if (keyPressed == "s")
+								{
+									Ogre::String packetData;
+									playerInstance[humanPlayer].setMovement(true);
+									playerInstance[humanPlayer].setDirection(DOWN);
+									teamInstance[1].setPlayerInstance(playerInstance);
+									gameS->setTeamInstance(teamInstance);
+								}
+								else if (keyPressed == "a")
+								{
+									Ogre::String packetData;
+									playerInstance[humanPlayer].setMovement(true);
+									playerInstance[humanPlayer].setDirection(LEFT);
+									teamInstance[1].setPlayerInstance(playerInstance);
+									gameS->setTeamInstance(teamInstance);
+								}
+								else if (keyPressed == "d")
+								{
+									Ogre::String packetData;
+									playerInstance[humanPlayer].setMovement(true);
+									playerInstance[humanPlayer].setDirection(RIGHT);
+									teamInstance[1].setPlayerInstance(playerInstance);
+									gameS->setTeamInstance(teamInstance);
+								}
+								else if (keyPressed == "leftAlt")
+								{
+									playerInstance[humanPlayer].setPassBall(true);
+									playerInstance[humanPlayer].setPassCalculated(false);
+									teamInstance[1].setPlayerWithBallDribbling(false);
+									teamInstance[1].setPlayerInstance(playerInstance);
+									gameS->setTeamInstance(teamInstance);
+								}
+							}
+						}
 					}
 
 					else if (gameS->getGameType() == MULTI)

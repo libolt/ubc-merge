@@ -39,9 +39,11 @@ teamState::teamState()
     defenseInstance = new defenseState;
 
 	playerInstancesCreated = false;
-    playerWithBall = 9;
+    playerWithBall = 3;
+    humanPlayer = 3;
     playerWithBallDribbling = false;
 
+    humanControlled = false;
     humanPlayer = -1;
 
 //    setupState();
@@ -283,6 +285,15 @@ void teamState::setPlayerWithBallDribbling(bool dribbling)	// sets the value of 
 	playerWithBallDribbling = dribbling;
 }
 
+bool teamState::getHumanControlled()		// retrieves the value of the humanControlled variable
+{
+	return (humanControlled);
+}
+void teamState::setHumanControlled(bool controlled)		// sets the value of the humanControlled variable
+{
+	humanControlled = controlled;
+}
+
 int teamState::getHumanPlayer()		// retrieves the value of the humanPlayer variable
 {
 	return (humanPlayer);
@@ -305,8 +316,8 @@ void teamState::setupState()	// sets up the state of the object
     }
     setPlayerStartPositions();	// sets starting positions for the players
 
-    playerWithBall = 4; // FIXME! Temporarily ahrd code player controlling ball
-    humanPlayer = 4;	// sets the human controlled player to the center for tip off
+//    playerWithBall = 3; // FIXME! Temporarily ahrd code player controlling ball
+//    humanPlayer = 3;	// sets the human controlled player to the center for tip off
 /*    player->mAnimationState2 =  playerInstance[5].getModel()->getAnimationState("Walk");
     player->mAnimationState2->setLoop(true);
     player->mAnimationState2->setEnabled(true);
@@ -342,11 +353,22 @@ void teamState::updateState()	// updates the state of the object
 		if (gameS->getTipOffComplete())
 		{
 //			exit(0);
-			if (playerInstance[playerWithBall].getPassBall())	// checks if the player with ball is passing it.
+			Ogre::LogManager::getSingletonPtr()->logMessage("Team with ball ==  "  +Ogre::StringConverter::toString(gameS->getTeamWithBall()));
+			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
+			if (!playerInstance[playerWithBall].getPassBall())	// checks if the player with ball is passing it.
 			{
 //				exit(0);
+			}
+			else if (playerInstance[playerWithBall].getPassBall())
+			{
+				exit(0);
 				if (!playerInstance[playerWithBall].getPassCalculated())
 				{
+					int x = 0;
+				}
+				else if (playerInstance[playerWithBall].getPassCalculated())
+				{
+					exit(0);
 					Ogre::Vector3 bballPos;
 					Ogre::Vector3 playerPos;
 					playerInstance[playerWithBall].calculatePass();
@@ -357,7 +379,8 @@ void teamState::updateState()	// updates the state of the object
 					bballPos[1] = playerPos[1];
 					basketballInstance[0].getNode()->setPosition(bballPos);
 				}
-				else if (physEngine->getPassCollision())	// checks if ball has collided with player being passed to.
+
+				if (physEngine->getPassCollision())	// checks if ball has collided with player being passed to.
 				{
 					playerInstance[playerWithBall].setPassBall(false);	// player is no longer passing the ball
 					playerWithBall = playerInstance[playerWithBall].getPassToPlayer(); // playerWithBall has changed
@@ -368,10 +391,6 @@ void teamState::updateState()	// updates the state of the object
 				{
 					executePass();
 				}
-
-			}
-			else
-			{
 
 			}
 			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
