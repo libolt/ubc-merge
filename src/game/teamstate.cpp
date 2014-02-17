@@ -39,12 +39,11 @@ teamState::teamState()
     defenseInstance = new defenseState;
 
 	playerInstancesCreated = false;
-    playerWithBall = 3;
-    humanPlayer = 3;
+    playerWithBall = 4;
     playerWithBallDribbling = false;
 
     humanControlled = false;
-    humanPlayer = -1;
+    humanPlayer = 4;
 
 //    setupState();
 }
@@ -355,47 +354,58 @@ void teamState::updateState()	// updates the state of the object
 //			exit(0);
 			Ogre::LogManager::getSingletonPtr()->logMessage("Team with ball ==  "  +Ogre::StringConverter::toString(gameS->getTeamWithBall()));
 			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
-			if (!playerInstance[playerWithBall].getPassBall())	// checks if the player with ball is passing it.
+
+			if (gameS->getTeamWithBall() == teamNumber) // checks if the team has the basketball
 			{
-//				exit(0);
+				if (!playerInstance[playerWithBall].getPassBall())	// checks if the player with ball is passing it.
+				{
+	//				exit(0);
+				}
+				else if (playerInstance[playerWithBall].getPassBall())
+				{
+					Ogre::LogManager::getSingletonPtr()->logMessage("Calculating Pass");
+	//				exit(0);
+					if (!playerInstance[playerWithBall].getPassCalculated())
+					{
+	//					exit(0);
+						Ogre::Vector3 bballPos;
+						Ogre::Vector3 playerPos;
+						playerInstance[playerWithBall].calculatePass();
+
+						//sets the basketball Height;
+						bballPos = basketballInstance[0].getNode()->getPosition();
+						playerPos = playerInstance[playerWithBall].getNode()->getPosition();
+						bballPos[1] = playerPos[1];
+						basketballInstance[0].getNode()->setPosition(bballPos);
+
+					}
+					else if (playerInstance[playerWithBall].getPassCalculated())
+					{
+						exit(0);
+						executePass();
+						if (physEngine->getPassCollision())	// checks if ball has collided with player being passed to.
+						{
+							exit(0);
+							playerInstance[playerWithBall].setPassBall(false);	// player is no longer passing the ball
+							playerWithBall = playerInstance[playerWithBall].getPassToPlayer(); // playerWithBall has changed
+
+							if (humanControlled)
+							{
+								humanPlayer = playerWithBall;
+							}
+							physEngine->setPassCollision(false);	// resets the pass collision state
+
+						}
+						else
+						{
+						}
+
+					}
+				}
+				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
+				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's name: "  +playerInstance[playerWithBall].getPlayerName());
+				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition()));
 			}
-			else if (playerInstance[playerWithBall].getPassBall())
-			{
-				exit(0);
-				if (!playerInstance[playerWithBall].getPassCalculated())
-				{
-					int x = 0;
-				}
-				else if (playerInstance[playerWithBall].getPassCalculated())
-				{
-					exit(0);
-					Ogre::Vector3 bballPos;
-					Ogre::Vector3 playerPos;
-					playerInstance[playerWithBall].calculatePass();
-
-					//sets the basketball Height;
-					bballPos = basketballInstance[0].getNode()->getPosition();
-					playerPos = playerInstance[playerWithBall].getNode()->getPosition();
-					bballPos[1] = playerPos[1];
-					basketballInstance[0].getNode()->setPosition(bballPos);
-				}
-
-				if (physEngine->getPassCollision())	// checks if ball has collided with player being passed to.
-				{
-					playerInstance[playerWithBall].setPassBall(false);	// player is no longer passing the ball
-					playerWithBall = playerInstance[playerWithBall].getPassToPlayer(); // playerWithBall has changed
-					physEngine->setPassCollision(false);	// resets the pass collision state
-
-				}
-				else
-				{
-					executePass();
-				}
-
-			}
-			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
-			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's name: "  +playerInstance[playerWithBall].getPlayerName());
-			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition()));
 		}
 
 		updatePlayerMovements();	// updates movement of player objects
@@ -755,18 +765,20 @@ void teamState::updatePlayerMovements()	// updates player movements
 
 void teamState::executePass()		// executes the pass between players
 {
+	Ogre::LogManager::getSingletonPtr()->logMessage("In executePass function");
+
 	gameState *gameS = gameState::Instance();
 
 	int passToPlayer = playerInstance[playerWithBall].getPassToPlayer();
-
 	std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
 	Ogre::Vector3 playerWithBallCoords = playerInstance[playerWithBall].getNode()->getPosition();
 	Ogre::Vector3 passToPlayerCoords = playerInstance[passToPlayer].getNode()->getPosition();
+//	exit(0);
 	Ogre::Vector3 bballCoords = basketballInstance[0].getNode()->getPosition();
 	btVector3 bballPosChange;
 	btVector3 bballPhysCoords;
 	btTransform transform;
-
+//	exit(0);
     Ogre::LogManager::getSingletonPtr()->logMessage("Basketball = " + Ogre::StringConverter::toString(bballCoords));
     Ogre::LogManager::getSingletonPtr()->logMessage("passToPlayer = " + Ogre::StringConverter::toString(passToPlayerCoords));
 

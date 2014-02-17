@@ -564,7 +564,8 @@ bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D mod
 
 void playerState::calculatePass()	// calculates which player to pass the ball to
 {
-	exit(0);
+//	exit(0);
+	Ogre::LogManager::getSingletonPtr()->logMessage("In calculatePass function");
 
 	gameState *gameS = gameState::Instance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
@@ -597,6 +598,9 @@ void playerState::calculatePass()	// calculates which player to pass the ball to
 	{
 	}
 */
+		Ogre::LogManager::getSingletonPtr()->logMessage("Pass to player is now = " +Ogre::StringConverter::toString(passToPlayer));
+
+
 	passCalculated = true;
 //	Ogre::LogManager::getSingletonPtr()->logMessage("Player to pass to =   " +Ogre::StringConverter::toString(passToPlayer));
 

@@ -330,10 +330,10 @@ void gameEngine::gameLoop()	// Main Game Loop
 								}
 								else if (keyPressed == "up")
 								{
+									Ogre::LogManager::getSingletonPtr()->logMessage("Human Player keypress = " +Ogre::StringConverter::toString(humanPlayer));
 									Ogre::String packetData;
 									playerInstance[humanPlayer].setMovement(true);
 									playerInstance[humanPlayer].setDirection(UP);
-									Ogre::LogManager::getSingletonPtr()->logMessage("Human Player keypress = " +Ogre::StringConverter::toString(humanPlayer));
 
 									teamInstance[0].setPlayerInstance(playerInstance);
 									gameS->setTeamInstance(teamInstance);
@@ -351,6 +351,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 								{
 									Ogre::String packetData;
 									playerInstance[humanPlayer].setMovement(true);
+//									exit(0);
 									playerInstance[humanPlayer].setDirection(LEFT);
 									teamInstance[0].setPlayerInstance(playerInstance);
 									gameS->setTeamInstance(teamInstance);
