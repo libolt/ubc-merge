@@ -521,7 +521,7 @@ exit(0);
 
     unsigned long oldTime = gameE->getOldTime();
     int newTime = gameE->loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
-    float changeInTime = newTime - oldTime;
+    unsigned long changeInTime = newTime - oldTime;
 
     Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
 
@@ -536,7 +536,7 @@ exit(0);
 //    mGUIManager->injectMouseMove( ms.X.rel, ms.Y.rel );
 //    exit(0);
     Ogre::Real times;
-    Ogre::FrameEvent evt;
+//    Ogre::FrameEvent evt;
     times = 0.01f;
 //    cout << "time since last frame = " << times << endl;
 

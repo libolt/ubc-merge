@@ -381,7 +381,7 @@ void teamState::updateState()	// updates the state of the object
 					}
 					else if (playerInstance[playerWithBall].getPassCalculated())
 					{
-						exit(0);
+//						exit(0);
 						executePass();
 						if (physEngine->getPassCollision())	// checks if ball has collided with player being passed to.
 						{
@@ -450,7 +450,7 @@ bool teamState::createPlayerInstances()
     Ogre::LogManager::getSingletonPtr()->logMessage("playerDataInstance size = " +Ogre::StringConverter::toString(playerDataInstance.size()));
 //    exit(0);
 //    for (playerIT = playerDataInstance.begin(); playerIT != playerDataInstance.end(); ++playerIT)   // loops through playerID std::vector
-    for (int i = 0;i < playerDataInstance.size(); ++i)
+    for (size_t i = 0;i < playerDataInstance.size(); ++i)
     {
 
             playerState pInstance;  // creates a new instance of playerState
@@ -482,8 +482,8 @@ bool teamState::createPlayerInstances()
 //    exit(0);
 //    std::vector <playerState>::iterator pInstanceIT;
 
-    int pInstanceIT = 0;
-    for (pInstanceIT = 0; pInstanceIT < playerInstance.size(); ++pInstanceIT)
+
+    for (size_t pInstanceIT = 0; pInstanceIT < playerInstance.size(); ++pInstanceIT)
     {
     	if (std::find(playerModelsLoaded.begin(), playerModelsLoaded.end(), playerInstance[pInstanceIT].getPlayerName()) != playerModelsLoaded.end())
     	{
@@ -595,7 +595,7 @@ void teamState::updatePlayerDirections()
     Ogre::LogManager::getSingletonPtr()->logMessage("playerID == " +playerID);
     // checks if a player's direction has changed and rotates the model accordingly.
 //    for(playersIT = playerNodes.begin(); playersIT != playerNodes.end(); ++playersIT)
-    for (int i = 0; i < playerInstance.size(); ++i)
+    for (size_t i = 0; i < playerInstance.size(); ++i)
     {
     	playerDirection = playerInstance[i].getDirection();
     	oldPlayerDirection = playerInstance[i].getOldDirection();
@@ -699,7 +699,7 @@ void teamState::updatePlayerMovements()	// updates player movements
 	Ogre::Vector3 posChange;	// stores change in position
 
 	posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
-	for (int i = 0; i < playerInstance.size(); ++i)
+	for (size_t i = 0; i < playerInstance.size(); ++i)
 	{
         Ogre::LogManager::getSingletonPtr()->logMessage("i == " +Ogre::StringConverter::toString(i));
 
@@ -844,11 +844,10 @@ void teamState::executePass()		// executes the pass between players
 
 void teamState::updatePositions()
 {
+
 	// updates the player positions on the court
-	for (int x = 0; x < playerInstance.size(); ++x)
+	for (size_t x = 0; x < playerInstance.size(); ++x)
 	{
-//		x += 1;
-//		cout << "X = " << x << endl;
 		Ogre::LogManager::getSingletonPtr()->logMessage("updatePositions X = " +Ogre::StringConverter::toString(x));
         playerInstance[x].updatePosition();
     }
