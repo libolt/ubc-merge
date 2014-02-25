@@ -755,7 +755,6 @@ void physicsEngine::passCollisionCheck()	// checks whether the ball has collided
 		Ogre::LogManager::getSingletonPtr()->logMessage("No Pass Collision");
 
 		passCollision = false;
-//		exit(0);
 	}
 	else
 	{

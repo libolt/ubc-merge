@@ -381,7 +381,7 @@ void teamState::updateState()	// updates the state of the object
 					}
 					else if (playerInstance[playerWithBall].getPassCalculated())
 					{
-						exit(0);
+//						exit(0);
 						executePass();
 						if (physEngine->getPassCollision())	// checks if ball has collided with player being passed to.
 						{
