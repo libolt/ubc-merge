@@ -23,13 +23,9 @@
 #include "gamestate.h"
 #include "ubcapp.h"
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-#include "OgreRenderWindow.h"
-#include "OgreStringConverter.h"
-#include "OgreRTShaderSystem.h"
-#include "OgreGLES2RenderSystem.h"
-#include "RTShaderHelper.h"
-#endif
+//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+#include "android.h"
+//#endif
 
 UBC::UBC()
 {
@@ -52,7 +48,47 @@ void UBC::setQuitGame(bool quit)
 }
 
 # if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+void android_main(struct android_app* state)
+{
+    app_dummy();
+    
+	if(gRoot == NULL)
+	{
+		gRoot = new Ogre::Root();
+#ifdef OGRE_STATIC_LIB
+        gStaticPluginLoader = new Ogre::StaticPluginLoader();
+        gStaticPluginLoader->load();
+#endif
+        gRoot->setRenderSystem(gRoot->getAvailableRenderers().at(0));
+        gRoot->initialise(false);	
+	}			
+			
+    state->onAppCmd = &handleCmd;
+    state->onInputEvent = &handleInput;
+    
+    int ident, events;
+    struct android_poll_source* source;
+    
+    while (true)
+    {
+        while ((ident = ALooper_pollAll(0, NULL, &events, (void**)&source)) >= 0)
+        {
+            if (source != NULL)
+                source->process(state, source);
+            
+            if (state->destroyRequested != 0)
+                return;
+        }
+        
+		if(gRenderWnd != NULL && gRenderWnd->isActive())
+		{
+			gRenderWnd->windowMovedOrResized();
+			gRoot->renderOneFrame();
+		}
+    }
+}
 
+/*
 // void android_main(struct android_app* state)
 //{
 //    app_dummy();
@@ -113,13 +149,13 @@ static void setupScene()
 	Ogre::RTShader::ShaderGenerator::getSingletonPtr()->setTargetLanguage("glsles");
 	gMatListener = new Ogre::ShaderGeneratorTechniqueResolverListener();
 	Ogre::MaterialManager::getSingleton().addListener(gMatListener);
-//<<<<<<< HEAD
+
 	
 	gSceneMgr = render->getMRoot()->createSceneManager(Ogre::ST_GENERIC);
 //=======
 
 	gSceneMgr = gRoot->createSceneManager(Ogre::ST_GENERIC);
-//>>>>>>> c5d0089096d04c7e0b41db62f7d639f88c5b4744
+
 	Ogre::RTShader::ShaderGenerator::getSingletonPtr()->addSceneManager(gSceneMgr);
 
 	Ogre::Camera* camera = gSceneMgr->createCamera("MyCam");
@@ -224,7 +260,7 @@ static void handleCmd(struct android_app* app, int32_t cmd)
 }
 
 //void android_main(struct android_app* state)
-/*{
+{
     app_dummy();
 //<<<<<<< HEAD
     
