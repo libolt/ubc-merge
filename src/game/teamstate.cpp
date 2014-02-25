@@ -39,7 +39,7 @@ teamState::teamState()
     defenseInstance = new defenseState;
 
 	playerInstancesCreated = false;
-    playerWithBall = 4;
+    playerWithBall = -1;
     playerWithBallDribbling = false;
 
     humanControlled = false;

@@ -57,6 +57,7 @@ public:
     virtual bool setupPlayerPhysics(); // setsup up player physics
 
     virtual void updateState(); // updates the state of the physics engine.
+	virtual void stepWorld();	// steps the physics simulation
 
     virtual void tipOffCollisionCheck();	// checks whether team 1 or team 2's center made contact with ball
     virtual void ballDribbling();	// simulates basketball dribble
@@ -159,15 +160,7 @@ struct   MyContactResultCallback : public btCollisionWorld::ContactResultCallbac
 	{
 		if (cp.getDistance() <= 0)
 		{
-
 			m_connected = true;
-			Ogre::LogManager::getSingletonPtr()->logMessage("Court Collision!!");
-
-		}
-		else
-		{
-			Ogre::LogManager::getSingletonPtr()->logMessage("No Court Collision");
-
 		}
 		return 1.f;
 	}

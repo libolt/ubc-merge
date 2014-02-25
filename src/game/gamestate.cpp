@@ -488,12 +488,12 @@ bool gameState::setupState()
 
     setupTipOff();	// sets up tip off conditions
 
-    teamWithBall = 0;	// FIXME! Temporarily hard code team controlling ball
+/*    teamWithBall = 0;	// FIXME! Temporarily hard code team controlling ball
 	teamInstance[0].setPlayerWithBall(0);
 	teamInstance[0].setPlayerWithBallDribbling(true);
-	tipOffComplete = true;
+	tipOffComplete = true; 
 	teamInstance[0].setHumanPlayer(0);
-
+	*/
     return true;
 }
 
@@ -543,7 +543,9 @@ bool gameState::logic()
 //   playerInstance[0].setDirection(RIGHT);
 
 
-    physEngine->updateState();
+    physEngine->updateState();	// updates the state of the physics simulation
+	physEngine->stepWorld();	// steps the physics simulation
+
     updateDirectionsAndMovements();
 //	exit(0);
 
