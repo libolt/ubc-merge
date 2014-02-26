@@ -18,13 +18,14 @@
 #include "Android/OgreAPKZipArchive.h"
 
 
-static Ogre::RenderWindow* gRenderWnd = NULL;
-static Ogre::Root* gRoot = NULL;
+//static Ogre::RenderWindow* gRenderWnd = NULL;
+//static Ogre::Root* gRoot = NULL;
 static Ogre::StaticPluginLoader* gStaticPluginLoader = NULL;
-static AAssetManager* gAssetMgr = NULL; 
-static Ogre::SceneManager* gSceneMgr = NULL;
+//static AAssetManager* gAssetMgr = NULL; 
+//static Ogre::SceneManager* gSceneMgr = NULL;
 static Ogre::ShaderGeneratorTechniqueResolverListener* gMatListener = NULL;
 
 static int32_t handleInput(struct android_app* app, AInputEvent* event);
 
 static void handleCmd(struct android_app* app, int32_t cmd);
+

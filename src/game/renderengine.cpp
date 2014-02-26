@@ -49,10 +49,31 @@ renderEngine::renderEngine()
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     gStaticPluginLoader = NULL;
 #endif
+   mWindow = NULL;
+   mRoot = NULL;
+   mAssetMgr = NULL;
+   mSceneMgr = NULL;
 }
 
 renderEngine::~renderEngine()
 {
+}
+
+Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
+{
+	renderEngine *renderE = renderEngine::Instance();
+	Ogre::DataStreamPtr stream;
+    AAsset* asset = AAssetManager_open(renderE->getMAssetMgr(), fileName.c_str(), AASSET_MODE_BUFFER);
+    if(asset)
+    {
+		off_t length = AAsset_getLength(asset);
+        void* membuf = OGRE_MALLOC(length, Ogre::MEMCATEGORY_GENERAL);
+        memcpy(membuf, AAsset_getBuffer(asset), length);
+        AAsset_close(asset);
+                
+        stream = Ogre::DataStreamPtr(new Ogre::MemoryDataStream(membuf, length, true, true));
+    }
+    return stream;
 }
 
 bool renderEngine::initSDL() // Initializes SDL Subsystem
@@ -89,14 +110,14 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	//    SoundSystem *sound = SoundSystem::Instance();
 
     #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-		      winHandle = Ogre::StringConverter::toString((unsigned long int)sysInfo.info.win.window);
-	   #elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
-		      winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.x11.window);
-	   #elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	       winHandle =  Ogre::StringConverter::toString((int)app->window);
-	   #else
+        winHandle = Ogre::StringConverter::toString((unsigned long int)sysInfo.info.win.window);
+	#elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+		winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.x11.window);
+	#elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	    winHandle =  Ogre::StringConverter::toString((int)app->window);
+	#else
 	    // Error, both can't be defined or undefined same time
-	   #endif
+	#endif
 //std::cout << "winHandle = " << winHandle << std::endl;
 	    mRoot = new Ogre::Root("", "", "Ogre.log");
 	    const Ogre::String pluginDir = OGRE_PLUGIN_DIR;
@@ -159,74 +180,11 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 		//we found it, we might as well use it!
 	 	mRoot->setRenderSystem(selectedRenderSystem);
 /*		selectedRenderSystem->setConfigOption("Full Screen","False");
-		selectedRenderSystem->setConfigOption("Video Mode","1024 x 768 @ 32-bit colour");
+		selectedRenderSystem->setOption("Video Mode","1024 x 768 @ 32-bit colour");
 */
 		//	mWindow = mRoot->initialise(true, "Ultimate Basketball Challenge");
 		mWindow = mRoot->initialise(false, "Ultimate Basketball Challenge");
 #endif
-
-
-	    std::string dataPath = UBC_DATADIR;
-
-	    mResourceGroup = "UBCData";
-	    Ogre::ResourceGroupManager *rsm = Ogre::ResourceGroupManager::getSingletonPtr();
-	    rsm->createResourceGroup(mResourceGroup);
-		// load the basic resource location(s)
-		rsm->addResourceLocation(dataPath + "/Media", "FileSystem", mResourceGroup);
-		rsm->addResourceLocation(dataPath + "/Media/fonts", "FileSystem", mResourceGroup);
-		rsm->addResourceLocation(dataPath + "/Media/gui", "FileSystem", mResourceGroup);
-		rsm->addResourceLocation(dataPath + "/Media/MyGUI_Media", "FileSystem", mResourceGroup);
-		rsm->addResourceLocation(dataPath + "/Media/models", "FileSystem", mResourceGroup);
-		rsm->addResourceLocation(dataPath + "/Media/materials/textures", "FileSystem", mResourceGroup);
-		rsm->addResourceLocation(dataPath + "/Media/materials/programs", "FileSystem", mResourceGroup);
-		rsm->addResourceLocation(dataPath + "/Media/materialss/scripts", "FileSystem", mResourceGroup);
-		rsm->addResourceLocation(dataPath + "/Media/materials", "FileSystem", mResourceGroup);
-		rsm->addResourceLocation(dataPath + "/Media/overlays", "FileSystem", mResourceGroup);
-		rsm->addResourceLocation(dataPath + "/Media/packs", "FileSystem", mResourceGroup);
-		rsm->addResourceLocation(dataPath + "/Media/skins", "FileSystem", mResourceGroup);
-		rsm->addResourceLocation(dataPath + "/Media/skins/qgui", "FileSystem", mResourceGroup);
-		rsm->addResourceLocation(dataPath + "/Media/Audio", "FileSystem", mResourceGroup);
-
-		rsm->initialiseResourceGroup(mResourceGroup);
-
-   //Ogre::LogManager::getSingletonPtr()->logMessage("Rendering!");
- 	  misc["externalWindowHandle"] = winHandle; //
-
-   #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-   config = AConfiguration_new();
-//  AConfiguration_fromAssetManager(config, app->activity->assetManager);
-   //gAssetMgr = app->activity->assetManager;
-		 misc["androidConfig"] = Ogre::StringConverter::toString((int)config);
-
-
-   mWindow = mRoot->createRenderWindow("UBC", 0, 0, false, &misc);
-   #else
-	  mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1024, 768, false, &misc);
-	  #endif
-
-	  mWindow->setVisible( true );
-
- 		 mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC); // for OGRE 1.2 Dagon
-	    mCamera = mSceneMgr->createCamera("camera");
-	    // Position it at 500 in Z direction
-	    mCamera->setPosition(Ogre::Vector3(0,0,455));
-	    // Look back along -Z
-	    mCamera->lookAt(Ogre::Vector3(0,0,-300));
-
-		mCamera->setNearClipDistance(5);
-	    viewPort = mWindow->addViewport(mCamera);
-	    viewPort->setBackgroundColour(Ogre::ColourValue(0,0,0));
-	    viewPort->setOverlaysEnabled(true);	// sets overlays true so that MyGUI can render
-		// most examples get the viewport size to calculate this; for now, we'll just
-		// set it to 4:3 the easy way
-		mCamera->setAspectRatio((Ogre::Real)1.333333);
-
-
-//	    Ogre::LogManager::getSingletonPtr()->logMessage("winHandle = " +winHandle);
-
-		// this next bit is for the sake of the input handler
-	//	unsigned long hWnd;
-//		mWindow->getCustomAttribute("WINDOW", &winHandle);
 
 
 /* Old Initialization code
@@ -431,6 +389,15 @@ void renderEngine::setMWindow(RenderWindow *window)
     mWindow = window;
 }
 
+AAssetManager* renderEngine::getMAssetMgr() 
+{
+	return (mAssetMgr);
+}
+void renderEngine::setMAssetMgr(AAssetManager* asset)
+{
+	mAssetMgr = asset;
+}
+
 Vector3 renderEngine::getMTranslateVector()
 {
     return (mTranslateVector);
@@ -593,8 +560,125 @@ void renderEngine::createSceneManager()
 
 }
 
+bool renderEngine::createWindow()
+{
+	
+}
 bool renderEngine::createScene()
 {
+	#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+/*
+    config = AConfiguration_new();
+	AConfiguration_fromAssetManager(config, app->activity->assetManager);
+    mAssetMgr = app->activity->assetManager;
+				
+//  AConfiguration_fromAssetManager(config, app->activity->assetManager);
+   //gAssetMgr = app->activity->assetManager;
+    misc["androidConfig"] = Ogre::StringConverter::toString((int)config);
+//    misc["externalWindowHandle"] = Ogre::StringConverter::toString((int)app->window);
+    misc["externalWindowHandle"] = winHandle;
+	exit(0);
+    mWindow = mRoot->createRenderWindow("UBC", 0, 0, false, &misc);
+	exit(0);*/
+#else
+	    std::string dataPath = UBC_DATADIR;
+
+	    mResourceGroup = "UBCData";
+	    Ogre::ResourceGroupManager *rsm = Ogre::ResourceGroupManager::getSingletonPtr();
+	    rsm->createResourceGroup(mResourceGroup);
+		// load the basic resource location(s)
+		rsm->addResourceLocation(dataPath + "/Media", "FileSystem", mResourceGroup);
+		rsm->addResourceLocation(dataPath + "/Media/fonts", "FileSystem", mResourceGroup);
+		rsm->addResourceLocation(dataPath + "/Media/gui", "FileSystem", mResourceGroup);
+		rsm->addResourceLocation(dataPath + "/Media/MyGUI_Media", "FileSystem", mResourceGroup);
+		rsm->addResourceLocation(dataPath + "/Media/models", "FileSystem", mResourceGroup);
+		rsm->addResourceLocation(dataPath + "/Media/materials/textures", "FileSystem", mResourceGroup);
+		rsm->addResourceLocation(dataPath + "/Media/materials/programs", "FileSystem", mResourceGroup);
+		rsm->addResourceLocation(dataPath + "/Media/materialss/scripts", "FileSystem", mResourceGroup);
+		rsm->addResourceLocation(dataPath + "/Media/materials", "FileSystem", mResourceGroup);
+		rsm->addResourceLocation(dataPath + "/Media/overlays", "FileSystem", mResourceGroup);
+		rsm->addResourceLocation(dataPath + "/Media/packs", "FileSystem", mResourceGroup);
+		rsm->addResourceLocation(dataPath + "/Media/skins", "FileSystem", mResourceGroup);
+		rsm->addResourceLocation(dataPath + "/Media/skins/qgui", "FileSystem", mResourceGroup);
+		rsm->addResourceLocation(dataPath + "/Media/Audio", "FileSystem", mResourceGroup);
+
+		rsm->initialiseResourceGroup(mResourceGroup);
+
+   //Ogre::LogManager::getSingletonPtr()->logMessage("Rendering!");
+ 	  misc["externalWindowHandle"] = winHandle; //
+
+	  mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1024, 768, false, &misc);
+   #endif
+    exit(0);
+	  mWindow->setVisible( true );
+Ogre::ConfigFile cf;
+    cf.load(openAPKFile("resources.cfg"));
+	
+	Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
+	while (seci.hasMoreElements())
+	{
+		Ogre::String sec, type, arch;
+		sec = seci.peekNextKey();
+		Ogre::ConfigFile::SettingsMultiMap* settings = seci.getNext();
+		Ogre::ConfigFile::SettingsMultiMap::iterator i;
+
+		for (i = settings->begin(); i != settings->end(); i++)
+		{
+			type = i->first;
+			arch = i->second;
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch, type, sec);
+		}
+	}
+
+	Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+
+	Ogre::RTShader::ShaderGenerator::initialize();
+	Ogre::RTShader::ShaderGenerator::getSingletonPtr()->setTargetLanguage("glsles");
+	mMatListener = new Ogre::ShaderGeneratorTechniqueResolverListener();
+	Ogre::MaterialManager::getSingleton().addListener(mMatListener);
+	
+ 		 mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC); // for OGRE 1.2 Dagon
+	    mCamera = mSceneMgr->createCamera("camera");
+
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	    mCamera->setNearClipDistance(1.0f);
+	    mCamera->setFarClipDistance(100000.0f);
+    	mCamera->setPosition(0,0,20.0f);
+	    mCamera->lookAt(0,0,0);
+	    mCamera->setAutoAspectRatio(true);
+#else
+		
+	    // Position it at 500 in Z direction
+	    mCamera->setPosition(Ogre::Vector3(0,0,455));
+	    // Look back along -Z
+	    mCamera->lookAt(Ogre::Vector3(0,0,-300));
+
+		mCamera->setNearClipDistance(5);
+		
+#endif		
+	    viewPort = mWindow->addViewport(mCamera);
+		
+		
+	    viewPort->setBackgroundColour(Ogre::ColourValue(1,0,0));
+	    viewPort->setOverlaysEnabled(true);	// sets overlays true so that MyGUI can render
+		// most examples get the viewport size to calculate this; for now, we'll just
+		// set it to 4:3 the easy way
+		viewPort->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
+		
+		mCamera->setAspectRatio((Ogre::Real)1.333333);
+
+
+//	    Ogre::LogManager::getSingletonPtr()->logMessage("winHandle = " +winHandle);
+
+		// this next bit is for the sake of the input handler
+	//	unsigned long hWnd;
+//		mWindow->getCustomAttribute("WINDOW", &winHandle);
+
+	Ogre::Entity* pEntity = mSceneMgr->createEntity("court", "data/Media/models/court.mesh");
+	Ogre::SceneNode* pNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("court");
+	pNode->attachObject(pEntity);
+    pNode->setScale(1.8f,1.8f,1.8f);
+
 //    GUISystem *gui = GUISystem::Instance();
 //    gameEngine *gameE = gameEngine::Instance();
 //    teams *team = teams::Instance();

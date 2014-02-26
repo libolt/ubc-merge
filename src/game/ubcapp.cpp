@@ -23,9 +23,11 @@
 #include "gamestate.h"
 #include "ubcapp.h"
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+#ifdef __ANDROID__
+//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 #include "android.h"
 #endif
+
 
 UBC::UBC()
 {
@@ -47,48 +49,8 @@ void UBC::setQuitGame(bool quit)
     quitGame = quit;
 }
 
-# if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-void android_main(struct android_app* state)
-{
-    app_dummy();
-    
-	if(gRoot == NULL)
-	{
-		gRoot = new Ogre::Root();
-#ifdef OGRE_STATIC_LIB
-        gStaticPluginLoader = new Ogre::StaticPluginLoader();
-        gStaticPluginLoader->load();
-#endif
-        gRoot->setRenderSystem(gRoot->getAvailableRenderers().at(0));
-        gRoot->initialise(false);	
-	}			
-			
-    state->onAppCmd = &handleCmd;
-    state->onInputEvent = &handleInput;
-    
-    int ident, events;
-    struct android_poll_source* source;
-    
-    while (true)
-    {
-        while ((ident = ALooper_pollAll(0, NULL, &events, (void**)&source)) >= 0)
-        {
-            if (source != NULL)
-                source->process(state, source);
-            
-            if (state->destroyRequested != 0)
-                return;
-        }
-        
-		if(gRenderWnd != NULL && gRenderWnd->isActive())
-		{
-			gRenderWnd->windowMovedOrResized();
-			gRoot->renderOneFrame();
-		}
-    }
-}
 
-#else
+#ifndef __ANDROID__
 
 int main(int argc, char *argv[])
 {

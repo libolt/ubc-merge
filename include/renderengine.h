@@ -32,7 +32,7 @@
     #include <android/log.h>
     #include <android_native_app_glue.h>
   
-//    #include "RTShaderHelper.h"
+    #include "RTShaderHelper.h"
     #include "Android/OgreAndroidEGLWindow.h"
     #include "Android/OgreAPKFileSystemArchive.h"
     #include "Android/OgreAPKZipArchive.h"
@@ -66,6 +66,9 @@ class renderEngine
     virtual RenderWindow *getMWindow();
     void setMWindow(RenderWindow *window);
 
+	virtual AAssetManager* getMAssetMgr();
+	virtual void setMAssetMgr(AAssetManager* asset);
+	
     virtual Ogre::Vector3 getMTranslateVector();
     void setMTranslateVector(Ogre::Vector3 vector);
 
@@ -90,12 +93,16 @@ class renderEngine
     virtual String getMResourceGroup();
     void setMResourceGroup(String resource);
 
+	Ogre::DataStreamPtr openAPKFile(const Ogre::String& fileName);
+	
     virtual ~renderEngine();
 
     static renderEngine *Instance();
 
     virtual bool initSDL();
     virtual bool initOgre();
+	
+	virtual bool createWindow();
     virtual bool createScene();
     virtual bool frameStarted();
     virtual bool frameEnded();
@@ -128,6 +135,10 @@ class renderEngine
 	Ogre::NameValuePairList misc;	// options to pass to mWindow during creation
 	Ogre::String winHandle;			// window handle
 
+	// Android support
+	AAssetManager* mAssetMgr;
+	Ogre::ShaderGeneratorTechniqueResolverListener* mMatListener;
+	
     //	InputReader* mInputDevice;
     Ogre::Vector3 mTranslateVector;
     Radian mRotX, mRotY;
