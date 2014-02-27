@@ -411,7 +411,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 bool renderEngine::createScene()
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	/*
+	
 	config = AConfiguration_new();
 	AConfiguration_fromAssetManager(config, app->activity->assetManager);
 	mAssetMgr = app->activity->assetManager;
@@ -421,9 +421,9 @@ bool renderEngine::createScene()
 	misc["androidConfig"] = Ogre::StringConverter::toString((int)config);
 	//    misc["externalWindowHandle"] = Ogre::StringConverter::toString((int)app->window);
 	misc["externalWindowHandle"] = winHandle;
-	exit(0);
+//	exit(0);
 	mWindow = mRoot->createRenderWindow("UBC", 0, 0, false, &misc);
-	exit(0);*/
+//	exit(0);
 #endif
 
 	std::string dataPath = UBC_DATADIR;
