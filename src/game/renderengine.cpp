@@ -339,8 +339,11 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	//std::cout << "winHandle = " << winHandle << std::endl;
 	mRoot = new Ogre::Root("", "", "Ogre.log");
 	const Ogre::String pluginDir = OGRE_PLUGIN_DIR;
-	inputSystem *input = inputSystem::Instance();
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+#else
+	inputSystem *input = inputSystem::Instance();
+#endif
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	const Ogre::String buildType = BUILD_TYPE;
 
@@ -456,7 +459,20 @@ bool renderEngine::createScene()
 	Ogre::MaterialManager::getSingleton().addListener(mMatListener);
 #else
 
-	std::string dataPath = UBC_DATADIR;
+	//Ogre::LogManager::getSingletonPtr()->logMessage("Rendering!");
+	misc["externalWindowHandle"] = winHandle; //
+
+	mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1024, 768, false, &misc);
+
+	//    exit(0);
+	mWindow->setVisible(true);
+#endif
+
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    std::string dataPath = "data";
+#else
+    std::string dataPath = UBC_DATADIR;
+#endif
 
 	mResourceGroup = "UBCData";
 	Ogre::ResourceGroupManager *rsm = Ogre::ResourceGroupManager::getSingletonPtr();
@@ -479,18 +495,10 @@ bool renderEngine::createScene()
 
 	rsm->initialiseResourceGroup(mResourceGroup);
 
-	//Ogre::LogManager::getSingletonPtr()->logMessage("Rendering!");
-	misc["externalWindowHandle"] = winHandle; //
-
-	mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1024, 768, false, &misc);
-
-	//    exit(0);
-	mWindow->setVisible(true);
-#endif
-
 	mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC); // for OGRE 1.2 Dagon
 	mCamera = mSceneMgr->createCamera("camera");
 
+/*
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	mCamera->setNearClipDistance(1.0f);
 	mCamera->setFarClipDistance(100000.0f);
@@ -498,6 +506,7 @@ bool renderEngine::createScene()
 	mCamera->lookAt(0, 0, 0);
 	mCamera->setAutoAspectRatio(true);
 #endif
+*/
 
 	// Position it at 500 in Z direction
 	mCamera->setPosition(Ogre::Vector3(0, 0, 455));
@@ -507,7 +516,7 @@ bool renderEngine::createScene()
 	mCamera->setNearClipDistance(5);		
 	
 	viewPort = mWindow->addViewport(mCamera);
-	viewPort->setBackgroundColour(Ogre::ColourValue(1, 0, 0));
+	viewPort->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
 	viewPort->setOverlaysEnabled(true);	// sets overlays true so that MyGUI can render
 
 	// most examples get the viewport size to calculate this; for now, we'll just
@@ -518,6 +527,12 @@ bool renderEngine::createScene()
 #endif		
 	mCamera->setAspectRatio((Ogre::Real)1.333333);
 
+    // Set ambient light
+    mSceneMgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
+
+    // Create a light
+    Light* l = mSceneMgr->createLight("MainLight");
+    l->setPosition(20,80,56);
 
 	//	    Ogre::LogManager::getSingletonPtr()->logMessage("winHandle = " +winHandle);
 
@@ -526,7 +541,7 @@ bool renderEngine::createScene()
 	//		mWindow->getCustomAttribute("WINDOW", &winHandle);
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::Entity* pEntity = mSceneMgr->createEntity("court", "data/Media/models/court.mesh");
+	Ogre::Entity* pEntity = mSceneMgr->createEntity("court", "data/Media/models/Player.mesh");
 	Ogre::SceneNode* pNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("court");
 	pNode->attachObject(pEntity);
 	pNode->setScale(1.8f, 1.8f, 1.8f);

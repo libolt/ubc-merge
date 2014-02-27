@@ -2,6 +2,8 @@
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 
 #include "android.h"
+#include "gameengine.h"
+#include "gui.h"
 #include "renderengine.h"
 
 static Ogre::DataStreamPtr openAPKFile(const Ogre::String& fileName)
@@ -94,6 +96,9 @@ static int32_t handleInput(struct android_app* app, AInputEvent* event)
 
 static void handleCmd(struct android_app* app, int32_t cmd)
 {
+	gameEngine *gameE = gameEngine::Instance();
+//    gameState *gameS = gameState::Instance();
+    GUISystem *gui = GUISystem::Instance();
 	renderEngine *renderE = renderEngine::Instance();
     switch (cmd) 
     {
@@ -120,6 +125,9 @@ static void handleCmd(struct android_app* app, int32_t cmd)
 	            	renderE->setMWindow(renderE->getMRoot()->createRenderWindow("OgreWindow", 0, 0, false, &opt));
 //					setupScene();
 					renderE->createScene();
+					gui->initMyGUI(); // Initializes MyGUI
+                    gui->createMainMenuButtons(); // creates a MyGUI button.
+
                 }
                 else
                 {
