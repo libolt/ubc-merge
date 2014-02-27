@@ -210,12 +210,17 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
         return 1;
     }
 
-
-	sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED,
-	                             1024,768, 0);
-
+	                             0,0,0);
+#else
+    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
+	                             SDL_WINDOWPOS_UNDEFINED,
+	                             SDL_WINDOWPOS_UNDEFINED,
+	                             1024,768,0);
+#endif
 
     SDL_VERSION( &sysInfo.version );
 
@@ -340,10 +345,10 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	mRoot = new Ogre::Root("", "", "Ogre.log");
 	const Ogre::String pluginDir = OGRE_PLUGIN_DIR;
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-#else
+//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+//#else
 	inputSystem *input = inputSystem::Instance();
-#endif
+//#endif
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	const Ogre::String buildType = BUILD_TYPE;
 
@@ -541,7 +546,7 @@ bool renderEngine::createScene()
 	//		mWindow->getCustomAttribute("WINDOW", &winHandle);
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::Entity* pEntity = mSceneMgr->createEntity("court", "data/Media/models/Player.mesh");
+	Ogre::Entity* pEntity = mSceneMgr->createEntity("court", "Player.mesh");
 	Ogre::SceneNode* pNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("court");
 	pNode->attachObject(pEntity);
 	pNode->setScale(1.8f, 1.8f, 1.8f);

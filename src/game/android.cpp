@@ -3,6 +3,7 @@
 
 #include "android.h"
 #include "gameengine.h"
+#include "gamestate.h"
 #include "gui.h"
 #include "renderengine.h"
 
@@ -48,7 +49,7 @@ static void setupScene()
 	}
 
 	Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-
+//    Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(Ogre::ResourceGroupManager::UBCData);
 	Ogre::RTShader::ShaderGenerator::initialize();
 	Ogre::RTShader::ShaderGenerator::getSingletonPtr()->setTargetLanguage("glsles");
 	gMatListener = new Ogre::ShaderGeneratorTechniqueResolverListener();
@@ -62,7 +63,7 @@ static void setupScene()
     Ogre::Camera* camera = renderE->getMSceneMgr()->createCamera("MyCam");
 	
 //	Ogre::Entity* pEntity = gSceneMgr->createEntity("SinbadInstance", "data/Media/models/court.mesh");
-    Ogre::Entity* pEntity = renderE->getMSceneMgr()->createEntity("SinbadInstance", "data/Media/models/court.mesh");
+    Ogre::Entity* pEntity = renderE->getMSceneMgr()->createEntity("SinbadInstance", "Court.mesh");
 //	Ogre::SceneNode* pNode = gSceneMgr->getRootSceneNode()->createChildSceneNode();
     Ogre::SceneNode* pNode = renderE->getMSceneMgr()->getRootSceneNode()->createChildSceneNode();
 	pNode->attachObject(pEntity);
@@ -97,7 +98,7 @@ static int32_t handleInput(struct android_app* app, AInputEvent* event)
 static void handleCmd(struct android_app* app, int32_t cmd)
 {
 	gameEngine *gameE = gameEngine::Instance();
-//    gameState *gameS = gameState::Instance();
+    gameState *gameS = gameState::Instance();
     GUISystem *gui = GUISystem::Instance();
 	renderEngine *renderE = renderEngine::Instance();
     switch (cmd) 
@@ -125,9 +126,10 @@ static void handleCmd(struct android_app* app, int32_t cmd)
 	            	renderE->setMWindow(renderE->getMRoot()->createRenderWindow("OgreWindow", 0, 0, false, &opt));
 //					setupScene();
 					renderE->createScene();
-					gui->initMyGUI(); // Initializes MyGUI
-                    gui->createMainMenuButtons(); // creates a MyGUI button.
-
+//					gui->initMyGUI(); // Initializes MyGUI
+//                    gui->createMainMenuButtons(); // creates a MyGUI button.
+                    gameS->setGameType(SINGLE);
+					gameE->gameLoop();
                 }
                 else
                 {
@@ -166,6 +168,7 @@ void android_main(struct android_app* state)
         renderE->getMRoot()->setRenderSystem( renderE->getMRoot()->getAvailableRenderers().at(0));
         renderE->getMRoot()->initialise(false);	
 */
+        renderE->initSDL();
 		renderE->initOgre();
 	}	
 

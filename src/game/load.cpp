@@ -112,7 +112,12 @@ string loader::findFile(string fileName)
     bool fileLoaded = false;
     string filePath;        // stores path to a file
     std::vector<std::string> pathArray;
+
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    string dataPath = "";
+#else
     string dataPath = UBC_DATADIR;
+#endif
 
     Ogre::LogManager::getSingletonPtr()->logMessage("dataPath = " +dataPath);
 
@@ -163,7 +168,7 @@ string loader::findFile(string fileName)
     if (!fileLoaded)
     {
         Ogre::LogManager::getSingletonPtr()->logMessage("failed to find file: " + fileName);
-        exit(0);
+//FIXME        exit(0);
     }
     return ("");
 }
@@ -228,7 +233,12 @@ bool loader::loadXMLFile(string fileName)
 
 bool loader::loadTeams()
 {
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    string teamList = findFile("teams.xml");
+#else
+
     string teamList = findFile("teams/teams.xml");
+#endif	
     Ogre::LogManager::getSingletonPtr()->logMessage("teamList = " +teamList);
 
 //  cout << "teamList = " << teamList << endl;
