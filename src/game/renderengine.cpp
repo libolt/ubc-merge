@@ -410,6 +410,8 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 
 bool renderEngine::createScene()
 {
+
+/*
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	
 	config = AConfiguration_new();
@@ -425,6 +427,34 @@ bool renderEngine::createScene()
 	mWindow = mRoot->createRenderWindow("UBC", 0, 0, false, &misc);
 //	exit(0);
 #endif
+*/
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	Ogre::ConfigFile cf;
+	cf.load(openAPKFile("resources.cfg"));
+
+	Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
+	while (seci.hasMoreElements())
+	{
+		Ogre::String sec, type, arch;
+		sec = seci.peekNextKey();
+		Ogre::ConfigFile::SettingsMultiMap* settings = seci.getNext();
+		Ogre::ConfigFile::SettingsMultiMap::iterator i;
+
+		for (i = settings->begin(); i != settings->end(); i++)
+		{
+			type = i->first;
+			arch = i->second;
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch, type, sec);
+		}
+	}
+
+	Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+
+	Ogre::RTShader::ShaderGenerator::initialize();
+	Ogre::RTShader::ShaderGenerator::getSingletonPtr()->setTargetLanguage("glsles");
+	mMatListener = new Ogre::ShaderGeneratorTechniqueResolverListener();
+	Ogre::MaterialManager::getSingleton().addListener(mMatListener);
+#else
 
 	std::string dataPath = UBC_DATADIR;
 
@@ -456,33 +486,6 @@ bool renderEngine::createScene()
 
 	//    exit(0);
 	mWindow->setVisible(true);
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::ConfigFile cf;
-	cf.load(openAPKFile("resources.cfg"));
-
-	Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
-	while (seci.hasMoreElements())
-	{
-	Ogre::String sec, type, arch;
-	sec = seci.peekNextKey();
-	Ogre::ConfigFile::SettingsMultiMap* settings = seci.getNext();
-	Ogre::ConfigFile::SettingsMultiMap::iterator i;
-
-	for (i = settings->begin(); i != settings->end(); i++)
-	{
-	type = i->first;
-	arch = i->second;
-	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch, type, sec);
-	}
-	}
-
-	Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-
-	Ogre::RTShader::ShaderGenerator::initialize();
-	Ogre::RTShader::ShaderGenerator::getSingletonPtr()->setTargetLanguage("glsles");
-	mMatListener = new Ogre::ShaderGeneratorTechniqueResolverListener();
-	Ogre::MaterialManager::getSingleton().addListener(mMatListener);
 #endif
 
 	mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC); // for OGRE 1.2 Dagon
