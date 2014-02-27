@@ -254,7 +254,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	    	if (createScene)	// checks if the scene should be created
 	    	{
-	    		if (render->createScene())
+//	    		if (render->createScene())
 	    		{
 	    			createScene = false;
 	    			start = true;

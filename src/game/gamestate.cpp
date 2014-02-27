@@ -727,6 +727,9 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
 {
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
+	Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall" + Ogre::StringConverter::toString(teamWithBall));
+	Ogre::LogManager::getSingletonPtr()->logMessage("playerWithBall" + Ogre::StringConverter::toString(playerWithBall));
+
 //	exit(0);
 	directions playerDirection = playerInstance[playerWithBall].getDirection();
 	directions oldPlayerDirection = playerInstance[playerWithBall].getOldDirection();

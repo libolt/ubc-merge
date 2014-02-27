@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 
     render->initSDL(); // Initializes the SDL Subsystem
     render->initOgre(); // Initializes the Ogre Subsystem
-//    render->createScene(); // creates rendering scene.
+    render->createScene(); // creates rendering scene.
     gui->initMyGUI(); // Initializes MyGUI
     gui->createMainMenuButtons(); // creates a MyGUI button.
 

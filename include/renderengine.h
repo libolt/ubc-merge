@@ -66,9 +66,13 @@ class renderEngine
     virtual RenderWindow *getMWindow();
     void setMWindow(RenderWindow *window);
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	Ogre::DataStreamPtr openAPKFile(const Ogre::String& fileName);
+
 	virtual AAssetManager* getMAssetMgr();
 	virtual void setMAssetMgr(AAssetManager* asset);
-	
+#endif	
+
     virtual Ogre::Vector3 getMTranslateVector();
     void setMTranslateVector(Ogre::Vector3 vector);
 
@@ -93,7 +97,6 @@ class renderEngine
     virtual String getMResourceGroup();
     void setMResourceGroup(String resource);
 
-	Ogre::DataStreamPtr openAPKFile(const Ogre::String& fileName);
 	
     virtual ~renderEngine();
 
@@ -136,9 +139,10 @@ class renderEngine
 	Ogre::String winHandle;			// window handle
 
 	// Android support
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	AAssetManager* mAssetMgr;
 	Ogre::ShaderGeneratorTechniqueResolverListener* mMatListener;
-	
+#endif	
     //	InputReader* mInputDevice;
     Ogre::Vector3 mTranslateVector;
     Radian mRotX, mRotY;
