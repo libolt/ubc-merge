@@ -194,10 +194,10 @@ bool gameEngine::startGame()
 //    gameState *gameS = gameState::Instance();
     gameState *gameS = gameState::Instance();
 	
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 
 gameS->setupState();
-#endif
+//#endif
     return true;
 }
 
@@ -234,7 +234,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	   while (!quitGame)
 	    {
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //			std::vector<playerState> playerInstance = gameS->getPlayerInstance();	// stores th player instances
 
 	//        ubc->processUnbufferedKeyInput();
@@ -284,7 +284,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	    			renderScene = true;
 	    		}
 	    	}
-#else		
+//#else		
 	        lastFPS = render->getMWindow()->getLastFPS();
 	        Ogre::String currFPS = Ogre::StringConverter::toString(lastFPS);
 
@@ -600,7 +600,7 @@ void gameEngine::gameLoop()	// Main Game Loop
     		render->getMWindow()->windowMovedOrResized();
 			render->getMRoot()->renderOneFrame();
         }
-		#endif
+//		#endif
     }   
 	
 }

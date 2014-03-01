@@ -77,22 +77,26 @@ void loader::setTeamFiles(std::vector<string> files)
 
 // loads an xml file using SDL so that it can
 // be passed to TinyXML
-int loader::readFile(const char* sourceFile, char* destination)
+int loader::readFile(const char *sourceFile, char **destination)
 {
 	int BLOCK_SIZE = 8;
 	int MAX_BLOCKS = 1024;
     // Open the file
     SDL_RWops *file;
-    Ogre::LogManager::getSingletonPtr()->logMessage("sourceFile = " +Ogre::StringConverter::toString(sourceFile));
-/*    file = SDL_RWFromFile(sourceFile, "r");
+    Ogre::LogManager::getSingletonPtr()->logMessage(sourceFile);
+    file = SDL_RWFromFile(sourceFile, "r");
+
+	size_t fileLength = SDL_RWseek(file, 0, SEEK_END);
+	(*destination) = new char[fileLength + 1]; // allow an extra characterfor '\0'
 
 //    ASSERT(file, "Opening file using SDL_RWops");
-
+	// resets the file to beginnin
+	SDL_RWseek(file, 0, SEEK_SET);
     // Read text from file
-    int n_blocks = SDL_RWread(file, destination, BLOCK_SIZE, MAX_BLOCKS);
+    int n_blocks = SDL_RWread(file, (*destination), 1, fileLength);
     // BLOCK_SIZE = 8, MAX_BLOCKS = 1024
     SDL_RWclose(file);
-*/
+
     // Make sure the operation was successful
  //   ASSERT(n_blocks >= 0, "Reading blocks of data from SDL_RWops");
 //    WARN_IF(n_blocks == MAX_BLOCKS, "Reading data from SDL_RWops","Buffer full so may be too small for data");
@@ -169,10 +173,10 @@ string loader::findFile(string fileName)
 //               filePath.append(":");
 //            }
             
-//                filePath.append(pathArray[x]);
+                filePath.append(pathArray[x]);
                 Ogre::LogManager::getSingletonPtr()->logMessage("pathArray == " + pathArray[x]);
 
-                filePath.append(fileName);
+				filePath.append(fileName);
                 Ogre::LogManager::getSingletonPtr()->logMessage("filePath = " +filePath);
                 fstream fileOpen;
                 //      if (!(lineupFont = TTF_OpenFont(file.c_str(), 20)));
@@ -266,6 +270,7 @@ bool loader::loadXMLFile(string fileName)
 
 bool loader::loadTeams()
 {
+//	exit(0);
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //    string teamList = findFile("teams.xml");
     string teamList = "teams.xml";
@@ -274,7 +279,7 @@ bool loader::loadTeams()
     string teamList = findFile("teams/teams.xml");
 #endif	
     Ogre::LogManager::getSingletonPtr()->logMessage("teamList = " +teamList);
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //  cout << "teamList = " << teamList << endl;
 // Ogre::LogManager::getSingletonPtr()->logMessage("dah");
     loadTeamListFile(teamList);
@@ -287,7 +292,7 @@ bool loader::loadTeams()
         Ogre::LogManager::getSingletonPtr()->logMessage("team = " +*it);
 
     }
-#endif
+//#endif
     return true;
 }
 
@@ -298,14 +303,17 @@ bool loader::loadTeamListFile(string fileName)
     std::vector<std::string> files;
 
 //	players::playerData player;
-	
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     const char *file = "teams.xml";
-    char fileContents[1024];
+#else
+	const char *file = fileName.c_str();
+#endif
+	char *fileContents = NULL;
     TiXmlDocument doc;
-    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);	
-	readFile(file, fileContents);
-#else	
+//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);	
+	readFile(file, &fileContents);
+//	exit(0);
+/*
 	Ogre::LogManager::getSingletonPtr()->logMessage("fileName = " +fileName);
 //    TiXmlDocument doc(fileName.c_str());
     TiXmlDocument doc("/data/teams/teams.xml");
@@ -314,7 +322,13 @@ bool loader::loadTeamListFile(string fileName)
 		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to load " +fileName);
 		return(false);
     }
-#endif
+*/
+	if (!doc.Parse(fileContents))
+	{
+		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse file");
+
+		exit(0);
+	}
     TiXmlHandle hDoc(&doc);
     TiXmlElement* pElem;
     TiXmlHandle hRoot(0);
