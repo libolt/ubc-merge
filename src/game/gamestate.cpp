@@ -344,14 +344,14 @@ bool gameState::createCourtInstances()
 bool gameState::setupEnvironment()
 {
     renderEngine *render = renderEngine::Instance();
-
+/*
     // Set ambient light
     render->getMSceneMgr()->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
 
     // Create a light
     Light* l = render->getMSceneMgr()->createLight("MainLight");
     l->setPosition(20,80,56);
-
+*/
 
     return true;
 }
