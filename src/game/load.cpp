@@ -275,7 +275,6 @@ bool loader::loadTeams()
 //    string teamList = findFile("teams.xml");
     string teamList = "teams.xml";
 #else
-
     string teamList = findFile("teams/teams.xml");
 #endif	
     Ogre::LogManager::getSingletonPtr()->logMessage("teamList = " +teamList);
@@ -288,8 +287,12 @@ bool loader::loadTeams()
     std::vector<std::string>::iterator it;
     for (it = teamFiles.begin(); it != teamFiles.end(); ++it)
     {
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+		loadTeamFile(*it);
+#else
         loadTeamFile(findFile("teams/" + *it));
-        Ogre::LogManager::getSingletonPtr()->logMessage("team = " +*it);
+#endif
+		Ogre::LogManager::getSingletonPtr()->logMessage("team = " +*it);
 
     }
 //#endif
@@ -303,15 +306,16 @@ bool loader::loadTeamListFile(string fileName)
     std::vector<std::string> files;
 
 //	players::playerData player;
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     const char *file = "teams.xml";
 #else
 	const char *file = fileName.c_str();
-#endif
+#endif */
+
 	char *fileContents = NULL;
     TiXmlDocument doc;
-//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);	
-	readFile(file, &fileContents);
+    Ogre::LogManager::getSingletonPtr()->logMessage(fileName);	
+	readFile(fileName.c_str(), &fileContents);
 //	exit(0);
 /*
 	Ogre::LogManager::getSingletonPtr()->logMessage("fileName = " +fileName);
@@ -326,10 +330,10 @@ bool loader::loadTeamListFile(string fileName)
 	if (!doc.Parse(fileContents))
 	{
 		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse file");
-
 		exit(0);
 	}
-    TiXmlHandle hDoc(&doc);
+
+	TiXmlHandle hDoc(&doc);
     TiXmlElement* pElem;
     TiXmlHandle hRoot(0);
 
@@ -379,9 +383,18 @@ bool loader::loadTeamFile(string fileName)
     string Initials;
     string Logo;
 
-    TiXmlDocument doc(fileName.c_str());
+//    TiXmlDocument doc(fileName.c_str());
+//    if (!doc.LoadFile()) return(false);
+	char *fileContents = NULL;
+	TiXmlDocument doc;
+	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);	
+	readFile(fileName.c_str(), &fileContents);
 
-    if (!doc.LoadFile()) return(false);
+	if (!doc.Parse(fileContents))
+	{
+		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse file");
+		exit(0);
+	}
 
     TiXmlHandle hDoc(&doc);
 
@@ -452,15 +465,23 @@ bool loader::loadTeamFile(string fileName)
 
 bool loader::loadPlayers()
 {
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	string playerList = "players.xml";
+#else
     string playerList = findFile("players/players.xml");
-    loadPlayerListFile(playerList);
+#endif
+	loadPlayerListFile(playerList);
 //    std::vector<std::string> playerFiles = load->getPlayerFiles();
 
     std::vector<std::string>::iterator it;
     for (it = playerFiles.begin(); it != playerFiles.end(); ++it)
     {
-
+		Ogre::LogManager::getSingletonPtr()->logMessage("playerFile = " +*it);
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+		loadPlayerFile(*it);
+#else
         loadPlayerFile(findFile("players/" + *it));
+#endif
     }
     return true;
 }
@@ -470,10 +491,21 @@ bool loader::loadPlayerListFile( string fileName)
 {
     std::vector<std::string> playerFiles;
     players *player = players::Instance();
-    TiXmlDocument doc(fileName.c_str());
 
+	char *fileContents = NULL;
+	TiXmlDocument doc;
+	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);	
+	readFile(fileName.c_str(), &fileContents);
 
+/*    TiXmlDocument doc(fileName.c_str());
     if (!doc.LoadFile()) return(false);
+*/
+
+	if (!doc.Parse(fileContents))
+	{
+		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse file");
+		exit(0);
+	}
 
     TiXmlHandle hDoc(&doc);
     TiXmlElement* pElem;
@@ -525,10 +557,20 @@ bool loader::loadPlayerFile(string fileName)
     string position;
     string teamInitials;
     playerData player;
-    TiXmlDocument doc(fileName.c_str());
 
+//    TiXmlDocument doc(fileName.c_str());
+//    if (!doc.LoadFile()) return(false);
 
-    if (!doc.LoadFile()) return(false);
+	char *fileContents = NULL;
+	TiXmlDocument doc;
+	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);	
+	readFile(fileName.c_str(), &fileContents);
+
+	if (!doc.Parse(fileContents))
+	{
+		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse file");
+		exit(0);
+	}
 
     TiXmlHandle hDoc(&doc);
     TiXmlElement* pElem;
