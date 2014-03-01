@@ -28,6 +28,8 @@
 
 //#include "boost/shared_ptr.hpp"
 
+#include "SDL.h"
+
 using namespace std;
 
 loader::loader()
@@ -73,6 +75,31 @@ void loader::setTeamFiles(std::vector<string> files)
     teamFiles = files;
 }
 
+// loads an xml file using SDL so that it can
+// be passed to TinyXML
+int loader::readFile(const char* sourceFile, char* destination)
+{
+	int BLOCK_SIZE = 8;
+	int MAX_BLOCKS = 1024;
+    // Open the file
+    SDL_RWops *file;
+    Ogre::LogManager::getSingletonPtr()->logMessage("sourceFile = " +Ogre::StringConverter::toString(sourceFile));
+/*    file = SDL_RWFromFile(sourceFile, "r");
+
+//    ASSERT(file, "Opening file using SDL_RWops");
+
+    // Read text from file
+    int n_blocks = SDL_RWread(file, destination, BLOCK_SIZE, MAX_BLOCKS);
+    // BLOCK_SIZE = 8, MAX_BLOCKS = 1024
+    SDL_RWclose(file);
+*/
+    // Make sure the operation was successful
+ //   ASSERT(n_blocks >= 0, "Reading blocks of data from SDL_RWops");
+//    WARN_IF(n_blocks == MAX_BLOCKS, "Reading data from SDL_RWops","Buffer full so may be too small for data");
+
+    // Success!
+    return EXIT_SUCCESS;
+}
 
 // splits the path data into separate strings
 std::vector<std::string> loader::pathSplit(const std::string paths)
@@ -110,7 +137,7 @@ string loader::findFile(string fileName)
 {
     // tries to load file from locations specified in the pathArray
     bool fileLoaded = false;
-    string filePath;        // stores path to a file
+    string filePath = "";        // stores path to a file
     std::vector<std::string> pathArray;
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
@@ -120,9 +147,13 @@ string loader::findFile(string fileName)
 #endif
 
     Ogre::LogManager::getSingletonPtr()->logMessage("dataPath = " +dataPath);
-
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    filePath = fileName;
+#else
     dataPath += "/";
+
     pathArray = pathSplit(dataPath);
+
     Ogre::LogManager::getSingletonPtr()->logMessage("pathArray[0] = " +pathArray[0]);
  //   LogManager::getSingletonPtr()->logMessage("pathArray[1] = " +pathArray[1]);
 
@@ -133,12 +164,12 @@ string loader::findFile(string fileName)
         {
             filePath.clear();
             // builds path to players.txt
-/*            if (x == 1)
-            {
-               filePath.append(":");
-            }
-            */
-                filePath.append(pathArray[x]);
+//            if (x == 1)
+//            {
+//               filePath.append(":");
+//            }
+            
+//                filePath.append(pathArray[x]);
                 Ogre::LogManager::getSingletonPtr()->logMessage("pathArray == " + pathArray[x]);
 
                 filePath.append(fileName);
@@ -165,11 +196,13 @@ string loader::findFile(string fileName)
             return(filePath);
         }
     }
+
     if (!fileLoaded)
     {
         Ogre::LogManager::getSingletonPtr()->logMessage("failed to find file: " + fileName);
-//FIXME        exit(0);
+        exit(0);
     }
+#endif
     return ("");
 }
 
@@ -234,16 +267,18 @@ bool loader::loadXMLFile(string fileName)
 bool loader::loadTeams()
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    string teamList = findFile("teams.xml");
+//    string teamList = findFile("teams.xml");
+    string teamList = "teams.xml";
 #else
 
     string teamList = findFile("teams/teams.xml");
 #endif	
     Ogre::LogManager::getSingletonPtr()->logMessage("teamList = " +teamList);
-
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //  cout << "teamList = " << teamList << endl;
+// Ogre::LogManager::getSingletonPtr()->logMessage("dah");
     loadTeamListFile(teamList);
-
+//    Ogre::LogManager::getSingletonPtr()->logMessage("tem = " +teamFiles[0]);
 //    std::vector<std::string> teamFiles = load->getTeamFiles();
     std::vector<std::string>::iterator it;
     for (it = teamFiles.begin(); it != teamFiles.end(); ++it)
@@ -252,7 +287,7 @@ bool loader::loadTeams()
         Ogre::LogManager::getSingletonPtr()->logMessage("team = " +*it);
 
     }
-
+#endif
     return true;
 }
 
@@ -263,10 +298,23 @@ bool loader::loadTeamListFile(string fileName)
     std::vector<std::string> files;
 
 //	players::playerData player;
-    TiXmlDocument doc(fileName.c_str());
-
-    if (!doc.LoadFile()) return(false);
-
+	
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    const char *file = "teams.xml";
+    char fileContents[1024];
+    TiXmlDocument doc;
+    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);	
+	readFile(file, fileContents);
+#else	
+	Ogre::LogManager::getSingletonPtr()->logMessage("fileName = " +fileName);
+//    TiXmlDocument doc(fileName.c_str());
+    TiXmlDocument doc("/data/teams/teams.xml");
+    if (!doc.LoadFile()) 
+	{
+		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to load " +fileName);
+		return(false);
+    }
+#endif
     TiXmlHandle hDoc(&doc);
     TiXmlElement* pElem;
     TiXmlHandle hRoot(0);

@@ -61,7 +61,7 @@ public:
     virtual void setTeamFiles(std::vector<std::string> files);
 
     virtual bool loadXMLFile(string fileName);
-
+    virtual int readFile(const char* sourceFile, char* destination);
     virtual bool loadTeams();   // loads team data from XML files
     virtual bool loadTeamListFile(string fileName); // loads list of team files from teams.xml
     virtual bool loadTeamFile(string fileName); // loads data out of team XML files

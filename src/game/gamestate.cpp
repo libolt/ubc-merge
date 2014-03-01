@@ -411,8 +411,11 @@ bool gameState::setupState()
     loader *load = loader::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+
     Ogre::LogManager::getSingletonPtr()->logMessage("Setting up state!");
     load->loadTeams();  // loads teams from XML files
+#else
     load->loadPlayers();    // loads players from XML files
 
     team->assignPlayers();  // assigns players to teams
@@ -495,6 +498,8 @@ bool gameState::setupState()
 	teamInstance[0].setHumanPlayer(0);
 	*/
     return true;
+	
+#endif
 }
 
 // carries out in game logic
