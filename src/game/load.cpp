@@ -85,7 +85,8 @@ int loader::readFile(const char *sourceFile, char **destination)
     SDL_RWops *file;
     Ogre::LogManager::getSingletonPtr()->logMessage(sourceFile);
     file = SDL_RWFromFile(sourceFile, "r");
-
+    
+	Ogre::LogManager::getSingletonPtr()->logMessage("Seek to beginning of file");
 	size_t fileLength = SDL_RWseek(file, 0, SEEK_END);
 	(*destination) = new char[fileLength + 1]; // allow an extra characterfor '\0'
 
