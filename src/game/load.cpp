@@ -83,8 +83,9 @@ int loader::readFile(const char *sourceFile, char **destination)
 	int MAX_BLOCKS = 1024;
     // Open the file
     SDL_RWops *file;
+	Ogre::LogManager::getSingletonPtr()->logMessage("sourceFile = ");
     Ogre::LogManager::getSingletonPtr()->logMessage(sourceFile);
-    file = SDL_RWFromFile(sourceFile, "r");
+    file = SDL_RWFromFile("teams.xml", "r");
     
 	Ogre::LogManager::getSingletonPtr()->logMessage("Seek to beginning of file");
 	size_t fileLength = SDL_RWseek(file, 0, SEEK_END);
@@ -274,7 +275,7 @@ bool loader::loadTeams()
 //	exit(0);
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //    string teamList = findFile("teams.xml");
-    string teamList = "teams.xml";
+    string teamList = "data/teams/teams.xml";
 #else
     string teamList = findFile("teams/teams.xml");
 #endif	
@@ -289,7 +290,7 @@ bool loader::loadTeams()
     for (it = teamFiles.begin(); it != teamFiles.end(); ++it)
     {
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-		loadTeamFile(*it);
+		loadTeamFile("data/teams/" + *it);
 #else
         loadTeamFile(findFile("teams/" + *it));
 #endif
@@ -316,7 +317,9 @@ bool loader::loadTeamListFile(string fileName)
 	char *fileContents = NULL;
     TiXmlDocument doc;
     Ogre::LogManager::getSingletonPtr()->logMessage(fileName);	
+	Ogre::LogManager::getSingletonPtr()->logMessage("bate");
 	readFile(fileName.c_str(), &fileContents);
+	Ogre::LogManager::getSingletonPtr()->logMessage("barf");
 //	exit(0);
 /*
 	Ogre::LogManager::getSingletonPtr()->logMessage("fileName = " +fileName);
@@ -467,7 +470,7 @@ bool loader::loadTeamFile(string fileName)
 bool loader::loadPlayers()
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	string playerList = "players.xml";
+	string playerList = "data/players/players.xml";
 #else
     string playerList = findFile("players/players.xml");
 #endif
@@ -479,7 +482,7 @@ bool loader::loadPlayers()
     {
 		Ogre::LogManager::getSingletonPtr()->logMessage("playerFile = " +*it);
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-		loadPlayerFile(*it);
+		loadPlayerFile("data/players/" + *it);
 #else
         loadPlayerFile(findFile("players/" + *it));
 #endif
