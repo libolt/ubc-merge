@@ -82,11 +82,11 @@ int loader::readFile(const char *sourceFile, char **destination)
 	int BLOCK_SIZE = 8;
 	int MAX_BLOCKS = 1024;
     // Open the file
-    SDL_RWops *file;
+//    SDL_RWops *file;
 	Ogre::LogManager::getSingletonPtr()->logMessage("sourceFile = ");
     Ogre::LogManager::getSingletonPtr()->logMessage(sourceFile);
-    file = SDL_RWFromFile("teams.xml", "r");
-    
+//    file = SDL_RWFromFile("teamd.xml", "rb");
+    SDL_RWops *file = SDL_RWFromFile("Sinbad.zip", "rb");
 	Ogre::LogManager::getSingletonPtr()->logMessage("Seek to beginning of file");
 	size_t fileLength = SDL_RWseek(file, 0, SEEK_END);
 	(*destination) = new char[fileLength + 1]; // allow an extra characterfor '\0'
