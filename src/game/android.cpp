@@ -61,7 +61,7 @@ static void setupScene()
     Ogre::RTShader::ShaderGenerator::getSingletonPtr()->addSceneManager(renderE->getMSceneMgr());
 //	Ogre::Camera* camera = gSceneMgr->createCamera("MyCam");
     Ogre::Camera* camera = renderE->getMSceneMgr()->createCamera("MyCam");
-	
+/*	
 //	Ogre::Entity* pEntity = gSceneMgr->createEntity("SinbadInstance", "data/Media/models/court.mesh");
     Ogre::Entity* pEntity = renderE->getMSceneMgr()->createEntity("SinbadInstance", "Court.mesh");
 //	Ogre::SceneNode* pNode = gSceneMgr->getRootSceneNode()->createChildSceneNode();
@@ -73,7 +73,7 @@ static void setupScene()
 	pDirLight->setDirection(Ogre::Vector3(0,-1,0));
 	pDirLight->setType(Ogre::Light::LT_DIRECTIONAL);
 	pNode->attachObject(pDirLight);
-
+*/
 	camera->setNearClipDistance(1.0f);
 	camera->setFarClipDistance(100000.0f);
 	camera->setPosition(0,0,20.0f);

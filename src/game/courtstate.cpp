@@ -76,10 +76,10 @@ bool courtState::loadModel()
 {
     renderEngine *render = renderEngine::Instance();
 
-    model = render->getMSceneMgr()->createEntity("court", modelName);	// loads the Court model
+    model = render->getMSceneMgr()->createEntity("courtModel", modelName);	// loads the Court model
 
     // creates the courtNode
-    node = render->getMSceneMgr()->getRootSceneNode()->createChildSceneNode("court");
+    node = render->getMSceneMgr()->getRootSceneNode()->createChildSceneNode("courtSceneNode");
 
     // attaches the court model to the courtNode
     node->attachObject(model);
