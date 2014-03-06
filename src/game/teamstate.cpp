@@ -430,6 +430,7 @@ void teamState::updateState()	// updates the state of the object
 //	exit(0);
 //	offenseInstance->updateState();	// updates the state of the offenseInstance object
 //	defenseInstance->updateState(); // updates the state of the defenseInstance object
+	Ogre::LogManager::getSingletonPtr()->logMessage("team state updated = " +Ogre::StringConverter::toString(teamNumber));
 }
 
 bool teamState::createPlayerInstances()

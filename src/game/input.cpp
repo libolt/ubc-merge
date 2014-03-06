@@ -128,8 +128,8 @@ bool inputSystem::destroy() // destroys the OIS Input System and related objects
 
 bool inputSystem::processInput()	// processes all input
 {
-
-    // processes keyboard input
+	Ogre::LogManager::getSingletonPtr()->logMessage("Processing input");
+/*    // processes keyboard input
     if (processUnbufferedKeyInput() == false)
     {
         return false;
@@ -140,14 +140,83 @@ bool inputSystem::processInput()	// processes all input
     {
         return false;
     }
-    return true;
+		Ogre::LogManager::getSingletonPtr()->logMessage("Input processed");
+*/
+	return true;
 }
 
 bool inputSystem::processUnbufferedKeyInput()
 {
+//FIXME MyGUI needs to be fixed on android
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    keyPressed = "";	// resets keyPressed so that we don't get repeats
+	Ogre::LogManager::getSingletonPtr()->logMessage("Crash?");
+/*
+		if (SDL_PollEvent(&inputEvent))
+		{
+			Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
 
+			switch (inputEvent.type)
+			{
+			case SDL_KEYDOWN:
+				switch (inputEvent.key.keysym.sym)
+				{
+				case SDLK_UP:
+					keyPressed = "up";
+					break;
+				case SDLK_DOWN:
+					keyPressed = "down";
+					break;
+				case SDLK_LEFT:
+					keyPressed = "left";
+					break;
+				case SDLK_RIGHT:
+					keyPressed = "right";
+					break;
+				case SDLK_LALT:
+					keyPressed = "leftAlt";
+					break;
+				case SDLK_RALT:
+					keyPressed = "rightAlt";
+					break;
+				case SDLK_a:
+					keyPressed = "a";
+					break;
+				case SDLK_d:
+					keyPressed = "d";
+					break;
+				case SDLK_s:
+					keyPressed = "s";
+					break;
+				case SDLK_w:
+					keyPressed = "w";
+					break;
+				case SDLK_q:
+					keyPressed = "q";
+					break;
+				}
+				break;
+			case SDL_KEYUP:
+				keyPressed = "";
+				// if escape is pressed, quit
+	 //               status = 1; // set status to 1 to exit main loop
+				break;
+			case SDL_QUIT:
+	 //           status = 1;
+				break;
+			}
+
+		}
+		*/
+	SDL_Event Event;
+    while ( SDL_PollEvent( &Event ) )
+	{
+		
+	}
+#else
 	if (MyGUI::InputManager::getInstance().isFocusKey())	// checks if a MyGUI widget has key focus
 	{
+		Ogre::LogManager::getSingletonPtr()->logMessage("Crash?");
 		if (SDL_PollEvent(&inputEvent))
 		{
 	        switch (inputEvent.type)
@@ -563,7 +632,8 @@ bool inputSystem::processUnbufferedKeyInput()
 
 		}
 	}
-
+	#endif
+	Ogre::LogManager::getSingletonPtr()->logMessage("Keyboard Input Processed");
     // Return true to continue rendering
     return true;
 
@@ -631,6 +701,6 @@ bool inputSystem::processUnbufferedMouseInput()
 		MyGUI::InputManager::getInstance().injectMouseMove(x,y,0);
 	}
 
-
+	Ogre::LogManager::getSingletonPtr()->logMessage("Mouse input processed");
     return true;
 }

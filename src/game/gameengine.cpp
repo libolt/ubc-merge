@@ -321,7 +321,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	    	if (input->processInput())
 	        {
-
+           
 	    		if (gameS->getTeamInstancesCreated())
                 {
 					if (gameS->getGameType() == SINGLE)

@@ -56,11 +56,15 @@ bool GUISystem::initMyGUI()
     renderEngine *render = renderEngine::Instance();
     Ogre::RenderWindow *mWindow = render->getMWindow();
     Ogre::SceneManager *mSceneMgr = render->getMSceneMgr();
-	mPlatform = new MyGUI::OgrePlatform();
-	mPlatform->initialise(mWindow, mSceneMgr, "UBCData"); // mWindow is Ogre::RenderWindow*, mSceneManager is Ogre::SceneManager*
-	mGUI = new MyGUI::Gui();
-	mGUI->initialise();
 
+	mPlatform = new MyGUI::OgrePlatform();
+    Ogre::LogManager::getSingletonPtr()->logMessage("Crash?");
+    mPlatform->initialise(mWindow, mSceneMgr, "UBCData"); // mWindow is Ogre::RenderWindow*, mSceneManager is Ogre::SceneManager*
+    Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
+	mGUI = new MyGUI::Gui();
+	Ogre::LogManager::getSingletonPtr()->logMessage("Crash???");
+	mGUI->initialise();
+    Ogre::LogManager::getSingletonPtr()->logMessage("Crash????");
 	return true;
 }
 

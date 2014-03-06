@@ -601,6 +601,7 @@ bool gameState::logic()
     else
     {
     }
+	Ogre::LogManager::getSingletonPtr()->logMessage("gameState logic updated");
 //    exit(0);
     return true;
 }

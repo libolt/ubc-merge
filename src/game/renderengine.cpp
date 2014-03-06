@@ -202,7 +202,7 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
 
 bool renderEngine::initSDL() // Initializes SDL Subsystem
 {
-	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0) {
+	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0) {
         fprintf(stderr,
                 "\nUnable to initialize SDL:  %s\n",
                 SDL_GetError()
@@ -214,7 +214,7 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
     sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED,
-	                             0,0,0);
+	                             0,0,SDL_WINDOW_SHOWN);
 #else
     sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
 	                             SDL_WINDOWPOS_UNDEFINED,
@@ -544,14 +544,14 @@ bool renderEngine::createScene()
 	// this next bit is for the sake of the input handler
 	//	unsigned long hWnd;
 	//		mWindow->getCustomAttribute("WINDOW", &winHandle);
-
+/*
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	Ogre::Entity* pEntity = mSceneMgr->createEntity("court", "Player.mesh");
 	Ogre::SceneNode* pNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("court");
 	pNode->attachObject(pEntity);
 	pNode->setScale(1.8f, 1.8f, 1.8f);
 #endif
-
+*/
 //    GUISystem *gui = GUISystem::Instance();
 //    gameEngine *gameE = gameEngine::Instance();
 //    teams *team = teams::Instance();

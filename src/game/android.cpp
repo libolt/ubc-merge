@@ -129,6 +129,7 @@ static void handleCmd(struct android_app* app, int32_t cmd)
 //					gui->initMyGUI(); // Initializes MyGUI
 //                    gui->createMainMenuButtons(); // creates a MyGUI button.
                     gameS->setGameType(SINGLE);
+					inputSystem *input = inputSystem::Instance();
 					gameE->gameLoop();
                 }
                 else
@@ -175,7 +176,7 @@ void android_main(struct android_app* state)
 //    renderE->initOgre();
 			
     state->onAppCmd = &handleCmd;
-    state->onInputEvent = &handleInput;
+//    state->onInputEvent = &handleInput;
  
     int ident, events;
     struct android_poll_source* source;
