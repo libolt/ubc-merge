@@ -82,17 +82,17 @@ void loader::setTeamFiles(std::vector<string> files)
 
 // loads an xml file using SDL so that it can
 // be passed to TinyXML
-//int loader::readFile(const char *sourceFile, char **destination)
-int loader::readFile(const char *sourceFile, Ogre::String *destination)
+int loader::readFile(const char *sourceFile, char **destination)
+//int loader::readFile(const char *sourceFile, Ogre::String *destination)
 {
 	renderEngine *renderE = renderEngine::Instance();
 	int BLOCK_SIZE = 8;
 	int MAX_BLOCKS = 1024;
 	
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = renderE->openAPKFile(sourceFile);
-	destination = new Ogre::String;
-	destination[0] = fileData->getAsString();
+	Ogre::DataStreamPtr fileData = renderE->openAPKFile("teamd.xml");
+//	destination = new Ogre::String;
+	destination = (char**)fileData->getAsString().c_str();
 #else
 //    char *contents = NULL;
 //	readFile(fileName.c_str(), &contents);
@@ -349,16 +349,17 @@ bool loader::loadTeamListFile(string fileName)
     TiXmlDocument doc;
     Ogre::LogManager::getSingletonPtr()->logMessage(fileName);	
 	Ogre::LogManager::getSingletonPtr()->logMessage("bate");
- /* #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = renderE->openAPKFile("teamd.xml");
-	fileContents = fileData->getAsString().c_str();
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	fileContents = fileData->getAsString();
 #else
     char *contents = NULL;
-//	readFile(fileName.c_str(), &fileContents);
-//	fileContents = Ogre::StringConverter::toString(contents);
-#endif */
-    readFile(fileName.c_str(), &fileContents);
+	readFile(fileName.c_str(), &contents);
+	fileContents = Ogre::StringConverter::toString(contents);
+#endif 
+//    readFile(fileName.c_str(), &fileContents);
 	Ogre::LogManager::getSingletonPtr()->logMessage("barf");
+	Ogre::LogManager::getSingletonPtr()->logMessage(fileContents);
 //	exit(0);
 /*
 	Ogre::LogManager::getSingletonPtr()->logMessage("fileName = " +fileName);
@@ -370,11 +371,11 @@ bool loader::loadTeamListFile(string fileName)
 		return(false);
     }
 */
-//	if (!doc.Parse(file->getAsString().c_str()))
+//	if (!doc.Parse(fileData->getAsString().c_str()))
     if (!doc.Parse(fileContents.c_str()))
     {
-		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse file");
-		exit(0);
+		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse fart file");
+//		exit(0);
 	}
 
 	TiXmlHandle hDoc(&doc);
@@ -395,7 +396,7 @@ bool loader::loadTeamListFile(string fileName)
     {
 //		string pText=pElem->GetText();
         files.push_back(pElem->GetText());
-
+        Ogre::LogManager::getSingletonPtr()->logMessage(pElem->GetText());
     }
 
 /*    std::vector<std::string>::iterator it;
@@ -416,7 +417,7 @@ bool loader::loadTeamFile(string fileName)
 {
 //    teams *team = teams::Instance();
 	gameState *gameS = gameState::Instance();
-
+    renderEngine *renderE = renderEngine::Instance();
 	std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
     teamData teamD;
 
@@ -429,15 +430,22 @@ bool loader::loadTeamFile(string fileName)
 
 //    TiXmlDocument doc(fileName.c_str());
 //    if (!doc.LoadFile()) return(false);
-//	char *fileContents = NULL;
+//	const char *fileContents = NULL;
 	Ogre::String fileContents;
 	TiXmlDocument doc;
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);	
-	readFile(fileName.c_str(), &fileContents);
-
+//	readFile(fileName.c_str(), &fileContents);
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	fileContents = fileData->getAsString();
+#else
+    char *contents = NULL;
+	readFile(fileName.c_str(), &contents);
+	fileContents = Ogre::StringConverter::toString(contents);
+#endif 
 	if (!doc.Parse(fileContents.c_str()))
 	{
-		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse file");
+		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse team file");
 		exit(0);
 	}
 
@@ -534,6 +542,7 @@ bool loader::loadPlayers()
 // loads XML file containing list of players and the files representing them
 bool loader::loadPlayerListFile( string fileName)
 {
+	renderEngine *renderE = renderEngine::Instance();
     std::vector<std::string> playerFiles;
     players *player = players::Instance();
 
@@ -541,15 +550,24 @@ bool loader::loadPlayerListFile( string fileName)
 	Ogre::String fileContents;	
 	TiXmlDocument doc;
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);	
-	readFile(fileName.c_str(), &fileContents);
-
+//	readFile(fileName.c_str(), &fileContents);
+    Ogre::LogManager::getSingletonPtr()->logMessage(fileName);
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	fileContents = fileData->getAsString();
+#else
+    char *contents = NULL;
+	readFile(fileName.c_str(), &contents);
+	fileContents = Ogre::StringConverter::toString(contents);
+#endif 
+	
 /*    TiXmlDocument doc(fileName.c_str());
     if (!doc.LoadFile()) return(false);
 */
 
 	if (!doc.Parse(fileContents.c_str()))
 	{
-		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse file");
+		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse players.xml file");
 		exit(0);
 	}
 
@@ -590,6 +608,7 @@ bool loader::loadPlayerListFile( string fileName)
 bool loader::loadPlayerFile(string fileName)
 {
 	gameState *gameS = gameState::Instance();
+	renderEngine *renderE = renderEngine::Instance();
     playerData playerD;;
     std::vector<playerData> playerDataInstance = gameS->getPlayerDataInstance();
     string firstName;
@@ -611,8 +630,16 @@ bool loader::loadPlayerFile(string fileName)
 	Ogre::String fileContents;
 	TiXmlDocument doc;
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);	
-	readFile(fileName.c_str(), &fileContents);
+//	readFile(fileName.c_str(), &fileContents);
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	fileContents = fileData->getAsString();
+#else
+    char *contents = NULL;
+	readFile(fileName.c_str(), &contents);
+	fileContents = Ogre::StringConverter::toString(contents);
+#endif 
 	if (!doc.Parse(fileContents.c_str()))
 	{
 		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse file");
