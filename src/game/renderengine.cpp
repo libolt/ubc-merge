@@ -106,7 +106,7 @@ void renderEngine::setMAssetMgr(AAssetManager* asset)
 	mAssetMgr = asset;
 }
 
-#endif 
+#endif
 
 Vector3 renderEngine::getMTranslateVector()
 {
@@ -193,7 +193,7 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
         void* membuf = OGRE_MALLOC(length, Ogre::MEMCATEGORY_GENERAL);
         memcpy(membuf, AAsset_getBuffer(asset), length);
         AAsset_close(asset);
-                
+
         stream = Ogre::DataStreamPtr(new Ogre::MemoryDataStream(membuf, length, true, true));
     }
     return stream;
@@ -207,6 +207,7 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
                 "\nUnable to initialize SDL:  %s\n",
                 SDL_GetError()
                );
+        __android_log_print(ANDROID_LOG_VERBOSE, "com.libolt.ubc", "SDL Error = %s", SDL_GetError());
         return 1;
     }
 
@@ -421,7 +422,7 @@ bool renderEngine::createScene()
 
 /*
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	
+
 	config = AConfiguration_new();
 	AConfiguration_fromAssetManager(config, app->activity->assetManager);
 	mAssetMgr = app->activity->assetManager;
@@ -518,8 +519,8 @@ bool renderEngine::createScene()
 	// Look back along -Z
 	mCamera->lookAt(Ogre::Vector3(0, 0, -300));
 
-	mCamera->setNearClipDistance(5);		
-	
+	mCamera->setNearClipDistance(5);
+
 	viewPort = mWindow->addViewport(mCamera);
 	viewPort->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
 	viewPort->setOverlaysEnabled(true);	// sets overlays true so that MyGUI can render
@@ -529,7 +530,7 @@ bool renderEngine::createScene()
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	viewPort->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
-#endif		
+#endif
 	mCamera->setAspectRatio((Ogre::Real)1.333333);
 
     // Set ambient light

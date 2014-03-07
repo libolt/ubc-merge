@@ -193,7 +193,7 @@ bool gameEngine::startGame()
 {
 //    gameState *gameS = gameState::Instance();
     gameState *gameS = gameState::Instance();
-	
+
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 
 gameS->setupState();
@@ -211,11 +211,10 @@ void gameEngine::quit()
 
 void gameEngine::gameLoop()	// Main Game Loop
 {
-//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 
     renderEngine * render = renderEngine::Instance();
 
-	gameState *gameS = gameState::Instance();
+    gameState *gameS = gameState::Instance();
 
     GUISystem *gui = GUISystem::Instance();
 
@@ -253,7 +252,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 				}
 
 		   }
-		   
+
 		   else if (gameS->getGameType() == MULTI)
 		   {
 				if (network->getServerReceivedConnection() || network->getClientEstablishedConnection())	// checks if server and client are connected
@@ -275,7 +274,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	    			sceneCreated = true;
 	    		}
 	    	}
-		
+
 	    	if (start)	// checks if it's time to start the game
 	    	{
 	    		if (startGame())
@@ -284,7 +283,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	    			renderScene = true;
 	    		}
 	    	}
-//#else		
+//#else
 	        lastFPS = render->getMWindow()->getLastFPS();
 	        Ogre::String currFPS = Ogre::StringConverter::toString(lastFPS);
 
@@ -314,14 +313,14 @@ void gameEngine::gameLoop()	// Main Game Loop
 	        	oldTime = loopTime.getMilliseconds();
 
 	        }
-			
+
 
 	        // writes Framerate to Ogre.log
 //	                Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
 
 	    	if (input->processInput())
 	        {
-           
+
 	    		if (gameS->getTeamInstancesCreated())
                 {
 					if (gameS->getGameType() == SINGLE)
@@ -601,6 +600,6 @@ void gameEngine::gameLoop()	// Main Game Loop
 			render->getMRoot()->renderOneFrame();
         }
 //		#endif
-    }   
-	
+    }
+
 }

@@ -26,6 +26,7 @@
 #ifdef __ANDROID__
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 #include "android.h"
+#include "SDL_main.h"
 #endif
 
 

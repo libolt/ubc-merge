@@ -27,12 +27,12 @@
     #define OGRE_STATIC_ParticleFX
 //    #define OGRE_STATIC_OctreeSceneManager
     #include "OgreStaticPluginLoader.h"
-    
+
 
     #include <EGL/egl.h>
     #include <android/log.h>
     #include <android_native_app_glue.h>
-  
+
     #include "RTShaderHelper.h"
     #include "Android/OgreAndroidEGLWindow.h"
     #include "Android/OgreAPKFileSystemArchive.h"
@@ -72,7 +72,7 @@ class renderEngine
 
 	virtual AAssetManager* getMAssetMgr();
 	virtual void setMAssetMgr(AAssetManager* asset);
-#endif	
+#endif
 
     virtual Ogre::Vector3 getMTranslateVector();
     void setMTranslateVector(Ogre::Vector3 vector);
@@ -98,14 +98,14 @@ class renderEngine
     virtual String getMResourceGroup();
     void setMResourceGroup(String resource);
 
-	
+
     virtual ~renderEngine();
 
     static renderEngine *Instance();
 
     virtual bool initSDL();
     virtual bool initOgre();
-	
+
 	virtual bool createWindow();
     virtual bool createScene();
     virtual bool frameStarted();
@@ -117,13 +117,13 @@ class renderEngine
     renderEngine(const renderEngine&);
     renderEngine& operator= (const renderEngine&);
 
-    #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID 
+    #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
         struct android_app* app;
-        //static 
+        //static
         Ogre::StaticPluginLoader* gStaticPluginLoader;
         AConfiguration* config;
-        
-    #endif 
+
+    #endif
     // SDL code
     SDL_Window *sdlWindow;
     SDL_SysWMinfo sysInfo;
@@ -143,7 +143,7 @@ class renderEngine
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	AAssetManager* mAssetMgr;
 	Ogre::ShaderGeneratorTechniqueResolverListener* mMatListener;
-#endif	
+#endif
     //	InputReader* mInputDevice;
     Ogre::Vector3 mTranslateVector;
     Radian mRotX, mRotY;
