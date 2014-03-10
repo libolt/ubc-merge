@@ -26,9 +26,13 @@
 #ifdef __ANDROID__
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 #include "android.h"
+#include "SDL.h"
 #include "SDL_main.h"
 #endif
 
+/*#ifdef __cplusplus
+extern “C”
+#endif*/
 
 UBC::UBC()
 {
@@ -55,7 +59,16 @@ void UBC::setQuitGame(bool quit)
 
 int main(int argc, char *argv[])
 {
-    renderEngine * render = renderEngine::Instance();
+	
+if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0) {
+        fprintf(stderr,
+                "\nUnable to initialize SDL:  %s\n",
+                SDL_GetError()
+               );
+        __android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Error = %s", SDL_GetError());
+        return 1;
+    }
+/*    renderEngine * render = renderEngine::Instance();
 
     gameEngine *gameE = gameEngine::Instance();
 //    gameState *gameS = gameState::Instance();
@@ -75,7 +88,7 @@ int main(int argc, char *argv[])
     gameE->gameLoop();
 
     atexit(SDL_Quit);
-
+*/
 	return (0);
 }
 

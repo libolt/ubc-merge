@@ -129,7 +129,7 @@ bool inputSystem::destroy() // destroys the OIS Input System and related objects
 bool inputSystem::processInput()	// processes all input
 {
 	Ogre::LogManager::getSingletonPtr()->logMessage("Processing input");
-/*    // processes keyboard input
+    // processes keyboard input
     if (processUnbufferedKeyInput() == false)
     {
         return false;
@@ -141,7 +141,7 @@ bool inputSystem::processInput()	// processes all input
         return false;
     }
 		Ogre::LogManager::getSingletonPtr()->logMessage("Input processed");
-*/
+
 	return true;
 }
 
@@ -151,7 +151,7 @@ bool inputSystem::processUnbufferedKeyInput()
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     keyPressed = "";	// resets keyPressed so that we don't get repeats
 	Ogre::LogManager::getSingletonPtr()->logMessage("Crash?");
-/*
+
 		if (SDL_PollEvent(&inputEvent))
 		{
 			Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
@@ -207,7 +207,7 @@ bool inputSystem::processUnbufferedKeyInput()
 			}
 
 		}
-		*/
+		
 	SDL_Event Event;
     while ( SDL_PollEvent( &Event ) )
 	{

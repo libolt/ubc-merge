@@ -1,11 +1,14 @@
 #ifdef __ANDROID__ 
+
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 
+#include "SDL_main.h"
 #include "android.h"
 #include "gameengine.h"
 #include "gamestate.h"
 #include "gui.h"
 #include "renderengine.h"
+
 
 static Ogre::DataStreamPtr openAPKFile(const Ogre::String& fileName)
 {
@@ -89,7 +92,7 @@ static void setupScene()
 
 }
 
-
+/*
 static int32_t handleInput(struct android_app* app, AInputEvent* event) 
 {
 }
@@ -149,10 +152,11 @@ static void handleCmd(struct android_app* app, int32_t cmd)
             break;
     }
 }
-
+*/
 
 //# if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-void android_main(struct android_app* state)
+//void android_main(struct android_app* state)
+int main(int argc, char *argv[])
 {
 	
 	renderEngine *renderE = renderEngine::Instance();
@@ -175,7 +179,7 @@ void android_main(struct android_app* state)
 
 //    renderE->initOgre();
 			
-    state->onAppCmd = &handleCmd;
+//    state->onAppCmd = &handleCmd;
 //    state->onInputEvent = &handleInput;
  
     int ident, events;
@@ -183,7 +187,7 @@ void android_main(struct android_app* state)
     
     while (true)
     {
-        while ((ident = ALooper_pollAll(0, NULL, &events, (void**)&source)) >= 0)
+/*        while ((ident = ALooper_pollAll(0, NULL, &events, (void**)&source)) >= 0)
         {
             if (source != NULL)
                 source->process(state, source);
@@ -191,7 +195,7 @@ void android_main(struct android_app* state)
             if (state->destroyRequested != 0)
                 return;
         }
-		
+*/		
 		if(renderE->getMWindow() != NULL && renderE->getMWindow()->isActive())
 //		if(gRenderWnd != NULL && gRenderWnd->isActive())
 		{
@@ -200,6 +204,7 @@ void android_main(struct android_app* state)
 			renderE->getMRoot()->renderOneFrame();
 		}
     }
+//	return (0);
 }
 
 #endif

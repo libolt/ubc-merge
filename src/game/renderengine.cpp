@@ -207,7 +207,7 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
                 "\nUnable to initialize SDL:  %s\n",
                 SDL_GetError()
                );
-        __android_log_print(ANDROID_LOG_VERBOSE, "com.libolt.ubc", "SDL Error = %s", SDL_GetError());
+        __android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Error = %s", SDL_GetError());
         return 1;
     }
 

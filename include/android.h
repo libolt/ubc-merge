@@ -7,7 +7,7 @@
 
 #include <EGL/egl.h>
 #include <android/log.h>
-#include <android_native_app_glue.h>
+//#include <android_native_app_glue.h>
 
 #include "Ogre.h"
 #include "OgreRenderWindow.h"
@@ -25,7 +25,7 @@ static Ogre::StaticPluginLoader* gStaticPluginLoader = NULL;
 //static Ogre::SceneManager* gSceneMgr = NULL;
 static Ogre::ShaderGeneratorTechniqueResolverListener* gMatListener = NULL;
 
-static int32_t handleInput(struct android_app* app, AInputEvent* event);
+//static int32_t handleInput(struct android_app* app, AInputEvent* event);
 
-static void handleCmd(struct android_app* app, int32_t cmd);
+//static void handleCmd(struct android_app* app, int32_t cmd);
 
