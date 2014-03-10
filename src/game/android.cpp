@@ -159,20 +159,31 @@ static void handleCmd(struct android_app* app, int32_t cmd)
 int main(int argc, char *argv[])
 {
 	
-	renderEngine *renderE = renderEngine::Instance();
-    app_dummy();
+//	renderEngine *renderE = renderEngine::Instance();
 
-	if(renderE->getMRoot() == NULL)
-	{
+        if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0) {
+        fprintf(stderr,
+                "\nUnable to initialize SDL:  %s\n",
+                SDL_GetError()
+               );
+        __android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Error = %s", SDL_GetError());
+        return 1;
+    }
+
+/*
+//    app_dummy();
+
+//	if(renderE->getMRoot() == NULL)
+//	{
 //		gRoot = new Ogre::Root();
-/*		renderE->setMRoot(new Ogre::Root());
+		renderE->setMRoot(new Ogre::Root());
 #ifdef OGRE_STATIC_LIB
         gStaticPluginLoader = new Ogre::StaticPluginLoader();
         gStaticPluginLoader->load();
 #endif
         renderE->getMRoot()->setRenderSystem( renderE->getMRoot()->getAvailableRenderers().at(0));
         renderE->getMRoot()->initialise(false);	
-*/
+
         renderE->initSDL();
 		renderE->initOgre();
 	}	
@@ -187,7 +198,7 @@ int main(int argc, char *argv[])
     
     while (true)
     {
-/*        while ((ident = ALooper_pollAll(0, NULL, &events, (void**)&source)) >= 0)
+//        while ((ident = ALooper_pollAll(0, NULL, &events, (void**)&source)) >= 0)
         {
             if (source != NULL)
                 source->process(state, source);
@@ -195,7 +206,7 @@ int main(int argc, char *argv[])
             if (state->destroyRequested != 0)
                 return;
         }
-*/		
+		
 		if(renderE->getMWindow() != NULL && renderE->getMWindow()->isActive())
 //		if(gRenderWnd != NULL && gRenderWnd->isActive())
 		{
@@ -205,6 +216,8 @@ int main(int argc, char *argv[])
 		}
     }
 //	return (0);
+*/
+	return (0);
 }
 
 #endif
