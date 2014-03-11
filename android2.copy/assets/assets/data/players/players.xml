@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<Players>
+        <PlayerFile>aaronbrown.xml</PlayerFile>
+        <PlayerFile>adrianmathias.xml</PlayerFile>
+	<PlayerFile>anthonybowers.xml</PlayerFile>
+        <PlayerFile>benseasy.xml</PlayerFile>
+        <PlayerFile>briandarlford.xml</PlayerFile>
+	<PlayerFile>clarklang.xml</PlayerFile>
+        <PlayerFile>deonsmithers.xml</PlayerFile>
+        <PlayerFile>frankthomason.xml</PlayerFile>
+	<PlayerFile>jarinmulder.xml</PlayerFile>
+        <PlayerFile>johndona.xml</PlayerFile>
+        <PlayerFile>milesbradshaw.xml</PlayerFile>
+	<PlayerFile>samjones.xml</PlayerFile>
+        <PlayerFile>seanmichaelmcleanshute.xml</PlayerFile>
+	<PlayerFile>terencewond.xml</PlayerFile>
+        <PlayerFile>tomfowlman.xml</PlayerFile>
+	<PlayerFile>trentonjones.xml</PlayerFile>
+	<PlayerFile>nickplumson.xml</PlayerFile>
+	<PlayerFile>victorchemkov.xml</PlayerFile>
+	<PlayerFile>geoffblum.xml</PlayerFile>
+	<PlayerFile>harrysnyder.xml</PlayerFile>
+</Players>
