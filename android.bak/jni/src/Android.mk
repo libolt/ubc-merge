@@ -10,7 +10,7 @@ BTOGRE_PATH := $(BUILD_ROOT)/btogre
 BULLET_PATH := $(BUILD_ROOT)bullet4droid
 ENET_PATH := $(BUILD_ROOT)/enet 
 MYGUI_PATH := $(BUILD_ROOT)/mygui-svn
-SDL_PATH := $(BUILD_ROOT)/SDL-2.0.2-8296 
+SDL_PATH := $(BUILD_ROOT)/SDL2
 TINYXML_PATH := $(BUILD_ROOT)/tinyxml
 OGRE_PATH := ../../../../OgreSDK/Ogre
 OGREDEPS_PATH :=../../../../OgreSDK/Dependencies
@@ -42,7 +42,7 @@ LOCAL_C_INCLUDES += $(LOCAL_PATH)/$(TINYXML_PATH)
 # $(wildcard $(LOCAL_PATH)/src/game/*.cpp)) 
 
 LOCAL_SRC_FILES := ../../../src/game/android.cpp \
-#LOCAL_SRC_FILES += ../../../../SDL-2.0.2-8296/src/main/android/SDL_android_main.c \
+#LOCAL_SRC_FILES += ../../../../SDL2/src/main/android/SDL_android_main.c \
 LOCAL_SRC_FILES += ../../../src/game/basketballs.cpp \
 LOCAL_SRC_FILES += ../../../src/game/courtdata.cpp \
 LOCAL_SRC_FILES += ../../../src/game/courtstate.cpp \
