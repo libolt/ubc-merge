@@ -158,10 +158,10 @@ static void handleCmd(struct android_app* app, int32_t cmd)
 //void android_main(struct android_app* state)
 int main(int argc, char *argv[])
 {
-	
-//	renderEngine *renderE = renderEngine::Instance();
+	gameEngine *gameE = gameEngine::Instance();
+	renderEngine *renderE = renderEngine::Instance();
 
-        if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0) {
+/*        if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0) {
         fprintf(stderr,
                 "\nUnable to initialize SDL:  %s\n",
                 SDL_GetError()
@@ -169,7 +169,12 @@ int main(int argc, char *argv[])
         __android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Error = %s", SDL_GetError());
         return 1;
     }
+*/
 
+renderE->initSDL();
+renderE->initOgre();
+renderE->createScene();
+gameE->gameLoop();
 /*
 //    app_dummy();
 

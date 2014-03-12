@@ -184,9 +184,11 @@ void renderEngine::setMResourceGroup(String resource)
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
 {
-	renderEngine *renderE = renderEngine::Instance();
+    struct android_app* app;
 	Ogre::DataStreamPtr stream;
-    AAsset* asset = AAssetManager_open(renderE->getMAssetMgr(), fileName.c_str(), AASSET_MODE_BUFFER);
+	
+	mAssetMgr = app->activity->assetManager;
+    AAsset* asset = AAssetManager_open(mAssetMgr, fileName.c_str(), AASSET_MODE_BUFFER);
     if(asset)
     {
 		off_t length = AAsset_getLength(asset);

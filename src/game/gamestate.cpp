@@ -28,7 +28,8 @@
 #include "renderengine.h"
 #include "teams.h"
 
-
+//extern "C"
+//{
 gameState *gameState::pInstance = 0;
 
 gameState *gameState::Instance()
@@ -912,3 +913,5 @@ bool gameState::updatePositions()
 
     return true;
 }
+
+//}

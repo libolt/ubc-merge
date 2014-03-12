@@ -23,6 +23,8 @@
 #include "physicsengine.h"
 #include "players.h"
 
+//extern "C"
+//{
 teamState::teamState()
 {
 	teamNumber = -1;
@@ -854,3 +856,5 @@ void teamState::updatePositions()
     }
 
 }
+
+//}
