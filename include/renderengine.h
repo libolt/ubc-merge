@@ -72,6 +72,9 @@ class renderEngine
 
 	virtual AAssetManager* getMAssetMgr();
 	virtual void setMAssetMgr(AAssetManager* asset);
+	
+	virtual android_app *getApp();
+	virtual void setApp(android_app *ap);
 #endif
 
     virtual Ogre::Vector3 getMTranslateVector();
@@ -118,7 +121,7 @@ class renderEngine
     renderEngine& operator= (const renderEngine&);
 
     #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-        struct android_app* app;
+        android_app* app;
         //static
         Ogre::StaticPluginLoader* gStaticPluginLoader;
         AConfiguration* config;

@@ -59,6 +59,14 @@ renderEngine::~renderEngine()
 {
 }
 
+bool renderEngine::frameStarted()
+{
+	return true;
+}
+bool renderEngine::frameEnded()
+{
+	return true;
+}
 Root *renderEngine::getMRoot()
 {
 	return (mRoot);
@@ -97,15 +105,23 @@ void renderEngine::setMWindow(RenderWindow *window)
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 
-AAssetManager* renderEngine::getMAssetMgr()
+AAssetManager *renderEngine::getMAssetMgr()
 {
 	return (mAssetMgr);
 }
-void renderEngine::setMAssetMgr(AAssetManager* asset)
+void renderEngine::setMAssetMgr(AAssetManager *asset)
 {
 	mAssetMgr = asset;
 }
 
+android_app *renderEngine::getApp()
+{
+	return (app);
+}
+void renderEngine::setApp(android_app *ap)
+{
+	app = ap;
+}
 #endif
 
 Vector3 renderEngine::getMTranslateVector()
@@ -186,7 +202,9 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
 {
     struct android_app* app;
 	Ogre::DataStreamPtr stream;
-	
+	AConfiguration* config = AConfiguration_new();
+    AConfiguration_fromAssetManager(config, app->activity->assetManager);
+                
 	mAssetMgr = app->activity->assetManager;
     AAsset* asset = AAssetManager_open(mAssetMgr, fileName.c_str(), AASSET_MODE_BUFFER);
     if(asset)
@@ -233,100 +251,6 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
     	assert( false );
     }
 
-	return true;
-}
-
-bool renderEngine::frameStarted()
-{
-exit(0);
-    GUISystem *gui = GUISystem::Instance();
-    gameEngine *gameE = gameEngine::Instance();
-    gameState *gameS = gameState::Instance(); // FIXME: gameState shouldn't be called in render engine
-    inputSystem *input = inputSystem::Instance();
-    players *player = players::Instance();
-    physicsEngine *physEngine = physicsEngine::Instance();
-    renderEngine * render = renderEngine::Instance();
-
-    float lastFPS = render->getMWindow()->getLastFPS();
-    String currFPS = StringConverter::toString(lastFPS);
-//    cout << "FPS = " << currFPS << endl;
-
-    unsigned long oldTime = gameE->getOldTime();
-    int newTime = gameE->loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
-    unsigned long changeInTime = newTime - oldTime;
-
-    Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
-
-//    std::cout << "oldTime = " << oldTime << std::endl;
-//    std::cout << "newTime = " << newTime << std::endl;
-//    std::cout << "change in time = " << (newTime - oldTime) << std::endl;
-
-
-//    event = new OIS::MouseEvent[1];
-//    gui->mouseMoved(*event);
-//    const OIS::MouseState &ms = input->getMMouse()->getMouseState();
-//    mGUIManager->injectMouseMove( ms.X.rel, ms.Y.rel );
-//    exit(0);
-    Ogre::Real times;
-//    Ogre::FrameEvent evt;
-    times = 0.01f;
-//    cout << "time since last frame = " << times << endl;
-
-    if ((newTime - oldTime) >= 70)
-    {
-        gameS->setTipOffComplete(true);
-        gameS->setGameStarted(true);
-        // checks to see if a game has been started
-        if (gameS->getGameStarted() && gameS->getTipOffComplete())
-        {
-            gameS->logic();    // executes the game logic
-        //    player->mAnimationState2->addTime(changeInTime);
-        }
-        else
-        {
-            gameS->executeTipOff();	// executes the game Tip Off
-        }
-
-
-        oldTime = newTime;
-        gameE->setOldTime(oldTime);
-    }
-
-    if (input->processInput() == false)
-    {
-        gameE->setQuitGame(true);
-    }
-
-    if (changeInTime >= 1000.0/60.0)
-    {
-    physEngine->updateState();
-    }
-exit(0);
-//	std::cout << "Loop Time = " << loopTime.getMilliseconds() << std::endl;
-
-//    return OgreApplication::frameStarted(evt);
-    return true;
-}
-
-bool renderEngine::frameEnded()
-{
-//	mWindow->update();
-//	mRoot->renderOneFrame();
-
-    return true;
-}
-
-void renderEngine::createSceneManager()
-{
-    renderEngine *render = renderEngine::Instance();
-
-    // Create the SceneManager, in this case a generic one
-    render->setMSceneMgr(render->getMRoot()->createSceneManager(ST_EXTERIOR_CLOSE));
-
-}
-
-bool renderEngine::createWindow()
-{
 	return true;
 }
 
@@ -415,35 +339,63 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	mWindow = mRoot->initialise(false, "Ultimate Basketball Challenge");
 #endif
 
+    Ogre::LogManager::getSingletonPtr()->logMessage("OGRE initialized successfully!");
 
 	return true;
 }
 
+void renderEngine::createSceneManager()
+{
+    renderEngine *render = renderEngine::Instance();
+
+    // Create the SceneManager, in this case a generic one
+    render->setMSceneMgr(render->getMRoot()->createSceneManager(ST_EXTERIOR_CLOSE));
+
+}
+
+bool renderEngine::createWindow()
+{
+	return true;
+}
+
+
+
 bool renderEngine::createScene()
 {
 
-/*
+
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-
+    Ogre::LogManager::getSingletonPtr()->logMessage("Hello");
 	config = AConfiguration_new();
-	AConfiguration_fromAssetManager(config, app->activity->assetManager);
+	Ogre::LogManager::getSingletonPtr()->logMessage("Mello");
+//	AConfiguration_fromAssetManager(config, app->activity->assetManager);
 	mAssetMgr = app->activity->assetManager;
-
+	Ogre::LogManager::getSingletonPtr()->logMessage("Yello");
+    AConfiguration_fromAssetManager(config, mAssetMgr);
+	Ogre::LogManager::getSingletonPtr()->logMessage("Bello");
+//	mAssetMgr = app->activity->assetManager;
+    
+    Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKFileSystemArchiveFactory(app->activity->assetManager) );
+    Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKZipArchiveFactory(app->activity->assetManager) );
+	Ogre::LogManager::getSingletonPtr()->logMessage("Hello?");			
 	//  AConfiguration_fromAssetManager(config, app->activity->assetManager);
 	//gAssetMgr = app->activity->assetManager;
 	misc["androidConfig"] = Ogre::StringConverter::toString((int)config);
 	//    misc["externalWindowHandle"] = Ogre::StringConverter::toString((int)app->window);
 	misc["externalWindowHandle"] = winHandle;
 //	exit(0);
+	Ogre::LogManager::getSingletonPtr()->logMessage("Hello??");
 	mWindow = mRoot->createRenderWindow("UBC", 0, 0, false, &misc);
 //	exit(0);
+	Ogre::LogManager::getSingletonPtr()->logMessage("Dead");
 #endif
-*/
+
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	Ogre::ConfigFile cf;
 	cf.load(openAPKFile("resources.cfg"));
-
+    Ogre::LogManager::getSingletonPtr()->logMessage("or");
 	Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
+exit(0);
 	while (seci.hasMoreElements())
 	{
 		Ogre::String sec, type, arch;
@@ -475,6 +427,7 @@ bool renderEngine::createScene()
 	//    exit(0);
 	mWindow->setVisible(true);
 #endif
+Ogre::LogManager::getSingletonPtr()->logMessage("Alive?");
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     std::string dataPath = "data";
