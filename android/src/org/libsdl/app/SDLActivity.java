@@ -33,7 +33,7 @@ public class SDLActivity extends Activity {
 
     // Main components
     protected static SDLActivity mSingleton;
-    protected static SDLSurface mSurface;
+    public static SDLSurface mSurface;
     protected static View mTextEdit;
     protected static ViewGroup mLayout;
     protected static SDLJoystickHandler mJoystickHandler;

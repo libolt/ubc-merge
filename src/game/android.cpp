@@ -197,7 +197,7 @@ gameE->gameLoop();
         renderE->getMRoot()->initialise(false);	
 */
         renderE->initSDL();
-		renderE->initOgre();
+//		renderE->initOgre();
 	}	
 /*	
 //    renderE->createScene();
@@ -259,6 +259,7 @@ gameE->gameLoop();
                 }				
 		}
 */
+/*
 		if(renderE->getMWindow() != NULL && renderE->getMWindow()->isActive())
 //		if(gRenderWnd != NULL && gRenderWnd->isActive())
 		{
@@ -266,6 +267,7 @@ gameE->gameLoop();
 			renderE->getMWindow()->windowMovedOrResized();
 			renderE->getMRoot()->renderOneFrame();
 		}
+*/
     }
 //	return (0);
 
