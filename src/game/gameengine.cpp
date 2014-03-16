@@ -193,8 +193,11 @@ bool gameEngine::startGame()
 {
 //    gameState *gameS = gameState::Instance();
     gameState *gameS = gameState::Instance();
-    gameS->setupState();
 
+//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+
+gameS->setupState();
+//#endif
     return true;
 }
 
@@ -208,11 +211,17 @@ void gameEngine::quit()
 
 void gameEngine::gameLoop()	// Main Game Loop
 {
+
     renderEngine * render = renderEngine::Instance();
+
     gameState *gameS = gameState::Instance();
+
     GUISystem *gui = GUISystem::Instance();
+
     inputSystem *input = inputSystem::Instance();
+
     networkEngine *network = networkEngine::Instance();
+
     players *player = players::Instance();
 
     float lastFPS = 0.0f;	// stores value of last Frames Per Second
@@ -224,6 +233,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	   while (!quitGame)
 	    {
+//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //			std::vector<playerState> playerInstance = gameS->getPlayerInstance();	// stores th player instances
 
 	//        ubc->processUnbufferedKeyInput();
@@ -232,6 +242,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 			// run the message pump (Eihort)
 	//		Ogre::WindowEventUtilities::messagePump();
 //		   exit(0);
+
 		   if (gameS->getGameType() == SINGLE)
 		   {
 
@@ -241,6 +252,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 				}
 
 		   }
+
 		   else if (gameS->getGameType() == MULTI)
 		   {
 				if (network->getServerReceivedConnection() || network->getClientEstablishedConnection())	// checks if server and client are connected
@@ -254,7 +266,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	    	if (createScene)	// checks if the scene should be created
 	    	{
-	    		if (render->createScene())
+//	    		if (render->createScene())
 	    		{
 	    			createScene = false;
 	    			start = true;
@@ -262,6 +274,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	    			sceneCreated = true;
 	    		}
 	    	}
+
 	    	if (start)	// checks if it's time to start the game
 	    	{
 	    		if (startGame())
@@ -270,6 +283,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	    			renderScene = true;
 	    		}
 	    	}
+//#else
 	        lastFPS = render->getMWindow()->getLastFPS();
 	        Ogre::String currFPS = Ogre::StringConverter::toString(lastFPS);
 
@@ -299,6 +313,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	        	oldTime = loopTime.getMilliseconds();
 
 	        }
+
 
 	        // writes Framerate to Ogre.log
 //	                Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
@@ -583,7 +598,8 @@ void gameEngine::gameLoop()	// Main Game Loop
 		{
     		render->getMWindow()->windowMovedOrResized();
 			render->getMRoot()->renderOneFrame();
-  }
-	    }
+        }
+//		#endif
+    }
 
 }

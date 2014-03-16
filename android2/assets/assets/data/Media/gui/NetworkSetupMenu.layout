@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="EditBox" skin="EditBox" position="362 175 300 26" align="Default" layer="Main" name="ipAddressBox">
+        <Property key="Caption" value=""/>
+        <Property key="Colour" value="0.321637 0.312233 0.312233"/>
+        <Property key="Enabled" value="true"/>
+        <Property key="FontName" value="DejaVuSansFont_15"/>
+        <Property key="TextAlign" value="Center"/>
+        <Property key="TextColour" value="1 1 1"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="362 200  300 26" align="Default" layer="Main" name="serverButton">
+            <Property key="Caption" value="Server"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="362 225 300 26" align="Default" layer="Main" name="clientButton">
+            <Property key="Caption" value="Client"/>
+    </Widget>
+
+    <CodeGeneratorSettings/>
+</MyGUI>

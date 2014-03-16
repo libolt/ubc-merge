@@ -21,11 +21,13 @@
 #ifndef _TEAMSATE_H_
 #define _TEAMSATE_H_
 
+#include "defensestate.h"
+
 #include <vector>
 #include "OgreString.h"
 
 #include "offensestate.h"
-#include "defensestate.h"
+
 #include "basketballs.h"
 #include "playerstate.h"
 

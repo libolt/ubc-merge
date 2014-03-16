@@ -57,6 +57,7 @@ public:
     virtual bool setupPlayerPhysics(); // setsup up player physics
 
     virtual void updateState(); // updates the state of the physics engine.
+	virtual void stepWorld();	// steps the physics simulation
 
     virtual void tipOffCollisionCheck();	// checks whether team 1 or team 2's center made contact with ball
     virtual void ballDribbling();	// simulates basketball dribble
@@ -117,7 +118,7 @@ private:
 };
 
     // Collision Callback
-    struct MyContactResultCallback : public btCollisionWorld::ContactResultCallback
+/*    struct MyContactResultCallback : public btCollisionWorld::ContactResultCallback
     {
 //    	physicsEngine *physE = physicsEngine::Instance();
     	bool collision;
@@ -127,21 +128,43 @@ private:
     //	virtual btScalar addSingleResult(btManifoldPoint& cp,   const btCollisionObject* colObj0,int partId0,int index0,const btCollisionObject* colObj1,int partId1,int index1)
     	virtual btScalar addSingleResult(btManifoldPoint& cp,    const btCollisionObjectWrapper* colObj0Wrap,int partId0,int index0,const btCollisionObjectWrapper* colObj1Wrap,int partId1,int index1)
     	{
+			
+			Ogre::LogManager::getSingletonPtr()->logMessage("Checking Collision!!");
 
     		if (cp.getDistance()<=0)
     		{
-   			    collision = true;
+				Ogre::LogManager::getSingletonPtr()->logMessage("Collision!!");
+				collision = true;
+
 //    			physE->setPairCollided(true);
     //		    exit(0);
     		}
     		else
     		{
-    			collision = false;
+				Ogre::LogManager::getSingletonPtr()->logMessage("No Collision!!");
+				collision = false;
 //    			physE->setPairCollided(false);
     		}
     		return 1.f;
     	}
-    };
+    };*/
+
+struct   MyContactResultCallback : public btCollisionWorld::ContactResultCallback
+{
+	bool m_connected;
+	MyContactResultCallback() :m_connected(false)
+	{
+	}
+//	virtual   btScalar   addSingleResult(btManifoldPoint& cp, const btCollisionObject* colObj0, int partId0, int index0, const btCollisionObject* colObj1, int partId1, int index1)
+	virtual btScalar addSingleResult(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1)
+	{
+		if (cp.getDistance() <= 0)
+		{
+			m_connected = true;
+		}
+		return 1.f;
+	}
+};
 
 
 #endif // PHYSICS_H_INCLUDED

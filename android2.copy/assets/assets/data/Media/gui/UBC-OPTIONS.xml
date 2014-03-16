@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<GUILayout>
+	<Window Type="DefaultWindow" Name="UBC Options">
+                <Window Type="TaharezLook/Button" Name="GamePlay">
+                        <Property Name="UnifiedPosition" Value="{{0.35,0},{0.30,0}}" />
+                        <Property Name="UnifiedSize" Value="{{0.3,0},{0.1,0}}" />
+                        <Property Name="Text" Value="GamePlay" />
+                </Window>
+                <Window Type="TaharezLook/Button" Name="AudioVideo">
+                        <Property Name="UnifiedPosition" Value="{{0.35,0},{0.40,0}}" />
+                        <Property Name="UnifiedSize" Value="{{0.3,0},{0.1,0}}" />
+                        <Property Name="Text" Value="Audio / Video" />
+                </Window>
+                <Window Type="TaharezLook/Button" Name="MainMenu">
+                        <Property Name="UnifiedPosition" Value="{{0.35,0},{0.50,0}}" />
+                        <Property Name="UnifiedSize" Value="{{0.3,0},{0.1,0}}" />
+                        <Property Name="Text" Value="Main Menu" />
+                </Window>
+	</Window>
+</GUILayout>

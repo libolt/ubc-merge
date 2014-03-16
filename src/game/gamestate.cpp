@@ -28,7 +28,8 @@
 #include "renderengine.h"
 #include "teams.h"
 
-
+//extern "C"
+//{
 gameState *gameState::pInstance = 0;
 
 gameState *gameState::Instance()
@@ -259,7 +260,7 @@ bool gameState::assignPlayers()
     // sets the players used on both teams
     std::vector<int> team1Starters;  // stores team 1 starters
     std::vector<int> team2Starters;  // stores team 2 starters
-    for (int x = 0; x < teamN.size(); ++x)      // loops through teamN std::vector
+    for (size_t x = 0; x < teamN.size(); ++x)      // loops through teamN std::vector
     {
         if (teamN[x].getID() == teamID[0])     // checks if teamN's ID matches that of teamIDS[0]
         {
@@ -344,14 +345,14 @@ bool gameState::createCourtInstances()
 bool gameState::setupEnvironment()
 {
     renderEngine *render = renderEngine::Instance();
-
+/*
     // Set ambient light
     render->getMSceneMgr()->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
 
     // Create a light
     Light* l = render->getMSceneMgr()->createLight("MainLight");
     l->setPosition(20,80,56);
-
+*/
 
     return true;
 }
@@ -411,8 +412,11 @@ bool gameState::setupState()
     loader *load = loader::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();
 
+//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+//	exit(0);
     Ogre::LogManager::getSingletonPtr()->logMessage("Setting up state!");
     load->loadTeams();  // loads teams from XML files
+//#else
     load->loadPlayers();    // loads players from XML files
 
     team->assignPlayers();  // assigns players to teams
@@ -488,9 +492,15 @@ bool gameState::setupState()
 
     setupTipOff();	// sets up tip off conditions
 
-//    teamWithBall = 0;	// FIXME! Temporarily hard code team controlling ball
-
+/*    teamWithBall = 0;	// FIXME! Temporarily hard code team controlling ball
+	teamInstance[0].setPlayerWithBall(0);
+	teamInstance[0].setPlayerWithBallDribbling(true);
+	tipOffComplete = true; 
+	teamInstance[0].setHumanPlayer(0);
+	*/
     return true;
+	
+//#endif
 }
 
 // carries out in game logic
@@ -539,7 +549,9 @@ bool gameState::logic()
 //   playerInstance[0].setDirection(RIGHT);
 
 
-    physEngine->updateState();
+    physEngine->updateState();	// updates the state of the physics simulation
+	physEngine->stepWorld();	// steps the physics simulation
+
     updateDirectionsAndMovements();
 //	exit(0);
 
@@ -590,6 +602,7 @@ bool gameState::logic()
     else
     {
     }
+	Ogre::LogManager::getSingletonPtr()->logMessage("gameState logic updated");
 //    exit(0);
     return true;
 }
@@ -703,7 +716,7 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 
 void gameState::updateDirectionsAndMovements()
 {
-    directions playerDirection, oldPlayerDirection;
+//    directions playerDirection, oldPlayerDirection;
 
     if (teamWithBall >= 0)
     {
@@ -721,6 +734,9 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
 {
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
+	Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall" + Ogre::StringConverter::toString(teamWithBall));
+	Ogre::LogManager::getSingletonPtr()->logMessage("playerWithBall" + Ogre::StringConverter::toString(playerWithBall));
+
 //	exit(0);
 	directions playerDirection = playerInstance[playerWithBall].getDirection();
 	directions oldPlayerDirection = playerInstance[playerWithBall].getOldDirection();
@@ -882,18 +898,20 @@ void gameState::updateBasketballDirections()	// updates basketball direction(s)
 // updates positions of gameState objects
 bool gameState::updatePositions()
 {
-	int x = 0;
-	std::vector<playerState>::iterator playerIT;
+//	int x = 0;
+//	std::vector<playerState>::iterator playerIT;
 //	cout << "Size = " << playerInstance.size() << endl;
 //	Ogre::LogManager::getSingletonPtr()->logMessage("Size = " +Ogre::StringConverter::toString(playerInstance.size()));
 	//	for (playerIT = playerInstance.begin(); playerIT != playerInstance.end(); ++playerIT)
 
 
 	// updates the basketball(s) position on the court
-	for (int x = 0; x < basketballInstance.size(); ++x)
+	for (size_t x = 0; x < basketballInstance.size(); ++x)
 	{
 		basketballInstance[x].updatePosition();
 	}
 
     return true;
 }
+
+//}

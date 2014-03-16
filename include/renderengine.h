@@ -1,7 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2013 by Mike McLean   *
  *   libolt@libolt.net   *
- *                                                                         *
+ *         ?
+ *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
@@ -26,13 +27,13 @@
     #define OGRE_STATIC_ParticleFX
 //    #define OGRE_STATIC_OctreeSceneManager
     #include "OgreStaticPluginLoader.h"
-    
+
 
     #include <EGL/egl.h>
     #include <android/log.h>
     #include <android_native_app_glue.h>
-  
-//    #include "RTShaderHelper.h"
+
+    #include "RTShaderHelper.h"
     #include "Android/OgreAndroidEGLWindow.h"
     #include "Android/OgreAPKFileSystemArchive.h"
     #include "Android/OgreAPKZipArchive.h"
@@ -66,6 +67,16 @@ class renderEngine
     virtual RenderWindow *getMWindow();
     void setMWindow(RenderWindow *window);
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	Ogre::DataStreamPtr openAPKFile(const Ogre::String& fileName);
+
+	virtual AAssetManager* getMAssetMgr();
+	virtual void setMAssetMgr(AAssetManager* asset);
+	
+	virtual android_app *getApp();
+	virtual void setApp(android_app *ap);
+#endif
+
     virtual Ogre::Vector3 getMTranslateVector();
     void setMTranslateVector(Ogre::Vector3 vector);
 
@@ -90,12 +101,15 @@ class renderEngine
     virtual String getMResourceGroup();
     void setMResourceGroup(String resource);
 
+
     virtual ~renderEngine();
 
     static renderEngine *Instance();
 
     virtual bool initSDL();
     virtual bool initOgre();
+
+	virtual bool createWindow();
     virtual bool createScene();
     virtual bool frameStarted();
     virtual bool frameEnded();
@@ -106,13 +120,13 @@ class renderEngine
     renderEngine(const renderEngine&);
     renderEngine& operator= (const renderEngine&);
 
-    #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID 
-        struct android_app* app;
-        //static 
+    #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+        android_app* app;
+        //static
         Ogre::StaticPluginLoader* gStaticPluginLoader;
         AConfiguration* config;
-        
-    #endif 
+
+    #endif
     // SDL code
     SDL_Window *sdlWindow;
     SDL_SysWMinfo sysInfo;
@@ -128,6 +142,11 @@ class renderEngine
 	Ogre::NameValuePairList misc;	// options to pass to mWindow during creation
 	Ogre::String winHandle;			// window handle
 
+	// Android support
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	AAssetManager* mAssetMgr;
+	Ogre::ShaderGeneratorTechniqueResolverListener* mMatListener;
+#endif
     //	InputReader* mInputDevice;
     Ogre::Vector3 mTranslateVector;
     Radian mRotX, mRotY;

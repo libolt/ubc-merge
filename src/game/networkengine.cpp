@@ -258,7 +258,7 @@ void networkEngine::clientConnect()
 void networkEngine::networkClient()
 {
 //    ENetPeer *peer;
-    ENetPacket *packet2;
+//    ENetPacket *packet2;
 //    clientConnect();
 
 // do something here

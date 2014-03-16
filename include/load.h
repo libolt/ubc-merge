@@ -61,6 +61,8 @@ public:
     virtual void setTeamFiles(std::vector<std::string> files);
 
     virtual bool loadXMLFile(string fileName);
+    virtual int readFile(const char *sourceFile, char **destination);
+//    virtual int readFile(const char *sourceFile, Ogre::String *destination);
 
     virtual bool loadTeams();   // loads team data from XML files
     virtual bool loadTeamListFile(string fileName); // loads list of team files from teams.xml

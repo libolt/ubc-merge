@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<GUILayout>
+	<Window Type="DefaultWindow" Name="UBC Gui">
+                <Window Type="TaharezLook/Button" Name="Start">
+                        <Property Name="UnifiedPosition" Value="{{0.35,0},{0.30,0}}" />
+                        <Property Name="UnifiedSize" Value="{{0.3,0},{0.1,0}}" />
+                        <Property Name="Text" Value="Start" />
+                </Window>
+                <Window Type="TaharezLook/Button" Name="Options">
+                        <Property Name="UnifiedPosition" Value="{{0.35,0},{0.40,0}}" />
+                        <Property Name="UnifiedSize" Value="{{0.3,0},{0.1,0}}" />
+                        <Property Name="Text" Value="Options" />
+                </Window>
+                <Window Type="TaharezLook/Button" Name="Quit">
+                        <Property Name="UnifiedPosition" Value="{{0.35,0},{0.50,0}}" />
+                        <Property Name="UnifiedSize" Value="{{0.3,0},{0.1,0}}" />
+                        <Property Name="Text" Value="Quit" />
+                </Window>
+	</Window>
+</GUILayout>

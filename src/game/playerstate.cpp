@@ -559,6 +559,7 @@ bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D mod
 	physBody->translate(change); // moves physics body in unison with the model
 //	exit(0);
 //	physBody->translate(btVector3(0,0,0));
+	Ogre::LogManager::getSingletonPtr()->logMessage("player position updated.");
 	return true;
 }
 
