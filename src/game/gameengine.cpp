@@ -195,8 +195,8 @@ bool gameEngine::startGame()
     gameState *gameS = gameState::Instance();
 
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-
-gameS->setupState();
+    Ogre::LogManager::getSingletonPtr()->logMessage("startGame()");
+    gameS->setupState();
 //#endif
     return true;
 }
@@ -325,6 +325,7 @@ void gameEngine::gameLoop()	// Main Game Loop
                 {
 					if (gameS->getGameType() == SINGLE)
 					{
+                       Ogre::LogManager::getSingletonPtr()->logMessage("Single Player Game");
 
 						std::vector<teamState> teamInstance = gameS->getTeamInstance();
 //						exit(0);
@@ -341,7 +342,9 @@ void gameEngine::gameLoop()	// Main Game Loop
 								int humanPlayer = teamInstance[0].getHumanPlayer();
 								if (keyPressed == "q")
 								{
+									Ogre::LogManager::getSingletonPtr()->logMessage("Quitting!");
 									quitGame = true;
+									exit(0);
 								}
 								else if (keyPressed == "up")
 								{
@@ -399,7 +402,9 @@ void gameEngine::gameLoop()	// Main Game Loop
 								int humanPlayer = teamInstance[1].getHumanPlayer();
 								if (keyPressed == "q")
 								{
+									Ogre::LogManager::getSingletonPtr()->logMessage("Quitting!");
 									quitGame = true;
+									exit(0);
 								}
 								else if (keyPressed == "w")
 								{
@@ -596,6 +601,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 
     if( render->getMWindow() != NULL && render->getMWindow()->isActive())
 		{
+//			Ogre::LogManager::getSingletonPtr()->logMessage("Rendering frame");
     		render->getMWindow()->windowMovedOrResized();
 			render->getMRoot()->renderOneFrame();
         }

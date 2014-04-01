@@ -32,6 +32,10 @@
     #include <EGL/egl.h>
     #include <android/log.h>
     #include <android_native_app_glue.h>
+    #include <android/native_window.h> 
+	#include <android/native_window_jni.h>
+    #include <android/asset_manager.h>
+    #include <android/asset_manager_jni.h>
 
     #include "RTShaderHelper.h"
     #include "Android/OgreAndroidEGLWindow.h"
