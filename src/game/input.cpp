@@ -82,66 +82,35 @@ bool inputSystem::setup()   // sets up and initializes the OIS Input System
     Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing SDL Input System ***");
     SDL_ShowCursor(0); // Hides the SDL Cursor in favor of the MyGUI Cursor
 
-    /* Old OIS Code
-    ParamList pl;
-    size_t windowHnd = 0;
-    std::ostringstream windowHndStr;
-    render->getMWindow()->getCustomAttribute("WINDOW", &windowHnd);
-    windowHndStr << windowHnd;
-    pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
-
-    im = InputManager::createInputSystem( pl );
-
-    //Create all devices (We only catch joystick exceptions here, as, most people have Key/Mouse)
-    mKeyboard = static_cast<Keyboard*>(im->createInputObject( OISKeyboard, bufferedKeys ));
-    mMouse = static_cast<Mouse*>(im->createInputObject( OISMouse, bufferedMouse ));
-    try
-    {
-        mJoy = static_cast<JoyStick*>(im->createInputObject( OISJoyStick, bufferedJoy ));
-    }
-    catch(...)
-    {
-        mJoy = 0;
-    }
-    //Set initial mouse clipping size
-//    windowResized(ubc->getMWindow());
-    //Register as a Window listener
-//    WindowEventUtilities::addWindowEventListener(ubc->getMWindow(), this);
-  */
 
     return true;
 }
 
 bool inputSystem::destroy() // destroys the OIS Input System and related objects
 {
-/* Old OIS Code
-    if(im)
-    {
-        im->destroyInputObject(mMouse);
-        im->destroyInputObject(mKeyboard);
-        im->destroyInputObject(mJoy);
-        im->destroyInputSystem(im);
-    }
-*/
+
     return true;
 }
 
 bool inputSystem::processInput()	// processes all input
 {
+	
 	Ogre::LogManager::getSingletonPtr()->logMessage("Processing input");
+	
     // processes keyboard input
     if (processUnbufferedKeyInput() == false)
     {
         return false;
     }
-
+/*
     // processes mouse input
     if (processUnbufferedMouseInput() == false)
     {
         return false;
     }
+	
 		Ogre::LogManager::getSingletonPtr()->logMessage("Input processed");
-
+    */
 	return true;
 }
 
@@ -208,11 +177,6 @@ bool inputSystem::processUnbufferedKeyInput()
 
 		}
 		
-	SDL_Event Event;
-    while ( SDL_PollEvent( &Event ) )
-	{
-		
-	}
 #else
 	if (MyGUI::InputManager::getInstance().isFocusKey())	// checks if a MyGUI widget has key focus
 	{
