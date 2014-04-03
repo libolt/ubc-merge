@@ -250,11 +250,11 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             0,0,SDL_WINDOW_SHOWN);
-*/
+
 
     sdlWindow = SDL_CreateWindow("UBC", SDL_WINDOWPOS_UNDEFINED, 
 	                             SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN); 
-
+*/
 	__android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Window Created!");
 					 
 #else
@@ -264,14 +264,14 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 	                             1024,768,0);
 #endif
 
-    SDL_VERSION( &sysInfo.version );
+/*    SDL_VERSION( &sysInfo.version );
 
 
     if (SDL_GetWindowWMInfo(sdlWindow, &sysInfo) <= 0)
     {
     	assert( false );
     }
-
+*/
 	return true;
 }
 

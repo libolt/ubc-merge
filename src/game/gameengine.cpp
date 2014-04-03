@@ -231,6 +231,7 @@ void gameEngine::gameLoop()	// Main Game Loop
     Ogre::Timer loopTime;	// loop timer
     loopTime.reset();	// resets the timer
 
+//	SDL_StartTextInput();
 	   while (!quitGame)
 	    {
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID

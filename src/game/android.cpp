@@ -1,4 +1,4 @@
-#ifdef __ANDROID__ 
+#ifndef __ANDROID__ 
 
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 

@@ -118,15 +118,54 @@ bool inputSystem::processUnbufferedKeyInput()
 {
 //FIXME MyGUI needs to be fixed on android
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    const Uint8* keys = NULL;
     keyPressed = "";	// resets keyPressed so that we don't get repeats
 	Ogre::LogManager::getSingletonPtr()->logMessage("Crash?");
 
+	/*
+	keys = SDL_GetKeyboardState(NULL);
+    while (SDL_PollEvent(&inputEvent)){
+    if (inputEvent.type == SDL_QUIT){
+        break;
+    }
+    if (keys[SDL_SCANCODE_A]){
+       Ogre::LogManager::getSingletonPtr()->logMessage("A is being pressed");
+	   exit(0);
+
+    }
+    if (keys[SDL_SCANCODE_B]){
+       Ogre::LogManager::getSingletonPtr()->logMessage("B is being pressed");
+
+    }
+}
+*/	
+/*
+   SDL_StartTextInput();
+	
+	SDL_PumpEvents();
+    Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
+
+	keys = SDL_GetKeyboardState(NULL);
+//	Ogre::LogManager::getSingletonPtr()->logMessage("Crash???");
+    Ogre::LogManager::getSingletonPtr()->logMessage("Key == " +Ogre::StringConverter::toString(keys));
+			
+//    if (keys[SDL_GetScancodeFromKey(SDLK_q)]) 
+	if (keys[SDL_SCANCODE_Q])
+	{
+		keyPressed = "q";
+        Ogre::LogManager::getSingletonPtr()->logMessage("keyPressed = " +keyPressed);
+	    exit(0);
+    }
+	Ogre::LogManager::getSingletonPtr()->logMessage("Crash????");
+*/
+	
 		if (SDL_PollEvent(&inputEvent))
 		{
 			Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
 
 			switch (inputEvent.type)
 			{
+
 			case SDL_KEYDOWN:
 				switch (inputEvent.key.keysym.sym)
 				{
@@ -151,28 +190,100 @@ bool inputSystem::processUnbufferedKeyInput()
 				case SDLK_a:
 					keyPressed = "a";
 					break;
+				case SDLK_b:
+					keyPressed = "b";
+					break;
+				case SDLK_c:
+					keyPressed = "c";
+					break;
 				case SDLK_d:
 					keyPressed = "d";
 					break;
-				case SDLK_s:
-					keyPressed = "s";
+				case SDLK_e:
+					keyPressed = "e";
 					break;
-				case SDLK_w:
-					keyPressed = "w";
+				case SDLK_f:
+					keyPressed = "f";
+					break;
+				case SDLK_g:
+					keyPressed = "g";
+					break;
+				case SDLK_h:
+					keyPressed = "h";
+					break;
+				case SDLK_i:
+					keyPressed = "i";
+					break;
+				case SDLK_j:
+					keyPressed = "j";
+					break;
+				case SDLK_k:
+					keyPressed = "k";
+					break;
+				case SDLK_l:
+					keyPressed = "l";
+					break;
+				case SDLK_m:
+					keyPressed = "m";
+					break;
+				case SDLK_n:
+					keyPressed = "n";
+					break;
+				case SDLK_o:
+					keyPressed = "o";
+					break;
+				case SDLK_p:
+					keyPressed = "p";
 					break;
 				case SDLK_q:
 					keyPressed = "q";
 					break;
+				case SDLK_r:
+					keyPressed = "r";
+					break;
+				case SDLK_s:
+					keyPressed = "s";
+					break;
+				case SDLK_t:
+					keyPressed = "t";
+					break;
+				case SDLK_u:
+					keyPressed = "u";
+					break;
+				case SDLK_v:
+					keyPressed = "v";
+					break;
+				case SDLK_w:
+					keyPressed = "w";
+					break;
+				case SDLK_x:
+					keyPressed = "x";
+					break;
+				case SDLK_y:
+					keyPressed = "y";
+					break;
+				case SDLK_z:
+					keyPressed = "z";
+					break;
+				default:
+				    break;
 				}
+				
+				Ogre::LogManager::getSingletonPtr()->logMessage("keyPressed = " +keyPressed);
+				exit(0);
+
 				break;
 			case SDL_KEYUP:
 				keyPressed = "";
 				// if escape is pressed, quit
 	 //               status = 1; // set status to 1 to exit main loop
 				break;
+
 			case SDL_QUIT:
 	 //           status = 1;
 				break;
+			default:
+			    break;
 			}
 
 		}
