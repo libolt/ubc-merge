@@ -1,5 +1,13 @@
 # Compiled sources
 *.o
+*.o.d
+*.dex
+*.s
+*.bak*
+*.apk
+*.ap_
+R.java
+BuildConfig.java
 *.so
 *.dll
 *.lib
@@ -16,7 +24,7 @@ cmake*.cmake
 #ubc
 CMakeCache.txt
 CMakeFiles
-
+proguard-project.txt
 # generated header files
 config.h
 

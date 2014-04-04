@@ -549,9 +549,11 @@ bool gameState::logic()
 //   playerInstance[0].setMovement(true);
 //   playerInstance[0].setDirection(RIGHT);
 
-    Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
-    Ogre::LogManager::getSingletonPtr()->logMessage("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall]->getPlayerWithBall());
-
+	if (teamWithBall >= 0)
+	{
+        Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
+        Ogre::LogManager::getSingletonPtr()->logMessage("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
+    }
     physEngine->updateState();	// updates the state of the physics simulation
 	physEngine->stepWorld();	// steps the physics simulation
 
@@ -720,9 +722,12 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 void gameState::updateDirectionsAndMovements()
 {
 //    directions playerDirection, oldPlayerDirection;
+    Ogre::LogManager::getSingletonPtr()->logMessage("Updating Directions and Movements");
 
     if (teamWithBall >= 0)
     {
+		Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
+		Ogre::LogManager::getSingletonPtr()->logMessage("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
 		updateBasketballMovements();	// updates the movement of basketball objec(s)
 		updateBasketballDirections(); // updates direction of basketball object(s)
     }
@@ -748,7 +753,7 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
 
 	if (playerWithBall >= 0 && tipOffComplete == true)	// verifies that the playerWithBall variable is set to a valid number
 	{
-		exit(0);
+//		exit(0);
 		Ogre::Vector3 playerPos= playerInstance[playerWithBall].getNode()->getPosition();	// stores the current position of player with ball
 
 		Ogre::Vector3 bballPos = playerPos;

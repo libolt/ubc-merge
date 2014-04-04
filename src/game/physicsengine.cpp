@@ -378,9 +378,10 @@ void physicsEngine::updateState()
 
     int teamWithBall = gameS->getTeamWithBall();
     int playerWithBall;
+	Ogre::LogManager::getSingletonPtr()->logMessage("Updating Physics Engine State");
     Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall = " + Ogre::StringConverter::toString(teamWithBall));
 //    if (teamWithBall >=0)
-    {
+//    {
 		std::vector<teamState> teamInstance = gameS->getTeamInstance();
 		std::vector<playerState> playerInstance;
 		std::vector<basketballs> bInstance = gameS->getBasketballInstance();
@@ -467,7 +468,7 @@ void physicsEngine::updateState()
 			playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 			playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
 			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball =====" +Ogre::StringConverter::toString(playerWithBall));
-			exit(0);
+//			exit(0);
 			if (!playerInstance[playerWithBall].getPassBall())
 			{
 				teamInstance[teamWithBall].setPlayerWithBallDribbling(true);
@@ -486,7 +487,7 @@ void physicsEngine::updateState()
 		else
 		{
 		}
-    }
+//    }
 
 			//Update Bullet world. Don't forget the debugDrawWorld() part!
 		//    world->stepSimulation(evt.timeSinceLastFrame, 10);
@@ -599,8 +600,9 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 			//			gameS->setTeamInstance(teamInstance);
 
 			int humanPlayer = teamInstance[ballTippedToTeam].getHumanPlayer();
-			Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall === " + Ogre::StringConverter::toString(ballTippedToTeam));
-			Ogre::LogManager::getSingletonPtr()->logMessage("playerWithBall === " + Ogre::StringConverter::toString(teamInstance[ballTippedToTeam].getPlayerWithBall()));
+			int teamWithBall = gameS->getBallTippedToTeam();
+			Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall === " + Ogre::StringConverter::toString(teamWithBall));
+			Ogre::LogManager::getSingletonPtr()->logMessage("playerWithBall === " + Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
 
 			Ogre::LogManager::getSingletonPtr()->logMessage("human player tipped to = " + Ogre::StringConverter::toString(humanPlayer));
 //			exit(0);
