@@ -326,10 +326,12 @@ void teamState::setupState()	// sets up the state of the object
 }
 void teamState::updateState()	// updates the state of the object
 {
+	
 //	exit(0);
 	gameState *gameS = gameState::Instance();
 	physicsEngine *physEngine = physicsEngine::Instance();
 
+	Ogre::LogManager::getSingletonPtr()->logMessage("Updating team state " +Ogre::StringConverter::toString(teamNumber));
 	if (gameS->getBasketballModelLoaded() && playerInstancesCreated)
 	{
 		std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
@@ -480,7 +482,7 @@ bool teamState::createPlayerInstances()
             {
             }
     }
-    Ogre::LogManager::getSingletonPtr()->logMessage("playerInstance size = " +Ogre::StringConverter::toString(playerInstance.size()));
+//    Ogre::LogManager::getSingletonPtr()->logMessage("playerInstance size = " +Ogre::StringConverter::toString(playerInstance.size()));
 
 //    exit(0);
 //    std::vector <playerState>::iterator pInstanceIT;
