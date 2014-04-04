@@ -72,6 +72,14 @@ void inputSystem::setKeyPressed(Ogre::String key)
 	keyPressed = key;
 }
 
+inputMaps inputSystem::getInputMap()  // retrieves the value of the inputMap variable
+{
+	return(inputMap);
+}
+void inputSystem::setInputMap(inputMaps map)  // sets the value of the inputMap variable
+{
+	inputMap = map;
+}
 
 bool inputSystem::setup()   // sets up and initializes the OIS Input System
 {
@@ -90,6 +98,53 @@ bool inputSystem::destroy() // destroys the OIS Input System and related objects
 {
 
     return true;
+}
+
+inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
+{
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    if (keyPressed == "w")
+	{
+		return(INUP);
+	}
+	else if (keyPressed == "s")
+	{
+		return(INDOWN);
+	}
+	else if (keyPressed == "a")
+	{
+		return(INLEFT);
+	}
+	else if (keyPressed == "d")
+	{
+		return(INRIGHT);
+	}
+	else if (keyPressed == "upleft")
+	{
+		return(INUPLEFT);
+	}
+	else if (keyPressed == "upright")
+	{
+		return(INUPRIGHT);
+	}
+	else if (keyPressed == "downleft")
+	{
+		return(INDOWNLEFT);
+	}
+	else if (keyPressed == "downright")
+	{
+		return(INDOWNRIGHT);
+	}
+	else if (keyPressed == "z")
+	{
+		return(INPASSSTEAL);
+	}
+	else if (keyPressed == "x")
+	{
+		return(INSHOOTBLOCK);
+	}
+#else
+#endif
 }
 
 bool inputSystem::processInput()	// processes all input
