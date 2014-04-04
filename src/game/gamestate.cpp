@@ -495,11 +495,11 @@ bool gameState::setupState()
 /*    teamWithBall = 0;	// FIXME! Temporarily hard code team controlling ball
 	teamInstance[0].setPlayerWithBall(0);
 	teamInstance[0].setPlayerWithBallDribbling(true);
-	tipOffComplete = true; 
+	tipOffComplete = true;
 	teamInstance[0].setHumanPlayer(0);
 	*/
     return true;
-	
+
 //#endif
 }
 
@@ -507,12 +507,13 @@ bool gameState::setupState()
 bool gameState::logic()
 {
     Ogre::LogManager::getSingletonPtr()->logMessage("Updating gameState Logic");
-	
+
 	networkEngine *network = networkEngine::Instance();
     players *player = players::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();
     Ogre::Vector3 playerPos;
 //	std::vector<basketballs> basketballInstance = getBasketballInstance();
+
 	// sets up and starts the dribbling animation
 //	basketballInstance[0].setDribblingStart(true);
     basketballInstance[0].setPlayer(5);
@@ -550,7 +551,7 @@ bool gameState::logic()
 //   playerInstance[0].setDirection(RIGHT);
 
     Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
-    Ogre::LogManager::getSingletonPtr()->logMessage("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall]->getPlayerWithBall());
+    Ogre::LogManager::getSingletonPtr()->logMessage("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
 
     physEngine->updateState();	// updates the state of the physics simulation
 	physEngine->stepWorld();	// steps the physics simulation
@@ -736,7 +737,7 @@ void gameState::updateDirectionsAndMovements()
 void gameState::updateBasketballMovements()	// updates the basketball(s) movements
 {
 	Ogre::LogManager::getSingletonPtr()->logMessage("Updating basketball movements");
-	
+
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
 	Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall" + Ogre::StringConverter::toString(teamWithBall));
