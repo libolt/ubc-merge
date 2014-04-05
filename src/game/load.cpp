@@ -126,8 +126,9 @@ int loader::readFile(const char *sourceFile, char **destination)
 	Ogre::String *contents = new Ogre::String;
     int n_blocks = SDL_RWread(file, (*destination), 1, fileLength);
     cout << "Contents = " << (*destination) << endl;
-	__android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "destination = %s", destination);
-
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    __android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "destination = %s", destination);
+#endif
 
     // BLOCK_SIZE = 8, MAX_BLOCKS = 1024
     SDL_RWclose(file);
