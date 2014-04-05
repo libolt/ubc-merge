@@ -89,11 +89,11 @@ int loader::readFile(const char *sourceFile, char **destination)
 	int BLOCK_SIZE = 8;
 	int MAX_BLOCKS = 1024;
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = renderE->openAPKFile("teamd.xml");
+///#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+//	Ogre::DataStreamPtr fileData = renderE->openAPKFile("teamd.xml");
 //	destination = new Ogre::String;
-	destination = (char**)fileData->getAsString().c_str();
-#else
+///	destination = (char**)fileData->getAsString().c_str();
+//#else
 //    char *contents = NULL;
 //	readFile(fileName.c_str(), &contents);
 //	fileContents = Ogre::StringConverter::toString(contents);
@@ -126,13 +126,16 @@ int loader::readFile(const char *sourceFile, char **destination)
 	Ogre::String *contents = new Ogre::String;
     int n_blocks = SDL_RWread(file, (*destination), 1, fileLength);
     cout << "Contents = " << (*destination) << endl;
+	__android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "destination = %s", destination);
+
+
     // BLOCK_SIZE = 8, MAX_BLOCKS = 1024
     SDL_RWclose(file);
 
     // Make sure the operation was successful
  //   ASSERT(n_blocks >= 0, "Reading blocks of data from SDL_RWops");
 //    WARN_IF(n_blocks == MAX_BLOCKS, "Reading data from SDL_RWops","Buffer full so may be too small for data");
-#endif
+//#endif
     // Success!
     return EXIT_SUCCESS;
 }
@@ -351,16 +354,16 @@ bool loader::loadTeamListFile(string fileName)
     TiXmlDocument doc;
     Ogre::LogManager::getSingletonPtr()->logMessage(fileName);
 	Ogre::LogManager::getSingletonPtr()->logMessage("bate");
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
 	fileContents = fileData->getAsString();
-#else
+#else*/
     char *contents = NULL;
 	readFile(fileName.c_str(), &contents);
 	cout << "read contents = " << contents << endl;
 //	exit(0);
 	fileContents = Ogre::StringConverter::toString(&contents);
-#endif
+//#endif
 //    readFile(fileName.c_str(), &fileContents);
 	Ogre::LogManager::getSingletonPtr()->logMessage("barf");
 	Ogre::LogManager::getSingletonPtr()->logMessage(fileContents);
@@ -439,14 +442,14 @@ bool loader::loadTeamFile(string fileName)
 	TiXmlDocument doc;
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
 	fileContents = fileData->getAsString();
-#else
+#else*/
     char *contents = NULL;
 	readFile(fileName.c_str(), &contents);
 	fileContents = Ogre::StringConverter::toString(contents);
-#endif
+//#endif
 	if (!doc.Parse(contents))
 	{
 		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse team file");
@@ -556,14 +559,14 @@ bool loader::loadPlayerListFile( string fileName)
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
     Ogre::LogManager::getSingletonPtr()->logMessage(fileName);
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
 	fileContents = fileData->getAsString();
-#else
+#else*/
     char *contents = NULL;
 	readFile(fileName.c_str(), &contents);
 	fileContents = Ogre::StringConverter::toString(contents);
-#endif
+//#endif
 
 /*    TiXmlDocument doc(fileName.c_str());
     if (!doc.LoadFile()) return(false);
@@ -636,17 +639,17 @@ bool loader::loadPlayerFile(string fileName)
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
 	fileContents = fileData->getAsString();
-#else
+#else*/
     char *contents = NULL;
 	readFile(fileName.c_str(), &contents);
 	fileContents = Ogre::StringConverter::toString(contents);
-#endif
+//#endif
 	if (!doc.Parse(contents))
 	{
-		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse file");
+		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse player file");
 		exit(0);
 	}
 
