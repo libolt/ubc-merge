@@ -203,7 +203,7 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
     struct android_app* app;
 	Ogre::DataStreamPtr stream;
 	AConfiguration* config = AConfiguration_new();
-	
+
 	JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
 
     jclass class_sdl_activity   = env->FindClass("org/libsdl/app/SDLActivity");
@@ -218,7 +218,7 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
 
 //    AConfiguration_fromAssetManager(config, mAssetMgr);
     Ogre::LogManager::getSingletonPtr()->logMessage("APK?");
-        
+
 //	mAssetMgr = app->activity->assetManager;
     AAsset* asset = AAssetManager_open(mAssetMgr, fileName.c_str(), AASSET_MODE_BUFFER);
     if(asset)
@@ -241,9 +241,13 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
                 "\nUnable to initialize SDL:  %s\n",
                 SDL_GetError()
                );
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+
         __android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Error = %s", SDL_GetError());
-        return 1;
-    }
+#endif
+
+    return 1;
+}
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 /*    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
@@ -252,26 +256,26 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 	                             0,0,SDL_WINDOW_SHOWN);
 
 
-    sdlWindow = SDL_CreateWindow("UBC", SDL_WINDOWPOS_UNDEFINED, 
-	                             SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN); 
+    sdlWindow = SDL_CreateWindow("UBC", SDL_WINDOWPOS_UNDEFINED,
+	                             SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
 */
 	__android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Window Created!");
-					 
+
 #else
     sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             1024,768,0);
-#endif
 
-/*    SDL_VERSION( &sysInfo.version );
+    SDL_VERSION( &sysInfo.version );
 
 
     if (SDL_GetWindowWMInfo(sdlWindow, &sysInfo) <= 0)
     {
     	assert( false );
     }
-*/
+#endif
+
 	return true;
 }
 
@@ -364,7 +368,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	mRoot->setRenderSystem(selectedRenderSystem);
 //		selectedRenderSystem->setConfigOption("Full Screen","False");
 //	selectedRenderSystem->setOption("Video Mode","1024 x 768 @ 32-bit colour");
-	
+
 	//	mWindow = mRoot->initialise(true, "Ultimate Basketball Challenge");
 	mWindow = mRoot->initialise(false, "Ultimate Basketball Challenge");
 #endif
@@ -412,7 +416,7 @@ bool renderEngine::createScene()
 		Ogre::LogManager::getSingletonPtr()->logMessage("No Window, Goodbye!");
         return(0);
 	}
-	
+
     jclass class_activity       = env->FindClass("android/app/Activity");
     jclass class_resources      = env->FindClass("android/content/res/Resources");
     jmethodID method_get_resources      = env->GetMethodID(class_activity, "getResources", "()Landroid/content/res/Resources;");
@@ -425,15 +429,15 @@ bool renderEngine::createScene()
     AConfiguration_fromAssetManager(config, mAssetMgr);
 	Ogre::LogManager::getSingletonPtr()->logMessage("Bello");
 //	mAssetMgr = app->activity->assetManager;
-    
+
     Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKFileSystemArchiveFactory(mAssetMgr) );
     Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKZipArchiveFactory(mAssetMgr) );
-	Ogre::LogManager::getSingletonPtr()->logMessage("Hello?");			
+	Ogre::LogManager::getSingletonPtr()->logMessage("Hello?");
 	//  AConfiguration_fromAssetManager(config, app->activity->assetManager);
 	//gAssetMgr = app->activity->assetManager;
 	misc["androidConfig"] = Ogre::StringConverter::toString((int)config);
 	//    misc["externalWindowHandle"] = Ogre::StringConverter::toString((int)app->window);
-	
+
 //	misc["currentGLContext"]     = "true";
 //    misc["externalGLContext"]    = Ogre::StringConverter::toString( (int)SDL_GL_GetCurrentContext() );
 	misc["externalWindowHandle"] = winHandle;
