@@ -1,4 +1,4 @@
-#ifndef __ANDROID__ 
+#ifdef __ANDROID__
 
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 
@@ -21,7 +21,7 @@ static Ogre::DataStreamPtr openAPKFile(const Ogre::String& fileName)
         void* membuf = OGRE_MALLOC(length, Ogre::MEMCATEGORY_GENERAL);
         memcpy(membuf, AAsset_getBuffer(asset), length);
         AAsset_close(asset);
-                
+
         stream = Ogre::DataStreamPtr(new Ogre::MemoryDataStream(membuf, length, true, true));
     }
     return stream;
@@ -34,7 +34,7 @@ static void setupScene()
     renderEngine *renderE = renderEngine::Instance();
 	Ogre::ConfigFile cf;
     cf.load(openAPKFile("resources.cfg"));
-	
+
 	Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
 	while (seci.hasMoreElements())
 	{
@@ -57,14 +57,14 @@ static void setupScene()
 	Ogre::RTShader::ShaderGenerator::getSingletonPtr()->setTargetLanguage("glsles");
 	gMatListener = new Ogre::ShaderGeneratorTechniqueResolverListener();
 	Ogre::MaterialManager::getSingleton().addListener(gMatListener);
-	
+
 //	gSceneMgr = gRoot->createSceneManager(Ogre::ST_GENERIC);
     renderE->setMSceneMgr(renderE->getMRoot()->createSceneManager(Ogre::ST_GENERIC));
 //	Ogre::RTShader::ShaderGenerator::getSingletonPtr()->addSceneManager(gSceneMgr);
     Ogre::RTShader::ShaderGenerator::getSingletonPtr()->addSceneManager(renderE->getMSceneMgr());
 //	Ogre::Camera* camera = gSceneMgr->createCamera("MyCam");
     Ogre::Camera* camera = renderE->getMSceneMgr()->createCamera("MyCam");
-/*	
+/*
 //	Ogre::Entity* pEntity = gSceneMgr->createEntity("SinbadInstance", "data/Media/models/court.mesh");
     Ogre::Entity* pEntity = renderE->getMSceneMgr()->createEntity("SinbadInstance", "Court.mesh");
 //	Ogre::SceneNode* pNode = gSceneMgr->getRootSceneNode()->createChildSceneNode();
@@ -85,15 +85,15 @@ static void setupScene()
 
 //	Ogre::Viewport* vp = gRenderWnd->addViewport(camera);
     Ogre::Viewport* vp = renderE->getMWindow()->addViewport(camera);
-	vp->setBackgroundColour(Ogre::ColourValue(1,0,0));	
-	vp->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);	
+	vp->setBackgroundColour(Ogre::ColourValue(1,0,0));
+	vp->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
 
 	Ogre::RTShader::ShaderGenerator::getSingletonPtr()->invalidateScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
 
 }
 
 
-static int32_t handleInput(struct android_app* app, AInputEvent* event) 
+static int32_t handleInput(struct android_app* app, AInputEvent* event)
 {
 }
 
@@ -105,7 +105,7 @@ static void handleCmd(struct android_app* app, int32_t cmd)
     GUISystem *gui = GUISystem::Instance();
 	renderEngine *renderE = renderEngine::Instance();
 	Ogre::LogManager::getSingletonPtr()->logMessage("Handling command");
-    switch (cmd) 
+    switch (cmd)
     {
         case APP_CMD_SAVE_STATE:
             break;
@@ -116,18 +116,18 @@ static void handleCmd(struct android_app* app, int32_t cmd)
                 AConfiguration* config = AConfiguration_new();
                 AConfiguration_fromAssetManager(config, app->activity->assetManager);
                 renderE->setMAssetMgr(app->activity->assetManager);
-				
-				if(!renderE->getMWindow()) 
+
+				if(!renderE->getMWindow())
 //                if(!gRenderWnd)
                 {
 				    Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKFileSystemArchiveFactory(app->activity->assetManager) );
 					Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKZipArchiveFactory(app->activity->assetManager) );
-				
+
                     Ogre::NameValuePairList opt;
                     opt["externalWindowHandle"] = Ogre::StringConverter::toString((int)app->window);
                     opt["androidConfig"] = Ogre::StringConverter::toString((int)config);
-                           
-	//				gRenderWnd = gRoot->createRenderWindow("OgreWindow", 0, 0, false, &opt); 
+
+	//				gRenderWnd = gRoot->createRenderWindow("OgreWindow", 0, 0, false, &opt);
 	            	renderE->setMWindow(renderE->getMRoot()->createRenderWindow("OgreWindow", 0, 0, false, &opt));
 //					setupScene();
 					renderE->createScene();
@@ -195,27 +195,27 @@ gameE->gameLoop();
         gStaticPluginLoader->load();
 #endif
         renderE->getMRoot()->setRenderSystem( renderE->getMRoot()->getAvailableRenderers().at(0));
-        renderE->getMRoot()->initialise(false);	
+        renderE->getMRoot()->initialise(false);
 */
 //        renderE->initSDL();
 		renderE->initOgre();
-	}	
-	
+	}
+
     renderE->createScene();
-	
+
 	//FIXME hardcoded while working on other bugs
 	gameS->setGameType(SINGLE);
-	
+
 	inputSystem *input = inputSystem::Instance();
 
 	gameE->gameLoop();
-	
+
 	/*
 //    renderE->initOgre();
-	struct android_app *state;		
+	struct android_app *state;
     state->onAppCmd = &handleCmd;
 //    state->onInputEvent = &handleInput;
- 
+
     int ident, events;
     struct android_poll_source* source;
 
@@ -228,7 +228,7 @@ gameE->gameLoop();
         {
             if (source != NULL)
                 source->process(state, source);
-            
+
             if (state->destroyRequested != 0)
                 return(0);
         }
@@ -242,18 +242,18 @@ gameE->gameLoop();
             Ogre::LogManager::getSingletonPtr()->logMessage("Die??");
 			renderE->setMAssetMgr(renderE->getApp()->activity->assetManager);
 			Ogre::LogManager::getSingletonPtr()->logMessage("Die???");
-            
-			if(!renderE->getMWindow()) 
+
+			if(!renderE->getMWindow())
 //                if(!gRenderWnd)
                 {
 //				    Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKFileSystemArchiveFactory(app->activity->assetManager) );
 //					Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKZipArchiveFactory(app->activity->assetManager) );
-				
+
                     Ogre::NameValuePairList opt;
                     opt["externalWindowHandle"] = Ogre::StringConverter::toString((int)renderE->getApp()->window);
 //                    opt["androidConfig"] = Ogre::StringConverter::toString((int)config);
-                           
-	//				gRenderWnd = gRoot->createRenderWindow("OgreWindow", 0, 0, false, &opt); 
+
+	//				gRenderWnd = gRoot->createRenderWindow("OgreWindow", 0, 0, false, &opt);
 	            	renderE->setMWindow(renderE->getMRoot()->createRenderWindow("OgreWindow", 0, 0, false, &opt));
                     Ogre::LogManager::getSingletonPtr()->logMessage("Alive");
 
@@ -266,7 +266,7 @@ gameE->gameLoop();
 //					inputSystem *input = inputSystem::Instance();
 //					gameE->gameLoop();
 
-                }				
+                }
 		}
 
 
