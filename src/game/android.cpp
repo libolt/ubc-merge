@@ -1,4 +1,4 @@
-#ifdef __ANDROID__ 
+#ifndef __ANDROID__ 
 
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 
@@ -161,6 +161,7 @@ static void handleCmd(struct android_app* app, int32_t cmd)
 int main(int argc, char *argv[])
 {
 	gameEngine *gameE = gameEngine::Instance();
+	gameState *gameS = gameState::Instance();
 	renderEngine *renderE = renderEngine::Instance();
 //    renderE->getApp()->onAppCmd = &handleCmd;
 /*        if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0) {
@@ -196,11 +197,20 @@ gameE->gameLoop();
         renderE->getMRoot()->setRenderSystem( renderE->getMRoot()->getAvailableRenderers().at(0));
         renderE->getMRoot()->initialise(false);	
 */
-        renderE->initSDL();
-//		renderE->initOgre();
+//        renderE->initSDL();
+		renderE->initOgre();
 	}	
-/*	
-//    renderE->createScene();
+	
+    renderE->createScene();
+	
+	//FIXME hardcoded while working on other bugs
+	gameS->setGameType(SINGLE);
+	
+	inputSystem *input = inputSystem::Instance();
+
+	gameE->gameLoop();
+	
+	/*
 //    renderE->initOgre();
 	struct android_app *state;		
     state->onAppCmd = &handleCmd;
@@ -208,12 +218,12 @@ gameE->gameLoop();
  
     int ident, events;
     struct android_poll_source* source;
-*/    
+
     while (true)
     {
 //		Ogre::LogManager::getSingletonPtr()->logMessage("Looping!");
 
-/*
+
 //      while ((ident = ALooper_pollAll(0, NULL, &events, (void**)&source)) >= 0)
         {
             if (source != NULL)
@@ -222,8 +232,8 @@ gameE->gameLoop();
             if (state->destroyRequested != 0)
                 return(0);
         }
-*/
-/*		if(renderE->getApp()->window && renderE->getMRoot())
+
+		if(renderE->getApp()->window && renderE->getMRoot())
 		{
 			Ogre::LogManager::getSingletonPtr()->logMessage("Initing window");
             AConfiguration* config = AConfiguration_new();
@@ -258,8 +268,8 @@ gameE->gameLoop();
 
                 }				
 		}
-*/
-/*
+
+
 		if(renderE->getMWindow() != NULL && renderE->getMWindow()->isActive())
 //		if(gRenderWnd != NULL && gRenderWnd->isActive())
 		{
@@ -267,10 +277,10 @@ gameE->gameLoop();
 			renderE->getMWindow()->windowMovedOrResized();
 			renderE->getMRoot()->renderOneFrame();
 		}
-*/
+
     }
 //	return (0);
-
+*/
 	return (0);
 }
 

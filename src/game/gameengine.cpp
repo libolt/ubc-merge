@@ -195,8 +195,8 @@ bool gameEngine::startGame()
     gameState *gameS = gameState::Instance();
 
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-
-gameS->setupState();
+    Ogre::LogManager::getSingletonPtr()->logMessage("startGame()");
+    gameS->setupState();
 //#endif
     return true;
 }
@@ -231,6 +231,7 @@ void gameEngine::gameLoop()	// Main Game Loop
     Ogre::Timer loopTime;	// loop timer
     loopTime.reset();	// resets the timer
 
+//	SDL_StartTextInput();
 	   while (!quitGame)
 	    {
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
@@ -325,6 +326,7 @@ void gameEngine::gameLoop()	// Main Game Loop
                 {
 					if (gameS->getGameType() == SINGLE)
 					{
+                       Ogre::LogManager::getSingletonPtr()->logMessage("Single Player Game");
 
 						std::vector<teamState> teamInstance = gameS->getTeamInstance();
 //						exit(0);
@@ -335,13 +337,79 @@ void gameEngine::gameLoop()	// Main Game Loop
 						{
 //							exit(0);
 							std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+                            for (int i=0;i<teamInstance.size();++i)
+							{
+                                if (teamInstance[i].getHumanControlled())
+							    {
+								    int humanPlayer = teamInstance[i].getHumanPlayer();
 
+                                    inputMaps inputMap = input->keyMap();
+							        switch (inputMap)
+							        {
+								        case INUP: 
+									        playerInstance[humanPlayer].setMovement(true);
+									        playerInstance[humanPlayer].setDirection(UP);
+									        teamInstance[i].setPlayerInstance(playerInstance);
+									        gameS->setTeamInstance(teamInstance);
+									    break;
+									    case INDOWN:  
+									        playerInstance[humanPlayer].setMovement(true);
+									        playerInstance[humanPlayer].setDirection(DOWN);
+									        teamInstance[i].setPlayerInstance(playerInstance);
+									        gameS->setTeamInstance(teamInstance);
+									    break;
+									    case INLEFT: 
+									        playerInstance[humanPlayer].setMovement(true);
+									        playerInstance[humanPlayer].setDirection(LEFT);
+									        teamInstance[i].setPlayerInstance(playerInstance);
+									        gameS->setTeamInstance(teamInstance);
+									    break;
+									    case INRIGHT: 
+									        playerInstance[humanPlayer].setMovement(true);
+									        playerInstance[humanPlayer].setDirection(RIGHT);
+									        teamInstance[i].setPlayerInstance(playerInstance);
+									        gameS->setTeamInstance(teamInstance);
+									    break;
+									    case INUPLEFT: 
+									        playerInstance[humanPlayer].setMovement(true);
+									        playerInstance[humanPlayer].setDirection(UPLEFT);
+									        teamInstance[i].setPlayerInstance(playerInstance);
+									        gameS->setTeamInstance(teamInstance);
+									    break;
+									    case INUPRIGHT: 
+									        playerInstance[humanPlayer].setMovement(true);
+									        playerInstance[humanPlayer].setDirection(UPRIGHT);
+									        teamInstance[i].setPlayerInstance(playerInstance);
+									        gameS->setTeamInstance(teamInstance);
+									    break;
+									    case INDOWNLEFT: 
+									        playerInstance[humanPlayer].setMovement(true);
+									        playerInstance[humanPlayer].setDirection(DOWNLEFT);
+									        teamInstance[i].setPlayerInstance(playerInstance);
+									        gameS->setTeamInstance(teamInstance);
+									    break;
+									    case INDOWNRIGHT: 
+									        playerInstance[humanPlayer].setMovement(true);
+									        playerInstance[humanPlayer].setDirection(DOWNRIGHT);
+									        teamInstance[i].setPlayerInstance(playerInstance);
+									        gameS->setTeamInstance(teamInstance);
+									    break;
+
+								        default:
+								        break;
+							        }
+							    }
+							}
+#else
 							if (teamInstance[0].getHumanControlled())
 							{
 								int humanPlayer = teamInstance[0].getHumanPlayer();
 								if (keyPressed == "q")
 								{
+									Ogre::LogManager::getSingletonPtr()->logMessage("Quitting!");
 									quitGame = true;
+									exit(0);
 								}
 								else if (keyPressed == "up")
 								{
@@ -399,7 +467,9 @@ void gameEngine::gameLoop()	// Main Game Loop
 								int humanPlayer = teamInstance[1].getHumanPlayer();
 								if (keyPressed == "q")
 								{
+									Ogre::LogManager::getSingletonPtr()->logMessage("Quitting!");
 									quitGame = true;
+									exit(0);
 								}
 								else if (keyPressed == "w")
 								{
@@ -578,13 +648,16 @@ void gameEngine::gameLoop()	// Main Game Loop
 							else
 							{
 							}
+#endif
 						}
 
 						else
 						{
 						}
+
 				    }
-                }
+
+				}
 
             }
 	    	else
@@ -596,6 +669,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 
     if( render->getMWindow() != NULL && render->getMWindow()->isActive())
 		{
+//			Ogre::LogManager::getSingletonPtr()->logMessage("Rendering frame");
     		render->getMWindow()->windowMovedOrResized();
 			render->getMRoot()->renderOneFrame();
         }

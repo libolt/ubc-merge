@@ -203,9 +203,23 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
     struct android_app* app;
 	Ogre::DataStreamPtr stream;
 	AConfiguration* config = AConfiguration_new();
-    AConfiguration_fromAssetManager(config, app->activity->assetManager);
-                
-	mAssetMgr = app->activity->assetManager;
+
+	JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
+
+    jclass class_sdl_activity   = env->FindClass("org/libsdl/app/SDLActivity");
+    jclass class_activity       = env->FindClass("android/app/Activity");
+    jclass class_resources      = env->FindClass("android/content/res/Resources");
+    jmethodID method_get_resources      = env->GetMethodID(class_activity, "getResources", "()Landroid/content/res/Resources;");
+    jmethodID method_get_assets         = env->GetMethodID(class_resources, "getAssets", "()Landroid/content/res/AssetManager;");
+    jobject raw_activity = (jobject)SDL_AndroidGetActivity();
+	jobject raw_resources = env->CallObjectMethod(raw_activity, method_get_resources);
+    jobject raw_asset_manager = env->CallObjectMethod(raw_resources, method_get_assets);
+    mAssetMgr = AAssetManager_fromJava(env, raw_asset_manager);
+
+//    AConfiguration_fromAssetManager(config, mAssetMgr);
+    Ogre::LogManager::getSingletonPtr()->logMessage("APK?");
+
+//	mAssetMgr = app->activity->assetManager;
     AAsset* asset = AAssetManager_open(mAssetMgr, fileName.c_str(), AASSET_MODE_BUFFER);
     if(asset)
     {
@@ -227,21 +241,31 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
                 "\nUnable to initialize SDL:  %s\n",
                 SDL_GetError()
                );
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+
         __android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Error = %s", SDL_GetError());
-        return 1;
-    }
+#endif
+
+    return 1;
+}
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
+/*    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             0,0,SDL_WINDOW_SHOWN);
+
+
+    sdlWindow = SDL_CreateWindow("UBC", SDL_WINDOWPOS_UNDEFINED,
+	                             SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
+*/
+	__android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Window Created!");
+
 #else
     sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             1024,768,0);
-#endif
 
     SDL_VERSION( &sysInfo.version );
 
@@ -250,6 +274,7 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
     {
     	assert( false );
     }
+#endif
 
 	return true;
 }
@@ -264,10 +289,19 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 #elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
 	winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.x11.window);
 #elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	winHandle =  Ogre::StringConverter::toString((int)app->window);
+    JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
+//    m_sdl_gl_context = SDL_GL_GetCurrentContext();
+
+    jclass class_sdl_activity   = env->FindClass("org/libsdl/app/SDLActivity");
+    jmethodID method_get_native_surface = env->GetStaticMethodID(class_sdl_activity, "getNativeSurface", "()Landroid/view/Surface;");
+    jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
+    ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
+
+	winHandle =  Ogre::StringConverter::toString((int)native_window);
 #else
 	// Error, both can't be defined or undefined same time
 #endif
+
 	//std::cout << "winHandle = " << winHandle << std::endl;
 	mRoot = new Ogre::Root("", "", "Ogre.log");
 	const Ogre::String pluginDir = OGRE_PLUGIN_DIR;
@@ -332,9 +366,9 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 
 	//we found it, we might as well use it!
 	mRoot->setRenderSystem(selectedRenderSystem);
-	/*		selectedRenderSystem->setConfigOption("Full Screen","False");
-	selectedRenderSystem->setOption("Video Mode","1024 x 768 @ 32-bit colour");
-	*/
+//		selectedRenderSystem->setConfigOption("Full Screen","False");
+//	selectedRenderSystem->setOption("Video Mode","1024 x 768 @ 32-bit colour");
+
 	//	mWindow = mRoot->initialise(true, "Ultimate Basketball Challenge");
 	mWindow = mRoot->initialise(false, "Ultimate Basketball Challenge");
 #endif
@@ -369,19 +403,43 @@ bool renderEngine::createScene()
 	config = AConfiguration_new();
 	Ogre::LogManager::getSingletonPtr()->logMessage("Mello");
 //	AConfiguration_fromAssetManager(config, app->activity->assetManager);
-	mAssetMgr = app->activity->assetManager;
+//	mAssetMgr = app->activity->assetManager;
+    JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
+
+    jclass class_sdl_activity   = env->FindClass("org/libsdl/app/SDLActivity");
+    jmethodID method_get_native_surface = env->GetStaticMethodID(class_sdl_activity, "getNativeSurface", "()Landroid/view/Surface;");
+    jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
+    ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
+
+    if ( !native_window )
+	{
+		Ogre::LogManager::getSingletonPtr()->logMessage("No Window, Goodbye!");
+        return(0);
+	}
+
+    jclass class_activity       = env->FindClass("android/app/Activity");
+    jclass class_resources      = env->FindClass("android/content/res/Resources");
+    jmethodID method_get_resources      = env->GetMethodID(class_activity, "getResources", "()Landroid/content/res/Resources;");
+    jmethodID method_get_assets         = env->GetMethodID(class_resources, "getAssets", "()Landroid/content/res/AssetManager;");
+    jobject raw_activity = (jobject)SDL_AndroidGetActivity();
+	jobject raw_resources = env->CallObjectMethod(raw_activity, method_get_resources);
+    jobject raw_asset_manager = env->CallObjectMethod(raw_resources, method_get_assets);
+    mAssetMgr = AAssetManager_fromJava(env, raw_asset_manager);
 	Ogre::LogManager::getSingletonPtr()->logMessage("Yello");
     AConfiguration_fromAssetManager(config, mAssetMgr);
 	Ogre::LogManager::getSingletonPtr()->logMessage("Bello");
 //	mAssetMgr = app->activity->assetManager;
-    
-    Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKFileSystemArchiveFactory(app->activity->assetManager) );
-    Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKZipArchiveFactory(app->activity->assetManager) );
-	Ogre::LogManager::getSingletonPtr()->logMessage("Hello?");			
+
+    Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKFileSystemArchiveFactory(mAssetMgr) );
+    Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKZipArchiveFactory(mAssetMgr) );
+	Ogre::LogManager::getSingletonPtr()->logMessage("Hello?");
 	//  AConfiguration_fromAssetManager(config, app->activity->assetManager);
 	//gAssetMgr = app->activity->assetManager;
 	misc["androidConfig"] = Ogre::StringConverter::toString((int)config);
 	//    misc["externalWindowHandle"] = Ogre::StringConverter::toString((int)app->window);
+
+//	misc["currentGLContext"]     = "true";
+//    misc["externalGLContext"]    = Ogre::StringConverter::toString( (int)SDL_GL_GetCurrentContext() );
 	misc["externalWindowHandle"] = winHandle;
 //	exit(0);
 	Ogre::LogManager::getSingletonPtr()->logMessage("Hello??");
@@ -395,7 +453,7 @@ bool renderEngine::createScene()
 	cf.load(openAPKFile("resources.cfg"));
     Ogre::LogManager::getSingletonPtr()->logMessage("or");
 	Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
-exit(0);
+//exit(0);
 	while (seci.hasMoreElements())
 	{
 		Ogre::String sec, type, arch;

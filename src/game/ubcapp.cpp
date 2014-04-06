@@ -55,41 +55,43 @@ void UBC::setQuitGame(bool quit)
 }
 
 
-#ifndef __ANDROID__
+//#ifndef __ANDROID__
 
 int main(int argc, char *argv[])
 {
-	
-if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0) {
-        fprintf(stderr,
-                "\nUnable to initialize SDL:  %s\n",
-                SDL_GetError()
-               );
-        __android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Error = %s", SDL_GetError());
-        return 1;
-    }
-/*    renderEngine * render = renderEngine::Instance();
 
+    renderEngine *render = renderEngine::Instance();
     gameEngine *gameE = gameEngine::Instance();
-//    gameState *gameS = gameState::Instance();
+    gameState *gameS = gameState::Instance();
+
+#ifndef __ANDROID__
     GUISystem *gui = GUISystem::Instance();
+#endif
+
 //    networkEngine *network = networkEngine::Instance();
 //    players *player = players::Instance();
 
-
+//#ifndef __ANDROID__
     render->initSDL(); // Initializes the SDL Subsystem
+//#endif
+
     render->initOgre(); // Initializes the Ogre Subsystem
     render->createScene(); // creates rendering scene.
+	
+#ifndef __ANDROID__
     gui->initMyGUI(); // Initializes MyGUI
     gui->createMainMenuButtons(); // creates a MyGUI button.
+#endif
 
+	//FIXME hardcoded while working on other bugs
+	gameS->setGameType(SINGLE);
+	
     inputSystem *input = inputSystem::Instance();
 
     gameE->gameLoop();
 
     atexit(SDL_Quit);
-*/
+
 	return (0);
 }
 
-#endif

@@ -72,6 +72,14 @@ void inputSystem::setKeyPressed(Ogre::String key)
 	keyPressed = key;
 }
 
+inputMaps inputSystem::getInputMap()  // retrieves the value of the inputMap variable
+{
+	return(inputMap);
+}
+void inputSystem::setInputMap(inputMaps map)  // sets the value of the inputMap variable
+{
+	inputMap = map;
+}
 
 bool inputSystem::setup()   // sets up and initializes the OIS Input System
 {
@@ -82,66 +90,82 @@ bool inputSystem::setup()   // sets up and initializes the OIS Input System
     Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing SDL Input System ***");
     SDL_ShowCursor(0); // Hides the SDL Cursor in favor of the MyGUI Cursor
 
-    /* Old OIS Code
-    ParamList pl;
-    size_t windowHnd = 0;
-    std::ostringstream windowHndStr;
-    render->getMWindow()->getCustomAttribute("WINDOW", &windowHnd);
-    windowHndStr << windowHnd;
-    pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
-
-    im = InputManager::createInputSystem( pl );
-
-    //Create all devices (We only catch joystick exceptions here, as, most people have Key/Mouse)
-    mKeyboard = static_cast<Keyboard*>(im->createInputObject( OISKeyboard, bufferedKeys ));
-    mMouse = static_cast<Mouse*>(im->createInputObject( OISMouse, bufferedMouse ));
-    try
-    {
-        mJoy = static_cast<JoyStick*>(im->createInputObject( OISJoyStick, bufferedJoy ));
-    }
-    catch(...)
-    {
-        mJoy = 0;
-    }
-    //Set initial mouse clipping size
-//    windowResized(ubc->getMWindow());
-    //Register as a Window listener
-//    WindowEventUtilities::addWindowEventListener(ubc->getMWindow(), this);
-  */
 
     return true;
 }
 
 bool inputSystem::destroy() // destroys the OIS Input System and related objects
 {
-/* Old OIS Code
-    if(im)
-    {
-        im->destroyInputObject(mMouse);
-        im->destroyInputObject(mKeyboard);
-        im->destroyInputObject(mJoy);
-        im->destroyInputSystem(im);
-    }
-*/
+
     return true;
+}
+
+inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
+{
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    if (keyPressed == "w")
+	{
+		return(INUP);
+	}
+	else if (keyPressed == "s")
+	{
+		return(INDOWN);
+	}
+	else if (keyPressed == "a")
+	{
+		return(INLEFT);
+	}
+	else if (keyPressed == "d")
+	{
+		return(INRIGHT);
+	}
+	else if (keyPressed == "upleft")
+	{
+		return(INUPLEFT);
+	}
+	else if (keyPressed == "upright")
+	{
+		return(INUPRIGHT);
+	}
+	else if (keyPressed == "downleft")
+	{
+		return(INDOWNLEFT);
+	}
+	else if (keyPressed == "downright")
+	{
+		return(INDOWNRIGHT);
+	}
+	else if (keyPressed == "z")
+	{
+		return(INPASSSTEAL);
+	}
+	else if (keyPressed == "x")
+	{
+		return(INSHOOTBLOCK);
+	}
+#else
+#endif
 }
 
 bool inputSystem::processInput()	// processes all input
 {
-	Ogre::LogManager::getSingletonPtr()->logMessage("Processing input");
+	
+//	Ogre::LogManager::getSingletonPtr()->logMessage("Processing input");
+	
     // processes keyboard input
     if (processUnbufferedKeyInput() == false)
     {
         return false;
     }
-
+/*
     // processes mouse input
     if (processUnbufferedMouseInput() == false)
     {
         return false;
     }
+	
 		Ogre::LogManager::getSingletonPtr()->logMessage("Input processed");
-
+    */
 	return true;
 }
 
@@ -149,15 +173,54 @@ bool inputSystem::processUnbufferedKeyInput()
 {
 //FIXME MyGUI needs to be fixed on android
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    const Uint8* keys = NULL;
     keyPressed = "";	// resets keyPressed so that we don't get repeats
-	Ogre::LogManager::getSingletonPtr()->logMessage("Crash?");
+//	Ogre::LogManager::getSingletonPtr()->logMessage("Crash?");
 
+	/*
+	keys = SDL_GetKeyboardState(NULL);
+    while (SDL_PollEvent(&inputEvent)){
+    if (inputEvent.type == SDL_QUIT){
+        break;
+    }
+    if (keys[SDL_SCANCODE_A]){
+       Ogre::LogManager::getSingletonPtr()->logMessage("A is being pressed");
+	   exit(0);
+
+    }
+    if (keys[SDL_SCANCODE_B]){
+       Ogre::LogManager::getSingletonPtr()->logMessage("B is being pressed");
+
+    }
+}
+*/	
+/*
+   SDL_StartTextInput();
+	
+	SDL_PumpEvents();
+    Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
+
+	keys = SDL_GetKeyboardState(NULL);
+//	Ogre::LogManager::getSingletonPtr()->logMessage("Crash???");
+    Ogre::LogManager::getSingletonPtr()->logMessage("Key == " +Ogre::StringConverter::toString(keys));
+			
+//    if (keys[SDL_GetScancodeFromKey(SDLK_q)]) 
+	if (keys[SDL_SCANCODE_Q])
+	{
+		keyPressed = "q";
+        Ogre::LogManager::getSingletonPtr()->logMessage("keyPressed = " +keyPressed);
+	    exit(0);
+    }
+	Ogre::LogManager::getSingletonPtr()->logMessage("Crash????");
+*/
+	
 		if (SDL_PollEvent(&inputEvent))
 		{
-			Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
+//			Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
 
 			switch (inputEvent.type)
 			{
+
 			case SDL_KEYDOWN:
 				switch (inputEvent.key.keysym.sym)
 				{
@@ -182,37 +245,104 @@ bool inputSystem::processUnbufferedKeyInput()
 				case SDLK_a:
 					keyPressed = "a";
 					break;
+				case SDLK_b:
+					keyPressed = "b";
+					break;
+				case SDLK_c:
+					keyPressed = "c";
+					break;
 				case SDLK_d:
 					keyPressed = "d";
 					break;
-				case SDLK_s:
-					keyPressed = "s";
+				case SDLK_e:
+					keyPressed = "e";
 					break;
-				case SDLK_w:
-					keyPressed = "w";
+				case SDLK_f:
+					keyPressed = "f";
+					break;
+				case SDLK_g:
+					keyPressed = "g";
+					break;
+				case SDLK_h:
+					keyPressed = "h";
+					break;
+				case SDLK_i:
+					keyPressed = "i";
+					break;
+				case SDLK_j:
+					keyPressed = "j";
+					break;
+				case SDLK_k:
+					keyPressed = "k";
+					break;
+				case SDLK_l:
+					keyPressed = "l";
+					break;
+				case SDLK_m:
+					keyPressed = "m";
+					break;
+				case SDLK_n:
+					keyPressed = "n";
+					break;
+				case SDLK_o:
+					keyPressed = "o";
+					break;
+				case SDLK_p:
+					keyPressed = "p";
 					break;
 				case SDLK_q:
 					keyPressed = "q";
 					break;
+				case SDLK_r:
+					keyPressed = "r";
+					break;
+				case SDLK_s:
+					keyPressed = "s";
+					break;
+				case SDLK_t:
+					keyPressed = "t";
+					break;
+				case SDLK_u:
+					keyPressed = "u";
+					break;
+				case SDLK_v:
+					keyPressed = "v";
+					break;
+				case SDLK_w:
+					keyPressed = "w";
+					break;
+				case SDLK_x:
+					keyPressed = "x";
+					break;
+				case SDLK_y:
+					keyPressed = "y";
+					break;
+				case SDLK_z:
+					keyPressed = "z";
+					break;
+				default:
+				    break;
 				}
+				
+//				Ogre::LogManager::getSingletonPtr()->logMessage("keyPressed = " +keyPressed);
+//				exit(0);
+
 				break;
 			case SDL_KEYUP:
 				keyPressed = "";
 				// if escape is pressed, quit
 	 //               status = 1; // set status to 1 to exit main loop
 				break;
+
 			case SDL_QUIT:
 	 //           status = 1;
 				break;
+			default:
+			    break;
 			}
 
 		}
 		
-	SDL_Event Event;
-    while ( SDL_PollEvent( &Event ) )
-	{
-		
-	}
 #else
 	if (MyGUI::InputManager::getInstance().isFocusKey())	// checks if a MyGUI widget has key focus
 	{
@@ -633,7 +763,7 @@ bool inputSystem::processUnbufferedKeyInput()
 		}
 	}
 	#endif
-	Ogre::LogManager::getSingletonPtr()->logMessage("Keyboard Input Processed");
+//	Ogre::LogManager::getSingletonPtr()->logMessage("Keyboard Input Processed");
     // Return true to continue rendering
     return true;
 

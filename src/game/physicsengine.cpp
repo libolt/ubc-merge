@@ -378,9 +378,10 @@ void physicsEngine::updateState()
 
     int teamWithBall = gameS->getTeamWithBall();
     int playerWithBall;
+	Ogre::LogManager::getSingletonPtr()->logMessage("Updating Physics Engine State");
     Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall = " + Ogre::StringConverter::toString(teamWithBall));
 //    if (teamWithBall >=0)
-    {
+//    {
 		std::vector<teamState> teamInstance = gameS->getTeamInstance();
 		std::vector<playerState> playerInstance;
 		std::vector<basketballs> bInstance = gameS->getBasketballInstance();
@@ -467,7 +468,7 @@ void physicsEngine::updateState()
 			playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 			playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
 			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball =====" +Ogre::StringConverter::toString(playerWithBall));
-			exit(0);
+//			exit(0);
 			if (!playerInstance[playerWithBall].getPassBall())
 			{
 				teamInstance[teamWithBall].setPlayerWithBallDribbling(true);
@@ -486,7 +487,7 @@ void physicsEngine::updateState()
 		else
 		{
 		}
-    }
+//    }
 
 			//Update Bullet world. Don't forget the debugDrawWorld() part!
 		//    world->stepSimulation(evt.timeSinceLastFrame, 10);
@@ -542,11 +543,11 @@ void physicsEngine::stepWorld()	// steps the world of the physics simulation
 	String CIT = StringConverter::toString(changeInTime);
 	String currTime = StringConverter::toString(currentTime);
 
-	Ogre::LogManager::getSingletonPtr()->logMessage("Current Time = " + currTime);
-	Ogre::LogManager::getSingletonPtr()->logMessage("Change In Time = " + CIT);
+//	Ogre::LogManager::getSingletonPtr()->logMessage("Current Time = " + currTime);
+//	Ogre::LogManager::getSingletonPtr()->logMessage("Change In Time = " + CIT);
 
 	world->stepSimulation(changeInTime, 1, fixedTimeStep);
-	Ogre::LogManager::getSingletonPtr()->logMessage("World->Step ");
+//	Ogre::LogManager::getSingletonPtr()->logMessage("World->Step ");
 	debugDraw->step();
 
 }
@@ -570,8 +571,8 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 		Ogre::LogManager::getSingletonPtr()->logMessage("Physics team ball tipped to = " +Ogre::StringConverter::toString(ballTippedToTeam));
 
 		std::vector<playerState> playerInstance = teamInstance[ballTippedToTeam].getPlayerInstance();
-		Ogre::LogManager::getSingletonPtr()->logMessage("bInstance size = " +Ogre::StringConverter::toString(bInstance.size()));
-		Ogre::LogManager::getSingletonPtr()->logMessage("playerInstance size = " + Ogre::StringConverter::toString(playerInstance.size()));
+//		Ogre::LogManager::getSingletonPtr()->logMessage("bInstance size = " +Ogre::StringConverter::toString(bInstance.size()));
+//		Ogre::LogManager::getSingletonPtr()->logMessage("playerInstance size = " + Ogre::StringConverter::toString(playerInstance.size()));
 
 		world->contactPairTest(bInstance[0].getPhysBody(), playerInstance[gameS->getBallTippedToPlayer()].getPhysBody(), tipOffResult);
 //		exit(0);
@@ -586,10 +587,11 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 			//			bInstance[0].getPhysBody()->forceActivationState(ISLAND_SLEEPING);
 			bInstance[0].getPhysBody()->setLinearVelocity(btVector3(0, 0, 0));
 			gameS->setTipOffComplete(true);
+			gameS->setBallTipped(false);
 			gameS->setTeamWithBall(ballTippedToTeam);
-			Ogre::LogManager::getSingletonPtr()->logMessage("ballTippedToTeam" + Ogre::StringConverter::toString(ballTippedToTeam));
+			Ogre::LogManager::getSingletonPtr()->logMessage("ballTippedToTeam ======>" + Ogre::StringConverter::toString(ballTippedToTeam));
 
-			Ogre::LogManager::getSingletonPtr()->logMessage("ballTippedToPlayer" + Ogre::StringConverter::toString(gameS->getBallTippedToPlayer()));
+			Ogre::LogManager::getSingletonPtr()->logMessage("ballTippedToPlayer =======>" + Ogre::StringConverter::toString(gameS->getBallTippedToPlayer()));
 //			exit(0);
 
 			teamInstance[ballTippedToTeam].setPlayerWithBall(gameS->getBallTippedToPlayer());
@@ -598,8 +600,9 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 			//			gameS->setTeamInstance(teamInstance);
 
 			int humanPlayer = teamInstance[ballTippedToTeam].getHumanPlayer();
-			Ogre::LogManager::getSingletonPtr()->logMessage("ballTippedToTeam" + Ogre::StringConverter::toString(ballTippedToTeam));
-			Ogre::LogManager::getSingletonPtr()->logMessage("ballTippedToPlayer" + Ogre::StringConverter::toString(teamInstance[ballTippedToTeam].getPlayerWithBall()));
+			int teamWithBall = gameS->getBallTippedToTeam();
+			Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall === " + Ogre::StringConverter::toString(teamWithBall));
+			Ogre::LogManager::getSingletonPtr()->logMessage("playerWithBall === " + Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
 
 			Ogre::LogManager::getSingletonPtr()->logMessage("human player tipped to = " + Ogre::StringConverter::toString(humanPlayer));
 //			exit(0);
@@ -619,7 +622,7 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 			{
 				Ogre::LogManager::getSingletonPtr()->logMessage("X = " +Ogre::StringConverter::toString(x));
 
-				Ogre::LogManager::getSingletonPtr()->logMessage("Crash here????");
+//				Ogre::LogManager::getSingletonPtr()->logMessage("Crash here????");
 
 				Ogre::LogManager::getSingletonPtr()->logMessage("Ball not tipped");
 				std::vector<playerState> playerInstance = teamInstance[x].getPlayerInstance();

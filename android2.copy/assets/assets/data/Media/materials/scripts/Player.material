@@ -1,9 +1,0 @@
-material default
-{
-	technique
-	{
-		pass
-		{
-		}
-	}
-}

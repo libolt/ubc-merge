@@ -25,6 +25,9 @@
 #include "SDL.h"
 #include "SDL_syswm.h"
 #include "Ogre.h"
+
+#include "enums.h"
+
 // input class
 class inputSystem
 {
@@ -33,19 +36,23 @@ public:
 	static inputSystem *Instance();
 
     virtual bool setup();   // sets up and initializes the  Input System
-    virtual bool destroy(); // destroys the OIS Input system and related objects
+    virtual bool destroy(); // destroys the Input system and related objects
 
+	virtual inputMaps keyMap();  // maps value of keyPressed string to inputMap
+	
     virtual bool processInput();	// processes all input
     virtual bool processUnbufferedKeyInput();	// reads in unbuffered key presses
     virtual bool processUnbufferedMouseInput();	// reads in unbuffered mouse input
 
     // SDL Input functions
-    virtual SDL_Event getInputEvent();   // retrieves inputEvent
-    void setInputEvent(SDL_Event input); // sets inputEvent
+    virtual SDL_Event getInputEvent();   // retrieves the value of the inputEvent variable
+    void setInputEvent(SDL_Event input); // sets the value of the inputEvent variable
 
-    virtual Ogre::String getKeyPressed(); // retrieves keyPressed
-    void setKeyPressed(Ogre::String key); // sets keyPressed
+    virtual Ogre::String getKeyPressed(); // retrieves the value of the keyPressed pressed variable
+    void setKeyPressed(Ogre::String key); // sets the value of the keyPressed variable
 
+	virtual inputMaps getInputMap();  // retrieves the value of the inputMap variable
+	void setInputMap(inputMaps map);  // sets the value of the inputMap variable
 
 protected:
 	inputSystem();
@@ -64,7 +71,9 @@ protected:
 private:
 	static inputSystem *pInstance;
 
-	Ogre::String keyPressed;
+	Ogre::String keyPressed; // stores which key was pressed
+	
+	inputMaps inputMap; // stores user input
 
 };
 
