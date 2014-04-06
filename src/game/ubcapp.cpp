@@ -77,15 +77,15 @@ int main(int argc, char *argv[])
 
     render->initOgre(); // Initializes the Ogre Subsystem
     render->createScene(); // creates rendering scene.
-	
+
 #ifndef __ANDROID__
     gui->initMyGUI(); // Initializes MyGUI
     gui->createMainMenuButtons(); // creates a MyGUI button.
 #endif
 
 	//FIXME hardcoded while working on other bugs
-	gameS->setGameType(SINGLE);
-	
+//	gameS->setGameType(SINGLE);
+
     inputSystem *input = inputSystem::Instance();
 
     gameE->gameLoop();

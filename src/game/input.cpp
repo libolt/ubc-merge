@@ -102,7 +102,7 @@ bool inputSystem::destroy() // destroys the OIS Input System and related objects
 
 inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
 {
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     if (keyPressed == "w")
 	{
 		return(INUP);
@@ -143,29 +143,38 @@ inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
 	{
 		return(INSHOOTBLOCK);
 	}
-#else
-#endif
+	else if (keyPressed == "q")
+	{
+		return(INQUIT);
+	}
+	else
+	{
+		return(INNO);
+	}
+
+//#else
+//#endif
 }
 
 bool inputSystem::processInput()	// processes all input
 {
-	
+
 //	Ogre::LogManager::getSingletonPtr()->logMessage("Processing input");
-	
+
     // processes keyboard input
     if (processUnbufferedKeyInput() == false)
     {
         return false;
     }
-/*
+
     // processes mouse input
     if (processUnbufferedMouseInput() == false)
     {
         return false;
     }
-	
+
 		Ogre::LogManager::getSingletonPtr()->logMessage("Input processed");
-    */
+
 	return true;
 }
 
@@ -193,18 +202,18 @@ bool inputSystem::processUnbufferedKeyInput()
 
     }
 }
-*/	
+*/
 /*
    SDL_StartTextInput();
-	
+
 	SDL_PumpEvents();
     Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
 
 	keys = SDL_GetKeyboardState(NULL);
 //	Ogre::LogManager::getSingletonPtr()->logMessage("Crash???");
     Ogre::LogManager::getSingletonPtr()->logMessage("Key == " +Ogre::StringConverter::toString(keys));
-			
-//    if (keys[SDL_GetScancodeFromKey(SDLK_q)]) 
+
+//    if (keys[SDL_GetScancodeFromKey(SDLK_q)])
 	if (keys[SDL_SCANCODE_Q])
 	{
 		keyPressed = "q";
@@ -213,7 +222,7 @@ bool inputSystem::processUnbufferedKeyInput()
     }
 	Ogre::LogManager::getSingletonPtr()->logMessage("Crash????");
 */
-	
+
 		if (SDL_PollEvent(&inputEvent))
 		{
 //			Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
@@ -323,7 +332,7 @@ bool inputSystem::processUnbufferedKeyInput()
 				default:
 				    break;
 				}
-				
+
 //				Ogre::LogManager::getSingletonPtr()->logMessage("keyPressed = " +keyPressed);
 //				exit(0);
 
@@ -342,7 +351,7 @@ bool inputSystem::processUnbufferedKeyInput()
 			}
 
 		}
-		
+
 #else
 	if (MyGUI::InputManager::getInstance().isFocusKey())	// checks if a MyGUI widget has key focus
 	{

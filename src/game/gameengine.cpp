@@ -246,6 +246,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 		   if (gameS->getGameType() == SINGLE)
 		   {
+			   exit(0);
 
 				if (!sceneCreated)
 				{
@@ -324,7 +325,122 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	    		if (gameS->getTeamInstancesCreated())
                 {
-					if (gameS->getGameType() == SINGLE)
+					std::vector<teamState> teamInstance = gameS->getTeamInstance();
+
+					for (int i=0;i<teamInstance.size();++i)
+					{
+						cout << "teamInstance.size() ==== " << teamInstance.size() << endl;
+						if (teamInstance[i].getPlayerInstancesCreated())
+						{
+
+							std::vector<playerState> playerInstance = teamInstance[i].getPlayerInstance();
+
+							Ogre::String packetData;
+							if (teamInstance[i].getHumanControlled())
+							{
+								int humanPlayer = teamInstance[i].getHumanPlayer();
+								inputMaps inputMap = input->keyMap();
+								cout << "INPUT MAP ======== " << inputMap << endl;
+								switch (inputMap)
+								{
+
+									case INUP:
+										playerInstance[humanPlayer].setMovement(true);
+										playerInstance[humanPlayer].setDirection(UP);
+										teamInstance[i].setPlayerInstance(playerInstance);
+//										gameS->setTeamInstance(teamInstance);
+										packetData = "player0up";
+
+									break;
+									case INDOWN:
+										playerInstance[humanPlayer].setMovement(true);
+										playerInstance[humanPlayer].setDirection(DOWN);
+										teamInstance[i].setPlayerInstance(playerInstance);
+//										gameS->setTeamInstance(teamInstance);
+										packetData = "player0down";
+
+									break;
+									case INLEFT:
+										playerInstance[humanPlayer].setMovement(true);
+										playerInstance[humanPlayer].setDirection(LEFT);
+										teamInstance[i].setPlayerInstance(playerInstance);
+//										gameS->setTeamInstance(teamInstance);
+										packetData = "player0left";
+
+									break;
+									case INRIGHT:
+										playerInstance[humanPlayer].setMovement(true);
+										playerInstance[humanPlayer].setDirection(RIGHT);
+										teamInstance[i].setPlayerInstance(playerInstance);
+//										gameS->setTeamInstance(teamInstance);
+										packetData = "player0right";
+
+									break;
+
+									case INUPLEFT:
+										playerInstance[humanPlayer].setMovement(true);
+										playerInstance[humanPlayer].setDirection(UPLEFT);
+										teamInstance[i].setPlayerInstance(playerInstance);
+//										gameS->setTeamInstance(teamInstance);
+										packetData = "player0upleft";
+
+									break;
+									case INUPRIGHT:
+										playerInstance[humanPlayer].setMovement(true);
+										playerInstance[humanPlayer].setDirection(UPRIGHT);
+										teamInstance[i].setPlayerInstance(playerInstance);
+//										gameS->setTeamInstance(teamInstance);
+										packetData = "player0upright";
+
+									break;
+									case INDOWNLEFT:
+										playerInstance[humanPlayer].setMovement(true);
+										playerInstance[humanPlayer].setDirection(DOWNLEFT);
+										teamInstance[i].setPlayerInstance(playerInstance);
+//										gameS->setTeamInstance(teamInstance);
+										packetData = "player0downleft";
+
+									break;
+									case INDOWNRIGHT:
+										playerInstance[humanPlayer].setMovement(true);
+										playerInstance[humanPlayer].setDirection(DOWNRIGHT);
+										teamInstance[i].setPlayerInstance(playerInstance);
+//										gameS->setTeamInstance(teamInstance);
+										packetData = "player0downright";
+									break;
+
+									case INQUIT:
+										Ogre::LogManager::getSingletonPtr()->logMessage("Quitting!");
+										quitGame = true;
+										exit(0);
+									break;
+
+									default:
+									break;
+								}
+								gameS->setTeamInstance(teamInstance);
+
+								if (gameS->getGameType() == MULTI && clientRunning)	// checks if game is running in client mode
+								{
+									cout << "client packetData = " << packetData << endl;
+									network->sendPacket(packetData);
+								}
+								else  if (gameS->getGameType() == MULTI && serverRunning)
+								{
+									cout << "server packetData = " << packetData << endl;
+									network->sendPacket(packetData);
+
+								}
+								else
+								{
+
+								}
+
+							}
+						}
+					}
+
+/*					if (gameS->getGameType() == SINGLE)
 					{
                        Ogre::LogManager::getSingletonPtr()->logMessage("Single Player Game");
 
@@ -333,74 +449,8 @@ void gameEngine::gameLoop()	// Main Game Loop
 						Ogre::String keyPressed = input->getKeyPressed();
 						int teamWithBall = gameS->getTeamWithBall();
 //						int humanPlayer = teamInstance[teamWithBall].getHumanPlayer();
-						if (teamInstance[0].getPlayerInstancesCreated())
-						{
 //							exit(0);
-							std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-                            for (int i=0;i<teamInstance.size();++i)
-							{
-                                if (teamInstance[i].getHumanControlled())
-							    {
-								    int humanPlayer = teamInstance[i].getHumanPlayer();
-
-                                    inputMaps inputMap = input->keyMap();
-							        switch (inputMap)
-							        {
-								        case INUP: 
-									        playerInstance[humanPlayer].setMovement(true);
-									        playerInstance[humanPlayer].setDirection(UP);
-									        teamInstance[i].setPlayerInstance(playerInstance);
-									        gameS->setTeamInstance(teamInstance);
-									    break;
-									    case INDOWN:  
-									        playerInstance[humanPlayer].setMovement(true);
-									        playerInstance[humanPlayer].setDirection(DOWN);
-									        teamInstance[i].setPlayerInstance(playerInstance);
-									        gameS->setTeamInstance(teamInstance);
-									    break;
-									    case INLEFT: 
-									        playerInstance[humanPlayer].setMovement(true);
-									        playerInstance[humanPlayer].setDirection(LEFT);
-									        teamInstance[i].setPlayerInstance(playerInstance);
-									        gameS->setTeamInstance(teamInstance);
-									    break;
-									    case INRIGHT: 
-									        playerInstance[humanPlayer].setMovement(true);
-									        playerInstance[humanPlayer].setDirection(RIGHT);
-									        teamInstance[i].setPlayerInstance(playerInstance);
-									        gameS->setTeamInstance(teamInstance);
-									    break;
-									    case INUPLEFT: 
-									        playerInstance[humanPlayer].setMovement(true);
-									        playerInstance[humanPlayer].setDirection(UPLEFT);
-									        teamInstance[i].setPlayerInstance(playerInstance);
-									        gameS->setTeamInstance(teamInstance);
-									    break;
-									    case INUPRIGHT: 
-									        playerInstance[humanPlayer].setMovement(true);
-									        playerInstance[humanPlayer].setDirection(UPRIGHT);
-									        teamInstance[i].setPlayerInstance(playerInstance);
-									        gameS->setTeamInstance(teamInstance);
-									    break;
-									    case INDOWNLEFT: 
-									        playerInstance[humanPlayer].setMovement(true);
-									        playerInstance[humanPlayer].setDirection(DOWNLEFT);
-									        teamInstance[i].setPlayerInstance(playerInstance);
-									        gameS->setTeamInstance(teamInstance);
-									    break;
-									    case INDOWNRIGHT: 
-									        playerInstance[humanPlayer].setMovement(true);
-									        playerInstance[humanPlayer].setDirection(DOWNRIGHT);
-									        teamInstance[i].setPlayerInstance(playerInstance);
-									        gameS->setTeamInstance(teamInstance);
-									    break;
-
-								        default:
-								        break;
-							        }
-							    }
-							}
+//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 #else
 							if (teamInstance[0].getHumanControlled())
 							{
@@ -648,7 +698,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 							else
 							{
 							}
-#endif
+//#endif
 						}
 
 						else
@@ -656,14 +706,14 @@ void gameEngine::gameLoop()	// Main Game Loop
 						}
 
 				    }
-
+*/
 				}
 
             }
-	    	else
+/*	    	else
 	    	{
 	    	}
-
+*/
 	 			//        player->getNode(0)->translate(Pos);
 	//        pInstance[bballInstance[0].getPlayer()].getNode()->translate(-0.02f,0.0f,0.0f);
 

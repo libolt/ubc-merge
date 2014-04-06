@@ -21,9 +21,9 @@
 #ifndef _ENUMS_H_
 #define _ENUMS_H_
 
-    enum inputMaps { INUP, INDOWN, INLEFT, INRIGHT, INUPLEFT, INUPRIGHT, INDOWNLEFT, INDOWNRIGHT, INSHOOTBLOCK, INPASSSTEAL }; // map of human player input
+    enum inputMaps { INNO, INUP, INDOWN, INLEFT, INRIGHT, INUPLEFT, INUPRIGHT, INDOWNLEFT, INDOWNRIGHT, INSHOOTBLOCK, INPASSSTEAL, INQUIT }; // map of human player input
     enum directions { UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT };	// direction objects are moving
-    enum gameTypes { SINGLE, MULTI }; // defines whether a game is single or multi player
+    enum gameTypes { NOGAME, SINGLE, MULTI }; // defines whether a game is single or multi player
     enum quarters { FIRST, SECOND, THIRD, FOURTH }; // defines the quarters within the game
     enum defenseTypes { MANTOMAN, FULLCOURT, HALFCOURT, ZONE };	// type of defense being played
     enum offenseTypes { BOX, PICKANDROLL, MOTION, ISOLATION };	// type of offense being played

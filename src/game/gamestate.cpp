@@ -50,6 +50,7 @@ gameState::gameState()
     gameStarted = false;
     teamWithBall = -1;
 
+    gameType = NOGAME;
     tipOffComplete = false;
     ballTipped = false;
     ballTippedToTeam = -1;
@@ -495,11 +496,11 @@ bool gameState::setupState()
 /*    teamWithBall = 0;	// FIXME! Temporarily hard code team controlling ball
 	teamInstance[0].setPlayerWithBall(0);
 	teamInstance[0].setPlayerWithBallDribbling(true);
-	tipOffComplete = true; 
+	tipOffComplete = true;
 	teamInstance[0].setHumanPlayer(0);
 	*/
     return true;
-	
+
 //#endif
 }
 
@@ -507,7 +508,7 @@ bool gameState::setupState()
 bool gameState::logic()
 {
     Ogre::LogManager::getSingletonPtr()->logMessage("Updating gameState Logic");
-	
+
 	networkEngine *network = networkEngine::Instance();
     players *player = players::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();
@@ -741,7 +742,7 @@ void gameState::updateDirectionsAndMovements()
 void gameState::updateBasketballMovements()	// updates the basketball(s) movements
 {
 	Ogre::LogManager::getSingletonPtr()->logMessage("Updating basketball movements");
-	
+
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
 	Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall" + Ogre::StringConverter::toString(teamWithBall));
