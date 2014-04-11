@@ -161,12 +161,14 @@ bool inputSystem::processInput()	// processes all input
 
 	Ogre::LogManager::getSingletonPtr()->logMessage("Processing input");
 
+//	SDL_StartTextInput();
     // processes keyboard input
     if (processUnbufferedKeyInput() == false)
     {
         return false;
     }
-
+//    SDL_StopTextInput();
+	
     // processes mouse input
     if (processUnbufferedMouseInput() == false)
     {

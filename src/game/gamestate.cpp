@@ -360,8 +360,13 @@ bool gameState::setupEnvironment()
 
 void gameState::setBasketballStartPositions()// sets the initial coordinates for the basketball(s)
 {
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	basketballInstance[0].getNode()->setPosition(0.8f,10.0f,352.0f);
+	courtInstance[0].getNode()->setPosition(0.0f,-6.5,360);
+#else
 	basketballInstance[0].getNode()->setPosition(0.8f,-5.0f,352.0f);
 	courtInstance[0].getNode()->setPosition(0.0f,-27.5,360);
+#endif
 }
 
 // sets up tip off conditions
