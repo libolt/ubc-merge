@@ -326,7 +326,7 @@ void teamState::setupState()	// sets up the state of the object
 }
 void teamState::updateState()	// updates the state of the object
 {
-	
+
 //	exit(0);
 	gameState *gameS = gameState::Instance();
 	physicsEngine *physEngine = physicsEngine::Instance();
@@ -432,7 +432,7 @@ void teamState::updateState()	// updates the state of the object
 	{
 	}
 //	exit(0);
-	
+
 	if (gameS->getTipOffComplete())
 	{
 	    if (gameS->getTeamWithBall() == teamNumber)
@@ -447,7 +447,7 @@ void teamState::updateState()	// updates the state of the object
 	else
 	{
 	}
-	
+
 	Ogre::LogManager::getSingletonPtr()->logMessage("team state updated = " +Ogre::StringConverter::toString(teamNumber));
 }
 
@@ -538,7 +538,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
         y = -1.5f;
 #else
-        y = -23.5f
+        y = -23.5f;
 #endif
 		playerInstance[0].getNode()->setPosition(14.4f,y,352.0f);
 	    playerInstance[1].getNode()->setPosition(2.0f,y,347.6f);
@@ -561,7 +561,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
         y = -1.5f;
 #else
-        y = -23.5f
+        y = -23.5f;
 #endif
 	    playerInstance[0].getNode()->setPosition(-12.8f,y,352.0f);
 	    playerInstance[1].getNode()->setPosition(-0.8f,y,347.6f);
