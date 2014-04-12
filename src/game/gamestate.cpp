@@ -584,7 +584,7 @@ bool gameState::logic()
     std::vector<int> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable
 
     // Initiates offense or defense for a team depending on value of teamWithBall
-/*    if (teamWithBall == 0)	// if 0 puts team 0 on offense and team 1 on defense
+    if (teamWithBall == 0)	// if 0 puts team 0 on offense and team 1 on defense
     {
     	teamInstance[0].setOffense(true);
     	teamInstance[0].setDefense(false);
@@ -603,7 +603,7 @@ bool gameState::logic()
     else
     {
     }
-*/
+
     // updates the state of each team
     if (teamInstancesCreated)
     {

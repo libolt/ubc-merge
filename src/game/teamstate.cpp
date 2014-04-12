@@ -345,8 +345,8 @@ void teamState::updateState()	// updates the state of the object
 		}
 		else if (defense == true && offense == false)
 		{
-			offenseInstance->setExecute(true);
-			defenseInstance->setExecute(false);
+			offenseInstance->setExecute(false);
+			defenseInstance->setExecute(true);
 		}
 		else
 		{
@@ -441,7 +441,7 @@ void teamState::updateState()	// updates the state of the object
 	    }
 	    else
 	    {
-	        defenseInstance->updateState(); // updates the state of the defenseInstance object
+	        defenseInstance->updateState(teamNumber); // updates the state of the defenseInstance object
 	    }
 	}
 	else
