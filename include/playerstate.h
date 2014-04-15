@@ -178,6 +178,12 @@ class playerState
         virtual bool getShotComplete(void);	// retrieves the value of the shotComplete variable
         virtual void setShotComplete(bool complete);	// sets the value of the shotComplete variable
 
+		virtual bool getOffenseSet(void); // retrieves the value of offenseState
+		virtual void setOffenseSet(bool set);  // sets the value of offenseState
+		
+		virtual bool getDefenseSet(void); // retrieves the value of defenseState
+		virtual void setDefenseSet(bool set);  // sets the value of defenseState
+		
         virtual void updateState();	// updates the state of the object
 
         virtual bool loadModel();   // loads the 3D model from file specified in modelName
@@ -293,6 +299,9 @@ class playerState
         // Shooting variables
         bool shotTaken;	// Determines whether or not a player has shot the ball
         bool shotComplete;	// Determine whether or not a player's shot is complete
+
+        bool offenseSet;  // tracks state of player's offense
+		bool defenseSet;  // tracks state of player's defense
 
         // Stores the 3D model that represents the player
         Ogre::Entity *model;

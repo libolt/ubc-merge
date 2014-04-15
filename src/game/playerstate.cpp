@@ -60,6 +60,8 @@ playerState::playerState()
     passToPlayer = -1;
     shotTaken = false;
     shotComplete = false;
+	offenseSet = false;
+	defenseSet = false;
 
 }
 
@@ -495,7 +497,7 @@ void playerState::setPassToPlayer(int player)	// sets the value of the passToPla
 // gets and sets shotTaken
 bool playerState::getShotTaken(void)
 {
-    return(shotTaken);
+    return (shotTaken);
 }
 void playerState::setShotTaken(bool taken)
 {
@@ -505,11 +507,29 @@ void playerState::setShotTaken(bool taken)
 // gets and sets shotComplete
 bool playerState::getShotComplete(void)
 {
-    return(shotComplete);
+    return (shotComplete);
 }
 void playerState::setShotComplete(bool complete)
 {
     shotComplete = complete;
+}
+
+bool playerState::getOffenseSet(void) // retrieves the value of offenseState
+{
+	return (offenseSet);
+}
+void playerState::setOffenseSet(bool set)  // sets the value of offenseState
+{
+	offenseSet = set;
+}
+
+bool playerState::getDefenseSet(void) // retrieves the value of defenseState
+{
+	return (defenseSet);
+}
+void playerState::setDefenseSet(bool set)  // sets the value of defenseState
+{
+	defenseSet = set;
 }
 
 bool playerState::loadModel()   // loads the player's 3D model from the file specified in modelName

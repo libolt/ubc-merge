@@ -47,7 +47,7 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
 
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<playerState> playerDInstance = teamInstance[teamNumber].getPlayerInstance();
-    std::vector<playerState> playerOInstance = teamInstance[teamNumber].getPlayerInstance();
+    std::vector<playerState> playerOInstance = teamInstance[teamWithBall].getPlayerInstance();
     int humanPlayer = teamInstance[teamNumber].getHumanPlayer();
 //	exit(0);
 	if (execute)
@@ -67,19 +67,19 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
 		
 	    for (int x=0;x<playerDInstance.size();++x)
 		{
-//			if (x != humanPlayer)
-//			{
-	            // checks to see if its the first or second team
-                if (teamNumber == 0)
+			if (x != humanPlayer && !playerDInstance[x].getDefenseSet())
+			{
+	            // checks to see if its the defense is in position
+                if (playerDPos[x][0] > (playerOPos[x][0] -4.0f) && playerDPos[x][0] < (playerOPos[x][0] +4.0f))
 		        {
 //					exit(0);
-			        if (playerDPos[x][0] > playerOPos[x][0] -2.0f)
+			        if (playerDPos[x][0] > (playerOPos[x][0] -4.0f))
 					{
 //						exit(0);
 						playerDInstance[x].setMovement(true);
 						playerDInstance[x].setDirection(LEFT);
 					}
-					else if (playerDPos[x][0] < playerOPos[x][0] +2.0f)
+					else if (playerDPos[x][0] < (playerOPos[x][0] +4.0f))
 					{
 						playerDInstance[x].setMovement(true);
 						playerDInstance[x].setDirection(RIGHT);
@@ -91,12 +91,13 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
 		        }
 		        else
 		        {
-			
+//					exit(0);
+//			        playerDInstance[x].setDefenseSet(true);
 		        }
-			/*}
+			}
 			else
 			{
-			}*/
+			}
 		}
 	}
 	
