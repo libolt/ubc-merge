@@ -1,6 +1,5 @@
 package com.libolt.ubc;
 
-
 import org.libsdl.app.SDLActivity;
 
 public class UBCActivity extends SDLActivity
