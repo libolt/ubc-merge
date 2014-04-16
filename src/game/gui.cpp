@@ -22,7 +22,12 @@
 #include "gui.h"
 #include "gameengine.h"
 #include "gamestate.h"
+
+#ifdef __ANDROID__
+#include "android-config.h"
+#else
 #include "config.h"
+#endif
 
 GUISystem* GUISystem::pInstance = 0;
 GUISystem* GUISystem::Instance()

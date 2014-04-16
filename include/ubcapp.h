@@ -21,8 +21,12 @@
 #ifndef _UBCAPP_H_
 #define _UBCAPP_H_
 
-
+#ifdef __ANDROID__
+#include "android-config.h"
+#else
 #include "config.h"
+#endif
+
 #include "gui.h"
 #include "SDL.h"
 #include "SDL_syswm.h"
