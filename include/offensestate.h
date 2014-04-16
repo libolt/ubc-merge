@@ -36,6 +36,18 @@ public:
 	virtual Ogre::Vector3 *getStartPositions();	// retrieves the value of the startPositions variable
 	virtual void setStartPositions(Ogre::Vector3 *positions);	// sets the value startPositions variable
 
+	virtual bool getStartXPosSet();  // returns the value of startXPosSet
+	virtual void setStartXPosSet(bool *set); // sets the value of startXPosSet
+
+	virtual bool getStartYPosSet();  // returns the value of startYPosSet
+	virtual void setStartYPosSet(bool *set); // sets the value of startYPosSet
+
+	virtual bool getStartZPosSet();  // returns the value of startZPosSet
+	virtual void setStartZPosSet(bool *set); // sets the value of startZPosSet
+
+	virtual bool getStartPositionSet();  // returns the value of startPositionSet
+	virtual void setStartPositionSet(bool *set); // sets the value of startPositionSet
+
 	virtual void setupState();		// sets up initial state of the object
 
 	virtual void updateState(int teamNumber);	// updates the state of the object
@@ -46,6 +58,11 @@ private:
 	bool execute;	// If set then execute the offense logic
 
     Ogre::Vector3 *startPositions;		// stores the positions for players get to in order to execute offense
+
+	bool *startXPosSet; // stores whether player is at start X position
+	bool *startYPosSet; // stores whether player is at start Y position
+	bool *startZPosSet; // stores whether player is at start Z position
+    bool *startPositionSet; // storres whether player is at start position
 };
 
 #endif
