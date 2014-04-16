@@ -574,7 +574,7 @@ bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D mod
     node->translate(posChange);
 	btVector3 change = btVector3(0,0,0);
 	change = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
-	Ogre::LogManager::getSingletonPtr()->logMessage("playerPhysicsSetup = " +Ogre::StringConverter::toString(physEngine->getPlayerPhysicsSetup()));
+//	Ogre::LogManager::getSingletonPtr()->logMessage("playerPhysicsSetup = " +Ogre::StringConverter::toString(physEngine->getPlayerPhysicsSetup()));
 
 	physBody->translate(change); // moves physics body in unison with the model
 //	exit(0);

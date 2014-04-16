@@ -356,8 +356,8 @@ void teamState::updateState()	// updates the state of the object
 		if (gameS->getTipOffComplete())
 		{
 //			exit(0);
-			Ogre::LogManager::getSingletonPtr()->logMessage("Team with ball ==  "  +Ogre::StringConverter::toString(gameS->getTeamWithBall()));
-			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
+//			Ogre::LogManager::getSingletonPtr()->logMessage("Team with ball ==  "  +Ogre::StringConverter::toString(gameS->getTeamWithBall()));
+//			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
 
 			if (gameS->getTeamWithBall() == teamNumber) // checks if the team has the basketball
 			{
@@ -406,9 +406,9 @@ void teamState::updateState()	// updates the state of the object
 
 					}
 				}
-				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
-				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's name: "  +playerInstance[playerWithBall].getPlayerName());
-				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition()));
+//				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
+//				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's name: "  +playerInstance[playerWithBall].getPlayerName());
+//				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition()));
 			}
 		}
 

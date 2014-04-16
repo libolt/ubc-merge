@@ -326,11 +326,11 @@ void gameEngine::gameLoop()	// Main Game Loop
 	    		if (gameS->getTeamInstancesCreated())
                 {
 					std::vector<teamState> teamInstance = gameS->getTeamInstance();
-                    Ogre::LogManager::getSingletonPtr()->logMessage("teamInstance.size() ==== " +Ogre::StringConverter::toString(teamInstance.size()));
-						
+//                    Ogre::LogManager::getSingletonPtr()->logMessage("teamInstance.size() ==== " +Ogre::StringConverter::toString(teamInstance.size()));
+
 					for (int i=0;i<teamInstance.size();++i)
 					{
-						Ogre::LogManager::getSingletonPtr()->logMessage("teamInstance.size() ==== " +Ogre::StringConverter::toString(teamInstance.size()));
+//						Ogre::LogManager::getSingletonPtr()->logMessage("teamInstance.size() ==== " +Ogre::StringConverter::toString(teamInstance.size()));
 						if (teamInstance[i].getPlayerInstancesCreated())
 						{
 
@@ -341,7 +341,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 							{
 								int humanPlayer = teamInstance[i].getHumanPlayer();
 								inputMaps inputMap = input->keyMap();
-							    Ogre::LogManager::getSingletonPtr()->logMessage("INPUT MAP ======== "  +Ogre::StringConverter::toString(inputMap));
+//							    Ogre::LogManager::getSingletonPtr()->logMessage("INPUT MAP ======== "  +Ogre::StringConverter::toString(inputMap));
 								switch (inputMap)
 								{
 
