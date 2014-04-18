@@ -76,6 +76,7 @@ int main(int argc, char *argv[])
 //#endif
 
     render->initOgre(); // Initializes the Ogre Subsystem
+
     render->createScene(); // creates rendering scene.
 
 #ifndef __ANDROID__
@@ -84,7 +85,9 @@ int main(int argc, char *argv[])
 #endif
 
 	//FIXME hardcoded while working on other bugs
-//	gameS->setGameType(SINGLE);
+#ifdef __ANDROID__
+	gameS->setGameType(SINGLE);
+#endif
 
     inputSystem *input = inputSystem::Instance();
 

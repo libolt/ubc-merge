@@ -326,7 +326,7 @@ void teamState::setupState()	// sets up the state of the object
 }
 void teamState::updateState()	// updates the state of the object
 {
-	
+
 //	exit(0);
 	gameState *gameS = gameState::Instance();
 	physicsEngine *physEngine = physicsEngine::Instance();
@@ -345,8 +345,8 @@ void teamState::updateState()	// updates the state of the object
 		}
 		else if (defense == true && offense == false)
 		{
-			offenseInstance->setExecute(true);
-			defenseInstance->setExecute(false);
+			offenseInstance->setExecute(false);
+			defenseInstance->setExecute(true);
 		}
 		else
 		{
@@ -356,8 +356,8 @@ void teamState::updateState()	// updates the state of the object
 		if (gameS->getTipOffComplete())
 		{
 //			exit(0);
-			Ogre::LogManager::getSingletonPtr()->logMessage("Team with ball ==  "  +Ogre::StringConverter::toString(gameS->getTeamWithBall()));
-			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
+//			Ogre::LogManager::getSingletonPtr()->logMessage("Team with ball ==  "  +Ogre::StringConverter::toString(gameS->getTeamWithBall()));
+//			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
 
 			if (gameS->getTeamWithBall() == teamNumber) // checks if the team has the basketball
 			{
@@ -406,9 +406,9 @@ void teamState::updateState()	// updates the state of the object
 
 					}
 				}
-				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
-				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's name: "  +playerInstance[playerWithBall].getPlayerName());
-				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition()));
+//				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
+//				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's name: "  +playerInstance[playerWithBall].getPlayerName());
+//				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition()));
 			}
 		}
 
@@ -432,8 +432,22 @@ void teamState::updateState()	// updates the state of the object
 	{
 	}
 //	exit(0);
-//	offenseInstance->updateState();	// updates the state of the offenseInstance object
-//	defenseInstance->updateState(); // updates the state of the defenseInstance object
+
+	if (gameS->getTipOffComplete())
+	{
+	    if (gameS->getTeamWithBall() == teamNumber)
+	    {
+	        offenseInstance->updateState(teamNumber);	// updates the state of the offenseInstance object
+	    }
+	    else
+	    {
+	        defenseInstance->updateState(teamNumber); // updates the state of the defenseInstance object
+	    }
+	}
+	else
+	{
+	}
+
 	Ogre::LogManager::getSingletonPtr()->logMessage("team state updated = " +Ogre::StringConverter::toString(teamNumber));
 }
 
@@ -519,12 +533,18 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 
 	if (teamNumber == 0)	// assigns the positions and directions for team 1 players
 	{
+		float y = 0.0f;
 		// assign positions
-		playerInstance[0].getNode()->setPosition(14.4f,-23.5f,352.0f);
-	    playerInstance[1].getNode()->setPosition(2.0f,-23.5f,347.6f);
-	    playerInstance[2].getNode()->setPosition(2.0f,-23.5f,360.0f);
-	    playerInstance[3].getNode()->setPosition(5.2f,-23.5f,351.6f);
-	    playerInstance[4].getNode()->setPosition(1.6f,-23.5f,352.0f);
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+        y = -1.5f;
+#else
+        y = -23.5f;
+#endif
+		playerInstance[0].getNode()->setPosition(14.4f,y,352.0f);
+	    playerInstance[1].getNode()->setPosition(2.0f,y,347.6f);
+	    playerInstance[2].getNode()->setPosition(2.0f,y,360.0f);
+	    playerInstance[3].getNode()->setPosition(5.2f,y,351.6f);
+	    playerInstance[4].getNode()->setPosition(1.6f,y,352.0f);
 
 	    // assign directions
 	    playerInstance[0].setDirection(RIGHT);
@@ -536,12 +556,18 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 	}
 	else if (teamNumber == 1) // assigns the positions and directions for team 2 players
 	{
+		float y = 0.0f;
 		// assign positions
-	    playerInstance[0].getNode()->setPosition(-12.8f,-23.5f,352.0f);
-	    playerInstance[1].getNode()->setPosition(-0.8f,-23.5f,347.6f);
-	    playerInstance[2].getNode()->setPosition(-0.8f,-23.5f,360.8f);
-	    playerInstance[3].getNode()->setPosition(4.4f,-23.5f,348.8f);
-	    playerInstance[4].getNode()->setPosition(-0.4f,-23.5f,352.0f);
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+        y = -1.5f;
+#else
+        y = -23.5f;
+#endif
+	    playerInstance[0].getNode()->setPosition(-12.8f,y,352.0f);
+	    playerInstance[1].getNode()->setPosition(-0.8f,y,347.6f);
+	    playerInstance[2].getNode()->setPosition(-0.8f,y,360.8f);
+	    playerInstance[3].getNode()->setPosition(4.4f,y,348.8f);
+	    playerInstance[4].getNode()->setPosition(-0.4f,y,352.0f);
 
 	    // assign directions
 	    playerInstance[0].setDirection(LEFT);
@@ -555,32 +581,6 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 	{
 	}
 
-/* OLD Position setting code
-	playerInstance[0].getNode()->setPosition(14.4f,-23.5f,352.0f);
-    playerInstance[1].getNode()->setPosition(2.0f,-23.5f,347.6f);
-    playerInstance[2].getNode()->setPosition(2.0f,-23.5f,360.0f);
-    playerInstance[3].getNode()->setPosition(5.2f,-23.5f,351.6f);
-    playerInstance[4].getNode()->setPosition(1.6f,-23.5f,352.0f);
-    playerInstance[5].getNode()->setPosition(-12.8f,-23.5f,352.0f);
-    playerInstance[6].getNode()->setPosition(-0.8f,-23.5f,347.6f);
-    playerInstance[7].getNode()->setPosition(-0.8f,-23.5f,360.8f);
-    playerInstance[8].getNode()->setPosition(4.4f,-23.5f,348.8f);
-    playerInstance[9].getNode()->setPosition(-0.4f,-23.5f,352.0f);
-*/
-
-/* OLD direction setting code
-    // sets starting player Directions
-    playerInstance[0].setDirection(RIGHT);
-    playerInstance[1].setDirection(RIGHT);
-    playerInstance[2].setDirection(RIGHT);
-    playerInstance[3].setDirection(RIGHT);
-    playerInstance[4].setDirection(RIGHT);
-    playerInstance[5].setDirection(RIGHT);
-    playerInstance[6].setDirection(RIGHT);
-    playerInstance[7].setDirection(RIGHT);
-    playerInstance[8].setDirection(RIGHT);
-    playerInstance[9].setDirection(RIGHT);
-*/
 }
 
 void teamState::updatePlayerDirections()
@@ -859,4 +859,4 @@ void teamState::updatePositions()
 
 }
 
-//}
+

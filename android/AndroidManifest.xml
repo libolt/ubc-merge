@@ -19,7 +19,8 @@
 	    <activity android:name="UBCActivity"
                   android:label="UltimateBasketballChallenge"
  android:configChanges="orientation" 
-		   android:debuggable="true"		        android:windowSoftInputMode="stateVisible|adjustPan"
+			android:screenOrientation="portrait"
+		   android:debuggable="true"		       android:windowSoftInputMode="stateVisible|adjustPan" 
 		  android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <!-- Tell NativeActivity the name of or .so -->
             <meta-data android:name="android.app.lib_name" android:value="UltimateBasketballChallenge" />

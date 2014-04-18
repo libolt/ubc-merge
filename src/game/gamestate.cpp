@@ -360,8 +360,13 @@ bool gameState::setupEnvironment()
 
 void gameState::setBasketballStartPositions()// sets the initial coordinates for the basketball(s)
 {
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	basketballInstance[0].getNode()->setPosition(0.8f,10.0f,352.0f);
+	courtInstance[0].getNode()->setPosition(0.0f,-6.5,360);
+#else
 	basketballInstance[0].getNode()->setPosition(0.8f,-5.0f,352.0f);
 	courtInstance[0].getNode()->setPosition(0.0f,-27.5,360);
+#endif
 }
 
 // sets up tip off conditions
@@ -579,7 +584,7 @@ bool gameState::logic()
     std::vector<int> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable
 
     // Initiates offense or defense for a team depending on value of teamWithBall
-/*    if (teamWithBall == 0)	// if 0 puts team 0 on offense and team 1 on defense
+    if (teamWithBall == 0)	// if 0 puts team 0 on offense and team 1 on defense
     {
     	teamInstance[0].setOffense(true);
     	teamInstance[0].setDefense(false);
@@ -598,7 +603,7 @@ bool gameState::logic()
     else
     {
     }
-*/
+
     // updates the state of each team
     if (teamInstancesCreated)
     {

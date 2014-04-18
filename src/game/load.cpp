@@ -18,7 +18,12 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#ifdef __ANDROID__
+#include "android-config.h"
+#else
 #include "config.h"
+#endif
+
 #include "load.h"
 #include "playerdata.h"
 #include "players.h"

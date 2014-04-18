@@ -17,8 +17,11 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-
+#ifdef __ANDROID__
+#include "android-config.h"
+#else
 #include "config.h"
+#endif
 
 #include "gameengine.h"
 #include "gamestate.h"

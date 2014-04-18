@@ -32,7 +32,7 @@ public:
 
 	virtual void setupState();		// sets up initial state of the object
 
-	virtual void updateState();	// updates the state of the object
+	virtual void updateState(int teamNumber);	// updates the state of the object
 
 private:
 

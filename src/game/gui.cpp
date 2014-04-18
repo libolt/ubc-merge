@@ -22,7 +22,12 @@
 #include "gui.h"
 #include "gameengine.h"
 #include "gamestate.h"
+
+#ifdef __ANDROID__
+#include "android-config.h"
+#else
 #include "config.h"
+#endif
 
 GUISystem* GUISystem::pInstance = 0;
 GUISystem* GUISystem::Instance()
@@ -57,6 +62,7 @@ bool GUISystem::initMyGUI()
     Ogre::RenderWindow *mWindow = render->getMWindow();
     Ogre::SceneManager *mSceneMgr = render->getMSceneMgr();
 
+	Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing MyGUI ***");
 	mPlatform = new MyGUI::OgrePlatform();
     Ogre::LogManager::getSingletonPtr()->logMessage("Crash?");
     mPlatform->initialise(mWindow, mSceneMgr, "UBCData"); // mWindow is Ogre::RenderWindow*, mSceneManager is Ogre::SceneManager*
@@ -64,7 +70,7 @@ bool GUISystem::initMyGUI()
 	mGUI = new MyGUI::Gui();
 	Ogre::LogManager::getSingletonPtr()->logMessage("Crash???");
 	mGUI->initialise();
-    Ogre::LogManager::getSingletonPtr()->logMessage("Crash????");
+    Ogre::LogManager::getSingletonPtr()->logMessage("*** MyGUI Initialized ***");
 	return true;
 }
 
