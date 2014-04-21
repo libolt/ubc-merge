@@ -46,6 +46,7 @@ public:
 
 // declaration of functions which access/modify private variables in the class
 
+    Ogre::Vector3 getNodePosition(); // retrieves position of basketball node
 
     float getXCoord(void);		// retrieves xCoord value
     virtual void setXCoord(float XCoords);		// sets xCoord value

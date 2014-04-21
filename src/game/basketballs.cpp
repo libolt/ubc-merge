@@ -76,6 +76,10 @@ basketballs::~basketballs()
 {
 }
 
+Ogre::Vector3 basketballs::getNodePosition() // retrieves position of basketball node
+{
+	return (node->getPosition());
+}
 // gets and sets xCoord
 float basketballs::getXCoord(void)
 {
