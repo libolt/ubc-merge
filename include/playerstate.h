@@ -34,7 +34,7 @@
 
 // steering
 
-#include "OpenSteer/SimpleVehicle.h"
+#include "steering.h"
 #include "OpenSteer/Annotation.h"
 /*#include "OpenSteer/Color.h"
 #include "OpenSteer/UnusedParameter.h"
@@ -42,8 +42,8 @@
 
 #include "enums.h"
 
-class playerState  : public OpenSteer::SimpleVehicle
-    {
+class playerState  : public SimpleVehicle
+{
     public:
 
         playerState();
@@ -321,7 +321,7 @@ class playerState  : public OpenSteer::SimpleVehicle
 
         // stores the physics object that represents the player
         btRigidBody *physBody;
-    };
+};
 
 
 #endif // _PLAYERSTATE_H_

@@ -74,7 +74,7 @@ playerState::~playerState()
 // FIXME: Temporary until OpenSteer is integrated
 void playerState::update (const float /*currentTime*/, float elapsedTime)
 {
-/*	bool	b_ImTeamA;
+	bool	b_ImTeamA;
 	gameState *gameS = gameState::Instance();
 	steering steer;
 	std::vector<basketballs> basketball = gameS->getBasketballInstance();
@@ -115,7 +115,7 @@ void playerState::update (const float /*currentTime*/, float elapsedTime)
 					float Z = bballSteerPos.z - playerSteerPos.z > 0 ? -1.0f : 1.0f;
 					OpenSteer::Vec3 behindBall = bballSteerPos + (b_ImTeamA ? OpenSteer::Vec3(2.0f,0.0f,Z) : OpenSteer::Vec3(-2.0f,0.0f,Z));
 					OpenSteer::Vec3 behindBallForce = xxxsteerForSeek(behindBall);
-					annotationLine (playerSteerPos, behindBall , OpenSteer::Color(0.0f,1.0f,0.0f));
+//FIXME					annotationLine (playerSteerPos, behindBall , OpenSteer::Color(0.0f,1.0f,0.0f));
 					OpenSteer::Vec3 evadeTarget = xxxsteerForFlee(bballSteerPos);
 					applySteeringForce (behindBallForce*10.0f + evadeTarget, elapsedTime);
 					}
@@ -129,7 +129,7 @@ void playerState::update (const float /*currentTime*/, float elapsedTime)
 			}
 
 		}
-		*/
+		
 }
 Ogre::Vector3 playerState::getNodePosition()  // returns the position of player node
 {
