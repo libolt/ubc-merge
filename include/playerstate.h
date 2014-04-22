@@ -33,21 +33,23 @@
 #include "BtOgreExtras.h"
 
 // steering
-#include "OpenSteer/SimpleVehicle.h"
-#include "OpenSteer/Color.h"
-#include "OpenSteer/UnusedParameter.h"
 
+#include "OpenSteer/SimpleVehicle.h"
+#include "OpenSteer/Annotation.h"
+/*#include "OpenSteer/Color.h"
+#include "OpenSteer/UnusedParameter.h"
+*/
 
 #include "enums.h"
 
-class playerState : public OpenSteer::SimpleVehicle
+class playerState  : public OpenSteer::SimpleVehicle
     {
     public:
 
         playerState();
         ~playerState();
 
-        void playerState::update (const float /*currentTime*/, const float elapsedTime);
+        void update (const float /*currentTime*/, const float elapsedTime);
         Ogre::Vector3 getNodePosition();  // returns the position of player node
 
         virtual int getPlayerID();								// returns playerID variable
@@ -188,10 +190,10 @@ class playerState : public OpenSteer::SimpleVehicle
 
 		virtual bool getOffenseSet(void); // retrieves the value of offenseState
 		virtual void setOffenseSet(bool set);  // sets the value of offenseState
-		
+
 		virtual bool getDefenseSet(void); // retrieves the value of defenseState
 		virtual void setDefenseSet(bool set);  // sets the value of defenseState
-		
+
         virtual void updateState();	// updates the state of the object
 
         virtual bool loadModel();   // loads the 3D model from file specified in modelName

@@ -23,7 +23,7 @@ FIND_PATH(OpenSteer_INCLUDE_DIRS OpenSteer/OpenSteer.h
     )
 
 FIND_LIBRARY(OpenSteer_LIBRARY_DBG
-    NAMES opensteer libopensteer.a 
+    NAMES opensteer libopensteer.a libopensteer
     PATHS
     $ENV{OpenSteer_HOME}
     /usr/local
@@ -32,12 +32,12 @@ FIND_LIBRARY(OpenSteer_LIBRARY_DBG
     )
 
 FIND_LIBRARY(OpenSteer_LIBRARY_REL
-    NAMES opensteer libopensteer.a
+    NAMES opensteer libopensteer.a libopensteer
     PATHS
     $ENV{OpenSteer_HOME}
     /usr/local
     /usr
-    PATH_SUFFIXES lib/Release
+    PATH_SUFFIXES lib/Release lib
     )
 
 make_library_set(OpenSteer_LIBRARY)
@@ -48,6 +48,7 @@ INCLUDE(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(OpenSteer DEFAULT_MSG OpenSteer_LIBRARY OpenSteer_INCLUDE_DIRS)
 
 IF (OpenSteer_FOUND)
+	MESSAGE("DAH!")
     SET(OpenSteer_LIBRARIES ${OpenSteer_LIBRARY})
 ENDIF (OpenSteer_FOUND)
 

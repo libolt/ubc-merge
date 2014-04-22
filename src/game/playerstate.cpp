@@ -72,64 +72,65 @@ playerState::~playerState()
 }
 
 // FIXME: Temporary until OpenSteer is integrated
-		void playerState::update (const float /*currentTime*/, float elapsedTime)
-        {
-			gameState *gameS = gameState::Instance();
-			steering steer;
-			std::vector<basketballs> basketball = gameS->getBasketballInstance();
-			std::vector<teamState> teamInstance = gameS->getTeamInstance();
-			const std::vector<playerState*>	m_AllPlayers;
-			m_AllPlayers = *teamInstance[0].getPlayerInstance();
-            // if I hit the ball, kick it.
-            OpenSteer::Vec3 playerSteerPos = steer.convertToOpenSteerVec3(getNodePosition());
-            OpenSteer::Vec3 m_home = playerSteerPos;
-			OpenSteer::Vec3 bballSteerPos = steer.convertToOpenSteerVec3(basketball[0].getNodePosition());
-			
-            const float distToBall = OpenSteer::Vec3::distance (playerSteerPos, bballSteerPos);
+void playerState::update (const float /*currentTime*/, float elapsedTime)
+{
+/*	bool	b_ImTeamA;
+	gameState *gameS = gameState::Instance();
+	steering steer;
+	std::vector<basketballs> basketball = gameS->getBasketballInstance();
+	std::vector<teamState> teamInstance = gameS->getTeamInstance();
+	const std::vector<playerState>	m_AllPlayers = teamInstance[0].getPlayerInstance();
+	// if I hit the ball, kick it.
+	OpenSteer::Vec3 playerSteerPos = steer.convertToOpenSteerVec3(getNodePosition());
+	OpenSteer::Vec3 m_home = playerSteerPos;
+	OpenSteer::Vec3 bballSteerPos = steer.convertToOpenSteerVec3(basketball[0].getNodePosition());
+
+	const float distToBall = OpenSteer::Vec3::distance (playerSteerPos, bballSteerPos);
 //            const float sumOfRadii = radius() + m_Ball->radius();
 //            if (distToBall < sumOfRadii)
-			if (distToBall < 2.0f)
-			{
+	if (distToBall < 2.0f)
+	{
 //                m_Ball->kick((bballSteerPos-playerSteerPos)*50, elapsedTime);
-            }
+	}
 
-            // otherwise consider avoiding collisions with others
-            OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, (OpenSteer::AVGroup&)m_AllPlayers);
-            if(collisionAvoidance != OpenSteer::Vec3::zero)
-                applySteeringForce (collisionAvoidance, elapsedTime);
-            else
-                {
-                float distHomeToBall = OpenSteer::Vec3::distance (m_home, bballSteerPos);
-                if( distHomeToBall < 12.0f)
-                    {
-                    // go for ball if I'm on the 'right' side of the ball
-                        if( b_ImTeamA ? playerSteerPos.x > bballSteerPos.x : playerSteerPos.x < bballSteerPos.x)
-                        {
-                        OpenSteer::Vec3 seekTarget = xxxsteerForSeek(bballSteerPos);
-                        applySteeringForce (seekTarget, elapsedTime);
-                        }
-                    else
-                        {
-                        if( distHomeToBall < 12.0f)
-                            {
-                            float Z = bballSteerPos.z - playerSteerPos.z > 0 ? -1.0f : 1.0f;
-                            OpenSteer::Vec3 behindBall = bballSteerPos + (b_ImTeamA ? OpenSteer::Vec3(2.0f,0.0f,Z) : OpenSteer::Vec3(-2.0f,0.0f,Z));
-                            OpenSteer::Vec3 behindBallForce = xxxsteerForSeek(behindBall);
-                            annotationLine (playerSteerPos, behindBall , OpenSteer::Color(0.0f,1.0f,0.0f));
-                            OpenSteer::Vec3 evadeTarget = xxxsteerForFlee(bballSteerPos);
-                            applySteeringForce (behindBallForce*10.0f + evadeTarget, elapsedTime);
-                            }
-                        }
-                    }
-                else	// Go home
-                    {
-                    OpenSteer::Vec3 seekTarget = xxxsteerForSeek(m_home);
-                    OpenSteer::Vec3 seekHome = xxxsteerForSeek(m_home);
-                    applySteeringForce (seekTarget+seekHome, elapsedTime);
-                    }
+	// otherwise consider avoiding collisions with others
+	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, (OpenSteer::AVGroup&)m_AllPlayers);
+	if(collisionAvoidance != OpenSteer::Vec3::zero)
+		applySteeringForce (collisionAvoidance, elapsedTime);
+	else
+		{
+		float distHomeToBall = OpenSteer::Vec3::distance (m_home, bballSteerPos);
+		if( distHomeToBall < 12.0f)
+			{
+			// go for ball if I'm on the 'right' side of the ball
+				if( b_ImTeamA ? playerSteerPos.x > bballSteerPos.x : playerSteerPos.x < bballSteerPos.x)
+				{
+				OpenSteer::Vec3 seekTarget = xxxsteerForSeek(bballSteerPos);
+				applySteeringForce (seekTarget, elapsedTime);
+				}
+			else
+				{
+				if( distHomeToBall < 12.0f)
+					{
+					float Z = bballSteerPos.z - playerSteerPos.z > 0 ? -1.0f : 1.0f;
+					OpenSteer::Vec3 behindBall = bballSteerPos + (b_ImTeamA ? OpenSteer::Vec3(2.0f,0.0f,Z) : OpenSteer::Vec3(-2.0f,0.0f,Z));
+					OpenSteer::Vec3 behindBallForce = xxxsteerForSeek(behindBall);
+					annotationLine (playerSteerPos, behindBall , OpenSteer::Color(0.0f,1.0f,0.0f));
+					OpenSteer::Vec3 evadeTarget = xxxsteerForFlee(bballSteerPos);
+					applySteeringForce (behindBallForce*10.0f + evadeTarget, elapsedTime);
+					}
+				}
+			}
+		else	// Go home
+			{
+			OpenSteer::Vec3 seekTarget = xxxsteerForSeek(m_home);
+			OpenSteer::Vec3 seekHome = xxxsteerForSeek(m_home);
+			applySteeringForce (seekTarget+seekHome, elapsedTime);
+			}
 
-                }
-        }
+		}
+		*/
+}
 Ogre::Vector3 playerState::getNodePosition()  // returns the position of player node
 {
 	return (node->getPosition());

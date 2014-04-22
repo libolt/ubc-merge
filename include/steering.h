@@ -25,15 +25,15 @@
 #include "OpenSteer/Color.h"
 #include "OpenSteer/UnusedParameter.h"
 
-
+/*
 class steering
 {
 	public:
-	
+
 	OpenSteer::Vec3 convertToOpenSteerVec3(Ogre::Vector3 vect);  // converts from Ogre::Vector3 to OpenSteer::Vec3
 	Ogre::Vector3 convertToOgreVector3(OpenSteer::Vec3 vect); // converts from OpenSteer::Vec3 to Ogre::Vector3
 	private:
 };
-
+*/
 #endif
 
