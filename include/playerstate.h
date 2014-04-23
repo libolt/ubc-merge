@@ -32,24 +32,17 @@
 #include "BtOgreGP.h"
 #include "BtOgreExtras.h"
 
-// steering
-
-#include "steering.h"
-#include "OpenSteer/Annotation.h"
-/*#include "OpenSteer/Color.h"
-#include "OpenSteer/UnusedParameter.h"
-*/
-
 #include "enums.h"
 
-class playerState  : public SimpleVehicle
+#include "playersteer.h"
+
+class playerState
 {
     public:
 
         playerState();
         ~playerState();
 
-        void update (const float /*currentTime*/, const float elapsedTime);
         Ogre::Vector3 getNodePosition();  // returns the position of player node
 
         virtual int getPlayerID();								// returns playerID variable
@@ -321,6 +314,9 @@ class playerState  : public SimpleVehicle
 
         // stores the physics object that represents the player
         btRigidBody *physBody;
+
+        // stores the steering objerct taht represents the player
+        playerSteer *steer;
 };
 
 

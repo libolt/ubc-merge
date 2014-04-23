@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "teamstate.h"
+#include "gameengine.h"
 #include "gamestate.h"
 #include "physicsengine.h"
 #include "players.h"
@@ -259,6 +260,16 @@ void teamState::setPlayerInstance(std::vector<playerState> pInstance)
     playerInstance = pInstance;
 }
 
+// gets and sets playerInstanceSteer std::vector
+virtual std::vector <playerSteer> teamState::getPlayerInstanceSteer();
+{
+	return (playerInstanceSteer);
+}
+virtual void teamState::setPlayerInstanceSteer(std::vector<playerSteer> pInstance);
+{
+	playerInstanceSteer = pInstance;
+}
+
 bool teamState::getPlayerInstancesCreated()	// retrieves the value of the playerInstancesCreated variable
 {
 	return (playerInstancesCreated);
@@ -446,6 +457,15 @@ void teamState::updateState()	// updates the state of the object
 	}
 	else
 	{
+	}
+
+	//FIXME! Temporary hack for steering testing
+	gameEngine *gameE = gameEngine::Instance();
+	for (int x=0; x<playerInstance.size();++x)
+	{
+		float oldTime= static_cast<float>(gameE->getOldTime());
+		float changeInTime = static_cast<float>(gameE->getChangeInTime());
+		playerInstance[x].update(oldTime, changeInTime);
 	}
 
 	Ogre::LogManager::getSingletonPtr()->logMessage("team state updated = " +Ogre::StringConverter::toString(teamNumber));

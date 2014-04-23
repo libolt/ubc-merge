@@ -22,14 +22,14 @@
 #include "steering.h"
 #include <algorithm>
 
-int SimpleVehicle::serialNumberCounter = 0;
+int steering::serialNumberCounter = 0;
 
 
 // ----------------------------------------------------------------------------
 // constructor
 
 
-SimpleVehicle::SimpleVehicle (void)
+steering::steering (void)
 {
     // set inital state
     reset ();
@@ -43,7 +43,7 @@ SimpleVehicle::SimpleVehicle (void)
 // destructor
 
 
-SimpleVehicle::~SimpleVehicle (void)
+steering::~steering (void)
 {
 }
 
@@ -60,8 +60,8 @@ SimpleVehicle::~SimpleVehicle (void)
 // parameter names commented out to prevent compiler warning from "-W"
 
 
-OpenSteer::Vec3 
-SimpleVehicle::adjustRawSteeringForce (const OpenSteer::Vec3& force,
+OpenSteer::Vec3
+steering::adjustRawSteeringForce (const OpenSteer::Vec3& force,
                                                   const float /* deltaTime */)
 {
     const float maxAdjustedSpeed = 0.2f * maxSpeed ();
@@ -99,8 +99,8 @@ SimpleVehicle::adjustRawSteeringForce (const OpenSteer::Vec3& force,
 // used by both applySteeringForce and applyBrakingForce?
 
 
-void 
-SimpleVehicle::applyBrakingForce (const float rate, const float deltaTime)
+void
+steering::applyBrakingForce (const float rate, const float deltaTime)
 {
     const float rawBraking = speed () * rate;
     const float clipBraking = ((rawBraking < maxForce ()) ?
@@ -116,8 +116,8 @@ SimpleVehicle::applyBrakingForce (const float rate, const float deltaTime)
 // adjusting our orientation to maintain velocity-alignment.
 
 
-void 
-SimpleVehicle::applySteeringForce (const OpenSteer::Vec3& force,
+void
+steering::applySteeringForce (const OpenSteer::Vec3& force,
                                               const float elapsedTime)
 {
 
@@ -173,8 +173,8 @@ SimpleVehicle::applySteeringForce (const OpenSteer::Vec3& force,
 // parameter names commented out to prevent compiler warning from "-W"
 
 
-void 
-SimpleVehicle::regenerateLocalSpace (const OpenSteer::Vec3& newVelocity,
+void
+steering::regenerateLocalSpace (const OpenSteer::Vec3& newVelocity,
                                                 const float /* elapsedTime */)
 {
     // adjust orthonormal basis vectors to be aligned with new velocity
@@ -190,8 +190,8 @@ SimpleVehicle::regenerateLocalSpace (const OpenSteer::Vec3& newVelocity,
 // XXX experimental cwr 6-5-03
 
 
-void 
-SimpleVehicle::regenerateLocalSpaceForBanking (const OpenSteer::Vec3& newVelocity,
+void
+steering::regenerateLocalSpaceForBanking (const OpenSteer::Vec3& newVelocity,
                                                           const float elapsedTime)
 {
     // the length of this global-upward-pointing vector controls the vehicle's
@@ -225,8 +225,8 @@ SimpleVehicle::regenerateLocalSpaceForBanking (const OpenSteer::Vec3& newVelocit
 // measure path curvature (1/turning-radius), maintain smoothed version
 
 
-void 
-SimpleVehicle::measurePathCurvature (const float elapsedTime)
+void
+steering::measurePathCurvature (const float elapsedTime)
 {
     if (elapsedTime > 0)
     {
@@ -248,8 +248,8 @@ SimpleVehicle::measurePathCurvature (const float elapsedTime)
 // draw lines from vehicle's position showing its velocity and acceleration
 
 
-void 
-SimpleVehicle::annotationVelocityAcceleration (float maxLengthA, 
+void
+steering::annotationVelocityAcceleration (float maxLengthA,
                                                           float maxLengthV)
 {
     const float desat = 0.4f;
@@ -274,8 +274,8 @@ SimpleVehicle::annotationVelocityAcceleration (float maxLengthA,
 // XXX move to a vehicle utility mixin?
 
 
-OpenSteer::Vec3 
-SimpleVehicle::predictFuturePosition (const float predictionTime) const
+OpenSteer::Vec3
+steering::predictFuturePosition (const float predictionTime) const
 {
     return position() + (velocity() * predictionTime);
 }
