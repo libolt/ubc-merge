@@ -27,6 +27,7 @@
 #include "OpenSteer/SteerLibrary.h"
 #include "OpenSteer/Color.h"
 #include "OpenSteer/UnusedParameter.h"
+#include "OpenSteer/Utilities.h"
 
 #include "Ogre.h"
 

@@ -25,7 +25,9 @@
 
 playerSteer::playerSteer()
 {
+    b_ImTeamA = true;
 	ID = -1;
+	
 }
 
 playerSteer::~playerSteer()
@@ -41,7 +43,39 @@ void playerSteer::setID(int id) // sets the value of ID
 {
 	ID = id;
 }
- 
+
+// reset state
+void playerSteer::reset(void)
+{
+    steering::reset (); // reset the vehicle 
+    setSpeed (0.0f);         // speed along Forward direction.
+    setMaxForce (3000.7f);      // steering force is clipped to this magnitude
+    setMaxSpeed (10);         // velocity is clipped to this magnitude
+
+	gameState *gameS = gameState::Instance();
+	std::vector<teamState> teamInstance = gameS->getTeamInstance();
+	const std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
+
+	OpenSteer::Vec3 playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
+    // Place me on my part of the field, looking at oponnents goal
+    setPosition(b_ImTeamA ? OpenSteer::frandom01()*20 : -OpenSteer::frandom01()*20, 0, (OpenSteer::frandom01()-0.5f)*20);
+    if(ID < 9)
+    {
+        if(b_ImTeamA)
+		{
+            setPosition(playerSteerPos);
+		}
+        else
+		{
+            setPosition(OpenSteer::Vec3(-playerSteerPos.x, playerSteerPos.y, playerSteerPos.z));
+		}
+    }
+	OpenSteer::Vec3 m_home = playerSteerPos;
+//    m_home = position();
+    clearTrailHistory ();    // prevent long streaks due to teleportation 
+    setTrailParameters (10, 60);
+}
+
 void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 {
 	bool	b_ImTeamA;
