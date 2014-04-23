@@ -432,6 +432,15 @@ void playerState::setPhysBody(btRigidBody *body)  	// sets physBody variable
 	physBody = body;
 }
 
+playerSteer playerState::getSteer() // returns the steering instance
+{
+	return (steer);
+}
+void playerState::setSteer(playerSteer instance) // sets the steering instance
+{
+	steer = instance;
+}
+
 bool playerState::getMovement()	// returns movement variable
 {
 	return (movement);

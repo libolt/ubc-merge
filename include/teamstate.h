@@ -109,10 +109,6 @@ class teamState
         virtual std::vector <playerState> getPlayerInstance();
         virtual void setPlayerInstance(std::vector<playerState> pInstance);
 
-        // gets and sets playerInstanceSteer std::vector
-        virtual std::vector <playerSteer> getPlayerInstanceSteer();
-        virtual void setPlayerInstanceSteer(std::vector<playerSteer> pInstance);
-
         virtual bool getPlayerInstancesCreated();	// retrieves the value of the playerInstancesCreated variable
         virtual void setPlayerInstancesCreated(bool created);	// sets the value of the playerInstancesCreated variable
 
@@ -171,7 +167,6 @@ class teamState
         bool defense;	// if set then the team is on defense
 
         std::vector <playerState> playerInstance;    // creates instance of the playerState class
-//        std::vector <playerSteer> playerInstanceSteer; // creates the instance of the playerSteer class
         std::vector <Ogre::String> playerModelsLoaded; // creates a vector of strings that holds the models which are loaded
         bool playerInstancesCreated;	// stores whether player instances have been created
         int playerWithBall;	// stores which player has control of the basketball, valid values are 0 - 4

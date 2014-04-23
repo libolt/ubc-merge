@@ -28,9 +28,10 @@
 #include "OpenSteer/Color.h"
 #include "OpenSteer/UnusedParameter.h"
 
+#include "Ogre.h"
+
 typedef OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle> steering_1;
 typedef OpenSteer::SteerLibraryMixin<steering_1> steering_2;
-
 
 class steering : public steering_2
 {

@@ -23,6 +23,7 @@
 #include "gamestate.h"
 #include "physicsengine.h"
 #include "players.h"
+#include "playersteer.h"
 
 //extern "C"
 //{
@@ -260,16 +261,6 @@ void teamState::setPlayerInstance(std::vector<playerState> pInstance)
     playerInstance = pInstance;
 }
 
-// gets and sets playerInstanceSteer std::vector
-virtual std::vector <playerSteer> teamState::getPlayerInstanceSteer();
-{
-	return (playerInstanceSteer);
-}
-virtual void teamState::setPlayerInstanceSteer(std::vector<playerSteer> pInstance);
-{
-	playerInstanceSteer = pInstance;
-}
-
 bool teamState::getPlayerInstancesCreated()	// retrieves the value of the playerInstancesCreated variable
 {
 	return (playerInstancesCreated);
@@ -339,6 +330,7 @@ void teamState::updateState()	// updates the state of the object
 {
 
 //	exit(0);
+	gameEngine *gameE = gameEngine::Instance();
 	gameState *gameS = gameState::Instance();
 	physicsEngine *physEngine = physicsEngine::Instance();
 
@@ -460,14 +452,16 @@ void teamState::updateState()	// updates the state of the object
 	}
 
 	//FIXME! Temporary hack for steering testing
-	gameEngine *gameE = gameEngine::Instance();
-	for (int x=0; x<playerInstance.size();++x)
+ 	if (playerInstancesCreated)
 	{
-		float oldTime= static_cast<float>(gameE->getOldTime());
-		float changeInTime = static_cast<float>(gameE->getChangeInTime());
-		playerInstance[x].update(oldTime, changeInTime);
-	}
-
+	    for (int x=0; x<playerInstance.size();++x)
+	    {
+		    float oldTime= static_cast<float>(gameE->getOldTime());
+		    float changeInTime = static_cast<float>(gameE->getChangeInTime());
+		    playerInstance[x].getSteer().update(oldTime, changeInTime);
+	    }
+	} 
+	
 	Ogre::LogManager::getSingletonPtr()->logMessage("team state updated = " +Ogre::StringConverter::toString(teamNumber));
 }
 
@@ -489,10 +483,12 @@ bool teamState::createPlayerInstances()
     Ogre::LogManager::getSingletonPtr()->logMessage("playerDataInstance size = " +Ogre::StringConverter::toString(playerDataInstance.size()));
 //    exit(0);
 //    for (playerIT = playerDataInstance.begin(); playerIT != playerDataInstance.end(); ++playerIT)   // loops through playerID std::vector
+    int id = -1; // stores id for steer
     for (size_t i = 0;i < playerDataInstance.size(); ++i)
     {
 
             playerState pInstance;  // creates a new instance of playerState
+			playerSteer pSteer; // steer instance
 /*            pInstance.setModelName(playerDataInstance[playerIT].getModel());  // copies the model name from the playerData std::vector to the pInstance class
             pInstance.setFirstName(playerDataInstance[*playerIT]->getFirstName());  // copies the first name from the playerData std::vector to the pInstance class
             pInstance.setLastName(playerDataInstance[*playerIT]->getLastName());    // copies the last name from the playerData std::vector to the pInstance class
@@ -504,12 +500,17 @@ bool teamState::createPlayerInstances()
 
             if (playerDataInstance[i].getTeamID() == teamNumber)	// checks if player is assigned to this team
             {
+				id += 1;
 				pInstance.setModelName(playerDataInstance[i].getModel());
 				pInstance.setFirstName(playerDataInstance[i].getFirstName());  // copies the first name from the playerData std::vector to the pInstance class
 				pInstance.setLastName(playerDataInstance[i].getLastName());    // copies the last name from the playerData std::vector to the pInstance class
 				pInstance.setPlayerName(playerDataInstance[i].getFirstName() + " " +playerDataInstance[i].getLastName());
 				pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
+				pSteer.setID(id);
+				pInstance.setSteer(pSteer);
 				playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.
+//	            Ogre::LogManager::getSingletonPtr()->logMessage("steerID = " +Ogre::StringConverter::toString(pInstance.getSteer().getID()));
+               
 				Ogre::LogManager::getSingletonPtr()->logMessage("player name = " +pInstance.getPlayerName());
             }
             else
