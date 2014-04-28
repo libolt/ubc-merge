@@ -452,7 +452,7 @@ void teamState::updateState()	// updates the state of the object
 	}
 
 	//FIXME! Temporary hack for steering testing
- 	if (playerInstancesCreated)
+ 	if (playerInstancesCreated && gameS->getTipOffComplete())
 	{
 	    for (int x=0; x<playerInstance.size();++x)
 	    {

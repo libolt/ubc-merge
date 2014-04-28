@@ -58,8 +58,9 @@ void playerSteer::reset(void)
 
 	OpenSteer::Vec3 playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
     // Place me on my part of the field, looking at oponnents goal
-    setPosition(b_ImTeamA ? OpenSteer::frandom01()*20 : -OpenSteer::frandom01()*20, 0, (OpenSteer::frandom01()-0.5f)*20);
-    if(ID < 9)
+//    setPosition(b_ImTeamA ? OpenSteer::frandom01()*20 : -OpenSteer::frandom01()*20, 0, (OpenSteer::frandom01()-0.5f)*20);
+
+    if(ID < 9 && ID >= 0)
     {
         if(b_ImTeamA)
 		{
@@ -72,13 +73,14 @@ void playerSteer::reset(void)
     }
 	OpenSteer::Vec3 m_home = playerSteerPos;
 //    m_home = position();
-    clearTrailHistory ();    // prevent long streaks due to teleportation 
-    setTrailParameters (10, 60);
+//    OpenSteer::AnnotationMixin< Super >::clearTrailHistory ();    // prevent long streaks due to teleportation 
+//    OpenSteer::clearTrailHistory (); 
+//    setTrailParameters (10, 60);
 }
 
 void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 {
-	bool	b_ImTeamA;
+	
 	gameState *gameS = gameState::Instance();
 	std::vector<basketballs> basketball = gameS->getBasketballInstance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
@@ -89,7 +91,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 		playerSteerInstance.push_back(playerInstance[x].getSteer());
 	}
 	// if I hit the ball, kick it.
-//	Ogre::LogManager::getSingletonPtr()->logMessage("ID = " +Ogre::StringConverter::toString(ID));
+Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerInstane size = " +Ogre::StringConverter::toString(playerSteerInstance.size()));
     
 	OpenSteer::Vec3 playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
 	OpenSteer::Vec3 m_home = playerSteerPos;
@@ -104,7 +106,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	}
 
 	// otherwise consider avoiding collisions with others
-	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, (OpenSteer::AVGroup&)playerSteerInstance);
+	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1.0f, (OpenSteer::AVGroup&)playerSteerInstance);
 /*	if(collisionAvoidance != OpenSteer::Vec3::zero)
 		applySteeringForce (collisionAvoidance, elapsedTime);
 	else
