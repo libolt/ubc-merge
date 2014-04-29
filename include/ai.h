@@ -21,83 +21,61 @@
  #ifndef _AI_H_
  #define _AI_H_
 
-class aiPlayers
+ #include "steering.h"
+ 
+class AISystem
 {
 public:
 
-    // gets and sets the aiXCoords
-    int getAiXCoord(int player);
-    void setAiXCoord(int player, int XCoord);
+	~AISystem();
+  
+    // initial setup of AI state
+    bool setup(void);
 
-    // gets and sets the aiYCoords
-    int getAiYCoord(int player);
-    void setAiYCoord(int player, int YCoord);
+	// updates AI state
+	void update(void);
+	
+	// select the default PlugIn
+    static void selectDefaultPlugIn (void);
+	
+	// select the "next" plug-in, cycling through "plug-in selection order"
+    static void selectNextPlugIn (void);
+	
+	// return name of currently selected plug-in
+    static const char* nameOfSelectedPlugIn (void);
 
-    // gets and sets aiHasBasketball
-    bool getAiHasBasketball(void);
-    void setAiHasBasketball(bool has);
+	// open the currently selected plug-in
+    static void openSelectedPlugIn (void);
+	
+	// do a simulation update for the currently selected plug-in
+    static void updateSelectedPlugIn (const float currentTime, const float elapsedTime);
 
-    // gets and sets playerAIControlled
-    bool getPlayerAIControlled(int player);
-    void setPlayerAIControlled(int player, bool controlled);
+	// close the currently selected plug-in
+    static void closeSelectedPlugIn (void);
 
-    // gets and sets playerUnderAIControl;
-    int getPlayerUnderAIControl(void);
-    void setPlayerUnderAIControl(int player);
-
-    // gets and sets aiOFfenseSet
-    bool getAiOffenseSet(void);
-    void setAiOffenseSet(bool set);
-
-    // gets and sets aiOffenseSelection
-    int getAiOffenseSelection(void);
-    void setAiOffenseSelection(int selection);
-
-    // AI function prototypes
-
-    // initial setup of AI players
-    int aiSetup(void);
-
-    // ai jump ball routines
-    int aiJumpBall(void);
-
-    // sets up ai offense
-    int aiOffenseSetup(void);
-
-    // executes ai offense
-    int aiOffenseExecute(void);
-
-    // gets teamAIControlled
-    int getTeamAIControlled(void);
-    void setTeamAIControlled(int team);
-
-    static aiPlayers *Instance();
+    // reset the currently selected plug-in
+    static void resetSelectedPlugIn (void);
+	
+	// select the "next" vehicle: cycle through the registry
+    static void selectNextVehicle (void);
+	
+	static const OpenSteer::AVGroup& allVehiclesOfSelectedPlugIn(void);
+	
+    static AISystem *Instance();
 protected:
-    aiPlayers();
-    aiPlayers(const aiPlayers&);
-    aiPlayers& operator= (const aiPlayers&);
+    AISystem();
+    AISystem(const AISystem&);
+    AISystem& operator= (const AISystem&);
 private:
-    static aiPlayers *pInstance;
+    static AISystem *pInstance;
 
-    int aiXCoords[10];
-    int aiYCoords[10];
+	// currently selected plug-in (user can choose or cycle through them)
+    static OpenSteer::PlugIn* selectedPlugIn;
 
-    bool aiHasBasketball;
+	// currently selected vehicle
+	static OpenSteer::AbstractVehicle* selectedVehicle;
 
-    // stores whether or not a player is under the AI's control
-    bool playerAIControlled[10];
-
-    // stores which ai player is currently
-    int playerUnderAIControl;
-
-    // sets whether or not the ai offense is setup
-
-    bool aiOffenseSet;
-
-    // selection of which offense ai is to run
-    int aiOffenseSelection;
-
-    int teamAIControlled; // defines which team is controlled by AI, valid values are 0= none 1=
+	
 };
 
  #endif

@@ -24,7 +24,7 @@
 #include "gamestate.h"
 #include "ubcapp.h"
 
-using namespace OIS;
+
 
 inputSystem* inputSystem::pInstance = 0;
 

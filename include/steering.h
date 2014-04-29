@@ -45,6 +45,9 @@ public:
 	// destructor
 	~steering();
 
+	// sets up steering state
+	void setup(void);
+	
 	// reset vehicle state
 	void reset(void)
 	{

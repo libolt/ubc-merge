@@ -459,7 +459,7 @@ bool loader::loadTeamFile(string fileName)
 	if (!doc.Parse(contents))
 	{
 		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse team file");
-		exit(0);
+//		exit(0);
 	}
 
     TiXmlHandle hDoc(&doc);
