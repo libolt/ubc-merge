@@ -35,31 +35,33 @@ public:
 	// updates AI state
 	void update(void);
 	
+	void printPlugIn (OpenSteer::PlugIn& pi);
+
 	// select the default PlugIn
-    static void selectDefaultPlugIn (void);
+    void selectDefaultPlugIn (void);
 	
 	// select the "next" plug-in, cycling through "plug-in selection order"
-    static void selectNextPlugIn (void);
+    void selectNextPlugIn (void);
 	
 	// return name of currently selected plug-in
-    static const char* nameOfSelectedPlugIn (void);
+    const char* nameOfSelectedPlugIn (void);
 
 	// open the currently selected plug-in
-    static void openSelectedPlugIn (void);
+    void openSelectedPlugIn (void);
 	
 	// do a simulation update for the currently selected plug-in
-    static void updateSelectedPlugIn (const float currentTime, const float elapsedTime);
+    void updateSelectedPlugIn (const float currentTime, const float elapsedTime);
 
 	// close the currently selected plug-in
-    static void closeSelectedPlugIn (void);
+    void closeSelectedPlugIn (void);
 
     // reset the currently selected plug-in
-    static void resetSelectedPlugIn (void);
+    void resetSelectedPlugIn (void);
 	
 	// select the "next" vehicle: cycle through the registry
-    static void selectNextVehicle (void);
+    void selectNextVehicle (void);
 	
-	static const OpenSteer::AVGroup& allVehiclesOfSelectedPlugIn(void);
+	const OpenSteer::AVGroup& allVehiclesOfSelectedPlugIn(void);
 	
     static AISystem *Instance();
 protected:
@@ -70,10 +72,10 @@ private:
     static AISystem *pInstance;
 
 	// currently selected plug-in (user can choose or cycle through them)
-    static OpenSteer::PlugIn* selectedPlugIn;
+    OpenSteer::PlugIn* selectedPlugIn;
 
 	// currently selected vehicle
-	static OpenSteer::AbstractVehicle* selectedVehicle;
+	OpenSteer::AbstractVehicle* selectedVehicle;
 
 	
 };

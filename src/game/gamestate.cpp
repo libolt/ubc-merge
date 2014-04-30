@@ -27,6 +27,7 @@
 #include "physicsengine.h"
 #include "renderengine.h"
 #include "teams.h"
+#include "ai.h"
 
 //extern "C"
 //{
@@ -412,6 +413,7 @@ bool gameState::executeTipOff()
 // sets up the game condition
 bool gameState::setupState()
 {
+	AISystem *ai = AISystem::Instance();
     players *player = players::Instance();
     renderEngine *render = renderEngine::Instance();
     teams *team = teams::Instance();
@@ -471,6 +473,7 @@ bool gameState::setupState()
 
     physEngine->setupState();  // sets up the Physics Engine state
 
+	ai->setup();
 //        Ogre::Entity *ent;
 //        ent = player->getModel(0);
 //        player->mAnimationState2 = ent->getAnimationState("Walk");

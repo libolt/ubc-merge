@@ -39,10 +39,38 @@ AISystem::~AISystem()
 {
 	
 }
+
+void printPlugIn (OpenSteer::PlugIn& pi);
   
 // initial setup of AI state
 bool AISystem::setup(void)
 {
+	// select the default PlugIn
+    selectDefaultPlugIn ();
+
+    {
+        // XXX this block is for debugging purposes,
+        // XXX should it be replaced with something permanent?
+
+/*        std::cout << std::endl << "Known plugins:" << std::endl;   // xxx?
+        OpenSteer::PlugIn::applyToAll (printPlugIn);                          // xxx?
+        std::cout << std::endl;                                    // xxx?
+*/
+        // identify default PlugIn
+//        if (!selectedPlugIn) errorExit ("no default PlugIn");
+/*        std::cout << std::endl << "Default plugin:" << std::endl;  // xxx?
+        std::cout << " " << *selectedPlugIn << std::endl;          // xxx?
+        std::cout << std::endl;  // xxx?
+*/
+//        Ogre::LogManager::getSingletonPtr()->logMessage("Default plugin: " +*selectedPlugIn);
+
+    }
+
+    // initialize the default PlugIn
+    openSelectedPlugIn ();
+
+	
+	
 	return true;
 }
 
@@ -51,6 +79,12 @@ void AISystem::update(void)
 {
 	
 }
+
+void printPlugIn (OpenSteer::PlugIn& pi) 
+{
+//	Ogre::LogManager::getSingletonPtr()->logMessage(" " << Ogre::StringConverter::toString(pi));
+} // anonymous namespace
+
 
 // select the default PlugIn
 
