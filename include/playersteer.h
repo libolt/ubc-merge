@@ -21,6 +21,7 @@
  #ifndef _PLAYERSTEER_H_
  #define _PLAYERSTEER_H_
  
+ #include "ai.h"
  #include "steering.h"
  
  class playerSteer : public steering
@@ -36,6 +37,162 @@
 	 void reset(void); // resets the state
 	 void update (const float currentTime, const float elapsedTime); // update steering sim every frame
 	 
+    // PlugIn for OpenSteerDemo
+    class playerSteerPlugin : public OpenSteer::PlugIn
+    {
+    public:
+        
+        const char* name (void) {return "Player plugin";}
+
+        // float selectionOrderSortKey (void) {return 0.06f;}
+
+        // bool requestInitialSelection() { return true;}
+
+        // be more "nice" to avoid a compiler warning
+        virtual ~playerSteerPlugin() {}
+
+        void open (void)
+        {
+			AISystem * ai = AISystem::Instance();
+            // Make a field
+/*            m_bbox = new AABBox(Vec3(-20,0,-10), Vec3(20,0,10));
+            // Red goal
+            m_TeamAGoal = new AABBox(Vec3(-21,0,-7), Vec3(-19,0,7));
+            // Blue Goal
+            m_TeamBGoal = new AABBox(Vec3(19,0,-7), Vec3(21,0,7));
+            // Make a ball
+            m_Ball = new Ball(m_bbox);
+*/
+            // Build team A
+            m_PlayerCountA = 8;
+            for(unsigned int i=0; i < m_PlayerCountA ; i++)
+            {
+                playerSteer *playerSteerTest = new playerSteer;
+                AISystem::selectedVehicle = playerSteerTest;
+                TeamA.push_back (playerSteerTest);
+                m_AllPlayers.push_back(playerSteerTest);
+            }
+            // Build Team B
+            m_PlayerCountB = 8;
+            for(unsigned int i=0; i < m_PlayerCountB ; i++)
+            {
+                playerSteer *playerSteerTest = new playerSteer;
+                AISystem::selectedVehicle = playerSteerTest;
+                TeamB.push_back (playerSteerTest);
+                m_AllPlayers.push_back(playerSteerTest);
+            }
+            // initialize camera
+/*            OpenSteerDemo::init2dCamera (*m_Ball);
+            OpenSteerDemo::camera.setPosition (10, OpenSteerDemo::camera2dElevation, 10);
+            OpenSteerDemo::camera.fixedPosition.set (40, 40, 40);
+            OpenSteerDemo::camera.mode = Camera::cmFixed;
+            m_redScore = 0;
+            m_blueScore = 0;
+*/
+        }
+
+        void update (const float currentTime, const float elapsedTime)
+        {
+            // update simulation of test vehicle
+            for(unsigned int i=0; i < m_PlayerCountA ; i++)
+                TeamA[i]->update (currentTime, elapsedTime);
+            for(unsigned int i=0; i < m_PlayerCountB ; i++)
+                TeamB[i]->update (currentTime, elapsedTime);
+            m_Ball->update(currentTime, elapsedTime);
+
+            if(m_TeamAGoal->InsideX(m_Ball->position()) && m_TeamAGoal->InsideZ(m_Ball->position()))
+            {
+                m_Ball->reset();	// Ball in blue teams goal, red scores
+                m_redScore++;
+            }
+            if(m_TeamBGoal->InsideX(m_Ball->position()) && m_TeamBGoal->InsideZ(m_Ball->position()))
+            {
+                m_Ball->reset();	// Ball in red teams goal, blue scores
+                    m_blueScore++;
+            }
+
+        }
+
+        void redraw (const float currentTime, const float elapsedTime)
+        {
+            // draw test vehicle
+            for(unsigned int i=0; i < m_PlayerCountA ; i++)
+                TeamA[i]->draw ();
+            for(unsigned int i=0; i < m_PlayerCountB ; i++)
+                TeamB[i]->draw ();
+            m_Ball->draw();
+            m_bbox->draw();
+            m_TeamAGoal->draw();
+            m_TeamBGoal->draw();
+            {
+                std::ostringstream annote;
+                annote << "Red: "<< m_redScore;
+                draw2dTextAt3dLocation (annote, Vec3(23,0,0), Color(1.0f,0.7f,0.7f), drawGetWindowWidth(), drawGetWindowHeight());
+            }
+            {
+                std::ostringstream annote;
+                annote << "Blue: "<< m_blueScore;
+                draw2dTextAt3dLocation (annote, Vec3(-23,0,0), Color(0.7f,0.7f,1.0f), drawGetWindowWidth(), drawGetWindowHeight());
+            }
+
+            // textual annotation (following the test vehicle's screen position)
+    if(0)
+        for(unsigned int i=0; i < m_PlayerCountA ; i++)
+            {
+                std::ostringstream annote;
+                annote << std::setprecision (2) << std::setiosflags (std::ios::fixed);
+                annote << "      speed: " << TeamA[i]->speed() << "ID:" << i << std::ends;
+                draw2dTextAt3dLocation (annote, TeamA[i]->position(), gRed, drawGetWindowWidth(), drawGetWindowHeight());
+                draw2dTextAt3dLocation (*"start", Vec3::zero, gGreen, drawGetWindowWidth(), drawGetWindowHeight());
+            }
+            // update camera, tracking test vehicle
+            OpenSteerDemo::updateCamera (currentTime, elapsedTime, *OpenSteerDemo::selectedVehicle);
+
+            // draw "ground plane"
+            OpenSteerDemo::gridUtility (Vec3(0,0,0));
+        }
+
+        void close (void)
+        {
+            for(unsigned int i=0; i < m_PlayerCountA ; i++)
+                delete TeamA[i];
+            TeamA.clear ();
+            for(unsigned int i=0; i < m_PlayerCountB ; i++)
+                delete TeamB[i];
+            TeamB.clear ();
+                    m_AllPlayers.clear();
+        }
+
+        void reset (void)
+        {
+            // reset vehicle
+            for(unsigned int i=0; i < m_PlayerCountA ; i++)
+                TeamA[i]->reset ();
+            for(unsigned int i=0; i < m_PlayerCountB ; i++)
+                TeamB[i]->reset ();
+            m_Ball->reset();
+        }
+
+        const OpenSteer::AVGroup& allVehicles (void) {return (const AVGroup&) TeamA;}
+
+        unsigned int	m_PlayerCountA;
+        unsigned int	m_PlayerCountB;
+        std::vector<playerSteer*> TeamA;
+        std::vector<playerSteer*> TeamB;
+        std::vector<playerSteer*> m_AllPlayers;
+
+/*        Ball	*m_Ball;
+        AABBox	*m_bbox;
+        AABBox	*m_TeamAGoal;
+        AABBox	*m_TeamBGoal;
+*/
+        int junk;
+        int		m_redScore;
+        int		m_blueScore;
+    };
+	
+    playerSteerPlugin playerSteerPluginInstance;
+
 	 private:
 	 
 	 bool	b_ImTeamA;

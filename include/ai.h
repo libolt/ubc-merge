@@ -28,7 +28,10 @@ class AISystem
 public:
 
 	~AISystem();
-  
+
+	OpenSteer::AbstractVehicle* getSelectedVehicle(); // retrieves the value of selectedVehicle
+	void setSelectedVehicle(OpenSteer::AbstractVehicle* vehicle);  // sets the value of selectedVehicle
+
     // initial setup of AI state
     bool setup(void);
 

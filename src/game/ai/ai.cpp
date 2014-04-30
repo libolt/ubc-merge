@@ -40,6 +40,15 @@ AISystem::~AISystem()
 	
 }
 
+OpenSteer::AbstractVehicle* AISystem::getSelectedVehicle() // retrieves the value of selectedVehicle
+{
+	return (selectedVehicle);
+}
+void AISystem::setSelectedVehicle(OpenSteer::AbstractVehicle* vehicle)  // sets the value of selectedVehicle
+{
+	selectedVehicle = vehicle;
+}
+
 void printPlugIn (OpenSteer::PlugIn& pi);
   
 // initial setup of AI state
