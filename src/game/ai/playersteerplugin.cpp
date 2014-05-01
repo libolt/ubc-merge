@@ -17,17 +17,33 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
- 
+
+#include "ogre.h"
 #include "playersteerplugin.h"
 #include "ai.h"
+#include "courtstate.h"
+#include "gamestate.h"
+#include "teamstate.h"
 
 void playerSteerPlugin::open(void)
-    {
-	    AISystem *ai = AISystem::Instance();
-		
-        // Make a field
-/*            m_bbox = new AABBox(Vec3(-20,0,-10), Vec3(20,0,10));
-            // Red goal
+{
+	AISystem *ai = AISystem::Instance();
+	gameState *gameS = gameState::Instance();
+	
+	
+    // create the court bounding box based off the meshes bbox
+	std::vector<courtState> courtInstance = gameS->getCourtInstance();
+	Ogre::AxisAlignedBox cbox = courtInstance[0].getModel()->getBoundingBox();
+	Ogre::Vector3 cboxMin = cbox.getMinimum();
+	Ogre::Vector3 cboxMax = cbox.getMaximum();
+	
+	OpenSteer::Vec3 courtBoxMin = convertToOpenSteerVec3(cboxMin);
+	OpenSteer::Vec3 courtBoxMax = convertToOpenSteerVec3(cboxMax);
+
+    courtBBox = new steering::AABBox( OpenSteer::Vec3(0,0,0), OpenSteer::Vec3(0,0,0));
+	courtBBox->setMin(courtBoxMin);
+	
+ /*           // Red goal
             m_TeamAGoal = new AABBox(Vec3(-21,0,-7), Vec3(-19,0,7));
             // Blue Goal
             m_TeamBGoal = new AABBox(Vec3(19,0,-7), Vec3(21,0,7));
@@ -35,24 +51,24 @@ void playerSteerPlugin::open(void)
             m_Ball = new Ball(m_bbox);
 */
         // Build team A
-        m_PlayerCountA = 8;
-        for(unsigned int i=0; i < m_PlayerCountA ; i++)
-        {
-            playerSteer *playerSteerTest = new playerSteer;
-            ai->setSelectedVehicle(playerSteerTest);
-            TeamA.push_back (playerSteerTest);
-            m_AllPlayers.push_back(playerSteerTest);
-        }
-        // Build Team B
-        m_PlayerCountB = 8;
-        for(unsigned int i=0; i < m_PlayerCountB ; i++)
-        {
-            playerSteer *playerSteerTest = new playerSteer;
-            ai->setSelectedVehicle(playerSteerTest);
-            TeamB.push_back (playerSteerTest);
-            m_AllPlayers.push_back(playerSteerTest);
-        }
-        // initialize camera
+    m_PlayerCountA = 8;
+    for(unsigned int i=0; i < m_PlayerCountA ; i++)
+    {
+        playerSteer *playerSteerTest = new playerSteer;
+        ai->setSelectedVehicle(playerSteerTest);
+        TeamA.push_back (playerSteerTest);
+        m_AllPlayers.push_back(playerSteerTest);
+    }
+    // Build Team B
+    m_PlayerCountB = 8;
+    for(unsigned int i=0; i < m_PlayerCountB ; i++)
+    {
+        playerSteer *playerSteerTest = new playerSteer;
+        ai->setSelectedVehicle(playerSteerTest);
+        TeamB.push_back (playerSteerTest);
+        m_AllPlayers.push_back(playerSteerTest);
+    }
+    // initialize camera
 /*            OpenSteerDemo::init2dCamera (*m_Ball);
             OpenSteerDemo::camera.setPosition (10, OpenSteerDemo::camera2dElevation, 10);
             OpenSteerDemo::camera.fixedPosition.set (40, 40, 40);
@@ -60,15 +76,15 @@ void playerSteerPlugin::open(void)
             m_redScore = 0;
             m_blueScore = 0;
 */
-    }
+}
 	
-    void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
-    {
-        // update simulation of test vehicle
-        for(unsigned int i=0; i < m_PlayerCountA ; i++)
-        TeamA[i]->update (currentTime, elapsedTime);
-        for(unsigned int i=0; i < m_PlayerCountB ; i++)
-            TeamB[i]->update (currentTime, elapsedTime);
+void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
+{
+    // update simulation of test vehicle
+    for(unsigned int i=0; i < m_PlayerCountA ; i++)
+    TeamA[i]->update (currentTime, elapsedTime);
+    for(unsigned int i=0; i < m_PlayerCountB ; i++)
+        TeamB[i]->update (currentTime, elapsedTime);
 /*            m_Ball->update(currentTime, elapsedTime);
 
             if(m_TeamAGoal->InsideX(m_Ball->position()) && m_TeamAGoal->InsideZ(m_Ball->position()))
@@ -82,10 +98,10 @@ void playerSteerPlugin::open(void)
                     m_blueScore++;
             }
 */
-    }
+}
 
-    void playerSteerPlugin::redraw (const float currentTime, const float elapsedTime)
-    {
+void playerSteerPlugin::redraw (const float currentTime, const float elapsedTime)
+{
 /*
             // draw test vehicle
             for(unsigned int i=0; i < m_PlayerCountA ; i++)
@@ -123,25 +139,25 @@ void playerSteerPlugin::open(void)
             // draw "ground plane"
             OpenSteerDemo::gridUtility (Vec3(0,0,0));
 */
-    }
+}
 
-    void playerSteerPlugin::close (void)
-    {
-        for(unsigned int i=0; i < m_PlayerCountA ; i++)
-            delete TeamA[i];
-        TeamA.clear ();
-        for(unsigned int i=0; i < m_PlayerCountB ; i++)
-            delete TeamB[i];
-        TeamB.clear ();
-            m_AllPlayers.clear();
-    }
+void playerSteerPlugin::close (void)
+{
+    for(unsigned int i=0; i < m_PlayerCountA ; i++)
+        delete TeamA[i];
+    TeamA.clear ();
+    for(unsigned int i=0; i < m_PlayerCountB ; i++)
+        delete TeamB[i];
+    TeamB.clear ();
+        m_AllPlayers.clear();
+}
 
-    void playerSteerPlugin::reset (void)
-    {
-        // reset vehicle
-        for(unsigned int i=0; i < m_PlayerCountA ; i++)
-            TeamA[i]->reset ();
-        for(unsigned int i=0; i < m_PlayerCountB ; i++)
-            TeamB[i]->reset ();
+void playerSteerPlugin::reset (void)
+{
+    // reset vehicle
+    for(unsigned int i=0; i < m_PlayerCountA ; i++)
+        TeamA[i]->reset ();
+    for(unsigned int i=0; i < m_PlayerCountB ; i++)
+        TeamB[i]->reset ();
 //            m_Ball->reset();
-    }
+}

@@ -17,54 +17,28 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
- 
-#ifndef _PLAYERSTEERPLUGIN_H_
-#define _PLAYERSTEERPLUGIN_H_
+
+#ifndef _BASKETBALLSTEER_H_
+#define _BASKETBALLSTEER_H_
 
 #include "steering.h"
-#include "playersteer.h"
-
-// PlugIn for OpenSteerDemo
-class playerSteerPlugin : public OpenSteer::PlugIn, steering
+ 
+class basketballSteer : public steering
 {
     public:
-        
-    const char* name (void) {return "Player plugin";}
-
-    // float selectionOrderSortKey (void) {return 0.06f;}
-
-    // bool requestInitialSelection() { return true;}
-
-    // be more "nice" to avoid a compiler warning
-    virtual ~playerSteerPlugin() {}
-
-    void open(void);
-
-    void update (const float currentTime, const float elapsedTime);
-
-    void redraw (const float currentTime, const float elapsedTime);
-
-    void close (void);
-
-    void reset (void);
-
-
-    /* const*/ OpenSteer::AVGroup& allVehicles (void) {return (/*const*/ OpenSteer::AVGroup&) TeamA;}
-
-    unsigned int	m_PlayerCountA;
-    unsigned int	m_PlayerCountB;
-    std::vector<playerSteer*> TeamA;
-    std::vector<playerSteer*> TeamB;
-    std::vector<playerSteer*> m_AllPlayers;
-
-//        Ball	*m_Ball;
-    steering::AABBox	*courtBBox;
-/*        AABBox	*m_TeamAGoal;
-        AABBox	*m_TeamBGoal;
-*/
-    int junk;
-    int	 m_redScore;
-    int	 m_blueScore;
+	 
+	basketballSteer();
+	~basketballSteer();
+	 
+	int getID(); // retrieves the value of ID
+	void setID(int id); // sets the value of ID
+	 
+	void reset(void); // resets the state
+	void update (const float currentTime, const float elapsedTime); // update steering sim every frame
+	
+	private:
+	 
+	int ID; // Stores which player on the team the instance associates with
 };
  
- #endif
+#endif

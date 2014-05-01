@@ -39,6 +39,47 @@ class steering : public steering_2
 {
 public:
 
+    // a box object for the field and the goals.
+    class AABBox{
+    public:
+        AABBox(OpenSteer::Vec3 &min, OpenSteer::Vec3& max): m_min(min), m_max(max){}
+        AABBox(OpenSteer::Vec3 min, OpenSteer::Vec3 max): m_min(min), m_max(max){}
+
+		OpenSteer::Vec3 getMin()
+		{
+			return (m_min);
+		}
+		void setMin(OpenSteer::Vec3 min)
+		{
+			m_min = min;
+		}
+		
+		OpenSteer::Vec3 getMax()
+		{
+			return (m_max);
+		}
+		void setMax(OpenSteer::Vec3 max)
+		{
+			m_max = max;
+		}
+		
+        bool	InsideX(const OpenSteer::Vec3 p){if(p.x < m_min.x || p.x > m_max.x)	return false;return true;}
+        bool	InsideZ(const OpenSteer::Vec3 p){if(p.z < m_min.z || p.z > m_max.z)	return false;return true;}
+/*        void	draw(){
+            Vec3 b,c;
+            b = Vec3(m_min.x, 0, m_max.z);
+            c = Vec3(m_max.x, 0, m_min.z);
+            Color color(1.0f,1.0f,0.0f);
+            drawLineAlpha(m_min, b, color, 1.0f);
+            drawLineAlpha(b, m_max, color, 1.0f);
+            drawLineAlpha(m_max, c, color, 1.0f);
+            drawLineAlpha(c,m_min, color, 1.0f);
+        }*/
+		
+    private:
+        OpenSteer::Vec3 m_min;
+        OpenSteer::Vec3 m_max;
+    };
 	// constructor
 	steering();
 

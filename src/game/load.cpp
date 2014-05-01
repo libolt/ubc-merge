@@ -581,7 +581,7 @@ bool loader::loadPlayerListFile( string fileName)
 	if (!doc.Parse(contents))
 	{
 		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse players.xml file");
-		exit(0);
+//		exit(0);
 	}
 
     TiXmlHandle hDoc(&doc);
@@ -656,7 +656,7 @@ bool loader::loadPlayerFile(string fileName)
 	if (!doc.Parse(contents))
 	{
 		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse player file");
-		exit(0);
+//		exit(0);
 	}
 
     TiXmlHandle hDoc(&doc);

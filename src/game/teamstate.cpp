@@ -452,7 +452,7 @@ void teamState::updateState()	// updates the state of the object
 	}
 
 	//FIXME! Temporary hack for steering testing
- 	if (playerInstancesCreated && gameS->getTipOffComplete())
+/* 	if (playerInstancesCreated && gameS->getTipOffComplete())
 	{
 	    for (int x=0; x<playerInstance.size();++x)
 	    {
@@ -461,7 +461,7 @@ void teamState::updateState()	// updates the state of the object
 		    playerInstance[x].getSteer().update(oldTime, changeInTime);
 	    }
 	} 
-	
+*/
 	Ogre::LogManager::getSingletonPtr()->logMessage("team state updated = " +Ogre::StringConverter::toString(teamNumber));
 }
 

@@ -18,34 +18,33 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "playersteer.h"
+#include "basketballsteer.h"
 #include "gamestate.h"
 #include "playerstate.h"
 #include "teamstate.h"
 
-playerSteer::playerSteer()
+basketballSteer::basketballSteer()
 {
-    b_ImTeamA = true;
 	ID = -1;
 	
 }
 
-playerSteer::~playerSteer()
+basketballSteer::~basketballSteer()
 {
 	
 }
 	 
-int playerSteer::getID() // retrieves the value of ID
+int basketballSteer::getID() // retrieves the value of ID
 {
 	return (ID);
 }
-void playerSteer::setID(int id) // sets the value of ID
+void basketballSteer::setID(int id) // sets the value of ID
 {
 	ID = id;
 }
 
 // reset state
-void playerSteer::reset(void)
+void basketballSteer::reset(void)
 {
     steering::reset (); // reset the vehicle 
     setSpeed (0.0f);         // speed along Forward direction.
@@ -54,33 +53,27 @@ void playerSteer::reset(void)
 
 	gameState *gameS = gameState::Instance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
-	const std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
+	const std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
 
-	OpenSteer::Vec3 playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
+	OpenSteer::Vec3 basketballSteerPos = convertToOpenSteerVec3(basketballInstance[0].getNodePosition());
     // Place me on my part of the field, looking at oponnents goal
 //    setPosition(b_ImTeamA ? OpenSteer::frandom01()*20 : -OpenSteer::frandom01()*20, 0, (OpenSteer::frandom01()-0.5f)*20);
 
-    if(ID < 9 && ID >= 0)
-    {
-        if(b_ImTeamA)
-		{
-            setPosition(playerSteerPos);
-		}
-        else
-		{
-            setPosition(OpenSteer::Vec3(-playerSteerPos.x, playerSteerPos.y, playerSteerPos.z));
-		}
-    }
-	OpenSteer::Vec3 m_home = playerSteerPos;
+    setPosition(basketballSteerPos);
+
+//    setPosition(OpenSteer::Vec3(-playerSteerPos.x, playerSteerPos.y, playerSteerPos.z));
+
+    
+	OpenSteer::Vec3 m_home = basketballSteerPos;
 //    m_home = position();
 //    OpenSteer::AnnotationMixin< Super >::clearTrailHistory ();    // prevent long streaks due to teleportation 
 //    OpenSteer::clearTrailHistory (); 
 //    setTrailParameters (10, 60);
 }
 
-void playerSteer::update (const float /*currentTime*/, float elapsedTime)
+void basketballSteer::update (const float /*currentTime*/, float elapsedTime)
 {
-	
+/*	
 	gameState *gameS = gameState::Instance();
 	std::vector<basketballs> basketball = gameS->getBasketballInstance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
@@ -107,6 +100,8 @@ Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerInstane size = " +Og
 
 	// otherwise consider avoiding collisions with others
 	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1.0f, (OpenSteer::AVGroup&)playerSteerInstance);
+*/
+
 /*	if(collisionAvoidance != OpenSteer::Vec3::zero)
 		applySteeringForce (collisionAvoidance, elapsedTime);
 	else
