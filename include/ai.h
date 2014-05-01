@@ -18,10 +18,12 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
- #ifndef _AI_H_
- #define _AI_H_
+#ifndef _AI_H_
+#define _AI_H_
 
- #include "steering.h"
+#include "steering.h"
+ 
+#include "playersteerplugin.h"
  
 class AISystem
 {
@@ -65,6 +67,8 @@ public:
     void selectNextVehicle (void);
 	
 	const OpenSteer::AVGroup& allVehiclesOfSelectedPlugIn(void);
+	
+	playerSteerPlugin playerSteerPluginInstance;
 	
     static AISystem *Instance();
 protected:
