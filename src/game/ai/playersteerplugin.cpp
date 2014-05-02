@@ -80,6 +80,7 @@ void playerSteerPlugin::open(void)
 	
 void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
 {
+	exit(0);
     // update simulation of test vehicle
     for(unsigned int i=0; i < m_PlayerCountA ; i++)
     TeamA[i]->update (currentTime, elapsedTime);

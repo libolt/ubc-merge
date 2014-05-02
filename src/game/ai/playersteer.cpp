@@ -80,7 +80,7 @@ void playerSteer::reset(void)
 
 void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 {
-	
+	exit(0);
 	gameState *gameS = gameState::Instance();
 	std::vector<basketballs> basketball = gameS->getBasketballInstance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
