@@ -18,7 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "ogre.h"
+#include "Ogre.h"
 #include "playersteerplugin.h"
 #include "ai.h"
 #include "courtstate.h"

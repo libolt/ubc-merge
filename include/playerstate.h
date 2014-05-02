@@ -153,7 +153,7 @@ class playerState
 
 		virtual playerSteer getSteer(); // returns the steering instance
 		virtual void setSteer(playerSteer instance); // sets the steering instance
-		
+
         virtual bool getMovement();	// returns movement variable
         virtual void setMovement(bool move);	// sets movement variable
 

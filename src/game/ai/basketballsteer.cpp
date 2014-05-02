@@ -26,14 +26,14 @@
 basketballSteer::basketballSteer()
 {
 	ID = -1;
-	
+
 }
 
 basketballSteer::~basketballSteer()
 {
-	
+
 }
-	 
+
 int basketballSteer::getID() // retrieves the value of ID
 {
 	return (ID);
@@ -46,14 +46,14 @@ void basketballSteer::setID(int id) // sets the value of ID
 // reset state
 void basketballSteer::reset(void)
 {
-    steering::reset (); // reset the vehicle 
+    steering::reset (); // reset the vehicle
     setSpeed (0.0f);         // speed along Forward direction.
     setMaxForce (3000.7f);      // steering force is clipped to this magnitude
     setMaxSpeed (10);         // velocity is clipped to this magnitude
 
 	gameState *gameS = gameState::Instance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
-	const std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
+	std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
 
 	OpenSteer::Vec3 basketballSteerPos = convertToOpenSteerVec3(basketballInstance[0].getNodePosition());
     // Place me on my part of the field, looking at oponnents goal
@@ -63,17 +63,17 @@ void basketballSteer::reset(void)
 
 //    setPosition(OpenSteer::Vec3(-playerSteerPos.x, playerSteerPos.y, playerSteerPos.z));
 
-    
+
 	OpenSteer::Vec3 m_home = basketballSteerPos;
 //    m_home = position();
-//    OpenSteer::AnnotationMixin< Super >::clearTrailHistory ();    // prevent long streaks due to teleportation 
-//    OpenSteer::clearTrailHistory (); 
+//    OpenSteer::AnnotationMixin< Super >::clearTrailHistory ();    // prevent long streaks due to teleportation
+//    OpenSteer::clearTrailHistory ();
 //    setTrailParameters (10, 60);
 }
 
 void basketballSteer::update (const float /*currentTime*/, float elapsedTime)
 {
-/*	
+/*
 	gameState *gameS = gameState::Instance();
 	std::vector<basketballs> basketball = gameS->getBasketballInstance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
@@ -85,7 +85,7 @@ void basketballSteer::update (const float /*currentTime*/, float elapsedTime)
 	}
 	// if I hit the ball, kick it.
 Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerInstane size = " +Ogre::StringConverter::toString(playerSteerInstance.size()));
-    
+
 	OpenSteer::Vec3 playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
 	OpenSteer::Vec3 m_home = playerSteerPos;
 	OpenSteer::Vec3 bballSteerPos = convertToOpenSteerVec3(basketball[0].getNodePosition());
