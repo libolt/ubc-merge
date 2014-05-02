@@ -35,19 +35,25 @@ void playerSteerPlugin::open(void)
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
 	std::vector<playerState> team1PlayerInstance = teamInstance[1].getPlayerInstance();
-	std::vector<playerSteer> allPlayerSteers = ai->getAllplayerSteers();
+	std::vector<playerSteer> allPlayerSteers = ai->getAllPlayerSteers();
 
 	// builds team 0 steering instances
 	for (int x=0;x<team0PlayerInstance.size();++x)
 	{
-
+        playerSteer steer = team0PlayerInstance[x].getSteer();
+		steer.setPosition(convertToOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
+		team0PlayerInstance[x].setSteer(steer);
 		allPlayerSteers.push_back(team0PlayerInstance[x].getSteer());
 	}
 	// builds team 1 steering instances
     for (int x=0;x<team1PlayerInstance.size();++x)
 	{
+        playerSteer steer = team1PlayerInstance[x].getSteer();
+		steer.setPosition(convertToOpenSteerVec3(team1PlayerInstance[x].getNodePosition()));
+		team1PlayerInstance[x].setSteer(steer);
 		allPlayerSteers.push_back(team1PlayerInstance[x].getSteer());
 	}
+
     ai->setAllPlayerSteers(allPlayerSteers);	// stores the instances
 
 	// create the court bounding box based off the meshes bbox

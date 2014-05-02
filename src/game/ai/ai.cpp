@@ -49,7 +49,7 @@ void AISystem::setSelectedVehicle(OpenSteer::AbstractVehicle* vehicle)  // sets 
 	selectedVehicle = vehicle;
 }
 
-std::vector<playerSteer> AISystem::getAllplayerSteers()	// retrieves the value of allPlayerSteers
+std::vector<playerSteer> AISystem::getAllPlayerSteers()	// retrieves the value of allPlayerSteers
 {
 	return (allPlayerSteers);
 }
