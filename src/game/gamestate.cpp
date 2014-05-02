@@ -21,6 +21,7 @@
 //#include "boost/shared_array.hpp"
 #include "network.h"
 #include "gamestate.h"
+#include "gameengine.h"
 #include "load.h"
 #include "playerdata.h"
 #include "players.h"
@@ -517,6 +518,8 @@ bool gameState::logic()
 {
     Ogre::LogManager::getSingletonPtr()->logMessage("Updating gameState Logic");
 
+    AISystem *ai = AISystem::Instance();
+    gameEngine *gameE = gameEngine::Instance();
 	networkEngine *network = networkEngine::Instance();
     players *player = players::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();
@@ -562,7 +565,12 @@ bool gameState::logic()
 	{
         Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
         Ogre::LogManager::getSingletonPtr()->logMessage("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
+        float oldTime= static_cast<float>(gameE->getOldTime());
+        float changeInTime = static_cast<float>(gameE->getChangeInTime());
+    	ai->update(oldTime, changeInTime);
     }
+
+
     physEngine->updateState();	// updates the state of the physics simulation
 	physEngine->stepWorld();	// steps the physics simulation
 

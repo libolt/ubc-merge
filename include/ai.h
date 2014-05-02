@@ -22,9 +22,9 @@
 #define _AI_H_
 
 #include "steering.h"
- 
+
 #include "playersteerplugin.h"
- 
+
 class AISystem
 {
 public:
@@ -34,26 +34,29 @@ public:
 	OpenSteer::AbstractVehicle* getSelectedVehicle(); // retrieves the value of selectedVehicle
 	void setSelectedVehicle(OpenSteer::AbstractVehicle* vehicle);  // sets the value of selectedVehicle
 
+	std::vector<playerSteer> getAllplayerSteers();	// retrieves the value of allPlayerSteers
+	void setAllPlayerSteers(std::vector<playerSteer> steers);	// sets the value of allPlayerSteers
+
     // initial setup of AI state
     bool setup(void);
 
 	// updates AI state
-	void update(void);
-	
+	void update(const float currentTime, const float elapsedTime);
+
 	void printPlugIn (OpenSteer::PlugIn& pi);
 
 	// select the default PlugIn
     void selectDefaultPlugIn (void);
-	
+
 	// select the "next" plug-in, cycling through "plug-in selection order"
     void selectNextPlugIn (void);
-	
+
 	// return name of currently selected plug-in
     const char* nameOfSelectedPlugIn (void);
 
 	// open the currently selected plug-in
     void openSelectedPlugIn (void);
-	
+
 	// do a simulation update for the currently selected plug-in
     void updateSelectedPlugIn (const float currentTime, const float elapsedTime);
 
@@ -62,14 +65,14 @@ public:
 
     // reset the currently selected plug-in
     void resetSelectedPlugIn (void);
-	
+
 	// select the "next" vehicle: cycle through the registry
     void selectNextVehicle (void);
-	
+
 	const OpenSteer::AVGroup& allVehiclesOfSelectedPlugIn(void);
-	
+
 	playerSteerPlugin playerSteerPluginInstance;
-	
+
     static AISystem *Instance();
 protected:
     AISystem();
@@ -84,7 +87,8 @@ private:
 	// currently selected vehicle
 	OpenSteer::AbstractVehicle* selectedVehicle;
 
-	
+	std::vector<playerSteer> allPlayerSteers;
+
 };
 
  #endif

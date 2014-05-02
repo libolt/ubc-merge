@@ -24,25 +24,43 @@
 #include "courtstate.h"
 #include "gamestate.h"
 #include "teamstate.h"
+#include "playerstate.h"
 
 void playerSteerPlugin::open(void)
 {
 	AISystem *ai = AISystem::Instance();
 	gameState *gameS = gameState::Instance();
-	
-	
-    // create the court bounding box based off the meshes bbox
+
 	std::vector<courtState> courtInstance = gameS->getCourtInstance();
+	std::vector<teamState> teamInstance = gameS->getTeamInstance();
+	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
+	std::vector<playerState> team1PlayerInstance = teamInstance[1].getPlayerInstance();
+	std::vector<playerSteer> allPlayerSteers = ai->getAllplayerSteers();
+
+	// builds team 0 steering instances
+	for (int x=0;x<team0PlayerInstance.size();++x)
+	{
+
+		allPlayerSteers.push_back(team0PlayerInstance[x].getSteer());
+	}
+	// builds team 1 steering instances
+    for (int x=0;x<team1PlayerInstance.size();++x)
+	{
+		allPlayerSteers.push_back(team1PlayerInstance[x].getSteer());
+	}
+    ai->setAllPlayerSteers(allPlayerSteers);	// stores the instances
+
+	// create the court bounding box based off the meshes bbox
 	Ogre::AxisAlignedBox cbox = courtInstance[0].getModel()->getBoundingBox();
 	Ogre::Vector3 cboxMin = cbox.getMinimum();
 	Ogre::Vector3 cboxMax = cbox.getMaximum();
-	
+
 	OpenSteer::Vec3 courtBoxMin = convertToOpenSteerVec3(cboxMin);
 	OpenSteer::Vec3 courtBoxMax = convertToOpenSteerVec3(cboxMax);
 
     courtBBox = new steering::AABBox( OpenSteer::Vec3(0,0,0), OpenSteer::Vec3(0,0,0));
 	courtBBox->setMin(courtBoxMin);
-	
+
  /*           // Red goal
             m_TeamAGoal = new AABBox(Vec3(-21,0,-7), Vec3(-19,0,7));
             // Blue Goal
@@ -51,7 +69,8 @@ void playerSteerPlugin::open(void)
             m_Ball = new Ball(m_bbox);
 */
         // Build team A
-    m_PlayerCountA = 8;
+
+/*    m_PlayerCountA = 8;
     for(unsigned int i=0; i < m_PlayerCountA ; i++)
     {
         playerSteer *playerSteerTest = new playerSteer;
@@ -59,8 +78,10 @@ void playerSteerPlugin::open(void)
         TeamA.push_back (playerSteerTest);
         m_AllPlayers.push_back(playerSteerTest);
     }
+*/
     // Build Team B
-    m_PlayerCountB = 8;
+
+/*    m_PlayerCountB = 8;
     for(unsigned int i=0; i < m_PlayerCountB ; i++)
     {
         playerSteer *playerSteerTest = new playerSteer;
@@ -68,6 +89,7 @@ void playerSteerPlugin::open(void)
         TeamB.push_back (playerSteerTest);
         m_AllPlayers.push_back(playerSteerTest);
     }
+    */
     // initialize camera
 /*            OpenSteerDemo::init2dCamera (*m_Ball);
             OpenSteerDemo::camera.setPosition (10, OpenSteerDemo::camera2dElevation, 10);
@@ -77,15 +99,29 @@ void playerSteerPlugin::open(void)
             m_blueScore = 0;
 */
 }
-	
+
 void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
 {
-	exit(0);
+	gameState *gameS = gameState::Instance();
+	std::vector<teamState> teamInstance = gameS->getTeamInstance();
+	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
+	std::vector<playerState> team1PlayerInstance = teamInstance[1].getPlayerInstance();
+
+//	exit(0);
     // update simulation of test vehicle
-    for(unsigned int i=0; i < m_PlayerCountA ; i++)
-    TeamA[i]->update (currentTime, elapsedTime);
-    for(unsigned int i=0; i < m_PlayerCountB ; i++)
-        TeamB[i]->update (currentTime, elapsedTime);
+    for(unsigned int i=0;i<team0PlayerInstance.size();i++)
+    {
+        Ogre::LogManager::getSingletonPtr()->logMessage("team 0 playerInstance =  " +Ogre::StringConverter::toString(i));
+
+    	team0PlayerInstance[i].getSteer().update(currentTime, elapsedTime);
+//    TeamA[i]->update (currentTime, elapsedTime);
+    }
+    for(unsigned int i=0;i<team1PlayerInstance.size();i++)
+    {
+    	team1PlayerInstance[i].getSteer().update(currentTime, elapsedTime);
+
+    //    TeamB[i]->update (currentTime, elapsedTime);
+    }
 /*            m_Ball->update(currentTime, elapsedTime);
 
             if(m_TeamAGoal->InsideX(m_Ball->position()) && m_TeamAGoal->InsideZ(m_Ball->position()))

@@ -17,7 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
- 
+
 #include "ai.h"
 
 AISystem* AISystem::pInstance = 0;
@@ -37,7 +37,7 @@ AISystem::AISystem()
 }
 AISystem::~AISystem()
 {
-	
+
 }
 
 OpenSteer::AbstractVehicle* AISystem::getSelectedVehicle() // retrieves the value of selectedVehicle
@@ -49,8 +49,17 @@ void AISystem::setSelectedVehicle(OpenSteer::AbstractVehicle* vehicle)  // sets 
 	selectedVehicle = vehicle;
 }
 
+std::vector<playerSteer> AISystem::getAllplayerSteers()	// retrieves the value of allPlayerSteers
+{
+	return (allPlayerSteers);
+}
+void AISystem::setAllPlayerSteers(std::vector<playerSteer> steers)	// sets the value of allPlayerSteers
+{
+	allPlayerSteers = steers;
+}
+
 void printPlugIn (OpenSteer::PlugIn& pi);
-  
+
 // initial setup of AI state
 bool AISystem::setup(void)
 {
@@ -78,18 +87,17 @@ bool AISystem::setup(void)
     // initialize the default PlugIn
     openSelectedPlugIn ();
 
-	
-	
+
 	return true;
 }
 
 // updates AI state
-void AISystem::update(void)
+void AISystem::update(const float currentTime, const float elapsedTime)
 {
-	
+	updateSelectedPlugIn(currentTime, elapsedTime);
 }
 
-void printPlugIn (OpenSteer::PlugIn& pi) 
+void printPlugIn (OpenSteer::PlugIn& pi)
 {
 //	Ogre::LogManager::getSingletonPtr()->logMessage(" " << Ogre::StringConverter::toString(pi));
 } // anonymous namespace

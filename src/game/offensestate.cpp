@@ -110,7 +110,7 @@ void offenseState::setupState()		// sets up initial state of the object
 
 void offenseState::updateState(int teamNumber)	// updates the state of the object
 {
-	exit(0);
+//	exit(0);
 	gameState *gameS = gameState::Instance();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<playerState> playerInstance = teamInstance[teamNumber].getPlayerInstance();
