@@ -26,7 +26,6 @@
 #include "teamstate.h"
 #include "Ogre.h"
 
-using namespace std;
 
 playerState::playerState()
 {

@@ -71,6 +71,9 @@ public:
 
 	const OpenSteer::AVGroup& allVehiclesOfSelectedPlugIn(void);
 
+	// currently selected vehicle
+	OpenSteer::AbstractVehicle* selectedVehicle;
+	
 	playerSteerPlugin playerSteerPluginInstance;
 
     static AISystem *Instance();
@@ -83,9 +86,6 @@ private:
 
 	// currently selected plug-in (user can choose or cycle through them)
     OpenSteer::PlugIn* selectedPlugIn;
-
-	// currently selected vehicle
-	OpenSteer::AbstractVehicle* selectedVehicle;
 
 	std::vector<playerSteer> allPlayerSteers;
 

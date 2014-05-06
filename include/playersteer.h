@@ -27,7 +27,31 @@ class playerSteer : public steering
 {
     public:
 
-	playerSteer();
+//	playerSteer(std::vector<playerSteer*> others, std::vector<playerSteer*> allplayers, /*Ball* ball,*/ bool isTeamA, int id);
+	playerSteer()
+{
+	std::vector<playerSteer*> others;
+	std::vector<playerSteer*> allplayers;
+	bool isTeamA;
+	int id;
+	m_others = others;
+	m_AllPlayers = allplayers;
+	//m_Ball(ball),
+	b_ImTeamA = isTeamA; 
+	m_MyID = id;
+
+//    b_ImTeamA = true;
+	ID = -1;
+	counter = 0;
+//	steering::reset (); // reset the vehicle
+	reset();
+	/*    setSpeed (0.0f);         // speed along Forward direction.
+    setMaxForce (3000.7f);      // steering force is clipped to this magnitude
+    setMaxSpeed (10);         // velocity is clipped to this magnitude
+    setRadius(1.0f);
+    setMass(1.0f);
+*/
+}
 	~playerSteer();
 
 	int getID(); // retrieves the value of ID
@@ -38,8 +62,11 @@ class playerSteer : public steering
 
 	private:
 	int counter;
-	bool b_ImTeamA;
-
+    std::vector<playerSteer*>	m_others;
+    std::vector<playerSteer*>	m_AllPlayers;
+    //Ball*	m_Ball;
+    bool	b_ImTeamA;
+    int		m_MyID;
 	int ID; // Stores which player on the team the instance associates with
 };
 

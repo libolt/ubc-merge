@@ -24,20 +24,6 @@
 #include "playerstate.h"
 #include "teamstate.h"
 
-playerSteer::playerSteer()
-{
-    b_ImTeamA = true;
-	ID = -1;
-	counter = 0;
-	steering::reset (); // reset the vehicle
-	reset();
-	/*    setSpeed (0.0f);         // speed along Forward direction.
-    setMaxForce (3000.7f);      // steering force is clipped to this magnitude
-    setMaxSpeed (10);         // velocity is clipped to this magnitude
-    setRadius(1.0f);
-    setMass(1.0f);
-*/
-}
 
 playerSteer::~playerSteer()
 {
@@ -113,7 +99,8 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	std::vector<playerState> team1PlayerInstance = teamInstance[1].getPlayerInstance();
 	std::vector<playerSteer> playerSteerInstance;
 	std::vector<playerSteer> pSteer;
-	pSteer.push_back(team0PlayerInstance[1].getSteer());
+//	pSteer.push_back(team0PlayerInstance[1].getSteer());
+	pSteer = ai->getAllPlayerSteers();
     for (int x=0;x<team0PlayerInstance.size();++x)
 	{
 //		playerSteerInstance.push_back(team0PlayerInstance[0].getSteer());
@@ -161,7 +148,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	OpenSteer::AVGroup steerees; // = new OpenSteer::AVGroup;
 	steerees = (OpenSteer::AVGroup&)pSteer;
 //	steerees.push_back((OpenSteer::AVGroup)playerSteerInstance[0]);
-	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, steerees) *1;
+	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, steerees);
 	exit(0);
 /*	if(collisionAvoidance != OpenSteer::Vec3::zero)
 		applySteeringForce (collisionAvoidance, elapsedTime);
