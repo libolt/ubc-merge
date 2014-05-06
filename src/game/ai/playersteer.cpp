@@ -102,12 +102,14 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	pSteer.push_back(team0PlayerInstance[1].getSteer());
     for (int x=0;x<team0PlayerInstance.size();++x)
 	{
-		playerSteerInstance.push_back(team0PlayerInstance[x].getSteer());
+		playerSteerInstance.push_back(team0PlayerInstance[1].getSteer());
 	}
+	/*
     for (int x=0;x<team1PlayerInstance.size();++x)
 	{
 		playerSteerInstance.push_back(team1PlayerInstance[x].getSteer());
 	}
+	*/
 	// if I hit the ball, kick it.
     Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerInstane size = " +Ogre::StringConverter::toString(playerSteerInstance.size()));
 
@@ -121,7 +123,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 
 	const float distToBall = OpenSteer::Vec3::distance (playerSteerPos, bballSteerPos);
 	Ogre::LogManager::getSingletonPtr()->logMessage("distToBall = " +Ogre::StringConverter::toString(distToBall));
-
+    
 //            const float sumOfRadii = radius() + m_Ball->radius();
 //            if (distToBall < sumOfRadii)
 	if (distToBall < 2.0f)
@@ -134,7 +136,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	OpenSteer::AVGroup steerees; // = new OpenSteer::AVGroup;
 	steerees = (OpenSteer::AVGroup&)playerSteerInstance;
 	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, steerees) *1;
-	
+	exit(0);
 /*	if(collisionAvoidance != OpenSteer::Vec3::zero)
 		applySteeringForce (collisionAvoidance, elapsedTime);
 	else
