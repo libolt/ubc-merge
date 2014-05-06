@@ -22,25 +22,25 @@
 #define _PLAYERSTEER_H_
 
 #include "steering.h"
- 
+
 class playerSteer : public steering
 {
     public:
-	 
+
 	playerSteer();
 	~playerSteer();
-	 
+
 	int getID(); // retrieves the value of ID
 	void setID(int id); // sets the value of ID
-	 
+
 	void reset(void); // resets the state
 	void update (const float currentTime, const float elapsedTime); // update steering sim every frame
-	
+
 	private:
-	 
+	int counter;
 	bool b_ImTeamA;
-	 
+
 	int ID; // Stores which player on the team the instance associates with
 };
- 
+
 #endif

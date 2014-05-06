@@ -53,7 +53,7 @@ public:
 		{
 			m_min = min;
 		}
-		
+
 		OpenSteer::Vec3 getMax()
 		{
 			return (m_max);
@@ -62,7 +62,7 @@ public:
 		{
 			m_max = max;
 		}
-		
+
         bool	InsideX(const OpenSteer::Vec3 p){if(p.x < m_min.x || p.x > m_max.x)	return false;return true;}
         bool	InsideZ(const OpenSteer::Vec3 p){if(p.z < m_min.z || p.z > m_max.z)	return false;return true;}
 /*        void	draw(){
@@ -75,7 +75,7 @@ public:
             drawLineAlpha(m_max, c, color, 1.0f);
             drawLineAlpha(c,m_min, color, 1.0f);
         }*/
-		
+
     private:
         OpenSteer::Vec3 m_min;
         OpenSteer::Vec3 m_max;
@@ -88,7 +88,7 @@ public:
 
 	// sets up steering state
 	void setup(void);
-	
+
 	// reset vehicle state
 	void reset(void)
 	{

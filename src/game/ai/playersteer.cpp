@@ -28,13 +28,15 @@ playerSteer::playerSteer()
 {
     b_ImTeamA = true;
 	ID = -1;
-	
+	counter = 0;
 	steering::reset (); // reset the vehicle
-    setSpeed (0.0f);         // speed along Forward direction.
+	reset();
+	/*    setSpeed (0.0f);         // speed along Forward direction.
     setMaxForce (3000.7f);      // steering force is clipped to this magnitude
     setMaxSpeed (10);         // velocity is clipped to this magnitude
-
-
+    setRadius(1.0f);
+    setMass(1.0f);
+*/
 }
 
 playerSteer::~playerSteer()
@@ -62,8 +64,18 @@ void playerSteer::reset(void)
 	gameState *gameS = gameState::Instance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 	std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
+	OpenSteer::Vec3 playerSteerPos;
 
-	OpenSteer::Vec3 playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
+	if (gameS->getTipOffComplete())
+	{
+		playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
+	}
+	else
+	{
+		playerSteerPos.x = 0;
+		playerSteerPos.y = 0;
+		playerSteerPos.z = 0;
+	}
     // Place me on my part of the field, looking at oponnents goal
 //    setPosition(b_ImTeamA ? OpenSteer::frandom01()*20 : -OpenSteer::frandom01()*20, 0, (OpenSteer::frandom01()-0.5f)*20);
 
@@ -71,7 +83,7 @@ void playerSteer::reset(void)
     {
         if(b_ImTeamA)
 		{
-		
+
             setPosition(playerSteerPos);
 		}
         else
@@ -81,7 +93,7 @@ void playerSteer::reset(void)
     }
 	OpenSteer::Vec3 m_home = playerSteerPos;
 //    m_home = position();
-//    OpenSteer::AnnotationMixin< Super >::clearTrailHistory ();    // prevent long streaks due to teleportation
+ //   AnnotationMixin::clearTrailHistory ();    // prevent long streaks due to teleportation
 //    OpenSteer::clearTrailHistory ();
 //    setTrailParameters (10, 60);
 }
@@ -90,7 +102,9 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 {
 	Ogre::LogManager::getSingletonPtr()->logMessage("Updating playerSteer state");
 //	exit(0);
-	
+	counter += 1;
+	Ogre::LogManager::getSingletonPtr()->logMessage("Counter = " +Ogre::StringConverter::toString(counter));
+
 	AISystem *ai = AISystem::Instance();
 	gameState *gameS = gameState::Instance();
 	std::vector<basketballs> basketball = gameS->getBasketballInstance();
@@ -102,7 +116,11 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	pSteer.push_back(team0PlayerInstance[1].getSteer());
     for (int x=0;x<team0PlayerInstance.size();++x)
 	{
+//		playerSteerInstance.push_back(team0PlayerInstance[0].getSteer());
+
 		playerSteerInstance.push_back(team0PlayerInstance[1].getSteer());
+//		playerSteerInstance.push_back(team0PlayerInstance[2].getSteer());
+
 	}
 	/*
     for (int x=0;x<team1PlayerInstance.size();++x)
@@ -112,7 +130,14 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	*/
 	// if I hit the ball, kick it.
     Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerInstane size = " +Ogre::StringConverter::toString(playerSteerInstance.size()));
+    Ogre::LogManager::getSingletonPtr()->logMessage("pSteer size = " +Ogre::StringConverter::toString(pSteer.size()));
 
+    for(int x=0;x<playerSteerInstance.size();++x)
+    {
+        Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerInstane ID = " +Ogre::StringConverter::toString(playerSteerInstance[x].getID()));
+        Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerInstane radius = " +Ogre::StringConverter::toString(playerSteerInstance[x].radius()));
+
+    }
 	OpenSteer::Vec3 playerSteerPos = convertToOpenSteerVec3(team0PlayerInstance[0].getNodePosition());
 	OpenSteer::Vec3 m_home = playerSteerPos;
 	OpenSteer::Vec3 bballSteerPos = convertToOpenSteerVec3(basketball[0].getNodePosition());
@@ -123,7 +148,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 
 	const float distToBall = OpenSteer::Vec3::distance (playerSteerPos, bballSteerPos);
 	Ogre::LogManager::getSingletonPtr()->logMessage("distToBall = " +Ogre::StringConverter::toString(distToBall));
-    
+
 //            const float sumOfRadii = radius() + m_Ball->radius();
 //            if (distToBall < sumOfRadii)
 	if (distToBall < 2.0f)
@@ -134,7 +159,8 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	// otherwise consider avoiding collisions with others
 //	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, (OpenSteer::AVGroup&)pSteer);
 	OpenSteer::AVGroup steerees; // = new OpenSteer::AVGroup;
-	steerees = (OpenSteer::AVGroup&)playerSteerInstance;
+	steerees = (OpenSteer::AVGroup&)pSteer;
+//	steerees.push_back((OpenSteer::AVGroup)playerSteerInstance[0]);
 	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, steerees) *1;
 	exit(0);
 /*	if(collisionAvoidance != OpenSteer::Vec3::zero)

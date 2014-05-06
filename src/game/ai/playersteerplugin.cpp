@@ -42,14 +42,19 @@ void playerSteerPlugin::open(void)
 	{
         playerSteer steer = team0PlayerInstance[x].getSteer();
 		steer.setPosition(convertToOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
+		steer.setID(x);
 		team0PlayerInstance[x].setSteer(steer);
 		allPlayerSteers.push_back(team0PlayerInstance[x].getSteer());
+        Ogre::LogManager::getSingletonPtr()->logMessage("team 0 playerInstance added =  " +Ogre::StringConverter::toString(x));
+
 	}
+//	exit(0);
 	// builds team 1 steering instances
     for (int x=0;x<team1PlayerInstance.size();++x)
 	{
         playerSteer steer = team1PlayerInstance[x].getSteer();
 		steer.setPosition(convertToOpenSteerVec3(team1PlayerInstance[x].getNodePosition()));
+		steer.setID(x+5);
 		team1PlayerInstance[x].setSteer(steer);
 		allPlayerSteers.push_back(team1PlayerInstance[x].getSteer());
 	}
@@ -115,20 +120,23 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
 
 //	exit(0);
     // update simulation of test vehicle
-    for(unsigned int i=0;i<team0PlayerInstance.size();i++)
-    {
-		
-        Ogre::LogManager::getSingletonPtr()->logMessage("team 0 playerInstance =  " +Ogre::StringConverter::toString(i));
+    Ogre::LogManager::getSingletonPtr()->logMessage("team 0 playerInstance size =  " +Ogre::StringConverter::toString(team0PlayerInstance.size()));
 
-    	team0PlayerInstance[i].getSteer().update(currentTime, elapsedTime);
+ //   for(unsigned int i=0;i<team0PlayerInstance.size();i++)
+ //   {
+
+//        Ogre::LogManager::getSingletonPtr()->logMessage("team 0 playerInstance =  " +Ogre::StringConverter::toString(i));
+
+    	team0PlayerInstance[0].getSteer().update(currentTime, elapsedTime);
 //    TeamA[i]->update (currentTime, elapsedTime);
-    }
-    for(unsigned int i=0;i<team1PlayerInstance.size();i++)
+//    }
+/*    for(unsigned int i=0;i<team1PlayerInstance.size();i++)
     {
     	team1PlayerInstance[i].getSteer().update(currentTime, elapsedTime);
 
     //    TeamB[i]->update (currentTime, elapsedTime);
     }
+    */
 /*            m_Ball->update(currentTime, elapsedTime);
 
             if(m_TeamAGoal->InsideX(m_Ball->position()) && m_TeamAGoal->InsideZ(m_Ball->position()))
