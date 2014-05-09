@@ -22,6 +22,7 @@
 #include "gamestate.h"
 #include "gui.h"
 #include "input.h"
+#include "logging.h"
 #include "network.h"
 #include "renderengine.h"
 
@@ -195,7 +196,9 @@ bool gameEngine::startGame()
     gameState *gameS = gameState::Instance();
 
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    Ogre::LogManager::getSingletonPtr()->logMessage("startGame()");
+//    Ogre::LogManager::getSingletonPtr()->logMessage("startGame()");
+	logging::Instance()->logMessage("startGame()");
+	exit(0);
     gameS->setupState();
 //#endif
     return true;
