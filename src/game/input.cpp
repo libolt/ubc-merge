@@ -20,11 +20,10 @@
 
 // Input
 
+#include "input.h"
 #include "gameengine.h"
 #include "gamestate.h"
-#include "ubcapp.h"
-
-
+#include "logging.h"
 
 inputSystem* inputSystem::pInstance = 0;
 
@@ -87,7 +86,7 @@ bool inputSystem::setup()   // sets up and initializes the OIS Input System
 //    renderEngine * render = renderEngine::Instance();
 //              mDebugOverlay = OverlayManager::getSingleton().getByName("Core/DebugOverlay");
 
-    Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing SDL Input System ***");
+    logMsg("*** Initializing SDL Input System ***");
     SDL_ShowCursor(0); // Hides the SDL Cursor in favor of the MyGUI Cursor
 
 
@@ -175,7 +174,7 @@ bool inputSystem::processInput()	// processes all input
         return false;
     }
 
-		Ogre::LogManager::getSingletonPtr()->logMessage("Input processed");
+		logMsg("Input processed");
 
 	return true;
 }
@@ -186,7 +185,7 @@ bool inputSystem::processUnbufferedKeyInput()
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     const Uint8* keys = NULL;
     keyPressed = "";	// resets keyPressed so that we don't get repeats
-	Ogre::LogManager::getSingletonPtr()->logMessage("Processing keyboard input");
+	logMsg("Processing keyboard input");
 
 	/*
 	keys = SDL_GetKeyboardState(NULL);
@@ -357,7 +356,7 @@ bool inputSystem::processUnbufferedKeyInput()
 #else
 	if (MyGUI::InputManager::getInstance().isFocusKey())	// checks if a MyGUI widget has key focus
 	{
-		Ogre::LogManager::getSingletonPtr()->logMessage("Crash?");
+		logMsg("Crash?");
 		if (SDL_PollEvent(&inputEvent))
 		{
 	        switch (inputEvent.type)
@@ -774,7 +773,7 @@ bool inputSystem::processUnbufferedKeyInput()
 		}
 	}
 	#endif
-	Ogre::LogManager::getSingletonPtr()->logMessage("Keyboard Input Processed");
+	logMsg("Keyboard Input Processed");
     // Return true to continue rendering
     return true;
 
@@ -787,7 +786,7 @@ bool inputSystem::processUnbufferedMouseInput()
 	SDL_MouseMotionEvent motion;
 	SDL_GetMouseState(&x,&y);
 
-	Ogre::LogManager::getSingletonPtr()->logMessage("Processing mouse input");
+	logMsg("Processing mouse input");
 
     //FIXME Need to get MyGUI working on android
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
@@ -847,6 +846,6 @@ bool inputSystem::processUnbufferedMouseInput()
 		MyGUI::InputManager::getInstance().injectMouseMove(x,y,0);
 	}
 #endif
-	Ogre::LogManager::getSingletonPtr()->logMessage("Mouse input processed");
+    logMsg("Mouse input processed");
     return true;
 }

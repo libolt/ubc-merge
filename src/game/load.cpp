@@ -25,6 +25,7 @@
 #endif
 
 #include "load.h"
+#include "logging.h"
 #include "playerdata.h"
 #include "players.h"
 #include "renderengine.h"
@@ -105,9 +106,8 @@ int loader::readFile(const char *sourceFile, char **destination)
 //#endif
     // Open the file
 //    SDL_RWops *file;
-	Ogre::LogManager::getSingletonPtr()->logMessage("sourceFile = ");
-    Ogre::LogManager::getSingletonPtr()->logMessage(sourceFile);
-//	Ogre::LogManager::getSingletonPtr()->logMessage(SDL_AndroidGetInternalStoragePath());
+	logMsg("sourceFile = " +Ogre::StringConverter::toString(sourceFile));
+//	logMsg(SDL_AndroidGetInternalStoragePath());
 //    file = SDL_RWFromFile("teamd.xml", "rb");
 
     SDL_RWops *file;
@@ -120,7 +120,7 @@ int loader::readFile(const char *sourceFile, char **destination)
                 SDL_GetError()
                );
 	}*/
-	Ogre::LogManager::getSingletonPtr()->logMessage("Seek to beginning of file");
+    logMsg("Seek to beginning of file");
 	size_t fileLength = SDL_RWseek(file, 0, SEEK_END);
 	(*destination) = new char[fileLength + 1]; // allow an extra characterfor '\0'
 
@@ -130,9 +130,9 @@ int loader::readFile(const char *sourceFile, char **destination)
     // Read text from file
 	Ogre::String *contents = new Ogre::String;
     int n_blocks = SDL_RWread(file, (*destination), 1, fileLength);
-    cout << "Contents = " << (*destination) << endl;
+    logMsg("Contents = " +Ogre::StringConverter::toString((*destination)));
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    __android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "destination = %s", destination);
+    logMsg("destination = " +Ogre::StringConverter::toString(destination));
 #endif
 
     // BLOCK_SIZE = 8, MAX_BLOCKS = 1024
@@ -191,7 +191,7 @@ string loader::findFile(string fileName)
     string dataPath = UBC_DATADIR;
 #endif
 
-    Ogre::LogManager::getSingletonPtr()->logMessage("dataPath = " +dataPath);
+    logMsg("dataPath = " +dataPath);
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     filePath = fileName;
 #else
@@ -199,8 +199,8 @@ string loader::findFile(string fileName)
 
     pathArray = pathSplit(dataPath);
 
-    Ogre::LogManager::getSingletonPtr()->logMessage("pathArray[0] = " +pathArray[0]);
- //   LogManager::getSingletonPtr()->logMessage("pathArray[1] = " +pathArray[1]);
+    logMsg("pathArray[0] = " +pathArray[0]);
+ //   logMsg("pathArray[1] = " +pathArray[1]);
 
 
     for (int x = 0; x < 3; x++)
@@ -215,22 +215,22 @@ string loader::findFile(string fileName)
 //            }
 
                 filePath.append(pathArray[x]);
-                Ogre::LogManager::getSingletonPtr()->logMessage("pathArray == " + pathArray[x]);
+                logMsg("pathArray == " + pathArray[x]);
 
 				filePath.append(fileName);
-                Ogre::LogManager::getSingletonPtr()->logMessage("filePath = " +filePath);
+                logMsg("filePath = " +filePath);
                 fstream fileOpen;
                 //      if (!(lineupFont = TTF_OpenFont(file.c_str(), 20)));
                 fileOpen.open(filePath.c_str(), ios::in);
                 if (!fileOpen)
                 {
-                        Ogre::LogManager::getSingletonPtr()->logMessage("failed to load " + filePath);
+                    logMsg("failed to load " + filePath);
         //                              exit(0);
                 }
 
                 else
                 {
-    //                              cout << "File Exists at: " << filePath << endl;
+    //                             logMsg("File Exists at: " +filePath);
                     // opens players.txt
                     fileLoaded = true;
                 }
@@ -244,7 +244,7 @@ string loader::findFile(string fileName)
 
     if (!fileLoaded)
     {
-        Ogre::LogManager::getSingletonPtr()->logMessage("failed to find file: " + fileName);
+        logMsg("failed to find file: " + fileName);
         exit(0);
     }
 #endif
@@ -281,9 +281,9 @@ bool loader::loadXMLFile(string fileName)
         for( pElem; pElem; pElem=pElem->NextSiblingElement())
         {
             string pKey=pElem->Value();
-//            cout << pKey << endl;
+//             logMsg(pKey);
             string pText=pElem->GetText();
-//            cout << pText << endl;
+//           logMsg(pText);
             if (pKey.length() > 0 && pText.length() > 0)
             {
 //				m_messages[pKey]=pText;
@@ -298,9 +298,9 @@ bool loader::loadXMLFile(string fileName)
         if (pElem)
         {
             string pKey=pElem->Value();
-//            cout << pKey << endl;
+//            logMsg(pKey);
             string pText=pElem->GetText();
-//            cout << pText << endl;
+//            logMsgpText);
 //			exit(0);
 //			m_connection.ip=pElem->Attribute("ip");
 //			pElem->QueryDoubleAttribute("timeout",&m_connection.timeout);
@@ -318,12 +318,12 @@ bool loader::loadTeams()
 #else
     string teamList = findFile("teams/teams.xml");
 #endif
-    Ogre::LogManager::getSingletonPtr()->logMessage("teamList = " +teamList);
+    logMsg("teamList = " +teamList);
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-//  cout << "teamList = " << teamList << endl;
+//  logMsg("teamList = " +teamList);
 // Ogre::LogManager::getSingletonPtr()->logMessage("dah");
     loadTeamListFile(teamList);
-//    Ogre::LogManager::getSingletonPtr()->logMessage("tem = " +teamFiles[0]);
+//    logMsg("tem = " +teamFiles[0]);
 //    std::vector<std::string> teamFiles = load->getTeamFiles();
     std::vector<std::string>::iterator it;
     for (it = teamFiles.begin(); it != teamFiles.end(); ++it)
@@ -333,7 +333,7 @@ bool loader::loadTeams()
 #else
         loadTeamFile(findFile("teams/" + *it));
 #endif
-		Ogre::LogManager::getSingletonPtr()->logMessage("team = " +*it);
+		logMsg("team = " +*it);
 
     }
 //#endif
@@ -358,24 +358,24 @@ bool loader::loadTeamListFile(string fileName)
 //	char *fileContents = NULL;
     Ogre::String fileContents;
     TiXmlDocument doc;
-    Ogre::LogManager::getSingletonPtr()->logMessage(fileName);
-	Ogre::LogManager::getSingletonPtr()->logMessage("bate");
+    logMsg(fileName);
+	logMsg("bate");
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
 	fileContents = fileData->getAsString();
 #else*/
     char *contents = NULL;
 	readFile(fileName.c_str(), &contents);
-	cout << "read contents = " << contents << endl;
+//	logMsg("read contents = " +contents);
 //	exit(0);
 	fileContents = Ogre::StringConverter::toString(&contents);
 //#endif
 //    readFile(fileName.c_str(), &fileContents);
-	Ogre::LogManager::getSingletonPtr()->logMessage("barf");
-	Ogre::LogManager::getSingletonPtr()->logMessage(fileContents);
+	logMsg("barf");
+	logMsg(fileContents);
 //	exit(0);
 /*
-	Ogre::LogManager::getSingletonPtr()->logMessage("fileName = " +fileName);
+	logMsg("fileName = " +fileName);
 //    TiXmlDocument doc(fileName.c_str());
     TiXmlDocument doc("/data/teams/teams.xml");
     if (!doc.LoadFile())
@@ -387,7 +387,7 @@ bool loader::loadTeamListFile(string fileName)
 //	if (!doc.Parse(fileData->getAsString().c_str()))
     if (!doc.Parse(contents))
     {
-		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse fart file");
+		logMsg("Unable to parse fart file");
 //		exit(0);
 	}
 
@@ -409,13 +409,13 @@ bool loader::loadTeamListFile(string fileName)
     {
 //		string pText=pElem->GetText();
         files.push_back(pElem->GetText());
-        Ogre::LogManager::getSingletonPtr()->logMessage(pElem->GetText());
+        logMsg(pElem->GetText());
     }
 
 /*    std::vector<std::string>::iterator it;
     for (it = files.begin(); it != files.end(); ++it)
     {
-        cout << "team file = " << *it<< endl;
+        logMsg("team file = " +*it);
     }
 */
 
@@ -458,7 +458,7 @@ bool loader::loadTeamFile(string fileName)
 //#endif
 	if (!doc.Parse(contents))
 	{
-		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse team file");
+	    logMsg("Unable to parse team file");
 //		exit(0);
 	}
 
@@ -542,7 +542,7 @@ bool loader::loadPlayers()
     std::vector<std::string>::iterator it;
     for (it = playerFiles.begin(); it != playerFiles.end(); ++it)
     {
-		Ogre::LogManager::getSingletonPtr()->logMessage("playerFile = " +*it);
+		logMsg("playerFile = " +*it);
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 		loadPlayerFile("data/players/" + *it);
 #else
@@ -564,7 +564,7 @@ bool loader::loadPlayerListFile( string fileName)
 	TiXmlDocument doc;
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
-    Ogre::LogManager::getSingletonPtr()->logMessage(fileName);
+    logMsg(fileName);
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
 	fileContents = fileData->getAsString();
@@ -580,7 +580,7 @@ bool loader::loadPlayerListFile( string fileName)
 
 	if (!doc.Parse(contents))
 	{
-		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse players.xml file");
+		logMsg("Unable to parse players.xml file");
 //		exit(0);
 	}
 
@@ -655,7 +655,7 @@ bool loader::loadPlayerFile(string fileName)
 //#endif
 	if (!doc.Parse(contents))
 	{
-		Ogre::LogManager::getSingletonPtr()->logMessage("Unable to parse player file");
+		logMsg("Unable to parse player file");
 //		exit(0);
 	}
 

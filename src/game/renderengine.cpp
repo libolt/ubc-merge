@@ -26,6 +26,7 @@
 #include "gameengine.h"
 #include "gamestate.h"
 #include "gui.h"
+#include "logging.h"
 #include "physicsengine.h"
 #include "renderengine.h"
 #include "soundengine.h"
@@ -220,7 +221,7 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
     mAssetMgr = AAssetManager_fromJava(env, raw_asset_manager);
 
 //    AConfiguration_fromAssetManager(config, mAssetMgr);
-    Ogre::LogManager::getSingletonPtr()->logMessage("APK?");
+    logMsg("APK?");
 
 //	mAssetMgr = app->activity->assetManager;
     AAsset* asset = AAssetManager_open(mAssetMgr, fileName.c_str(), AASSET_MODE_BUFFER);
@@ -239,18 +240,21 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
 
 bool renderEngine::initSDL() // Initializes SDL Subsystem
 {
-	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0) {
+	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0) 
+	{
         fprintf(stderr,
                 "\nUnable to initialize SDL:  %s\n",
                 SDL_GetError()
                );
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 
-        __android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Error = %s", SDL_GetError());
+//        __android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Error = %s", SDL_GetError());
+        Ogre::String msg = "SDL Error = " +Ogre::StringConverter::toString(SDL_GetError());
+        logMsg(msg);
 #endif
 
-    return 1;
-}
+        return 1;
+    }
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 /*    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
@@ -262,7 +266,7 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
     sdlWindow = SDL_CreateWindow("UBC", SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
 */
-	__android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Window Created!");
+	logMsg("SDL Window Created!");
 
 #else
     sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
@@ -364,7 +368,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 			break;
 		}
 		c++; // <-- oh how clever
-		std::cout << c++ << std::endl;
+		logMsg(c++);
 	}
 
 	//we found it, we might as well use it!
@@ -376,7 +380,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	mWindow = mRoot->initialise(false, "Ultimate Basketball Challenge");
 #endif
 
-    Ogre::LogManager::getSingletonPtr()->logMessage("OGRE initialized successfully!");
+    logMsg("OGRE initialized successfully!");
 
 	return true;
 }
@@ -402,9 +406,9 @@ bool renderEngine::createScene()
 
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    Ogre::LogManager::getSingletonPtr()->logMessage("Hello");
+    logMsg("Hello");
 	config = AConfiguration_new();
-	Ogre::LogManager::getSingletonPtr()->logMessage("Mello");
+	logMsg("Mello");
 //	AConfiguration_fromAssetManager(config, app->activity->assetManager);
 //	mAssetMgr = app->activity->assetManager;
     JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
@@ -416,7 +420,7 @@ bool renderEngine::createScene()
 
     if ( !native_window )
 	{
-		Ogre::LogManager::getSingletonPtr()->logMessage("No Window, Goodbye!");
+		logMsg("No Window, Goodbye!");
         return(0);
 	}
 
@@ -428,14 +432,14 @@ bool renderEngine::createScene()
 	jobject raw_resources = env->CallObjectMethod(raw_activity, method_get_resources);
     jobject raw_asset_manager = env->CallObjectMethod(raw_resources, method_get_assets);
     mAssetMgr = AAssetManager_fromJava(env, raw_asset_manager);
-	Ogre::LogManager::getSingletonPtr()->logMessage("Yello");
+	logMsg("Yello");
     AConfiguration_fromAssetManager(config, mAssetMgr);
-	Ogre::LogManager::getSingletonPtr()->logMessage("Bello");
+	logMsg("Bello");
 //	mAssetMgr = app->activity->assetManager;
 
     Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKFileSystemArchiveFactory(mAssetMgr) );
     Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKZipArchiveFactory(mAssetMgr) );
-	Ogre::LogManager::getSingletonPtr()->logMessage("Hello?");
+	logMsg("Hello?");
 	//  AConfiguration_fromAssetManager(config, app->activity->assetManager);
 	//gAssetMgr = app->activity->assetManager;
 	misc["androidConfig"] = Ogre::StringConverter::toString((int)config);
@@ -445,16 +449,16 @@ bool renderEngine::createScene()
 //    misc["externalGLContext"]    = Ogre::StringConverter::toString( (int)SDL_GL_GetCurrentContext() );
 	misc["externalWindowHandle"] = winHandle;
 //	exit(0);
-	Ogre::LogManager::getSingletonPtr()->logMessage("Hello??");
+	logMsg("Hello??");
 	mWindow = mRoot->createRenderWindow("UBC", 0, 0, false, &misc);
 //	exit(0);
-	Ogre::LogManager::getSingletonPtr()->logMessage("Dead");
+	logMsg("Dead");
 #endif
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	Ogre::ConfigFile cf;
 	cf.load(openAPKFile("resources.cfg"));
-    Ogre::LogManager::getSingletonPtr()->logMessage("or");
+    logMsg("or");
 	Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
 //exit(0);
 	while (seci.hasMoreElements())
@@ -480,7 +484,7 @@ bool renderEngine::createScene()
 	Ogre::MaterialManager::getSingleton().addListener(mMatListener);
 #else
 
-	//Ogre::LogManager::getSingletonPtr()->logMessage("Rendering!");
+	// logMsg("Rendering!");
 	misc["externalWindowHandle"] = winHandle; //
 
 	mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1024, 768, false, &misc);
@@ -488,7 +492,7 @@ bool renderEngine::createScene()
 	//    exit(0);
 	mWindow->setVisible(true);
 #endif
-Ogre::LogManager::getSingletonPtr()->logMessage("Alive?");
+logMsg("Alive?");
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     std::string dataPath = "data";

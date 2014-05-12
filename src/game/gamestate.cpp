@@ -23,6 +23,7 @@
 #include "gamestate.h"
 #include "gameengine.h"
 #include "load.h"
+#include "logging.h"
 #include "playerdata.h"
 #include "players.h"
 #include "physicsengine.h"
@@ -286,7 +287,7 @@ bool gameState::assignPlayers()
     // loops through team 1 starters and assigns them to playerIDS std::vector
     for (playersIT = team1Starters.begin(); playersIT != team1Starters.end(); ++playersIT)
     {
-    	cout << "playersIT == " << *playersIT << endl;
+    	logMsg("playersIT == "  +*playersIT);
         playerIDS.push_back(*playersIT);
     }
 
@@ -423,7 +424,7 @@ bool gameState::setupState()
 
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //	exit(0);
-    Ogre::LogManager::getSingletonPtr()->logMessage("Setting up state!");
+    logMsg("Setting up state!");
     load->loadTeams();  // loads teams from XML files
 //#else
     load->loadPlayers();    // loads players from XML files
@@ -516,7 +517,7 @@ bool gameState::setupState()
 // carries out in game logic
 bool gameState::logic()
 {
-    Ogre::LogManager::getSingletonPtr()->logMessage("Updating gameState Logic");
+    logMsg("Updating gameState Logic");
 
     AISystem *ai = AISystem::Instance();
     gameEngine *gameE = gameEngine::Instance();
@@ -563,8 +564,8 @@ bool gameState::logic()
 
 	if (teamWithBall >= 0)
 	{
-        Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
-        Ogre::LogManager::getSingletonPtr()->logMessage("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
+		logMsg("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
+        logMsg("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
         float oldTime= static_cast<float>(gameE->getOldTime());
         float changeInTime = static_cast<float>(gameE->getChangeInTime());
     	ai->update(oldTime, changeInTime);
@@ -624,7 +625,7 @@ bool gameState::logic()
     else
     {
     }
-	Ogre::LogManager::getSingletonPtr()->logMessage("gameState logic updated");
+	logMsg("gameState logic updated");
 //    exit(0);
     return true;
 }
@@ -739,12 +740,12 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 void gameState::updateDirectionsAndMovements()
 {
 //    directions playerDirection, oldPlayerDirection;
-    Ogre::LogManager::getSingletonPtr()->logMessage("Updating Directions and Movements");
+   logMsg("Updating Directions and Movements");
 
     if (teamWithBall >= 0)
     {
-		Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
-		Ogre::LogManager::getSingletonPtr()->logMessage("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
+		logMsg("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
+		logMsg("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
 		updateBasketballMovements();	// updates the movement of basketball objec(s)
 		updateBasketballDirections(); // updates direction of basketball object(s)
     }
@@ -757,12 +758,12 @@ void gameState::updateDirectionsAndMovements()
 
 void gameState::updateBasketballMovements()	// updates the basketball(s) movements
 {
-	Ogre::LogManager::getSingletonPtr()->logMessage("Updating basketball movements");
+	logMsg("Updating basketball movements");
 
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
-	Ogre::LogManager::getSingletonPtr()->logMessage("teamWithBall" + Ogre::StringConverter::toString(teamWithBall));
-	Ogre::LogManager::getSingletonPtr()->logMessage("playerWithBall" + Ogre::StringConverter::toString(playerWithBall));
+    logMsg("teamWithBall" + Ogre::StringConverter::toString(teamWithBall));
+	logMsg("playerWithBall" + Ogre::StringConverter::toString(playerWithBall));
 
 //	exit(0);
 	directions playerDirection = playerInstance[playerWithBall].getDirection();
@@ -862,8 +863,8 @@ void gameState::updateBasketballDirections()	// updates basketball direction(s)
 		btVector3 change; // = btVector3(0,0,0);
 		btTransform transform;
 //		basketballInstance[0].getPhysBody()->forceActivationState(ISLAND_SLEEPING);
-        Ogre::LogManager::getSingletonPtr()->logMessage("playerDirection = " + Ogre::StringConverter::toString(playerDirection));
-        Ogre::LogManager::getSingletonPtr()->logMessage("oldPlayerDirection = " + Ogre::StringConverter::toString(oldPlayerDirection));
+        logMsg("playerDirection = " + Ogre::StringConverter::toString(playerDirection));
+        logMsg("oldPlayerDirection = " + Ogre::StringConverter::toString(oldPlayerDirection));
 
 		if (playerDirection != oldPlayerDirection)
 		{

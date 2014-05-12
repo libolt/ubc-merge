@@ -197,8 +197,8 @@ bool gameEngine::startGame()
 
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //    Ogre::LogManager::getSingletonPtr()->logMessage("startGame()");
-	logging::Instance()->logMessage("startGame()");
-	exit(0);
+	logMsg("startGame()");
+	
     gameS->setupState();
 //#endif
     return true;
@@ -294,7 +294,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	        updateChangeInTime();	// calculates the change in time.
 
-//	        Ogre::LogManager::getSingletonPtr()->logMessage("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
+//	        logMsg("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
 	        // updates game logic every 100 milliseconds
 	        if (changeInTime >= 100)
 	        {
@@ -309,7 +309,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	        	}
 
 
-//            Ogre::LogManager::getSingletonPtr()->logMessage("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
+//            logMsg("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
 	           	if (renderScene)
 	            {
 	           		gameS->logic();
@@ -329,11 +329,11 @@ void gameEngine::gameLoop()	// Main Game Loop
 	    		if (gameS->getTeamInstancesCreated())
                 {
 					std::vector<teamState> teamInstance = gameS->getTeamInstance();
-//                    Ogre::LogManager::getSingletonPtr()->logMessage("teamInstance.size() ==== " +Ogre::StringConverter::toString(teamInstance.size()));
+//                  logMsg("teamInstance.size() ==== " +Ogre::StringConverter::toString(teamInstance.size()));
 
 					for (int i=0;i<teamInstance.size();++i)
 					{
-//						Ogre::LogManager::getSingletonPtr()->logMessage("teamInstance.size() ==== " +Ogre::StringConverter::toString(teamInstance.size()));
+//						logMsg("teamInstance.size() ==== " +Ogre::StringConverter::toString(teamInstance.size()));
 						if (teamInstance[i].getPlayerInstancesCreated())
 						{
 
@@ -344,7 +344,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 							{
 								int humanPlayer = teamInstance[i].getHumanPlayer();
 								inputMaps inputMap = input->keyMap();
-//							    Ogre::LogManager::getSingletonPtr()->logMessage("INPUT MAP ======== "  +Ogre::StringConverter::toString(inputMap));
+//							    logMsg("INPUT MAP ======== "  +Ogre::StringConverter::toString(inputMap));
 								switch (inputMap)
 								{
 
@@ -426,12 +426,12 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 								if (gameS->getGameType() == MULTI && clientRunning)	// checks if game is running in client mode
 								{
-									cout << "client packetData = " << packetData << endl;
+									logMsg("client packetData = " +packetData);
 									network->sendPacket(packetData);
 								}
 								else  if (gameS->getGameType() == MULTI && serverRunning)
 								{
-									cout << "server packetData = " << packetData << endl;
+									logMsg("server packetData = " +packetData);
 									network->sendPacket(packetData);
 
 								}

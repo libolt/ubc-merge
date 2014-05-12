@@ -20,6 +20,7 @@
 
 #include "network.h"
 #include "gameengine.h"
+#include "logging.h"
 
 #if _MSC_VER
 #define snprintf _snprintf
@@ -188,7 +189,7 @@ int networkEngine::initialize()
 {
     if (enet_initialize () != 0)
     {
-        fprintf (stderr, "An error occurred while initializing ENet.\n");
+        logMsg("An error occurred while initializing ENet.");
         return EXIT_FAILURE;
     }
     atexit (enet_deinitialize);
@@ -210,8 +211,7 @@ void networkEngine::clientConnect()
 
 		if (client == NULL)
 		{
-			fprintf (stderr,
-					 "An error occurred while trying to create an ENet client host.\n");
+		    logMsg("An error occurred while trying to create an ENet client host.");
 			exit (EXIT_FAILURE);
 		}
 
@@ -229,8 +229,7 @@ void networkEngine::clientConnect()
 
 		if (peer == NULL)
 		{
-		   fprintf (stderr,
-					"No available peers for initiating an ENet connection.\n");
+		   logMsg("No available peers for initiating an ENet connection.");
 		   exit (EXIT_FAILURE);
 		}
 
@@ -238,7 +237,7 @@ void networkEngine::clientConnect()
 		if (enet_host_service (client, & event, 5000) > 0 &&
 			event.type == ENET_EVENT_TYPE_CONNECT)
 		{
-			cout << "Connection to " << ipAddress << ":1234 succeeded." << endl;
+			logMsg("Connection to " +ipAddress +":1234 succeeded.");
 			clientEstablishedConnection = true; // Tells other code that this instance is a network client
 		}
 		else
@@ -248,7 +247,7 @@ void networkEngine::clientConnect()
 			/* had run out without any significant event.            */
 			enet_peer_reset (peer);
 
-			cout << "Connection to " << ipAddress << ":1234 failed." << endl;
+			logMsg("Connection to " +ipAddress +":1234 failed.");
 		}
 		gameE->setClientRunning(true);
 		clientEstablishedConnection = true;
@@ -405,7 +404,7 @@ void networkEngine::serverSetup()
 								  0      /* assume any amount of outgoing bandwidth */);
 	if (server == NULL)
 	{
-		cerr << "An error occurred while trying to create an ENet server host." << endl;
+		logMsg("An error occurred while trying to create an ENet server host.");
 		exit (EXIT_FAILURE);
 	}
 	gameE->setServerRunning(true);
@@ -422,7 +421,7 @@ void networkEngine::networkServer()
         /* Wait up to 1000 milliseconds for an event. */
         while (enet_host_service (server, & event, 1) > 0)
         {
-			std::cout << "EVENT == " << event.type << std::endl;
+			logMsg("EVENT == " +event.type);
             switch (event.type)
             {
             case ENET_EVENT_TYPE_CONNECT:
@@ -433,7 +432,7 @@ void networkEngine::networkServer()
 */
             	addressHost = Ogre::StringConverter::toString(event.peer->address.host);
             	addressPort = Ogre::StringConverter::toString(event.peer->address.port);
-            	Ogre::LogManager::getSingletonPtr()->logMessage("A new client connected from " + addressHost + ":" + addressPort);
+            	logMsg("A new client connected from " + addressHost + ":" + addressPort);
             	/* Store any relevant client information here. */
 //                event.peer->data = "Client information";
 //            	exit(0);
@@ -497,8 +496,8 @@ void networkEngine::sendPacket(Ogre::String packetData)
 		{
 		}
 	}
-	cout << "packetData == " << packetData << endl;
-	cout << "Peer == " << peer << endl;
+    logMsg("packetData == " + packetData);
+	logMsg("Peer == " +Ogre::StringConverter::toString(peer));
 	packet = enet_packet_create(packetData.c_str(),strlen(packetData.c_str())+1,ENET_PACKET_FLAG_RELIABLE);
     enet_peer_send (peer, 0, packet);
 

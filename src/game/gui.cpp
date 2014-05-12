@@ -18,10 +18,12 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "network.h"
+
 #include "gui.h"
 #include "gameengine.h"
 #include "gamestate.h"
+#include "logging.h"
+#include "network.h"
 
 #ifdef __ANDROID__
 #include "android-config.h"
@@ -62,15 +64,15 @@ bool GUISystem::initMyGUI()
     Ogre::RenderWindow *mWindow = render->getMWindow();
     Ogre::SceneManager *mSceneMgr = render->getMSceneMgr();
 
-	Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing MyGUI ***");
+	logMsg("*** Initializing MyGUI ***");
 	mPlatform = new MyGUI::OgrePlatform();
-    Ogre::LogManager::getSingletonPtr()->logMessage("Crash?");
+    logMsg("Crash?");
     mPlatform->initialise(mWindow, mSceneMgr, "UBCData"); // mWindow is Ogre::RenderWindow*, mSceneManager is Ogre::SceneManager*
-    Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
+    logMsg("Crash??");
 	mGUI = new MyGUI::Gui();
-	Ogre::LogManager::getSingletonPtr()->logMessage("Crash???");
+	logMsg("Crash???");
 	mGUI->initialise();
-    Ogre::LogManager::getSingletonPtr()->logMessage("*** MyGUI Initialized ***");
+    logMsg("*** MyGUI Initialized ***");
 	return true;
 }
 

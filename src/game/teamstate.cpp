@@ -21,6 +21,7 @@
 #include "teamstate.h"
 #include "gameengine.h"
 #include "gamestate.h"
+#include "logging.h"
 #include "physicsengine.h"
 #include "players.h"
 #include "playersteer.h"
@@ -334,7 +335,7 @@ void teamState::updateState()	// updates the state of the object
 	gameState *gameS = gameState::Instance();
 	physicsEngine *physEngine = physicsEngine::Instance();
 
-	Ogre::LogManager::getSingletonPtr()->logMessage("Updating team state " +Ogre::StringConverter::toString(teamNumber));
+	logMsg("Updating team state " +Ogre::StringConverter::toString(teamNumber));
 	if (gameS->getBasketballModelLoaded() && playerInstancesCreated)
 	{
 		std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
@@ -359,8 +360,8 @@ void teamState::updateState()	// updates the state of the object
 		if (gameS->getTipOffComplete())
 		{
 //			exit(0);
-//			Ogre::LogManager::getSingletonPtr()->logMessage("Team with ball ==  "  +Ogre::StringConverter::toString(gameS->getTeamWithBall()));
-//			Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
+//			logMsg("Team with ball ==  "  +Ogre::StringConverter::toString(gameS->getTeamWithBall()));
+//			logMsg("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
 
 			if (gameS->getTeamWithBall() == teamNumber) // checks if the team has the basketball
 			{
@@ -370,7 +371,7 @@ void teamState::updateState()	// updates the state of the object
 				}
 				else if (playerInstance[playerWithBall].getPassBall())
 				{
-					Ogre::LogManager::getSingletonPtr()->logMessage("Calculating Pass");
+					logMsg("Calculating Pass");
 	//				exit(0);
 					if (!playerInstance[playerWithBall].getPassCalculated())
 					{
@@ -409,9 +410,9 @@ void teamState::updateState()	// updates the state of the object
 
 					}
 				}
-//				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
-//				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's name: "  +playerInstance[playerWithBall].getPlayerName());
-//				Ogre::LogManager::getSingletonPtr()->logMessage("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition()));
+//				logMsg("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
+//			    logMsg("Player with ball's name: "  +playerInstance[playerWithBall].getPlayerName());
+//				logMsg("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition()));
 			}
 		}
 
@@ -427,7 +428,7 @@ void teamState::updateState()	// updates the state of the object
 		else
 		{
 		}
-//		Ogre::LogManager::getSingletonPtr()->logMessage("Team ==  "  +Ogre::StringConverter::toString(teamNumber));
+//	logMsg("Team ==  "  +Ogre::StringConverter::toString(teamNumber));
 
 		//		exit(0);
 	}
@@ -462,7 +463,7 @@ void teamState::updateState()	// updates the state of the object
 	    }
 	} 
 */
-	Ogre::LogManager::getSingletonPtr()->logMessage("team state updated = " +Ogre::StringConverter::toString(teamNumber));
+   logMsg("team state updated = " +Ogre::StringConverter::toString(teamNumber));
 }
 
 bool teamState::createPlayerInstances()
@@ -477,10 +478,10 @@ bool teamState::createPlayerInstances()
 //    std::vector <playerData> playerN = player->getPlayer(); // copies Player values to playerN
     std::vector <playerData>::iterator playerIT;
 //    std::vector <playerState>::iterator pInstanceIT;
-    Ogre::LogManager::getSingletonPtr()->logMessage("Creating players");
+    logMsg("Creating players");
 
 
-    Ogre::LogManager::getSingletonPtr()->logMessage("playerDataInstance size = " +Ogre::StringConverter::toString(playerDataInstance.size()));
+    logMsg("playerDataInstance size = " +Ogre::StringConverter::toString(playerDataInstance.size()));
 //    exit(0);
 //    for (playerIT = playerDataInstance.begin(); playerIT != playerDataInstance.end(); ++playerIT)   // loops through playerID std::vector
     int id = -1; // stores id for steer
@@ -495,8 +496,8 @@ bool teamState::createPlayerInstances()
             pInstance.setPlayerName(playerDataInstance[*playerIT]->getFirstName() + playerN[*playerIT]->getLastName());
             pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
 */
-//    	    Ogre::LogManager::getSingletonPtr()->logMessage("Player Team ID = " +Ogre::StringConverter::toString(playerDataInstance[i].getTeamID()));
-//    	    Ogre::LogManager::getSingletonPtr()->logMessage("Team Number = " +Ogre::StringConverter::toString(teamNumber));
+//    	    logMsg("Player Team ID = " +Ogre::StringConverter::toString(playerDataInstance[i].getTeamID()));
+//    	    logMsg("Team Number = " +Ogre::StringConverter::toString(teamNumber));
 
             if (playerDataInstance[i].getTeamID() == teamNumber)	// checks if player is assigned to this team
             {
@@ -509,15 +510,15 @@ bool teamState::createPlayerInstances()
 				pSteer.setID(id);
 				pInstance.setSteer(pSteer);
 				playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.
-//	            Ogre::LogManager::getSingletonPtr()->logMessage("steerID = " +Ogre::StringConverter::toString(pInstance.getSteer().getID()));
+//	            logMsg("steerID = " +Ogre::StringConverter::toString(pInstance.getSteer().getID()));
                
-				Ogre::LogManager::getSingletonPtr()->logMessage("player name = " +pInstance.getPlayerName());
+				logMsg("player name = " +pInstance.getPlayerName());
             }
             else
             {
             }
     }
-//    Ogre::LogManager::getSingletonPtr()->logMessage("playerInstance size = " +Ogre::StringConverter::toString(playerInstance.size()));
+//    logMsg("playerInstance size = " +Ogre::StringConverter::toString(playerInstance.size()));
 
 //    exit(0);
 //    std::vector <playerState>::iterator pInstanceIT;
@@ -528,7 +529,7 @@ bool teamState::createPlayerInstances()
     	if (std::find(playerModelsLoaded.begin(), playerModelsLoaded.end(), playerInstance[pInstanceIT].getPlayerName()) != playerModelsLoaded.end())
     	{
 //    		cout << "Found Player Name in list of loaded Models, NOT Loading" << endl;
-    	    Ogre::LogManager::getSingletonPtr()->logMessage("Found Player Name in list of loaded Models, NOT Loading");
+    	    logMsg("Found Player Name in list of loaded Models, NOT Loading");
 
     	}
     	else
@@ -536,13 +537,13 @@ bool teamState::createPlayerInstances()
 			if (playerInstance[pInstanceIT].loadModel())	// if player model loads successfully add to loaded models vector
 			{
 				playerModelsLoaded.push_back(playerInstance[pInstanceIT].getPlayerName());
-	    	    Ogre::LogManager::getSingletonPtr()->logMessage("Loading Player Model");
+	    	    logMsg("Loading Player Model");
 //	    	    exit(0);
 
 			}
     	}
             x += 1;
-            cout << "x = " << x << endl;
+            logMsg("x = " +x);
     }
     return true;
 }
@@ -618,7 +619,7 @@ void teamState::updatePlayerDirections()
 
     Ogre::String playerID = Ogre::StringConverter::toString(playerInstance[4].getPlayerID());
 //    exit(0);
-    Ogre::LogManager::getSingletonPtr()->logMessage("playerID == " +playerID);
+    logMsg("playerID == " +playerID);
     // checks if a player's direction has changed and rotates the model accordingly.
 //    for(playersIT = playerNodes.begin(); playersIT != playerNodes.end(); ++playersIT)
     for (size_t i = 0; i < playerInstance.size(); ++i)
@@ -628,12 +629,12 @@ void teamState::updatePlayerDirections()
         if (oldPlayerDirection != playerDirection)
         {
         	/*
-        	Ogre::String oldPlayerDirect = Ogre::StringConverter::toString(oldPlayerDirection[i]);
+        	Ogre::String oldPlayerDirect = Ogre::SingConverter::toString(oldPlayerDirection[i]);
         	Ogre::String playerDirect = Ogre::StringConverter::toString(playerDirection[i]);
         	Ogre::String bballPlayer = Ogre::StringConverter::toString(basketballInstance[0].getPlayer());
-            Ogre::LogManager::getSingletonPtr()->logMessage("oldPlayerDirection = " + oldPlayerDirect);
-            Ogre::LogManager::getSingletonPtr()->logMessage("playerDirection = " + playerDirect);
-            Ogre::LogManager::getSingletonPtr()->logMessage("bball player = " + bballPlayer);
+            logMsg("oldPlayerDirection = " + oldPlayerDirect);
+            logMsg("playerDirection = " + playerDirect);
+            logMsg("bball player = " + bballPlayer);
             playerInstance[basketballInstance[0].getPlayer()] = playerInstance[i];
 //            playerNodes.at(basketballInstance[0].getPlayer()) = playerNodes.at(i);  // sets the current player node
             */
@@ -791,7 +792,7 @@ void teamState::updatePlayerMovements()	// updates player movements
 
 void teamState::executePass()		// executes the pass between players
 {
-	Ogre::LogManager::getSingletonPtr()->logMessage("In executePass function");
+	logMsg("In executePass function");
 
 	gameState *gameS = gameState::Instance();
 
@@ -805,8 +806,8 @@ void teamState::executePass()		// executes the pass between players
 	btVector3 bballPhysCoords;
 	btTransform transform;
 //	exit(0);
-    Ogre::LogManager::getSingletonPtr()->logMessage("Basketball = " + Ogre::StringConverter::toString(bballCoords));
-    Ogre::LogManager::getSingletonPtr()->logMessage("passToPlayer = " + Ogre::StringConverter::toString(passToPlayerCoords));
+    logMsg("Basketball = " + Ogre::StringConverter::toString(bballCoords));
+    logMsg("passToPlayer = " + Ogre::StringConverter::toString(passToPlayerCoords));
 
     if (bballCoords[1] != passToPlayerCoords[1])
     {
@@ -874,7 +875,7 @@ void teamState::updatePositions()
 	// updates the player positions on the court
 	for (size_t x = 0; x < playerInstance.size(); ++x)
 	{
-		Ogre::LogManager::getSingletonPtr()->logMessage("updatePositions X = " +Ogre::StringConverter::toString(x));
+		logMsg("updatePositions X = " +Ogre::StringConverter::toString(x));
         playerInstance[x].updatePosition();
     }
 

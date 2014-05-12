@@ -17,8 +17,10 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#include "gamestate.h"
+
 #include "defensestate.h"
+#include "gamestate.h"
+#include "logging.h"
 #include "teamstate.h"
 
 defenseState::defenseState() // constructor
@@ -69,10 +71,10 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
 		{
 			if (x != humanPlayer && !playerDInstance[x].getDefenseSet())
 			{
-	            Ogre::LogManager::getSingletonPtr()->logMessage("playerO " +Ogre::StringConverter::toString(x) +"X Pos = " +Ogre::StringConverter::toString(playerOPos[x][0]));
-	            Ogre::LogManager::getSingletonPtr()->logMessage("playerD " +Ogre::StringConverter::toString(x) +"X Pos = " +Ogre::StringConverter::toString(playerDPos[x][0]));
-	            Ogre::LogManager::getSingletonPtr()->logMessage("playerO " +Ogre::StringConverter::toString(x) +"Z Pos = " +Ogre::StringConverter::toString(playerOPos[x][2]));
-	            Ogre::LogManager::getSingletonPtr()->logMessage("playerD " +Ogre::StringConverter::toString(x) +"Z Pos = " +Ogre::StringConverter::toString(playerDPos[x][2]));
+	            logMsg("playerO " +Ogre::StringConverter::toString(x) +"X Pos = " +Ogre::StringConverter::toString(playerOPos[x][0]));
+	            logMsg("playerD " +Ogre::StringConverter::toString(x) +"X Pos = " +Ogre::StringConverter::toString(playerDPos[x][0]));
+	            logMsg("playerO " +Ogre::StringConverter::toString(x) +"Z Pos = " +Ogre::StringConverter::toString(playerOPos[x][2]));
+	            logMsg("playerD " +Ogre::StringConverter::toString(x) +"Z Pos = " +Ogre::StringConverter::toString(playerDPos[x][2]));
 	            directions playerDirection = playerOInstance[x].getDirection();
 	            switch (playerDirection)
 	            {

@@ -21,6 +21,7 @@
 #include "playerstate.h"
 #include "renderengine.h"
 #include "gamestate.h"
+#include "logging.h"
 #include "physicsengine.h"
 #include "steering.h"
 #include "teamstate.h"
@@ -558,11 +559,11 @@ bool playerState::loadModel()   // loads the player's 3D model from the file spe
 //    playerName += lastName;     // adds the last name to the playerName string
 
 //        playerName += Ogre::StringConverter::toString(playerNum);
-    LogManager::getSingletonPtr()->logMessage("playerName == " +playerName);
+    logMsg("playerName == " +playerName);
     // creates and instantiates the playerNode object
     node = render->getMSceneMgr()->getRootSceneNode()->createChildSceneNode(playerName);
     // sets the player model
-    LogManager::getSingletonPtr()->logMessage("modelName = " + modelName);
+    logMsg("modelName = " + modelName);
     model = render->getMSceneMgr()->createEntity(playerName, modelName);
 
     // attaches the model to the playerNode
@@ -587,24 +588,24 @@ void playerState::updateState()
 bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D model
 {
 	physicsEngine *physEngine = physicsEngine::Instance();
-	Ogre::LogManager::getSingletonPtr()->logMessage("posChange = " +Ogre::StringConverter::toString(posChange));
+	logMsg("posChange = " +Ogre::StringConverter::toString(posChange));
 //	cout << "posChange = " << posChange << endl;
     node->translate(posChange);
 	btVector3 change = btVector3(0,0,0);
 	change = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
-//	Ogre::LogManager::getSingletonPtr()->logMessage("playerPhysicsSetup = " +Ogre::StringConverter::toString(physEngine->getPlayerPhysicsSetup()));
+//	logMsg("playerPhysicsSetup = " +Ogre::StringConverter::toString(physEngine->getPlayerPhysicsSetup()));
 
 	physBody->translate(change); // moves physics body in unison with the model
 //	exit(0);
 //	physBody->translate(btVector3(0,0,0));
-	Ogre::LogManager::getSingletonPtr()->logMessage("player position updated.");
+	logMsg("player position updated.");
 	return true;
 }
 
 void playerState::calculatePass()	// calculates which player to pass the ball to
 {
 //	exit(0);
-	Ogre::LogManager::getSingletonPtr()->logMessage("In calculatePass function");
+	logMsg("In calculatePass function");
 
 	gameState *gameS = gameState::Instance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
@@ -637,11 +638,12 @@ void playerState::calculatePass()	// calculates which player to pass the ball to
 	{
 	}
 */
-		Ogre::LogManager::getSingletonPtr()->logMessage("Pass to player is now = " +Ogre::StringConverter::toString(passToPlayer));
+
+    logMsg("Pass to player is now = " +Ogre::StringConverter::toString(passToPlayer));
 
 
 	passCalculated = true;
-//	Ogre::LogManager::getSingletonPtr()->logMessage("Player to pass to =   " +Ogre::StringConverter::toString(passToPlayer));
+//	logMsg("Player to pass to =   " +Ogre::StringConverter::toString(passToPlayer));
 
 //	exit(0);
 }

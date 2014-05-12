@@ -41,4 +41,8 @@ private:
 	 
  };
  
+ #ifndef logMsg
+ #define logMsg logging::Instance()->logMessage
+ #endif
+ 
  #endif
