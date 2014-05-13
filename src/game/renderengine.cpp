@@ -266,7 +266,8 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
     sdlWindow = SDL_CreateWindow("UBC", SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
 */
-	logMsg("SDL Window Created!");
+    std::string message = "SDL Window Created!";
+	logMsg(message);
 
 #else
     sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",

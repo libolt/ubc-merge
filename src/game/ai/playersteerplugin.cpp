@@ -23,6 +23,7 @@
 #include "ai.h"
 #include "courtstate.h"
 #include "gamestate.h"
+#include "logging.h"
 #include "teamstate.h"
 #include "playerstate.h"
 
@@ -37,26 +38,26 @@ void playerSteerPlugin::open(void)
 	std::vector<playerState> team1PlayerInstance = teamInstance[1].getPlayerInstance();
 	std::vector<playerSteer> allPlayerSteers = ai->getAllPlayerSteers();
 
-	Ogre::LogManager::getSingletonPtr()->logMessage("Opening playerSteer plugin");
+	logMsg("Opening playerSteer plugin");
 
 	// builds team 0 steering instances
 	for (int x=0;x<team0PlayerInstance.size();++x)
 	{
         playerSteer *steer = new playerSteer;
-		Ogre::LogManager::getSingletonPtr()->logMessage("Alive0");
+		logMsg("Alive0");
 
 	//
 		steer = &team0PlayerInstance[x].getSteer();
-		Ogre::LogManager::getSingletonPtr()->logMessage("Alive1");
+		logMsg("Alive1");
 
 		steer->setPosition(convertToOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
-		Ogre::LogManager::getSingletonPtr()->logMessage("Alive2");
+		logMsg("Alive2");
 
 		steer->setID(x);
 		ai->selectedVehicle = steer;
 		team0PlayerInstance[x].setSteer(*steer);
 		allPlayerSteers.push_back(team0PlayerInstance[x].getSteer());
-        Ogre::LogManager::getSingletonPtr()->logMessage("team 0 playerInstance added =  " +Ogre::StringConverter::toString(x));
+        logMsg("team 0 playerInstance added =  " +Ogre::StringConverter::toString(x));
 
 	}
 //	exit(0);
@@ -71,7 +72,7 @@ void playerSteerPlugin::open(void)
 	}
 
     ai->setAllPlayerSteers(allPlayerSteers);	// stores the instances
-    Ogre::LogManager::getSingletonPtr()->logMessage("team 0 playerInstance added =  " +Ogre::StringConverter::toString( ai->getAllPlayerSteers().size()));
+    logMsg("team 0 playerInstance added =  " +Ogre::StringConverter::toString( ai->getAllPlayerSteers().size()));
  
 	
 	// create the court bounding box based off the meshes bbox
@@ -133,7 +134,7 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
 
 //	exit(0);
     // update simulation of test vehicle
-    Ogre::LogManager::getSingletonPtr()->logMessage("team 0 playerInstance size =  " +Ogre::StringConverter::toString(team0PlayerInstance.size()));
+    logMsg("team 0 playerInstance size =  " +Ogre::StringConverter::toString(team0PlayerInstance.size()));
 
  //   for(unsigned int i=0;i<team0PlayerInstance.size();i++)
  //   {

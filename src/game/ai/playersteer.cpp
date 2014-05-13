@@ -21,6 +21,7 @@
 #include "playersteer.h"
 #include "ai.h"
 #include "gamestate.h"
+#include "logging.h"
 #include "playerstate.h"
 #include "teamstate.h"
 
@@ -86,10 +87,10 @@ void playerSteer::reset(void)
 
 void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 {
-	Ogre::LogManager::getSingletonPtr()->logMessage("Updating playerSteer state");
+	logMsg("Updating playerSteer state");
 //	exit(0);
 	counter += 1;
-	Ogre::LogManager::getSingletonPtr()->logMessage("Counter = " +Ogre::StringConverter::toString(counter));
+	logMsg("Counter = " +Ogre::StringConverter::toString(counter));
 
 	AISystem *ai = AISystem::Instance();
 	gameState *gameS = gameState::Instance();
@@ -116,25 +117,25 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	}
 	*/
 	// if I hit the ball, kick it.
-    Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerInstane size = " +Ogre::StringConverter::toString(playerSteerInstance.size()));
-    Ogre::LogManager::getSingletonPtr()->logMessage("pSteer size = " +Ogre::StringConverter::toString(pSteer.size()));
+    logMsg("playerSteerInstane size = " +Ogre::StringConverter::toString(playerSteerInstance.size()));
+    logMsg("pSteer size = " +Ogre::StringConverter::toString(pSteer.size()));
 
     for(int x=0;x<playerSteerInstance.size();++x)
     {
-        Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerInstane ID = " +Ogre::StringConverter::toString(playerSteerInstance[x].getID()));
-        Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerInstane radius = " +Ogre::StringConverter::toString(playerSteerInstance[x].radius()));
+        logMsg("playerSteerInstane ID = " +Ogre::StringConverter::toString(playerSteerInstance[x].getID()));
+        logMsg("playerSteerInstane radius = " +Ogre::StringConverter::toString(playerSteerInstance[x].radius()));
 
     }
 	OpenSteer::Vec3 playerSteerPos = convertToOpenSteerVec3(team0PlayerInstance[0].getNodePosition());
 	OpenSteer::Vec3 m_home = playerSteerPos;
 	OpenSteer::Vec3 bballSteerPos = convertToOpenSteerVec3(basketball[0].getNodePosition());
 
-	Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerPos = " +Ogre::StringConverter::toString(convertToOgreVector3(playerSteerPos)));
-	Ogre::LogManager::getSingletonPtr()->logMessage("basketballSteerPos = " +Ogre::StringConverter::toString(convertToOgreVector3(bballSteerPos)));
+	logMsg("playerSteerPos = " +Ogre::StringConverter::toString(convertToOgreVector3(playerSteerPos)));
+	logMsg("basketballSteerPos = " +Ogre::StringConverter::toString(convertToOgreVector3(bballSteerPos)));
 
 
 	const float distToBall = OpenSteer::Vec3::distance (playerSteerPos, bballSteerPos);
-	Ogre::LogManager::getSingletonPtr()->logMessage("distToBall = " +Ogre::StringConverter::toString(distToBall));
+	logMsg("distToBall = " +Ogre::StringConverter::toString(distToBall));
 
 //            const float sumOfRadii = radius() + m_Ball->radius();
 //            if (distToBall < sumOfRadii)
