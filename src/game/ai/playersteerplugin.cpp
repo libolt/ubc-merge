@@ -49,8 +49,10 @@ void playerSteerPlugin::open(void)
 	//
 		steer = &team0PlayerInstance[x].getSteer();
 		logMsg("Alive1");
-
-		steer->setPosition(convertToOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
+        logMsg("x = " +Ogre::StringConverter::toString(x));
+		logMsg("player position = " +Ogre::StringConverter::toString(team0PlayerInstance[x].getNodePosition()));
+//		steer->setPosition(convertToOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
+		steer->setPosition(OpenSteer::Vec3(0,0,0));
 		logMsg("Alive2");
 
 		steer->setID(x);
