@@ -36,14 +36,14 @@ void playerSteerPlugin::open(void)
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
 	std::vector<playerState> team1PlayerInstance = teamInstance[1].getPlayerInstance();
-	std::vector<playerSteer> allPlayerSteers = ai->getAllPlayerSteers();
+	const std::vector<playerSteer> allPlayerSteers = ai->getAllPlayerSteers();
 
 	logMsg("Opening playerSteer plugin");
 
 	// builds team 0 steering instances
 	for (int x=0;x<team0PlayerInstance.size();++x)
 	{
-        playerSteer steer;
+        const playerSteer steer;
 		logMsg("Alive0");
 
 	//
@@ -51,8 +51,8 @@ void playerSteerPlugin::open(void)
 		logMsg("Alive1");
         logMsg("x = " +Ogre::StringConverter::toString(x));
 		logMsg("player position = " +Ogre::StringConverter::toString(team0PlayerInstance[x].getNodePosition()));
-//		steer->setPosition(convertToOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
-		steer.setPosition(OpenSteer::Vec3(0,0,0));
+		steer.setPosition(convertToOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
+//		steer.setPosition(OpenSteer::Vec3(0,0,0));
 		logMsg("Alive2");
 
 		steer.setID(x);

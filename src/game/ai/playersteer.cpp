@@ -53,21 +53,22 @@ void playerSteer::reset(void)
 	std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
 	OpenSteer::Vec3 playerSteerPos;
 
-	if (gameS->getTipOffComplete())
-	{
-		playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
-	}
-	else
-	{
-		playerSteerPos.x = 0;
-		playerSteerPos.y = 0;
-		playerSteerPos.z = 0;
-	}
-    // Place me on my part of the field, looking at oponnents goal
-//    setPosition(b_ImTeamA ? OpenSteer::frandom01()*20 : -OpenSteer::frandom01()*20, 0, (OpenSteer::frandom01()-0.5f)*20);
 
     if(ID < 9 && ID >= 0)
     {
+	    if (gameS->getTipOffComplete())
+	    {
+		    playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
+	    }
+	    else
+	    {
+		    playerSteerPos.x = 0;
+		    playerSteerPos.y = 0;
+		    playerSteerPos.z = 0;
+	    }
+    // Place me on my part of the field, looking at oponnents goal
+//    setPosition(b_ImTeamA ? OpenSteer::frandom01()*20 : -OpenSteer::frandom01()*20, 0, (OpenSteer::frandom01()-0.5f)*20);
+
         if(b_ImTeamA)
 		{
 
@@ -99,14 +100,14 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
 	std::vector<playerState> team1PlayerInstance = teamInstance[1].getPlayerInstance();
 	std::vector<playerSteer> playerSteerInstance;
-	std::vector<playerSteer> pSteer;
+	const std::vector<playerSteer> pSteer;
 //	pSteer.push_back(team0PlayerInstance[1].getSteer());
 	pSteer = ai->getAllPlayerSteers();
     for (int x=0;x<team0PlayerInstance.size();++x)
 	{
 //		playerSteerInstance.push_back(team0PlayerInstance[0].getSteer());
 
-		playerSteerInstance.push_back(team0PlayerInstance[1].getSteer());
+		playerSteerInstance.push_back(team0PlayerInstance[x].getSteer());
 //		playerSteerInstance.push_back(team0PlayerInstance[2].getSteer());
 
 	}
@@ -124,6 +125,15 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
     {
         logMsg("playerSteerInstane ID = " +Ogre::StringConverter::toString(playerSteerInstance[x].getID()));
         logMsg("playerSteerInstane radius = " +Ogre::StringConverter::toString(playerSteerInstance[x].radius()));
+
+    }
+	
+	for(int x=0;x<pSteer.size();++x)
+    {
+        logMsg("pSteer ID = " +Ogre::StringConverter::toString(pSteer[x].getID()));
+        logMsg("pSteer radius = " +Ogre::StringConverter::toString(pSteer[x].radius()));
+		logMsg("pSteer position = " +Ogre::StringConverter::toString(convertToOgreVector3(pSteer[x].position())));
+		
 
     }
 	OpenSteer::Vec3 playerSteerPos = convertToOpenSteerVec3(team0PlayerInstance[0].getNodePosition());
@@ -146,8 +156,22 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 
 	// otherwise consider avoiding collisions with others
 //	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, (OpenSteer::AVGroup&)pSteer);
-	OpenSteer::AVGroup steerees; // = new OpenSteer::AVGroup;
+	playerSteer *allSteer = new playerSteer[pSteer.size()];
+	for (int x=0;x<pSteer.size();++x)
+	{
+		logMsg(Ogre::StringConverter::toString(x));
+		logMsg(Ogre::StringConverter::toString(pSteer[x].radius()));
+		
+		allSteer[x] = pSteer[x];
+	}
+	logMsg("dee");
+	OpenSteer::AVGroup steerees; // = new OpenSteer::AVGroup[10];
+    logMsg("doo");
 	steerees = (OpenSteer::AVGroup&)pSteer;
+    logMsg("Dah");
+//	steerees[0]->setRadius(0.5f);
+	logMsg("diii");
+//	logMsg(Ogre::StringConverter::toString(steerees[0]->radius()));
 //	steerees.push_back((OpenSteer::AVGroup)playerSteerInstance[0]);
 	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, steerees);
 	exit(0);

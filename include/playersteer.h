@@ -18,7 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef _PLAYERSTEER_H_
+#ifndef _PLAYERSTEER_H_ 
 #define _PLAYERSTEER_H_
 
 #include "steering.h"
@@ -46,7 +46,7 @@ class playerSteer : public steering
 //	steering::reset (); // reset the vehicle
 	    reset();
 		setPosition(OpenSteer::Vec3(0,0,0));
-		
+		setRadius (0.5f);
 	/*    setSpeed (0.0f);         // speed along Forward direction.
     setMaxForce (3000.7f);      // steering force is clipped to this magnitude
     setMaxSpeed (10);         // velocity is clipped to this magnitude
