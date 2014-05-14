@@ -20,6 +20,10 @@
 
 // Input
 
+#include "MyGUI.h"
+#include "MyGUI_OgrePlatform.h"
+
+
 #include "input.h"
 #include "gameengine.h"
 #include "gamestate.h"

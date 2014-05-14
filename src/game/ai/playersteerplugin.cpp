@@ -43,21 +43,21 @@ void playerSteerPlugin::open(void)
 	// builds team 0 steering instances
 	for (int x=0;x<team0PlayerInstance.size();++x)
 	{
-        playerSteer *steer = new playerSteer;
+        playerSteer steer;
 		logMsg("Alive0");
 
 	//
-		steer = &team0PlayerInstance[x].getSteer();
+		steer = team0PlayerInstance[x].getSteer();
 		logMsg("Alive1");
         logMsg("x = " +Ogre::StringConverter::toString(x));
 		logMsg("player position = " +Ogre::StringConverter::toString(team0PlayerInstance[x].getNodePosition()));
 //		steer->setPosition(convertToOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
-		steer->setPosition(OpenSteer::Vec3(0,0,0));
+		steer.setPosition(OpenSteer::Vec3(0,0,0));
 		logMsg("Alive2");
 
-		steer->setID(x);
-		ai->selectedVehicle = steer;
-		team0PlayerInstance[x].setSteer(*steer);
+		steer.setID(x);
+		ai->selectedVehicle = &steer;
+		team0PlayerInstance[x].setSteer(steer);
 		allPlayerSteers.push_back(team0PlayerInstance[x].getSteer());
         logMsg("team 0 playerInstance added =  " +Ogre::StringConverter::toString(x));
 
@@ -75,8 +75,8 @@ void playerSteerPlugin::open(void)
 
     ai->setAllPlayerSteers(allPlayerSteers);	// stores the instances
     logMsg("team 0 playerInstance added =  " +Ogre::StringConverter::toString( ai->getAllPlayerSteers().size()));
- 
-	
+
+
 	// create the court bounding box based off the meshes bbox
 	Ogre::AxisAlignedBox cbox = courtInstance[0].getModel()->getBoundingBox();
 	Ogre::Vector3 cboxMin = cbox.getMinimum();

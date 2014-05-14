@@ -240,7 +240,7 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
 
 bool renderEngine::initSDL() // Initializes SDL Subsystem
 {
-	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0) 
+	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0)
 	{
         fprintf(stderr,
                 "\nUnable to initialize SDL:  %s\n",
@@ -369,7 +369,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 			break;
 		}
 		c++; // <-- oh how clever
-		logMsg(c++);
+		logMsg(Ogre::StringConverter::toString(c++));
 	}
 
 	//we found it, we might as well use it!
