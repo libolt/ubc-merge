@@ -99,8 +99,8 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
 	std::vector<playerState> team1PlayerInstance = teamInstance[1].getPlayerInstance();
-	std::vector<playerSteer> playerSteerInstance;
-	std::vector<playerSteer> pSteer = ai->getAllPlayerSteers();
+	std::vector<playerSteer*> playerSteerInstance;
+	std::vector<playerSteer*> pSteer = ai->getAllPlayerSteers();
     for (int x=0;x<team0PlayerInstance.size();++x)
 	{
 //		playerSteerInstance.push_back(team0PlayerInstance[0].getSteer());
@@ -121,16 +121,16 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 
     for(int x=0;x<playerSteerInstance.size();++x)
     {
-        logMsg("playerSteerInstane ID = " +Ogre::StringConverter::toString(playerSteerInstance[x].getID()));
-        logMsg("playerSteerInstane radius = " +Ogre::StringConverter::toString(playerSteerInstance[x].radius()));
+        logMsg("playerSteerInstane ID = " +Ogre::StringConverter::toString(playerSteerInstance[x]->getID()));
+        logMsg("playerSteerInstane radius = " +Ogre::StringConverter::toString(playerSteerInstance[x]->radius()));
 
     }
 
 	for(int x=0;x<pSteer.size();++x)
     {
-        logMsg("pSteer ID = " +Ogre::StringConverter::toString(pSteer[x].getID()));
-        logMsg("pSteer radius = " +Ogre::StringConverter::toString(pSteer[x].radius()));
-		logMsg("pSteer position = " +Ogre::StringConverter::toString(convertToOgreVector3(pSteer[x].position())));
+        logMsg("pSteer ID = " +Ogre::StringConverter::toString(pSteer[x]->getID()));
+        logMsg("pSteer radius = " +Ogre::StringConverter::toString(pSteer[x]->radius()));
+		logMsg("pSteer position = " +Ogre::StringConverter::toString(convertToOgreVector3(pSteer[x]->position())));
 
 
     }
@@ -155,13 +155,14 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	// otherwise consider avoiding collisions with others
 //	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, (OpenSteer::AVGroup&)pSteer);
 	playerSteer *allSteer = new playerSteer[pSteer.size()];
-	for (int x=0;x<pSteer.size();++x)
+/*	for (int x=0;x<pSteer.size();++x)
 	{
 		logMsg(Ogre::StringConverter::toString(x));
-		logMsg(Ogre::StringConverter::toString(pSteer[x].radius()));
+		logMsg(Ogre::StringConverter::toString(pSteer[x]->radius()));
 
 		allSteer[x] = pSteer[x];
 	}
+*/
 	logMsg("dee");
 	OpenSteer::AVGroup steerees; // = new OpenSteer::AVGroup[10];
     logMsg("doo");
@@ -172,6 +173,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 //	logMsg(Ogre::StringConverter::toString(steerees[0]->radius()));
 //	steerees.push_back((OpenSteer::AVGroup)playerSteerInstance[0]);
 	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, steerees);
+	logMsg("Wahoo!");
 	exit(0);
 /*	if(collisionAvoidance != OpenSteer::Vec3::zero)
 		applySteeringForce (collisionAvoidance, elapsedTime);

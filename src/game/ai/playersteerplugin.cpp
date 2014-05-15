@@ -36,7 +36,7 @@ void playerSteerPlugin::open(void)
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
 	std::vector<playerState> team1PlayerInstance = teamInstance[1].getPlayerInstance();
-	std::vector<playerSteer> allPlayerSteers = ai->getAllPlayerSteers();
+	std::vector<playerSteer *> allPlayerSteers = ai->getAllPlayerSteers();
 
 	logMsg("Opening playerSteer plugin");
 
@@ -46,16 +46,16 @@ void playerSteerPlugin::open(void)
 		logMsg("Alive0");
 
 	//
-		playerSteer steer = team0PlayerInstance[x].getSteer();
+		playerSteer *steer = team0PlayerInstance[x].getSteer();
 		logMsg("Alive1");
         logMsg("x = " +Ogre::StringConverter::toString(x));
 		logMsg("player position = " +Ogre::StringConverter::toString(team0PlayerInstance[x].getNodePosition()));
-		steer.setPosition(convertToOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
+		steer->setPosition(convertToOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
 //		steer.setPosition(OpenSteer::Vec3(0,0,0));
 		logMsg("Alive2");
 
-		steer.setID(x);
-		ai->selectedVehicle = &steer;
+		steer->setID(x);
+		ai->selectedVehicle = steer;
 		team0PlayerInstance[x].setSteer(steer);
 		allPlayerSteers.push_back(team0PlayerInstance[x].getSteer());
         logMsg("team 0 playerInstance added =  " +Ogre::StringConverter::toString(x));
@@ -65,9 +65,9 @@ void playerSteerPlugin::open(void)
 	// builds team 1 steering instances
     for (int x=0;x<team1PlayerInstance.size();++x)
 	{
-        playerSteer steer = team1PlayerInstance[x].getSteer();
-		steer.setPosition(convertToOpenSteerVec3(team1PlayerInstance[x].getNodePosition()));
-		steer.setID(x+5);
+        playerSteer *steer = team1PlayerInstance[x].getSteer();
+		steer->setPosition(convertToOpenSteerVec3(team1PlayerInstance[x].getNodePosition()));
+		steer->setID(x+5);
 		team1PlayerInstance[x].setSteer(steer);
 		allPlayerSteers.push_back(team1PlayerInstance[x].getSteer());
 	}
@@ -142,7 +142,7 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
 
 //        Ogre::LogManager::getSingletonPtr()->logMessage("team 0 playerInstance =  " +Ogre::StringConverter::toString(i));
 
-    	team0PlayerInstance[0].getSteer().update(currentTime, elapsedTime);
+    	team0PlayerInstance[0].getSteer()->update(currentTime, elapsedTime);
 //    TeamA[i]->update (currentTime, elapsedTime);
 //    }
 /*    for(unsigned int i=0;i<team1PlayerInstance.size();i++)

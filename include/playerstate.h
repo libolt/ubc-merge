@@ -151,8 +151,8 @@ class playerState
         virtual btRigidBody *getPhysBody();	// returns physBody variable
         virtual void setPhysBody(btRigidBody *body);
 
-		virtual playerSteer getSteer(); // returns the steering instance
-		virtual void setSteer(playerSteer instance); // sets the steering instance
+		virtual playerSteer *getSteer(); // returns the steering instance
+		virtual void setSteer(playerSteer *instance); // sets the steering instance
 
         virtual bool getMovement();	// returns movement variable
         virtual void setMovement(bool move);	// sets movement variable
@@ -319,7 +319,7 @@ class playerState
         btRigidBody *physBody;
 
         // stores the steering objerct taht represents the player
-        playerSteer steer;
+        playerSteer *steer;
 };
 
 

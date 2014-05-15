@@ -34,6 +34,7 @@ AISystem* AISystem::Instance()
 AISystem::AISystem()
 {
 	selectedVehicle = NULL;
+	
 }
 AISystem::~AISystem()
 {
@@ -49,11 +50,11 @@ void AISystem::setSelectedVehicle(OpenSteer::AbstractVehicle* vehicle)  // sets 
 	selectedVehicle = vehicle;
 }
 
-std::vector<playerSteer> AISystem::getAllPlayerSteers()	// retrieves the value of allPlayerSteers
+std::vector<playerSteer*> AISystem::getAllPlayerSteers()	// retrieves the value of allPlayerSteers
 {
 	return (allPlayerSteers);
 }
-void AISystem::setAllPlayerSteers( std::vector<playerSteer> steers)	// sets the value of allPlayerSteers
+void AISystem::setAllPlayerSteers( std::vector<playerSteer*> steers)	// sets the value of allPlayerSteers
 {
     allPlayerSteers = steers;
 }

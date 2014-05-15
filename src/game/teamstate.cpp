@@ -489,7 +489,7 @@ bool teamState::createPlayerInstances()
     {
 
             playerState pInstance;  // creates a new instance of playerState
-			playerSteer pSteer; // steer instance
+			playerSteer *pSteer = new playerSteer; // steer instance
 /*            pInstance.setModelName(playerDataInstance[playerIT].getModel());  // copies the model name from the playerData std::vector to the pInstance class
             pInstance.setFirstName(playerDataInstance[*playerIT]->getFirstName());  // copies the first name from the playerData std::vector to the pInstance class
             pInstance.setLastName(playerDataInstance[*playerIT]->getLastName());    // copies the last name from the playerData std::vector to the pInstance class
@@ -507,7 +507,7 @@ bool teamState::createPlayerInstances()
 				pInstance.setLastName(playerDataInstance[i].getLastName());    // copies the last name from the playerData std::vector to the pInstance class
 				pInstance.setPlayerName(playerDataInstance[i].getFirstName() + " " +playerDataInstance[i].getLastName());
 				pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
-				pSteer.setID(id);
+				pSteer->setID(id);
 				pInstance.setSteer(pSteer);
 				playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.
 //	            logMsg("steerID = " +Ogre::StringConverter::toString(pInstance.getSteer().getID()));
