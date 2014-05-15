@@ -100,9 +100,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
 	std::vector<playerState> team1PlayerInstance = teamInstance[1].getPlayerInstance();
 	std::vector<playerSteer> playerSteerInstance;
-	const std::vector<playerSteer> pSteer;
-//	pSteer.push_back(team0PlayerInstance[1].getSteer());
-	pSteer = ai->getAllPlayerSteers();
+	std::vector<playerSteer> pSteer = ai->getAllPlayerSteers();
     for (int x=0;x<team0PlayerInstance.size();++x)
 	{
 //		playerSteerInstance.push_back(team0PlayerInstance[0].getSteer());
@@ -127,13 +125,13 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
         logMsg("playerSteerInstane radius = " +Ogre::StringConverter::toString(playerSteerInstance[x].radius()));
 
     }
-	
+
 	for(int x=0;x<pSteer.size();++x)
     {
         logMsg("pSteer ID = " +Ogre::StringConverter::toString(pSteer[x].getID()));
         logMsg("pSteer radius = " +Ogre::StringConverter::toString(pSteer[x].radius()));
 		logMsg("pSteer position = " +Ogre::StringConverter::toString(convertToOgreVector3(pSteer[x].position())));
-		
+
 
     }
 	OpenSteer::Vec3 playerSteerPos = convertToOpenSteerVec3(team0PlayerInstance[0].getNodePosition());
@@ -161,7 +159,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	{
 		logMsg(Ogre::StringConverter::toString(x));
 		logMsg(Ogre::StringConverter::toString(pSteer[x].radius()));
-		
+
 		allSteer[x] = pSteer[x];
 	}
 	logMsg("dee");

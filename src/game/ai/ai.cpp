@@ -49,13 +49,13 @@ void AISystem::setSelectedVehicle(OpenSteer::AbstractVehicle* vehicle)  // sets 
 	selectedVehicle = vehicle;
 }
 
-const std::vector<playerSteer> AISystem::getAllPlayerSteers()	// retrieves the value of allPlayerSteers
+std::vector<playerSteer> AISystem::getAllPlayerSteers()	// retrieves the value of allPlayerSteers
 {
 	return (allPlayerSteers);
 }
-void AISystem::setAllPlayerSteers(const std::vector<playerSteer> steers)	// sets the value of allPlayerSteers
+void AISystem::setAllPlayerSteers( std::vector<playerSteer> steers)	// sets the value of allPlayerSteers
 {
-	allPlayerSteers = steers;
+    allPlayerSteers = steers;
 }
 
 void printPlugIn (OpenSteer::PlugIn& pi);

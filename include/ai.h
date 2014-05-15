@@ -34,7 +34,7 @@ public:
 	OpenSteer::AbstractVehicle* getSelectedVehicle(); // retrieves the value of selectedVehicle
 	void setSelectedVehicle(OpenSteer::AbstractVehicle* vehicle);  // sets the value of selectedVehicle
 
-	const std::vector<playerSteer> getAllPlayerSteers();	// retrieves the value of allPlayerSteers
+	std::vector<playerSteer> getAllPlayerSteers();	// retrieves the value of allPlayerSteers
 	void setAllPlayerSteers(const std::vector<playerSteer> steers);	// sets the value of allPlayerSteers
 
     // initial setup of AI state
@@ -73,7 +73,7 @@ public:
 
 	// currently selected vehicle
 	OpenSteer::AbstractVehicle* selectedVehicle;
-	
+
 	playerSteerPlugin playerSteerPluginInstance;
 
     static AISystem *Instance();
@@ -87,7 +87,7 @@ private:
 	// currently selected plug-in (user can choose or cycle through them)
     OpenSteer::PlugIn* selectedPlugIn;
 
-	const std::vector<playerSteer> allPlayerSteers;
+	std::vector<playerSteer> allPlayerSteers;
 
 };
 
