@@ -43,7 +43,7 @@ void playerSteerPlugin::open(void)
 	// builds team 0 steering instances
 	for (int x=0;x<team0PlayerInstance.size();++x)
 	{
-		logMsg("Alive0");
+//		logMsg("Alive0");
 
 	//
 		playerSteer *steer = team0PlayerInstance[x].getSteer();
@@ -67,7 +67,7 @@ void playerSteerPlugin::open(void)
 	{
         playerSteer *steer = team1PlayerInstance[x].getSteer();
 		steer->setPosition(convertToOpenSteerVec3(team1PlayerInstance[x].getNodePosition()));
-		steer->setID(x+5);
+		steer->setID(x);
 		team1PlayerInstance[x].setSteer(steer);
 		allPlayerSteers.push_back(team1PlayerInstance[x].getSteer());
 	}
@@ -137,21 +137,21 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
     // update simulation of test vehicle
     logMsg("team 0 playerInstance size =  " +Ogre::StringConverter::toString(team0PlayerInstance.size()));
 
- //   for(unsigned int i=0;i<team0PlayerInstance.size();i++)
- //   {
+    for(unsigned int i=0;i<team0PlayerInstance.size();i++)
+    {
 
 //        Ogre::LogManager::getSingletonPtr()->logMessage("team 0 playerInstance =  " +Ogre::StringConverter::toString(i));
 
-    	team0PlayerInstance[0].getSteer()->update(currentTime, elapsedTime);
+    	team0PlayerInstance[i].getSteer()->update(currentTime, elapsedTime);
 //    TeamA[i]->update (currentTime, elapsedTime);
-//    }
-/*    for(unsigned int i=0;i<team1PlayerInstance.size();i++)
+    }
+    for(unsigned int i=0;i<team1PlayerInstance.size();i++)
     {
-    	team1PlayerInstance[i].getSteer().update(currentTime, elapsedTime);
+    	team1PlayerInstance[i].getSteer()->update(currentTime, elapsedTime);
 
     //    TeamB[i]->update (currentTime, elapsedTime);
     }
-    */
+    
 /*            m_Ball->update(currentTime, elapsedTime);
 
             if(m_TeamAGoal->InsideX(m_Ball->position()) && m_TeamAGoal->InsideZ(m_Ball->position()))

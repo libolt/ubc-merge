@@ -341,6 +341,7 @@ void teamState::updateState()	// updates the state of the object
 		std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
 
 //		exit(0);
+/*
 		// checks whether to execute offense or defense logic
 		if (offense == true && defense == false)
 		{
@@ -356,7 +357,7 @@ void teamState::updateState()	// updates the state of the object
 		{
 
 		}
-
+*/
 		if (gameS->getTipOffComplete())
 		{
 //			exit(0);
@@ -507,10 +508,11 @@ bool teamState::createPlayerInstances()
 				pInstance.setLastName(playerDataInstance[i].getLastName());    // copies the last name from the playerData std::vector to the pInstance class
 				pInstance.setPlayerName(playerDataInstance[i].getFirstName() + " " +playerDataInstance[i].getLastName());
 				pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
+				pSteer->setTeam(teamNumber);
 				pSteer->setID(id);
 				pInstance.setSteer(pSteer);
 				playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.
-//	            logMsg("steerID = " +Ogre::StringConverter::toString(pInstance.getSteer().getID()));
+	            logMsg("steerID = " +Ogre::StringConverter::toString(pInstance.getSteer()->getID()));
                
 				logMsg("player name = " +pInstance.getPlayerName());
             }
@@ -518,6 +520,7 @@ bool teamState::createPlayerInstances()
             {
             }
     }
+
 //    logMsg("playerInstance size = " +Ogre::StringConverter::toString(playerInstance.size()));
 
 //    exit(0);

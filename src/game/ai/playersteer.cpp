@@ -31,6 +31,16 @@ playerSteer::~playerSteer()
 
 }
 
+
+int playerSteer::getTeam() // retrieves the value of team
+{
+	return (team);
+}
+void playerSteer::setTeam(int teamNumber) // sets the value of team
+{
+	team = teamNumber;
+}
+
 int playerSteer::getID() // retrieves the value of ID
 {
 	return (ID);
@@ -45,8 +55,11 @@ void playerSteer::reset(void)
 {
     steering::reset (); // reset the vehicle
     setSpeed (0.0f);         // speed along Forward direction.
-    setMaxForce (3000.7f);      // steering force is clipped to this magnitude
-    setMaxSpeed (10);         // velocity is clipped to this magnitude
+//    setMaxForce (3000.7f);      // steering force is clipped to this magnitude
+    setMaxForce (3.7f);      // steering force is clipped to this magnitude
+
+//    setMaxSpeed (10);         // velocity is clipped to this magnitude
+    setMaxSpeed (.5f);         // velocity is clipped to this magnitude
 
 	gameState *gameS = gameState::Instance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
@@ -69,15 +82,16 @@ void playerSteer::reset(void)
     // Place me on my part of the field, looking at oponnents goal
 //    setPosition(b_ImTeamA ? OpenSteer::frandom01()*20 : -OpenSteer::frandom01()*20, 0, (OpenSteer::frandom01()-0.5f)*20);
 
-        if(b_ImTeamA)
-		{
+//        if(b_ImTeamA)
+//		{
 
             setPosition(playerSteerPos);
-		}
+/*		}
         else
 		{
             setPosition(OpenSteer::Vec3(-playerSteerPos.x, playerSteerPos.y, playerSteerPos.z));
 		}
+*/
     }
 	OpenSteer::Vec3 m_home = playerSteerPos;
 //    m_home = position();
@@ -163,51 +177,80 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 		allSteer[x] = pSteer[x];
 	}
 */
-	logMsg("dee");
+//	logMsg("dee");
 	OpenSteer::AVGroup steerees; // = new OpenSteer::AVGroup[10];
-    logMsg("doo");
+//    logMsg("doo");
 	steerees = (OpenSteer::AVGroup&)pSteer;
-    logMsg("Dah");
+//    logMsg("Dah");
 //	steerees[0]->setRadius(0.5f);
-	logMsg("diii");
+//	logMsg("diii");
 //	logMsg(Ogre::StringConverter::toString(steerees[0]->radius()));
 //	steerees.push_back((OpenSteer::AVGroup)playerSteerInstance[0]);
 	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, steerees);
-	logMsg("Wahoo!");
-	exit(0);
-/*	if(collisionAvoidance != OpenSteer::Vec3::zero)
-		applySteeringForce (collisionAvoidance, elapsedTime);
+//	logMsg("Wahoo!");
+	logMsg("collisionAvoidance = " +Ogre::StringConverter::toString(convertToOgreVector3(collisionAvoidance)));
+//	exit(0);
+	if(collisionAvoidance != OpenSteer::Vec3::zero)
+	{
+	    applySteeringForce (collisionAvoidance, elapsedTime);
+	}
 	else
-		{
+	{
 		float distHomeToBall = OpenSteer::Vec3::distance (m_home, bballSteerPos);
+		logMsg("m_home = " +Ogre::StringConverter::toString(convertToOgreVector3(m_home)));
+		logMsg("distHomeToBall = " +Ogre::StringConverter::toString(distHomeToBall));
+//		exit(0);
 		if( distHomeToBall < 12.0f)
-			{
+		{
 			// go for ball if I'm on the 'right' side of the ball
-				if( b_ImTeamA ? playerSteerPos.x > bballSteerPos.x : playerSteerPos.x < bballSteerPos.x)
-				{
+			if( /*b_ImTeamA*/ (team == 0) ? playerSteerPos.x > bballSteerPos.x : playerSteerPos.x < bballSteerPos.x)
+			{
+				logMsg("Here?");
 				OpenSteer::Vec3 seekTarget = xxxsteerForSeek(bballSteerPos);
 				applySteeringForce (seekTarget, elapsedTime);
-				}
+			}
 			else
-				{
+			{
 				if( distHomeToBall < 12.0f)
-					{
+				{
+					logMsg("Here??");
 					float Z = bballSteerPos.z - playerSteerPos.z > 0 ? -1.0f : 1.0f;
-					OpenSteer::Vec3 behindBall = bballSteerPos + (b_ImTeamA ? OpenSteer::Vec3(2.0f,0.0f,Z) : OpenSteer::Vec3(-2.0f,0.0f,Z));
+					OpenSteer::Vec3 behindBall = bballSteerPos + (/*b_ImTeamA*/ (team == 0) ? OpenSteer::Vec3(2.0f,0.0f,Z) : OpenSteer::Vec3(-2.0f,0.0f,Z));
 					OpenSteer::Vec3 behindBallForce = xxxsteerForSeek(behindBall);
 //FIXME					annotationLine (playerSteerPos, behindBall , OpenSteer::Color(0.0f,1.0f,0.0f));
 					OpenSteer::Vec3 evadeTarget = xxxsteerForFlee(bballSteerPos);
 					applySteeringForce (behindBallForce*10.0f + evadeTarget, elapsedTime);
-					}
 				}
 			}
+		}
 		else	// Go home
-			{
+		{
+			logMsg("Here???");
 			OpenSteer::Vec3 seekTarget = xxxsteerForSeek(m_home);
 			OpenSteer::Vec3 seekHome = xxxsteerForSeek(m_home);
 			applySteeringForce (seekTarget+seekHome, elapsedTime);
-			}
-
 		}
-*/
+        logMsg("m_home = " +Ogre::StringConverter::toString(convertToOgreVector3(m_home)));
+		logMsg("position = " +Ogre::StringConverter::toString(convertToOgreVector3(position())));
+
+//        exit(0);
+		
+	}
+	
+	// updates player's position
+	Ogre::Vector3 posChange = convertToOgreVector3(position());
+    switch (team)
+	{
+	    case 0:
+			team0PlayerInstance[ID].getNode()->setPosition(posChange);
+			teamInstance[0].setPlayerInstance(team0PlayerInstance);
+			break;
+		case 1:
+			logMsg("ID = " +Ogre::StringConverter::toString(ID));
+			team1PlayerInstance[ID].getNode()->setPosition(posChange);
+			teamInstance[1].setPlayerInstance(team1PlayerInstance);
+			break;
+		default:
+		    break;
+	}
 }
