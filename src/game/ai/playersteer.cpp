@@ -32,13 +32,13 @@ playerSteer::~playerSteer()
 }
 
 
-int playerSteer::getTeam() // retrieves the value of team
+int playerSteer::getTeamNumber() // retrieves the value of team
 {
-	return (team);
+	return (teamNumber);
 }
-void playerSteer::setTeam(int teamNumber) // sets the value of team
+void playerSteer::setTeamNumber(int team) // sets the value of team
 {
-	team = teamNumber;
+	teamNumber = team;
 }
 
 int playerSteer::getID() // retrieves the value of ID
@@ -203,7 +203,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 		if( distHomeToBall < 12.0f)
 		{
 			// go for ball if I'm on the 'right' side of the ball
-			if( /*b_ImTeamA*/ (team == 0) ? playerSteerPos.x > bballSteerPos.x : playerSteerPos.x < bballSteerPos.x)
+			if( /*b_ImTeamA*/ (teamNumber == 0) ? playerSteerPos.x > bballSteerPos.x : playerSteerPos.x < bballSteerPos.x)
 			{
 				logMsg("Here?");
 				OpenSteer::Vec3 seekTarget = xxxsteerForSeek(bballSteerPos);
@@ -215,7 +215,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 				{
 					logMsg("Here??");
 					float Z = bballSteerPos.z - playerSteerPos.z > 0 ? -1.0f : 1.0f;
-					OpenSteer::Vec3 behindBall = bballSteerPos + (/*b_ImTeamA*/ (team == 0) ? OpenSteer::Vec3(2.0f,0.0f,Z) : OpenSteer::Vec3(-2.0f,0.0f,Z));
+					OpenSteer::Vec3 behindBall = bballSteerPos + (/*b_ImTeamA*/ (teamNumber == 0) ? OpenSteer::Vec3(2.0f,0.0f,Z) : OpenSteer::Vec3(-2.0f,0.0f,Z));
 					OpenSteer::Vec3 behindBallForce = xxxsteerForSeek(behindBall);
 //FIXME					annotationLine (playerSteerPos, behindBall , OpenSteer::Color(0.0f,1.0f,0.0f));
 					OpenSteer::Vec3 evadeTarget = xxxsteerForFlee(bballSteerPos);
@@ -239,7 +239,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	
 	// updates player's position
 	Ogre::Vector3 posChange = convertToOgreVector3(position());
-    switch (team)
+    switch (teamNumber)
 	{
 	    case 0:
 			team0PlayerInstance[ID].getNode()->setPosition(posChange);

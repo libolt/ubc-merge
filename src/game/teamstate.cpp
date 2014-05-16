@@ -508,7 +508,7 @@ bool teamState::createPlayerInstances()
 				pInstance.setLastName(playerDataInstance[i].getLastName());    // copies the last name from the playerData std::vector to the pInstance class
 				pInstance.setPlayerName(playerDataInstance[i].getFirstName() + " " +playerDataInstance[i].getLastName());
 				pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
-				pSteer->setTeam(teamNumber);
+				pSteer->setTeamNumber(teamNumber);
 				pSteer->setID(id);
 				pInstance.setSteer(pSteer);
 				playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.

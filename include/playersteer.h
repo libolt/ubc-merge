@@ -41,7 +41,7 @@ class playerSteer : public steering
         m_MyID = id;
 
 //    b_ImTeamA = true;
-		team = -1;
+		teamNumber = -1;
 	    ID = -1;
 	    counter = 0;
 //	steering::reset (); // reset the vehicle
@@ -57,8 +57,8 @@ class playerSteer : public steering
     }
 	~playerSteer();
 
-	int getTeam(); // retrieves the value of team
-	void setTeam(int Team); // sets the value of team
+	int getTeamNumber(); // retrieves the value of team
+	void setTeamNumber(int team); // sets the value of team
 	int getID(); // retrieves the value of ID
 	void setID(int id); // sets the value of ID
 
@@ -70,7 +70,7 @@ class playerSteer : public steering
     std::vector<playerSteer*>	m_others;
     std::vector<playerSteer*>	m_AllPlayers;
     //Ball*	m_Ball;
-    int team;  // stores which team the player belongs to
+    int teamNumber;  // stores which team the player belongs to
     int		m_MyID;
 	int ID; // Stores which player on the team the instance associates with
 };
