@@ -60,4 +60,5 @@ void logging::logMessage(std::string msg)
 #endif
 
 }
- 
+
+

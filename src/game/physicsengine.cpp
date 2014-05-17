@@ -422,7 +422,7 @@ void physicsEngine::updateState()
 						//    	gameS->setBallTipForceApplied(true);
 
 					}
-					//			logMsg("player tipped to = " +Ogre::StringConverter::toString(gameS->getBallTippedToPlayer()));
+					//			logMsg("player tipped to = " +toString(gameS->getBallTippedToPlayer()));
 				}
 				//			exit(0);
 				else if (gameS->getBallTippedToTeam() == 1)
@@ -631,7 +631,7 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 				logMsg("playerInstance Size = " +Ogre::StringConverter::toString(playerInstance.size()));
 
 				world->contactPairTest(bInstance[0].getPhysBody(), playerInstance[4].getPhysBody(), tipOffResult);
-				Ogre::LogManager::getSingletonPtr()->logMessage("tipOffResult.m_connected = " +Ogre::StringConverter::toString(tipOffResult.m_connected));
+				logMsg("tipOffResult.m_connected = " +Ogre::StringConverter::toString(tipOffResult.m_connected));
 				bool test = false;
 	//			if (tipOffResult.collision)
 				if (!tipOffResult.m_connected)

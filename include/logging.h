@@ -22,14 +22,14 @@
 #define _LOGGING_H_
  
 #include <string>
+#include "OgreStringConverter.h"
  
- class logging
- {
+class logging
+{
 public:
 	~logging();
 	
 	void logMessage(std::string msg);
-	
     static logging *Instance();
 protected:
     logging();
@@ -44,5 +44,6 @@ private:
  #ifndef logMsg
  #define logMsg logging::Instance()->logMessage
  #endif
+ 
  
  #endif

@@ -216,7 +216,7 @@ bool inputSystem::processUnbufferedKeyInput()
 
 	keys = SDL_GetKeyboardState(NULL);
 //	Ogre::LogManager::getSingletonPtr()->logMessage("Crash???");
-    Ogre::LogManager::getSingletonPtr()->logMessage("Key == " +Ogre::StringConverter::toString(keys));
+    Ogre::LogManager::getSingletonPtr()->logMessage("Key == " +toString(keys));
 
 //    if (keys[SDL_GetScancodeFromKey(SDLK_q)])
 	if (keys[SDL_SCANCODE_Q])
@@ -844,7 +844,7 @@ bool inputSystem::processUnbufferedMouseInput()
     }
 */
 
-//    Ogre::LogManager::getSingletonPtr()->logMessage("Mouse X = "  +Ogre::StringConverter::toString(x));
+//    Ogre::LogManager::getSingletonPtr()->logMessage("Mouse X = "  +toString(x));
 	if (mouseX != x || mouseY != y)
 	{
 		MyGUI::InputManager::getInstance().injectMouseMove(x,y,0);

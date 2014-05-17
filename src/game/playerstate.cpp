@@ -558,7 +558,7 @@ bool playerState::loadModel()   // loads the player's 3D model from the file spe
 //    playerName += firstName;    // adds the first name to playerName string
 //    playerName += lastName;     // adds the last name to the playerName string
 
-//        playerName += Ogre::StringConverter::toString(playerNum);
+//        playerName += toString(playerNum);
     logMsg("playerName == " +playerName);
     // creates and instantiates the playerNode object
     node = render->getMSceneMgr()->getRootSceneNode()->createChildSceneNode(playerName);

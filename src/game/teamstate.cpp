@@ -429,7 +429,7 @@ void teamState::updateState()	// updates the state of the object
 		else
 		{
 		}
-//	logMsg("Team ==  "  +Ogre::StringConverter::toString(teamNumber));
+//	logMsg("Team ==  "  +toString(teamNumber));
 
 		//		exit(0);
 	}
@@ -510,6 +510,7 @@ bool teamState::createPlayerInstances()
 				pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
 				pSteer->setTeamNumber(teamNumber);
 				pSteer->setID(id);
+				pSteer->reset();
 				pInstance.setSteer(pSteer);
 				playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.
 	            logMsg("steerID = " +Ogre::StringConverter::toString(pInstance.getSteer()->getID()));
@@ -633,8 +634,8 @@ void teamState::updatePlayerDirections()
         {
         	/*
         	Ogre::String oldPlayerDirect = Ogre::SingConverter::toString(oldPlayerDirection[i]);
-        	Ogre::String playerDirect = Ogre::StringConverter::toString(playerDirection[i]);
-        	Ogre::String bballPlayer = Ogre::StringConverter::toString(basketballInstance[0].getPlayer());
+        	Ogre::String playerDirect = toString(playerDirection[i]);
+        	Ogre::String bballPlayer = toString(basketballInstance[0].getPlayer());
             logMsg("oldPlayerDirection = " + oldPlayerDirect);
             logMsg("playerDirection = " + playerDirect);
             logMsg("bball player = " + bballPlayer);

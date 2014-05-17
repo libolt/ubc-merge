@@ -535,9 +535,9 @@ bool gameState::logic()
     	processNetworkEvents();	// processes data received from the network
     }
 
-//    Ogre::LogManager::getSingletonPtr()->logMessage(("Player's start position: "  +Ogre::StringConverter::toString(playerInstance[3].getNode()->getPosition())));
-//    Ogre::LogManager::getSingletonPtr()->logMessage(("Court's current position: "  +Ogre::StringConverter::toString(courtInstance[0].getNode()->getPosition())));
-//    Ogre::LogManager::getSingletonPtr()->logMessage(("Basketball's current position: "  +Ogre::StringConverter::toString(basketballInstance[0].getNode()->getPosition())));
+//    Ogre::LogManager::getSingletonPtr()->logMessage(("Player's start position: "  +toString(playerInstance[3].getNode()->getPosition())));
+//    Ogre::LogManager::getSingletonPtr()->logMessage(("Court's current position: "  +toString(courtInstance[0].getNode()->getPosition())));
+//    Ogre::LogManager::getSingletonPtr()->logMessage(("Basketball's current position: "  +toString(basketballInstance[0].getNode()->getPosition())));
 
 // FIXME! need to update which team and player has ball
 /*    if (tipOffComplete)
@@ -863,8 +863,8 @@ void gameState::updateBasketballDirections()	// updates basketball direction(s)
 		btVector3 change; // = btVector3(0,0,0);
 		btTransform transform;
 //		basketballInstance[0].getPhysBody()->forceActivationState(ISLAND_SLEEPING);
-        logMsg("playerDirection = " + Ogre::StringConverter::toString(playerDirection));
-        logMsg("oldPlayerDirection = " + Ogre::StringConverter::toString(oldPlayerDirection));
+        logMsg("playerDirection = " + Ogre::StringConverter::toString(&playerDirection));
+        logMsg("oldPlayerDirection = " + Ogre::StringConverter::toString(&oldPlayerDirection));
 
 		if (playerDirection != oldPlayerDirection)
 		{
@@ -930,7 +930,7 @@ bool gameState::updatePositions()
 //	int x = 0;
 //	std::vector<playerState>::iterator playerIT;
 //	cout << "Size = " << playerInstance.size() << endl;
-//	Ogre::LogManager::getSingletonPtr()->logMessage("Size = " +Ogre::StringConverter::toString(playerInstance.size()));
+//	Ogre::LogManager::getSingletonPtr()->logMessage("Size = " +toString(playerInstance.size()));
 	//	for (playerIT = playerInstance.begin(); playerIT != playerInstance.end(); ++playerIT)
 
 

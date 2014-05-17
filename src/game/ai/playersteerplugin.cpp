@@ -140,7 +140,7 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
     for(unsigned int i=0;i<team0PlayerInstance.size();i++)
     {
 
-//        Ogre::LogManager::getSingletonPtr()->logMessage("team 0 playerInstance =  " +Ogre::StringConverter::toString(i));
+//        Ogre::LogManager::getSingletonPtr()->logMessage("team 0 playerInstance =  " +toString(i));
 
     	team0PlayerInstance[i].getSteer()->update(currentTime, elapsedTime);
 //    TeamA[i]->update (currentTime, elapsedTime);

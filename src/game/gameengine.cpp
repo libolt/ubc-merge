@@ -294,7 +294,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	        updateChangeInTime();	// calculates the change in time.
 
-//	        logMsg("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
+//	        logMsg("changeInTime = " +toString(changeInTime));
 	        // updates game logic every 100 milliseconds
 	        if (changeInTime >= 100)
 	        {
@@ -309,7 +309,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	        	}
 
 
-//            logMsg("changeInTime = " +Ogre::StringConverter::toString(changeInTime));
+//            logMsg("changeInTime = " +toString(changeInTime));
 	           	if (renderScene)
 	            {
 	           		gameS->logic();
@@ -329,11 +329,11 @@ void gameEngine::gameLoop()	// Main Game Loop
 	    		if (gameS->getTeamInstancesCreated())
                 {
 					std::vector<teamState> teamInstance = gameS->getTeamInstance();
-//                  logMsg("teamInstance.size() ==== " +Ogre::StringConverter::toString(teamInstance.size()));
+//                  logMsg("teamInstance.size() ==== " +toString(teamInstance.size()));
 
 					for (int i=0;i<teamInstance.size();++i)
 					{
-//						logMsg("teamInstance.size() ==== " +Ogre::StringConverter::toString(teamInstance.size()));
+//						logMsg("teamInstance.size() ==== " +toString(teamInstance.size()));
 						if (teamInstance[i].getPlayerInstancesCreated())
 						{
 
@@ -344,7 +344,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 							{
 								int humanPlayer = teamInstance[i].getHumanPlayer();
 								inputMaps inputMap = input->keyMap();
-//							    logMsg("INPUT MAP ======== "  +Ogre::StringConverter::toString(inputMap));
+//							    logMsg("INPUT MAP ======== "  +toString(inputMap));
 								switch (inputMap)
 								{
 
@@ -467,7 +467,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 								}
 								else if (keyPressed == "up")
 								{
-									Ogre::LogManager::getSingletonPtr()->logMessage("Human Player keypress = " +Ogre::StringConverter::toString(humanPlayer));
+									Ogre::LogManager::getSingletonPtr()->logMessage("Human Player keypress = " +toString(humanPlayer));
 									Ogre::String packetData;
 									playerInstance[humanPlayer].setMovement(true);
 									playerInstance[humanPlayer].setDirection(UP);
@@ -530,7 +530,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 									Ogre::String packetData;
 									playerInstance[humanPlayer].setMovement(true);
 									playerInstance[humanPlayer].setDirection(UP);
-									Ogre::LogManager::getSingletonPtr()->logMessage("Human Player keypress = " +Ogre::StringConverter::toString(humanPlayer));
+									Ogre::LogManager::getSingletonPtr()->logMessage("Human Player keypress = " +toString(humanPlayer));
 
 									teamInstance[1].setPlayerInstance(playerInstance);
 									gameS->setTeamInstance(teamInstance);

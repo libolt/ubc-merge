@@ -124,8 +124,8 @@ static void handleCmd(struct android_app* app, int32_t cmd)
 					Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKZipArchiveFactory(app->activity->assetManager) );
 
                     Ogre::NameValuePairList opt;
-                    opt["externalWindowHandle"] = Ogre::StringConverter::toString((int)app->window);
-                    opt["androidConfig"] = Ogre::StringConverter::toString((int)config);
+                    opt["externalWindowHandle"] = toString((int)app->window);
+                    opt["androidConfig"] = toString((int)config);
 
 	//				gRenderWnd = gRoot->createRenderWindow("OgreWindow", 0, 0, false, &opt);
 	            	renderE->setMWindow(renderE->getMRoot()->createRenderWindow("OgreWindow", 0, 0, false, &opt));
@@ -250,8 +250,8 @@ gameE->gameLoop();
 //					Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKZipArchiveFactory(app->activity->assetManager) );
 
                     Ogre::NameValuePairList opt;
-                    opt["externalWindowHandle"] = Ogre::StringConverter::toString((int)renderE->getApp()->window);
-//                    opt["androidConfig"] = Ogre::StringConverter::toString((int)config);
+                    opt["externalWindowHandle"] = toString((int)renderE->getApp()->window);
+//                    opt["androidConfig"] = toString((int)config);
 
 	//				gRenderWnd = gRoot->createRenderWindow("OgreWindow", 0, 0, false, &opt);
 	            	renderE->setMWindow(renderE->getMRoot()->createRenderWindow("OgreWindow", 0, 0, false, &opt));

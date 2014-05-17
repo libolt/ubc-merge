@@ -84,7 +84,7 @@ void basketballSteer::update (const float /*currentTime*/, float elapsedTime)
 		playerSteerInstance.push_back(playerInstance[x].getSteer());
 	}
 	// if I hit the ball, kick it.
-Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerInstane size = " +Ogre::StringConverter::toString(playerSteerInstance.size()));
+Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerInstane size = " +toString(playerSteerInstance.size()));
 
 	OpenSteer::Vec3 playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
 	OpenSteer::Vec3 m_home = playerSteerPos;

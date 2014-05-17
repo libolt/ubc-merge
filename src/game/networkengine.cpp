@@ -335,12 +335,12 @@ void networkEngine::networkClient()
         int clientID = network->getClientID();
 		string *data = new string;
 		cout << "pType is " << pType << endl;
-		data[0] = Ogre::StringConverter::toString(pType);
+		data[0] = toString(pType);
 		cout << "pType = " << data[0] << endl;
-		data[0] += Ogre::StringConverter::toString(pData);
+		data[0] += toString(pData);
 
-		data[0] += Ogre::StringConverter::toString(mDirection);
-//		data[0] = Ogre::StringConverter::toString("003\0");
+		data[0] += toString(mDirection);
+//		data[0] = toString("003\0");
         data[0] = "003";
         if (clientID == 0)
         {

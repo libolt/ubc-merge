@@ -100,7 +100,7 @@ void AISystem::update(const float currentTime, const float elapsedTime)
 
 void printPlugIn (OpenSteer::PlugIn& pi)
 {
-//	Ogre::LogManager::getSingletonPtr()->logMessage(" " << Ogre::StringConverter::toString(pi));
+//	Ogre::LogManager::getSingletonPtr()->logMessage(" " << toString(pi));
 } // anonymous namespace
 
 

@@ -60,40 +60,45 @@ void playerSteer::reset(void)
 
 //    setMaxSpeed (10);         // velocity is clipped to this magnitude
     setMaxSpeed (.5f);         // velocity is clipped to this magnitude
+	
+	logMsg("teamNumber = " +Ogre::StringConverter::toString(teamNumber));
 
-	gameState *gameS = gameState::Instance();
-	std::vector<teamState> teamInstance = gameS->getTeamInstance();
-	std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
-	OpenSteer::Vec3 playerSteerPos;
+	if (teamNumber >= 0)
+	{
+	    gameState *gameS = gameState::Instance();
+	    std::vector<teamState> teamInstance = gameS->getTeamInstance();
+	    std::vector<playerState> playerInstance = teamInstance[teamNumber].getPlayerInstance();
+	    OpenSteer::Vec3 playerSteerPos;
 
-
-    if(ID < 9 && ID >= 0)
-    {
-	    if (gameS->getTipOffComplete())
-	    {
-		    playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
-	    }
-	    else
-	    {
-		    playerSteerPos.x = 0;
-		    playerSteerPos.y = 0;
-		    playerSteerPos.z = 0;
-	    }
+        if(ID < 9 && ID >= 0)
+        {
+	        if (gameS->getTipOffComplete())
+	        {
+		        playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
+	        }
+	        else
+	        {
+		        playerSteerPos.x = 0;
+		        playerSteerPos.y = 0;
+		        playerSteerPos.z = 0;
+	        }
     // Place me on my part of the field, looking at oponnents goal
 //    setPosition(b_ImTeamA ? OpenSteer::frandom01()*20 : -OpenSteer::frandom01()*20, 0, (OpenSteer::frandom01()-0.5f)*20);
 
 //        if(b_ImTeamA)
 //		{
 
-            setPosition(playerSteerPos);
+                setPosition(playerSteerPos);
 /*		}
         else
 		{
             setPosition(OpenSteer::Vec3(-playerSteerPos.x, playerSteerPos.y, playerSteerPos.z));
 		}
 */
-    }
-	OpenSteer::Vec3 m_home = playerSteerPos;
+        }
+	    OpenSteer::Vec3 m_home = playerSteerPos;
+//		exit(0);
+	}
 //    m_home = position();
  //   AnnotationMixin::clearTrailHistory ();    // prevent long streaks due to teleportation
 //    OpenSteer::clearTrailHistory ();
@@ -184,7 +189,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 //    logMsg("Dah");
 //	steerees[0]->setRadius(0.5f);
 //	logMsg("diii");
-//	logMsg(Ogre::StringConverter::toString(steerees[0]->radius()));
+//	logMsg(toString(steerees[0]->radius()));
 //	steerees.push_back((OpenSteer::AVGroup)playerSteerInstance[0]);
 	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, steerees);
 //	logMsg("Wahoo!");

@@ -102,7 +102,7 @@ int loader::readFile(const char *sourceFile, char **destination)
 //#else
 //    char *contents = NULL;
 //	readFile(fileName.c_str(), &contents);
-//	fileContents = Ogre::StringConverter::toString(contents);
+//	fileContents = toString(contents);
 //#endif
     // Open the file
 //    SDL_RWops *file;

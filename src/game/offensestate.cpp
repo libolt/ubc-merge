@@ -321,9 +321,9 @@ void offenseState::updateState(int teamNumber)	// updates the state of the objec
 			        else
 			        {
 			        }*/
-//		    logMsg("Player with ball's start position: "  +Ogre::StringConverter::toString(startPositions[playerWithBall]));
-//		    logMsg(("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition())));
-//			logMsg("playerDirection = " +Ogre::StringConverter::toString(playerInstance[3].getDirection()));
+//		    logMsg("Player with ball's start position: "  +toString(startPositions[playerWithBall]));
+//		    logMsg(("Player with ball's current position: "  +toString(playerInstance[playerWithBall].getNode()->getPosition())));
+//			logMsg("playerDirection = " +toString(playerInstance[3].getDirection()));
 			        }
 				}
             }
