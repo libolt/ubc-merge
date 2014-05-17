@@ -123,6 +123,12 @@ class teamState
         virtual int getHumanPlayer();		// retrieves the value of the humanPlayer variable
         virtual void setHumanPlayer(int player);	// sets the value of the human player variable
 
+        virtual offenseState *getOffenseInstance();	// retrievers the value of offenseInstance
+        virtual void setOffenseInstance(offenseState *instance);	// sets the value of offenseInstance
+
+        virtual defenseState *getDefenseInstance();	// retrieves the value of defenseInstance
+        virtual void setDefenseInstance(defenseState *instance);	// sets the value of defenseInstance
+
         // creates player Instances
         bool createPlayerInstances();
 

@@ -18,7 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef _PLAYERSTEER_H_ 
+#ifndef _PLAYERSTEER_H_
 #define _PLAYERSTEER_H_
 
 #include "steering.h"
@@ -37,13 +37,14 @@ class playerSteer : public steering
 	    m_others = others;
 	    m_AllPlayers = allplayers;
 	    //m_Ball(ball),
-//	    b_ImTeamA = isTeamA; 
+//	    b_ImTeamA = isTeamA;
         m_MyID = id;
 
 //    b_ImTeamA = true;
 		teamNumber = -1;
 	    ID = -1;
 	    counter = 0;
+	    m_home = OpenSteer::Vec3::zero;
 //	steering::reset (); // reset the vehicle
 	    reset();
 		setPosition(OpenSteer::Vec3(0,0,0));
@@ -69,6 +70,7 @@ class playerSteer : public steering
 	int counter;
     std::vector<playerSteer*>	m_others;
     std::vector<playerSteer*>	m_AllPlayers;
+    OpenSteer::Vec3 m_home;
     //Ball*	m_Ball;
     int teamNumber;  // stores which team the player belongs to
     int		m_MyID;

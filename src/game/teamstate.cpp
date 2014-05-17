@@ -307,6 +307,24 @@ void teamState::setHumanPlayer(int player)		// sets the value of the human playe
 	humanPlayer = player;
 }
 
+offenseState *teamState::getOffenseInstance()	// retrievers the value of offenseInstance
+{
+	return (offenseInstance);
+}
+void teamState::setOffenseInstance(offenseState *instance)	// sets the value of offenseInstance
+{
+	offenseInstance = instance;
+}
+defenseState *teamState::getDefenseInstance()	// retrieves the value of defenseInstance
+{
+	return (defenseInstance);
+}
+void teamState::setDefenseInstance(defenseState *instance)	// sets the value of defenseInstance
+{
+	defenseInstance = instance;
+}
+
+
 void teamState::setupState()	// sets up the state of the object
 {
 	physicsEngine *physEngine = physicsEngine::Instance();
@@ -462,7 +480,7 @@ void teamState::updateState()	// updates the state of the object
 		    float changeInTime = static_cast<float>(gameE->getChangeInTime());
 		    playerInstance[x].getSteer().update(oldTime, changeInTime);
 	    }
-	} 
+	}
 */
    logMsg("team state updated = " +Ogre::StringConverter::toString(teamNumber));
 }
@@ -514,7 +532,7 @@ bool teamState::createPlayerInstances()
 				pInstance.setSteer(pSteer);
 				playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.
 	            logMsg("steerID = " +Ogre::StringConverter::toString(pInstance.getSteer()->getID()));
-               
+
 				logMsg("player name = " +pInstance.getPlayerName());
             }
             else
@@ -879,7 +897,7 @@ void teamState::updatePositions()
 	// updates the player positions on the court
 	for (size_t x = 0; x < playerInstance.size(); ++x)
 	{
-		logMsg("updatePositions X = " +Ogre::StringConverter::toString(x));
+//		logMsg("updatePositions X = " +Ogre::StringConverter::toString(x));
         playerInstance[x].updatePosition();
     }
 

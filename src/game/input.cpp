@@ -162,7 +162,7 @@ inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
 bool inputSystem::processInput()	// processes all input
 {
 
-	Ogre::LogManager::getSingletonPtr()->logMessage("Processing input");
+//	Ogre::LogManager::getSingletonPtr()->logMessage("Processing input");
 
 //	SDL_StartTextInput();
     // processes keyboard input
@@ -171,25 +171,26 @@ bool inputSystem::processInput()	// processes all input
         return false;
     }
 //    SDL_StopTextInput();
-	
+
     // processes mouse input
     if (processUnbufferedMouseInput() == false)
     {
         return false;
     }
 
-		logMsg("Input processed");
+//		logMsg("Input processed");
 
 	return true;
 }
 
 bool inputSystem::processUnbufferedKeyInput()
 {
+//	logMsg("Processing keyboard input");
+
 //FIXME MyGUI needs to be fixed on android
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     const Uint8* keys = NULL;
     keyPressed = "";	// resets keyPressed so that we don't get repeats
-	logMsg("Processing keyboard input");
 
 	/*
 	keys = SDL_GetKeyboardState(NULL);
@@ -777,7 +778,7 @@ bool inputSystem::processUnbufferedKeyInput()
 		}
 	}
 	#endif
-	logMsg("Keyboard Input Processed");
+//	logMsg("Keyboard Input Processed");
     // Return true to continue rendering
     return true;
 
@@ -790,7 +791,7 @@ bool inputSystem::processUnbufferedMouseInput()
 	SDL_MouseMotionEvent motion;
 	SDL_GetMouseState(&x,&y);
 
-	logMsg("Processing mouse input");
+//	logMsg("Processing mouse input");
 
     //FIXME Need to get MyGUI working on android
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
@@ -850,6 +851,6 @@ bool inputSystem::processUnbufferedMouseInput()
 		MyGUI::InputManager::getInstance().injectMouseMove(x,y,0);
 	}
 #endif
-    logMsg("Mouse input processed");
+//    logMsg("Mouse input processed");
     return true;
 }
