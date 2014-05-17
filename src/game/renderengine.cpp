@@ -295,7 +295,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	winHandle = toString((unsigned long int)sysInfo.info.win.window);
 #elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
-	winHandle = toString((unsigned long)sysInfo.info.x11.window);
+	winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.x11.window);
 #elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
 //    m_sdl_gl_context = SDL_GL_GetCurrentContext();
@@ -369,7 +369,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 			break;
 		}
 		c++; // <-- oh how clever
-		logMsg(toString(c++));
+		logMsg(Ogre::StringConverter::toString(c++));
 	}
 
 	//we found it, we might as well use it!
