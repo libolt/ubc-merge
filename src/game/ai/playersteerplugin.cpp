@@ -145,7 +145,7 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
     {
 		if (i != teamInstance[0].getHumanPlayer())
 		{
-//    	    team0PlayerInstance[i].getSteer()->update(currentTime, elapsedTime);
+    	    team0PlayerInstance[i].getSteer()->update(currentTime, elapsedTime);
 	    }
     }
     for(unsigned int i=0;i<team1PlayerInstance.size();i++)

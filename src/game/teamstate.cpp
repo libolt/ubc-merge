@@ -750,6 +750,8 @@ void teamState::updatePlayerMovements()	// updates player movements
 	posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
 	for (size_t i = 0; i < playerInstance.size(); ++i)
 	{
+//		logMsg("Player " +Ogre::StringConverter::toString(i) +" position = " +Ogre::StringConverter::toString(playerInstance[i].getNodePosition()));
+
 //        Ogre::LogManager::getSingletonPtr()->logMessage("i == " +Ogre::StringConverter::toString(i));
 
 		if (playerInstance[i].getMovement())	// if true sets coordinate change accordingly

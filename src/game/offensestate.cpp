@@ -33,6 +33,7 @@ offenseState::offenseState() // constructor
 	startPositions[2]	= Ogre::Vector3(4.0f,-14.5f,385.0f);
 	startPositions[3]	= Ogre::Vector3(6.0f,-11.5f,377.0f);
 	startPositions[4]	= Ogre::Vector3(3.0f,-13.5f,378.0f);
+//    startPositions[4]	= Ogre::Vector3(3000.0f,-1300.5f,3780.0f);
 
 	startXPosSet = new bool[5];
 	startYPosSet = new bool[5];

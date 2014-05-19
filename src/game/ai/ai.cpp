@@ -96,7 +96,7 @@ bool AISystem::setup(void)
 void AISystem::update(const float currentTime, const float elapsedTime)
 {
 	aiTimer.update();
-	updateSelectedPlugIn(aiTimer.getTotalSimulationTime(), aiTimer.getElapsedSimulationTime());
+	updateSelectedPlugIn( currentTime, elapsedTime);
 }
 
 void printPlugIn (OpenSteer::PlugIn& pi)

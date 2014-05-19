@@ -56,7 +56,7 @@ void playerSteer::reset(void)
     steering::reset (); // reset the vehicle
     setSpeed (0.0f);         // speed along Forward direction.
 //    setMaxForce (3000.7f);      // steering force is clipped to this magnitude
-    setMaxForce (0.7f);      // steering force is clipped to this magnitude
+    setMaxForce (0.0007f);      // steering force is clipped to this magnitude
 
 //    setMaxSpeed (10);         // velocity is clipped to this magnitude
     setMaxSpeed (.0005f);         // velocity is clipped to this magnitude
@@ -112,6 +112,8 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	counter += 1;
 	logMsg("Counter = " +Ogre::StringConverter::toString(counter));
 
+	logMsg("elapsedTime = " +Ogre::StringConverter::toString(elapsedTime));
+	
 	AISystem *ai = AISystem::Instance();
 	gameState *gameS = gameState::Instance();
 	std::vector<basketballs> basketball = gameS->getBasketballInstance();
@@ -290,11 +292,13 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 					logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
 					distPlayerStartPosition = OpenSteer::Vec3::distance (startPosition, position());
 					logMsg("Distance to startPosition = " +Ogre::StringConverter::toString(distPlayerStartPosition));
-					if (distPlayerStartPosition >= 33)
-					{
+//					if (distPlayerStartPosition >= 33)
+//					{
+						logMsg("seeking!");
 						seekTarget = xxxsteerForSeek(startPosition);
+						logMsg("seekTarget = " +Ogre::StringConverter::toString(convertToOgreVector3(startPosition)));
 						applySteeringForce (seekTarget, elapsedTime);
-					}
+//					}
 					break;
 				default:
 					break;
@@ -355,6 +359,8 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 			break;
 		case 1:
 			logMsg("ID = " +Ogre::StringConverter::toString(ID));
+			logMsg("posChange = " +Ogre::StringConverter::toString(posChange));
+			
 			team1PlayerInstance[ID].getNode()->setPosition(posChange);
 			physBodyChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
 			physBodyTransform.setOrigin(physBodyChange);
