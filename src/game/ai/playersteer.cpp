@@ -269,50 +269,25 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 		else
 		{
 			Ogre::Vector3 *offenseStartPositions;
+			OpenSteer::Vec3 startPosition;
+			OpenSteer::Vec3 seekTarget;
+			
 			switch (teamNumber)
 			{
 				case 0:
 					offenseStartPositions = teamInstance[0].getOffenseInstance()->getStartPositions();
-					if (teamInstance[0].getHumanControlled())
-					{
-						if (ID != teamInstance[0].getHumanPlayer())
-						{
-							logMsg("Team 0 Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Start Position!");
-							OpenSteer::Vec3 startPosition = convertToOpenSteerVec3(offenseStartPositions[ID]);
-							OpenSteer::Vec3 seekTarget = xxxsteerForSeek(startPosition);
-							applySteeringForce (seekTarget, elapsedTime);
-						}
-						else
-						{
-						}
-					}
-					else
-					{
-
-					}
+					logMsg("Team 0 Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Start Position!");
+					startPosition = convertToOpenSteerVec3(offenseStartPositions[ID]);
+					seekTarget = xxxsteerForSeek(startPosition);
+					applySteeringForce (seekTarget, elapsedTime);
 					break;
 				case 1:
-					offenseStartPositions = teamInstance[1].getOffenseInstance()->getStartPositions();
-					if (teamInstance[1].getHumanControlled())
-					{
-						if (ID != teamInstance[1].getHumanPlayer() && ID == 3)
-						{
-							logMsg("Team 1 Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Start Position!");
-							OpenSteer::Vec3 startPosition = convertToOpenSteerVec3(offenseStartPositions[ID]);
-							logMsg("startPosition = " +Ogre::StringConverter::toString(offenseStartPositions[ID]));
-							logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
-							OpenSteer::Vec3 seekTarget = xxxsteerForSeek(startPosition);
-							applySteeringForce (seekTarget, elapsedTime);
-						}
-						else
-						{
-
-						}
-					}
-					else
-					{
-
-					}
+					logMsg("Team 1 Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Start Position!");
+					startPosition = convertToOpenSteerVec3(offenseStartPositions[ID]);
+					logMsg("startPosition = " +Ogre::StringConverter::toString(offenseStartPositions[ID]));
+					logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
+					seekTarget = xxxsteerForSeek(startPosition);
+					applySteeringForce (seekTarget, elapsedTime);
 					break;
 				default:
 					break;

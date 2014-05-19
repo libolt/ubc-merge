@@ -142,13 +142,18 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
 
 //        Ogre::LogManager::getSingletonPtr()->logMessage("team 0 playerInstance =  " +toString(i));
 
-//    	team0PlayerInstance[i].getSteer()->update(currentTime, elapsedTime);
+		if (i != teamInstance[0].getHumanPlayer())
+		{
+//    	    team0PlayerInstance[i].getSteer()->update(currentTime, elapsedTime);
+	    }
 //    TeamA[i]->update (currentTime, elapsedTime);
     }
     for(unsigned int i=0;i<team1PlayerInstance.size();i++)
     {
-    	team1PlayerInstance[i].getSteer()->update(currentTime, elapsedTime);
-
+		if (i != teamInstance[1].getHumanPlayer())
+		{
+    	    team1PlayerInstance[i].getSteer()->update(currentTime, elapsedTime);
+        }
     //    TeamB[i]->update (currentTime, elapsedTime);
     }
 
