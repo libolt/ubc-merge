@@ -56,10 +56,10 @@ void playerSteer::reset(void)
     steering::reset (); // reset the vehicle
     setSpeed (0.0f);         // speed along Forward direction.
 //    setMaxForce (3000.7f);      // steering force is clipped to this magnitude
-    setMaxForce (3.7f);      // steering force is clipped to this magnitude
+    setMaxForce (0.7f);      // steering force is clipped to this magnitude
 
 //    setMaxSpeed (10);         // velocity is clipped to this magnitude
-    setMaxSpeed (.5f);         // velocity is clipped to this magnitude
+    setMaxSpeed (.0005f);         // velocity is clipped to this magnitude
 
 //	logMsg("teamNumber = " +Ogre::StringConverter::toString(teamNumber));
 
@@ -161,6 +161,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 
 
     }
+
 	OpenSteer::Vec3 playerSteerPos;
 	switch (teamNumber)
 	{
@@ -218,6 +219,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 		default:
 			break;
 	}
+
 //	steerees = (OpenSteer::AVGroup&)pSteer;
 //    logMsg("Dah");
 //	steerees[0]->setRadius(0.5f);
@@ -238,7 +240,6 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 		float distHomeToBall = OpenSteer::Vec3::distance (m_home, bballSteerPos);
 		logMsg("m_home = " +Ogre::StringConverter::toString(convertToOgreVector3(m_home)));
 		logMsg("distHomeToBall = " +Ogre::StringConverter::toString(distHomeToBall));
-
 		if (teamNumber != gameS->getTeamWithBall())
 		{
 			OpenSteer::Vec3 playerOPos;
@@ -271,7 +272,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 			Ogre::Vector3 *offenseStartPositions;
 			OpenSteer::Vec3 startPosition;
 			OpenSteer::Vec3 seekTarget;
-			
+			float distPlayerStartPosition;
 			switch (teamNumber)
 			{
 				case 0:
@@ -282,12 +283,18 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 					applySteeringForce (seekTarget, elapsedTime);
 					break;
 				case 1:
+					offenseStartPositions = teamInstance[1].getOffenseInstance()->getStartPositions();
 					logMsg("Team 1 Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Start Position!");
 					startPosition = convertToOpenSteerVec3(offenseStartPositions[ID]);
 					logMsg("startPosition = " +Ogre::StringConverter::toString(offenseStartPositions[ID]));
 					logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
-					seekTarget = xxxsteerForSeek(startPosition);
-					applySteeringForce (seekTarget, elapsedTime);
+					distPlayerStartPosition = OpenSteer::Vec3::distance (startPosition, position());
+					logMsg("Distance to startPosition = " +Ogre::StringConverter::toString(distPlayerStartPosition));
+					if (distPlayerStartPosition >= 33)
+					{
+						seekTarget = xxxsteerForSeek(startPosition);
+						applySteeringForce (seekTarget, elapsedTime);
+					}
 					break;
 				default:
 					break;

@@ -379,8 +379,8 @@ void physicsEngine::updateState()
 
     int teamWithBall = gameS->getTeamWithBall();
     int playerWithBall;
-	logMsg("Updating Physics Engine State");
-    logMsg("teamWithBall = " + Ogre::StringConverter::toString(teamWithBall));
+//	logMsg("Updating Physics Engine State");
+//    logMsg("teamWithBall = " + Ogre::StringConverter::toString(teamWithBall));
 //    if (teamWithBall >=0)
 //    {
 		std::vector<teamState> teamInstance = gameS->getTeamInstance();
@@ -448,9 +448,9 @@ void physicsEngine::updateState()
 				if (teamInstance[teamWithBall].getPlayerWithBallDribbling()) // checks if the player with ball is dribbling and updates accordingly
 				{
 //					exit(0);
-					logMsg("Dribbling!!");
+//					logMsg("Dribbling!!");
 					ballDribbling();
-					logMsg("Human Player = " +Ogre::StringConverter::toString(teamInstance[1].getHumanPlayer()));
+//					logMsg("Human Player = " +Ogre::StringConverter::toString(teamInstance[1].getHumanPlayer()));
 
 				}
 /*				else if (!teamInstance[teamWithBall].getPlayerWithBallDribbling()) // checks if the player with ball is dribbling and updates accordingly
@@ -461,14 +461,14 @@ void physicsEngine::updateState()
 				}*/
 				else
 				{
-					logMsg("Not Dribbling");
+//					logMsg("Not Dribbling");
 
 				}
-				logMsg("A Team Has Ball");
+//				logMsg("A Team Has Ball");
 
 			playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 			playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
-			logMsg("Player with ball =====" +Ogre::StringConverter::toString(playerWithBall));
+//			logMsg("Player with ball =====" +Ogre::StringConverter::toString(playerWithBall));
 //			exit(0);
 			if (!playerInstance[playerWithBall].getPassBall())
 			{
@@ -503,12 +503,12 @@ void physicsEngine::updateState()
 //			teamInstance[x].setPlayerInstance(playerInstance);
 			Ogre::String X = Ogre::StringConverter::toString(x);
 			Ogre::String size = Ogre::StringConverter::toString(playerInstance.size());
-		    logMsg("Team " +X +" PlayerInstance Size = " +size);
+//		    logMsg("Team " +X +" PlayerInstance Size = " +size);
 
 		}
 	    gameS->setTeamInstance(teamInstance);
     }
-	
+
 //    else
 //    {
 //    }
@@ -569,7 +569,7 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 	if (gameS->getBallTipped())		// if basketball has been tipped checks for collision between ball and player it was tipped to
 	{
 //		exit(0);
-		logMsg("Physics team ball tipped to = " +Ogre::StringConverter::toString(ballTippedToTeam));
+//		logMsg("Physics team ball tipped to = " +Ogre::StringConverter::toString(ballTippedToTeam));
 
 		std::vector<playerState> playerInstance = teamInstance[ballTippedToTeam].getPlayerInstance();
 //		logMsg("bInstance size = " +Ogre::StringConverter::toString(bInstance.size()));
@@ -723,11 +723,11 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
     }
 
     pairCollided = false;
-	logMsg("bInstance size = " +Ogre::StringConverter::toString(bInstance.size()));
-	logMsg("cInstance size = " +Ogre::StringConverter::toString(cInstance.size()));
+//	logMsg("bInstance size = " +Ogre::StringConverter::toString(bInstance.size()));
+//	logMsg("cInstance size = " +Ogre::StringConverter::toString(cInstance.size()));
 
-	logMsg("bInstance position = " + Ogre::StringConverter::toString(bInstance[0].getNode()->getPosition()));
-	logMsg("cInstance position = " + Ogre::StringConverter::toString(cInstance[0].getNode()->getPosition()));
+//	logMsg("bInstance position = " + Ogre::StringConverter::toString(bInstance[0].getNode()->getPosition()));
+//	logMsg("cInstance position = " + Ogre::StringConverter::toString(cInstance[0].getNode()->getPosition()));
 
 	btRigidBody *bballPhysBody = bInstance[0].getPhysBody();
 	btRigidBody *courtPhysBody = cInstance[0].getPhysBody();
@@ -757,7 +757,7 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
 				const btVector3& ptB = pt.getPositionWorldOnB();
 				const btVector3& normalOnB = pt.m_normalWorldOnB;
 
-				// ZOMG A COLLISIONNNNNNNNNNN ... 
+				// ZOMG A COLLISIONNNNNNNNNNN ...
 				if ((btRigidBody*)obA == bballPhysBody || (btRigidBody*)obB == courtPhysBody)
 				{
 					exit(0);

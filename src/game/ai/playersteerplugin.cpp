@@ -137,16 +137,16 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
     // update simulation of test vehicle
 //    logMsg("team 0 playerInstance size =  " +Ogre::StringConverter::toString(team0PlayerInstance.size()));
 
+// FIXME testing with one specific player for now
+
+//    team1PlayerInstance[3].getSteer()->update(currentTime, elapsedTime);
+
     for(unsigned int i=0;i<team0PlayerInstance.size();i++)
     {
-
-//        Ogre::LogManager::getSingletonPtr()->logMessage("team 0 playerInstance =  " +toString(i));
-
 		if (i != teamInstance[0].getHumanPlayer())
 		{
 //    	    team0PlayerInstance[i].getSteer()->update(currentTime, elapsedTime);
 	    }
-//    TeamA[i]->update (currentTime, elapsedTime);
     }
     for(unsigned int i=0;i<team1PlayerInstance.size();i++)
     {
@@ -154,7 +154,6 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
 		{
     	    team1PlayerInstance[i].getSteer()->update(currentTime, elapsedTime);
         }
-    //    TeamB[i]->update (currentTime, elapsedTime);
     }
 
 /*            m_Ball->update(currentTime, elapsedTime);

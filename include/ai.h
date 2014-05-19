@@ -22,6 +22,7 @@
 #define _AI_H_
 
 #include "steering.h"
+#include "OpenSteer/Clock.h"
 
 #include "playersteerplugin.h"
 
@@ -88,6 +89,9 @@ private:
     OpenSteer::PlugIn* selectedPlugIn;
 
 	std::vector<playerSteer*> allPlayerSteers;
+
+	// TIMER
+	OpenSteer::Clock aiTimer;
 
 };
 

@@ -588,7 +588,7 @@ void playerState::updateState()
 bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D model
 {
 	physicsEngine *physEngine = physicsEngine::Instance();
-	logMsg("posChange = " +Ogre::StringConverter::toString(posChange));
+//	logMsg("posChange = " +Ogre::StringConverter::toString(posChange));
 //	cout << "posChange = " << posChange << endl;
     node->translate(posChange);
 	btVector3 change = btVector3(0,0,0);
@@ -598,7 +598,7 @@ bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D mod
 	physBody->translate(change); // moves physics body in unison with the model
 //	exit(0);
 //	physBody->translate(btVector3(0,0,0));
-	logMsg("player position updated.");
+//	logMsg("player position updated.");
 	return true;
 }
 

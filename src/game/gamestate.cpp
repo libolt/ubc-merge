@@ -517,7 +517,7 @@ bool gameState::setupState()
 // carries out in game logic
 bool gameState::logic()
 {
-    logMsg("Updating gameState Logic");
+//    logMsg("Updating gameState Logic");
 
     AISystem *ai = AISystem::Instance();
     gameEngine *gameE = gameEngine::Instance();
@@ -564,11 +564,12 @@ bool gameState::logic()
 
 	if (teamWithBall >= 0)
 	{
-		logMsg("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
-        logMsg("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
+//		logMsg("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
+//        logMsg("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
+		float currentTime = static_cast<float>(gameE->getLoopTime().getMilliseconds());
         float oldTime= static_cast<float>(gameE->getOldTime());
-        float changeInTime = static_cast<float>(gameE->getChangeInTime());
-    	ai->update(oldTime, changeInTime);
+        float changeInTime = currentTime - oldTime;
+    	ai->update(currentTime, changeInTime);
     }
 
 
@@ -625,7 +626,7 @@ bool gameState::logic()
     else
     {
     }
-	logMsg("gameState logic updated");
+//	logMsg("gameState logic updated");
 //    exit(0);
     return true;
 }
@@ -740,12 +741,12 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 void gameState::updateDirectionsAndMovements()
 {
 //    directions playerDirection, oldPlayerDirection;
-   logMsg("Updating Directions and Movements");
+//   logMsg("Updating Directions and Movements");
 
     if (teamWithBall >= 0)
     {
-		logMsg("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
-		logMsg("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
+//		logMsg("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
+//		logMsg("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
 		updateBasketballMovements();	// updates the movement of basketball objec(s)
 		updateBasketballDirections(); // updates direction of basketball object(s)
     }
@@ -758,12 +759,12 @@ void gameState::updateDirectionsAndMovements()
 
 void gameState::updateBasketballMovements()	// updates the basketball(s) movements
 {
-	logMsg("Updating basketball movements");
+//	logMsg("Updating basketball movements");
 
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
-    logMsg("teamWithBall" + Ogre::StringConverter::toString(teamWithBall));
-	logMsg("playerWithBall" + Ogre::StringConverter::toString(playerWithBall));
+//    logMsg("teamWithBall" + Ogre::StringConverter::toString(teamWithBall));
+//	logMsg("playerWithBall" + Ogre::StringConverter::toString(playerWithBall));
 
 //	exit(0);
 	directions playerDirection = playerInstance[playerWithBall].getDirection();
@@ -863,8 +864,8 @@ void gameState::updateBasketballDirections()	// updates basketball direction(s)
 		btVector3 change; // = btVector3(0,0,0);
 		btTransform transform;
 //		basketballInstance[0].getPhysBody()->forceActivationState(ISLAND_SLEEPING);
-        logMsg("playerDirection = " + Ogre::StringConverter::toString(&playerDirection));
-        logMsg("oldPlayerDirection = " + Ogre::StringConverter::toString(&oldPlayerDirection));
+//        logMsg("playerDirection = " + Ogre::StringConverter::toString(&playerDirection));
+//        logMsg("oldPlayerDirection = " + Ogre::StringConverter::toString(&oldPlayerDirection));
 
 		if (playerDirection != oldPlayerDirection)
 		{

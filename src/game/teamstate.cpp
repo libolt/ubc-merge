@@ -353,7 +353,7 @@ void teamState::updateState()	// updates the state of the object
 	gameState *gameS = gameState::Instance();
 	physicsEngine *physEngine = physicsEngine::Instance();
 
-	logMsg("Updating team state " +Ogre::StringConverter::toString(teamNumber));
+//	logMsg("Updating team state " +Ogre::StringConverter::toString(teamNumber));
 	if (gameS->getBasketballModelLoaded() && playerInstancesCreated)
 	{
 		std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
@@ -482,7 +482,7 @@ void teamState::updateState()	// updates the state of the object
 	    }
 	}
 */
-   logMsg("team state updated = " +Ogre::StringConverter::toString(teamNumber));
+//   logMsg("team state updated = " +Ogre::StringConverter::toString(teamNumber));
 }
 
 bool teamState::createPlayerInstances()
@@ -641,7 +641,7 @@ void teamState::updatePlayerDirections()
 
     Ogre::String playerID = Ogre::StringConverter::toString(playerInstance[4].getPlayerID());
 //    exit(0);
-    logMsg("playerID == " +playerID);
+//    logMsg("playerID == " +playerID);
     // checks if a player's direction has changed and rotates the model accordingly.
 //    for(playersIT = playerNodes.begin(); playersIT != playerNodes.end(); ++playersIT)
     for (size_t i = 0; i < playerInstance.size(); ++i)
@@ -750,7 +750,7 @@ void teamState::updatePlayerMovements()	// updates player movements
 	posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
 	for (size_t i = 0; i < playerInstance.size(); ++i)
 	{
-        Ogre::LogManager::getSingletonPtr()->logMessage("i == " +Ogre::StringConverter::toString(i));
+//        Ogre::LogManager::getSingletonPtr()->logMessage("i == " +Ogre::StringConverter::toString(i));
 
 		if (playerInstance[i].getMovement())	// if true sets coordinate change accordingly
 		{

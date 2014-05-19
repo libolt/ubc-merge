@@ -198,7 +198,7 @@ bool gameEngine::startGame()
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //    Ogre::LogManager::getSingletonPtr()->logMessage("startGame()");
 	logMsg("startGame()");
-	
+
     gameS->setupState();
 //#endif
     return true;

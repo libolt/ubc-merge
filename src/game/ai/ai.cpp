@@ -34,7 +34,7 @@ AISystem* AISystem::Instance()
 AISystem::AISystem()
 {
 	selectedVehicle = NULL;
-	
+
 }
 AISystem::~AISystem()
 {
@@ -95,7 +95,8 @@ bool AISystem::setup(void)
 // updates AI state
 void AISystem::update(const float currentTime, const float elapsedTime)
 {
-	updateSelectedPlugIn(currentTime, elapsedTime);
+	aiTimer.update();
+	updateSelectedPlugIn(aiTimer.getTotalSimulationTime(), aiTimer.getElapsedSimulationTime());
 }
 
 void printPlugIn (OpenSteer::PlugIn& pi)

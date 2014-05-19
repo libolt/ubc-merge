@@ -77,9 +77,6 @@ public:
 
     virtual void gameLoop();	// runs the Main loop for the game
 
-    Ogre::Timer loopTime;
-
-
 protected:
     gameEngine();
     gameEngine(const gameEngine&);
@@ -93,6 +90,7 @@ private:
     Ogre::Vector3 courtTranslateVector;
 
     // time variables
+    Ogre::Timer loopTime;	// loop Timer
     unsigned long oldTime;	// stores the last reading of the timer.
     unsigned long changeInTime; // stores the difference between current reading of the timer and the previous reading.
 
