@@ -35,6 +35,13 @@ offenseState::offenseState() // constructor
 	startPositions[4]	= Ogre::Vector3(3.0f,-13.5f,378.0f);
 //    startPositions[4]	= Ogre::Vector3(3000.0f,-1300.5f,3780.0f);
 
+	executePositions = new Ogre::Vector3[5];
+	executePositions[0] = Ogre::Vector3(5.0f,-13.5f,380.0f); // FIXME! doesn't belong here
+	executePositions[1]	= Ogre::Vector3(13.0f,-12.5f,375.0f);
+	executePositions[2]	= Ogre::Vector3(14.0f,-14.5f,385.0f);
+	executePositions[3]	= Ogre::Vector3(16.0f,-11.5f,377.0f);
+	executePositions[4]	= Ogre::Vector3(13.0f,-13.5f,378.0f);
+
 	startXPosSet = new bool[5];
 	startYPosSet = new bool[5];
 	startZPosSet = new bool[5];
@@ -69,6 +76,16 @@ void offenseState::setStartPositions(Ogre::Vector3 *positions)	// sets startPosi
 	startPositions = positions;
 }
 
+Ogre::Vector3 *offenseState::getExecutePositions()	// retrieves startPositions variable
+{
+	return (executePositions);
+}
+
+void offenseState::setExecutePositions(Ogre::Vector3 *positions)	// sets startPositions
+{
+	executePositions = positions;
+}
+
 bool offenseState::getStartXPosSet()  // returns the value of startXPosSet
 {
     return (startXPosSet);
@@ -96,7 +113,7 @@ void offenseState::setStartZPosSet(bool *set) // sets the value of startZPosSet
 	startZPosSet = set;
 }
 
-bool offenseState::getStartPositionSet()  // returns the value of startPositionSet
+bool *offenseState::getStartPositionSet()  // returns the value of startPositionSet
 {
 	return (startPositionSet);
 }
