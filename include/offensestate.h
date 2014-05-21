@@ -23,6 +23,7 @@
 
 #include "OgreVector3.h"
 
+#include "enums.h"
 
 class offenseState
 {
@@ -30,14 +31,17 @@ public:
 
 	offenseState(); // constructor
 
+	offenseTypes getSelectedOffense(); // returns value of selectedOffense
+	void setSelectedOffense(offenseTypes selected); // sets the value of selectedOffense
+	
 	virtual bool getExecute();	// retrieves the value of execute variable
 	virtual void setExecute(bool ex);	// sets the value of the execute variable
 
 	virtual Ogre::Vector3 *getStartPositions();	// retrieves the value of the startPositions variable
 	virtual void setStartPositions(Ogre::Vector3 *positions);	// sets the value startPositions variable
 
-	virtual Ogre::Vector3 *getExecutePositions();	// retrieves the value of the executePositions variable
-	virtual void setExecutePositions(Ogre::Vector3 *positions);	// sets the value executePositions variable
+	virtual std::vector <std::vector<Ogre::Vector3> > getExecutePositions();	// retrieves the value of the executePositions variable
+	virtual void setExecutePositions(std::vector< std::vector<Ogre::Vector3> > positions);	// sets the value executePositions variable
 
 	virtual bool getStartXPosSet();  // returns the value of startXPosSet
 	virtual void setStartXPosSet(bool *set); // sets the value of startXPosSet
@@ -51,21 +55,32 @@ public:
 	virtual bool *getStartPositionSet();  // returns the value of startPositionSet
 	virtual void setStartPositionSet(bool *set); // sets the value of startPositionSet
 
+	virtual std::vector< std::vector<bool> > getExecutePositionReached();  // returns the value of executePositionSet
+	virtual void setExecutePositionReached(std::vector< std::vector<bool> > reached); // sets the value of executePositionSet
+
 	virtual void setupState();		// sets up initial state of the object
 
 	virtual void updateState(int teamNumber);	// updates the state of the object
 
+	void setupBoxOffense(); // sets up box offense
+	void executeBoxOffense(); // executes box offense
+
 
 private:
 
+    offenseTypes selectedOffense; // stores which offense is being run
+	bool offenseSet; // if true then run offense
 	bool execute;	// If set then execute the offense logic
 
     Ogre::Vector3 *startPositions;		// stores the positions for players get to in order to execute offense
-    Ogre::Vector3 *executePositions;    // stores the positions where players move when executing offense
+    std::vector< std::vector<Ogre::Vector3> > executePositions;    // stores the positions where players move when executing offense
 	bool *startXPosSet; // stores whether player is at start X position
 	bool *startYPosSet; // stores whether player is at start Y position
 	bool *startZPosSet; // stores whether player is at start Z position
-    bool *startPositionSet; // storres whether player is at start position
+    bool *startPositionSet; // stores whether player is at start position
+	
+	std::vector< std::vector<bool> > executePositionReached; // stores whether player is at execute position
+
 };
 
 #endif
