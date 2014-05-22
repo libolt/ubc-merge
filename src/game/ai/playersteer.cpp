@@ -59,7 +59,7 @@ void playerSteer::reset(void)
     setMaxForce (.7f);      // steering force is clipped to this magnitude
 
 //    setMaxSpeed (10);         // velocity is clipped to this magnitude
-    setMaxSpeed (.05);         // velocity is clipped to this magnitude
+    setMaxSpeed (.005);         // velocity is clipped to this magnitude
 
 //	logMsg("teamNumber = " +Ogre::StringConverter::toString(teamNumber));
 

@@ -566,10 +566,10 @@ bool gameState::logic()
 	{
 //		logMsg("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
 //        logMsg("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
-		float currentTime = static_cast<float>(gameE->getLoopTime().getMilliseconds()/1000);
-        float oldTime= static_cast<float>(gameE->getOldTime()/1000);
+		float currentTime = static_cast<float>(gameE->getLoopTime().getMilliseconds()/100);
+        float oldTime= static_cast<float>(gameE->getOldTime()/100);
         float changeInTime = currentTime - oldTime;
-    	ai->update(currentTime, changeInTime);
+        ai->update(currentTime, changeInTime);
     }
 
 
