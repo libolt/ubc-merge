@@ -293,7 +293,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	//    SoundSystem *sound = SoundSystem::Instance();
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	winHandle = toString((unsigned long int)sysInfo.info.win.window);
+	winHandle = Ogre::StringConverter::toString((unsigned long int)sysInfo.info.win.window);
 #elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
 	winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.x11.window);
 #elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID

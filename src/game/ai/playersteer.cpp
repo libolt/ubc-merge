@@ -108,12 +108,13 @@ void playerSteer::reset(void)
 void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 {
 	logMsg("Updating playerSteer state");
+
 //	exit(0);
 	counter += 1;
 	logMsg("Counter = " +Ogre::StringConverter::toString(counter));
 
 	logMsg("elapsedTime = " +Ogre::StringConverter::toString(elapsedTime));
-	
+
 	AISystem *ai = AISystem::Instance();
 	gameState *gameS = gameState::Instance();
 	std::vector<basketballs> basketball = gameS->getBasketballInstance();
@@ -144,26 +145,6 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 
 	}
 
-	// if I hit the ball, kick it.
-//    logMsg("playerSteerInstane size = " +Ogre::StringConverter::toString(playerSteerInstance.size()));
-//    logMsg("pSteer size = " +Ogre::StringConverter::toString(pSteer.size()));
-
-/*    for(int x=0;x<playerSteerInstance.size();++x)
-    {
-        logMsg("playerSteerInstane ID = " +Ogre::StringConverter::toString(playerSteerInstance[x]->getID()));
-//        logMsg("playerSteerInstane radius = " +Ogre::StringConverter::toString(playerSteerInstance[x]->radius()));
-
-    }
-*/
-	for(int x=0;x<pSteer.size();++x)
-    {
-//        logMsg("pSteer ID = " +Ogre::StringConverter::toString(pSteer[x]->getID()));
-//        logMsg("pSteer radius = " +Ogre::StringConverter::toString(pSteer[x]->radius()));
-//		logMsg("pSteer position = " +Ogre::StringConverter::toString(convertToOgreVector3(pSteer[x]->position())));
-
-
-    }
-
 	OpenSteer::Vec3 playerSteerPos;
 	switch (teamNumber)
 	{
@@ -187,16 +168,12 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	const float distToBall = OpenSteer::Vec3::distance (playerSteerPos, bballSteerPos);
 //	logMsg("distToBall = " +Ogre::StringConverter::toString(distToBall));
 
-//            const float sumOfRadii = radius() + m_Ball->radius();
-//            if (distToBall < sumOfRadii)
-	if (distToBall < 2.0f)
-	{
-//                m_Ball->kick((bballSteerPos-playerSteerPos)*50, elapsedTime);
-	}
+	playerSteer *allSteer;
 
-	// otherwise consider avoiding collisions with others
-//	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, (OpenSteer::AVGroup&)pSteer);
-	playerSteer *allSteer = new playerSteer[pSteer.size()];
+	if (allSteer == NULL)
+	{
+		allSteer= new playerSteer[pSteer.size()];
+	}
 /*	for (int x=0;x<pSteer.size();++x)
 	{
 		logMsg(Ogre::StringConverter::toString(x));
@@ -222,14 +199,9 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 			break;
 	}
 
-//	steerees = (OpenSteer::AVGroup&)pSteer;
-//    logMsg("Dah");
-//	steerees[0]->setRadius(0.5f);
-//	logMsg("diii");
-//	logMsg(toString(steerees[0]->radius()));
-//	steerees.push_back((OpenSteer::AVGroup)playerSteerInstance[0]);
 	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, steerees);
-//	logMsg("Wahoo!");
+
+	//	logMsg("Wahoo!");
 //	logMsg("collisionAvoidance = " +Ogre::StringConverter::toString(convertToOgreVector3(collisionAvoidance)));
 //	exit(0);
 //	if(collisionAvoidance != OpenSteer::Vec3::zero)
@@ -250,7 +222,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 			OpenSteer::Vec3 playerOPos;
 			OpenSteer::Vec3 seekTarget;
 			float distPlayerOPosition;
-			
+
 			switch (teamNumber)
 			{
 				case 0:
@@ -275,7 +247,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 		else
 		{
 			bool *startPositionSet = teamInstance[teamNumber].getOffenseInstance()->getStartPositionSet();
-			
+
 			if (!startPositionSet[ID])
 			{
 			    Ogre::Vector3 *offenseStartPositions;
@@ -302,7 +274,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 					startPositionSet[ID] = true;
 				}
 			}
-			else 
+			else
 			{
 			    std::vector< std::vector<Ogre::Vector3> > offenseExecutePositions;
 			    OpenSteer::Vec3 executePosition;
@@ -325,42 +297,8 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 			    }
 			}
 		}
-//		exit(0);
-/*		if( distHomeToBall < 12.0f)
-		{
-			// go for ball if I'm on the 'right' side of the ball
-			if((teamNumber != gameS->getTeamWithBall()) ? playerSteerPos.x > bballSteerPos.x : playerSteerPos.x < bballSteerPos.x)
-			{
-				logMsg("Here?");
-				OpenSteer::Vec3 seekTarget = xxxsteerForSeek(bballSteerPos);
-				applySteeringForce (seekTarget, elapsedTime);
-			}
-			else
-			{
-				if( distHomeToBall < 12.0f)
-				{
-					logMsg("Here??");
-					float Z = bballSteerPos.z - playerSteerPos.z > 0 ? -1.0f : 1.0f;
-					OpenSteer::Vec3 behindBall = bballSteerPos + ((teamNumber == gameS->getTeamWithBall()) ? OpenSteer::Vec3(2.0f,0.0f,Z) : OpenSteer::Vec3(-2.0f,0.0f,Z));
-					OpenSteer::Vec3 behindBallForce = xxxsteerForSeek(behindBall);
-//FIXME					annotationLine (playerSteerPos, behindBall , OpenSteer::Color(0.0f,1.0f,0.0f));
-					OpenSteer::Vec3 evadeTarget = xxxsteerForFlee(bballSteerPos);
-					applySteeringForce (behindBallForce*10.0f + evadeTarget, elapsedTime);
-				}
-			}
-		}
-		else	// Go home
-		{
-			logMsg("Here???");
-			OpenSteer::Vec3 seekTarget = xxxsteerForSeek(m_home);
-			OpenSteer::Vec3 seekHome = xxxsteerForSeek(m_home);
-			applySteeringForce (seekTarget+seekHome, elapsedTime);
-		}
-        logMsg("m_home = " +Ogre::StringConverter::toString(convertToOgreVector3(m_home)));
-		logMsg("position = " +Ogre::StringConverter::toString(convertToOgreVector3(position())));
 
-//        exit(0);
-*/
+//		exit(0);
 	}
 
 	// moves the player model and physics body
@@ -372,7 +310,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 			Ogre::Vector3 *offenseStartPositions;
 			OpenSteer::Vec3 startPosition;
 			OpenSteer::Vec3 seekTarget;
-			float distPlayerStartPosition;	
+			float distPlayerStartPosition;
     switch (teamNumber)
 	{
 	    case 0:
@@ -395,4 +333,5 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 		default:
 		    break;
 	}
+
 }

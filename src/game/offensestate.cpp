@@ -30,7 +30,7 @@ offenseState::offenseState() // constructor
 	execute = false;
 	offenseSet = false;
 	startPositions = new Ogre::Vector3[5];
-	
+
 	for (int x=0; x<5; ++x)
 	{
 		startPositions[x]	= Ogre::Vector3(0.0f,0.0f,0.0f);
@@ -41,7 +41,7 @@ offenseState::offenseState() // constructor
 //	executePositions = new std::vector<Ogre::Vector3>[5];
 //	executePositions[0] = new std::vector<Ogre::Vector3>;
 //	exit(0);
-	
+
     executePositions.resize(5);
 
 	startXPosSet = new bool[5];
@@ -50,7 +50,7 @@ offenseState::offenseState() // constructor
 	startPositionSet = new bool[5];
 
 //	executePositionSet = new bool[5];
-	
+
 	for (int x=0;x<5;++x)
 	{
 		startXPosSet[x] = false;
@@ -266,34 +266,34 @@ void offenseState::updateState(int teamNumber)	// updates the state of the objec
 	}
 */
     setupBoxOffense();
-	
+
 	teamInstance[teamNumber].setPlayerInstance(playerInstance);
     gameS->setTeamInstance(teamInstance);
 }
 
 void offenseState::setupBoxOffense() // sets up box offense
 {
-	startPositions[0] = Ogre::Vector3(5.0f,-13.5f,380.0f); 
+	startPositions[0] = Ogre::Vector3(5.0f,-13.5f,380.0f);
 	startPositions[1] = Ogre::Vector3(3.0f,-12.5f,375.0f);
 	startPositions[2] = Ogre::Vector3(4.0f,-14.5f,385.0f);
 	startPositions[3] = Ogre::Vector3(6.0f,-11.5f,377.0f);
 	startPositions[4] = Ogre::Vector3(3.0f,-13.5f,378.0f);
-	
-	executePositions[0].push_back(Ogre::Vector3(5.0f,-13.5f,380.0f)); 
-	
+
+	executePositions[0].push_back(Ogre::Vector3(5.0f,-13.5f,380.0f));
+
 	executePositions[1].push_back(Ogre::Vector3(13.0f,-12.5f,375.0f));
 	executePositions[1].push_back(Ogre::Vector3(11.0f,-12.5f,390.0f));
-	
+
 	executePositions[2].push_back(Ogre::Vector3(14.0f,-14.5f,385.0f));
 	executePositions[2].push_back(Ogre::Vector3(16.0f,-14.5f,370.0f));
-	
+
 	executePositions[3].push_back(Ogre::Vector3(16.0f,-11.5f,377.0f));
 	executePositions[4].push_back(Ogre::Vector3(13.0f,-13.5f,378.0f));
 
 	executePositionReached.resize(5);
 	for (int x=0; x<executePositions.size(); ++x)
 	{
-		
+
 		executePositionReached[x].resize(executePositions[x].size());
 		for (int y=0;y<executePositionReached[x].size(); ++y)
 		{
@@ -304,5 +304,5 @@ void offenseState::setupBoxOffense() // sets up box offense
 }
 void offenseState::executeBoxOffense() // executes box offense
 {
-	
+
 }

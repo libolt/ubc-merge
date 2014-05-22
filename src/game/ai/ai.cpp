@@ -95,7 +95,7 @@ bool AISystem::setup(void)
 // updates AI state
 void AISystem::update(const float currentTime, const float elapsedTime)
 {
-	aiTimer.update();
+//	aiTimer.update();
 	updateSelectedPlugIn( currentTime, elapsedTime);
 }
 

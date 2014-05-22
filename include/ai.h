@@ -91,7 +91,7 @@ private:
 	std::vector<playerSteer*> allPlayerSteers;
 
 	// TIMER
-	OpenSteer::Clock aiTimer;
+//	OpenSteer::Clock aiTimer;
 
 };
 
