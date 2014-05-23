@@ -38,6 +38,9 @@ public:
 	std::vector<playerSteer*> getAllPlayerSteers();	// retrieves the value of allPlayerSteers
 	void setAllPlayerSteers(const std::vector<playerSteer*> steers);	// sets the value of allPlayerSteers
 
+	float getOldTime(); // returns the value of oldTime
+	void setOldTime(float time); // sets the value of oldTime
+	
     // initial setup of AI state
     bool setup(void);
 
@@ -92,6 +95,7 @@ private:
 
 	// TIMER
 //	OpenSteer::Clock aiTimer;
+	float oldTime;
 
 };
 

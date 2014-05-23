@@ -34,6 +34,7 @@ AISystem* AISystem::Instance()
 AISystem::AISystem()
 {
 	selectedVehicle = NULL;
+	oldTime = 0.0f;
 
 }
 AISystem::~AISystem()
@@ -57,6 +58,15 @@ std::vector<playerSteer*> AISystem::getAllPlayerSteers()	// retrieves the value 
 void AISystem::setAllPlayerSteers( std::vector<playerSteer*> steers)	// sets the value of allPlayerSteers
 {
     allPlayerSteers = steers;
+}
+
+float AISystem::getOldTime() // returns the value of oldTime
+{
+	return oldTime;
+}
+void AISystem::setOldTime(float time) // sets the value of oldTime
+{
+	oldTime = time;
 }
 
 void printPlugIn (OpenSteer::PlugIn& pi);

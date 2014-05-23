@@ -525,6 +525,8 @@ bool gameState::logic()
     players *player = players::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();
     Ogre::Vector3 playerPos;
+	
+	
 //	std::vector<basketballs> basketballInstance = getBasketballInstance();
 	// sets up and starts the dribbling animation
 //	basketballInstance[0].setDribblingStart(true);
@@ -567,9 +569,19 @@ bool gameState::logic()
 //		logMsg("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
 //        logMsg("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
 		float currentTime = static_cast<float>(gameE->getLoopTime().getMilliseconds()/100);
-        float oldTime= static_cast<float>(gameE->getOldTime()/100);
+        float oldTime = ai->getOldTime();
         float changeInTime = currentTime - oldTime;
-        ai->update(currentTime, changeInTime);
+   //     ai->update(currentTime, changeInTime);
+		logMsg("CHANGE == " +Ogre::StringConverter::toString(changeInTime));  
+
+		if (changeInTime >= 1.0f)
+		{
+			logMsg("ELAPSED == " +Ogre::StringConverter::toString(changeInTime));  
+//			exit(0);
+			ai->update(currentTime, changeInTime);
+			ai->setOldTime(currentTime);
+		}
+		
     }
 
 
