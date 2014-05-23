@@ -525,8 +525,8 @@ bool gameState::logic()
     players *player = players::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();
     Ogre::Vector3 playerPos;
-	
-	
+
+
 //	std::vector<basketballs> basketballInstance = getBasketballInstance();
 	// sets up and starts the dribbling animation
 //	basketballInstance[0].setDribblingStart(true);
@@ -564,6 +564,10 @@ bool gameState::logic()
 //   playerInstance[0].setMovement(true);
 //   playerInstance[0].setDirection(RIGHT);
 
+    for (int x=0; x<5;++x)
+    {
+    	logMsg("Player Position " +Ogre::StringConverter::toString(x) +" = " +Ogre::StringConverter::toString(teamInstance[1].getPlayerInstance()[x].getNodePosition()));
+    }
 	if (teamWithBall >= 0)
 	{
 //		logMsg("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
@@ -572,16 +576,17 @@ bool gameState::logic()
         float oldTime = ai->getOldTime();
         float changeInTime = currentTime - oldTime;
    //     ai->update(currentTime, changeInTime);
-		logMsg("CHANGE == " +Ogre::StringConverter::toString(changeInTime));  
+		logMsg("CHANGE == " +Ogre::StringConverter::toString(changeInTime));
 
-		if (changeInTime >= 1.0f)
-		{
-			logMsg("ELAPSED == " +Ogre::StringConverter::toString(changeInTime));  
+//		if (changeInTime >= 1.0f)
+//		{
+			logMsg("ELAPSED == " +Ogre::StringConverter::toString(changeInTime));
 //			exit(0);
+//			ai->update(aiTimer.getTotalSimulationTime (), aiTimer.getElapsedSimulationTime ());
 			ai->update(currentTime, changeInTime);
 			ai->setOldTime(currentTime);
-		}
-		
+//		}
+
     }
 
 

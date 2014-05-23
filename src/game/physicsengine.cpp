@@ -392,7 +392,7 @@ void physicsEngine::updateState()
 //		int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
 
 
-		logMsg("ballTipped == " + Ogre::StringConverter::toString(gameS->getBallTipped()));
+//		logMsg("ballTipped == " + Ogre::StringConverter::toString(gameS->getBallTipped()));
 //		exit(0);
 
 		//    if (changeInTime >= 1000)
@@ -563,9 +563,9 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 //    std::vector<playerState> teamOnePlayerInstance = teamInstance[0].getPlayerInstance();
 //    std::vector<playerState> teamTwoPlayerInstance = teamInstance[1].getPlayerInstance();
     std::vector<basketballs> bInstance = gameS->getBasketballInstance();
-    logMsg("Crash here?");
+//    logMsg("Crash here?");
 	MyContactResultCallback tipOffResult;
-    logMsg("Crash here??");
+//    logMsg("Crash here??");
 	if (gameS->getBallTipped())		// if basketball has been tipped checks for collision between ball and player it was tipped to
 	{
 //		exit(0);

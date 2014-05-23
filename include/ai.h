@@ -40,7 +40,7 @@ public:
 
 	float getOldTime(); // returns the value of oldTime
 	void setOldTime(float time); // sets the value of oldTime
-	
+
     // initial setup of AI state
     bool setup(void);
 
@@ -94,7 +94,7 @@ private:
 	std::vector<playerSteer*> allPlayerSteers;
 
 	// TIMER
-//	OpenSteer::Clock aiTimer;
+	OpenSteer::Clock aiTimer;
 	float oldTime;
 
 };

@@ -56,10 +56,10 @@ void playerSteer::reset(void)
     steering::reset (); // reset the vehicle
     setSpeed (0.0f);         // speed along Forward direction.
 //    setMaxForce (3000.7f);      // steering force is clipped to this magnitude
-    setMaxForce (0.1f);      // steering force is clipped to this magnitude
+    setMaxForce (9.1f);      // steering force is clipped to this magnitude
 
 //    setMaxSpeed (10);         // velocity is clipped to this magnitude
-    setMaxSpeed (1.0f);         // velocity is clipped to this magnitude
+    setMaxSpeed (10.0f);         // velocity is clipped to this magnitude
 
 //	logMsg("teamNumber = " +Ogre::StringConverter::toString(teamNumber));
 
@@ -72,16 +72,19 @@ void playerSteer::reset(void)
 
         if(ID < 9 && ID >= 0)
         {
-	        if (gameS->getTipOffComplete())
-	        {
-		        playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
-	        }
+//	        if (gameS->getTipOffComplete())
+//	        {
+//		        playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
+/*	        }
 	        else
 	        {
+	        	exit(0);
+*/
 		        playerSteerPos.x = 0;
 		        playerSteerPos.y = 0;
 		        playerSteerPos.z = 0;
-	        }
+/*	        }
+*/
     // Place me on my part of the field, looking at oponnents goal
 //    setPosition(b_ImTeamA ? OpenSteer::frandom01()*20 : -OpenSteer::frandom01()*20, 0, (OpenSteer::frandom01()-0.5f)*20);
 
@@ -125,7 +128,16 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 	std::vector<playerSteer*> pSteer = ai->getAllPlayerSteers();
 	std::vector<playerSteer*> team0Steers;
 	std::vector<playerSteer*> team1Steers;
+    logMsg("Player = " +Ogre::StringConverter::toString(ID));
+	logMsg("Node position = " +Ogre::StringConverter::toString(teamInstance[teamNumber].getPlayerInstance()[ID].getNodePosition()));
+	logMsg("Steer position = " +Ogre::StringConverter::toString(convertToOgreVector3(position())));
+	OpenSteer::Vec3 currentNodePos = convertToOpenSteerVec3(teamInstance[teamNumber].getPlayerInstance()[ID].getNodePosition());
 
+/*	if (position().x != currentNodePos.x || position().y != currentNodePos.y || position().z != currentNodePos.z)
+	{
+		exit(0);
+	}
+*/
 	logMsg("teamNumber = " +Ogre::StringConverter::toString(teamNumber));
 
     for (int x=0;x<team0PlayerInstance.size();++x)
@@ -236,7 +248,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 			}
 			distPlayerOPosition = OpenSteer::Vec3::distance (playerOPos, position());
 			logMsg("Distance to playerOPos = " +Ogre::StringConverter::toString(distPlayerOPosition));
-			if (distPlayerOPosition >= 1)
+			if (distPlayerOPosition >= 2)
 			{
 				logMsg("seeking!");
 				seekTarget = xxxsteerForSeek(playerOPos);
@@ -262,7 +274,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 			    logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
 			    distPlayerStartPosition = OpenSteer::Vec3::distance (startPosition, position());
 			    logMsg("Distance to startPosition = " +Ogre::StringConverter::toString(distPlayerStartPosition));
-			    if (distPlayerStartPosition >= 1)
+			    if (distPlayerStartPosition >= 2)
 			    {
 				    logMsg("seeking!");
 				    seekTarget = xxxsteerForSeek(startPosition);
