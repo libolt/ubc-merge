@@ -33,7 +33,7 @@ public:
 
 	offenseTypes getSelectedOffense(); // returns value of selectedOffense
 	void setSelectedOffense(offenseTypes selected); // sets the value of selectedOffense
-	
+
 	virtual bool getExecute();	// retrieves the value of execute variable
 	virtual void setExecute(bool ex);	// sets the value of the execute variable
 
@@ -78,9 +78,11 @@ private:
 	bool *startYPosSet; // stores whether player is at start Y position
 	bool *startZPosSet; // stores whether player is at start Z position
     bool *startPositionSet; // stores whether player is at start position
-	
+
 	std::vector< std::vector<bool> > executePositionReached; // stores whether player is at execute position
 
+	// offense type variables
+	bool boxOffenseSetup;
 };
 
 #endif

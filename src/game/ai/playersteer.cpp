@@ -289,24 +289,74 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 			else
 			{
 			    std::vector< std::vector<Ogre::Vector3> > offenseExecutePositions;
+			    std::vector< std::vector<bool> > offenseExecutePositionReached;
 			    OpenSteer::Vec3 executePosition;
 			    OpenSteer::Vec3 seekTarget;
 			    float distPlayerExecutePosition;
 
 			    offenseExecutePositions = teamInstance[teamNumber].getOffenseInstance()->getExecutePositions();
-			    logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Execute Position!");
-			    executePosition = convertToOpenSteerVec3(offenseExecutePositions[ID][0]);
-			    logMsg("executePosition = " +Ogre::StringConverter::toString(offenseExecutePositions[ID][0]));
-			    logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
-			    distPlayerExecutePosition = OpenSteer::Vec3::distance (executePosition, position());
-			    logMsg("Distance to executePosition = " +Ogre::StringConverter::toString(distPlayerExecutePosition));
-			    if (distPlayerExecutePosition >= 3)
+			    offenseExecutePositionReached = teamInstance[teamNumber].getOffenseInstance()->getExecutePositionReached();
+			    logMsg("ExecutePositions size = " +Ogre::StringConverter::toString(offenseExecutePositions.size()));
+/*			    for (int x=0;x<offenseExecutePositions.size();++x)
 			    {
-				    logMsg("seeking!");
-				    seekTarget = xxxsteerForSeek(executePosition);
-				    logMsg("seekTarget = " +Ogre::StringConverter::toString(convertToOgreVector3(executePosition)));
-				    applySteeringForce (seekTarget, elapsedTime);
+			    	logMsg("number of execute positions for player " +Ogre::StringConverter::toString(x) +" = " +Ogre::StringConverter::toString(offenseExecutePositions[x].size()));
+			    	for (int y=0;y<offenseExecutePositions[x].size();++y)
+			    	{
+			    		logMsg("Position " +Ogre::StringConverter::toString(y) +" = " +Ogre::StringConverter::toString(offenseExecutePositions[x][y]));
+			    	}
 			    }
+
+			    for (int i=0; i<offenseExecutePositionReached.size();++i)
+			    {
+			    	logMsg("i = " +Ogre::StringConverter::toString(i));
+			    	for (int j=0; j<offenseExecutePositionReached[i].size();++j)
+			    	{
+			    		logMsg("j = " +Ogre::StringConverter::toString(j));
+			    		if (offenseExecutePositionReached[i][j] == true)
+			    		{
+			    			exit(0);
+			    		}
+			    		else
+			    		{
+
+			    		}
+
+			    	}
+			    }
+*/
+			    for (int x=0;x<offenseExecutePositionReached[ID].size();++x)
+			    {
+			    	if (offenseExecutePositionReached[ID][x] == true)
+			    	{
+//			    		exit(0);
+			    	}
+			    	else
+			    	{
+					    logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Execute Position!");
+					    executePosition = convertToOpenSteerVec3(offenseExecutePositions[ID][x]);
+					    logMsg("executePosition = " +Ogre::StringConverter::toString(offenseExecutePositions[ID][x]));
+					    logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
+					    distPlayerExecutePosition = OpenSteer::Vec3::distance (executePosition, position());
+					    logMsg("Distance to executePosition = " +Ogre::StringConverter::toString(distPlayerExecutePosition));
+					    if (distPlayerExecutePosition >= 3)
+					    {
+						    logMsg("seeking!");
+						    seekTarget = xxxsteerForSeek(executePosition);
+						    logMsg("seekTarget = " +Ogre::StringConverter::toString(convertToOgreVector3(executePosition)));
+						    applySteeringForce (seekTarget, elapsedTime);
+					    }
+					    else
+					    {
+//					    	exit(0);
+					    	offenseExecutePositionReached[ID][x] = true;
+					        teamInstance[teamNumber].getOffenseInstance()->setExecutePositions(offenseExecutePositions);
+					        teamInstance[teamNumber].getOffenseInstance()->setExecutePositionReached(offenseExecutePositionReached);
+
+					    }
+
+			    	}
+			    }
+//			    exit(0);
 			}
 		}
 

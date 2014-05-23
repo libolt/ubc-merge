@@ -60,6 +60,7 @@ offenseState::offenseState() // constructor
 //		executePositionSet[x] = false;
 	}
 
+	boxOffenseSetup = false;
 }
 
 offenseTypes offenseState::getSelectedOffense() // returns value of selectedOffense
@@ -265,8 +266,10 @@ void offenseState::updateState(int teamNumber)	// updates the state of the objec
 		}
 	}
 */
-    setupBoxOffense();
-
+    if (!boxOffenseSetup)
+    {
+    	setupBoxOffense();
+    }
 	teamInstance[teamNumber].setPlayerInstance(playerInstance);
     gameS->setTeamInstance(teamInstance);
 }
@@ -297,10 +300,11 @@ void offenseState::setupBoxOffense() // sets up box offense
 		executePositionReached[x].resize(executePositions[x].size());
 		for (int y=0;y<executePositionReached[x].size(); ++y)
 		{
+			logMsg("Y = " +Ogre::StringConverter::toString(y));
 			executePositionReached[x][y] = false;
 		}
 	}
-
+	boxOffenseSetup = true;
 }
 void offenseState::executeBoxOffense() // executes box offense
 {
