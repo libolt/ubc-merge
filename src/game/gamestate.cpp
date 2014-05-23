@@ -578,14 +578,14 @@ bool gameState::logic()
    //     ai->update(currentTime, changeInTime);
 		logMsg("CHANGE == " +Ogre::StringConverter::toString(changeInTime));
 
-//		if (changeInTime >= 1.0f)
-//		{
+		if (changeInTime >= 1.0f)
+		{
 			logMsg("ELAPSED == " +Ogre::StringConverter::toString(changeInTime));
 //			exit(0);
 //			ai->update(aiTimer.getTotalSimulationTime (), aiTimer.getElapsedSimulationTime ());
 			ai->update(currentTime, changeInTime);
 			ai->setOldTime(currentTime);
-//		}
+		}
 
     }
 
