@@ -56,10 +56,10 @@ void playerSteer::reset(void)
     steering::reset (); // reset the vehicle
     setSpeed (0.0f);         // speed along Forward direction.
 //    setMaxForce (3000.7f);      // steering force is clipped to this magnitude
-    setMaxForce (9.1f);      // steering force is clipped to this magnitude
+    setMaxForce (15.0f);      // steering force is clipped to this magnitude
 
 //    setMaxSpeed (10);         // velocity is clipped to this magnitude
-    setMaxSpeed (10.0f);         // velocity is clipped to this magnitude
+    setMaxSpeed (20.0f);         // velocity is clipped to this magnitude
 
 //	logMsg("teamNumber = " +Ogre::StringConverter::toString(teamNumber));
 
@@ -248,7 +248,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 			}
 			distPlayerOPosition = OpenSteer::Vec3::distance (playerOPos, position());
 			logMsg("Distance to playerOPos = " +Ogre::StringConverter::toString(distPlayerOPosition));
-			if (distPlayerOPosition >= 2)
+			if (distPlayerOPosition >= 3)
 			{
 				logMsg("seeking!");
 				seekTarget = xxxsteerForSeek(playerOPos);
@@ -274,7 +274,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 			    logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
 			    distPlayerStartPosition = OpenSteer::Vec3::distance (startPosition, position());
 			    logMsg("Distance to startPosition = " +Ogre::StringConverter::toString(distPlayerStartPosition));
-			    if (distPlayerStartPosition >= 2)
+			    if (distPlayerStartPosition >= 3)
 			    {
 				    logMsg("seeking!");
 				    seekTarget = xxxsteerForSeek(startPosition);
@@ -300,7 +300,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 			    logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
 			    distPlayerExecutePosition = OpenSteer::Vec3::distance (executePosition, position());
 			    logMsg("Distance to executePosition = " +Ogre::StringConverter::toString(distPlayerExecutePosition));
-			    if (distPlayerExecutePosition >= 1)
+			    if (distPlayerExecutePosition >= 3)
 			    {
 				    logMsg("seeking!");
 				    seekTarget = xxxsteerForSeek(executePosition);

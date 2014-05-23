@@ -578,7 +578,7 @@ bool gameState::logic()
    //     ai->update(currentTime, changeInTime);
 		logMsg("CHANGE == " +Ogre::StringConverter::toString(changeInTime));
 
-		if (changeInTime >= 1.0f)
+		if (changeInTime >= .5f)
 		{
 			logMsg("ELAPSED == " +Ogre::StringConverter::toString(changeInTime));
 //			exit(0);
