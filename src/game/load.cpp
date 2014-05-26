@@ -86,6 +86,15 @@ void loader::setTeamFiles(std::vector<string> files)
     teamFiles = files;
 }
 
+std::vector<std::string> loader::getOffensePlayFiles()
+{
+	return (offensePlayFiles);
+}
+void loader::setOffensePlayFiles(std::vector<std::string> files)
+{
+	offensePlayFiles = files;
+}
+
 // loads an xml file using SDL so that it can
 // be passed to TinyXML
 int loader::readFile(const char *sourceFile, char **destination)
@@ -819,3 +828,226 @@ bool loader::loadUserFile(string fileName)
     return true;
 }
 
+//Offense
+std::vector<offensePlays> loader::loadOffensePlays()	// load offense plays from XML files
+{
+	std::vector<offensePlays> plays;
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	string playList = "data/offense/plays/plays.xml";
+#else
+    string playList = findFile("offense/plays/plays.xml");
+#endif
+	loadOffensePlayListFile(playList);
+//    std::vector<std::string> playerFiles = load->getPlayerFiles();
+
+    std::vector<std::string>::iterator it;
+    for (it = offensePlayFiles.begin(); it != offensePlayFiles.end(); ++it)
+    {
+		logMsg("offensePlayFile = " +*it);
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+		plays.push_back(loadOffensePlayFile("data/offense/plays/" + *it));
+#else
+        plays.push_back(loadOffensePlayFile(findFile("offense/plays/" + *it)));
+#endif
+    }
+
+	return (plays);
+}
+bool loader::loadOffensePlayListFile(string fileName)	// loads the list of offense play files from plays.xml
+{
+	renderEngine *renderE = renderEngine::Instance();
+    std::vector<std::string> playFiles;
+
+
+//	char *fileContents = NULL;
+	Ogre::String fileContents;
+	TiXmlDocument doc;
+	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
+//	readFile(fileName.c_str(), &fileContents);
+    logMsg(fileName);
+/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	fileContents = fileData->getAsString();
+#else*/
+    char *contents = NULL;
+	readFile(fileName.c_str(), &contents);
+	fileContents = Ogre::StringConverter::toString(contents);
+//#endif
+
+/*    TiXmlDocument doc(fileName.c_str());
+    if (!doc.LoadFile()) return(false);
+*/
+
+	if (!doc.Parse(contents))
+	{
+		logMsg("Unable to parse plays.xml file");
+		exit(0);
+	}
+
+    TiXmlHandle hDoc(&doc);
+    TiXmlElement* pElem;
+    TiXmlHandle hRoot(0);
+
+    pElem=hDoc.FirstChildElement().Element();
+    // should always have a valid root but handle gracefully if it does
+    if (!pElem) return(false);
+
+    // save this for later
+    hRoot=TiXmlHandle(pElem);
+
+    pElem=hRoot.FirstChild("PlayFile").Element();
+    for( pElem; pElem; pElem=pElem->NextSiblingElement())
+    {
+        string pKey=pElem->Value();
+//		cout << pKey << endl;
+        string pText=pElem->GetText();
+//		cout << pText << endl;
+        playFiles.push_back(pText);
+
+    }
+
+/*    std::vector<std::string>::iterator it;
+    for (it = playerFiles.begin(); it != playerFiles.end(); ++it)
+    {
+        cout << *it << endl;
+    }
+    */
+
+    setOffensePlayFiles(playFiles);
+
+	return true;
+}
+offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the offense play XML files
+{
+	offensePlays play;
+	std::string playName;
+    std::vector<int> variation;
+    std::vector<std::string> title;
+    std::vector<std::string> name;
+    std::vector<std::string> type;
+    std::vector<float> XCoord;
+    std::vector<float> YCoord;
+    std::vector<float> ZCoord;
+    std::vector<Ogre::Vector3> startCoords;
+    std::vector< std::vector<Ogre::Vector3> > executeCoords;
+//    TiXmlDocument doc(fileName.c_str());
+//    if (!doc.LoadFile()) return(false);
+
+//	char *fileContents = NULL;
+	Ogre::String fileContents;
+	TiXmlDocument doc;
+	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
+//	readFile(fileName.c_str(), &fileContents);
+
+/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	fileContents = fileData->getAsString();
+#else*/
+    char *contents = NULL;
+	readFile(fileName.c_str(), &contents);
+	fileContents = Ogre::StringConverter::toString(contents);
+//#endif
+	if (!doc.Parse(contents))
+	{
+		logMsg("Unable to parse player file");
+		exit(0);
+	}
+
+    TiXmlHandle hDoc(&doc);
+    TiXmlElement* pElem;
+    TiXmlHandle hRoot(0);
+
+    pElem=hDoc.FirstChildElement().Element();
+    // should always have a valid root but handle gracefully if it does
+    if (!pElem)
+    {
+    	logMsg("Unable to load offense play element");
+    	exit(0);
+    }
+    // save this for later
+    hRoot=TiXmlHandle(pElem);
+
+    pElem=hRoot.FirstChild("Name").FirstChild().Element();
+    if (pElem)
+    {
+        playName = pElem->GetText();
+//        cout << "Age = " << age << endl;
+    }
+
+
+    pElem=hRoot.FirstChild("Variation").Element();
+    if (pElem)
+    {
+        variation.push_back(atoi(pElem->GetText()));
+//        cout << "Age = " << age << endl;
+    }
+
+    pElem=hRoot.FirstChild("Title").Element();
+    if (pElem)
+    {
+        title.push_back(pElem->GetText());
+//        cout << "Height = " << height << endl;
+    }
+
+    pElem=hRoot.FirstChild("Positions").Element();
+    for( pElem; pElem; pElem=pElem->NextSiblingElement())
+    {
+        string pKey=pElem->Value();
+        if (pKey == "Player")
+        {
+            for( pElem; pElem; pElem=pElem->NextSiblingElement())
+            {
+                string pKey=pElem->Value();
+                if (pKey == "Name")
+                {
+                	name.push_back(pElem->GetText());
+                }
+                if (pKey == "Position")
+                {
+                    for( pElem; pElem; pElem=pElem->NextSiblingElement())
+                    {
+                        string pKey=pElem->Value();
+                        if (pKey == "Type")
+                        {
+                        	type.push_back(pElem->GetText());
+                        }
+                        if (pKey == "X")
+                        {
+                        	XCoord.push_back(atof(pElem->GetText()));
+                        }
+                        if (pKey == "Y")
+                        {
+                        	XCoord.push_back(atof(pElem->GetText()));
+                        }
+                        if (pKey == "Z")
+                        {
+                        	ZCoord.push_back(atof(pElem->GetText()));
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
+
+    play.setPlayName(playName);
+    play.setVariation(variation);
+    play.setTitle(title);
+    for (int x=0;x<variation.size();++x)
+    {
+    	for (int y=0;y<name.size();++y)
+    	{
+    		if (name[y] == "PG")
+    		{
+    			for (int z=0;z<type.size();++z)
+    			{
+    				if (type[z] == "Start")
+    				{
+    				}
+    			}
+    		}
+    	}
+    }
+	return (play);
+}

@@ -24,6 +24,7 @@
 #include "OgreVector3.h"
 
 #include "enums.h"
+#include "offenseplays.h"
 
 class offenseState
 {
@@ -36,6 +37,9 @@ public:
 
 	virtual bool getExecute();	// retrieves the value of execute variable
 	virtual void setExecute(bool ex);	// sets the value of the execute variable
+
+	std::vector<offensePlays> getPlays();	// returns the value of plays
+	void setPlays(std::vector<offensePlays> play);	// sets the value of plays
 
 	virtual Ogre::Vector3 *getStartPositions();	// retrieves the value of the startPositions variable
 	virtual void setStartPositions(Ogre::Vector3 *positions);	// sets the value startPositions variable
@@ -62,6 +66,8 @@ public:
 
 	virtual void updateState(int teamNumber);	// updates the state of the object
 
+	void loadPlays();	// loads offense plays from file
+
 	void setupBoxOffense(); // sets up box offense
 	void executeBoxOffense(); // executes box offense
 
@@ -81,6 +87,7 @@ private:
 
 	std::vector< std::vector<bool> > executePositionReached; // stores whether player is at execute position
 
+	std::vector<offensePlays> plays;	// stores the plays for the offense to run
 	// offense type variables
 	bool boxOffenseSetup;
 };

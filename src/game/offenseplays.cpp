@@ -20,12 +20,45 @@
 
 #include "offenseplays.h"
 
-Ogre::Vector3 *offensePlays::getStartPositions()	// retrieves startPositions variable
+std::string offensePlays::getPlayName()	// returns the value of playName;
+{
+	return (playName);
+}
+void offensePlays::setPlayName(std::string name)	// sets the value of playName
+{
+	playName = name;
+}
+std::vector<int> offensePlays::getVariation()	// returns the value of variation
+{
+	return (variation);
+}
+void offensePlays::setVariation(std::vector<int> vari)	// sets the value of variation
+{
+	variation = vari;
+}
+std::vector<std::string> offensePlays::getTitle()	// returns the value of title
+{
+	return (title);
+}
+void offensePlays::setTitle(std::vector<std::string> Title)	// sets the value of title
+{
+	title = Title;
+}
+std::vector<std::string> offensePlays::getPlayerName()	// returns the value of playerName
+{
+	return (playerName);
+}
+void offensePlays::setPlayerName(std::vector<std::string> name)	// sets the value of playerName
+{
+	playerName = name;
+}
+
+std::vector<Ogre::Vector3> offensePlays::getStartPositions()	// retrieves startPositions variable
 {
 	return (startPositions);
 }
 
-void offensePlays::setStartPositions(Ogre::Vector3 *positions)	// sets startPositions
+void offensePlays::setStartPositions(std::vector<Ogre::Vector3> positions)	// sets startPositions
 {
 	startPositions = positions;
 }
@@ -40,11 +73,11 @@ void offensePlays::setExecutePositions(std::vector< std::vector<Ogre::Vector3> >
 	executePositions = positions;
 }
 
-bool *offensePlays::getStartPositionSet()  // returns the value of startPositionSet
+std::vector<bool> offensePlays::getStartPositionSet()  // returns the value of startPositionSet
 {
 	return (startPositionSet);
 }
-void offensePlays::setStartPositionSet(bool *set) // sets the value of startPositionSet
+void offensePlays::setStartPositionSet(std::vector<bool> set) // sets the value of startPositionSet
 {
 	startPositionSet = set;
 }

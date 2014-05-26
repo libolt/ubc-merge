@@ -20,6 +20,7 @@
 
 #include "offensestate.h"
 #include "gamestate.h"
+#include "load.h"
 #include "logging.h"
 #include "playerstate.h"
 #include "teamstate.h"
@@ -61,6 +62,7 @@ offenseState::offenseState() // constructor
 	}
 
 	boxOffenseSetup = false;
+	loadPlays();
 }
 
 offenseTypes offenseState::getSelectedOffense() // returns value of selectedOffense
@@ -79,6 +81,15 @@ bool offenseState::getExecute()	// retrieves the value of execute variable
 void offenseState::setExecute(bool ex)	// sets the value of the execute variable
 {
 	execute = ex;
+}
+
+std::vector<offensePlays> offenseState::getPlays()	// returns the value of plays
+{
+	return (plays);
+}
+void offenseState::setPlays(std::vector<offensePlays> play)	// sets the value of plays
+{
+	plays = play;
 }
 
 Ogre::Vector3 *offenseState::getStartPositions()	// retrieves startPositions variable
@@ -274,6 +285,15 @@ void offenseState::updateState(int teamNumber)	// updates the state of the objec
     gameS->setTeamInstance(teamInstance);
 }
 
+void offenseState::loadPlays()	// loads offense plays from file
+{
+
+	loader *load = loader::Instance();
+	plays = load->loadOffensePlays();
+}
+
+
+
 void offenseState::setupBoxOffense() // sets up box offense
 {
 	startPositions[0] = Ogre::Vector3(5.0f,-13.5f,380.0f);
@@ -306,6 +326,8 @@ void offenseState::setupBoxOffense() // sets up box offense
 	}
 	boxOffenseSetup = true;
 }
+
+
 void offenseState::executeBoxOffense() // executes box offense
 {
 
