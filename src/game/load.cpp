@@ -1036,18 +1036,23 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     play.setTitle(title);
     for (int x=0;x<variation.size();++x)
     {
+		logMsg("name size = " +Ogre::StringConverter::toString(name.size()));
     	for (int y=0;y<name.size();++y)
     	{
+			exit(0);
     		if (name[y] == "PG")
     		{
+				exit(0);
     			for (int z=0;z<type.size();++z)
     			{
     				if (type[z] == "Start")
     				{
+						exit(0);
     				}
     			}
     		}
     	}
     }
+	exit(0);
 	return (play);
 }
