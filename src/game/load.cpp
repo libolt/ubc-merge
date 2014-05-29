@@ -967,11 +967,15 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     // save this for later
     hRoot=TiXmlHandle(pElem);
 
-    pElem=hRoot.FirstChild("Name").FirstChild().Element();
+//    pElem=hRoot.FirstChild("PlayName").FirstChild().Element();
+    pElem=hRoot.FirstChild("PlayName").Element();
+
     if (pElem)
     {
         playName = pElem->GetText();
+        logMsg("playName = " +playName);
 //        cout << "Age = " << age << endl;
+//        exit(0);
     }
 
 
@@ -979,6 +983,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     if (pElem)
     {
         variation.push_back(atoi(pElem->GetText()));
+        logMsg("Variation");
 //        cout << "Age = " << age << endl;
     }
 
@@ -986,21 +991,64 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     if (pElem)
     {
         title.push_back(pElem->GetText());
+        logMsg("Title");
 //        cout << "Height = " << height << endl;
+//        exit(0);
     }
 
     pElem=hRoot.FirstChild("Positions").Element();
-    for( pElem; pElem; pElem=pElem->NextSiblingElement())
+    if (pElem)
     {
+        for( pElem; pElem; pElem=pElem->NextSiblingElement())
+        {
+        	string pKey=pElem->Value();
+        	logMsg("pKey == " +pKey);
+    	    pElem = pElem->FirstChildElement("Player");
+//    	    if (pElem)
+        	if (pKey == "Player")
+    	    {
+    		    logMsg("Player");
+    		    pElem = pElem->Child("Name");
+    		    exit(0);
+    		    if (pElem)
+    		    {
+    		    	logMsg("Name");
+
+    		    }
+    		    int counter = 0;
+    		    for( pElem; pElem; pElem=pElem->NextSiblingElement())
+    		    {
+    		    	logMsg("Counter = " +Ogre::StringConverter::toString(counter));
+    		    	pKey=pElem->Value();
+    		    	exit(0);
+    		    }
+    		    pElem = pElem->NextSiblingElement("Name");
+    		    if (pElem)
+    		    {
+    			    string text = pElem->GetText();
+    			    logMsg("name == " +text);
+    		    }
+//    		    pElem = pElem->FirstChildElement("Position");
+    	    }
+        }
+
+    }
+
+/*    for( pElem; pElem; pElem=pElem->NextSiblingElement())
+    {
+    	logMsg("Position");
+//    	exit(0);
         string pKey=pElem->Value();
         if (pKey == "Player")
         {
+        	logMsg("Player");
             for( pElem; pElem; pElem=pElem->NextSiblingElement())
             {
                 string pKey=pElem->Value();
                 if (pKey == "Name")
                 {
                 	name.push_back(pElem->GetText());
+                	exit(0);
                 }
                 if (pKey == "Position")
                 {
@@ -1029,7 +1077,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
             }
 
         }
-    }
+    }*/
 
     play.setPlayName(playName);
     play.setVariation(variation);
