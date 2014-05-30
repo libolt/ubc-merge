@@ -925,9 +925,9 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     std::vector<std::string> title;
     std::vector<std::string> name;
     std::vector<std::string> type;
-    std::vector<float> XCoord;
-    std::vector<float> YCoord;
-    std::vector<float> ZCoord;
+    std::vector<float> startXCoord;
+    std::vector<float> startYCoord;
+    std::vector<float> startZCoord;
     std::vector<Ogre::Vector3> startCoords;
     std::vector< std::vector<Ogre::Vector3> > executeCoords;
 //    TiXmlDocument doc(fileName.c_str());
@@ -955,6 +955,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 
     TiXmlHandle hDoc(&doc);
     TiXmlElement* pElem;
+    TiXmlElement *child;
     TiXmlHandle hRoot(0);
 
     pElem=hDoc.FirstChildElement().Element();
@@ -987,7 +988,8 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 //        cout << "Age = " << age << endl;
     }
 
-    pElem=hRoot.FirstChild("Title").Element();
+//    pElem=hRoot.FirstChild("Title").Element();
+    pElem = pElem->NextSiblingElement("Title");
     if (pElem)
     {
         title.push_back(pElem->GetText());
@@ -996,30 +998,180 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 //        exit(0);
     }
 
-    pElem=hRoot.FirstChild("Positions").Element();
-    if (pElem)
+    int i = 0;
+    for (pElem = hRoot.FirstChild("Player").Element(); pElem != NULL; pElem = pElem->NextSiblingElement("Player"))
     {
+    	logMsg("i == " +Ogre::StringConverter::toString(i));
+    	i += 1;
+        pElem=hRoot.FirstChild("Player").FirstChild("Name").ToElement();
+        if (pElem)
+        {
+        	logMsg("Name");
+    		name.push_back(pElem->GetText());
+        }
+        pElem = pElem->NextSiblingElement("Positions");
+        if (pElem)
+        {
+        	logMsg("Positions");
+            for( pElem = pElem->FirstChildElement("Position"); pElem; pElem=pElem->NextSiblingElement())
+
+//        	for(pElem= pElem->FirstChildElement("Position"); pElem; pElem = pElem->NextSiblingElement("Position"))
+        	{
+            	string pKey = pElem->Value();
+            	logMsg("pKey = " +pKey);
+            	if (pKey == "Position")
+            	{
+//            		exit(0);
+            	}
+            	pElem = pElem->FirstChildElement("Type");
+        		if (pElem)
+        		{
+    	    		string Type = pElem->GetText();
+    	    		if (Type == "Start")
+    	    		{
+    	    			logMsg("Start");
+    	    			pElem = pElem->NextSiblingElement("X");
+    	    			if (pElem)
+    	    			{
+    	    				logMsg("X");
+    	    				startXCoord.push_back(atof(pElem->GetText()));
+    	    			}
+    	    			pElem = pElem->NextSiblingElement("Y");
+    	    			if (pElem)
+    	    			{
+    	    				logMsg("Y");
+    	    				startXCoord.push_back(atof(pElem->GetText()));
+    	    			}
+    	    			pElem = pElem->NextSiblingElement("Z");
+    	    			if (pElem)
+    	    			{
+    	    				logMsg("Z");
+    	    				startXCoord.push_back(atof(pElem->GetText()));
+    	    			}
+    	    		}
+    	    		else if (Type == "Execute")
+    	    		{
+    	    			logMsg("Execute");
+    	    			exit(0);
+    	    		}
+    	    		else
+    	    		{
+
+    	    		}
+
+        		}
+
+        	}
+        }
+//    	exit(0);
+
+    }
+// exit(0);
+/*
+    	pElem = pElem->FirstChildElement("Position");
+
         for( pElem; pElem; pElem=pElem->NextSiblingElement())
         {
-        	string pKey=pElem->Value();
-        	logMsg("pKey == " +pKey);
-    	    pElem = pElem->FirstChildElement("Player");
-//    	    if (pElem)
-        	if (pKey == "Player")
+        	string pKey = pElem->Value();
+        	logMsg("pKey = " +pKey);
+
+        	pElem = pElem->NextSiblingElement("Position");
+        	if (pElem)
+        	{
+        		logMsg("DEEDFDFFDS");
+        		pElem = pElem->FirstChildElement("Type");
+        		if (pElem)
+        		{
+    	    		string Type = pElem->GetText();
+    	    		if (Type == "Start")
+    	    		{
+    	    			logMsg("Start");
+    	    			pElem = pElem->NextSiblingElement("X");
+    	    			if (pElem)
+    	    			{
+    	    				startXCoord.push_back(atof(pElem->GetText()));
+    	    			}
+    	    			pElem = pElem->NextSiblingElement("Y");
+    	    			if (pElem)
+    	    			{
+    	    				startXCoord.push_back(atof(pElem->GetText()));
+    	    			}
+    	    			pElem = pElem->NextSiblingElement("Z");
+    	    			if (pElem)
+    	    			{
+    	    				startXCoord.push_back(atof(pElem->GetText()));
+    	    			}
+    	    		}
+    	    		else if (Type == "Execute")
+    	    		{
+    	    			logMsg("Execute");
+    	    			exit(0);
+    	    		}
+
+        		}
+        	}
+        }
+    }
+        for( pElem; pElem; pElem=pElem->NextSiblingElement())
+//    	child = 0;
+//    	while ( child = pElem->IterateChildren(child))
+        {
+//        	string pKey=pElem->Value();
+//        	logMsg("pKey == " +pKey);
+    	    pElem = pElem->FirstChildElement("Name");
+    	    if (pElem)
+//        	if (pKey == "Player")
     	    {
-    		    logMsg("Player");
-    		    pElem = pElem->Child("Name");
-    		    exit(0);
+        		name.push_back(pElem->GetText());
+    	    }
+    	    logMsg("Dah");
+            for( pElem; pElem; pElem=pElem->NextSiblingElement())
+            {
+    	    pElem = pElem->NextSiblingElement("Position");
+    	    if (pElem)
+    	    {
+    	    	pElem = pElem->FirstChildElement("Type");
+    	    	{
+    	    		string Type = pElem->GetText();
+    	    		if (Type == "Start")
+    	    		{
+    	    			pElem = pElem->NextSiblingElement("X");
+    	    			if (pElem)
+    	    			{
+    	    				startXCoord.push_back(atof(pElem->GetText()));
+    	    			}
+    	    			pElem = pElem->NextSiblingElement("Y");
+    	    			if (pElem)
+    	    			{
+    	    				startXCoord.push_back(atof(pElem->GetText()));
+    	    			}
+    	    			pElem = pElem->NextSiblingElement("Z");
+    	    			if (pElem)
+    	    			{
+    	    				startXCoord.push_back(atof(pElem->GetText()));
+    	    			}
+    	    		}
+    	    		else if (Type == "Execute")
+    	    		{
+    	    			exit(0);
+    	    		}
+    	    	}
+    	    	logMsg("Yee");
+    	    }
+            }
+            */
+//        		logMsg("Name = " +name);
+/*    		    pElem = pElem->FirstChildElement("Position");
     		    if (pElem)
     		    {
-    		    	logMsg("Name");
+    		    	logMsg("Position");
 
     		    }
     		    int counter = 0;
     		    for( pElem; pElem; pElem=pElem->NextSiblingElement())
     		    {
     		    	logMsg("Counter = " +Ogre::StringConverter::toString(counter));
-    		    	pKey=pElem->Value();
+//    		    	pKey=pElem->Value();
     		    	exit(0);
     		    }
     		    pElem = pElem->NextSiblingElement("Name");
@@ -1029,10 +1181,11 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     			    logMsg("name == " +text);
     		    }
 //    		    pElem = pElem->FirstChildElement("Position");
-    	    }
-        }
+//    	    }
+    	    */
+//        }
 
-    }
+//    }
 
 /*    for( pElem; pElem; pElem=pElem->NextSiblingElement())
     {

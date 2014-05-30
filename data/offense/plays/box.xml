@@ -3,9 +3,9 @@
     <PlayName>Box</PlayName>
 	<Variation>0</Variation>
 	<Title>Standard</Title>
-	<Positions>
-	    <Player>
-	        <Name>PG</Name>
+	<Player>
+	    <Name>PG</Name>
+        <Positions>
 	        <Position>
 	            <Type>Start</Type>
 		        <X>5.0</X>
@@ -18,9 +18,11 @@
 	            <Y>-13.5</Y>
 	            <Z>380.0</Z>
 		    </Position>
-	    </Player>
-        <Player>
-	        <Name>SG</Name>
+		</Positions>
+	</Player>
+    <Player>
+	    <Name>SG</Name>
+	    <Positions>
 		    <Position>
 		        <Type>Start</Type>
 		        <X>3.0</X>
@@ -39,9 +41,11 @@
                 <Y>-12.5</Y>
                 <Z>390.0</Z>
             </Position>
-        </Player>
-        <Player>
-	        <Name>SF</Name>
+        </Positions>
+    </Player>
+    <Player>
+	    <Name>SF</Name>
+	    <Positions>
 	        <Position>
 		        <Type>Start</Type>
 		        <X>4.0</X>
@@ -60,9 +64,11 @@
                 <Y>-14.5</Y>
                 <Z>370.0</Z>
             </Position>
-        </Player>
-        <Player>
-	        <Name>PF</Name>
+        </Positions>
+    </Player>
+    <Player>
+	    <Name>PF</Name>
+	    <Positions>
 	        <Position>
 	            <Type>Start</Type>
 		        <X>6.0</X>
@@ -75,9 +81,11 @@
                 <Y>-11.5</Y>
                 <Z>377.0</Z>
             </Position>
-        </Player>
-        <Player>
-            <Name>C</Name>
+        </Positions>
+    </Player>
+    <Player>
+        <Name>C</Name>
+        <Positions>
 	        <Position>
 	            <Type>Start</Type>
 	            <X>3.0</X>
@@ -90,6 +98,6 @@
 	            <Y>-13.5</Y>
 	            <Z>378.0</Z>
 	        </Position>
-	    </Player>
-	</Positions>
+	    </Positions>
+	</Player>
 </Play>
