@@ -999,24 +999,49 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     }
 
     int i = 0;
-    for (pElem = hRoot.FirstChild("Player").Element(); pElem != NULL; pElem = pElem->NextSiblingElement("Player"))
+	bool firstElementReached = false;
+//    for (TiXmlElement* e = hRoot.FirstChild("Player").Element(); e != NULL; e = e->NextSiblingElement("Player"))
+    for (TiXmlElement* e = pElem->NextSiblingElement("Player"); e != NULL; e = e->NextSiblingElement("Player"))
     {
     	logMsg("i == " +Ogre::StringConverter::toString(i));
     	i += 1;
-        pElem=hRoot.FirstChild("Player").FirstChild("Name").ToElement();
-        if (pElem)
+//        pElem=hRoot.FirstChild("Player").FirstChild("Name").ToElement();
+//        if (!firstElementReached)
+//		{
+            e = e->FirstChildElement("Name");
+			logMsg("doi");
+/*		}
+		else
+		{
+			e = e->NextSiblingElement("Name");
+			logMsg("daa");
+			exit(0);
+		}
+*/
+        if (e)
         {
-        	logMsg("Name");
+/*			if (!firstElementReached)
+			{
+				firstElementReached = true;
+			}
+			string name = e->GetText();
+        	logMsg("Name = " +name);
     		name.push_back(pElem->GetText());
         }
-        pElem = pElem->NextSiblingElement("Positions");
-        if (pElem)
+        e = e->NextSiblingElement("Positions");
+        if (e)
         {
         	logMsg("Positions");
-            for( pElem = pElem->FirstChildElement("Position"); pElem; pElem=pElem->NextSiblingElement())
+            int test = 0;
+			for(TiXmlElement* f = e->FirstChildElement("Position"); f != NULL; f = f->NextSiblingElement("Position"))
+
+//			for( pElem = pElem->FirstChildElement("Position"); pElem; pElem=pElem->NextSiblingElement())
 
 //        	for(pElem= pElem->FirstChildElement("Position"); pElem; pElem = pElem->NextSiblingElement("Position"))
         	{
+				test += 1;
+				logMsg("test = " +Ogre::StringConverter::toString(test));
+/*
             	string pKey = pElem->Value();
             	logMsg("pKey = " +pKey);
             	if (pKey == "Position")
@@ -1062,7 +1087,9 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
         		}
 
         	}
+*/
         }
+
 //    	exit(0);
 
     }
