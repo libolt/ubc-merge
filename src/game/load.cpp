@@ -954,310 +954,95 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 	}
 
     TiXmlHandle hDoc(&doc);
+    TiXmlElement *rootElement;
     TiXmlElement* pElem;
     TiXmlElement *child;
+    TiXmlNode *rootNode;
+    TiXmlNode *childNode;
     TiXmlHandle hRoot(0);
 
-    pElem=hDoc.FirstChildElement().Element();
+//    pElem=hDoc.FirstChildElement().Element();
+    rootElement = doc.FirstChildElement("Play");
     // should always have a valid root but handle gracefully if it does
-    if (!pElem)
+    if (!rootElement)
     {
     	logMsg("Unable to load offense play element");
     	exit(0);
     }
-    // save this for later
-    hRoot=TiXmlHandle(pElem);
 
-//    pElem=hRoot.FirstChild("PlayName").FirstChild().Element();
-    pElem=hRoot.FirstChild("PlayName").Element();
-
-    if (pElem)
+    child = rootElement->FirstChild()->ToElement();
+    if (child)
     {
-        playName = pElem->GetText();
-        logMsg("playName = " +playName);
-//        cout << "Age = " << age << endl;
-//        exit(0);
-    }
-
-
-    pElem=hRoot.FirstChild("Variation").Element();
-    if (pElem)
-    {
-        variation.push_back(atoi(pElem->GetText()));
-        logMsg("Variation");
-//        cout << "Age = " << age << endl;
-    }
-
-//    pElem=hRoot.FirstChild("Title").Element();
-    pElem = pElem->NextSiblingElement("Title");
-    if (pElem)
-    {
-        title.push_back(pElem->GetText());
-        logMsg("Title");
-//        cout << "Height = " << height << endl;
-//        exit(0);
-    }
-
-    int i = 0;
-	bool firstElementReached = false;
-//    for (TiXmlElement* e = hRoot.FirstChild("Player").Element(); e != NULL; e = e->NextSiblingElement("Player"))
-    for (TiXmlElement* e = pElem->NextSiblingElement("Player"); e != NULL; e = e->NextSiblingElement("Player"))
-    {
-    	logMsg("i == " +Ogre::StringConverter::toString(i));
-    	i += 1;
-//        pElem=hRoot.FirstChild("Player").FirstChild("Name").ToElement();
-//        if (!firstElementReached)
-//		{
-            e = e->FirstChildElement("Name");
-			logMsg("doi");
-/*		}
-		else
+    	string cKey = child->Value();
+    	if (cKey == "PlayName")
+    	{
+    		string pName = child->GetText();
+    		logMsg("child = " +pName);
+    	}
+    	child = child->NextSiblingElement("Variation");
+  		if (child)
+    	{
+    		int pVari = atoi(child->GetText());
+    		logMsg("pVari = " +Ogre::StringConverter::toString(pVari));
+    	}
+  		child = child->NextSiblingElement("Title");
+		if (child)
 		{
-			e = e->NextSiblingElement("Name");
-			logMsg("daa");
-			exit(0);
+			string pTitle = child->GetText();
+			logMsg("pTitle = " +pTitle);
 		}
-*/
-/*        if (e)
-        {
-			if (!firstElementReached)
+		int nums = 0;
+		for (TiXmlElement *e = child->NextSiblingElement("Player"); e != NULL; e = e->NextSiblingElement() )
+		{
+			TiXmlElement *f;
+			logMsg ("nums = " +Ogre::StringConverter::toString(nums));
+			nums += 1;
+			f = e->FirstChildElement("Name");
+			if (f)
 			{
-				firstElementReached = true;
+				string name = f->GetText();
+				logMsg("name = " +name);
 			}
-			string name = e->GetText();
-        	logMsg("Name = " +name);
-    		name.push_back(pElem->GetText());
-        }
-        e = e->NextSiblingElement("Positions");
-        if (e)
-        {
-        	logMsg("Positions");
-            int test = 0;
-			for(TiXmlElement* f = e->FirstChildElement("Position"); f != NULL; f = f->NextSiblingElement("Position"))
+			f = f->NextSiblingElement("Positions");
+			if (f)
+			{
+				int numPos = 0;
+				for (TiXmlElement *g = f->FirstChildElement("Position"); g != NULL; g = g->NextSiblingElement("Position"))
+				{
+					logMsg("numPos = " +Ogre::StringConverter::toString(numPos));
+					numPos += 1;
+					TiXmlElement *h;
+					h = g->FirstChildElement("Type");
+					if (h)
+					{
+						string pType = h->GetText();
+						logMsg("pType = " +pType);
+					}
+					h = h->NextSiblingElement("X");
+					if (h)
+					{
+						float pX = atof(h->GetText());
+						logMsg("pX = " +Ogre::StringConverter::toString(pX));
+					}
+					h = h->NextSiblingElement("Y");
+					if (h)
+					{
+						float pY = atof(h->GetText());
+						logMsg("pY = " +Ogre::StringConverter::toString(pY));
+					}
+					h = h->NextSiblingElement("Z");
+					if (h)
+					{
+						float pZ = atof(h->GetText());
+						logMsg("pZ = " +Ogre::StringConverter::toString(pZ));
+					}
 
-//			for( pElem = pElem->FirstChildElement("Position"); pElem; pElem=pElem->NextSiblingElement())
+				}
+			}
+		}
 
-//        	for(pElem= pElem->FirstChildElement("Position"); pElem; pElem = pElem->NextSiblingElement("Position"))
-        	{
-				test += 1;
-				logMsg("test = " +Ogre::StringConverter::toString(test));
-/*
-            	string pKey = pElem->Value();
-            	logMsg("pKey = " +pKey);
-            	if (pKey == "Position")
-            	{
-//            		exit(0);
-            	}
-            	pElem = pElem->FirstChildElement("Type");
-        		if (pElem)
-        		{
-    	    		string Type = pElem->GetText();
-    	    		if (Type == "Start")
-    	    		{
-    	    			logMsg("Start");
-    	    			pElem = pElem->NextSiblingElement("X");
-    	    			if (pElem)
-    	    			{
-    	    				logMsg("X");
-    	    				startXCoord.push_back(atof(pElem->GetText()));
-    	    			}
-    	    			pElem = pElem->NextSiblingElement("Y");
-    	    			if (pElem)
-    	    			{
-    	    				logMsg("Y");
-    	    				startXCoord.push_back(atof(pElem->GetText()));
-    	    			}
-    	    			pElem = pElem->NextSiblingElement("Z");
-    	    			if (pElem)
-    	    			{
-    	    				logMsg("Z");
-    	    				startXCoord.push_back(atof(pElem->GetText()));
-    	    			}
-    	    		}
-    	    		else if (Type == "Execute")
-    	    		{
-    	    			logMsg("Execute");
-    	    			exit(0);
-    	    		}
-    	    		else
-    	    		{
-
-    	    		}
-
-        		}
-
-        	}
-
-        }
-*/
-//    	exit(0);
 
     }
-// exit(0);
-/*
-    	pElem = pElem->FirstChildElement("Position");
-
-        for( pElem; pElem; pElem=pElem->NextSiblingElement())
-        {
-        	string pKey = pElem->Value();
-        	logMsg("pKey = " +pKey);
-
-        	pElem = pElem->NextSiblingElement("Position");
-        	if (pElem)
-        	{
-        		logMsg("DEEDFDFFDS");
-        		pElem = pElem->FirstChildElement("Type");
-        		if (pElem)
-        		{
-    	    		string Type = pElem->GetText();
-    	    		if (Type == "Start")
-    	    		{
-    	    			logMsg("Start");
-    	    			pElem = pElem->NextSiblingElement("X");
-    	    			if (pElem)
-    	    			{
-    	    				startXCoord.push_back(atof(pElem->GetText()));
-    	    			}
-    	    			pElem = pElem->NextSiblingElement("Y");
-    	    			if (pElem)
-    	    			{
-    	    				startXCoord.push_back(atof(pElem->GetText()));
-    	    			}
-    	    			pElem = pElem->NextSiblingElement("Z");
-    	    			if (pElem)
-    	    			{
-    	    				startXCoord.push_back(atof(pElem->GetText()));
-    	    			}
-    	    		}
-    	    		else if (Type == "Execute")
-    	    		{
-    	    			logMsg("Execute");
-    	    			exit(0);
-    	    		}
-
-        		}
-        	}
-        }
-    }
-        for( pElem; pElem; pElem=pElem->NextSiblingElement())
-//    	child = 0;
-//    	while ( child = pElem->IterateChildren(child))
-        {
-//        	string pKey=pElem->Value();
-//        	logMsg("pKey == " +pKey);
-    	    pElem = pElem->FirstChildElement("Name");
-    	    if (pElem)
-//        	if (pKey == "Player")
-    	    {
-        		name.push_back(pElem->GetText());
-    	    }
-    	    logMsg("Dah");
-            for( pElem; pElem; pElem=pElem->NextSiblingElement())
-            {
-    	    pElem = pElem->NextSiblingElement("Position");
-    	    if (pElem)
-    	    {
-    	    	pElem = pElem->FirstChildElement("Type");
-    	    	{
-    	    		string Type = pElem->GetText();
-    	    		if (Type == "Start")
-    	    		{
-    	    			pElem = pElem->NextSiblingElement("X");
-    	    			if (pElem)
-    	    			{
-    	    				startXCoord.push_back(atof(pElem->GetText()));
-    	    			}
-    	    			pElem = pElem->NextSiblingElement("Y");
-    	    			if (pElem)
-    	    			{
-    	    				startXCoord.push_back(atof(pElem->GetText()));
-    	    			}
-    	    			pElem = pElem->NextSiblingElement("Z");
-    	    			if (pElem)
-    	    			{
-    	    				startXCoord.push_back(atof(pElem->GetText()));
-    	    			}
-    	    		}
-    	    		else if (Type == "Execute")
-    	    		{
-    	    			exit(0);
-    	    		}
-    	    	}
-    	    	logMsg("Yee");
-    	    }
-            }
-            */
-//        		logMsg("Name = " +name);
-/*    		    pElem = pElem->FirstChildElement("Position");
-    		    if (pElem)
-    		    {
-    		    	logMsg("Position");
-
-    		    }
-    		    int counter = 0;
-    		    for( pElem; pElem; pElem=pElem->NextSiblingElement())
-    		    {
-    		    	logMsg("Counter = " +Ogre::StringConverter::toString(counter));
-//    		    	pKey=pElem->Value();
-    		    	exit(0);
-    		    }
-    		    pElem = pElem->NextSiblingElement("Name");
-    		    if (pElem)
-    		    {
-    			    string text = pElem->GetText();
-    			    logMsg("name == " +text);
-    		    }
-//    		    pElem = pElem->FirstChildElement("Position");
-//    	    }
-    	    */
-//        }
-
-//    }
-
-/*    for( pElem; pElem; pElem=pElem->NextSiblingElement())
-    {
-    	logMsg("Position");
-//    	exit(0);
-        string pKey=pElem->Value();
-        if (pKey == "Player")
-        {
-        	logMsg("Player");
-            for( pElem; pElem; pElem=pElem->NextSiblingElement())
-            {
-                string pKey=pElem->Value();
-                if (pKey == "Name")
-                {
-                	name.push_back(pElem->GetText());
-                	exit(0);
-                }
-                if (pKey == "Position")
-                {
-                    for( pElem; pElem; pElem=pElem->NextSiblingElement())
-                    {
-                        string pKey=pElem->Value();
-                        if (pKey == "Type")
-                        {
-                        	type.push_back(pElem->GetText());
-                        }
-                        if (pKey == "X")
-                        {
-                        	XCoord.push_back(atof(pElem->GetText()));
-                        }
-                        if (pKey == "Y")
-                        {
-                        	XCoord.push_back(atof(pElem->GetText()));
-                        }
-                        if (pKey == "Z")
-                        {
-                        	ZCoord.push_back(atof(pElem->GetText()));
-                        }
-                    }
-
-                }
-            }
-
-        }
-    }*/
 
     play.setPlayName(playName);
     play.setVariation(variation);
