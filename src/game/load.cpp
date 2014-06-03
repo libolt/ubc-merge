@@ -1018,9 +1018,9 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 			exit(0);
 		}
 */
-        if (e)
+/*        if (e)
         {
-/*			if (!firstElementReached)
+			if (!firstElementReached)
 			{
 				firstElementReached = true;
 			}
@@ -1087,9 +1087,9 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
         		}
 
         	}
-*/
-        }
 
+        }
+*/
 //    	exit(0);
 
     }
