@@ -262,7 +262,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 
 			if (!startPositionSet[ID])
 			{
-			    Ogre::Vector3 *offenseStartPositions;
+			    std::vector<Ogre::Vector3> offenseStartPositions;
 			    OpenSteer::Vec3 startPosition;
 			    OpenSteer::Vec3 seekTarget;
 			    float distPlayerStartPosition;
@@ -271,6 +271,7 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 			    logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Start Position!");
 			    startPosition = convertToOpenSteerVec3(offenseStartPositions[ID]);
 			    logMsg("startPosition = " +Ogre::StringConverter::toString(offenseStartPositions[ID]));
+		
 			    logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
 			    distPlayerStartPosition = OpenSteer::Vec3::distance (startPosition, position());
 			    logMsg("Distance to startPosition = " +Ogre::StringConverter::toString(distPlayerStartPosition));

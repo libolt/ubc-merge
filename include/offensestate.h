@@ -41,8 +41,8 @@ public:
 	std::vector<offensePlays> getPlays();	// returns the value of plays
 	void setPlays(std::vector<offensePlays> play);	// sets the value of plays
 
-	virtual Ogre::Vector3 *getStartPositions();	// retrieves the value of the startPositions variable
-	virtual void setStartPositions(Ogre::Vector3 *positions);	// sets the value startPositions variable
+	virtual std::vector<Ogre::Vector3> getStartPositions();	// retrieves the value of the startPositions variable
+	virtual void setStartPositions(std::vector<Ogre::Vector3> positions);	// sets the value startPositions variable
 
 	virtual std::vector <std::vector<Ogre::Vector3> > getExecutePositions();	// retrieves the value of the executePositions variable
 	virtual void setExecutePositions(std::vector< std::vector<Ogre::Vector3> > positions);	// sets the value executePositions variable
@@ -78,7 +78,7 @@ private:
 	bool offenseSet; // if true then run offense
 	bool execute;	// If set then execute the offense logic
 
-    Ogre::Vector3 *startPositions;		// stores the positions for players get to in order to execute offense
+    std::vector<Ogre::Vector3> startPositions;		// stores the positions for players get to in order to execute offense
     std::vector< std::vector<Ogre::Vector3> > executePositions;    // stores the positions where players move when executing offense
 	bool *startXPosSet; // stores whether player is at start X position
 	bool *startYPosSet; // stores whether player is at start Y position

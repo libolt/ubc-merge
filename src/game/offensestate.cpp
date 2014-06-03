@@ -30,13 +30,14 @@ offenseState::offenseState() // constructor
 	selectedOffense = BOX; // sets the default offense to box
 	execute = false;
 	offenseSet = false;
-	startPositions = new Ogre::Vector3[5];
+/*	startPositions = new Ogre::Vector3[5];
 
 	for (int x=0; x<5; ++x)
 	{
 		startPositions[x]	= Ogre::Vector3(0.0f,0.0f,0.0f);
 
 	}
+*/
 //    startPositions[4]	= Ogre::Vector3(3000.0f,-1300.5f,3780.0f);
 
 //	executePositions = new std::vector<Ogre::Vector3>[5];
@@ -92,12 +93,12 @@ void offenseState::setPlays(std::vector<offensePlays> play)	// sets the value of
 	plays = play;
 }
 
-Ogre::Vector3 *offenseState::getStartPositions()	// retrieves startPositions variable
+std::vector<Ogre::Vector3> offenseState::getStartPositions()	// retrieves startPositions variable
 {
 	return (startPositions);
 }
 
-void offenseState::setStartPositions(Ogre::Vector3 *positions)	// sets startPositions
+void offenseState::setStartPositions(std::vector<Ogre::Vector3> positions)	// sets startPositions
 {
 	startPositions = positions;
 }
@@ -159,7 +160,7 @@ void offenseState::setExecutePositionReached(std::vector< std::vector<bool> > re
 
 void offenseState::setupState()		// sets up initial state of the object
 {
-	startPositions[0] = Ogre::Vector3(5.0f,-13.5f,380.0f);
+//	startPositions[0] = Ogre::Vector3(5.0f,-13.5f,380.0f);
 }
 
 void offenseState::updateState(int teamNumber)	// updates the state of the object
@@ -296,6 +297,16 @@ void offenseState::loadPlays()	// loads offense plays from file
 
 void offenseState::setupBoxOffense() // sets up box offense
 {
+	logMsg("plays.size() = " +Ogre::StringConverter::toString(plays.size()));
+	for (int x=0;x<plays.size();++x)
+	{
+		if (plays[x].getPlayName() == "Box")
+		{
+			startPositions = plays[x].getStartPositions();
+			executePositions = plays[x].getExecutePositions();
+		}
+	}
+/*
 	startPositions[0] = Ogre::Vector3(5.0f,-13.5f,380.0f);
 	startPositions[1] = Ogre::Vector3(3.0f,-12.5f,375.0f);
 	startPositions[2] = Ogre::Vector3(4.0f,-14.5f,385.0f);
@@ -312,7 +323,7 @@ void offenseState::setupBoxOffense() // sets up box offense
 
 	executePositions[3].push_back(Ogre::Vector3(16.0f,-11.5f,377.0f));
 	executePositions[4].push_back(Ogre::Vector3(13.0f,-13.5f,378.0f));
-
+*/
 	executePositionReached.resize(5);
 	for (int x=0; x<executePositions.size(); ++x)
 	{

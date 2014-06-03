@@ -1,0 +1,103 @@
+<?xml version="1.0" ?>
+<Play>
+    <PlayName>Box</PlayName>
+	<Variation>0</Variation>
+	<Title>Standard</Title>
+	<Player>
+	    <Name>PG</Name>
+        <Positions>
+	        <Position>
+	            <Type>Start</Type>
+		        <X> 0 </X>
+		        <Y>0 </Y>
+		        <Z> 0 </Z>
+	        </Position>
+		    <Position>
+	            <Type>Execute</Type>
+	            <X>0</X>
+	            <Y>0</Y>
+	            <Z>0</Z>
+		    </Position>
+		</Positions>
+	</Player>
+    <Player>
+	    <Name>SG</Name>
+	    <Positions>
+		    <Position>
+		        <Type>Start</Type>
+		        <X> 0 </X>
+		        <Y>0 </Y>
+	            <Z> 0 </Z>
+            </Position>
+            <Position>
+                <Type>Execute</Type>
+                <X>0</X>
+                <Y>0</Y>
+                <Z>0</Z>
+            </Position>
+            <Position>
+                <Type>Execute</Type>
+                <X>0</X>
+                <Y>0</Y>
+                <Z>0</Z>
+            </Position>
+        </Positions>
+    </Player>
+    <Player>
+	    <Name>SF</Name>
+	    <Positions>
+	        <Position>
+		        <Type>Start</Type>
+		        <X> 0 </X>
+		        <Y> 0 </Y>
+	            <Z> 0 </Z>
+            </Position>
+            <Position>
+                <Type>Execute</Type>
+                <X>0</X>
+                <Y>0</Y>
+                <Z>0</Z>
+            </Position>
+            <Position>
+                <Type>Execute</Type>
+                <X>0</X>
+                <Y>0</Y>
+                <Z>0</Z>
+            </Position>
+        </Positions>
+    </Player>
+    <Player>
+	    <Name>PF</Name>
+	    <Positions>
+	        <Position>
+	            <Type>Start</Type>
+		        <X>0</X>
+		        <Y>0</Y>
+	            <Z>0</Z>
+            </Position>
+            <Position>
+                <Type>Execute</Type>
+                <X>0</X>
+                <Y>0</Y>
+                <Z>0</Z>
+            </Position>
+        </Positions>
+    </Player>
+    <Player>
+        <Name>C</Name>
+        <Positions>
+	        <Position>
+	            <Type>Start</Type>
+	            <X>0</X>
+	            <Y>0</Y>
+	            <Z>0</Z>
+	        </Position>
+	        <Position>
+	            <Type>Execute</Type>
+	            <X>0</X>
+	            <Y>0</Y>
+	            <Z>0</Z>
+	        </Position>
+	    </Positions>
+	</Player>
+</Play>

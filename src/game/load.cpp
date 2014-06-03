@@ -923,13 +923,26 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 	std::string playName;
     std::vector<int> variation;
     std::vector<std::string> title;
-    std::vector<std::string> name;
+    std::vector<std::string> playerName;
     std::vector<std::string> type;
-    std::vector<float> startXCoord;
-    std::vector<float> startYCoord;
-    std::vector<float> startZCoord;
+    std::vector<float> xCoord;
+    std::vector<float> yCoord;
+    std::vector<float> zCoord;
     std::vector<Ogre::Vector3> startCoords;
     std::vector< std::vector<Ogre::Vector3> > executeCoords;
+
+	// stores values read from XML files
+	std::string pPlayName;
+    int pVariation;
+    std::string pTitle;
+    std::string pPlayerName;
+    const std::string pType;
+    float pXCoord;
+    float pYCoord;
+    float pZCoord;
+    Ogre::Vector3 pCoords;
+	std::vector<Ogre::Vector3> pExecuteCoords;
+
 //    TiXmlDocument doc(fileName.c_str());
 //    if (!doc.LoadFile()) return(false);
 
@@ -976,20 +989,23 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     	string cKey = child->Value();
     	if (cKey == "PlayName")
     	{
-    		string pName = child->GetText();
-    		logMsg("child = " +pName);
+    		pPlayName = child->GetText();
+    		logMsg("pPlayName = " +playName);
+			playName = pPlayName;
     	}
     	child = child->NextSiblingElement("Variation");
   		if (child)
     	{
-    		int pVari = atoi(child->GetText());
-    		logMsg("pVari = " +Ogre::StringConverter::toString(pVari));
+    		pVariation = atoi(child->GetText());
+    		logMsg("pVariation = " +Ogre::StringConverter::toString(pVariation));
+			variation.push_back(pVariation);
     	}
   		child = child->NextSiblingElement("Title");
 		if (child)
 		{
-			string pTitle = child->GetText();
+			pTitle = child->GetText();
 			logMsg("pTitle = " +pTitle);
+			title.push_back(pTitle);
 		}
 		int nums = 0;
 		for (TiXmlElement *e = child->NextSiblingElement("Player"); e != NULL; e = e->NextSiblingElement() )
@@ -1000,13 +1016,15 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 			f = e->FirstChildElement("Name");
 			if (f)
 			{
-				string name = f->GetText();
-				logMsg("name = " +name);
+				pPlayerName = f->GetText();
+				logMsg("name = " +pPlayerName);
+				playerName.push_back(pPlayerName);
 			}
 			f = f->NextSiblingElement("Positions");
 			if (f)
 			{
 				int numPos = 0;
+				pExecuteCoords.clear(); // clears the vector for each player
 				for (TiXmlElement *g = f->FirstChildElement("Position"); g != NULL; g = g->NextSiblingElement("Position"))
 				{
 					logMsg("numPos = " +Ogre::StringConverter::toString(numPos));
@@ -1015,28 +1033,50 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 					h = g->FirstChildElement("Type");
 					if (h)
 					{
-						string pType = h->GetText();
+						pType = h->GetText();
 						logMsg("pType = " +pType);
+						type.push_back(pType);
 					}
 					h = h->NextSiblingElement("X");
 					if (h)
 					{
-						float pX = atof(h->GetText());
-						logMsg("pX = " +Ogre::StringConverter::toString(pX));
+						pXCoord = atof(h->GetText());
+						logMsg("pXCoord = " +Ogre::StringConverter::toString(pXCoord));
+						xCoord.push_back(pXCoord);
 					}
 					h = h->NextSiblingElement("Y");
 					if (h)
 					{
-						float pY = atof(h->GetText());
-						logMsg("pY = " +Ogre::StringConverter::toString(pY));
+						pYCoord = atof(h->GetText());
+						logMsg("pYCoord = " +Ogre::StringConverter::toString(pYCoord));
+						yCoord.push_back(pYCoord);
 					}
 					h = h->NextSiblingElement("Z");
 					if (h)
 					{
-						float pZ = atof(h->GetText());
-						logMsg("pZ = " +Ogre::StringConverter::toString(pZ));
+						pZCoord = atof(h->GetText());
+						logMsg("pZCoord = " +Ogre::StringConverter::toString(pZCoord));
+						zCoord.push_back(pZCoord);
 					}
-
+					
+					pCoords.x = pXCoord;
+					pCoords.y = pYCoord;
+					pCoords.z = pZCoord;
+					
+                    if (pType == "Start")
+					{
+				         startCoords.push_back(pCoords);
+					}
+					else
+					{
+						pExecuteCoords.push_back(pCoords);
+						logMsg("pExecuteCoords.size = " +Ogre::StringConverter::toString(pExecuteCoords.size()));
+					}
+				}
+				// checks if there are execute coords and puts them in the vector
+				if (pExecuteCoords.size() > 0)
+				{
+					executeCoords.push_back(pExecuteCoords);
 				}
 			}
 		}
@@ -1047,13 +1087,16 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     play.setPlayName(playName);
     play.setVariation(variation);
     play.setTitle(title);
-    for (int x=0;x<variation.size();++x)
+	play.setPlayerName(playerName);
+	play.setStartPositions(startCoords);
+	play.setExecutePositions(executeCoords);
+/*    for (int x=0;x<variation.size();++x)
     {
-		logMsg("name size = " +Ogre::StringConverter::toString(name.size()));
-    	for (int y=0;y<name.size();++y)
+		logMsg("playerName size = " +Ogre::StringConverter::toString(playerName.size()));
+    	for (int y=0;y<playerName.size();++y)
     	{
 			exit(0);
-    		if (name[y] == "PG")
+    		if (playerName[y] == "PG")
     		{
 				exit(0);
     			for (int z=0;z<type.size();++z)
@@ -1066,6 +1109,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     		}
     	}
     }
-	exit(0);
+*/
+//	exit(0);
 	return (play);
 }
