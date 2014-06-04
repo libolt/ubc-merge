@@ -27,7 +27,7 @@
 
 offenseState::offenseState() // constructor
 {
-	selectedOffense = BOX; // sets the default offense to box
+	selectedOffense = NULL; // sets the default offense to box
 	execute = false;
 	offenseSet = false;
 /*	startPositions = new Ogre::Vector3[5];
@@ -62,15 +62,15 @@ offenseState::offenseState() // constructor
 //		executePositionSet[x] = false;
 	}
 
-	boxOffenseSetup = false;
+	offenseSetup = false;
 	loadPlays();
 }
 
-offenseTypes offenseState::getSelectedOffense() // returns value of selectedOffense
+int offenseState::getSelectedOffense() // returns value of selectedOffense
 {
 	return (selectedOffense);
 }
-void offenseState::setSelectedOffense(offenseTypes selected) // sets the value of selectedOffense
+void offenseState::setSelectedOffense(int selected) // sets the value of selectedOffense
 {
 	selectedOffense = selected;
 }
@@ -165,122 +165,13 @@ void offenseState::setupState()		// sets up initial state of the object
 
 void offenseState::updateState(int teamNumber)	// updates the state of the object
 {
-//	exit(0);
 	gameState *gameS = gameState::Instance();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<playerState> playerInstance = teamInstance[teamNumber].getPlayerInstance();
-/*
-    int playerWithBall = teamInstance[teamNumber].getPlayerWithBall();
-	int humanPlayer = teamInstance[teamNumber].getHumanPlayer();
 
-    Ogre::Vector3 *playerPos = new Ogre::Vector3[5];
-
-    for (int p = 0; p < 5; ++p)
+    if (!offenseSetup)
     {
-    	playerPos[p] = playerInstance[p].getNode()->getPosition();
-    }
-
-    if (execute)
-	{
-		for (int x = 0; x < 5; ++x)
-//    	int x = 3;
-    	{
-			// checks if player is human controlled
-			if (humanPlayer != x)
-			{
-				// checks if the player is at their start position
-				if (!startPositionSet[x])
-				{
-			        // checks if player has ball
-			        if (x != playerWithBall)
-			        {
-						if (!startXPosSet[x] && !startZPosSet[x])
-						{
-				            if (playerPos[x][2] > startPositions[x][2])
-				            {
-					            if (playerPos[x][0] > startPositions[x][0])
-					            {
-						            playerInstance[x].setMovement(true);
-						            playerInstance[x].setDirection(UPLEFT);
-						            logMsg("UPLEFT");
-					            }
-					            else if (playerPos[x][0] < startPositions[x][0])
-					            {
-						            playerInstance[x].setMovement(true);
-						            playerInstance[x].setDirection(UPRIGHT);
-						            logMsg("UPRIGHT");
-					            }
-				            }
-				            else if (playerPos[x][2] < startPositions[x][2])
-				            {
-					            if (playerPos[x][0] > startPositions[x][0])
-					            {
-						            playerInstance[x].setMovement(true);
-						            playerInstance[x].setDirection(DOWNLEFT);
-						            logMsg("DOWNLEFT");
-					            }
-					            else if (playerPos[x][0] < startPositions[x][0])
-					            {
-						            playerInstance[x].setMovement(true);
-						            playerInstance[x].setDirection(DOWNRIGHT);
-						            logMsg("DOWNRIGHT");
-					            }
-				            }
-
-
-						}
-						else if (!startXPosSet[x])
-						{
-				            // checks the X position and moves player accordingly
-				            if (playerPos[x][0] > startPositions[x][0])
-				            {
-					            playerInstance[x].setMovement(true);
-					            playerInstance[x].setDirection(LEFT);
-					            logMsg("LEFT");
-				            }
-				            else if (playerPos[x][0] < startPositions[x][0])
-				            {
-					            playerInstance[x].setMovement(true);
-					            playerInstance[x].setDirection(RIGHT);
-					            logMsg("RIGHT");
-				            }
-				            else
-				            {
-				            }
-
-						}
-						else if(!startZPosSet[x])
-						{
-				            // checks the Y position and moves player accordingly
-				            if (playerPos[x][2] < startPositions[x][2])
-				            {
-					            playerInstance[x].setMovement(true);
-					            playerInstance[x].setDirection(DOWN);
-					            logMsg("DOWN");
-				            }
-				            else if (playerPos[x][2] > startPositions[x][2])
-				            {
-					            playerInstance[x].setMovement(true);
-					            playerInstance[x].setDirection(UP);
-					            logMsg("UP");
-				            }
-				            else
-				            {
-				            }
-
-						}
-						else
-						{
-
-						}			        }
-				}
-            }
-		}
-	}
-*/
-    if (!boxOffenseSetup)
-    {
-    	setupBoxOffense();
+    	setupOffense();
     }
 	teamInstance[teamNumber].setPlayerInstance(playerInstance);
     gameS->setTeamInstance(teamInstance);
@@ -295,7 +186,7 @@ void offenseState::loadPlays()	// loads offense plays from file
 
 
 
-void offenseState::setupBoxOffense() // sets up box offense
+void offenseState::setupOffense() // sets up box offense
 {
 	logMsg("plays.size() = " +Ogre::StringConverter::toString(plays.size()));
 	for (int x=0;x<plays.size();++x)
@@ -306,25 +197,8 @@ void offenseState::setupBoxOffense() // sets up box offense
 			executePositions = plays[x].getExecutePositions();
 		}
 	}
-/*
-	startPositions[0] = Ogre::Vector3(5.0f,-13.5f,380.0f);
-	startPositions[1] = Ogre::Vector3(3.0f,-12.5f,375.0f);
-	startPositions[2] = Ogre::Vector3(4.0f,-14.5f,385.0f);
-	startPositions[3] = Ogre::Vector3(6.0f,-11.5f,377.0f);
-	startPositions[4] = Ogre::Vector3(3.0f,-13.5f,378.0f);
 
-	executePositions[0].push_back(Ogre::Vector3(5.0f,-13.5f,380.0f));
-
-	executePositions[1].push_back(Ogre::Vector3(13.0f,-12.5f,375.0f));
-	executePositions[1].push_back(Ogre::Vector3(11.0f,-12.5f,390.0f));
-
-	executePositions[2].push_back(Ogre::Vector3(14.0f,-14.5f,385.0f));
-	executePositions[2].push_back(Ogre::Vector3(16.0f,-14.5f,370.0f));
-
-	executePositions[3].push_back(Ogre::Vector3(16.0f,-11.5f,377.0f));
-	executePositions[4].push_back(Ogre::Vector3(13.0f,-13.5f,378.0f));
-*/
-	executePositionReached.resize(5);
+    executePositionReached.resize(5);
 	for (int x=0; x<executePositions.size(); ++x)
 	{
 
@@ -335,11 +209,11 @@ void offenseState::setupBoxOffense() // sets up box offense
 			executePositionReached[x][y] = false;
 		}
 	}
-	boxOffenseSetup = true;
+	offenseSetup = true;
 }
 
 
-void offenseState::executeBoxOffense() // executes box offense
+void offenseState::executeOffense() // executes box offense
 {
 
 }

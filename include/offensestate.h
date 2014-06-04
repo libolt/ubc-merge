@@ -32,8 +32,8 @@ public:
 
 	offenseState(); // constructor
 
-	offenseTypes getSelectedOffense(); // returns value of selectedOffense
-	void setSelectedOffense(offenseTypes selected); // sets the value of selectedOffense
+	int getSelectedOffense(); // returns value of selectedOffense
+	void setSelectedOffense(int selected); // sets the value of selectedOffense
 
 	virtual bool getExecute();	// retrieves the value of execute variable
 	virtual void setExecute(bool ex);	// sets the value of the execute variable
@@ -68,13 +68,13 @@ public:
 
 	void loadPlays();	// loads offense plays from file
 
-	void setupBoxOffense(); // sets up box offense
-	void executeBoxOffense(); // executes box offense
+	void setupOffense(); // sets up box offense
+	void executeOffense(); // executes box offense
 
 
 private:
 
-    offenseTypes selectedOffense; // stores which offense is being run
+    int selectedOffense; // stores which offense is being run
 	bool offenseSet; // if true then run offense
 	bool execute;	// If set then execute the offense logic
 
@@ -89,7 +89,7 @@ private:
 
 	std::vector<offensePlays> plays;	// stores the plays for the offense to run
 	// offense type variables
-	bool boxOffenseSetup;
+	bool offenseSetup;
 };
 
 #endif

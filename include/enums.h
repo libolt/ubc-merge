@@ -25,8 +25,6 @@
     enum directions { UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT };	// direction objects are moving
     enum gameTypes { NOGAME, SINGLE, MULTI }; // defines whether a game is single or multi player
     enum quarters { FIRST, SECOND, THIRD, FOURTH }; // defines the quarters within the game
-    enum defenseTypes { MANTOMAN, FULLCOURT, HALFCOURT, ZONE };	// type of defense being played
-    enum offenseTypes { BOX, PICKANDROLL, MOTION, ISOLATION };	// type of offense being played
     enum courtSide_t {RIGHTSIDE, LEFTSIDE};	// stores which side of the court the offensive team is on
 
 
