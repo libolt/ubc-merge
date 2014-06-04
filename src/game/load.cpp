@@ -936,7 +936,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     int pVariation;
     std::string pTitle;
     std::string pPlayerName;
-    const std::string pType;
+    std::string pType;
     float pXCoord;
     float pYCoord;
     float pZCoord;
@@ -1058,11 +1058,11 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 						logMsg("pZCoord = " +Ogre::StringConverter::toString(pZCoord));
 						zCoord.push_back(pZCoord);
 					}
-					
+
 					pCoords.x = pXCoord;
 					pCoords.y = pYCoord;
 					pCoords.z = pZCoord;
-					
+
                     if (pType == "Start")
 					{
 				         startCoords.push_back(pCoords);
