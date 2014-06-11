@@ -251,7 +251,10 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 			if (distPlayerOPosition >= 3)
 			{
 				logMsg("seeking!");
-				seekTarget = xxxsteerForSeek(playerOPos);
+//				seekTarget = xxxsteerForSeek(playerOPos);
+				const AbstractVehicle &quarry = *team1Steers[ID];
+				seekTarget = steerForPursuit(quarry);
+	
 				logMsg("seekTarget = " +Ogre::StringConverter::toString(convertToOgreVector3(playerOPos)));
 				applySteeringForce (seekTarget, elapsedTime);
 			}
@@ -327,9 +330,9 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 */
 			    for (int x=0;x<offenseExecutePositionReached[ID].size();++x)
 			    {
-			    	if (offenseExecutePositionReached[ID][x] == true)
+			    	if (offenseExecutePositionReached[1][1] == true)
 			    	{
-//			    		exit(0);
+			    		exit(0);
 			    	}
 			    	else
 			    	{
@@ -342,7 +345,9 @@ void playerSteer::update (const float /*currentTime*/, float elapsedTime)
 					    if (distPlayerExecutePosition >= 3)
 					    {
 						    logMsg("seeking!");
-						    seekTarget = xxxsteerForSeek(executePosition);
+//						    seekTarget = xxxsteerForSeek(executePosition);
+                            seekTarget = steerForSeek(executePosition);
+					 
 						    logMsg("seekTarget = " +Ogre::StringConverter::toString(convertToOgreVector3(executePosition)));
 						    applySteeringForce (seekTarget, elapsedTime);
 					    }
