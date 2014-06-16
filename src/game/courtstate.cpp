@@ -85,7 +85,7 @@ bool courtState::loadModel()
     node->attachObject(model);
     // sets the position of courtNode
 //    node->setPosition(0.0f,-20.0f,400.0f);
-    node->setScale(1.8f,1.8f,1.8f);
+    node->setScale(1.0f,1.0f,1.0f);
 
     return true;
 }
