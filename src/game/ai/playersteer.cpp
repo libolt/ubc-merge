@@ -50,13 +50,22 @@ void playerSteer::setID(int id) // sets the value of ID
 	ID = id;
 }
 
+float playerSteer::getDistToPosition() // retrieves the value of distToPosition
+{
+	return (distToPosition);
+}
+void playerSteer::setDistToPosition(float dist) // sets value of distToPosition
+{
+	distToPosition = dist;
+}
+
 // reset state
 void playerSteer::reset(void)
 {
     steering::reset (); // reset the vehicle
     setSpeed (0.0f);         // speed along Forward direction.
 //    setMaxForce (3000.7f);      // steering force is clipped to this magnitude
-    setMaxForce (15.0f);      // steering force is clipped to this magnitude
+    setMaxForce (22.0f);      // steering force is clipped to this magnitude
 
 //    setMaxSpeed (10);         // velocity is clipped to this magnitude
     setMaxSpeed (20.0f);         // velocity is clipped to this magnitude
@@ -250,7 +259,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 			Ogre::Vector3 *offenseStartPositions;
 			OpenSteer::Vec3 startPosition;
 			OpenSteer::Vec3 seekTarget;
-			float distPlayerStartPosition;
+//			float distPlayerStartPosition;
     switch (teamNumber)
 	{
 	    case 0:
@@ -286,22 +295,26 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 
 	bool *startPositionSet = teamInstance[teamNumber].getOffenseInstance()->getStartPositionSet();
 
-	if (!startPositionSet[ID])
+	logMsg(" speed = " +Ogre::StringConverter::toString(speed()));
+	if (distToPosition <= 5)
+	{
+		setSpeed(speed() - 1);
+	}
+	if (!startPositionSet[ID])  // moves player into start position
 	{
 	    std::vector<Ogre::Vector3> offenseStartPositions;
 	    OpenSteer::Vec3 startPosition;
 	    OpenSteer::Vec3 seekTarget;
-	    float distPlayerStartPosition;
-
+		
 	    offenseStartPositions = teamInstance[teamNumber].getOffenseInstance()->getStartPositions();
 	    logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Start Position!");
 	    startPosition = convertToOpenSteerVec3(offenseStartPositions[ID]);
 	    logMsg("startPosition = " +Ogre::StringConverter::toString(offenseStartPositions[ID]));
 
 	    logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
-	    distPlayerStartPosition = OpenSteer::Vec3::distance (startPosition, position());
-	    logMsg("Distance to startPosition = " +Ogre::StringConverter::toString(distPlayerStartPosition));
-	    if (distPlayerStartPosition >= 3)
+	    distToPosition = OpenSteer::Vec3::distance (startPosition, position());
+	    logMsg("Distance to start Position = " +Ogre::StringConverter::toString(distToPosition));
+	    if (distToPosition >= 3)
 	    {
 		    logMsg("seeking!");
 		    seekTarget = xxxsteerForSeek(startPosition);
@@ -319,7 +332,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 	    std::vector< std::vector<bool> > offenseExecutePositionReached;
 	    OpenSteer::Vec3 executePosition;
 	    OpenSteer::Vec3 seekTarget;
-	    float distPlayerExecutePosition;
+//	    float distPlayerExecutePosition;
 
 	    offenseExecutePositions = teamInstance[teamNumber].getOffenseInstance()->getExecutePositions();
 	    offenseExecutePositionReached = teamInstance[teamNumber].getOffenseInstance()->getExecutePositionReached();
@@ -363,9 +376,9 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 			    executePosition = convertToOpenSteerVec3(offenseExecutePositions[ID][x]);
 			    logMsg("executePosition = " +Ogre::StringConverter::toString(offenseExecutePositions[ID][x]));
 			    logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
-			    distPlayerExecutePosition = OpenSteer::Vec3::distance (executePosition, position());
-			    logMsg("Distance to executePosition = " +Ogre::StringConverter::toString(distPlayerExecutePosition));
-			    if (distPlayerExecutePosition >= 3)
+			    distToPosition = OpenSteer::Vec3::distance (executePosition, position());
+			    logMsg("Distance to execute Position = " +Ogre::StringConverter::toString(distToPosition));
+			    if (distToPosition >= 3)
 			    {
 				    logMsg("seeking!");
 //						    seekTarget = xxxsteerForSeek(executePosition);
