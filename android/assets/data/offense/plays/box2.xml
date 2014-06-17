@@ -1,33 +1,42 @@
 <?xml version="1.0" ?>
 <Play>
     <PlayName>Box</PlayName>
-	<Variation>0</Variation>
-	<Title>Standard</Title>
-	<Player>
-	    <Name>PG</Name>
+	   <Variation>0</Variation>
+	   <Title>Standard</Title>
+	   <Player>
+	       <Name>PG</Name>
         <Positions>
-	        <Position>
-	            <Type>Start</Type>
-		        <X>5.0</X>
-		        <Y>-1.5</Y>
-		        <Z>380.0</Z>
-	        </Position>
-		    <Position>
-	            <Type>Execute</Type>
-	            <X>5.0</X>
-	            <Y>-1.5</Y>
-	            <Z>380.0</Z>
-		    </Position>
-		</Positions>
-	</Player>
+	           <Position>
+	               <Type>Start</Type>
+		              <X>5.0</X>
+		              <Y>-1.5</Y>
+		              <Z>380.0</Z>
+	           </Position>
+		          <Position>
+	               <Type>Execute</Type>
+	               <X>5.0</X>
+	               <Y>-1.5</Y>
+	               <Z>380.0</Z>
+            </Position>
+        </Positions>
+        <Directives>
+            <Directive>
+                <Type>Wait</Type>
+                <WaitFor>PlayerPositionSet</WaitFor>
+                <PlayerSet>3</PlayerSet>
+                <PositionType>Execute</PositionType>
+                <Position>0</Position>
+            </Directive>
+        </Directives>
+    </Player>
     <Player>
-	    <Name>SG</Name>
-	    <Positions>
-		    <Position>
-		        <Type>Start</Type>
-		        <X>3.0</X>
-		        <Y>-1.5</Y>
-	            <Z>375.0</Z>
+	       <Name>SG</Name>
+	       <Positions>
+		          <Position>
+		              <Type>Start</Type>
+		              <X>3.0</X>
+		              <Y>-1.5</Y>
+	               <Z>375.0</Z>
             </Position>
             <Position>
                 <Type>Execute</Type>
@@ -42,15 +51,24 @@
                 <Z>399.0</Z>
             </Position>
         </Positions>
+        <Directives>
+            <Directive>
+                <Type>Wait</Type>
+                <WaitFor>PlayerPositionSet</WaitFor>
+                <PlayerSet>3</PlayerSet>
+                <PositionType>Execute</PositionType>
+                <Position>0</Position>
+            </Directive>
+        </Directives>
     </Player>
     <Player>
-	    <Name>SF</Name>
-	    <Positions>
-	        <Position>
-		        <Type>Start</Type>
-		        <X>4.0</X>
-		        <Y>-1.5</Y>
-	            <Z>385.0</Z>
+	       <Name>SF</Name>
+	       <Positions>
+	           <Position>
+		              <Type>Start</Type>
+		              <X>4.0</X>
+		              <Y>-1.5</Y>
+	               <Z>385.0</Z>
             </Position>
             <Position>
                 <Type>Execute</Type>
@@ -59,15 +77,24 @@
                 <Z>385.0</Z>
             </Position>
         </Positions>
+        <Directives>
+            <Directive>
+                <Type>Wait</Type>
+                <WaitFor>PlayerPositionSet</WaitFor>
+                <PlayerSet>4</PlayerSet>
+                <PositionType>Execute</PositionType>
+                <Position>0</Position>
+            </Directive>
+        </Directives>
     </Player>
     <Player>
-	    <Name>PF</Name>
-	    <Positions>
-	        <Position>
-	            <Type>Start</Type>
-		        <X>6.0</X>
-		        <Y>-1.5</Y>
-	            <Z>377.0</Z>
+	       <Name>PF</Name>
+	       <Positions>
+	           <Position>
+	               <Type>Start</Type>
+		              <X>6.0</X>
+		              <Y>-1.5</Y>
+	               <Z>377.0</Z>
             </Position>
             <Position>
                 <Type>Execute</Type>
@@ -76,22 +103,38 @@
                 <Z>377.0</Z>
             </Position>
         </Positions>
+        <Directives>
+            <Directive>
+                <Type>Wait</Type>
+                <WaitFor>PlayerPositionSet</WaitFor>
+                <PlayerSet>0or1</PlayerSet>
+                <PositionType>Start</PositionType>
+            </Directive>
+        </Directives>
     </Player>
     <Player>
         <Name>C</Name>
         <Positions>
-	        <Position>
-	            <Type>Start</Type>
-	            <X>3.0</X>
-	            <Y>-1.5</Y>
-	            <Z>378.0</Z>
-	        </Position>
-	        <Position>
-	            <Type>Execute</Type>
-	            <X>13.0</X>
-	            <Y>-1.5</Y>
-	            <Z>378.0</Z>
-	        </Position>
-	    </Positions>
-	</Player>
+	           <Position>
+	               <Type>Start</Type>
+	               <X>3.0</X>
+	               <Y>-1.5</Y>
+	               <Z>378.0</Z>
+	           </Position>
+	           <Position>
+	               <Type>Execute</Type>
+	               <X>13.0</X>
+	               <Y>-1.5</Y>
+	               <Z>378.0</Z>
+	           </Position>
+	       </Positions>
+        <Directives>
+            <Directive>
+                <Type>Wait</Type>
+                <WaitFor>PlayerPositionSet</WaitFor>
+                <PlayerSet>2</PlayerSet>
+                <PositionType>Start</PositionType>
+            </Directive>
+        </Directives>
+	   </Player>
 </Play>

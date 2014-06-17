@@ -1079,6 +1079,59 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 					executeCoords.push_back(pExecuteCoords);
 				}
 			}
+			f = f->NextSiblingElement("Directives");
+			if (f)
+			{
+				int numDirectives = 0;
+				for (TiXmlElement *g = f->FirstChildElement("Directive"); g != NULL; g = g->NextSiblingElement("Directive"))
+				{
+					numDirectives += 1;
+					TiXmlElement *h;
+					h = g->FirstChildElement("Type");
+					
+					if (h)
+					{
+						
+						string hKey = h->GetText();
+						logMsg("hKey = " +hKey);
+						if (hKey == "Wait")
+						{
+							h = h->NextSiblingElement("WaitFor");
+							if (h)
+							{
+								logMsg("WaitFor");
+								hKey = h->GetText();
+								if (hKey == "PlayerPositionSet")
+								{
+									logMsg("PlayerPositionSet");
+									h = h->NextSiblingElement("PlayerSet");
+									if (h)
+									{
+										logMsg("PlayerSet");
+									}
+									h = h->NextSiblingElement("PositionType");
+									if (h)
+									{
+										logMsg("PositionType");
+										hKey = h->GetText();
+										if (hKey == "Start")
+										{
+											logMsg("Start");
+										}
+										else if (hKey == "Execute")
+										{
+											logMsg("Execute");
+										}
+									}
+									
+								}
+							}
+						}
+					}
+				}
+			    logMsg("numDirectives = " +Ogre::StringConverter::toString(numDirectives));
+				exit(0);
+			}
 		}
 
 
