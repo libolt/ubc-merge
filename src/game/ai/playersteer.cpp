@@ -65,7 +65,7 @@ void playerSteer::reset(void)
     steering::reset (); // reset the vehicle
     setSpeed (0.0f);         // speed along Forward direction.
 //    setMaxForce (3000.7f);      // steering force is clipped to this magnitude
-    setMaxForce (22.0f);      // steering force is clipped to this magnitude
+    setMaxForce (30.0f);      // steering force is clipped to this magnitude
 
 //    setMaxSpeed (10);         // velocity is clipped to this magnitude
     setMaxSpeed (20.0f);         // velocity is clipped to this magnitude
@@ -364,40 +364,49 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 	    	}
 	    }
 */
+
 	    for (int x=0;x<offenseExecutePositionReached[ID].size();++x)
 	    {
-	    	if (offenseExecutePositionReached[1][1] == true)
+	    	if (offenseExecutePositionReached[ID][x] == true)
 	    	{
-	    		exit(0);
+//	    		exit(0);
 	    	}
 	    	else
 	    	{
-			    logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Execute Position!");
-			    executePosition = convertToOpenSteerVec3(offenseExecutePositions[ID][x]);
-			    logMsg("executePosition = " +Ogre::StringConverter::toString(offenseExecutePositions[ID][x]));
-			    logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
-			    distToPosition = OpenSteer::Vec3::distance (executePosition, position());
-			    logMsg("Distance to execute Position = " +Ogre::StringConverter::toString(distToPosition));
-			    if (distToPosition >= 3)
-			    {
-				    logMsg("seeking!");
+				// checks if previous position was reached
+				if ( x > 0 && !offenseExecutePositionReached[ID][x - 1])
+				{
+//					break;
+				}
+				else
+				{
+			        logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Execute Position!");
+			        executePosition = convertToOpenSteerVec3(offenseExecutePositions[ID][x]);
+			        logMsg("executePosition = " +Ogre::StringConverter::toString(offenseExecutePositions[ID][x]));
+			        logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
+			        distToPosition = OpenSteer::Vec3::distance (executePosition, position());
+			        logMsg("Distance to execute Position = " +Ogre::StringConverter::toString(distToPosition));
+			        if (distToPosition >= 3)
+			        {
+				        logMsg("seeking!");
 //						    seekTarget = xxxsteerForSeek(executePosition);
-                    seekTarget = steerForSeek(executePosition);
+                        seekTarget = steerForSeek(executePosition);
 
-				    logMsg("seekTarget = " +Ogre::StringConverter::toString(convertToOgreVector3(executePosition)));
-				    applySteeringForce (seekTarget, elapsedTime);
-			    }
-			    else
-			    {
+				        logMsg("seekTarget = " +Ogre::StringConverter::toString(convertToOgreVector3(executePosition)));
+				        applySteeringForce (seekTarget, elapsedTime);
+			        }
+			        else
+			        {
 //					    	exit(0);
-			    	offenseExecutePositionReached[ID][x] = true;
-			        teamInstance[teamNumber].getOffenseInstance()->setExecutePositions(offenseExecutePositions);
-			        teamInstance[teamNumber].getOffenseInstance()->setExecutePositionReached(offenseExecutePositionReached);
+			    	    offenseExecutePositionReached[ID][x] = true;
+//			        teamInstance[teamNumber].getOffenseInstance()->setExecutePositions(offenseExecutePositions);
+			            teamInstance[teamNumber].getOffenseInstance()->setExecutePositionReached(offenseExecutePositionReached);
 
-			    }
-
+			        }
+                }
 	    	}
 	    }
+		
 //			    exit(0);
 	}
 
