@@ -23,7 +23,7 @@
             <Directive>
                 <Type>Wait</Type>
                 <WaitFor>PlayerPositionSet</WaitFor>
-                <PlayerSet>3</PlayerSet>
+                <PlayerSet>PF</PlayerSet>
                 <PositionType>Execute</PositionType>
                 <Position>0</Position>
             </Directive>
@@ -55,7 +55,7 @@
             <Directive>
                 <Type>Wait</Type>
                 <WaitFor>PlayerPositionSet</WaitFor>
-                <PlayerSet>3</PlayerSet>
+                <PlayerSet>PF</PlayerSet>
                 <PositionType>Execute</PositionType>
                 <Position>0</Position>
             </Directive>
@@ -81,7 +81,7 @@
             <Directive>
                 <Type>Wait</Type>
                 <WaitFor>PlayerPositionSet</WaitFor>
-                <PlayerSet>4</PlayerSet>
+                <PlayerSet>C</PlayerSet>
                 <PositionType>Execute</PositionType>
                 <Position>0</Position>
             </Directive>
@@ -107,7 +107,7 @@
             <Directive>
                 <Type>Wait</Type>
                 <WaitFor>PlayerPositionSet</WaitFor>
-                <PlayerSet>0or1</PlayerSet>
+                <PlayerSet>SG</PlayerSet>
                 <PositionType>Start</PositionType>
             </Directive>
         </Directives>
@@ -132,7 +132,7 @@
             <Directive>
                 <Type>Wait</Type>
                 <WaitFor>PlayerPositionSet</WaitFor>
-                <PlayerSet>2</PlayerSet>
+                <PlayerSet>SF</PlayerSet>
                 <PositionType>Start</PositionType>
             </Directive>
         </Directives>

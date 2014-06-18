@@ -44,13 +44,14 @@ void offensePlays::setTitle(std::vector<std::string> Title)	// sets the value of
 {
 	title = Title;
 }
-std::vector<std::string> offensePlays::getPlayerName()	// returns the value of playerName
+
+std::vector<playerDesignations> offensePlays::getPlayerDesignation()	// returns the value of playerName
 {
-	return (playerName);
+	return (playerDesignation);
 }
-void offensePlays::setPlayerName(std::vector<std::string> name)	// sets the value of playerName
+void offensePlays::setPlayerDesignation(std::vector<playerDesignations> designation)	// sets the value of playerName
 {
-	playerName = name;
+	playerDesignation = designation;
 }
 
 std::vector<Ogre::Vector3> offensePlays::getStartPositions()	// retrieves startPositions variable
@@ -91,3 +92,65 @@ void offensePlays::setExecutePositionReached(std::vector< std::vector<bool> > re
 	executePositionReached = reached;
 }
 
+std::vector<offensePlays::playerDirectives> offensePlays::getPlayerDirective()  // returns the value of playerDirective
+{
+	return (playerDirective);
+}
+void offensePlays::setPlayerDirective(std::vector<offensePlays::playerDirectives> directive)  // sets the value of playerDirective
+{
+	playerDirective = directive;
+}
+
+playerDesignations offensePlays::playerDirectives::getPlayerDesignation()  // retrieves the value of playerDesignation
+{
+	return (playerDesignation);
+}
+void offensePlays::playerDirectives::setPlayerDesignation(playerDesignations designation)  // sets the value of playerDesignation
+{
+	playerDesignation = designation;
+}
+
+directiveTypes offensePlays::playerDirectives::getType()  // retrieves the value of type
+{
+	return (type);
+}
+void offensePlays::playerDirectives::setType(directiveTypes Type)  // sets the value of type
+{
+	type = Type;
+}
+
+offenseWaitFor offensePlays::playerDirectives::getWaitFor()  // retrieves the value of waitFor
+{
+	return (waitFor);
+}
+void offensePlays::playerDirectives::setWaitFor(offenseWaitFor wait)  // sets the value of waitFor
+{
+	waitFor = wait;
+}
+		
+playerDesignations offensePlays::playerDirectives::getPlayerSet()  // retrieves the value of playerSet
+{
+	return (playerSet);
+}
+void offensePlays::playerDirectives::setPlayerSet(playerDesignations set)  // sets the value of playerSet
+{
+	playerSet = set;
+}
+
+positionTypes offensePlays::playerDirectives::getPositionType()  // retrieves the value of positionType
+{
+	return (positionType);
+}
+void offensePlays::playerDirectives::setPositionType(positionTypes Type)  // sets the value of positionType 
+{
+	positionType = Type;
+}
+
+int offensePlays::playerDirectives::getPosition()  // retrieves the value of position
+{
+	return (position);
+}
+void offensePlays::playerDirectives::setPosition(int pos)  // sets the value of position
+{
+	position = pos;
+}

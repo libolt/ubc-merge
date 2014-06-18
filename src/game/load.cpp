@@ -917,31 +917,34 @@ bool loader::loadOffensePlayListFile(string fileName)	// loads the list of offen
 
 	return true;
 }
+
 offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the offense play XML files
 {
 	offensePlays play;
 	std::string playName;
     std::vector<int> variation;
     std::vector<std::string> title;
-    std::vector<std::string> playerName;
+    std::vector<playerDesignations> playerDesignation;
     std::vector<std::string> type;
     std::vector<float> xCoord;
     std::vector<float> yCoord;
     std::vector<float> zCoord;
     std::vector<Ogre::Vector3> startCoords;
     std::vector< std::vector<Ogre::Vector3> > executeCoords;
-
+	std::vector<offensePlays::playerDirectives> playerDirective;
+	
 	// stores values read from XML files
 	std::string pPlayName;
     int pVariation;
     std::string pTitle;
-    std::string pPlayerName;
+    std::string pPlayerDesignation;
     std::string pType;
     float pXCoord;
     float pYCoord;
     float pZCoord;
     Ogre::Vector3 pCoords;
 	std::vector<Ogre::Vector3> pExecuteCoords;
+    offensePlays::playerDirectives pPlayerDirective;
 
 //    TiXmlDocument doc(fileName.c_str());
 //    if (!doc.LoadFile()) return(false);
@@ -1007,18 +1010,43 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 			logMsg("pTitle = " +pTitle);
 			title.push_back(pTitle);
 		}
-		int nums = 0;
+		int numPlayers = 0;
 		for (TiXmlElement *e = child->NextSiblingElement("Player"); e != NULL; e = e->NextSiblingElement() )
 		{
 			TiXmlElement *f;
-			logMsg ("nums = " +Ogre::StringConverter::toString(nums));
-			nums += 1;
+			logMsg ("nums = " +Ogre::StringConverter::toString(numPlayers));
+			numPlayers += 1;
 			f = e->FirstChildElement("Name");
 			if (f)
 			{
-				pPlayerName = f->GetText();
-				logMsg("name = " +pPlayerName);
-				playerName.push_back(pPlayerName);
+				pPlayerDesignation = f->GetText();
+				logMsg("name = " +pPlayerDesignation);
+//				playerName.push_back(pPlayerName);
+				
+				if (pPlayerDesignation == "PG")
+				{
+					playerDesignation.push_back(PG);
+				}
+				else if (pPlayerDesignation == "SG")
+				{
+					playerDesignation.push_back(SG);
+				}
+				else if (pPlayerDesignation == "SF")
+				{
+					playerDesignation.push_back(SF);
+				}
+				else if (pPlayerDesignation == "PF")
+				{
+					playerDesignation.push_back(PF);
+				}
+				else if (pPlayerDesignation == "C")
+				{
+					playerDesignation.push_back(C);
+				}
+				else
+				{
+					
+				}
 			}
 			f = f->NextSiblingElement("Positions");
 			if (f)
@@ -1083,19 +1111,20 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 			if (f)
 			{
 				int numDirectives = 0;
-				for (TiXmlElement *g = f->FirstChildElement("Directive"); g != NULL; g = g->NextSiblingElement("Directive"))
+                for (TiXmlElement *g = f->FirstChildElement("Directive"); g != NULL; g = g->NextSiblingElement("Directive"))
 				{
-					numDirectives += 1;
-					TiXmlElement *h;
-					h = g->FirstChildElement("Type");
-
-					if (h)
-					{
+	                numDirectives += 1;
+				    TiXmlElement *h;
+				    h = g->FirstChildElement("Type");
+                 
+				    if (h)
+				    {
 
 						string hKey = h->GetText();
 						logMsg("hKey = " +hKey);
 						if (hKey == "Wait")
 						{
+			                pPlayerDirective.setType(WAIT);
 							h = h->NextSiblingElement("WaitFor");
 							if (h)
 							{
@@ -1103,11 +1132,35 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 								hKey = h->GetText();
 								if (hKey == "PlayerPositionSet")
 								{
+									pPlayerDirective.setWaitFor(PLAYERPOSITIONSET);
 									logMsg("PlayerPositionSet");
+									
 									h = h->NextSiblingElement("PlayerSet");
 									if (h)
 									{
-										logMsg("PlayerSet");
+										hKey = h->GetText();
+										logMsg("PlayerSet = " +hKey);
+										
+										if (hKey == "PG")
+										{
+											pPlayerDirective.setPlayerSet(PG);
+										}
+										if (hKey == "SG")
+										{
+											pPlayerDirective.setPlayerSet(SG);
+										}
+										if (hKey == "SF")
+										{
+											pPlayerDirective.setPlayerSet(SF);
+										}
+										if (hKey == "PF")
+										{
+											pPlayerDirective.setPlayerSet(PF);
+										}
+										if (hKey == "C")
+										{
+											pPlayerDirective.setPlayerSet(C);
+										}
 									}
 									h = h->NextSiblingElement("PositionType");
 									if (h)
@@ -1117,37 +1170,46 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 										if (hKey == "Start")
 										{
 											logMsg("Start");
+											pPlayerDirective.setPositionType(START);
 										}
 										else if (hKey == "Execute")
 										{
 											logMsg("Execute");
+											pPlayerDirective.setPositionType(EXECUTE);
+											
 											h = h->NextSiblingElement("Position");
 											if (h)
 											{
 												logMsg("Position");
+												hKey = h->GetText();
+												pPlayerDirective.setPosition(atoi(hKey.c_str()));
 											}
 										}
 									}
 
 								}
-							}
-						}
+						    }
+                        }
 					}
 				}
+				playerDirective.push_back(pPlayerDirective);
 			    logMsg("numDirectives = " +Ogre::StringConverter::toString(numDirectives));
-				exit(0);
+				
 			}
+			
 		}
-
+ //      exit(0);
 
     }
-
+	
+    
     play.setPlayName(playName);
     play.setVariation(variation);
     play.setTitle(title);
-	play.setPlayerName(playerName);
+	play.setPlayerDesignation(playerDesignation);
 	play.setStartPositions(startCoords);
 	play.setExecutePositions(executeCoords);
+	play.setPlayerDirective(playerDirective);
 /*    for (int x=0;x<variation.size();++x)
     {
 		logMsg("playerName size = " +Ogre::StringConverter::toString(playerName.size()));
