@@ -62,5 +62,13 @@ private:
 
 	std::vector< std::vector<bool> > executePositionReached; // stores whether player is at execute position
 
+	class playerDirectives
+	{
+	public:
+	private:
+		directiveTypes type;
+
+	};
+
 };
 #endif

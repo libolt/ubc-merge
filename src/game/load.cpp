@@ -1088,10 +1088,10 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 					numDirectives += 1;
 					TiXmlElement *h;
 					h = g->FirstChildElement("Type");
-					
+
 					if (h)
 					{
-						
+
 						string hKey = h->GetText();
 						logMsg("hKey = " +hKey);
 						if (hKey == "Wait")
@@ -1121,9 +1121,14 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 										else if (hKey == "Execute")
 										{
 											logMsg("Execute");
+											h = h->NextSiblingElement("Position");
+											if (h)
+											{
+												logMsg("Position");
+											}
 										}
 									}
-									
+
 								}
 							}
 						}
