@@ -59,6 +59,15 @@ void playerSteer::setDistToPosition(float dist) // sets value of distToPosition
 	distToPosition = dist;
 }
 
+OpenSteer::Vec3 playerSteer::getSteerCoords()  // retrieves the value of steerCoords
+{
+	return (steerCoords);
+}
+void playerSteer::setSteerCoords(OpenSteer::Vec3 coords)  // sets the value of steerCoords
+{
+	steerCoords = coords;
+}
+
 // reset state
 void playerSteer::reset(void)
 {
@@ -298,7 +307,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 	logMsg(" speed = " +Ogre::StringConverter::toString(speed()));
 	if (distToPosition <= 5)
 	{
-		setSpeed(speed() - 1);
+//		setSpeed(speed() - 1);
 	}
 	if (!startPositionSet[ID])  // moves player into start position
 	{

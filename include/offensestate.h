@@ -59,6 +59,9 @@ public:
 	virtual bool *getStartPositionSet();  // returns the value of startPositionSet
 	virtual void setStartPositionSet(bool *set); // sets the value of startPositionSet
 
+	bool getAllStartPositionsSet(); // retrieves the value of allStartPositionsSet
+	void setAllStartPositionsSet(bool set);  // sets the value of allStartPositionsSet
+	
 	virtual std::vector< std::vector<bool> > getExecutePositionReached();  // returns the value of executePositionSet
 	virtual void setExecutePositionReached(std::vector< std::vector<bool> > reached); // sets the value of executePositionSet
 
@@ -84,7 +87,8 @@ private:
 	bool *startYPosSet; // stores whether player is at start Y position
 	bool *startZPosSet; // stores whether player is at start Z position
     bool *startPositionSet; // stores whether player is at start position
-
+    bool allStartPositionsSet;  // stores whether all player start positions are set
+	
 	std::vector< std::vector<bool> > executePositionReached; // stores whether player is at execute position
 
 	std::vector<offensePlays> plays;	// stores the plays for the offense to run

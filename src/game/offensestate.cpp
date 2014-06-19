@@ -50,6 +50,7 @@ offenseState::offenseState() // constructor
 	startYPosSet = new bool[5];
 	startZPosSet = new bool[5];
 	startPositionSet = new bool[5];
+	allStartPositionsSet = false;
 
 //	executePositionSet = new bool[5];
 
@@ -149,6 +150,15 @@ void offenseState::setStartPositionSet(bool *set) // sets the value of startPosi
 	startPositionSet = set;
 }
 
+bool offenseState::getAllStartPositionsSet() // retrieves the value of allStartPositionsSet
+{
+	return (allStartPositionsSet);
+}
+void offenseState::setAllStartPositionsSet(bool set)  // sets the value of allStartPositionsSet
+{
+	allStartPositionsSet = set;
+}
+
 std::vector< std::vector<bool> > offenseState::getExecutePositionReached()  // returns the value of executePositionSet
 {
 	return (executePositionReached);
@@ -173,6 +183,10 @@ void offenseState::updateState(int teamNumber)	// updates the state of the objec
     {
     	setupOffense();
     }
+	else
+	{
+		executeOffense();
+	}
 	teamInstance[teamNumber].setPlayerInstance(playerInstance);
     gameS->setTeamInstance(teamInstance);
 }
@@ -215,5 +229,27 @@ void offenseState::setupOffense() // sets up box offense
 
 void offenseState::executeOffense() // executes box offense
 {
-
+	int numPositionsSet = 0;
+    for (int x=0;x<5;++x)
+	{ 
+	    if (!allStartPositionsSet)
+		{
+		    if (!startPositionSet[x])
+		    {
+			   
+		    }
+			else if (numPositionsSet == 5)
+			{
+				allStartPositionsSet = true;
+			}
+			else
+			{
+				numPositionsSet += 1;
+			}
+	    }
+		else
+		{
+			exit(0);
+		}
+	}
 }

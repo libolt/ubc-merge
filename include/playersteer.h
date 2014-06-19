@@ -63,11 +63,15 @@ class playerSteer : public steering
 
 	int getTeamNumber(); // retrieves the value of team
 	void setTeamNumber(int team); // sets the value of team
+
 	int getID(); // retrieves the value of ID
 	void setID(int id); // sets the value of ID
 
 	float getDistToPosition(); // retrieves the value of distToPosition
 	void setDistToPosition(float dist); // sets value of distToPosition
+	
+	OpenSteer::Vec3 getSteerCoords();  // retrieves the value of steerCoords
+	void setSteerCoords(OpenSteer::Vec3 coords);  // sets the value of steerCoords
 	
 	void reset(void); // resets the state
 	void update (const float currentTime, const float elapsedTime); // update steering sim every frame
@@ -87,6 +91,8 @@ class playerSteer : public steering
 	int ID; // Stores which player on the team the instance associates with
 	
 	float distToPosition; // stores the distance player is from target position
+	
+	OpenSteer::Vec3 steerCoords;
 };
 
 #endif
