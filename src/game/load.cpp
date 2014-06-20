@@ -932,7 +932,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     std::vector<Ogre::Vector3> startCoords;
     std::vector< std::vector<Ogre::Vector3> > executeCoords;
 	std::vector<offensePlays::playerDirectives> playerDirective;
-	
+
 	// stores values read from XML files
 	std::string pPlayName;
     int pVariation;
@@ -1022,7 +1022,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 				pPlayerDesignation = f->GetText();
 				logMsg("name = " +pPlayerDesignation);
 //				playerName.push_back(pPlayerName);
-				
+
 				if (pPlayerDesignation == "PG")
 				{
 					playerDesignation.push_back(PG);
@@ -1045,7 +1045,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 				}
 				else
 				{
-					
+
 				}
 			}
 			f = f->NextSiblingElement("Positions");
@@ -1116,7 +1116,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 	                numDirectives += 1;
 				    TiXmlElement *h;
 				    h = g->FirstChildElement("Type");
-                 
+
 				    if (h)
 				    {
 
@@ -1134,13 +1134,13 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 								{
 									pPlayerDirective.setWaitFor(PLAYERPOSITIONSET);
 									logMsg("PlayerPositionSet");
-									
+
 									h = h->NextSiblingElement("PlayerSet");
 									if (h)
 									{
 										hKey = h->GetText();
 										logMsg("PlayerSet = " +hKey);
-										
+
 										if (hKey == "PG")
 										{
 											pPlayerDirective.setPlayerSet(PG);
@@ -1176,7 +1176,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 										{
 											logMsg("Execute");
 											pPlayerDirective.setPositionType(EXECUTE);
-											
+
 											h = h->NextSiblingElement("Position");
 											if (h)
 											{
@@ -1194,15 +1194,15 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 				}
 				playerDirective.push_back(pPlayerDirective);
 			    logMsg("numDirectives = " +Ogre::StringConverter::toString(numDirectives));
-				
+
 			}
-			
+
 		}
  //      exit(0);
 
     }
-	
-    
+
+
     play.setPlayName(playName);
     play.setVariation(variation);
     play.setTitle(title);
@@ -1210,26 +1210,6 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 	play.setStartPositions(startCoords);
 	play.setExecutePositions(executeCoords);
 	play.setPlayerDirective(playerDirective);
-/*    for (int x=0;x<variation.size();++x)
-    {
-		logMsg("playerName size = " +Ogre::StringConverter::toString(playerName.size()));
-    	for (int y=0;y<playerName.size();++y)
-    	{
-			exit(0);
-    		if (playerName[y] == "PG")
-    		{
-				exit(0);
-    			for (int z=0;z<type.size();++z)
-    			{
-    				if (type[z] == "Start")
-    				{
-						exit(0);
-    				}
-    			}
-    		}
-    	}
-    }
-*/
-//	exit(0);
+
 	return (play);
 }

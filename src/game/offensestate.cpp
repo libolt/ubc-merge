@@ -50,6 +50,7 @@ offenseState::offenseState() // constructor
 	startYPosSet = new bool[5];
 	startZPosSet = new bool[5];
 	startPositionSet = new bool[5];
+
 	allStartPositionsSet = false;
 
 //	executePositionSet = new bool[5];
@@ -62,7 +63,7 @@ offenseState::offenseState() // constructor
 		startPositionSet[x] = false;
 //		executePositionSet[x] = false;
 	}
-
+	numStartPositionsSet = 0;
 	offenseSetup = false;
 	loadPlays();
 }
@@ -229,29 +230,30 @@ void offenseState::setupOffense() // sets up box offense
 
 void offenseState::executeOffense() // executes box offense
 {
-	int numPositionsSet = 0;
-    for (int x=0;x<5;++x)
-	{ 
-	    if (!allStartPositionsSet)
+    if (!allStartPositionsSet)	// checks if all players have reached their start positions for the offense being run
+	{
+    	for (int x=0;x<5;++x)
 		{
-		    if (!startPositionSet[x])
+		    if (!startPositionSet[x])  // checks if each player has reached the start position
 		    {
-			   
+
 		    }
-			else if (numPositionsSet == 5)
+		    else	// increments the counter
+		    {
+				numStartPositionsSet += 1;
+			}
+
+			if (numStartPositionsSet == 4)	// FIXME: hard coded for a human player
 			{
 				allStartPositionsSet = true;
 				exit(0);
 			}
-			else
-			{
-				numPositionsSet += 1;
-				logMsg("numPositionsSet = " +Ogre::StringConverter::toString(numPositionsSet));
-			}
+			logMsg("startPositionsSet = " +Ogre::StringConverter::toString(startPositionSet[x]));
 	    }
-		else
-		{
-			exit(0);
-		}
 	}
+	else
+	{
+//			exit(0);
+	}
+
 }
