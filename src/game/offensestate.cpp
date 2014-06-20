@@ -241,10 +241,12 @@ void offenseState::executeOffense() // executes box offense
 			else if (numPositionsSet == 5)
 			{
 				allStartPositionsSet = true;
+				exit(0);
 			}
 			else
 			{
 				numPositionsSet += 1;
+				logMsg("numPositionsSet = " +Ogre::StringConverter::toString(numPositionsSet));
 			}
 	    }
 		else
