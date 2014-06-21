@@ -49,9 +49,8 @@ offenseState::offenseState() // constructor
 	startXPosSet = new bool[5];
 	startYPosSet = new bool[5];
 	startZPosSet = new bool[5];
-	startPositionSet = new bool[5];
 
-	allStartPositionsSet = false;
+	allStartPositionsReached = false;
 
 //	executePositionSet = new bool[5];
 
@@ -60,10 +59,10 @@ offenseState::offenseState() // constructor
 		startXPosSet[x] = false;
 		startYPosSet[x] = false;
 		startZPosSet[x] = false;
-		startPositionSet[x] = false;
+		startPositionReached.push_back(false);
 //		executePositionSet[x] = false;
 	}
-	numStartPositionsSet = 0;
+	numStartPositionsReached = 0;
 	offenseSetup = false;
 	loadPlays();
 }
@@ -142,22 +141,22 @@ void offenseState::setStartZPosSet(bool *set) // sets the value of startZPosSet
 	startZPosSet = set;
 }
 
-bool *offenseState::getStartPositionSet()  // returns the value of startPositionSet
+std::vector<bool> offenseState::getStartPositionReached()  // returns the value of startPositionReached
 {
-	return (startPositionSet);
+	return (startPositionReached);
 }
-void offenseState::setStartPositionSet(bool *set) // sets the value of startPositionSet
+void offenseState::setStartPositionReached(std::vector<bool> reached) // sets the value of startPositionReached
 {
-	startPositionSet = set;
+	startPositionReached = reached;
 }
 
-bool offenseState::getAllStartPositionsSet() // retrieves the value of allStartPositionsSet
+bool offenseState::getAllStartPositionsReached() // retrieves the value of allStartPositionsReached
 {
-	return (allStartPositionsSet);
+	return (allStartPositionsReached);
 }
-void offenseState::setAllStartPositionsSet(bool set)  // sets the value of allStartPositionsSet
+void offenseState::setAllStartPositionsReached(bool reached)  // sets the value of allStartPositionsReached
 {
-	allStartPositionsSet = set;
+	allStartPositionsReached = reached;
 }
 
 std::vector< std::vector<bool> > offenseState::getExecutePositionReached()  // returns the value of executePositionSet
@@ -230,25 +229,26 @@ void offenseState::setupOffense() // sets up box offense
 
 void offenseState::executeOffense() // executes box offense
 {
-    if (!allStartPositionsSet)	// checks if all players have reached their start positions for the offense being run
+    if (!allStartPositionsReached)	// checks if all players have reached their start positions for the offense being run
 	{
     	for (int x=0;x<5;++x)
 		{
-		    if (!startPositionSet[x])  // checks if each player has reached the start position
+		    if (!startPositionReached[x])  // checks if each player has reached the start position
 		    {
-
+            
 		    }
 		    else	// increments the counter
 		    {
-				numStartPositionsSet += 1;
+				numStartPositionsReached += 1;
+				
 			}
 
-			if (numStartPositionsSet == 4)	// FIXME: hard coded for a human player
+			if (numStartPositionsReached == 4)	// FIXME: hard coded for a human player
 			{
-				allStartPositionsSet = true;
-				exit(0);
+				allStartPositionsReached = true;
+				
 			}
-			logMsg("startPositionsSet = " +Ogre::StringConverter::toString(startPositionSet[x]));
+			logMsg("startPositionsReached = " +Ogre::StringConverter::toString(startPositionReached[x]));
 	    }
 	}
 	else

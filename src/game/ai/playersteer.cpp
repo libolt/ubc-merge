@@ -302,14 +302,14 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
 	std::vector<playerState> team1PlayerInstance = teamInstance[1].getPlayerInstance();
 
-	bool *startPositionSet = teamInstance[teamNumber].getOffenseInstance()->getStartPositionSet();
+	std::vector<bool> startPositionReached = teamInstance[teamNumber].getOffenseInstance()->getStartPositionReached();
 
 	logMsg(" speed = " +Ogre::StringConverter::toString(speed()));
 	if (distToPosition <= 5)
 	{
 //		setSpeed(speed() - 1);
 	}
-	if (!startPositionSet[ID])  // moves player into start position
+	if (!startPositionReached[ID])  // moves player into start position
 	{
 	    std::vector<Ogre::Vector3> offenseStartPositions;
 	    OpenSteer::Vec3 startPosition;
@@ -332,7 +332,9 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 	    }
 		else
 		{
-			startPositionSet[ID] = true;
+			startPositionReached[ID] = true;
+			teamInstance[teamNumber].getOffenseInstance()->setStartPositionReached(startPositionReached);
+
 		}
 	}
 	else
