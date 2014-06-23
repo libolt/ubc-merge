@@ -314,7 +314,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 	    std::vector<Ogre::Vector3> offenseStartPositions;
 	    OpenSteer::Vec3 startPosition;
 	    OpenSteer::Vec3 seekTarget;
-		
+
 	    offenseStartPositions = teamInstance[teamNumber].getOffenseInstance()->getStartPositions();
 	    logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Start Position!");
 	    startPosition = convertToOpenSteerVec3(offenseStartPositions[ID]);
@@ -326,7 +326,8 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 	    if (distToPosition >= 3)
 	    {
 		    logMsg("seeking!");
-		    seekTarget = xxxsteerForSeek(startPosition);
+//		    seekTarget = xxxsteerForSeek(startPosition);
+		    seekTarget = xxxsteerForSeek(steerCoords);
 		    logMsg("seekTarget = " +Ogre::StringConverter::toString(convertToOgreVector3(startPosition)));
 		    applySteeringForce (seekTarget, elapsedTime);
 	    }
@@ -417,7 +418,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
                 }
 	    	}
 	    }
-		
+
 //			    exit(0);
 	}
 

@@ -23,6 +23,7 @@
 #include "load.h"
 #include "logging.h"
 #include "playerstate.h"
+#include "playersteer.h"
 #include "teamstate.h"
 
 offenseState::offenseState() // constructor
@@ -205,7 +206,7 @@ void offenseState::setupOffense() // sets up box offense
 	logMsg("plays.size() = " +Ogre::StringConverter::toString(plays.size()));
 	for (int x=0;x<plays.size();++x)
 	{
-		if (plays[x].getPlayName() == "Box")
+		if (plays[x].getPlayName() == "Box")  // sets up the Box offense3
 		{
 			startPositions = plays[x].getStartPositions();
 			executePositions = plays[x].getExecutePositions();
@@ -229,24 +230,29 @@ void offenseState::setupOffense() // sets up box offense
 
 void offenseState::executeOffense() // executes box offense
 {
+	gameState *gameS = gameState::Instance();
+    std::vector<teamState> teamInstance = gameS->getTeamInstance();
+    std::vector<playerState> playerInstance = teamInstance[gameS->getTeamWithBall()].getPlayerInstance();
+
     if (!allStartPositionsReached)	// checks if all players have reached their start positions for the offense being run
 	{
     	for (int x=0;x<5;++x)
 		{
+    		playerSteer *pSteer = playerInstance[x].getSteer();
+
 		    if (!startPositionReached[x])  // checks if each player has reached the start position
 		    {
-            
 		    }
 		    else	// increments the counter
 		    {
 				numStartPositionsReached += 1;
-				
+
 			}
 
 			if (numStartPositionsReached == 4)	// FIXME: hard coded for a human player
 			{
 				allStartPositionsReached = true;
-				
+
 			}
 			logMsg("startPositionsReached = " +Ogre::StringConverter::toString(startPositionReached[x]));
 	    }
