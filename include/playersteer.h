@@ -73,6 +73,9 @@ class playerSteer : public steering
 	OpenSteer::Vec3 getSteerCoords();  // retrieves the value of steerCoords
 	void setSteerCoords(OpenSteer::Vec3 coords);  // sets the value of steerCoords
 	
+	std::vector<bool> getPositionReached();  // retrieves the value of positionReached
+	void setPositionReached(std::vector<bool> reached);  // sets the value of positionReached
+	
 	void reset(void); // resets the state
 	void update (const float currentTime, const float elapsedTime); // update steering sim every frame
 
@@ -93,6 +96,8 @@ class playerSteer : public steering
 	float distToPosition; // stores the distance player is from target position
 	
 	OpenSteer::Vec3 steerCoords;
+	
+	std::vector<bool> positionReached;
 };
 
 #endif

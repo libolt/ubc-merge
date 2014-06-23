@@ -68,6 +68,15 @@ void playerSteer::setSteerCoords(OpenSteer::Vec3 coords)  // sets the value of s
 	steerCoords = coords;
 }
 
+std::vector<bool> playerSteer::getPositionReached()  // retrieves the value of positionReached
+{
+	return (positionReached);
+}
+void playerSteer::setPositionReached(std::vector<bool> reached)  // sets the value of positionReached
+{
+	positionReached = reached;
+}
+
 // reset state
 void playerSteer::reset(void)
 {
