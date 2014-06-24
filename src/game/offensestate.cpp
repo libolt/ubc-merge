@@ -248,7 +248,7 @@ void offenseState::executeOffense() // executes box offense
 				positionReached.push_back(false);
 				pSteer->setPositionReached(positionReached);
 			}
-			
+
 		    if (!startPositionReached[x])  // checks if each player has reached the start position
 		    {
 				std::vector<Ogre::Vector3> steerCoords = plays[0].getStartPositions();
@@ -264,36 +264,40 @@ void offenseState::executeOffense() // executes box offense
 			if (numStartPositionsReached == 4)	// FIXME: hard coded for a human player
 			{
 				allStartPositionsReached = true;
-
+			}
+		    if (positionReached[0])
+			{
+		    	startPositionReached[x] = true;
 			}
 			logMsg("startPositionsReached = " +Ogre::StringConverter::toString(startPositionReached[x]));
 	    }
 	}
 	else
 	{
+//		exit(0);
 		for (int ID=0;ID<5;++ID)
 		{
-		     pSteer = playerInstance[ID].getSteer();
-	    for (int x=0;x<executePositionReached[ID].size();++x)
-	    {
-	    	if (executePositionReached[ID][x] == true)
-	    	{
-//	    		exit(0);
-	    	}
-	    	else
-	    	{
-				// checks if previous position was reached
-				if ( x > 0 && !executePositionReached[ID][x - 1])
+			pSteer = playerInstance[ID].getSteer();
+			for (int x=0;x<executePositionReached[ID].size();++x)
+			{
+				if (executePositionReached[ID][x] == true)
 				{
-//					break;
+//	    			exit(0);
 				}
-				else if (!executePositionReached[ID][x])
+				else
 				{
-			        logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Execute Position!");
-			        OpenSteer::Vec3 executePosition = pSteer->convertToOpenSteerVec3(executePositions[ID][x]);
-					pSteer->setSteerCoords(executePosition);
+					// checks if previous position was reached
+					if ( x > 0 && !executePositionReached[ID][x - 1])
+					{
+//						break;
+					}
+					else if (!executePositionReached[ID][x])
+					{
+						logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Execute Position!");
+						OpenSteer::Vec3 executePosition = pSteer->convertToOpenSteerVec3(executePositions[ID][x]);
+						pSteer->setSteerCoords(executePosition);
 
-/*					
+/*
 			        logMsg("executePosition = " +Ogre::StringConverter::toString(executePositions[ID][x]));
 			        logMsg("current position = " +Ogre::StringConverter::toString(playerInstance[ID].getNodePosition()));
 			        distToPosition = OpenSteer::Vec3::distance (executePosition, position());
@@ -319,9 +323,9 @@ void offenseState::executeOffense() // executes box offense
 
 			        }
 */
-                }
-	    	}
-		}
+					}
+				}
+			}
 		}
 //			exit(0);
 	}

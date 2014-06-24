@@ -342,7 +342,8 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 	    }
 		else
 		{
-			startPositionReached[ID] = true;
+//			startPositionReached[ID] = true;
+			positionReached[0] = true;
 			teamInstance[teamNumber].getOffenseInstance()->setStartPositionReached(startPositionReached);
 
 		}
@@ -405,20 +406,20 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 			        executePosition = convertToOpenSteerVec3(offenseExecutePositions[ID][x]);
 			        logMsg("executePosition = " +Ogre::StringConverter::toString(offenseExecutePositions[ID][x]));
 			        logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
-			        distToPosition = OpenSteer::Vec3::distance (executePosition, position());
+			        distToPosition = OpenSteer::Vec3::distance (steerCoords, position());
 			        logMsg("Distance to execute Position = " +Ogre::StringConverter::toString(distToPosition));
 			        if (distToPosition >= 3)
 			        {
 				        logMsg("seeking!");
 //						    seekTarget = xxxsteerForSeek(executePosition);
-                        seekTarget = steerForSeek(executePosition);
-
+//                        seekTarget = steerForSeek(executePosition);
+				        seekTarget = xxxsteerForSeek(steerCoords);
 				        logMsg("seekTarget = " +Ogre::StringConverter::toString(convertToOgreVector3(executePosition)));
 				        applySteeringForce (seekTarget, elapsedTime);
 			        }
 			        else
 			        {
-//					    	exit(0);
+					    	exit(0);
 			    	    offenseExecutePositionReached[ID][x] = true;
 //			        teamInstance[teamNumber].getOffenseInstance()->setExecutePositions(offenseExecutePositions);
 			            teamInstance[teamNumber].getOffenseInstance()->setExecutePositionReached(offenseExecutePositionReached);
