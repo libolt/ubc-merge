@@ -141,9 +141,9 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 
 //	exit(0);
 	counter += 1;
-	logMsg("Counter = " +Ogre::StringConverter::toString(counter));
+//	logMsg("Counter = " +Ogre::StringConverter::toString(counter));
 
-	logMsg("elapsedTime = " +Ogre::StringConverter::toString(elapsedTime));
+//	logMsg("elapsedTime = " +Ogre::StringConverter::toString(elapsedTime));
 
 	AISystem *ai = AISystem::Instance();
 	gameState *gameS = gameState::Instance();
@@ -155,9 +155,9 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 	std::vector<playerSteer*> pSteer = ai->getAllPlayerSteers();
 	std::vector<playerSteer*> team0Steers;
 	std::vector<playerSteer*> team1Steers;
-    logMsg("Player = " +Ogre::StringConverter::toString(ID));
-	logMsg("Node position = " +Ogre::StringConverter::toString(teamInstance[teamNumber].getPlayerInstance()[ID].getNodePosition()));
-	logMsg("Steer position = " +Ogre::StringConverter::toString(convertToOgreVector3(position())));
+//    logMsg("Player = " +Ogre::StringConverter::toString(ID));
+//	logMsg("Node position = " +Ogre::StringConverter::toString(teamInstance[teamNumber].getPlayerInstance()[ID].getNodePosition()));
+//	logMsg("Steer position = " +Ogre::StringConverter::toString(convertToOgreVector3(position())));
 	OpenSteer::Vec3 currentNodePos = convertToOpenSteerVec3(teamInstance[teamNumber].getPlayerInstance()[ID].getNodePosition());
 
 /*	if (position().x != currentNodePos.x || position().y != currentNodePos.y || position().z != currentNodePos.z)
@@ -313,7 +313,8 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 
 	std::vector<bool> startPositionReached = teamInstance[teamNumber].getOffenseInstance()->getStartPositionReached();
 
-	logMsg(" speed = " +Ogre::StringConverter::toString(speed()));
+	
+//	logMsg(" speed = " +Ogre::StringConverter::toString(speed()));
 	if (distToPosition <= 5)
 	{
 //		setSpeed(speed() - 1);
@@ -344,7 +345,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 		{
 //			startPositionReached[ID] = true;
 			positionReached[0] = true;
-			teamInstance[teamNumber].getOffenseInstance()->setStartPositionReached(startPositionReached);
+//			teamInstance[teamNumber].getOffenseInstance()->setStartPositionReached(startPositionReached);
 
 		}
 	}
@@ -358,7 +359,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 
 	    offenseExecutePositions = teamInstance[teamNumber].getOffenseInstance()->getExecutePositions();
 	    offenseExecutePositionReached = teamInstance[teamNumber].getOffenseInstance()->getExecutePositionReached();
-	    logMsg("ExecutePositions size = " +Ogre::StringConverter::toString(offenseExecutePositions.size()));
+//	    logMsg("ExecutePositions size = " +Ogre::StringConverter::toString(offenseExecutePositions.size()));
 /*			    for (int x=0;x<offenseExecutePositions.size();++x)
 	    {
 	    	logMsg("number of execute positions for player " +Ogre::StringConverter::toString(x) +" = " +Ogre::StringConverter::toString(offenseExecutePositions[x].size()));
@@ -402,6 +403,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 				}
 				else
 				{
+					
 			        logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Execute Position!");
 			        executePosition = convertToOpenSteerVec3(offenseExecutePositions[ID][x]);
 			        logMsg("executePosition = " +Ogre::StringConverter::toString(offenseExecutePositions[ID][x]));
@@ -419,10 +421,10 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 			        }
 			        else
 			        {
-					    	exit(0);
-			    	    offenseExecutePositionReached[ID][x] = true;
+//					    	exit(0);
+//			    	    offenseExecutePositionReached[ID][x] = true;
 //			        teamInstance[teamNumber].getOffenseInstance()->setExecutePositions(offenseExecutePositions);
-			            teamInstance[teamNumber].getOffenseInstance()->setExecutePositionReached(offenseExecutePositionReached);
+//			            teamInstance[teamNumber].getOffenseInstance()->setExecutePositionReached(offenseExecutePositionReached);
 
 			        }
                 }
