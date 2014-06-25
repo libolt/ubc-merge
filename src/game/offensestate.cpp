@@ -257,11 +257,12 @@ void offenseState::executeOffense() // executes box offense
 				    std::vector<Ogre::Vector3> steerCoords = plays[0].getStartPositions();
 				    OpenSteer::Vec3 coords = pSteer->convertToOpenSteerVec3(startPositions[x]);
 				    pSteer->setSteerCoords(coords);
+					pSteer->setExecute(true);
 		        }
 		        else	// increments the counter
 		        {
 //				numStartPositionsReached += 1;
-
+                    pSteer->setExecute(false);
 			    }
 
 			    if (numStartPositionsReached == 4)	// FIXME: hard coded for a human player
@@ -273,6 +274,7 @@ void offenseState::executeOffense() // executes box offense
 			    {
 		    	    startPositionReached[x] = true;
 				    numStartPositionsReached += 1;
+					//pSteer->setExecute(false);
 			    }
 			    logMsg("startPositionsReached = " +Ogre::StringConverter::toString(startPositionReached[x]));
 			}
@@ -281,40 +283,71 @@ void offenseState::executeOffense() // executes box offense
 	else
 	{
 //		exit(0);
-		for (int ID=0;ID<5;++ID)
+		if (!allExecutePositionsReached)
 		{
-			if (ID != playerWithBall)
-			{
-			    pSteer = playerInstance[ID].getSteer();
-				logMsg("Player " +Ogre::StringConverter::toString(ID) +" executePositionReached size = " +Ogre::StringConverter::toString(executePositionReached[ID].size()));
-			    for (int x=0;x<executePositionReached[ID].size();++x)
-			    {
-				    if (executePositionReached[ID][x] == true)
-				    {
-						logMsg("Player " +Ogre::StringConverter::toString(ID));
-//	    			    exit(0);
-				    }
-				    else
-				    {
-					    // checks if previous position was reached
-					    if ( x > 0 && !executePositionReached[ID][x - 1])
-					    {
-//					    	exit(0);
-//						break;
-					    }
-					    else //if (!executePositionReached[ID][x])
-					    {
-						    logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Execute Position!");
-					  	    OpenSteer::Vec3 executePosition = pSteer->convertToOpenSteerVec3(executePositions[ID][x]);
-						    pSteer->setSteerCoords(executePosition);
-							if (pSteer->getDistToPosition() < 3)
-							{
-	//							exit(0);
-								executePositionReached[ID][x] = true;
-							}
-					    }
-				    }
+			int allExecutionsReached = 0;
+		    for (int ID=0;ID<5;++ID)
+		    {
+				if (allExecutionsReached < 4)
+				{
+			        if (ID != playerWithBall)
+			        {
+			            pSteer = playerInstance[ID].getSteer();
+				        logMsg("Player " +Ogre::StringConverter::toString(ID) +" executePositionReached size = " +Ogre::StringConverter::toString(executePositionReached[ID].size()));
+			            for (int x=0;x<executePositionReached[ID].size();++x)
+			            {
+				            if (executePositionReached[ID][x] == true)
+				            {
+				    	        logMsg("Player " +Ogre::StringConverter::toString(ID));
+//	    		                exit(0);
+				            }
+				            else
+				            {   int lastPos = executePositionReached[ID].size() - 1;
+				                if (executePositionReached[ID][lastPos])
+				    		    {
+									allExecutionsReached += 1;
+							    }
+					            // checks if previous position was reached
+					            else if ( x > 0 && !executePositionReached[ID][x - 1])
+					            {
+//					    	        exit(0);
+//						        break;
+					            }
+					            else //if (!executePositionReached[ID][x])
+					            {
+						            logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Execute Position!");
+					  	            OpenSteer::Vec3 executePosition = pSteer->convertToOpenSteerVec3(executePositions[ID][x]);
+						            pSteer->setSteerCoords(executePosition);
+							        if (pSteer->getDistToPosition() < 3)
+							        {
+	//							        exit(0);
+								        executePositionReached[ID][x] = true;
+										pSteer->setExecute(false);
+							        }
+									else
+									{
+										pSteer->setExecute(true);
+									}
+					            }
+					        }
+							
+				        }
+			        }
 			    }
+				else
+				{
+					allExecutePositionsReached = true;
+				}
+		    }
+		}
+		else
+		{
+			for (int x=0;x<5;++x)
+			{
+				pSteer = playerInstance[x].getSteer();
+				pSteer->setExecute(false);
+				playerInstance[x].setSteer(pSteer);
+				
 			}
 		}
 //			exit(0);

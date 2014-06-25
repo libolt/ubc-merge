@@ -89,8 +89,9 @@ private:
     std::vector<bool> startPositionReached; // stores whether player is at start position
 	int numStartPositionsReached;  // stores how many startPositions have been set.
 
-    bool allStartPositionsReached;  // stores whether all player start positions are set
-
+    bool allStartPositionsReached;  // stores whether all player start positions have been reached
+    bool allExecutePositionsReached;  // stores whether all player execute positions have been reached
+    
 	std::vector< std::vector<bool> > executePositionReached; // stores whether player is at execute position
 
 	std::vector<offensePlays> plays;	// stores the plays for the offense to run

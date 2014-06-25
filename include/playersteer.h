@@ -45,6 +45,7 @@ class playerSteer : public steering
 	    ID = -1;
 	    counter = 0;
 		distToPosition = 0.0f;
+		execute = false;
 		
 	    m_home = OpenSteer::Vec3::zero;
 //	steering::reset (); // reset the vehicle
@@ -70,6 +71,9 @@ class playerSteer : public steering
 	float getDistToPosition(); // retrieves the value of distToPosition
 	void setDistToPosition(float dist); // sets value of distToPosition
 	
+	bool getExecute();  // retrieves the value of execute
+	void setExecute(bool set);  // sets the value of execute
+	
 	OpenSteer::Vec3 getSteerCoords();  // retrieves the value of steerCoords
 	void setSteerCoords(OpenSteer::Vec3 coords);  // sets the value of steerCoords
 	
@@ -94,6 +98,8 @@ class playerSteer : public steering
 	int ID; // Stores which player on the team the instance associates with
 	
 	float distToPosition; // stores the distance player is from target position
+	
+	bool execute;  // stores whether or not to execute steering code
 	
 	OpenSteer::Vec3 steerCoords;
 	

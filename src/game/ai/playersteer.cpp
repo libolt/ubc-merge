@@ -59,6 +59,15 @@ void playerSteer::setDistToPosition(float dist) // sets value of distToPosition
 	distToPosition = dist;
 }
 
+bool playerSteer::getExecute()  // retrieves the value of execute
+{
+	return (execute);
+}
+void playerSteer::setExecute(bool set)  // sets the value of execute
+{
+	execute = set;
+}
+
 OpenSteer::Vec3 playerSteer::getSteerCoords()  // retrieves the value of steerCoords
 {
 	return (steerCoords);
@@ -262,7 +271,11 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 		}
 		else
 		{
-			updateOffense(currentTime, elapsedTime);
+			if (execute)
+			{
+				//exit(0);
+			    updateOffense(currentTime, elapsedTime);
+			}
 		}
 
 //		exit(0);
