@@ -299,18 +299,20 @@ void offenseState::executeOffense() // executes box offense
 					    // checks if previous position was reached
 					    if ( x > 0 && !executePositionReached[ID][x - 1])
 					    {
+//					    	exit(0);
 //						break;
 					    }
-					    else if (!executePositionReached[ID][x])
+					    else //if (!executePositionReached[ID][x])
 					    {
 						    logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Execute Position!");
 					  	    OpenSteer::Vec3 executePosition = pSteer->convertToOpenSteerVec3(executePositions[ID][x]);
 						    pSteer->setSteerCoords(executePosition);
+							if (pSteer->getDistToPosition() < 3)
+							{
+	//							exit(0);
+								executePositionReached[ID][x] = true;
+							}
 					    }
-						if (pSteer->getDistToPosition() < 3)
-						{
-							executePositionReached[ID][x] = true;
-						}
 				    }
 			    }
 			}
