@@ -52,6 +52,7 @@ offenseState::offenseState() // constructor
 	startZPosSet = new bool[5];
 
 	allStartPositionsReached = false;
+    allExecutePositionsReached = false;
 
 //	executePositionSet = new bool[5];
 
@@ -270,11 +271,12 @@ void offenseState::executeOffense() // executes box offense
 //				exit(0);
 				    allStartPositionsReached = true;
 			    }
-		        if (!startPositionReached[x] && pSteer->getDistToPosition() < 3)
+		        if (!startPositionReached[x] && pSteer->getDistToPosition() < 3 && pSteer->getDistToPosition() != -1.0f)
 			    {
+					
 		    	    startPositionReached[x] = true;
 				    numStartPositionsReached += 1;
-					//pSteer->setExecute(false);
+					pSteer->setExecute(false);
 			    }
 			    logMsg("startPositionsReached = " +Ogre::StringConverter::toString(startPositionReached[x]));
 			}
@@ -285,13 +287,16 @@ void offenseState::executeOffense() // executes box offense
 //		exit(0);
 		if (!allExecutePositionsReached)
 		{
+//			exit(0);
 			int allExecutionsReached = 0;
 		    for (int ID=0;ID<5;++ID)
 		    {
 				if (allExecutionsReached < 4)
 				{
+				    
 			        if (ID != playerWithBall)
 			        {
+						
 			            pSteer = playerInstance[ID].getSteer();
 				        logMsg("Player " +Ogre::StringConverter::toString(ID) +" executePositionReached size = " +Ogre::StringConverter::toString(executePositionReached[ID].size()));
 			            for (int x=0;x<executePositionReached[ID].size();++x)
@@ -318,14 +323,15 @@ void offenseState::executeOffense() // executes box offense
 						            logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Execute Position!");
 					  	            OpenSteer::Vec3 executePosition = pSteer->convertToOpenSteerVec3(executePositions[ID][x]);
 						            pSteer->setSteerCoords(executePosition);
-							        if (pSteer->getDistToPosition() < 3)
+							        if (pSteer->getDistToPosition() < 3 && pSteer->getDistToPosition() != -1.0f)
 							        {
-	//							        exit(0);
+								    //    exit(0);
 								        executePositionReached[ID][x] = true;
 										pSteer->setExecute(false);
 							        }
 									else
 									{
+										exit(0);
 										pSteer->setExecute(true);
 									}
 					            }

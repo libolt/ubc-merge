@@ -44,7 +44,7 @@ class playerSteer : public steering
 		teamNumber = -1;
 	    ID = -1;
 	    counter = 0;
-		distToPosition = 0.0f;
+		distToPosition = -1.0f;
 		execute = false;
 		
 	    m_home = OpenSteer::Vec3::zero;
