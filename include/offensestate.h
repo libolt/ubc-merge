@@ -73,7 +73,7 @@ public:
 
 	void setupOffense(); // sets up box offense
 	void executeOffense(); // executes box offense
-
+    bool checkForDirective(int ID); // checks if a directive needs to be completed before execution
 
 private:
 
@@ -95,7 +95,11 @@ private:
 	std::vector< std::vector<bool> > executePositionReached; // stores whether player is at execute position
 
 	std::vector<offensePlays> plays;	// stores the plays for the offense to run
+	std::vector<offensePlays::playerDirectives> playerDirective;  // stores values of the playerDirectives class associated with the play being run
+	
 	// offense type variables
+	
+	
 	bool offenseSetup;
 };
 
