@@ -945,7 +945,8 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     Ogre::Vector3 pCoords;
 	std::vector<Ogre::Vector3> pExecuteCoords;
     offensePlays::playerDirectives pPlayerDirective;
-
+    playerDesignations pPlayerDirectiveDesignation;
+	
 //    TiXmlDocument doc(fileName.c_str());
 //    if (!doc.LoadFile()) return(false);
 
@@ -1026,22 +1027,27 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 				if (pPlayerDesignation == "PG")
 				{
 					playerDesignation.push_back(PG);
+					pPlayerDirectiveDesignation = PG;
 				}
 				else if (pPlayerDesignation == "SG")
 				{
 					playerDesignation.push_back(SG);
+					pPlayerDirectiveDesignation = SG;
 				}
 				else if (pPlayerDesignation == "SF")
 				{
 					playerDesignation.push_back(SF);
+					pPlayerDirectiveDesignation = SF;
 				}
 				else if (pPlayerDesignation == "PF")
 				{
 					playerDesignation.push_back(PF);
+					pPlayerDirectiveDesignation = PF;
 				}
 				else if (pPlayerDesignation == "C")
 				{
 					playerDesignation.push_back(C);
+					pPlayerDirectiveDesignation = C;
 				}
 				else
 				{
@@ -1115,6 +1121,8 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 				{
 	                numDirectives += 1;
 				    TiXmlElement *h;
+					
+					pPlayerDirective.setPlayerDesignation(pPlayerDirectiveDesignation);
 				    h = g->FirstChildElement("Type");
 
 				    if (h)

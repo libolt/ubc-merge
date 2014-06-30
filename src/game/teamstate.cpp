@@ -528,6 +528,26 @@ bool teamState::createPlayerInstances()
 				pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
 				pSteer->setTeamNumber(teamNumber);
 				pSteer->setID(id);
+				switch (id)
+				{
+					case 0:
+						pSteer->setDesignation(PG);
+						break;
+					case 1:
+						pSteer->setDesignation(SG);
+						break;
+					case 2:
+						pSteer->setDesignation(SF);
+						break;
+					case 3:
+						pSteer->setDesignation(PF);
+						break;
+					case 4:
+						pSteer->setDesignation(C);
+						break;
+					default:
+					break;
+				}
 				pSteer->reset();
 				pInstance.setSteer(pSteer);
 				playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.

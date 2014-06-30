@@ -298,11 +298,12 @@ void offenseState::executeOffense() // executes box offense
 				{
 
 			        if (ID != playerWithBall)
-			        { 
-                        bool directiveComplete = checkForDirective(ID);  // checks if player must follow directive before executing
+			        {
+						pSteer = playerInstance[ID].getSteer();
+                        bool directiveComplete = checkForDirective(pSteer->getDesignation());  // checks if player must follow directive before executing
 						if (directiveComplete)
 						{	
-			                pSteer = playerInstance[ID].getSteer();
+			                
 				            logMsg("Player " +Ogre::StringConverter::toString(ID) +" executePositionReached size = " +Ogre::StringConverter::toString(executePositionReached[ID].size()));
 			                for (int x=0;x<executePositionReached[ID].size();++x)
 			                {
@@ -369,11 +370,23 @@ void offenseState::executeOffense() // executes box offense
 
 }
 
-bool offenseState::checkForDirective(int ID) // checks if a directive needs to be completed before execution
+bool offenseState::checkForDirective(playerDesignations designation) // checks if a directive needs to be completed before execution
 {
 	for (int x=0;x<playerDirective.size();++x)
 	{
-		
+		logMsg("playerDesignation = " +Ogre::StringConverter::toString(playerDirective[x].getPlayerDesignation()));
+		if (playerDirective[x].getPlayerDesignation() == designation)
+		{
+			//directiveTypes type =
+			switch (playerDirective[x].getType())
+			{
+				case WAIT:
+					exit(0);
+					break;
+				default:
+				    break;
+			}
+		}
 	}
 	return (false);
 }

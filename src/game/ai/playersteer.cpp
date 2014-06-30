@@ -50,6 +50,15 @@ void playerSteer::setID(int id) // sets the value of ID
 	ID = id;
 }
 
+playerDesignations playerSteer::getDesignation()  // retrieves the value of designation
+{
+	return (designation);
+}
+void playerSteer::setDesignation(playerDesignations set)  // sets the value of designation
+{
+	designation = set;
+}
+
 float playerSteer::getDistToPosition() // retrieves the value of distToPosition
 {
 	return (distToPosition);
