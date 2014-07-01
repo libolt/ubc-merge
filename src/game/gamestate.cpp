@@ -48,6 +48,7 @@ gameState::gameState()
 {
 	basketballModelLoaded = false;
 	courtModelLoaded = false;
+	hoopModelLoaded = false;
 	setupEnvironmentCompleted = false;
 	teamInstancesCreated = false;
     gameStarted = false;
@@ -87,6 +88,16 @@ std::vector <courtState> gameState::getCourtInstance()
 void gameState::setCourtInstance(std::vector<courtState> Instance)
 {
     courtInstance = Instance;
+}
+
+// gets and sets hoopInstance std::vector
+std::vector <hoop> gameState::getHoopInstance()
+{
+    return (hoopInstance);
+}
+void gameState::setHoopInstance(std::vector<hoop> Instance)
+{
+    hoopInstance = Instance;
 }
 
 std::vector<teamData> gameState::getTeamDataInstance()		// retrieves the value of  the teamDataInstance variable
@@ -346,6 +357,19 @@ bool gameState::createCourtInstances()
     return true;
 }
 
+// creates hoop Instances
+bool gameState::createHoopInstances()
+{
+    hoop hInstance;  // creates an instance of the hoop class
+//    cInstance.setModelName("court.mesh");
+    hInstance.setModelName("Hoop.mesh");
+    hInstance.loadModel();
+    hoopInstance.push_back(hInstance);  // loads the first hoop
+	hoopInstance.push_back(hInstance);  // loads the second hoop
+
+    return true;
+}
+
 bool gameState::setupEnvironment()
 {
     renderEngine *render = renderEngine::Instance();
@@ -361,14 +385,32 @@ bool gameState::setupEnvironment()
     return true;
 }
 
-void gameState::setBasketballStartPositions()// sets the initial coordinates for the basketball(s)
+void gameState::setBasketballStartPositions()  // sets the initial coordinates for the basketball(s)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	basketballInstance[0].getNode()->setPosition(0.8f,10.0f,352.0f);
-	courtInstance[0].getNode()->setPosition(0.0f,-6.5,360);
 #else
 	basketballInstance[0].getNode()->setPosition(0.8f,-5.0f,352.0f);
+#endif
+}
+
+void gameState::setCourtStartPositions()  // sets the initial coordinates for the basketball(s)
+{
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	courtInstance[0].getNode()->setPosition(0.0f,-6.5,360);
+#else
 	courtInstance[0].getNode()->setPosition(0.0f,-27.5,360);
+#endif
+}
+
+void gameState::setHoopStartPositions()  // sets the initial coordinates for the basketball(s)
+{
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+//	hoopInstance[0].getNode()->setPosition(0.0f,0.0f,0.0f);
+//	hoopInstance[1].getNode()->setPosition(200.0f,-1.5,360);
+#else
+	hoopInstance[0].getNode()->setPosition(0.8f,-23.5f,360.0f);
+	hoopInstance[1].getNode()->setPosition(200.0f,-23.5,360);
 #endif
 }
 
@@ -468,8 +510,18 @@ bool gameState::setupState()
         	courtModelLoaded = true;
         }
     }
-
+	
+    if (!hoopModelLoaded)
+    {
+        if (createHoopInstances())  // creates the hoop instances
+        {
+        	hoopModelLoaded = true;
+        }
+    }
+	
     setBasketballStartPositions();	// sets starting positions for all basketballs that are instantiated
+    setCourtStartPositions();	// sets starting positions for all courts that are instantiated
+    setHoopStartPositions();	// sets starting positions for all hoops that are instantiated
 
 //    basketballInstance[0].getNode()->setPosition(1.4f,5.0f,366.0f);
 

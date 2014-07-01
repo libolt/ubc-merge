@@ -72,6 +72,7 @@ physicsEngine::physicsEngine()
     playerPhysicsSetup = false;
     basketballPhysicsSetup = false;
     courtPhysicsSetup = false;
+	hoopPhysicsSetup = false;
 
     pairCollided = false;
     passCollision = false;
@@ -126,13 +127,22 @@ void physicsEngine::setBasketballPhysicsSetup(bool setup)	// sets the value of t
 	basketballPhysicsSetup = setup;
 }
 
-bool physicsEngine::getCourtPhysicsSetup()	// retrieves the value of the playerPhysicsSetup variable
+bool physicsEngine::getCourtPhysicsSetup()	// retrieves the value of the courtPhysicsSetup variable
 {
 	return (courtPhysicsSetup);
 }
-void physicsEngine::setCourtPhysicsSetup(bool setup)	// sets the value of the playerPhysicsSetup variable
+void physicsEngine::setCourtPhysicsSetup(bool setup)	// sets the value of the courtPhysicsSetup variable
 {
 	courtPhysicsSetup = setup;
+}
+
+bool physicsEngine::getHoopPhysicsSetup()	// retrieves the value of the hoopPhysicsSetup variable
+{
+	return (hoopPhysicsSetup);
+}
+void physicsEngine::setHoopPhysicsSetup(bool setup)	// sets the value of the hoopPhysicsSetup variable
+{
+	hoopPhysicsSetup = setup;
 }
 
 bool physicsEngine::getPairCollided()	// retrieves value of pairCollided variable
@@ -188,7 +198,21 @@ void physicsEngine::setupState(void)
 	else
 	{
 	}
-
+	
+    if (!hoopPhysicsSetup)
+    {
+    	if (setupHoopPhysics()) // sets up physics state for hoop
+    	{
+    		hoopPhysicsSetup = true;
+    	}
+    	else
+    	{
+    	}
+    }
+	else
+	{
+	}
+	
     if (!basketballPhysicsSetup)
     {
     	if (setupBasketballPhysics()) // sets up physics state for basketball
@@ -324,6 +348,47 @@ bool physicsEngine::setupCourtPhysics()
     gameS->setCourtInstance(cInstance);
 
     return true;
+}
+
+bool physicsEngine::setupHoopPhysics()
+{
+//    courtState *courtS = courtState::Instance();
+    gameState *gameS = gameState::Instance();
+
+    std::vector<hoop> hInstance = gameS->getHoopInstance();
+    btRigidBody *hoopBody;
+    btScalar mass = 0;
+    btVector3 inertia, inertia2;
+    inertia = btVector3(0,0,0);
+
+
+    //Create the ground shape.
+    BtOgre::StaticMeshToShapeConverter converter(hInstance.at(0).getModel());
+//    courtShape = converter.createTrimesh();
+    hoopShape = converter.createBox();
+//    courtShape = new btStaticPlaneShape(btVector3(0,1,0),1);
+//    courtShape->;
+//s    courtShape->
+    //Create MotionState (no need for BtOgre here, you can use it if you want to though).
+//    courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-25,0)));
+    hoopBodyState = new BtOgre::RigidBodyState(hInstance[0].getNode());
+//    courtBodyState = new BtOgre::RigidBodyState(cInstance.at(0).getNode());
+    btRigidBody::btRigidBodyConstructionInfo info(mass,hoopBodyState,hoopShape,inertia); //motion state would actually be non-null in most real usages
+    info.m_restitution = 1.0f;
+    info.m_friction = 15.5f;
+
+
+    //Create the Body.
+//    courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
+    hoopBody = new btRigidBody(info);
+
+    hInstance[0].setPhysBody(hoopBody);
+//    world->addRigidBody(cInstance[0].getPhysBody(), COL_COURT, courtCollidesWith);
+    world->addRigidBody(hoopBody);
+
+    gameS->setHoopInstance(hInstance);
+
+    return (true);
 }
 
 bool physicsEngine::setupBasketballPhysics()

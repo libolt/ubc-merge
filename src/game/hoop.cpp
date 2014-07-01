@@ -18,6 +18,75 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
- #include "hoop.h"
+#include "hoop.h"
  
- 
+#include "renderengine.h"
+
+hoop::hoop()
+{
+}
+
+hoop::~hoop()
+{
+}
+
+// gets and sets modelName
+std::string hoop::getModelName()
+{
+    return (modelName);
+}
+void hoop::setModelName(std::string name)
+{
+    modelName = name;
+}
+
+// gets and sets model
+Ogre::Entity *hoop::getModel()
+{
+    return (model);
+}
+void hoop::setModel(Ogre::Entity *Model)
+{
+    model = Model;
+}
+
+// gets and sets node
+Ogre::SceneNode *hoop::getNode()
+{
+    return (node);
+}
+void hoop::setNode(Ogre::SceneNode *Node)
+{
+    node = Node;
+}
+
+btRigidBody *hoop::getPhysBody()	// retrieves physBody variable
+{
+	return (physBody);
+}
+
+void hoop::setPhysBody(btRigidBody *body)	// sets physBody variable
+{
+	physBody = body;
+
+}
+
+
+// loads the 3D Model and attaches it to the node as well as sets coordinates
+bool hoop::loadModel()
+{
+    renderEngine *render = renderEngine::Instance();
+
+    model = render->getMSceneMgr()->createEntity("hoopModel", modelName);	// loads the hoop model
+
+    // creates the hoopNode
+    node = render->getMSceneMgr()->getRootSceneNode()->createChildSceneNode("hoopSceneNode");
+
+    // attaches the hoop model to the hoopNode
+    node->attachObject(model);
+    // sets the position of hoopNode
+//    node->setPosition(0.0f,-20.0f,400.0f);
+    node->setScale(1.0f,1.0f,1.0f);
+
+    return true;
+}

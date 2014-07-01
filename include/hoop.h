@@ -18,7 +18,52 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
- #ifndef _HOOP_H_
- #define _HOOP_H_
+#ifndef _HOOP_H_
+#define _HOOP_H_
  
- #endif
+#include "Ogre.h"
+
+#include "BtOgrePG.h"
+#include "BtOgreGP.h"
+#include "BtOgreExtras.h"
+
+ 
+class hoop
+{
+    public:
+
+    hoop();   // constructor
+    virtual ~hoop();  // destructor
+
+    // gets and sets modelName
+    std::string getModelName();
+    virtual void setModelName(std::string name);
+
+    // gets and sets model
+    Ogre::Entity *getModel();
+    virtual void setModel(Ogre::Entity *Model);
+
+    // gets and sets node
+    Ogre::SceneNode *getNode();
+    virtual void setNode(Ogre::SceneNode *Node);
+
+    virtual btRigidBody *getPhysBody();	// retrieves physBody variable
+    virtual void setPhysBody(btRigidBody *body);	// sets physBody variable
+
+    // loads the 3D Model and attaches it to the node as well as sets coordinates
+    virtual bool loadModel();
+
+    private:
+
+    std::string modelName;   // stores the file name of the 3D Model
+
+    Ogre::Entity *model;    // stores the 3D Model representing the hoop
+
+    Ogre::SceneNode *node;  // stores the node the 3D Model is attached to
+
+    // stores the physics object that represents the player
+    btRigidBody *physBody;
+
+};
+ 
+#endif

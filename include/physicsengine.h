@@ -40,8 +40,11 @@ public:
     virtual bool getBasketballlPhysicsSetup();	// retrieves the value of the playerPhysicsSetup variable
     virtual void setBasketballPhysicsSetup(bool setup);	// sets the value of the playerPhysicsSetup variable
 
-    virtual bool getCourtPhysicsSetup();	// retrieves the value of the playerPhysicsSetup variable
-    virtual void setCourtPhysicsSetup(bool setup);	// sets the value of the playerPhysicsSetup variable
+    virtual bool getCourtPhysicsSetup();	// retrieves the value of the courtPhysicsSetup variable
+    virtual void setCourtPhysicsSetup(bool setup);	// sets the value of the courtPhysicsSetup variable
+
+    virtual bool getHoopPhysicsSetup();	// retrieves the value of the hoopPhysicsSetup variable
+    virtual void setHoopPhysicsSetup(bool setup);	// sets the value of the hoopPhysicsSetup variable
 
     virtual bool getPairCollided();	// retrieves value of thepairCollided variable
     virtual void setPairCollided(bool collided);	// sets value of thepairCollided variable
@@ -54,6 +57,7 @@ public:
     // sets up object physics
     virtual bool setupBasketballPhysics(); // sets up basketball physics
     virtual bool setupCourtPhysics();   // sets up court physics
+    virtual bool setupHoopPhysics();   // sets up hoop physics
     virtual bool setupPlayerPhysics(); // setsup up player physics
 
     virtual void updateState(); // updates the state of the physics engine.
@@ -90,6 +94,11 @@ private:
 	btCollisionShape *courtShape;
 //	btDefaultMotionState *courtBodyState;
 	BtOgre::RigidBodyState *courtBodyState;
+	
+	// hoop
+	btCollisionShape *hoopShape;
+	BtOgre::RigidBodyState *hoopBodyState;
+	
     // basketball
 //    btRigidBody *basketballBody;
  //   btBvhTriangleMeshShape *basketballShape;
@@ -104,6 +113,7 @@ private:
     bool playerPhysicsSetup;
     bool basketballPhysicsSetup;
     bool courtPhysicsSetup;
+	bool hoopPhysicsSetup;
     bool pairCollided;
 
     bool passCollision;	// stores whether a ball has collided with player during a pass

@@ -25,6 +25,7 @@
 
 #include "basketballs.h"
 #include "courtstate.h"
+#include "hoop.h"
 #include "playerstate.h"
 #include "teamstate.h"
 #include "teamdata.h"
@@ -48,7 +49,10 @@ class gameState
     virtual bool assignPlayers();   // assigns the players that are playing.
     virtual bool setupEnvironment();    // sets up the 3D environment for the game
     virtual void setBasketballStartPositions();	// sets the initial coordinates for the basketball(s).
+    virtual void setCourtStartPositions();	// sets the initial coordinates for the court(s).
+    virtual void setHoopStartPositions();	// sets the initial coordinates for the hoop(s).
 
+	
     virtual gameTypes getGameType(); // retrieves the value of gameType
     virtual void setGameType(gameTypes type);	  // sets the value of gameType
     virtual bool getTipOffComplete();	// retrieves tipOffComplete value
@@ -114,6 +118,13 @@ class gameState
 	// creates court Instances
 	bool createCourtInstances();
 
+	// gets and sets hoopInstance std::vector
+	std::vector <hoop> getHoopInstance();
+	void setHoopInstance(std::vector<hoop> Instance);
+
+	// creates hoop Instances
+	bool createHoopInstances();
+
 	virtual bool setupState();   // sets up the game condition
 	virtual bool logic();   // carries out in game logic
 
@@ -143,12 +154,14 @@ class gameState
 
     std::vector <basketballs> basketballInstance;    // creates instance of the basketballs class
     std::vector <courtState> courtInstance;  // creates instance of the courtState class
+	std::vector <hoop> hoopInstance;  // creates instance of the hoop class
+
 //    std::vector <playerState> playerInstance;    // creates instance of the playerState class
     std::vector <teamState>  teamInstance;   // creates instance of the teamState class
 
     bool basketballModelLoaded;	// stores whether basketball model has been loaded
     bool courtModelLoaded;	// stores whether court model has been loaded
-
+    bool hoopModelLoaded;  // stores whether the hoop model has been loaded
     bool setupEnvironmentCompleted;	// stores whether environment has been setup
     bool teamInstancesCreated;		// stores whether team instances have been created
     bool sceneCreated;				// stores whether the scene has been created
