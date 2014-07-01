@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2013 by Mike McLean   *
+ *   Copyright (C) 2014 by Mike McLean   *
  *   libolt@libolt.net   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -384,7 +384,33 @@ bool offenseState::checkForDirective(playerDesignations designation) // checks i
 					switch (playerDirective[x].getWaitFor())
 					{
 						case PLAYERPOSITIONSET:
-							exit(0);
+							logMsg("playerSet = " +Ogre::StringConverter::toString(playerDirective[x].getPlayerSet()));
+							switch (playerDirective[x].getPositionType())
+							{
+								case START:
+									if (!startPositionReached[playerDirective[x].getPlayerSet()])
+									{
+										exit(0);
+									}
+									break;
+								case EXECUTE:
+									if (!executePositionReached[playerDirective[x].getPlayerSet()][playerDirective[x].getPosition()])
+									{
+										return (false);
+									}
+									else
+									{
+										
+									}
+									//exit(0);
+									break;
+								default:
+								break;
+							}
+							//return (true);
+//							exit(0);
+							break;
+						case TIME:
 							break;
 						default:
 						    break;
@@ -396,5 +422,5 @@ bool offenseState::checkForDirective(playerDesignations designation) // checks i
 			}
 		}
 	}
-	return (false);
+	return (true);
 }
