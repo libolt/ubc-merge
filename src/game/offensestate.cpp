@@ -381,7 +381,15 @@ bool offenseState::checkForDirective(playerDesignations designation) // checks i
 			switch (playerDirective[x].getType())
 			{
 				case WAIT:
-					exit(0);
+					switch (playerDirective[x].getWaitFor())
+					{
+						case PLAYERPOSITIONSET:
+							exit(0);
+							break;
+						default:
+						    break;
+					}
+					
 					break;
 				default:
 				    break;
