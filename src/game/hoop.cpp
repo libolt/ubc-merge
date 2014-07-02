@@ -19,7 +19,7 @@
  ***************************************************************************/
 
 #include "hoop.h"
- 
+
 #include "renderengine.h"
 
 hoop::hoop()
@@ -86,7 +86,7 @@ bool hoop::loadModel()
     node->attachObject(model);
     // sets the position of hoopNode
 //    node->setPosition(0.0f,-20.0f,400.0f);
-    node->setScale(1.0f,1.0f,1.0f);
+    node->setScale(0.3f,0.3f,0.3f);
 
     return true;
 }

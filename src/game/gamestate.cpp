@@ -409,8 +409,9 @@ void gameState::setHoopStartPositions()  // sets the initial coordinates for the
 //	hoopInstance[0].getNode()->setPosition(0.0f,0.0f,0.0f);
 //	hoopInstance[1].getNode()->setPosition(200.0f,-1.5,360);
 #else
-	hoopInstance[0].getNode()->setPosition(0.8f,-23.5f,360.0f);
-	hoopInstance[1].getNode()->setPosition(200.0f,-23.5,360);
+//	hoopInstance[0].getNode()->setPosition(10.0f,-10.0f,10.0f);
+
+	hoopInstance[1].getNode()->setPosition(0.0f,-1.5,360);
 #endif
 }
 
@@ -510,7 +511,7 @@ bool gameState::setupState()
         	courtModelLoaded = true;
         }
     }
-	
+
     if (!hoopModelLoaded)
     {
         if (createHoopInstances())  // creates the hoop instances
@@ -518,7 +519,7 @@ bool gameState::setupState()
         	hoopModelLoaded = true;
         }
     }
-	
+
     setBasketballStartPositions();	// sets starting positions for all basketballs that are instantiated
     setCourtStartPositions();	// sets starting positions for all courts that are instantiated
     setHoopStartPositions();	// sets starting positions for all hoops that are instantiated
