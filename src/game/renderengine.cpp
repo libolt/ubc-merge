@@ -544,7 +544,6 @@ logMsg("Alive?");
 
 	viewPort = mWindow->addViewport(mCamera);
 	viewPort->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
-	viewPort->setOverlaysEnabled(true);	// sets overlays true so that MyGUI can render
 
 	// most examples get the viewport size to calculate this; for now, we'll just
 	// set it to 4:3 the easy way
@@ -552,10 +551,11 @@ logMsg("Alive?");
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	viewPort->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
 #endif
+	viewPort->setOverlaysEnabled(true);	// sets overlays true so that MyGUI can render
 
     bool overlayEnabled = viewPort->getOverlaysEnabled();
 	logMsg("overlayEnabled = " +Ogre::StringConverter::toString(overlayEnabled));
-	exit(0);
+//.0.236	exit(0);
 	mCamera->setAspectRatio((Ogre::Real)1.333333);
 
     // Set ambient light
