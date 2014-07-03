@@ -552,6 +552,10 @@ logMsg("Alive?");
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	viewPort->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
 #endif
+
+    bool overlayEnabled = viewPort->getOverlaysEnabled();
+	logMsg("overlayEnabled = " +Ogre::StringConverter::toString(overlayEnabled));
+	exit(0);
 	mCamera->setAspectRatio((Ogre::Real)1.333333);
 
     // Set ambient light

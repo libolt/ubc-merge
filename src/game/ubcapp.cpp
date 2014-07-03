@@ -64,9 +64,9 @@ int main(int argc, char *argv[])
     gameEngine *gameE = gameEngine::Instance();
     gameState *gameS = gameState::Instance();
 
-#ifndef __ANDROID__
+//#ifndef __ANDROID__
     GUISystem *gui = GUISystem::Instance();
-#endif
+//#endif
 
 //    networkEngine *network = networkEngine::Instance();
 //    players *player = players::Instance();
@@ -79,10 +79,10 @@ int main(int argc, char *argv[])
 
     render->createScene(); // creates rendering scene.
 
-#ifndef __ANDROID__
+//#ifndef __ANDROID__
     gui->initMyGUI(); // Initializes MyGUI
     gui->createMainMenuButtons(); // creates a MyGUI button.
-#endif
+//#endif
 
 	//FIXME hardcoded while working on other bugs
 #ifdef __ANDROID__
