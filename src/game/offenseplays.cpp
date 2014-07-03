@@ -28,19 +28,21 @@ void offensePlays::setPlayName(std::string name)	// sets the value of playName
 {
 	playName = name;
 }
-std::vector<int> offensePlays::getVariation()	// returns the value of variation
+
+int offensePlays::getVariation()	// returns the value of variation
 {
 	return (variation);
 }
-void offensePlays::setVariation(std::vector<int> vari)	// sets the value of variation
+void offensePlays::setVariation(int vari)	// sets the value of variation
 {
 	variation = vari;
 }
-std::vector<std::string> offensePlays::getTitle()	// returns the value of title
+
+std::string offensePlays::getTitle()	// returns the value of title
 {
 	return (title);
 }
-void offensePlays::setTitle(std::vector<std::string> Title)	// sets the value of title
+void offensePlays::setTitle(std::string Title)	// sets the value of title
 {
 	title = Title;
 }

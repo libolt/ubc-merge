@@ -62,11 +62,11 @@ public:
 	std::string getPlayName();	// returns the value of playName;
 	void setPlayName(std::string name);	// sets the value of playName
 
-	std::vector<int> getVariation();	// returns the value of variation
-	void setVariation(std::vector<int> vari);	// sets the value of variation
+	int getVariation();	// returns the value of variation
+	void setVariation(int vari);	// sets the value of variation
 
-	std::vector<std::string> getTitle();	// returns the value of title
-	void setTitle(std::vector<std::string> Title);	// sets the value of title
+	std::string getTitle();	// returns the value of title
+	void setTitle(std::string Title);	// sets the value of title
 
 	std::vector<playerDesignations> getPlayerDesignation();	// returns the value of playerName
 	void setPlayerDesignation(std::vector<playerDesignations> designation);	// sets the value of playerName
@@ -88,8 +88,8 @@ public:
 	
 private:
 	std::string playName;
-	std::vector<int> variation;
-	std::vector<std::string> title;
+	int variation;
+	std::string title;
 	std::vector<playerDesignations> playerDesignation;
     std::vector<Ogre::Vector3> startPositions;		// stores the positions for players get to in order to execute offense
     std::vector< std::vector<Ogre::Vector3> > executePositions;    // stores the positions where players move when executing offense

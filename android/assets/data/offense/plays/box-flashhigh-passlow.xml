@@ -2,7 +2,7 @@
 <Play>
     <PlayName>Box</PlayName>
 	   <Variation>0</Variation>
-	   <Title>Standard</Title>
+	   <Title>FlashHighPassLow</Title>
 	   <Player>
 	       <Name>PG</Name>
         <Positions>
@@ -34,13 +34,13 @@
 	       <Positions>
 		          <Position>
 		              <Type>Start</Type>
-		              <X>28.0</X>
+		              <X>13.0</X>
 		              <Y>-1.5</Y>
 	               <Z>375.0</Z>
             </Position>
             <Position>
                 <Type>Execute</Type>
-                <X>20.0</X>
+                <X>23.0</X>
                 <Y>-1.5</Y>
                 <Z>365.0</Z>
             </Position>
@@ -50,8 +50,7 @@
                 <Type>Wait</Type>
                 <WaitFor>PlayerPositionSet</WaitFor>
                 <PlayerSet>PF</PlayerSet>
-                <PositionType>Execute</PositionType>
-                <Position>0</Position>
+                <PositionType>Start</PositionType>
             </Directive>
         </Directives>
     </Player>
@@ -60,15 +59,15 @@
 	       <Positions>
 	           <Position>
 		              <Type>Start</Type>
-		              <X>28.0</X>
+		              <X>13.0</X>
 		              <Y>-1.5</Y>
 	               <Z>385.0</Z>
             </Position>
             <Position>
                 <Type>Execute</Type>
-                <X>20.0</X>
+                <X>30.0</X>
                 <Y>-1.5</Y>
-                <Z>390.0</Z>
+                <Z>370.0</Z>
             </Position>
         </Positions>
         <Directives>
@@ -76,8 +75,7 @@
                 <Type>Wait</Type>
                 <WaitFor>PlayerPositionSet</WaitFor>
                 <PlayerSet>C</PlayerSet>
-                <PositionType>Execute</PositionType>
-                <Position>0</Position>
+                <PositionType>Start</PositionType>
             </Directive>
         </Directives>
     </Player>
@@ -86,15 +84,21 @@
 	       <Positions>
 	           <Position>
 	               <Type>Start</Type>
-		              <X>13.0</X>
+		              <X>28.0</X>
 		              <Y>-1.5</Y>
-	               <Z>377.0</Z>
+	               <Z>365.0</Z>
             </Position>
             <Position>
                 <Type>Execute</Type>
                 <X>23.0</X>
                 <Y>-1.5</Y>
-                <Z>375.0</Z>
+                <Z>360.0</Z>
+            </Position>
+            <Position>
+                <Type>Execute</Type>
+                <X>26.0</X>
+                <Y>-1.5</Y>
+                <Z>370.0</Z>
             </Position>
         </Positions>
         <Directives>
@@ -102,7 +106,8 @@
                 <Type>Wait</Type>
                 <WaitFor>PlayerPositionSet</WaitFor>
                 <PlayerSet>SG</PlayerSet>
-                <PositionType>Start</PositionType>
+                <PositionType>Execute</PositionType>
+                <Position>0</Position>
             </Directive>
         </Directives>
     </Player>
@@ -111,15 +116,15 @@
         <Positions>
 	           <Position>
 	               <Type>Start</Type>
-	               <X>13.0</X>
+	               <X>28.0</X>
 	               <Y>-1.5</Y>
-	               <Z>386.0</Z>
+	               <Z>385.0</Z>
 	           </Position>
 	           <Position>
 	               <Type>Execute</Type>
-	               <X>23.0</X>
+	               <X>13.0</X>
 	               <Y>-1.5</Y>
-	               <Z>388.0</Z>
+	               <Z>375.0</Z>
 	           </Position>
 	       </Positions>
         <Directives>

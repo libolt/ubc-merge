@@ -86,7 +86,7 @@ bool hoop::loadModel()
     node->attachObject(model);
     // sets the position of hoopNode
 //    node->setPosition(0.0f,-20.0f,400.0f);
-    node->setScale(0.3f,0.3f,0.3f);
+    node->setScale(0.25f,0.25f,0.25f);
 
     return true;
 }

@@ -78,6 +78,8 @@ public:
 private:
 
     int selectedOffense; // stores which offense is being run
+	std::string playName;  // stores the name of the offense being run
+	std::string playTitle;  // stores the type of offense being run
 	bool offenseSet; // if true then run offense
 	bool execute;	// If set then execute the offense logic
 

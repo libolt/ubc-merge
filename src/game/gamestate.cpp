@@ -407,7 +407,7 @@ void gameState::setHoopStartPositions()  // sets the initial coordinates for the
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //	hoopInstance[0].getNode()->setPosition(0.0f,0.0f,0.0f);
-//	hoopInstance[1].getNode()->setPosition(200.0f,-1.5,360);
+	hoopInstance[1].getNode()->setPosition(0.0f,-1.5,360);
 #else
 //	hoopInstance[0].getNode()->setPosition(10.0f,-10.0f,10.0f);
 

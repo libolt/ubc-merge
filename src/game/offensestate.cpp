@@ -204,14 +204,28 @@ void offenseState::loadPlays()	// loads offense plays from file
 
 void offenseState::setupOffense() // sets up box offense
 {
+	
+	// FIXME! Hard coded values need to be made dynamic
+	playName = "Box";
+	playTitle = "FlashHighPassLow";
+	
 	logMsg("plays.size() = " +Ogre::StringConverter::toString(plays.size()));
 	for (int x=0;x<plays.size();++x)
 	{
-		if (plays[x].getPlayName() == "Box")  // sets up the Box offense3
+		if (plays[x].getPlayName() == playName)  // sets up the offense
 		{
-			startPositions = plays[x].getStartPositions();
-			executePositions = plays[x].getExecutePositions();
-			playerDirective = plays[x].getPlayerDirective();
+			if (plays[x].getTitle() == playTitle) 
+			{
+			    startPositions = plays[x].getStartPositions();
+			    executePositions = plays[x].getExecutePositions();
+			    playerDirective = plays[x].getPlayerDirective();
+			}
+			else
+			{
+			}
+		}
+		else
+		{
 		}
 	}
 

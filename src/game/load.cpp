@@ -922,8 +922,8 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 {
 	offensePlays play;
 	std::string playName;
-    std::vector<int> variation;
-    std::vector<std::string> title;
+    int variation;
+    std::string title;
     std::vector<playerDesignations> playerDesignation;
     std::vector<std::string> type;
     std::vector<float> xCoord;
@@ -966,7 +966,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 //#endif
 	if (!doc.Parse(contents))
 	{
-		logMsg("Unable to parse player file");
+		logMsg("Unable to parse offense play file");
 		exit(0);
 	}
 
@@ -1002,14 +1002,14 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     	{
     		pVariation = atoi(child->GetText());
     		logMsg("pVariation = " +Ogre::StringConverter::toString(pVariation));
-			variation.push_back(pVariation);
+			variation = pVariation;
     	}
   		child = child->NextSiblingElement("Title");
 		if (child)
 		{
 			pTitle = child->GetText();
 			logMsg("pTitle = " +pTitle);
-			title.push_back(pTitle);
+			title = pTitle;
 		}
 		int numPlayers = 0;
 		for (TiXmlElement *e = child->NextSiblingElement("Player"); e != NULL; e = e->NextSiblingElement() )
