@@ -360,12 +360,20 @@ bool gameState::createCourtInstances()
 // creates hoop Instances
 bool gameState::createHoopInstances()
 {
-    hoop hInstance;  // creates an instance of the hoop class
+    hoop *hInstance = new hoop[2];  // creates an instance of the hoop class
 //    cInstance.setModelName("court.mesh");
-    hInstance.setModelName("Hoop.mesh");
-    hInstance.loadModel();
-    hoopInstance.push_back(hInstance);  // loads the first hoop
-	hoopInstance.push_back(hInstance);  // loads the second hoop
+    hInstance[0].setEntityName("hoop1");
+    hInstance[0].setModelName("Hoop.mesh");
+    hInstance[0].setNodeName("hoopNode1");
+    hInstance[0].loadModel();
+
+    hInstance[1].setEntityName("hoop2");
+    hInstance[1].setModelName("Hoop.mesh");
+    hInstance[1].setNodeName("hoopNode2");
+    hInstance[1].loadModel();
+
+    hoopInstance.push_back(hInstance[0]);  // loads the first hoop
+	hoopInstance.push_back(hInstance[1]);  // loads the second hoop
 
     return true;
 }
@@ -406,12 +414,21 @@ void gameState::setCourtStartPositions()  // sets the initial coordinates for th
 void gameState::setHoopStartPositions()  // sets the initial coordinates for the basketball(s)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-//	hoopInstance[0].getNode()->setPosition(0.0f,0.0f,0.0f);
-	hoopInstance[1].getNode()->setPosition(0.0f,-1.5,360);
+	hoopInstance[0].getNode()->setPosition(10.0f,0.0f,0.0f);
+	hoopInstance[1].getNode()->setPosition(0.0f,-1.5,390);
+	Quaternion q(Degree(270), Vector3::UNIT_X);
+	hoopInstance[1].getNode()->setRotation(q);
+	hoopInstance[0].getNode()->setRotation(q);
 #else
-//	hoopInstance[0].getNode()->setPosition(10.0f,-10.0f,10.0f);
+	hoopInstance[0].getNode()->setPosition(45.0f,-23.5f,370);
+	hoopInstance[1].getNode()->setPosition(-45.0f,-23.5,370);
+	Quaternion hoop0Rotation(Degree(-90), Vector3::UNIT_Y);
+	hoopInstance[0].getNode()->rotate(hoop0Rotation);
 
-	hoopInstance[1].getNode()->setPosition(0.0f,-1.5,360);
+	Quaternion hoop1Rotation(Degree(90), Vector3::UNIT_Y);
+	hoopInstance[1].getNode()->rotate(hoop1Rotation);
+//	exit(0);
+
 #endif
 }
 

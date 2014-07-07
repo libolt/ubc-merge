@@ -40,6 +40,26 @@ void hoop::setModelName(std::string name)
     modelName = name;
 }
 
+// gets and sets entityName
+std::string hoop::getEntityName()
+{
+    return (entityName);
+}
+void hoop::setEntityName(std::string name)
+{
+    entityName = name;
+}
+
+// gets and sets nodeName
+std::string hoop::getNodeName()
+{
+    return (nodeName);
+}
+void hoop::setNodeName(std::string name)
+{
+    nodeName = name;
+}
+
 // gets and sets model
 Ogre::Entity *hoop::getModel()
 {
@@ -77,16 +97,16 @@ bool hoop::loadModel()
 {
     renderEngine *render = renderEngine::Instance();
 
-    model = render->getMSceneMgr()->createEntity("hoopModel", modelName);	// loads the hoop model
+    model = render->getMSceneMgr()->createEntity(entityName, modelName);	// loads the hoop model
 
     // creates the hoopNode
-    node = render->getMSceneMgr()->getRootSceneNode()->createChildSceneNode("hoopSceneNode");
+    node = render->getMSceneMgr()->getRootSceneNode()->createChildSceneNode(nodeName);
 
     // attaches the hoop model to the hoopNode
     node->attachObject(model);
     // sets the position of hoopNode
 //    node->setPosition(0.0f,-20.0f,400.0f);
-    node->setScale(1.0f,1.0f,1.0f);
+    node->setScale(0.8f,0.8f,0.8f);
 
     return true;
 }

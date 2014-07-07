@@ -20,14 +20,14 @@
 
 #ifndef _HOOP_H_
 #define _HOOP_H_
- 
+
 #include "Ogre.h"
 
 #include "BtOgrePG.h"
 #include "BtOgreGP.h"
 #include "BtOgreExtras.h"
 
- 
+
 class hoop
 {
     public:
@@ -38,6 +38,14 @@ class hoop
     // gets and sets modelName
     std::string getModelName();
     virtual void setModelName(std::string name);
+
+    // gets and sets entityName
+    std::string getEntityName();
+    virtual void setEntityName(std::string name);
+
+    // gets and sets entityName
+    std::string getNodeName();
+    virtual void setNodeName(std::string name);
 
     // gets and sets model
     Ogre::Entity *getModel();
@@ -56,8 +64,9 @@ class hoop
     private:
 
     std::string modelName;   // stores the file name of the 3D Model
-
-    Ogre::Entity *model;    // stores the 3D Model representing the hoop
+    std::string entityName;	// stores the name of the model object in the scene
+    std::string nodeName;     // stores the name of the scene node
+    Ogre::Entity *model;    // stores the 3D Model representing the first hoop
 
     Ogre::SceneNode *node;  // stores the node the 3D Model is attached to
 
@@ -65,5 +74,5 @@ class hoop
     btRigidBody *physBody;
 
 };
- 
+
 #endif
