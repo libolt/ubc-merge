@@ -414,22 +414,18 @@ void gameState::setCourtStartPositions()  // sets the initial coordinates for th
 void gameState::setHoopStartPositions()  // sets the initial coordinates for the basketball(s)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	hoopInstance[0].getNode()->setPosition(10.0f,0.0f,0.0f);
-	hoopInstance[1].getNode()->setPosition(0.0f,-1.5,390);
-	Quaternion q(Degree(270), Vector3::UNIT_X);
-	hoopInstance[1].getNode()->setRotation(q);
-	hoopInstance[0].getNode()->setRotation(q);
+	hoopInstance[0].getNode()->setPosition(45.0f,-1.5f,370.0f);
+	hoopInstance[1].getNode()->setPosition(-45.0f,-1.5,370);
 #else
 	hoopInstance[0].getNode()->setPosition(45.0f,-23.5f,370);
 	hoopInstance[1].getNode()->setPosition(-45.0f,-23.5,370);
+#endif
+
 	Quaternion hoop0Rotation(Degree(-90), Vector3::UNIT_Y);
 	hoopInstance[0].getNode()->rotate(hoop0Rotation);
 
 	Quaternion hoop1Rotation(Degree(90), Vector3::UNIT_Y);
 	hoopInstance[1].getNode()->rotate(hoop1Rotation);
-//	exit(0);
-
-#endif
 }
 
 // sets up tip off conditions
