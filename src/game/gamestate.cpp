@@ -405,20 +405,22 @@ void gameState::setBasketballStartPositions()  // sets the initial coordinates f
 void gameState::setCourtStartPositions()  // sets the initial coordinates for the basketball(s)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	courtInstance[0].getNode()->setPosition(0.0f,-6.5,360);
+	courtInstance[0].getNode()->setPosition(0.0f,-6.5f,360.0f);
+    logMsg("courtPosition");
+//exit(0);
 #else
-	courtInstance[0].getNode()->setPosition(0.0f,-27.5,360);
+	courtInstance[0].getNode()->setPosition(0.0f,-27.5f,360.0f);
 #endif
 }
 
 void gameState::setHoopStartPositions()  // sets the initial coordinates for the basketball(s)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	hoopInstance[0].getNode()->setPosition(45.0f,-1.5f,370.0f);
-	hoopInstance[1].getNode()->setPosition(-45.0f,-1.5,370);
+	hoopInstance[0].getNode()->setPosition(45.0f,-6.5f,370.0f);
+	hoopInstance[1].getNode()->setPosition(-45.0f,-6.5f,370.0f);
 #else
-	hoopInstance[0].getNode()->setPosition(45.0f,-23.5f,370);
-	hoopInstance[1].getNode()->setPosition(-45.0f,-23.5,370);
+	hoopInstance[0].getNode()->setPosition(45.0f,-23.5f,370.0f);
+	hoopInstance[1].getNode()->setPosition(-45.0f,-23.5f,370.0f);
 #endif
 
 	Quaternion hoop0Rotation(Degree(-90), Vector3::UNIT_Y);

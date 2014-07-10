@@ -8,7 +8,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org
 
-Copyright (c) 2000-2013 Torus Knot Software Ltd
+Copyright (c) 2000-2014 Torus Knot Software Ltd
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -203,6 +203,12 @@ void FFP_Lerp(in vec4 vIn0, in vec4 vIn1, in float T, out vec4 vOut)
 void FFP_Lerp(in vec4 vIn0, in vec4 vIn1, in vec4 T, out vec4 vOut)
 {
 	vOut = mix(vIn0, vIn1, T);
+}
+
+//-----------------------------------------------------------------------------
+void FFP_Lerp(in vec3 vIn0, in vec3 vIn1, in vec4 T, out vec3 vOut)
+{
+	vOut = mix(vIn0, vIn1, T.xyz);
 }
 
 //-----------------------------------------------------------------------------
