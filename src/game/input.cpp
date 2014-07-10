@@ -178,6 +178,18 @@ bool inputSystem::processInput()	// processes all input
         return false;
     }
 
+    // processes touch input
+    if (processUnbufferedTouchInput() == false)
+    {
+        return false;
+    }
+	
+    // processes gamepad input
+    if (processUnbufferedGamepadInput() == false)
+    {
+        return false;
+    }
+	
 //		logMsg("Input processed");
 
 	return true;
@@ -228,14 +240,31 @@ bool inputSystem::processUnbufferedKeyInput()
     }
 	Ogre::LogManager::getSingletonPtr()->logMessage("Crash????");
 */
-
 		if (SDL_PollEvent(&inputEvent))
 		{
+		    int numTouch = SDL_GetNumTouchDevices();
+	logMsg ("numTouch = " +Ogre::StringConverter::toString(numTouch));
+
 //			Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
 
 			switch (inputEvent.type)
 			{
-
+			case SDL_FINGERMOTION:
+				logMsg("Motion!");
+				exit(0);
+				break;
+			case SDL_FINGERDOWN:
+				logMsg("Finger Down!");
+				exit(0);
+				break;
+            case SDL_FINGERUP:
+			    logMsg("Finger Up!");
+				exit(0);
+				break;
+			case SDL_MULTIGESTURE:
+				logMsg("Multigesture!");
+				exit(0);
+				break;
 			case SDL_KEYDOWN:
 				switch (inputEvent.key.keysym.sym)
 				{
@@ -818,32 +847,7 @@ bool inputSystem::processUnbufferedMouseInput()
 		}
 	}
 
-/*	if (SDL_PollEvent(&inputEvent))
-	{
-        switch (inputEvent.type)
-        {
-        case SDL_MOUSEMOTION:
-     //   	exit(1);
-            break;
-        case SDL_MOUSEBUTTONDOWN:
-        	switch (inputEvent.button.button)
-        	case SDL_BUTTON_LEFT:
-        	//	exit(0);
-        	break;
-        	//	exit(0);
-        	 MyGUI::InputManager::getInstance().injectMousePress(x, y, MyGUI::MouseButton::Enum(inputEvent.button.button));
-        	break;
-        case SDL_MOUSEBUTTONUP:
-       	    MyGUI::InputManager::getInstance().injectMousePress(x, y, MyGUI::MouseButton::Enum(inputEvent.button.button));
-       	 //   exit(2);
-       	    break;
-        case SDL_QUIT:
- //           status = 1;
-            break;
-        }
 
-    }
-*/
 
 //    Ogre::LogManager::getSingletonPtr()->logMessage("Mouse X = "  +toString(x));
 	if (mouseX != x || mouseY != y)
@@ -853,4 +857,19 @@ bool inputSystem::processUnbufferedMouseInput()
 #endif
 //    logMsg("Mouse input processed");
     return true;
+}
+
+bool inputSystem::processUnbufferedTouchInput() // reads in unbuffered touch input
+{
+	int state = -1;
+	SDL_TouchFingerEvent touchMotion;
+	
+	SDL_PumpEvents();
+//	state = 
+	
+	return true;
+}
+bool inputSystem::processUnbufferedGamepadInput() // reads in unbuffered mouse input
+{
+	return true;
 }

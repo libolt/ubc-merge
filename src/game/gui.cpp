@@ -68,11 +68,12 @@ bool GUISystem::initMyGUI()
 	mPlatform = new MyGUI::OgrePlatform();
     logMsg("Crash?");
 	
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     mPlatform->initialise(mWindow, mSceneMgr, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 #else
+*/
     mPlatform->initialise(mWindow, mSceneMgr, "UBCData"); // mWindow is Ogre::RenderWindow*, mSceneManager is Ogre::SceneManager*
-#endif
+//#endif
     
     logMsg("Crash??");
 	mGUI = new MyGUI::Gui();
@@ -84,6 +85,7 @@ bool GUISystem::initMyGUI()
 
 bool GUISystem::createMainMenuButtons()
 {
+	
 	logMsg("Loading MainMenu layout");
 	MyGUI::LayoutManager::getInstance().loadLayout("MainMenu.layout");
 	logMsg("MainMenu layout loaded");

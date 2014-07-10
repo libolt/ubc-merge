@@ -35,15 +35,17 @@ public:
 
 	static inputSystem *Instance();
 
-    virtual bool setup();   // sets up and initializes the  Input System
-    virtual bool destroy(); // destroys the Input system and related objects
+    bool setup();   // sets up and initializes the  Input System
+    bool destroy(); // destroys the Input system and related objects
 
-	virtual inputMaps keyMap();  // maps value of keyPressed string to inputMap
+	inputMaps keyMap();  // maps value of keyPressed string to inputMap
 	
-    virtual bool processInput();	// processes all input
-    virtual bool processUnbufferedKeyInput();	// reads in unbuffered key presses
-    virtual bool processUnbufferedMouseInput();	// reads in unbuffered mouse input
-
+    bool processInput();	// processes all input
+    bool processUnbufferedKeyInput();	// reads in unbuffered key presses
+    bool processUnbufferedMouseInput();	// reads in unbuffered mouse input
+    bool processUnbufferedTouchInput(); // reads in unbuffered touch input
+	bool processUnbufferedGamepadInput(); // reads in unbuffered mouse input
+	
     // SDL Input functions
     virtual SDL_Event getInputEvent();   // retrieves the value of the inputEvent variable
     void setInputEvent(SDL_Event input); // sets the value of the inputEvent variable

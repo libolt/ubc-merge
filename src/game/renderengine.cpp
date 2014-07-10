@@ -456,6 +456,11 @@ bool renderEngine::createScene()
 	logMsg("Dead");
 #endif
 
+	mResourceGroup = "UBCData";
+	Ogre::ResourceGroupManager *rsm = Ogre::ResourceGroupManager::getSingletonPtr();
+	rsm->createResourceGroup(mResourceGroup);
+
+
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	Ogre::ConfigFile cf;
 	cf.load(openAPKFile("resources.cfg"));
@@ -473,11 +478,12 @@ bool renderEngine::createScene()
 		{
 			type = i->first;
 			arch = i->second;
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch, type, sec);
+//			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch, type, sec);
+			rsm->addResourceLocation(arch, type, mResourceGroup);
 		}
 	}
 
-	Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+//	Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
 	Ogre::RTShader::ShaderGenerator::initialize();
 	Ogre::RTShader::ShaderGenerator::getSingletonPtr()->setTargetLanguage("glsles");
@@ -499,11 +505,8 @@ logMsg("Alive?");
     std::string dataPath = "data";
 #else
     std::string dataPath = UBC_DATADIR;
-#endif
 
-	mResourceGroup = "UBCData";
-	Ogre::ResourceGroupManager *rsm = Ogre::ResourceGroupManager::getSingletonPtr();
-	rsm->createResourceGroup(mResourceGroup);
+
 	// load the basic resource location(s)
 	rsm->addResourceLocation(dataPath + "/Media", "FileSystem", mResourceGroup);
 	rsm->addResourceLocation(dataPath + "/Media/fonts", "FileSystem", mResourceGroup);
@@ -519,6 +522,7 @@ logMsg("Alive?");
 	rsm->addResourceLocation(dataPath + "/Media/skins", "FileSystem", mResourceGroup);
 	rsm->addResourceLocation(dataPath + "/Media/skins/qgui", "FileSystem", mResourceGroup);
 	rsm->addResourceLocation(dataPath + "/Media/Audio", "FileSystem", mResourceGroup);
+#endif
 
 	rsm->initialiseResourceGroup(mResourceGroup);
 
