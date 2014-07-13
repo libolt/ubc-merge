@@ -15,7 +15,7 @@
 	public class UBCAcivity extends SDLActivity { }
     <!-- This .apk has no Java code itself, so set hasCode to false. -->
     <application android:label="UltimateBasketballChallenge" android:icon="@drawable/ic_launcher" android:hasCode="true">
- <!--       <activity android:name="android.app.NativeActivity" -->
+ <!--       <activity android:name="android.app.UBCActivity" -->
 	    <activity android:name="UBCActivity"
                   android:label="UltimateBasketballChallenge"
  android:configChanges="orientation" 
