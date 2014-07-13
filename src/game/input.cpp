@@ -166,7 +166,7 @@ bool inputSystem::processInput()	// processes all input
 
 //	SDL_StartTextInput();
     // processes keyboard input
-    if (processUnbufferedKeyInput() == false)
+/*    if (processUnbufferedKeyInput() == false)
     {
         return false;
     }
@@ -177,19 +177,19 @@ bool inputSystem::processInput()	// processes all input
     {
         return false;
     }
-
+*/
     // processes touch input
     if (processUnbufferedTouchInput() == false)
     {
         return false;
     }
-	
+/*
     // processes gamepad input
     if (processUnbufferedGamepadInput() == false)
     {
         return false;
     }
-	
+*/
 //		logMsg("Input processed");
 
 	return true;
@@ -240,10 +240,18 @@ bool inputSystem::processUnbufferedKeyInput()
     }
 	Ogre::LogManager::getSingletonPtr()->logMessage("Crash????");
 */
-		if (SDL_PollEvent(&inputEvent))
+	    while (SDL_PollEvent(&inputEvent))
 		{
 		    int numTouch = SDL_GetNumTouchDevices();
-	logMsg ("numTouch = " +Ogre::StringConverter::toString(numTouch));
+			int numFingers0 = SDL_GetNumTouchFingers(0);
+			int numFingers1 = SDL_GetNumTouchFingers(1);
+
+	        logMsg ("numTouch = " +Ogre::StringConverter::toString(numTouch));
+            logMsg ("numFingers0 = " +Ogre::StringConverter::toString(numFingers0));
+            logMsg ("numFingers1 = " +Ogre::StringConverter::toString(numFingers1));
+            /* Record _all_ events */
+            events[eventWrite & (EVENT_BUF_SIZE-1)] = inputEvent;
+            eventWrite++;
 
 //			Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
 
@@ -306,7 +314,7 @@ bool inputSystem::processUnbufferedKeyInput()
 					break;
 				case SDLK_g:
 					keyPressed = "g";
-					break;
+					        break;
 				case SDLK_h:
 					keyPressed = "h";
 					break;
@@ -806,7 +814,7 @@ bool inputSystem::processUnbufferedKeyInput()
 
 		}
 	}
-	#endif
+#endif
 //	logMsg("Keyboard Input Processed");
     // Return true to continue rendering
     return true;
@@ -818,19 +826,27 @@ bool inputSystem::processUnbufferedMouseInput()
 	int x, y;
 	int state = -1;
 	SDL_MouseMotionEvent motion;
-	SDL_GetMouseState(&x,&y);
+	
+	SDL_PumpEvents();
+	SDL_GetRelativeMouseState(&x,&y);
 
 //	logMsg("Processing mouse input");
 
     //FIXME Need to get MyGUI working on android
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-#else
-	SDL_PumpEvents();
-	state = SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(1);
+//#else
+	
+//	state = SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(0);
+    state = SDL_GetMouseState(NULL, NULL)&SDL_TOUCH_MOUSEID;
+    logMsg("Mouse state = " +Ogre::StringConverter::toString(state));
 //	std::cout << "Mouse State = " << state << std::endl;
-
+    if (state == 1)
+	{
+	    exit(0);
+	}
 	if (MyGUI::InputManager::getInstance().isFocusMouse())
 	{
+		exit(0);
 //		std::cout << "focused" << std::endl;
 		if(state == 1)
 		{
@@ -848,7 +864,7 @@ bool inputSystem::processUnbufferedMouseInput()
 	}
 
 
-
+    logMsg("Mouse x = " +Ogre::StringConverter::toString(x) + " y = " +Ogre::StringConverter::toString(y));
 //    Ogre::LogManager::getSingletonPtr()->logMessage("Mouse X = "  +toString(x));
 	if (mouseX != x || mouseY != y)
 	{
@@ -863,8 +879,53 @@ bool inputSystem::processUnbufferedTouchInput() // reads in unbuffered touch inp
 {
 	int state = -1;
 	SDL_TouchFingerEvent touchMotion;
-	
+	SDL_Event evt;
 	SDL_PumpEvents();
+    int evtState = 0;
+    evtState = SDL_EventState(SDL_FINGERMOTION, SDL_QUERY);
+    logMsg("evtState FINGERMOTION = " +Ogre::StringConverter::toString(evtState));
+    evtState = 0;
+    evtState = SDL_EventState(SDL_FINGERDOWN, SDL_QUERY);
+    logMsg("evtState FINGERDOWN = " +Ogre::StringConverter::toString(evtState));
+    SDL_Finger *finger = SDL_GetTouchFinger(0,0);
+	logMsg("Finger = " +Ogre::StringConverter::toString(finger));
+//	SDL_GetWindowSize(
+    while (SDL_PollEvent(&evt))
+    {
+	    switch (evt.type)
+		{
+			case SDL_FINGERMOTION:
+				logMsg("Motion!");
+				exit(0);
+				break;
+			case SDL_FINGERDOWN:
+				logMsg("Finger Down!");
+				exit(0);
+				break;
+            case SDL_FINGERUP:
+			    logMsg("Finger Up!");
+				exit(0);
+				break;
+			case SDL_MULTIGESTURE:
+				logMsg("Multigesture!");
+				exit(0);
+				break;
+			case SDL_KEYDOWN:
+				logMsg("Keydown!");
+				exit(0);
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				logMsg("MouseButtondown!");
+				exit(0);
+				break;
+			case SDL_WINDOWEVENT:
+				logMsg("Window!");
+				exit(0);
+				break;
+			default:
+			break;
+		}
+    }
 //	state = 
 	
 	return true;

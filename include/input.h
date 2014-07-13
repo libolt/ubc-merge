@@ -28,6 +28,8 @@
 
 #include "enums.h"
 
+#define EVENT_BUF_SIZE 256
+
 // input class
 class inputSystem
 {
@@ -64,7 +66,9 @@ protected:
     virtual ~inputSystem();
     // SDL Input
     SDL_Event inputEvent;
-
+    SDL_Event events[EVENT_BUF_SIZE];
+    int eventWrite;
+	
     int mouseX; // stores the X coordinate of the mouse.
     int mouseY; // stores the Y coordinate of the mouse.
     int mouseLeftClick;	// stores state of Left mouse button

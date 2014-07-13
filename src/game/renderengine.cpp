@@ -240,7 +240,8 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
 
 bool renderEngine::initSDL() // Initializes SDL Subsystem
 {
-	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0)
+	//if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0)
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
         fprintf(stderr,
                 "\nUnable to initialize SDL:  %s\n",
@@ -257,10 +258,10 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
     }
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    SDL_DisplayMode mode;
+	SDL_GetDesktopDisplayMode(0,&mode);
 /*    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
-	                             SDL_WINDOWPOS_UNDEFINED,
-	                             SDL_WINDOWPOS_UNDEFINED,
-	                             0,0,SDL_WINDOW_SHOWN);
+	                           SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, 0);
 
 
     sdlWindow = SDL_CreateWindow("UBC", SDL_WINDOWPOS_UNDEFINED,
@@ -268,7 +269,7 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 */
     std::string message = "SDL Window Created!";
 	logMsg(message);
-
+//    SDL_SetWindowGrab(sdlWindow, SDL_TRUE);
 #else
     sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
 	                             SDL_WINDOWPOS_UNDEFINED,
@@ -304,8 +305,10 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
     jmethodID method_get_native_surface = env->GetStaticMethodID(class_sdl_activity, "getNativeSurface", "()Landroid/view/Surface;");
     jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
     ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
-
+//    winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.android.window);
 	winHandle =  Ogre::StringConverter::toString((int)native_window);
+	
+	logMsg("grabbed = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(sdlWindow)));
 #else
 	// Error, both can't be defined or undefined same time
 #endif
@@ -448,10 +451,12 @@ bool renderEngine::createScene()
 
 //	misc["currentGLContext"]     = "true";
 //    misc["externalGLContext"]    = Ogre::StringConverter::toString( (int)SDL_GL_GetCurrentContext() );
+//    winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.android.window);
+    
 	misc["externalWindowHandle"] = winHandle;
 //	exit(0);
 	logMsg("Hello??");
-	mWindow = mRoot->createRenderWindow("UBC", 0, 0, false, &misc);
+	mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 0, 0, false, &misc);
 //	exit(0);
 	logMsg("Dead");
 #endif
