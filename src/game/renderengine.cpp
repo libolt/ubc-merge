@@ -23,6 +23,7 @@
 #include "config.h"
 #endif
 
+
 #include "gameengine.h"
 #include "gamestate.h"
 #include "gui.h"
@@ -201,6 +202,16 @@ void renderEngine::setMResourceGroup(String resource)
 	mResourceGroup = resource;
 }
 
+SDL_Window *renderEngine::getSDLWindow()
+{
+	return (sdlWindow);
+}
+
+void renderEngine::setSDLWindow(SDL_Window *window)
+{
+	sdlWindow = window;
+}
+
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
 {
@@ -262,8 +273,16 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 	SDL_GetDesktopDisplayMode(0,&mode);
 /*    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
 	                           SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, 0);
+*/
+    JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
 
-
+    jclass class_sdl_activity   = env->FindClass("org/libsdl/app/SDLActivity");
+    jmethodID method_get_native_surface = env->GetStaticMethodID(class_sdl_activity, "getNativeSurface", "()Landroid/view/Surface;");
+    jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
+    ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
+    winHandle =  Ogre::StringConverter::toString((int)native_window);
+    sdlWindow = SDL_CreateWindowFrom(native_window);
+/*
     sdlWindow = SDL_CreateWindow("UBC", SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
 */
@@ -299,16 +318,18 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.x11.window);
 #elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
-//    m_sdl_gl_context = SDL_GL_GetCurrentContext();
 
     jclass class_sdl_activity   = env->FindClass("org/libsdl/app/SDLActivity");
     jmethodID method_get_native_surface = env->GetStaticMethodID(class_sdl_activity, "getNativeSurface", "()Landroid/view/Surface;");
     jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
     ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
-//    winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.android.window);
-	winHandle =  Ogre::StringConverter::toString((int)native_window);
+    winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.android.window);
+
+//	winHandle =  Ogre::StringConverter::toString((int)native_window);
+	logMsg("winHandle = " +winHandle);
+//	logMsg("winHandle2 = " +winHandle2);
 	
-	logMsg("grabbed = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(sdlWindow)));
+//	logMsg("grabbed = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(sdlWindow)));
 #else
 	// Error, both can't be defined or undefined same time
 #endif
@@ -453,12 +474,16 @@ bool renderEngine::createScene()
 //    misc["externalGLContext"]    = Ogre::StringConverter::toString( (int)SDL_GL_GetCurrentContext() );
 //    winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.android.window);
     
-	misc["externalWindowHandle"] = winHandle;
+	misc["parentWindowHandle"] = winHandle;
 //	exit(0);
 	logMsg("Hello??");
 	mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 0, 0, false, &misc);
 //	exit(0);
 	logMsg("Dead");
+	sdlWindow = SDL_CreateWindowFrom(native_window);
+
+	SDL_ShowWindow(sdlWindow);
+	SDL_SetWindowGrab(sdlWindow,SDL_TRUE);
 #endif
 
 	mResourceGroup = "UBCData";

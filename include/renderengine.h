@@ -105,6 +105,8 @@ class renderEngine
     virtual String getMResourceGroup();
     void setMResourceGroup(String resource);
 
+	SDL_Window *getSDLWindow();
+	void setSDLWindow(SDL_Window *window);
 
     virtual ~renderEngine();
 

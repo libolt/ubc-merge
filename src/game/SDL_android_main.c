@@ -33,10 +33,17 @@ void Java_org_libsdl_app_SDLActivity_nativeInit(JNIEnv* env, jclass cls, jobject
     status = SDL_main(1, argv);
 
     /* Do not issue an exit or the whole application will terminate instead of just the SDL thread */
-    //exit(status);
+//    exit(status);
 }
 }
 
+extern "C"
+{
+void Java_org_libsdl_app_SDLActivity_nativeResume(JNIEnv* env, jclass cls, jobject obj)
+{
+	exit(0);
+}
+}
 
 
 #include <jni.h>
@@ -181,6 +188,7 @@ extern "C"
 //   JNIEXPORT void JNICALL    Java_org_ogre3d_android_OgreActivityJNI_create(JNIEnv * env, jobject obj, jobject assetManager)
    JNIEXPORT void JNICALL    Java_com_libolt_ubc_UBCActivity_create(JNIEnv * env, jobject obj, jobject assetManager)
    {
+	   exit(0);
         if(gInit)
          return;
          
@@ -248,6 +256,7 @@ extern "C"
 
     JNIEXPORT void JNICALL Java_com_libolt_ubc_UBCActivity_initWindow(JNIEnv * env, jobject obj,  jobject surface)
    {
+	   exit(0);
       if(surface)
       {
          ANativeWindow* nativeWnd = ANativeWindow_fromSurface(env, surface);
