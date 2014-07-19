@@ -1,7 +1,8 @@
 
 #include "SDL_config.h"
 #include "Ogre.h"
-
+#include "logging.h"
+#include "renderEngine.h";
 #ifdef __ANDROID__
 
 /* Include the SDL main definition header */
@@ -41,7 +42,13 @@ extern "C"
 {
 void Java_org_libsdl_app_SDLActivity_nativeResume(JNIEnv* env, jclass cls, jobject obj)
 {
-	exit(0);
+	renderEngine *renderE = renderEngine::Instance();
+/*	logMsg("Resuming!");
+	SDL_SetWindowGrab(renderE->getSDLWindow(), SDL_TRUE);
+*/
+    SDL_SetWindowGrab(renderE->getSDLWindow(), SDL_TRUE);
+    logMsg("Doh!");
+//	exit(0);
 }
 }
 
@@ -91,6 +98,7 @@ void Java_org_libsdl_app_SDLActivity_nativeResume(JNIEnv* env, jclass cls, jobje
 
 using namespace Ogre;
 
+/*
 class ShaderGeneratorTechniqueResolverListener : public Ogre::MaterialManager::Listener
 {
 public:
@@ -188,6 +196,7 @@ extern "C"
 //   JNIEXPORT void JNICALL    Java_org_ogre3d_android_OgreActivityJNI_create(JNIEnv * env, jobject obj, jobject assetManager)
    JNIEXPORT void JNICALL    Java_com_libolt_ubc_UBCActivity_create(JNIEnv * env, jobject obj, jobject assetManager)
    {
+	   logMsg("Creating!");
 	   exit(0);
         if(gInit)
          return;
@@ -256,6 +265,7 @@ extern "C"
 
     JNIEXPORT void JNICALL Java_com_libolt_ubc_UBCActivity_initWindow(JNIEnv * env, jobject obj,  jobject surface)
    {
+	   logMsg("Initting window!");
 	   exit(0);
       if(surface)
       {
@@ -358,7 +368,7 @@ extern "C"
       }
    }
 };
-
+*/
 #endif /* __ANDROID__ */
 
 /* vi: set ts=4 sw=4 expandtab: */

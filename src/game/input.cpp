@@ -162,7 +162,7 @@ inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
 
 bool inputSystem::processInput()	// processes all input
 {
-
+    renderEngine *renderE = renderEngine::Instance();
 //	Ogre::LogManager::getSingletonPtr()->logMessage("Processing input");
 
 //	SDL_StartTextInput();
@@ -172,6 +172,8 @@ bool inputSystem::processInput()	// processes all input
         return false;
     }
 //    SDL_StopTextInput();
+*/
+    logMsg("sdl grab = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
 
     if (SDL_PollEvent(&inputEvent))
     {
@@ -219,6 +221,7 @@ bool inputSystem::processInput()	// processes all input
                 }
                 break;
             case SDL_KEYDOWN:
+				logMsg("Keydown!");
                 if (processUnbufferedKeyInput() == false)
                 {
                     return false;
@@ -231,6 +234,7 @@ bool inputSystem::processInput()	// processes all input
             case SDL_MOUSEBUTTONDOWN:
             case SDL_MOUSEBUTTONUP:
             case SDL_MOUSEWHEEL:
+				logMsg("Mouse!");
                 // processes mouse input
                 if (processUnbufferedMouseInput() == false)
                 {
@@ -243,6 +247,7 @@ bool inputSystem::processInput()	// processes all input
             case SDL_CONTROLLERDEVICEADDED:
             case SDL_CONTROLLERDEVICEREMOVED:
             case SDL_CONTROLLERDEVICEREMAPPED:
+				logMsg("Controller!");
                 // processes gamepad input
                 if (processUnbufferedGamepadInput() == false)
                 {
@@ -257,7 +262,7 @@ bool inputSystem::processInput()	// processes all input
 
     }
 
-*/
+/*
     // processes touch input
     if (processUnbufferedTouchInput() == false)
     {
@@ -280,219 +285,38 @@ bool inputSystem::processUnbufferedKeyInput()
 {
 //	logMsg("Processing keyboard input");
 
-//FIXME MyGUI needs to be fixed on android
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    const Uint8* keys = NULL;
-    keyPressed = "";	// resets keyPressed so that we don't get repeats
-
-	/*
-	keys = SDL_GetKeyboardState(NULL);
-    while (SDL_PollEvent(&inputEvent)){
-    if (inputEvent.type == SDL_QUIT){
-        break;
-    }
-    if (keys[SDL_SCANCODE_A]){
-       Ogre::LogManager::getSingletonPtr()->logMessage("A is being pressed");
-	   exit(0);
-
-    }
-    if (keys[SDL_SCANCODE_B]){
-       Ogre::LogManager::getSingletonPtr()->logMessage("B is being pressed");
-
-    }
-}
-*/
-/*
-   SDL_StartTextInput();
-
-	SDL_PumpEvents();
-    Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
-
-	keys = SDL_GetKeyboardState(NULL);
-//	Ogre::LogManager::getSingletonPtr()->logMessage("Crash???");
-    Ogre::LogManager::getSingletonPtr()->logMessage("Key == " +toString(keys));
-
-//    if (keys[SDL_GetScancodeFromKey(SDLK_q)])
-	if (keys[SDL_SCANCODE_Q])
-	{
-		keyPressed = "q";
-        Ogre::LogManager::getSingletonPtr()->logMessage("keyPressed = " +keyPressed);
-	    exit(0);
-    }
-	Ogre::LogManager::getSingletonPtr()->logMessage("Crash????");
-*/
-	    while (SDL_PollEvent(&inputEvent))
-		{
-		    int numTouch = SDL_GetNumTouchDevices();
-			int numFingers0 = SDL_GetNumTouchFingers(0);
-			int numFingers1 = SDL_GetNumTouchFingers(1);
-
-	        logMsg ("numTouch = " +Ogre::StringConverter::toString(numTouch));
-            logMsg ("numFingers0 = " +Ogre::StringConverter::toString(numFingers0));
-            logMsg ("numFingers1 = " +Ogre::StringConverter::toString(numFingers1));
-            /* Record _all_ events */
-            events[eventWrite & (EVENT_BUF_SIZE-1)] = inputEvent;
-            eventWrite++;
-
-//			Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
-
-			switch (inputEvent.type)
-			{
-			case SDL_FINGERMOTION:
-				logMsg("Motion!");
-				exit(0);
-				break;
-			case SDL_FINGERDOWN:
-				logMsg("Finger Down!");
-				exit(0);
-				break;
-            case SDL_FINGERUP:
-			    logMsg("Finger Up!");
-				exit(0);
-				break;
-			case SDL_MULTIGESTURE:
-				logMsg("Multigesture!");
-				exit(0);
-				break;
-			case SDL_KEYDOWN:
-				switch (inputEvent.key.keysym.sym)
-				{
-				case SDLK_UP:
-					keyPressed = "up";
-					break;
-				case SDLK_DOWN:
-					keyPressed = "down";
-					break;
-				case SDLK_LEFT:
-					keyPressed = "left";
-					break;
-				case SDLK_RIGHT:
-					keyPressed = "right";
-					break;
-				case SDLK_LALT:
-					keyPressed = "leftAlt";
-					break;
-				case SDLK_RALT:
-					keyPressed = "rightAlt";
-					break;
-				case SDLK_a:
-					keyPressed = "a";
-					break;
-				case SDLK_b:
-					keyPressed = "b";
-					break;
-				case SDLK_c:
-					keyPressed = "c";
-					break;
-				case SDLK_d:
-					keyPressed = "d";
-					break;
-				case SDLK_e:
-					keyPressed = "e";
-					break;
-				case SDLK_f:
-					keyPressed = "f";
-					break;
-				case SDLK_g:
-					keyPressed = "g";
-					        break;
-				case SDLK_h:
-					keyPressed = "h";
-					break;
-				case SDLK_i:
-					keyPressed = "i";
-					break;
-				case SDLK_j:
-					keyPressed = "j";
-					break;
-				case SDLK_k:
-					keyPressed = "k";
-					break;
-				case SDLK_l:
-					keyPressed = "l";
-					break;
-				case SDLK_m:
-					keyPressed = "m";
-					break;
-				case SDLK_n:
-					keyPressed = "n";
-					break;
-				case SDLK_o:
-					keyPressed = "o";
-					break;
-				case SDLK_p:
-					keyPressed = "p";
-					break;
-				case SDLK_q:
-					keyPressed = "q";
-					break;
-				case SDLK_r:
-					keyPressed = "r";
-					break;
-				case SDLK_s:
-					keyPressed = "s";
-					break;
-				case SDLK_t:
-					keyPressed = "t";
-					break;
-				case SDLK_u:
-					keyPressed = "u";
-					break;
-				case SDLK_v:
-					keyPressed = "v";
-					break;
-				case SDLK_w:
-					keyPressed = "w";
-					break;
-				case SDLK_x:
-					keyPressed = "x";
-					break;
-				case SDLK_y:
-					keyPressed = "y";
-					break;
-				case SDLK_z:
-					keyPressed = "z";
-					break;
-				default:
-				    break;
-				}
-
-				break;
-			case SDL_KEYUP:
-				keyPressed = "";
-				// if escape is pressed, quit
-	 //               status = 1; // set status to 1 to exit main loop
-				break;
-
-			case SDL_QUIT:
-	 //           status = 1;
-				break;
-			default:
-			    break;
-			}
-
-		}
-
-#else
 	if (MyGUI::InputManager::getInstance().isFocusKey())	// checks if a MyGUI widget has key focus
 	{
 		logMsg("Crash?");
+		exit(0);
 		keyPressed = "";
         switch (inputEvent.key.keysym.sym)
         {
             case SDLK_RETURN:
+//			case SDLK_AC_BACK:
+				logMsg("Return!");
+				exit(0);
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Return, MyGUI::KeyCode::Return);
+				
             break;
             case SDLK_BACKSPACE:
+				logMsg("Backspace!");
+				exit(0);
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Backspace, 0);
             break;
             case SDLK_ESCAPE:
+				logMsg("Escape!");
+				exit(0);
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Escape, 0);
             break;
             case SDLK_TAB:
+				logMsg("Tab!");
+				exit(0);
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Tab, 0);
             break;
             case SDLK_SPACE:
+				logMsg("Space!");
+				exit(0);
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Space, ' ');
             break;
             case SDLK_LSHIFT:
@@ -562,6 +386,8 @@ bool inputSystem::processUnbufferedKeyInput()
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F12, 0);
             break;
             case SDLK_UP:
+				logMsg("Up!");
+				exit(0);
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::ArrowUp, 0);
             break;
             case SDLK_DOWN:
@@ -1107,7 +933,7 @@ bool inputSystem::processUnbufferedKeyInput()
 		}
 		*/
 	}
-#endif
+	
 //	logMsg("Keyboard Input Processed");
     // Return true to continue rendering
     return true;
@@ -1191,7 +1017,7 @@ bool inputSystem::processUnbufferedTouchInput() // reads in unbuffered touch inp
     SDL_Finger *finger = SDL_GetTouchFinger(0,0);
 	logMsg("Finger = " +Ogre::StringConverter::toString(finger));
 //	SDL_GetWindowSize(
-    while (SDL_PollEvent(&inputEvent))
+    while (SDL_PollEvent(&inputEvent) > 0)
     {
 	    switch (inputEvent.type)
 		{
@@ -1225,6 +1051,14 @@ bool inputSystem::processUnbufferedTouchInput() // reads in unbuffered touch inp
 				break;
 			case SDL_MOUSEWHEEL:
 				logMsg("MouseWheel!");
+				exit(0);
+				break;
+			case SDL_JOYAXISMOTION:
+			case SDL_JOYBALLMOTION:
+			case SDL_JOYHATMOTION:
+			case SDL_JOYBUTTONDOWN:
+			case SDL_JOYBUTTONUP:
+			    logMsg("Joystick!");
 				exit(0);
 				break;
 			case SDL_WINDOWEVENT:

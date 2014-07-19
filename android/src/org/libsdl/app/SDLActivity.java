@@ -119,10 +119,11 @@ public class SDLActivity extends Activity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         Log.v("SDL", "onWindowFocusChanged(): " + hasFocus);
-
+        SDLActivity.nativeResume();
         SDLActivity.mHasFocus = hasFocus;
         if (hasFocus) {
             SDLActivity.handleResume();
+			
         }
     }
 
@@ -642,6 +643,7 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
         setOnKeyListener(this);
         setOnTouchListener(this);
         enableSensor(Sensor.TYPE_ACCELEROMETER, true);
+		SDLActivity.nativeResume();
     }
     
     public Surface getNativeSurface() {

@@ -93,7 +93,9 @@ bool GUISystem::createMainMenuButtons()
 //	startGameButton->setCaption("Start Game");
 	startSingleGameButton = mGUI->findWidget<MyGUI::Button>("startSingleGameButton");
 	startSingleGameButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::startSingleGameButtonClicked);
-
+    startSingleGameButton->setStateSelected(true);
+	MyGUI::InputManager::getInstance().setKeyFocusWidget(startSingleGameButton);
+	
 	startMultiGameButton = mGUI->findWidget<MyGUI::Button>("startMultiGameButton");
 	startMultiGameButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::startMultiGameButtonClicked);
 
@@ -106,7 +108,7 @@ bool GUISystem::createMainMenuButtons()
 //	exitButton->setCaption("Exit");
 	exitButton = mGUI->findWidget<MyGUI::Button>("exitButton");
 	exitButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::exitButtonClicked);
-
+ 
 	// set callback
 	//button->eventMouseButtonClick += MyGUI::newDelegate(CLASS_POINTER, &CLASS_NAME::METHOD_NAME); // CLASS_POINTER is pointer to instance of a CLASS_NAME (usually '''this''')
 	// or

@@ -135,6 +135,7 @@ class renderEngine
     #endif
     // SDL code
     SDL_Window *sdlWindow;
+	SDL_GLContext sdlGLContext;
     SDL_SysWMinfo sysInfo;
     SDLTest_CommonState *state;
 
