@@ -31,6 +31,7 @@
 #include "MyGUI_OgrePlatform.h"
 //#include "MyGUI_OgreRenderManager.h"
 
+#include "enums.h"
 #include "input.h"
 #include "renderengine.h"
 
@@ -43,11 +44,24 @@ public:
 
     static GUISystem *Instance();
 
+	bool getMenuActive(); // retrieves the value of menuActive
+	void setMenuActive(bool active); // sets the value of menuActive
+	
+	activeMenus getActiveMenu(); // retrieves the value of activeMenu
+	void setActiveMenu(activeMenus menu); // sets the value of activeMenu
 
-    virtual bool initMyGUI();	// Initializes MyGUI
-    virtual bool createMainMenuButtons(); // creates a MyGUI button
-    virtual bool createNetworkSetupGUI();	// creates GUI for network setup screen.
-
+    bool initMyGUI();	// Initializes MyGUI
+    bool createMainMenuButtons(); // creates a MyGUI button
+    bool createNetworkSetupGUI();	// creates GUI for network setup screen.
+    void menuReceiveKeyPress(std::string keyPressed); // processes key input
+	void processMainMenuKeyPress(std::string keyPressed); // processes main menu key input
+    void processNetworkMenuKeyPress(std::string keyPressed); // processes network menu key input
+    void processOptionsMenuKeyPress(std::string keyPressed); // processes options menu key input
+    
+	void startSinglePlayerGame(); // starts single player game
+	void startMultiPlayerGame(); // starts multiplayer game
+    void optionsMenu(); // displays options menu
+	
 protected:
 
     GUISystem();
@@ -81,6 +95,11 @@ private:
 
     // text widgets
     MyGUI::EditBox *ipAddressBox;
+	
+	// booleans
+    bool menuActive; // stores whether a menu is being diplayed
+	
+	activeMenus activeMenu; // stores which menu is being displayed
 };
 
 #endif // GUI_H_INCLUDED

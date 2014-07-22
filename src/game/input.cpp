@@ -27,6 +27,7 @@
 #include "input.h"
 #include "gameengine.h"
 #include "gamestate.h"
+#include "gui.h"
 #include "renderengine.h"
 #include "logging.h"
 
@@ -283,12 +284,158 @@ bool inputSystem::processInput()	// processes all input
 
 bool inputSystem::processUnbufferedKeyInput()
 {
+	GUISystem *gui = GUISystem::Instance();
 //	logMsg("Processing keyboard input");
 
+    switch (inputEvent.key.keysym.sym)
+    {
+        case SDLK_UP:
+            keyPressed = "up";
+            break;
+        case SDLK_DOWN:
+            keyPressed = "down";
+            break;
+        case SDLK_LEFT:
+            keyPressed = "left";
+            break;
+        case SDLK_RIGHT:
+            keyPressed = "right";
+            break;
+        case SDLK_LALT:
+            keyPressed = "leftAlt";
+            break;
+        case SDLK_RALT:
+            keyPressed = "rightAlt";
+            break;
+        case SDLK_a:
+            keyPressed = "a";
+            break;
+		case SDLK_b:
+            keyPressed = "b";
+            break;
+		case SDLK_c:
+            keyPressed = "c";
+            break;
+        case SDLK_d:
+            keyPressed = "d";
+            break;
+		case SDLK_e:
+            keyPressed = "e";
+            break;
+		case SDLK_f:
+            keyPressed = "f";
+            break;
+		case SDLK_g:
+            keyPressed = "g";
+            break;
+		case SDLK_h:
+            keyPressed = "h";
+            break;
+		case SDLK_i:
+            keyPressed = "i";
+            break;
+		case SDLK_j:
+            keyPressed = "j";
+            break;
+		case SDLK_k:
+            keyPressed = "k";
+            break;
+		case SDLK_l:
+            keyPressed = "l";
+            break;
+		case SDLK_m:
+            keyPressed = "m";
+            break;
+		case SDLK_n:
+            keyPressed = "n";
+            break;
+		case SDLK_o:
+            keyPressed = "o";
+            break;
+		case SDLK_p:
+            keyPressed = "p";
+            break;
+		case SDLK_q:
+            keyPressed = "q";
+            break;
+		case SDLK_r:
+            keyPressed = "r";
+            break;
+        case SDLK_s:
+            keyPressed = "s";
+            break;
+		case SDLK_t:
+            keyPressed = "t";
+            break;
+		case SDLK_u:
+            keyPressed = "u";
+            break;
+		case SDLK_v:
+            keyPressed = "v";
+            break;
+        case SDLK_w:
+            keyPressed = "w";
+            break;
+        case SDLK_x:
+            keyPressed = "x";
+            break;
+		case SDLK_y:
+            keyPressed = "y";
+            break;
+		case SDLK_z:
+            keyPressed = "z";
+            break;
+		case SDLK_0:
+            keyPressed = "0";
+            break;
+		case SDLK_1:
+            keyPressed = "1";
+            break;
+		case SDLK_2:
+            keyPressed = "2";
+            break;
+		case SDLK_3:
+            keyPressed = "3";
+            break;
+		case SDLK_4:
+            keyPressed = "4";
+            break;
+		case SDLK_5:
+            keyPressed = "5";
+            break;
+		case SDLK_6:
+            keyPressed = "6";
+            break;
+		case SDLK_7:
+            keyPressed = "7";
+            break;
+		case SDLK_8:
+            keyPressed = "8";
+            break;
+		case SDLK_9:
+            keyPressed = "9";
+            break;
+		case SDLK_PERIOD:
+            keyPressed = ".";
+            break;
+        default:
+            keyPressed = "";
+            break;
+    }
+	if (gui->getMenuActive()) // checks if a menu is displayed
+	{
+		gui->menuReceiveKeyPress(keyPressed); // sends input to menu key input processing function
+	}
+	else
+	{
+		return (true);
+	}
+/*
 	if (MyGUI::InputManager::getInstance().isFocusKey())	// checks if a MyGUI widget has key focus
 	{
+		
 		logMsg("Crash?");
-		exit(0);
+//		exit(0);
 		keyPressed = "";
         switch (inputEvent.key.keysym.sym)
         {
@@ -475,7 +622,7 @@ bool inputSystem::processUnbufferedKeyInput()
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Enum(inputEvent.key.keysym.sym), inputEvent.key.keysym.sym);
             break;
         }
-
+*/
 /*		if (SDL_PollEvent(&inputEvent))
 		{
 	        switch (inputEvent.type)
@@ -831,10 +978,11 @@ bool inputSystem::processUnbufferedKeyInput()
 	            break;
 	        }
         }
-		*/
+		
 //		exit(0);
 
 	}
+	
 	else	// Processes input normally when MyGUI Widget not focused
 	{
         keyPressed = "";    // resets keyPressed so that we don't get repeats
@@ -877,7 +1025,7 @@ bool inputSystem::processUnbufferedKeyInput()
             keyPressed = "";
             break;
         }
-
+*/
 /*		if (SDL_PollEvent(&inputEvent))
 		{
 			switch (inputEvent.type)
@@ -931,9 +1079,9 @@ bool inputSystem::processUnbufferedKeyInput()
 			}
 
 		}
-		*/
+		
 	}
-	
+	*/
 //	logMsg("Keyboard Input Processed");
     // Return true to continue rendering
     return true;

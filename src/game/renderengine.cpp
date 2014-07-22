@@ -288,13 +288,14 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 
 
     sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge", SDL_WINDOWPOS_UNDEFINED,
-	                             SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_SHOWN);
+	                             SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_INPUT_GRABBED | SDL_WINDOW_SHOWN);
 */
 //	sdlGLContext = SDL_GL_CreateContext(sdlWindow);
 //    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 0);
     std::string message = "SDL Window Created!";
 	logMsg(message);
 //    SDL_SetWindowGrab(sdlWindow, SDL_TRUE);
+    SDL_SetRelativeMouseMode(SDL_TRUE);
 #else
     sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
 	                             SDL_WINDOWPOS_UNDEFINED,

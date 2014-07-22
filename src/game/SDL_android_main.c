@@ -21,37 +21,51 @@ extern "C"
 {
 void Java_org_libsdl_app_SDLActivity_nativeInit(JNIEnv* env, jclass cls, jobject obj)
 {
-    /* This interface could expand with ABI negotiation, calbacks, etc. */
+    // This interface could expand with ABI negotiation, calbacks, etc. 
     SDL_Android_Init(env, cls);
 
     SDL_SetMainReady();
 
-    /* Run the application code! */
+    // Run the application code! 
     int status;
     char *argv[2];
     argv[0] = SDL_strdup("SDL_app");
     argv[1] = NULL;
     status = SDL_main(1, argv);
 
-    /* Do not issue an exit or the whole application will terminate instead of just the SDL thread */
+    // Do not issue an exit or the whole application will terminate instead of just the SDL thread 
 //    exit(status);
 }
 }
 
+/*
 extern "C"
 {
 void Java_org_libsdl_app_SDLActivity_nativeResume(JNIEnv* env, jclass cls, jobject obj)
 {
 	renderEngine *renderE = renderEngine::Instance();
-/*	logMsg("Resuming!");
-	SDL_SetWindowGrab(renderE->getSDLWindow(), SDL_TRUE);
-*/
+//	logMsg("Resuming!");
+//	SDL_SetWindowGrab(renderE->getSDLWindow(), SDL_TRUE);
+
     SDL_SetWindowGrab(renderE->getSDLWindow(), SDL_TRUE);
     logMsg("Doh!");
 //	exit(0);
 }
 }
 
+extern "C"
+{
+void Java_org_libsdl_app_SDLActivity_onNativeTouch(JNIEnv* env, jclass cls, jobject obj)
+{
+	renderEngine *renderE = renderEngine::Instance();
+//	logMsg("Resuming!");
+//	SDL_SetWindowGrab(renderE->getSDLWindow(), SDL_TRUE);
+
+//    SDL_SetWindowGrab(renderE->getSDLWindow(), SDL_TRUE);
+    logMsg("Dee!");
+//	exit(0);
+}
+}
 
 #include <jni.h>
 #include <EGL/egl.h>
@@ -69,20 +83,20 @@ void Java_org_libsdl_app_SDLActivity_nativeResume(JNIEnv* env, jclass cls, jobje
 
 #undef OGRE_BUILD_PLUGIN_OCTREE
 #undef OGRE_BUILD_COMPONENT_OVERLAY
-/*
+
 #ifdef OGRE_BUILD_PLUGIN_OCTREE
 #   include "OgreOctreePlugin.h"
 #endif
-*/
+
 #ifdef OGRE_BUILD_PLUGIN_PFX
 #   include "OgreParticleFXPlugin.h"
 #endif
 
-/*
+
 #ifdef OGRE_BUILD_COMPONENT_OVERLAY
 #   include "OgreOverlaySystem.h"
 #endif
-*/
+
 #include "OgreConfigFile.h"
 
 #ifdef OGRE_BUILD_RENDERSYSTEM_GLES2
@@ -98,7 +112,7 @@ void Java_org_libsdl_app_SDLActivity_nativeResume(JNIEnv* env, jclass cls, jobje
 
 using namespace Ogre;
 
-/*
+
 class ShaderGeneratorTechniqueResolverListener : public Ogre::MaterialManager::Listener
 {
 public:

@@ -72,11 +72,11 @@ int main(int argc, char *argv[])
 //    players *player = players::Instance();
 
 //#ifndef __ANDROID__
-    render->initSDL(); // Initializes the SDL Subsystem
-//#endif
+    //#endif
+	render->initSDL(); // Initializes the SDL Subsystem
 
     render->initOgre(); // Initializes the Ogre Subsystem
-
+    
     render->createScene(); // creates rendering scene.
 
 //#ifndef __ANDROID__
@@ -85,9 +85,10 @@ int main(int argc, char *argv[])
 //#endif
 
 	//FIXME hardcoded while working on other bugs
-#ifdef __ANDROID__
+/*#ifdef __ANDROID__
 	gameS->setGameType(SINGLE);
 #endif
+*/
 
     inputSystem *input = inputSystem::Instance();
 
