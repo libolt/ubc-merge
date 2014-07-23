@@ -9,10 +9,10 @@
         <Property key="TextColour" value="1 1 1"/>
     </Widget>
     <Widget type="Button" skin="Button" position="362 200  300 26" align="Default" layer="Main" name="serverButton">
-            <Property key="Caption" value="Server"/>
+            <Property key="Caption" value="(S)erver"/>
     </Widget>
     <Widget type="Button" skin="Button" position="362 225 300 26" align="Default" layer="Main" name="clientButton">
-            <Property key="Caption" value="Client"/>
+            <Property key="Caption" value="(C)lient"/>
     </Widget>
 
     <CodeGeneratorSettings/>

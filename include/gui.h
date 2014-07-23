@@ -61,7 +61,9 @@ public:
 	void startSinglePlayerGame(); // starts single player game
 	void startMultiPlayerGame(); // starts multiplayer game
     void optionsMenu(); // displays options menu
-	
+
+     void networkServer();  // sets up  game as a network server
+     void networkClient();  // sets up game as a network client
 protected:
 
     GUISystem();

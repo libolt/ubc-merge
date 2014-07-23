@@ -84,14 +84,14 @@ bool GUISystem::initMyGUI()
 	logMsg("*** Initializing MyGUI ***");
 	mPlatform = new MyGUI::OgrePlatform();
     logMsg("Crash?");
-	
+
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     mPlatform->initialise(mWindow, mSceneMgr, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 #else
 */
     mPlatform->initialise(mWindow, mSceneMgr, "UBCData"); // mWindow is Ogre::RenderWindow*, mSceneManager is Ogre::SceneManager*
 //#endif
-    
+
     logMsg("Crash??");
 	mGUI = new MyGUI::Gui();
 	logMsg("Crash???");
@@ -102,7 +102,7 @@ bool GUISystem::initMyGUI()
 
 bool GUISystem::createMainMenuButtons()
 {
-	
+
 	logMsg("Loading MainMenu layout");
 	MyGUI::LayoutManager::getInstance().loadLayout("MainMenu.layout");
 	logMsg("MainMenu layout loaded");
@@ -112,7 +112,7 @@ bool GUISystem::createMainMenuButtons()
 	startSingleGameButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::startSingleGameButtonClicked);
     startSingleGameButton->setStateSelected(true);
 	MyGUI::InputManager::getInstance().setKeyFocusWidget(startSingleGameButton);
-	
+
 	startMultiGameButton = mGUI->findWidget<MyGUI::Button>("startMultiGameButton");
 	startMultiGameButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::startMultiGameButtonClicked);
 
@@ -126,7 +126,7 @@ bool GUISystem::createMainMenuButtons()
 	exitButton = mGUI->findWidget<MyGUI::Button>("exitButton");
 	exitButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::exitButtonClicked);
 
-	
+
 	menuActive = true;
 	activeMenu = MAIN;
 	// set callback
@@ -153,7 +153,7 @@ bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup s
 	clientButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::clientButtonClicked);
 
 	MyGUI::InputManager::getInstance().setKeyFocusWidget(ipAddressBox);
-	
+
     menuActive = true;
 	activeMenu = NETWORK;
 	return true;
@@ -174,13 +174,13 @@ void GUISystem::startMultiGameButtonClicked(MyGUI::Widget *_sender)	// handles s
 {
 	startMultiPlayerGame();
 //    renderEngine * render = renderEngine::Instance();
-    
+
 //    render->createScene();	// creates rendering scene.
 }
 
 void GUISystem::optionsButtonClicked(MyGUI::Widget *_sender)	// handles optionsButton click event
 {
-	
+
 	menuActive = true;
 //	MyGUI::Widget *widget = MyGUI::InputManager::getInstance().getMouseFocusWidget();
 //	_sender->_get
@@ -196,30 +196,12 @@ void GUISystem::exitButtonClicked(MyGUI::Widget *_sender)	// handles exitButton 
 
 void GUISystem::serverButtonClicked(MyGUI::Widget *_sender)	// handles serverButton click event
 {
-    networkEngine * network = networkEngine::Instance();
-    gameEngine * gameE = gameEngine::Instance();
-
-    hideNetworkSetupWidgets();	// Hides Network Setup Menu widgets
-    menuActive = false;
-    network->setIPAddress(ipAddressBox->getCaption());	// sets the neworkEngine's ipAddress string to that of the caption
-//    network->networkServer();
-    network->serverSetup();
-//    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scene
-
+    networkServer();
 }
 
 void GUISystem::clientButtonClicked(MyGUI::Widget *_sender)	// handles clientButton click event
 {
-    networkEngine * network = networkEngine::Instance();
-    gameEngine * gameE = gameEngine::Instance();
-
-    hideNetworkSetupWidgets();	// Hides Network Setup Menu widgets
-    menuActive = false;
-    network->setIPAddress(ipAddressBox->getCaption());	// sets the neworkEngine's ipAddress string to that of the caption
-//    network->networkClient();
-    network->clientConnect();
-//    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scenetop
-
+    networkClient();
 }
 
 void GUISystem::hideMainMenuWidgets()	// hides the widgets tied to the Main Menu
@@ -267,7 +249,7 @@ void GUISystem::processMainMenuKeyPress(std::string keyPressed) // processes mai
 	}
 	else if (keyPressed == "o")
 	{
-		
+
 	}
 	else if (keyPressed == "e")
 	{
@@ -275,16 +257,75 @@ void GUISystem::processMainMenuKeyPress(std::string keyPressed) // processes mai
 	}
 	else
 	{
-		
+
 	}
 }
 void GUISystem::processNetworkMenuKeyPress(std::string keyPressed) // processes network menu key input
 {
-	if (keyPressed == "1");
+	if (keyPressed == "0")
+	{
+        ipAddressBox->addText("0");
+	}
+	else if (keyPressed == "1")
+    {
+        ipAddressBox->addText("1");
+    }
+    else if (keyPressed == "2")
+    {
+        ipAddressBox->addText("2");
+    }
+    else if (keyPressed == "3")
+    {
+        ipAddressBox->addText("3");
+    }
+    else if (keyPressed == "4")
+    {
+        ipAddressBox->addText("4");
+    }
+    else if (keyPressed == "5")
+    {
+        ipAddressBox->addText("5");
+    }
+    else if (keyPressed == "6")
+    {
+        ipAddressBox->addText("6");
+    }
+    else if (keyPressed == "7")
+    {
+        ipAddressBox->addText("7");
+    }
+    else if (keyPressed == "8")
+    {
+        ipAddressBox->addText("8");
+    }
+    else if (keyPressed == "9")
+    {
+        ipAddressBox->addText("9");
+    }
+    else if (keyPressed == ".")
+    {
+        ipAddressBox->addText(".");
+    }
+    else if (keyPressed == "c")
+    {
+        networkClient();
+    }
+    else if (keyPressed == "q")
+    {
+        exit(0);
+    }
+    else if (keyPressed == "s")
+    {
+        networkServer();
+    }
+    else
+    {
+
+    }
 }
 void GUISystem::processOptionsMenuKeyPress(std::string keyPressed) // processes options menu key input
 {
-	
+
 }
 
 void GUISystem::startSinglePlayerGame() // starts single player game
@@ -309,5 +350,32 @@ void GUISystem::startMultiPlayerGame() // starts multiplayer game
 
 void GUISystem::optionsMenu() // displays options menu
 {
-	
+
+}
+
+void GUISystem::networkServer()  // sets up  game as a network server
+{
+    networkEngine * network = networkEngine::Instance();
+    gameEngine * gameE = gameEngine::Instance();
+
+    hideNetworkSetupWidgets();  // Hides Network Setup Menu widgets
+    menuActive = false;
+    network->setIPAddress(ipAddressBox->getCaption());  // sets the neworkEngine's ipAddress string to that of the caption
+//    network->networkServer();
+    network->serverSetup();
+//    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scene
+
+}
+void GUISystem::networkClient()  // sets up game as a network client
+{
+    networkEngine * network = networkEngine::Instance();
+    gameEngine * gameE = gameEngine::Instance();
+
+    hideNetworkSetupWidgets();  // Hides Network Setup Menu widgets
+    menuActive = false;
+    network->setIPAddress(ipAddressBox->getCaption());  // sets the neworkEngine's ipAddress string to that of the caption
+//    network->networkClient();
+    network->clientConnect();
+//    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scenetop
+
 }

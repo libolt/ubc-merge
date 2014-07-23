@@ -433,7 +433,7 @@ bool inputSystem::processUnbufferedKeyInput()
 /*
 	if (MyGUI::InputManager::getInstance().isFocusKey())	// checks if a MyGUI widget has key focus
 	{
-		
+
 		logMsg("Crash?");
 //		exit(0);
 		keyPressed = "";
@@ -444,7 +444,7 @@ bool inputSystem::processUnbufferedKeyInput()
 				logMsg("Return!");
 				exit(0);
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Return, MyGUI::KeyCode::Return);
-				
+
             break;
             case SDLK_BACKSPACE:
 				logMsg("Backspace!");
@@ -978,11 +978,11 @@ bool inputSystem::processUnbufferedKeyInput()
 	            break;
 	        }
         }
-		
+
 //		exit(0);
 
 	}
-	
+
 	else	// Processes input normally when MyGUI Widget not focused
 	{
         keyPressed = "";    // resets keyPressed so that we don't get repeats
@@ -1079,7 +1079,7 @@ bool inputSystem::processUnbufferedKeyInput()
 			}
 
 		}
-		
+
 	}
 	*/
 //	logMsg("Keyboard Input Processed");
@@ -1093,7 +1093,7 @@ bool inputSystem::processUnbufferedMouseInput()
 	int x, y;
 	int state = -1;
 	SDL_MouseMotionEvent motion;
-	
+
 	SDL_PumpEvents();
 	SDL_GetRelativeMouseState(&x,&y);
 
@@ -1102,7 +1102,7 @@ bool inputSystem::processUnbufferedMouseInput()
     //FIXME Need to get MyGUI working on android
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //#else
-	
+
 //	state = SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(0);
     state = SDL_GetMouseState(NULL, NULL)&SDL_TOUCH_MOUSEID;
     logMsg("Mouse state = " +Ogre::StringConverter::toString(state));
@@ -1145,7 +1145,7 @@ bool inputSystem::processUnbufferedMouseInput()
 bool inputSystem::processUnbufferedTouchInput() // reads in unbuffered touch input
 {
 	renderEngine *renderE = renderEngine::Instance();
-	
+
 	int state = -1;
 	SDL_TouchFingerEvent touchMotion;
 	//SDL_Event evt;
@@ -1217,8 +1217,8 @@ bool inputSystem::processUnbufferedTouchInput() // reads in unbuffered touch inp
 			break;
 		}
     }
-//	state = 
-	
+//	state =
+
 	return true;
 }
 
