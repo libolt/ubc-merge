@@ -421,6 +421,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 									break;
 
 									default:
+									    packetData = "";
 									break;
 								}
 								gameS->setTeamInstance(teamInstance);
@@ -428,12 +429,12 @@ void gameEngine::gameLoop()	// Main Game Loop
 								if (gameS->getGameType() == MULTI && clientRunning)	// checks if game is running in client mode
 								{
 									logMsg("client packetData = " +packetData);
-									network->sendPacket(packetData);
+									network->sendPacket(packetData.c_str());
 								}
 								else  if (gameS->getGameType() == MULTI && serverRunning)
 								{
 									logMsg("server packetData = " +packetData);
-									network->sendPacket(packetData);
+									network->sendPacket(packetData.c_str());
 
 								}
 								else
