@@ -287,6 +287,7 @@ bool inputSystem::processUnbufferedKeyInput()
 	GUISystem *gui = GUISystem::Instance();
 //	logMsg("Processing keyboard input");
 
+	logMsg("key == " +Ogre::StringConverter::toString(inputEvent.key.keysym.sym));
     switch (inputEvent.key.keysym.sym)
     {
         case SDLK_UP:
