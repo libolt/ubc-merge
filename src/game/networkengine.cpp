@@ -301,7 +301,7 @@ void networkEngine::networkClient()
 			snprintf(data,event.packet->dataLength + 1, "%s", event.packet->data);	// copies contents of packet to data variable
 
 			receivedData = data;	// copies conetents of data array to receivedData Ogre::String variable
-
+			logMsg("receivedData == " +receivedData);
             // Clean up the packet now that we're done using it.
             enet_packet_destroy (event.packet);
 //            exit(0);
@@ -462,6 +462,7 @@ void networkEngine::networkServer()
 				snprintf(data,event.packet->dataLength + 1, "%s", event.packet->data);	// copies contents of packet to data variable
 
 				receivedData = data;	// copies conetents of data array to receivedData Ogre::String variable
+	            logMsg("receivedData == " +receivedData);
 
                 enet_packet_destroy (event.packet);
                 break;
@@ -477,7 +478,7 @@ void networkEngine::networkServer()
 
             }
         }
-
+        logMsg("End of networkServer");
 }
 
 void networkEngine::sendPacket(Ogre::String packetData)

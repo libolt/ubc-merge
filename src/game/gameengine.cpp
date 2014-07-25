@@ -297,6 +297,15 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 //	        logMsg("changeInTime = " +toString(changeInTime));
 	        // updates game logic every 100 milliseconds
+	        if (serverRunning && !network->getIsServer())
+	        {
+	            network->setIsServer(true);
+	        }
+	        if (clientRunning && !network->getIsClient())
+	        {
+	            network->setIsClient(true);
+	        }
+
 	        if (changeInTime >= 100)
 	        {
 //	        	exit(0);
@@ -313,6 +322,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 //            logMsg("changeInTime = " +toString(changeInTime));
 	           	if (renderScene)
 	            {
+	           	    logMsg("gameS->logic()");
 	           		gameS->logic();
 	           	}
 
@@ -426,15 +436,15 @@ void gameEngine::gameLoop()	// Main Game Loop
 								}
 								gameS->setTeamInstance(teamInstance);
 
-								if (gameS->getGameType() == MULTI && clientRunning)	// checks if game is running in client mode
+								if (gameS->getGameType() == MULTI && clientRunning && packetData != "")	// checks if game is running in client mode
 								{
 									logMsg("client packetData = " +packetData);
-									network->sendPacket(packetData.c_str());
+									network->sendPacket(packetData);
 								}
-								else  if (gameS->getGameType() == MULTI && serverRunning)
+								else  if (gameS->getGameType() == MULTI && serverRunning && packetData != "")
 								{
 									logMsg("server packetData = " +packetData);
-									network->sendPacket(packetData.c_str());
+									network->sendPacket(packetData);
 
 								}
 								else
