@@ -174,7 +174,7 @@ bool inputSystem::processInput()	// processes all input
     }
 //    SDL_StopTextInput();
 */
-    logMsg("sdl grab = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
+//    logMsg("sdl grab = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
 
     if (SDL_PollEvent(&inputEvent))
     {
@@ -279,6 +279,7 @@ bool inputSystem::processInput()	// processes all input
 
 //		logMsg("Input processed");
 
+    processUnbufferedMouseInput();
 	return true;
 }
 
@@ -1091,19 +1092,26 @@ bool inputSystem::processUnbufferedKeyInput()
 
 bool inputSystem::processUnbufferedMouseInput()
 {
+	renderEngine *renderE = renderEngine::Instance();
+
 	int x, y;
 	int state = -1;
 	SDL_MouseMotionEvent motion;
 
 	SDL_PumpEvents();
-	SDL_GetRelativeMouseState(&x,&y);
+	SDL_GetMouseState(&x,&y);
 
 //	logMsg("Processing mouse input");
 
     //FIXME Need to get MyGUI working on android
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //#else
-
+    int w, h;
+    SDL_Window *sdlWindow = SDL_GetMouseFocus();
+	SDL_GetWindowSize(sdlWindow,&w,&h);
+	logMsg("sdlWindow width = " +Ogre::StringConverter::toString(w));
+	logMsg("sdlWindow height = " +Ogre::StringConverter::toString(h));
+	
 //	state = SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(0);
     state = SDL_GetMouseState(NULL, NULL)&SDL_TOUCH_MOUSEID;
     logMsg("Mouse state = " +Ogre::StringConverter::toString(state));
@@ -1152,7 +1160,7 @@ bool inputSystem::processUnbufferedTouchInput() // reads in unbuffered touch inp
 	//SDL_Event evt;
 
 //    SDL_SetWindowGrab(renderE->getSDLWindow(), SDL_TRUE);
-	logMsg("sdl grab = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
+//	logMsg("sdl grab = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
 	SDL_PumpEvents();
 	int numDevs = SDL_GetNumTouchDevices();
 	logMsg("numTouchDevices = " +Ogre::StringConverter::toString(numDevs));

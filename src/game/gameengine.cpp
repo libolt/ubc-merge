@@ -237,7 +237,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 //	SDL_StartTextInput();
 	   while (!quitGame)
 	    {
-			SDL_SetWindowGrab(render->getSDLWindow(), SDL_TRUE);
+			//SDL_SetWindowGrab(render->getSDLWindow(), SDL_TRUE);
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //			std::vector<playerState> playerInstance = gameS->getPlayerInstance();	// stores th player instances
 
