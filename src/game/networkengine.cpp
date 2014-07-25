@@ -319,64 +319,7 @@ void networkEngine::networkClient()
         break;
         }
 	}
-		//while (enet_host_service (network->getClient(), & network->getEvent(), 1000) > 0)
-//    {
-//       }
-
-	/*
-        float *y = new float[1];
-        y[0] = 20;
-		packetType pType;
-		packetData pData;
-		movementDirection mDirection;
-		pType = PLAYER;
-		pData = MOVE;
-		mDirection = RIGHT;
-        int clientID = network->getClientID();
-		string *data = new string;
-		cout << "pType is " << pType << endl;
-		data[0] = toString(pType);
-		cout << "pType = " << data[0] << endl;
-		data[0] += toString(pData);
-
-		data[0] += toString(mDirection);
-//		data[0] = toString("003\0");
-        data[0] = "003";
-        if (clientID == 0)
-        {
-            data[0] = "newIDdah";
-        }
-//		const char *sendData = data[0].c_str();
-        char *sendData;
-        sendData = new char[50];
-        sendData = "flapjackstackwacktack";
-        cout << "sendData = " << sendData << endl;
-        cout << "size of sendData = " << strlen(sendData) << endl;
-
-
-
-
-		Ogre::String dataTest = "data data";
-        // Create a reliable packet of size 7 containing "packet\0"
- //       packet = enet_packet_create (sendData,strlen(sendData) + 1, ENET_PACKET_FLAG_RELIABLE);
-        packet = enet_packet_create(dataTest.c_str(),strlen(dataTest.c_str())+1,ENET_PACKET_FLAG_RELIABLE);
-        packet2 = enet_packet_create("test2",6,ENET_PACKET_FLAG_RELIABLE);
-        // Extend the packet so and append the string "foo", so it now
-        // contains "packetfoo\0"
-//        enet_packet_resize (packet, strlen ("packetfoo") + 1);
-//        strcpy (&packet->data [strlen ("packet")], "foo");
-
-        // Send the packet to the peer over channel id 0.
-        // One could also broadcast the packet by
-        // enet_host_broadcast (host, 0, packet);
-//        peer = network->getPeer();
-        std::cout << "Sending packets to server." << std::endl;
-        enet_peer_send (peer, 0, packet);
-        enet_peer_send (peer, 0, packet2);
-//	}
-//    } while (x != 0);
-//    enet_host_destroy(client);
-*/
+	
 
 }
 

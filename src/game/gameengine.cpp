@@ -24,6 +24,7 @@
 #include "input.h"
 #include "logging.h"
 #include "network.h"
+#include "networkplayerstateobject.h"
 #include "renderengine.h"
 
 gameEngine* gameEngine::pInstance = 0;
@@ -224,7 +225,8 @@ void gameEngine::gameLoop()	// Main Game Loop
     inputSystem *input = inputSystem::Instance();
 
     networkEngine *network = networkEngine::Instance();
-
+    networkPlayerStateObject netPStateObj;
+	
     players *player = players::Instance();
 
     float lastFPS = 0.0f;	// stores value of last Frames Per Second
@@ -431,7 +433,12 @@ void gameEngine::gameLoop()	// Main Game Loop
 									break;
 
 									default:
-									    packetData = "";
+									    netPStateObj.setPacketType(3);
+										netPStateObj.setTeamID(0);
+										netPStateObj.setPlayerID(1);
+										std::stringstream ss;
+										ss << netPStateObj;
+									    packetData = ss.str();
 									break;
 								}
 								gameS->setTeamInstance(teamInstance);

@@ -20,6 +20,7 @@
 
 //#include "boost/shared_array.hpp"
 #include "network.h"
+#include "networkplayerstateobject.h"
 #include "gamestate.h"
 #include "gameengine.h"
 #include "load.h"
@@ -722,10 +723,12 @@ void gameState::processNetworkEvents()	// processes events from network code
 
 //	std::vector <playerState> playerInstance = gameS->getPlayerInstance();
 
-	if(Ogre::StringUtil::startsWith(network->getReceivedData(), "player" ))
+	if(Ogre::StringUtil::startsWith(network->getReceivedData(), "3" ))
 	{
+		logMsg("process!ng network player event");
+		
 		processNetworkPlayerEvents();
-		logMsg("processed network player event");
+		
 	}
 
 //	std::vector<teamState> teamInstance = teamInstance();
@@ -748,12 +751,19 @@ void gameState::processNetworkEvents()	// processes events from network code
 void gameState::processNetworkPlayerEvents()	// processes player events from network code
 {
     networkEngine *network = networkEngine::Instance();
-    logMsg("Processing network player events");
+	networkPlayerStateObject netPStateObj;
+	std::stringstream strStream;
     std::vector<playerState> playerInstance;
 	Ogre::String receivedData = network->getReceivedData();	// stores receivedData value
 	int playerNumber = -1; // stores which player the data is for
 	int iterator;	// iterator for match loop
+	
 	logMsg("received Data === " +receivedData);
+	strStream << receivedData;
+	strStream >> netPStateObj;
+	logMsg("received teamID = " +Ogre::StringConverter::toString(netPStateObj.getTeamID()));
+	logMsg("received playerID = " +Ogre::StringConverter::toString(netPStateObj.getPlayerID()));
+	
 	// sets which team's playerInstance to use
 	if (network->getIsClient())
 	{

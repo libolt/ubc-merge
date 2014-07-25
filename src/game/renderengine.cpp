@@ -281,16 +281,16 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
     jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
     ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
 //    winHandle =  Ogre::StringConverter::toString((unsigned long)native_window);
-//    sdlWindow = SDL_CreateWindowFrom(native_window);
+    sdlWindow = SDL_CreateWindowFrom(native_window);
 
 /*    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge", SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
 
-*/
+
     sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge", SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_INPUT_GRABBED | SDL_WINDOW_OPENGL | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_SHOWN);
-
-	sdlGLContext = SDL_GL_CreateContext(sdlWindow);
+*/
+//	sdlGLContext = SDL_GL_CreateContext(sdlWindow);
 //    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 0);
     std::string message = "SDL Window Created!";
 	logMsg(message);
@@ -478,18 +478,18 @@ bool renderEngine::createScene()
 //	misc["androidConfig"] = Ogre::StringConverter::toString((int)config);
 	//    misc["externalWindowHandle"] = Ogre::StringConverter::toString((int)app->window);
 
-	misc["currentGLContext"]     = "true";
-    misc["externalGLContext"]    = Ogre::StringConverter::toString((int)sdlWindow);
+//	misc["currentGLContext"]     = "true";
+//    misc["externalGLContext"]    = Ogre::StringConverter::toString((int)sdlWindow);
 //    winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.android.window);
     
-//	misc["externalWindowHandle"] = winHandle;
+	misc["externalWindowHandle"] = winHandle;
 //	misc["externalGLContext"] = Ogre::StringConverter::toString((unsigned long)SDL_GL_GetCurrentContext());
 //	exit(0);
 	logMsg("Hello??");
 	mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 0, 0, false, &misc);
 //	exit(0);
 	logMsg("Dead");
-	sdlWindow = SDL_CreateWindowFrom(native_window);
+//	sdlWindow = SDL_CreateWindowFrom(native_window);
 /*    logMsg("window ID = " +Ogre::StringConverter::toString(SDL_GetWindowID(sdlWindow)));
 	SDL_ShowWindow(sdlWindow);
 	SDL_SetWindowGrab(sdlWindow,SDL_TRUE);
