@@ -726,9 +726,9 @@ void gameState::processNetworkEvents()	// processes events from network code
 	if(Ogre::StringUtil::startsWith(network->getReceivedData(), "3" ))
 	{
 		logMsg("process!ng network player event");
-		
+
 		processNetworkPlayerEvents();
-		
+
 	}
 
 //	std::vector<teamState> teamInstance = teamInstance();
@@ -757,13 +757,13 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 	Ogre::String receivedData = network->getReceivedData();	// stores receivedData value
 	int playerNumber = -1; // stores which player the data is for
 	int iterator;	// iterator for match loop
-	
+
 	logMsg("received Data === " +receivedData);
 	strStream << receivedData;
 	strStream >> netPStateObj;
 	logMsg("received teamID = " +Ogre::StringConverter::toString(netPStateObj.getTeamID()));
 	logMsg("received playerID = " +Ogre::StringConverter::toString(netPStateObj.getPlayerID()));
-	
+
 	// sets which team's playerInstance to use
 	if (network->getIsClient())
 	{
@@ -779,8 +779,7 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 	{
 	}
 	logMsg("playerInstance size == " +Ogre::StringConverter::toString(playerInstance.size()));
-	logMsg("still here");
-	for (iterator = 0; iterator < 5; ++iterator)
+/*	for (iterator = 0; iterator < 5; ++iterator)
 	{
 		Ogre::String searchString;	// stores search String
 		Ogre::String searchIterator = Ogre::StringConverter::toString(iterator); // converts iterator to a string
@@ -791,13 +790,68 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 		}
 	}
     logMsg("alive????");
-
+*/
+    playerNumber = netPStateObj.getPlayerID();
     if (playerInstance.size() > 0)
     {
-        // checks what is at the end of the receivedData string
+        if (netPStateObj.getMovement())
+        {
+            switch (netPStateObj.getDirection())
+            {
+                case 0: // move player up
+                    playerInstance[playerNumber].setMovement(true);
+                    playerInstance[playerNumber].setDirection(UP);
+                    break;
+                case 1: // move player down
+                    playerInstance[playerNumber].setMovement(true);
+                    playerInstance[playerNumber].setDirection(DOWN);
+                    break;
+                case 2: // move player left
+                    playerInstance[playerNumber].setMovement(true);
+                    playerInstance[playerNumber].setDirection(LEFT);
+                    break;
+                case 3: // move player right
+                    playerInstance[playerNumber].setMovement(true);
+                    playerInstance[playerNumber].setDirection(RIGHT);
+                    break;
+                case 4: // move player up and left
+                    playerInstance[playerNumber].setMovement(true);
+                    playerInstance[playerNumber].setDirection(UPLEFT);
+                    break;
+                case 5: // move player up aned right
+                    playerInstance[playerNumber].setMovement(true);
+                    playerInstance[playerNumber].setDirection(UPRIGHT);
+                    break;
+                case 6: // move player down and left
+                    playerInstance[playerNumber].setMovement(true);
+                    playerInstance[playerNumber].setDirection(DOWNLEFT);
+                    break;
+                case 7: // move player down and right
+                    playerInstance[playerNumber].setMovement(true);
+                    playerInstance[playerNumber].setDirection(DOWNRIGHT);
+                    break;
+                default:
+                    break;
+            }
+        }
+        else if (netPStateObj.getShootBlock())
+        {
+
+        }
+        else if (netPStateObj.getPassSteal())
+        {
+
+        }
+        else
+        {
+        }
+    }
+        // FIXME Dead code should be removed eventually
+/*        // checks what is at the end of the receivedData string
         if (Ogre::StringUtil::endsWith(receivedData, "up"))	// checks if player moved upward
         {
             logMsg("die0");
+            exit(0);
     //		Ogre::Vector3 Pos = Ogre::Vector3(0.0f, 0.400f, 0.0f);
     //		playerInstance[playerNumber].getNode()->translate(Pos);
             playerInstance[playerNumber].setMovement(true);
@@ -820,7 +874,6 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
     //		Ogre::Vector3 Pos = Ogre::Vector3(-0.400f, 0.0f, 0.0f);
     //		playerInstance[playerNumber].getNode()->translate(Pos);
             playerInstance[playerNumber].setMovement(true);
-            logMsg("dead0");
             playerInstance[playerNumber].setDirection(LEFT);
             logMsg("dead1");
 
@@ -846,6 +899,7 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 
         }
     }
+    */
 	logMsg("Survived!");
 	network->setReceivedData("");
 }

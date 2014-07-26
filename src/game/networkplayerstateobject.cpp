@@ -27,6 +27,8 @@ networkPlayerStateObject::networkPlayerStateObject()
 	packetType = -1;
 	movement = false;
 	direction = -1;
+	shootBlock = false;
+	passSteal = false;
 	XCoord = 0.0;
 	YCoord = 0.0;
 	ZCoord = 0.0;
@@ -75,6 +77,23 @@ int networkPlayerStateObject::getDirection() // retrieves the value of direction
 void networkPlayerStateObject::setDirection(int dir) // sets value of direction
 {
     direction = dir;
+}
+
+bool networkPlayerStateObject::getShootBlock()  // retrieves the value of shootBlock
+{
+    return (shootBlock);
+}
+void networkPlayerStateObject::setShootBlock(bool set)   // sets the value of shootBlock
+{
+    shootBlock = set;
+}
+bool networkPlayerStateObject::getPassSteal()    // retrieves the value of passSteal
+{
+    return (passSteal);
+}
+void networkPlayerStateObject::setPassSteal(bool set)  // sets the value of passSteal
+{
+    passSteal = set;
 }
 
 float networkPlayerStateObject::getXCoord() // retrieves the value of XCoord

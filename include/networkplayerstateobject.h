@@ -47,6 +47,12 @@ class networkPlayerStateObject // object that holde network state data for a pla
 	int getDirection(); // retrieves the value of direction
 	void setDirection(int dir); // sets value of direction
 
+	bool getShootBlock();  // retrieves the value of shootBlock
+	void setShootBlock(bool set);   // sets the value of shootBlock
+
+	bool getPassSteal();    // retrieves the value of passSteal
+	void setPassSteal(bool set);  // sets the value of passSteal
+
 	float getXCoord(); // retrieves the value of XCoord
 	void setXCoord(float coord); // sets the value of XCoord
 
@@ -59,7 +65,9 @@ class networkPlayerStateObject // object that holde network state data for a pla
 
 	friend std::ostream& operator<< (std::ostream& out, networkPlayerStateObject& object)
 	{
-        out << object.packetType << " " << object.teamID << " " << object.playerID << " " << object.movement << " " << object.direction << " " << object.XCoord << " " << object.YCoord << " " << object.ZCoord;   //The space (" ") is necessary for separate elements
+        out << object.packetType << " " << object.teamID << " " << object.playerID << " " << object.movement
+                << " " << object.direction << " " << object.shootBlock << " " << object.passSteal << " "
+                <<  object.XCoord << " " << object.YCoord << " " << object.ZCoord;   //The space (" ") is necessary for separate elements
         return out;
     }
 
@@ -71,6 +79,8 @@ class networkPlayerStateObject // object that holde network state data for a pla
 		in >> object.playerID;
 		in >> object.movement;
 		in >> object.direction;
+		in >> object.shootBlock;
+		in >> object.passSteal;
 		in >> object.XCoord;
 		in >> object.YCoord;
 		in >> object.ZCoord;
@@ -83,6 +93,8 @@ class networkPlayerStateObject // object that holde network state data for a pla
 	int packetType;
 	bool movement;
 	int direction;
+	bool shootBlock;
+	bool passSteal;
 	float XCoord;
 	float YCoord;
 	float ZCoord;

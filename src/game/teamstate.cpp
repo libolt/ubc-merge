@@ -766,7 +766,6 @@ void teamState::updatePlayerDirections()
 void teamState::updatePlayerMovements()	// updates player movements
 {
 	Ogre::Vector3 posChange;	// stores change in position
-
 	posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
 	for (size_t i = 0; i < playerInstance.size(); ++i)
 	{
@@ -788,6 +787,8 @@ void teamState::updatePlayerMovements()	// updates player movements
 			}
 			else if (playerInstance[i].getDirection() == LEFT)
 			{
+			    exit(0);
+
 				posChange = Ogre::Vector3(-0.400f, 0.0f, 0.0f);
 //			    playerInstance[i].getPhysBody()->setLinearVelocity(btVector3(0.4,0,0));
 			}
