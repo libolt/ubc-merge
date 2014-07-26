@@ -26,11 +26,12 @@ networkPlayerStateObject::networkPlayerStateObject()
 	playerID = -1;
 	packetType = -1;
 	movement = false;
+	direction = -1;
 	XCoord = 0.0;
 	YCoord = 0.0;
 	ZCoord = 0.0;
 }
-    
+
 int networkPlayerStateObject::getTeamID() // retrieves the value of teamID
 {
 	return (teamID);
@@ -57,7 +58,7 @@ void networkPlayerStateObject::setPacketType(int type) // sets the value of pack
 {
 	packetType = type;
 }
-	
+
 bool networkPlayerStateObject::getMovement() // retrieves the value of movement
 {
 	return (movement);
@@ -66,7 +67,16 @@ void networkPlayerStateObject::setMovement(bool move) // sets the value of movem
 {
 	movement = move;
 }
-	
+
+int networkPlayerStateObject::getDirection() // retrieves the value of direction
+{
+    return (direction);
+}
+void networkPlayerStateObject::setDirection(int dir) // sets value of direction
+{
+    direction = dir;
+}
+
 float networkPlayerStateObject::getXCoord() // retrieves the value of XCoord
 {
 	return (XCoord);
@@ -75,7 +85,7 @@ void networkPlayerStateObject::setXCoord(float coord) // sets the value of XCoor
 {
 	XCoord = coord;
 }
-	
+
 float networkPlayerStateObject::getYCoord() // retrieves the value of YCoord
 {
 	return (YCoord);
@@ -84,7 +94,7 @@ void networkPlayerStateObject::setYCoord(float coord) // sets the value of YCoor
 {
 	YCoord = coord;
 }
-	
+
 float networkPlayerStateObject::getZCoord() // retrieves the value of ZCoord
 {
 	return (ZCoord);

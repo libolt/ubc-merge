@@ -29,48 +29,52 @@
 class networkPlayerStateObject // object that holde network state data for a player
 {
 	public:
-	
+
 	networkPlayerStateObject();
-	
+
 	int getPacketType(); // retrieves the value of packetType
 	void setPacketType(int type); // sets the value of packetType
-	
+
 	int getTeamID(); // retrieves the value of teamID
     void setTeamID(int id); // sets the value of teamID
-	
+
 	int getPlayerID(); // retrieves the value of playerID
     void setPlayerID(int id); // sets the value of playerID
-	
+
 	bool getMovement(); // retrieves the value of movement
 	void setMovement(bool move); // sets the value of movement
-	
+
+	int getDirection(); // retrieves the value of direction
+	void setDirection(int dir); // sets value of direction
+
 	float getXCoord(); // retrieves the value of XCoord
 	void setXCoord(float coord); // sets the value of XCoord
-	
+
 	float getYCoord(); // retrieves the value of YCoord
 	void setYCoord(float coord); // sets the value of YCoord
 
 	float getZCoord(); // retrieves the value of ZCoord
 	void setZCoord(float coord); // sets the value of ZCoord
 
-	
-	friend std::ostream& operator<< (std::ostream& out, networkPlayerStateObject& object) 
+
+	friend std::ostream& operator<< (std::ostream& out, networkPlayerStateObject& object)
 	{
-        out << object.packetType << " " << object.teamID << " " << object.playerID << " " << object.movement << " " << object.XCoord << " " << object.YCoord << " " << object.ZCoord;   //The space (" ") is necessary for separate elements
+        out << object.packetType << " " << object.teamID << " " << object.playerID << " " << object.movement << " " << object.direction << " " << object.XCoord << " " << object.YCoord << " " << object.ZCoord;   //The space (" ") is necessary for separate elements
         return out;
     }
 
-    friend std::istream& operator>> (std::istream& in, networkPlayerStateObject& object) 
+    friend std::istream& operator>> (std::istream& in, networkPlayerStateObject& object)
 	{
-        
+
         in >> object.packetType;
 		in >> object.teamID;
 		in >> object.playerID;
 		in >> object.movement;
+		in >> object.direction;
 		in >> object.XCoord;
 		in >> object.YCoord;
 		in >> object.ZCoord;
-		
+
         return in;
     }
     private:
@@ -78,10 +82,11 @@ class networkPlayerStateObject // object that holde network state data for a pla
 	int playerID;
 	int packetType;
 	bool movement;
+	int direction;
 	float XCoord;
 	float YCoord;
 	float ZCoord;
 };
- 
+
 #endif
- 
+
