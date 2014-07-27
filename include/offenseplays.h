@@ -23,7 +23,7 @@
 
 #include "Ogre.h"
 
-#include "enums.h"l
+#include "enums.h"
 
 class offensePlays	// class that contains the information to run each play
 {
@@ -32,24 +32,24 @@ public:
     class playerDirectives
 	{
 	public:
-	
+
 	    playerDesignations getPlayerDesignation();  // retrieves the value of playerDesignation
 		void setPlayerDesignation(playerDesignations designation);  // sets the value of playerDesignation
 	    directiveTypes getType();  // retrieves the value of type
 		void setType(directiveTypes Type);  // sets the value of type
-		
+
 		offenseWaitFor getWaitFor();  // retrieves the value of waitFor
 		void setWaitFor(offenseWaitFor wait);  // sets the value of waitFor
-		
+
 		playerDesignations getPlayerSet();  // retrieves the value of playerSet
 		void setPlayerSet(playerDesignations set);  // sets the value of playerSet
-		
+
 		positionTypes getPositionType();  // retrieves the value of positionType
-		void setPositionType(positionTypes Type);  // sets the value of positionType 
-		
+		void setPositionType(positionTypes Type);  // sets the value of positionType
+
 		int getPosition();  // retrieves the value of position
 		void setPosition(int pos);  // sets the value of position
-		
+
 	private:
 	    playerDesignations playerDesignation;
 		directiveTypes type;
@@ -58,7 +58,7 @@ public:
 		positionTypes positionType;
 		int position;
 	};
-	
+
 	std::string getPlayName();	// returns the value of playName;
 	void setPlayName(std::string name);	// sets the value of playName
 
@@ -85,7 +85,7 @@ public:
 
 	std::vector<playerDirectives> getPlayerDirective();  // returns the value of playerDirective
 	void setPlayerDirective(std::vector<playerDirectives> directive);  // sets the value of playerDirective
-	
+
 private:
 	std::string playName;
 	int variation;
@@ -98,7 +98,7 @@ private:
 
 	std::vector< std::vector<bool> > executePositionReached; // stores whether player is at execute position
 
-	
+
 
 };
 #endif

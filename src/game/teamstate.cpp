@@ -412,7 +412,7 @@ void teamState::updateState()	// updates the state of the object
 						executePass();
 						if (physEngine->getPassCollision())	// checks if ball has collided with player being passed to.
 						{
-							exit(0);
+//							exit(0);
 							playerInstance[playerWithBall].setPassBall(false);	// player is no longer passing the ball
 							playerWithBall = playerInstance[playerWithBall].getPassToPlayer(); // playerWithBall has changed
 
@@ -779,6 +779,7 @@ void teamState::updatePlayerMovements()	// updates player movements
 			if (playerInstance[i].getDirection() == UP)
 			{
 				posChange = Ogre::Vector3(0.0f, 0.0f, -0.400f);
+				logMsg("UP!");
 //				exit(0);
 			}
 			else if (playerInstance[i].getDirection() == DOWN)
@@ -787,7 +788,7 @@ void teamState::updatePlayerMovements()	// updates player movements
 			}
 			else if (playerInstance[i].getDirection() == LEFT)
 			{
-			    exit(0);
+//			    exit(0);
 
 				posChange = Ogre::Vector3(-0.400f, 0.0f, 0.0f);
 //			    playerInstance[i].getPhysBody()->setLinearVelocity(btVector3(0.4,0,0));

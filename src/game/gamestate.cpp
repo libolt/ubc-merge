@@ -339,7 +339,7 @@ bool gameState::createTeamInstances()
 	teamInstance[0].setTeamNumber(0);
 	teamInstance[1].setTeamNumber(1);
 	teamInstance[0].setHumanControlled(true);
-	teamInstance[1].setHumanControlled(true);
+//	teamInstance[1].setHumanControlled(true);
 	teamInstance[0].setupState();
 	teamInstance[1].setupState();
 //	exit(0);
@@ -646,7 +646,7 @@ bool gameState::logic()
         float changeInTime = currentTime - oldTime;
    //     ai->update(currentTime, changeInTime);
 		logMsg("CHANGE == " +Ogre::StringConverter::toString(changeInTime));
-
+/*
 		if (changeInTime >= .5f)
 		{
 			logMsg("ELAPSED == " +Ogre::StringConverter::toString(changeInTime));
@@ -655,7 +655,7 @@ bool gameState::logic()
 			ai->update(currentTime, changeInTime);
 			ai->setOldTime(currentTime);
 		}
-
+*/
     }
 
 
@@ -801,6 +801,7 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
                 case 0: // move player up
                     playerInstance[playerNumber].setMovement(true);
                     playerInstance[playerNumber].setDirection(UP);
+
                     break;
                 case 1: // move player down
                     playerInstance[playerNumber].setMovement(true);
@@ -832,6 +833,14 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
                     break;
                 default:
                     break;
+            }
+            if (network->getIsClient())
+            {
+                teamInstance[1].setPlayerInstance(playerInstance);
+            }
+            else if (network->getIsServer())
+            {
+                teamInstance[0].setPlayerInstance(playerInstance);
             }
         }
         else if (netPStateObj.getShootBlock())

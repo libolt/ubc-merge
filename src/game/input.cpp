@@ -1111,7 +1111,7 @@ bool inputSystem::processUnbufferedMouseInput()
 	SDL_GetWindowSize(sdlWindow,&w,&h);
 	logMsg("sdlWindow width = " +Ogre::StringConverter::toString(w));
 	logMsg("sdlWindow height = " +Ogre::StringConverter::toString(h));
-	
+
 //	state = SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(0);
     state = SDL_GetMouseState(NULL, NULL)&SDL_TOUCH_MOUSEID;
     logMsg("Mouse state = " +Ogre::StringConverter::toString(state));
