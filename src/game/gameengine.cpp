@@ -346,16 +346,30 @@ void gameEngine::gameLoop()	// Main Game Loop
 					std::vector<teamState> teamInstance = gameS->getTeamInstance();
 //                  logMsg("teamInstance.size() ==== " +toString(teamInstance.size()));
 
-					for (int i=0;i<teamInstance.size();++i)
-					{
+//					for (int i=0;i<teamInstance.size();++i)
+//					{
 //						logMsg("teamInstance.size() ==== " +toString(teamInstance.size()));
+					int teamNumber;
+					if (serverRunning)
+					{
+						teamNumber = 0;
+					}
+					else if (clientRunning)
+					{
+						teamNumber = 1;
+					}
+					else
+					{
+						teamNumber = 0;
+					}
+					int i = teamNumber;
 						if (teamInstance[i].getPlayerInstancesCreated())
 						{
 
 							std::vector<playerState> playerInstance = teamInstance[i].getPlayerInstance();
 
 							Ogre::String packetData;
-							if (teamInstance[i ].getHumanControlled())
+							if (teamInstance[i].getHumanControlled())
 							{
 								int humanPlayer = teamInstance[i].getHumanPlayer();
 								inputMaps inputMap = input->keyMap();
@@ -374,13 +388,13 @@ void gameEngine::gameLoop()	// Main Game Loop
                                         netPStateObj.setDirection(0);
                                         ss << netPStateObj;
                                         packetData = ss.str();
-                                        if (serverRunning)
-                                        {
+//                                        if (serverRunning)
+//                                        {
                                             playerInstance[humanPlayer].setMovement(true);
                                             playerInstance[humanPlayer].setDirection(UP);
                                             teamInstance[i].setPlayerInstance(playerInstance);
                                             gameS->setTeamInstance(teamInstance);
-                                        }
+//                                        }
                                         break;
 									case INDOWN:
 //										packetData = "player0down";
@@ -391,13 +405,13 @@ void gameEngine::gameLoop()	// Main Game Loop
                                         netPStateObj.setDirection(1);
                                         ss << netPStateObj;
                                         packetData = ss.str();
-                                        if (serverRunning)
-                                        {
+//                                        if (serverRunning)
+//                                        {
                                             playerInstance[humanPlayer].setMovement(true);
                                             playerInstance[humanPlayer].setDirection(DOWN);
                                             teamInstance[i].setPlayerInstance(playerInstance);
                                             gameS->setTeamInstance(teamInstance);
-                                        }
+//                                        }
 									break;
 									case INLEFT:
 //										packetData = "player0left";
@@ -408,13 +422,13 @@ void gameEngine::gameLoop()	// Main Game Loop
                                         netPStateObj.setDirection(2);
                                         ss << netPStateObj;
                                         packetData = ss.str();
-                                        if (serverRunning)
-                                        {
+  //                                      if (serverRunning)
+  //                                      {
                                             playerInstance[humanPlayer].setMovement(true);
                                             playerInstance[humanPlayer].setDirection(LEFT);
                                             teamInstance[i].setPlayerInstance(playerInstance);
                                             gameS->setTeamInstance(teamInstance);
-                                        }
+ //                                       }
 									break;
 									case INRIGHT:
 //										packetData = "player0right";
@@ -425,13 +439,13 @@ void gameEngine::gameLoop()	// Main Game Loop
                                         netPStateObj.setDirection(3);
                                         ss << netPStateObj;
                                         packetData = ss.str();
-                                        if (serverRunning)
-                                        {
+//                                        if (serverRunning)
+//                                        {
                                             playerInstance[humanPlayer].setMovement(true);
                                             playerInstance[humanPlayer].setDirection(RIGHT);
                                             teamInstance[i].setPlayerInstance(playerInstance);
                                             gameS->setTeamInstance(teamInstance);
-                                        }
+//                                        }
 									break;
 
 									case INUPLEFT:
@@ -443,13 +457,13 @@ void gameEngine::gameLoop()	// Main Game Loop
                                         netPStateObj.setDirection(4);
                                         ss << netPStateObj;
                                         packetData = ss.str();
-                                        if (serverRunning)
-                                        {
+//                                        if (serverRunning)
+//                                        {
                                             playerInstance[humanPlayer].setMovement(true);
                                             playerInstance[humanPlayer].setDirection(UPLEFT);
                                             teamInstance[i].setPlayerInstance(playerInstance);
                                             gameS->setTeamInstance(teamInstance);
-                                        }
+//                                        }
 									break;
 									case INUPRIGHT:
 //										packetData = "player0upright";
@@ -460,13 +474,13 @@ void gameEngine::gameLoop()	// Main Game Loop
                                         netPStateObj.setDirection(5);
                                         ss << netPStateObj;
                                         packetData = ss.str();
-                                        if (serverRunning)
-                                        {
+  //                                      if (serverRunning)
+  //                                      {
                                             playerInstance[humanPlayer].setMovement(true);
                                             playerInstance[humanPlayer].setDirection(UPRIGHT);
                                             teamInstance[i].setPlayerInstance(playerInstance);
                                             gameS->setTeamInstance(teamInstance);
-                                        }
+  //                                      }
 									break;
 									case INDOWNLEFT:
 //										packetData = "player0downleft";
@@ -477,13 +491,13 @@ void gameEngine::gameLoop()	// Main Game Loop
                                         netPStateObj.setDirection(6);
                                         ss << netPStateObj;
                                         packetData = ss.str();
-                                        if (serverRunning)
-                                        {
+//                                        if (serverRunning)
+//                                        {
                                             playerInstance[humanPlayer].setMovement(true);
                                             playerInstance[humanPlayer].setDirection(DOWNLEFT);
                                             teamInstance[i].setPlayerInstance(playerInstance);
                                             gameS->setTeamInstance(teamInstance);
-                                        }
+//                                        }
 									break;
 									case INDOWNRIGHT:
 //										packetData = "player0downright";
@@ -494,13 +508,13 @@ void gameEngine::gameLoop()	// Main Game Loop
                                         netPStateObj.setDirection(7);
                                         ss << netPStateObj;
                                         packetData = ss.str();
-                                        if (serverRunning)
-                                        {
+//                                        if (serverRunning)
+//                                        {
                                             playerInstance[humanPlayer].setMovement(true);
                                             playerInstance[humanPlayer].setDirection(DOWNRIGHT);
                                             teamInstance[i].setPlayerInstance(playerInstance);
                                             gameS->setTeamInstance(teamInstance);
-                                        }
+//                                        }
 									break;
 
 									case INQUIT:
@@ -537,7 +551,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 								}
 						    }
 						}
-					}
+//					}
 
 /*					if (gameS->getGameType() == SINGLE)
 					{

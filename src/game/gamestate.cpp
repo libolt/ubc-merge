@@ -339,7 +339,7 @@ bool gameState::createTeamInstances()
 	teamInstance[0].setTeamNumber(0);
 	teamInstance[1].setTeamNumber(1);
 	teamInstance[0].setHumanControlled(true);
-//	teamInstance[1].setHumanControlled(true);
+	teamInstance[1].setHumanControlled(true);
 	teamInstance[0].setupState();
 	teamInstance[1].setupState();
 //	exit(0);
@@ -832,6 +832,7 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
                     playerInstance[playerNumber].setDirection(DOWNRIGHT);
                     break;
                 default:
+                	playerInstance[playerNumber].setMovement(false);
                     break;
             }
             if (network->getIsClient())

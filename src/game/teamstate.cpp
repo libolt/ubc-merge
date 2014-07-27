@@ -359,9 +359,9 @@ void teamState::updateState()	// updates the state of the object
 		std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
 
 //		exit(0);
-/*
+
 		// checks whether to execute offense or defense logic
-		if (offense == true && defense == false)
+/*		if (offense == true && defense == false)
 		{
 			offenseInstance->setExecute(true);
 			defenseInstance->setExecute(false);
@@ -471,17 +471,7 @@ void teamState::updateState()	// updates the state of the object
 	{
 	}
 
-	//FIXME! Temporary hack for steering testing
-/* 	if (playerInstancesCreated && gameS->getTipOffComplete())
-	{
-	    for (int x=0; x<playerInstance.size();++x)
-	    {
-		    float oldTime= static_cast<float>(gameE->getOldTime());
-		    float changeInTime = static_cast<float>(gameE->getChangeInTime());
-		    playerInstance[x].getSteer().update(oldTime, changeInTime);
-	    }
-	}
-*/
+
 //   logMsg("team state updated = " +Ogre::StringConverter::toString(teamNumber));
 }
 
