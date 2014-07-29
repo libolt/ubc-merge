@@ -31,6 +31,9 @@
 #include "renderengine.h"
 #include "logging.h"
 
+static int32_t handleInput(struct android_app* app, AInputEvent* event);
+
+
 inputSystem* inputSystem::pInstance = 0;
 
 inputSystem* inputSystem::Instance()
@@ -175,7 +178,26 @@ bool inputSystem::processInput()	// processes all input
 //    SDL_StopTextInput();
 */
 //    logMsg("sdl grab = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
+#ifndef __ANDROID__
+    logMsg("input!");
+    struct android_app *state = renderE->getApp();
+//	state->onInputEvent = &handleInput;
+    logMsg("input??");
+	AInputEvent* event;
+	struct android_poll_source* source;
+    int ident;
+    int fdesc;
+    int events;
+	
+      while((ident = ALooper_pollAll(0, &fdesc, &events, (void**)&source)) >= 0)
+      {
+         // process this event
 
+         if (source)
+            source->process(state, source);
+      }
+
+#else
     if (SDL_PollEvent(&inputEvent))
     {
         int numTouch = SDL_GetNumTouchDevices();
@@ -262,7 +284,7 @@ bool inputSystem::processInput()	// processes all input
         }
 
     }
-
+#endif
 /*
     // processes touch input
     if (processUnbufferedTouchInput() == false)
@@ -281,6 +303,11 @@ bool inputSystem::processInput()	// processes all input
 
     processUnbufferedMouseInput();
 	return true;
+}
+
+static int32_t handleInput(struct android_app* app, AInputEvent* event)
+{
+	exit(0);
 }
 
 bool inputSystem::processUnbufferedKeyInput()

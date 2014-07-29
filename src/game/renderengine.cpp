@@ -36,7 +36,6 @@
 #ifndef OGRE_PLUGIN_DIR
 #define OGRE_PLUGIN_DIR
 #endif
-
 renderEngine* renderEngine::pInstance = 0;
 renderEngine* renderEngine::Instance()
 {
@@ -230,6 +229,8 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
 	jobject raw_resources = env->CallObjectMethod(raw_activity, method_get_resources);
     jobject raw_asset_manager = env->CallObjectMethod(raw_resources, method_get_assets);
     mAssetMgr = AAssetManager_fromJava(env, raw_asset_manager);
+    
+//	state->onInputEvent = &handleInput;
 
 //    AConfiguration_fromAssetManager(config, mAssetMgr);
     logMsg("APK?");
@@ -281,7 +282,7 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
     jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
     ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
 //    winHandle =  Ogre::StringConverter::toString((unsigned long)native_window);
-    sdlWindow = SDL_CreateWindowFrom(native_window);
+//    sdlWindow = SDL_CreateWindowFrom(app->window);
 
 /*    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge", SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
@@ -488,8 +489,11 @@ bool renderEngine::createScene()
 	logMsg("Hello??");
 	mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 0, 0, false, &misc);
 //	exit(0);
+	unsigned long handle = 0;
+	mWindow->getCustomAttribute("WINDOW", &handle);
+	logMsg("mWindow handle = " +Ogre::StringConverter::toString(handle));
 	logMsg("Dead");
-//	sdlWindow = SDL_CreateWindowFrom(native_window);
+	sdlWindow = SDL_CreateWindowFrom(handle);
 /*    logMsg("window ID = " +Ogre::StringConverter::toString(SDL_GetWindowID(sdlWindow)));
 	SDL_ShowWindow(sdlWindow);
 	SDL_SetWindowGrab(sdlWindow,SDL_TRUE);

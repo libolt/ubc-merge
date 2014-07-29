@@ -1,5 +1,5 @@
-/***************************************************************************
- *   Copyright (C) 2014 by Mike McLean   *
+ /***************************************************************************
+ onk kiupf*   Copyright (C) 2014 by Mike McLean   *
  *   libolt@libolt.net   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
