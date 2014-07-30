@@ -494,11 +494,11 @@ bool renderEngine::createScene()
 	logMsg("mWindow handle = " +Ogre::StringConverter::toString(handle));
 	logMsg("Dead");
 	sdlWindow = SDL_CreateWindowFrom(handle);
-/*    logMsg("window ID = " +Ogre::StringConverter::toString(SDL_GetWindowID(sdlWindow)));
+    logMsg("window ID = " +Ogre::StringConverter::toString(SDL_GetWindowID(sdlWindow)));
 	SDL_ShowWindow(sdlWindow);
 	SDL_SetWindowGrab(sdlWindow,SDL_TRUE);
 	SDL_MaximizeWindow(sdlWindow);
-*/
+
 #endif
 
 	mResourceGroup = "UBCData";

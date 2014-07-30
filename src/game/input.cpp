@@ -177,7 +177,7 @@ bool inputSystem::processInput()	// processes all input
     }
 //    SDL_StopTextInput();
 */
-//    logMsg("sdl grab = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
+    logMsg("sdl grab = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
 #ifndef __ANDROID__
     logMsg("input!");
     struct android_app *state = renderE->getApp();
@@ -198,6 +198,9 @@ bool inputSystem::processInput()	// processes all input
       }
 
 #else
+    int motion = SDL_EventState(SDL_FINGERMOTION, SDL_QUERY);
+	logMsg ("motion = " +Ogre::StringConverter::toString(motion));
+
     if (SDL_PollEvent(&inputEvent))
     {
         int numTouch = SDL_GetNumTouchDevices();
@@ -1138,6 +1141,9 @@ bool inputSystem::processUnbufferedMouseInput()
 	SDL_GetWindowSize(sdlWindow,&w,&h);
 	logMsg("sdlWindow width = " +Ogre::StringConverter::toString(w));
 	logMsg("sdlWindow height = " +Ogre::StringConverter::toString(h));
+    SDL_GetGlobalMouseState(&x, &y);
+	logMsg("mouse x = " +Ogre::StringConverter::toString(x));
+	logMsg("mouse y = " +Ogre::StringConverter::toString(y));
 
 //	state = SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(0);
     state = SDL_GetMouseState(NULL, NULL)&SDL_TOUCH_MOUSEID;
