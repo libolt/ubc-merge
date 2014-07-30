@@ -31,7 +31,7 @@
 #include "renderengine.h"
 #include "logging.h"
 
-static int32_t handleInput(struct android_app* app, AInputEvent* event);
+//static int32_t handleInput(struct android_app* app, AInputEvent* event);
 
 
 inputSystem* inputSystem::pInstance = 0;
@@ -178,7 +178,7 @@ bool inputSystem::processInput()	// processes all input
 //    SDL_StopTextInput();
 */
 //    logMsg("sdl grab = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
-#ifndef __ANDROID__
+#ifdef __ANDROID__
     logMsg("input!");
     struct android_app *state = renderE->getApp();
 //	state->onInputEvent = &handleInput;
@@ -188,7 +188,7 @@ bool inputSystem::processInput()	// processes all input
     int ident;
     int fdesc;
     int events;
-	
+
       while((ident = ALooper_pollAll(0, &fdesc, &events, (void**)&source)) >= 0)
       {
          // process this event
@@ -305,11 +305,11 @@ bool inputSystem::processInput()	// processes all input
 	return true;
 }
 
-static int32_t handleInput(struct android_app* app, AInputEvent* event)
+/* static int32_t handleInput(struct android_app* app, AInputEvent* event)
 {
 	exit(0);
 }
-
+*/
 bool inputSystem::processUnbufferedKeyInput()
 {
 	GUISystem *gui = GUISystem::Instance();
