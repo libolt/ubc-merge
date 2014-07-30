@@ -142,7 +142,7 @@ bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup s
 	MyGUI::LayoutManager::getInstance().loadLayout("NetworkSetupMenu.layout");
 
 	ipAddressBox = mGUI->findWidget<MyGUI::EditBox>("ipAddressBox"); // loads IP Address EditBox
-	ipAddressBox->setVisible(true);
+	ipAddressBox->setVisible(false);
 
 	serverButton = mGUI->findWidget<MyGUI::Button>("serverButton"); // loads Server Button
 	serverButton->setVisible(true);
@@ -152,8 +152,18 @@ bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup s
 	clientButton->setVisible(true);
 	clientButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::clientButtonClicked);
 
-	MyGUI::InputManager::getInstance().setKeyFocusWidget(ipAddressBox);
-
+    connectButton = mGUI->findWidget<MyGUI::Button>("connectButton"); // loads Client Button
+    connectButton->setVisible(false);
+    connectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::connectButtonClicked);
+	
+	backMainMenuButton = mGUI->findWidget<MyGUI::Button>("backMainMenuButton"); // loads Client Button
+    backMainMenuButton->setVisible(true);
+    backMainMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backMainMenuButtonClicked);
+	
+	backNetworkSetupButton = mGUI->findWidget<MyGUI::Button>("backNetworkSetupButton"); // loads Client Button
+    backNetworkSetupButton->setVisible(false);
+    backNetworkSetupButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backNetworkSetupButtonClicked);
+	
     menuActive = true;
 	activeMenu = NETWORK;
 	return true;
@@ -201,7 +211,30 @@ void GUISystem::serverButtonClicked(MyGUI::Widget *_sender)	// handles serverBut
 
 void GUISystem::clientButtonClicked(MyGUI::Widget *_sender)	// handles clientButton click event
 {
+//    networkClient();
+    serverButton->setVisible(false);
+    ipAddressBox->setVisible(true);
+	MyGUI::InputManager::getInstance().setKeyFocusWidget(ipAddressBox);
+    activeMenu = NETWORKCLIENT;
+}
+
+void GUISystem::connectButtonClicked(MyGUI::Widget *_sender) // handles connectButton click event
+{
     networkClient();
+}
+
+void GUISystem::backMainMenuButtonClicked(MyGUI::Widget *_sender) // handles backMainMenuButton click event
+{
+	hideNetworkSetupWidgets();
+	showMainMenuWidgets();
+	activeMenu = MAIN;
+}
+
+void GUISystem::backNetworkSetupButtonClicked(MyGUI::Widget *_sender) // handles backNetworkSetupButton click event
+{
+	hideNetworkClientSetupWidgets();
+	showNetworkSetupWidgets();
+	activeMenu = NETWORK;
 }
 
 void GUISystem::hideMainMenuWidgets()	// hides the widgets tied to the Main Menu
@@ -211,12 +244,40 @@ void GUISystem::hideMainMenuWidgets()	// hides the widgets tied to the Main Menu
 	optionsButton->setVisible(false);
 	exitButton->setVisible(false);
 }
+void GUISystem::showMainMenuWidgets()         // shows all widgets tied to the Main Menu
+{
+    startSingleGameButton->setVisible(true);
+    startMultiGameButton->setVisible(true);
+    optionsButton->setVisible(true);
+    exitButton->setVisible(true);
 
+}
 void GUISystem::hideNetworkSetupWidgets()	// hides the widgets tied to the Network Setup Menu
 {
-	ipAddressBox->setVisible(false);
+//	ipAddressBox->setVisible(false);
 	serverButton->setVisible(false);
 	clientButton->setVisible(false);
+	backMainMenuButton->setVisible(false);
+}
+void GUISystem::showNetworkSetupWidgets()     // shows all widgets tied to the Network Setup Menu
+{
+//    ipAddressBox->setVisible(true);
+    serverButton->setVisible(true);
+    clientButton->setVisible(true);
+	backMainMenuButton->setVisible(true);
+}
+
+void GUISystem::hideNetworkClientSetupWidgets()   // hides the widgets tied to the Network Setup Menu
+{
+    ipAddressBox->setVisible(false);
+    connectButton->setVisible(false);
+	backNetworkSetupButton->setVisible(false);
+}
+void GUISystem::showNetworkClientSetupWidgets()     // shows all widgets tied to the Network Setup Menu
+{
+    ipAddressBox->setVisible(true);
+    connectButton->setVisible(true);
+	backNetworkSetupButton->setVisible(true);
 }
 
 void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key input
@@ -229,6 +290,10 @@ void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key inp
 		case NETWORK:
 			processNetworkMenuKeyPress(keyPressed);
 			break;
+		case NETWORKCLIENT:
+            processNetworkClientMenuKeyPress(keyPressed);
+            break;
+
 		case OPTIONS:
 			processOptionsMenuKeyPress(keyPressed);
 			break;
@@ -262,11 +327,34 @@ void GUISystem::processMainMenuKeyPress(std::string keyPressed) // processes mai
 }
 void GUISystem::processNetworkMenuKeyPress(std::string keyPressed) // processes network menu key input
 {
-	if (keyPressed == "0")
-	{
+   if (keyPressed == "c")
+    {
+       hideNetworkSetupWidgets();
+       showNetworkClientSetupWidgets();
+       activeMenu = NETWORKCLIENT;
+    }
+    else if (keyPressed == "b")
+    {
+        hideNetworkSetupWidgets();
+        showMainMenuWidgets();
+    }
+    else if (keyPressed == "s")
+    {
+        networkServer();
+    }
+    else
+    {
+
+    }
+}
+
+void GUISystem::processNetworkClientMenuKeyPress(std::string keyPressed) // processes network menu key input
+{
+    if (keyPressed == "0")
+    {
         ipAddressBox->addText("0");
-	}
-	else if (keyPressed == "1")
+    }
+    else if (keyPressed == "1")
     {
         ipAddressBox->addText("1");
     }
@@ -308,24 +396,19 @@ void GUISystem::processNetworkMenuKeyPress(std::string keyPressed) // processes 
     }
     else if (keyPressed == "c")
     {
+        hideNetworkClientSetupWidgets();
         networkClient();
     }
-    else if (keyPressed == "q")
+	else if (keyPressed == "b")
     {
-        exit(0);
+        hideNetworkClientSetupWidgets();
+        showNetworkSetupWidgets();
     }
-    else if (keyPressed == "s")
-    {
-        networkServer();
-    }
-    else
-    {
 
-    }
 }
+
 void GUISystem::processOptionsMenuKeyPress(std::string keyPressed) // processes options menu key input
 {
-
 }
 
 void GUISystem::startSinglePlayerGame() // starts single player game
@@ -353,6 +436,10 @@ void GUISystem::optionsMenu() // displays options menu
 
 }
 
+void GUISystem::clientSetup() // sets up the client connection
+{
+
+}
 void GUISystem::networkServer()  // sets up  game as a network server
 {
     networkEngine * network = networkEngine::Instance();
@@ -371,7 +458,7 @@ void GUISystem::networkClient()  // sets up game as a network client
     networkEngine * network = networkEngine::Instance();
     gameEngine * gameE = gameEngine::Instance();
 
-    hideNetworkSetupWidgets();  // Hides Network Setup Menu widgets
+//    hideNetworkSetupWidgets();  // Hides Network Setup Menu widgets
     menuActive = false;
     network->setIPAddress(ipAddressBox->getCaption());  // sets the neworkEngine's ipAddress string to that of the caption
 //    network->networkClient();

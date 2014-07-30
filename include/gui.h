@@ -46,7 +46,7 @@ public:
 
 	bool getMenuActive(); // retrieves the value of menuActive
 	void setMenuActive(bool active); // sets the value of menuActive
-	
+
 	activeMenus getActiveMenu(); // retrieves the value of activeMenu
 	void setActiveMenu(activeMenus menu); // sets the value of activeMenu
 
@@ -56,11 +56,13 @@ public:
     void menuReceiveKeyPress(std::string keyPressed); // processes key input
 	void processMainMenuKeyPress(std::string keyPressed); // processes main menu key input
     void processNetworkMenuKeyPress(std::string keyPressed); // processes network menu key input
+    void processNetworkClientMenuKeyPress(std::string keyPressed); // process network client menu key input
     void processOptionsMenuKeyPress(std::string keyPressed); // processes options menu key input
-    
+
 	void startSinglePlayerGame(); // starts single player game
 	void startMultiPlayerGame(); // starts multiplayer game
     void optionsMenu(); // displays options menu
+    void clientSetup(); // sets up the client connection
 
      void networkServer();  // sets up  game as a network server
      void networkClient();  // sets up game as a network client
@@ -71,15 +73,25 @@ protected:
     GUISystem& operator= (const GUISystem&);
 
     // MyGUI functions
-    virtual void startSingleGameButtonClicked(MyGUI::Widget *_sender);
-    virtual void startMultiGameButtonClicked(MyGUI::Widget *_sender);
-    virtual void optionsButtonClicked(MyGUI::Widget *_sender);
-    virtual void exitButtonClicked(MyGUI::Widget *_sender);
-    virtual void serverButtonClicked(MyGUI::Widget *_sender);
-    virtual void clientButtonClicked(MyGUI::Widget *_sender);
+    void startSingleGameButtonClicked(MyGUI::Widget *_sender);
+    void startMultiGameButtonClicked(MyGUI::Widget *_sender);
+    void optionsButtonClicked(MyGUI::Widget *_sender);
+    void exitButtonClicked(MyGUI::Widget *_sender);
+    void serverButtonClicked(MyGUI::Widget *_sender);
+    void clientButtonClicked(MyGUI::Widget *_sender);
+    void connectButtonClicked(MyGUI::Widget *_sender); // handles connectButton click event
+    void backMainMenuButtonClicked(MyGUI::Widget *_sender); // handles backMainMenuButton click event
+    void backNetworkSetupButtonClicked(MyGUI::Widget *_sender); // handles backNetworkSetupButton click event
 
-    virtual void hideMainMenuWidgets();			// hides all widgets tied to the Main Menu
-    virtual void hideNetworkSetupWidgets();		// hides all widgets tied to the Network Setup Menu
+	
+    void hideMainMenuWidgets();			// hides all widgets tied to the Main Menu
+    void showMainMenuWidgets();         // shows all widgets tied to the Main Menu
+
+    void hideNetworkSetupWidgets();		// hides all widgets tied to the Network Setup Menu
+    void showNetworkSetupWidgets();     // shows all widgets tied to the Network Setup Menu
+
+    void hideNetworkClientSetupWidgets();     // hides all widgets tied to the Network Setup Menu
+    void showNetworkClientSetupWidgets();     // shows all widgets tied to the Network Setup Menu
 
 private:
 
@@ -94,13 +106,16 @@ private:
     MyGUI::Button *optionsButton;
     MyGUI::Button *serverButton;
     MyGUI::Button *clientButton;
-
+    MyGUI::Button *connectButton;
+    MyGUI::Button *backMainMenuButton;
+	MyGUI::Button *backNetworkSetupButton;
+	
     // text widgets
     MyGUI::EditBox *ipAddressBox;
-	
+
 	// booleans
     bool menuActive; // stores whether a menu is being diplayed
-	
+
 	activeMenus activeMenu; // stores which menu is being displayed
 };
 
