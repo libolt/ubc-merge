@@ -155,15 +155,15 @@ bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup s
     connectButton = mGUI->findWidget<MyGUI::Button>("connectButton"); // loads Client Button
     connectButton->setVisible(false);
     connectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::connectButtonClicked);
-	
+
 	backMainMenuButton = mGUI->findWidget<MyGUI::Button>("backMainMenuButton"); // loads Client Button
     backMainMenuButton->setVisible(true);
     backMainMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backMainMenuButtonClicked);
-	
+
 	backNetworkSetupButton = mGUI->findWidget<MyGUI::Button>("backNetworkSetupButton"); // loads Client Button
     backNetworkSetupButton->setVisible(false);
     backNetworkSetupButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backNetworkSetupButtonClicked);
-	
+
     menuActive = true;
 	activeMenu = NETWORK;
 	return true;
@@ -250,7 +250,8 @@ void GUISystem::showMainMenuWidgets()         // shows all widgets tied to the M
     startMultiGameButton->setVisible(true);
     optionsButton->setVisible(true);
     exitButton->setVisible(true);
-
+    startSingleGameButton->setStateSelected(true);
+    MyGUI::InputManager::getInstance().setKeyFocusWidget(startSingleGameButton);
 }
 void GUISystem::hideNetworkSetupWidgets()	// hides the widgets tied to the Network Setup Menu
 {
@@ -337,6 +338,7 @@ void GUISystem::processNetworkMenuKeyPress(std::string keyPressed) // processes 
     {
         hideNetworkSetupWidgets();
         showMainMenuWidgets();
+        activeMenu = MAIN;
     }
     else if (keyPressed == "s")
     {

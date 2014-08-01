@@ -179,7 +179,7 @@ bool inputSystem::processInput()	// processes all input
 */
 
 //    logMsg("sdl grab = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
-#ifndef __ANDROID__
+/*#ifndef __ANDROID__
     logMsg("input!");
     struct android_app *state = renderE->getApp();
 //	state->onInputEvent = &handleInput;
@@ -199,6 +199,7 @@ bool inputSystem::processInput()	// processes all input
       }
 
 #else
+*/
     int motion = SDL_EventState(SDL_FINGERMOTION, SDL_QUERY);
 	logMsg ("motion = " +Ogre::StringConverter::toString(motion));
 
@@ -288,7 +289,7 @@ bool inputSystem::processInput()	// processes all input
         }
 
     }
-#endif
+//#endif
 /*
     // processes touch input
     if (processUnbufferedTouchInput() == false)
