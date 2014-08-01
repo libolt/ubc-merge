@@ -192,6 +192,7 @@ void GUISystem::optionsButtonClicked(MyGUI::Widget *_sender)	// handles optionsB
 {
 
 	menuActive = true;
+	activeMenu = OPTIONS;
 //	MyGUI::Widget *widget = MyGUI::InputManager::getInstance().getMouseFocusWidget();
 //	_sender->_get
 //	std::cout << "Button clicked is " << widget-> << std::endl;
@@ -227,6 +228,7 @@ void GUISystem::backMainMenuButtonClicked(MyGUI::Widget *_sender) // handles bac
 {
 	hideNetworkSetupWidgets();
 	showMainMenuWidgets();
+	menuActive = true;
 	activeMenu = MAIN;
 }
 
@@ -234,6 +236,7 @@ void GUISystem::backNetworkSetupButtonClicked(MyGUI::Widget *_sender) // handles
 {
 	hideNetworkClientSetupWidgets();
 	showNetworkSetupWidgets();
+	menuActive = true;
 	activeMenu = NETWORK;
 }
 
@@ -423,9 +426,7 @@ void GUISystem::startSinglePlayerGame() // starts single player game
 
 void GUISystem::startMultiPlayerGame() // starts multiplayer game
 {
-    gameState *gameS = gameState::Instance();
-
-    gameS->setGameType(MULTI);
+    
 	hideMainMenuWidgets();	// Hides the widgets from the main menu
 	createNetworkSetupGUI();	// creates the GUI for the Network Setup Screen
     menuActive = true;
@@ -444,7 +445,9 @@ void GUISystem::networkServer()  // sets up  game as a network server
 {
     networkEngine * network = networkEngine::Instance();
     gameEngine * gameE = gameEngine::Instance();
+    gameState *gameS = gameState::Instance();
 
+    gameS->setGameType(MULTI);
     hideNetworkSetupWidgets();  // Hides Network Setup Menu widgets
     menuActive = false;
     network->setIPAddress(ipAddressBox->getCaption());  // sets the neworkEngine's ipAddress string to that of the caption
@@ -457,7 +460,10 @@ void GUISystem::networkClient()  // sets up game as a network client
 {
     networkEngine * network = networkEngine::Instance();
     gameEngine * gameE = gameEngine::Instance();
+    gameState *gameS = gameState::Instance();
 
+    gameS->setGameType(MULTI);
+	
 //    hideNetworkSetupWidgets();  // Hides Network Setup Menu widgets
     menuActive = false;
     network->setIPAddress(ipAddressBox->getCaption());  // sets the neworkEngine's ipAddress string to that of the caption
