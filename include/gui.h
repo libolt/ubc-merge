@@ -44,6 +44,12 @@ public:
 
     static GUISystem *Instance();
 
+    bool getMainMenuCreatd();   // retrieves the value of mainMenuCreated
+    void setMainMenuCreated(bool created); // sets the value of mainMenuCreated
+
+    bool getNetworkSetupMenuCraeted();  // retrieves the value of networkSetupMenuCreated
+    void setNetworkSetupMenuCreated(bool created);  // sets the value of networkSetupMenuCreated
+
 	bool getMenuActive(); // retrieves the value of menuActive
 	void setMenuActive(bool active); // sets the value of menuActive
 
@@ -83,7 +89,7 @@ protected:
     void backMainMenuButtonClicked(MyGUI::Widget *_sender); // handles backMainMenuButton click event
     void backNetworkSetupButtonClicked(MyGUI::Widget *_sender); // handles backNetworkSetupButton click event
 
-	
+
     void hideMainMenuWidgets();			// hides all widgets tied to the Main Menu
     void showMainMenuWidgets();         // shows all widgets tied to the Main Menu
 
@@ -109,11 +115,13 @@ private:
     MyGUI::Button *connectButton;
     MyGUI::Button *backMainMenuButton;
 	MyGUI::Button *backNetworkSetupButton;
-	
+
     // text widgets
     MyGUI::EditBox *ipAddressBox;
 
 	// booleans
+    bool mainMenuCreated;   // determines whether the main menu gui has been created
+    bool networkSetupMenuCreated;   // determines whether the network setup gui has been created
     bool menuActive; // stores whether a menu is being diplayed
 
 	activeMenus activeMenu; // stores which menu is being displayed

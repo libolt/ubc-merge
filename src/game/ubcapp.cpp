@@ -31,7 +31,7 @@
 #endif
 
 /*#ifdef __cplusplus
-extern “C”
+extern â€œCâ€�
 #endif*/
 
 UBC::UBC()
@@ -76,12 +76,15 @@ int main(int argc, char *argv[])
 	render->initSDL(); // Initializes the SDL Subsystem
 
     render->initOgre(); // Initializes the Ogre Subsystem
-    
+
     render->createScene(); // creates rendering scene.
 
 //#ifndef __ANDROID__
     gui->initMyGUI(); // Initializes MyGUI
-    gui->createMainMenuButtons(); // creates a MyGUI button.
+    if (!gui->getMainMenuCreatd())
+    {
+        gui->createMainMenuButtons(); // creates a MyGUI button.
+    }
 //#endif
 
 	//FIXME hardcoded while working on other bugs

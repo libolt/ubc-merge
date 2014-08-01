@@ -49,12 +49,32 @@ GUISystem::GUISystem()
 //    mEditorGuiSheet =
 //    Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 //    QuickGUI::registerScriptParser();
+    mainMenuCreated = false;
+    networkSetupMenuCreated = false;
     menuActive = false;
 }
 
 GUISystem::~GUISystem()
 {
 
+}
+
+bool GUISystem::getMainMenuCreatd()   // retrieves the value of mainMenuCreated
+{
+    return (mainMenuCreated);
+}
+void GUISystem::setMainMenuCreated(bool created) // sets the value of mainMenuCreated
+{
+    mainMenuCreated = created;
+}
+
+bool GUISystem::getNetworkSetupMenuCraeted()  // retrieves the value of networkSetupMenuCreated
+{
+    return (networkSetupMenuCreated);
+}
+void GUISystem::setNetworkSetupMenuCreated(bool created)  // sets the value of networkSetupMenuCreated
+{
+    networkSetupMenuCreated = created;
 }
 
 bool GUISystem::getMenuActive() // retrieves the value of menuActive
@@ -126,7 +146,7 @@ bool GUISystem::createMainMenuButtons()
 	exitButton = mGUI->findWidget<MyGUI::Button>("exitButton");
 	exitButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::exitButtonClicked);
 
-
+	mainMenuCreated = true;
 	menuActive = true;
 	activeMenu = MAIN;
 	// set callback
@@ -164,6 +184,7 @@ bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup s
     backNetworkSetupButton->setVisible(false);
     backNetworkSetupButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backNetworkSetupButtonClicked);
 
+    networkSetupMenuCreated = true;
     menuActive = true;
 	activeMenu = NETWORK;
 	return true;
@@ -227,7 +248,14 @@ void GUISystem::connectButtonClicked(MyGUI::Widget *_sender) // handles connectB
 void GUISystem::backMainMenuButtonClicked(MyGUI::Widget *_sender) // handles backMainMenuButton click event
 {
 	hideNetworkSetupWidgets();
-	showMainMenuWidgets();
+	if (mainMenuCreated)
+	{
+	    showMainMenuWidgets();
+	}
+	else
+	{
+	    createMainMenuButtons();
+	}
 	menuActive = true;
 	activeMenu = MAIN;
 }
@@ -407,7 +435,8 @@ void GUISystem::processNetworkClientMenuKeyPress(std::string keyPressed) // proc
 	else if (keyPressed == "b")
     {
         hideNetworkClientSetupWidgets();
-        showNetworkSetupWidgets();
+//        showNetworkSetupWidgets();
+        startMultiPlayerGame();
     }
 
 }
@@ -428,10 +457,18 @@ void GUISystem::startSinglePlayerGame() // starts single player game
 
 void GUISystem::startMultiPlayerGame() // starts multiplayer game
 {
-    
+
 	hideMainMenuWidgets();	// Hides the widgets from the main menu
-	createNetworkSetupGUI();	// creates the GUI for the Network Setup Screen
+	if (networkSetupMenuCreated)
+	{
+	    showNetworkSetupWidgets();
+	}
+	else
+	{
+	    createNetworkSetupGUI();	// creates the GUI for the Network Setup Screen
+	}
     menuActive = true;
+    activeMenu = NETWORK;
 }
 
 void GUISystem::optionsMenu() // displays options menu
@@ -465,7 +502,7 @@ void GUISystem::networkClient()  // sets up game as a network client
     gameState *gameS = gameState::Instance();
 
     gameS->setGameType(MULTI);
-	
+
 //    hideNetworkSetupWidgets();  // Hides Network Setup Menu widgets
     menuActive = false;
     network->setIPAddress(ipAddressBox->getCaption());  // sets the neworkEngine's ipAddress string to that of the caption
