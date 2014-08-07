@@ -81,9 +81,9 @@ int main(int argc, char *argv[])
 
 //#ifndef __ANDROID__
     gui->initMyGUI(); // Initializes MyGUI
-    if (!gui->getMainMenuCreatd())
+    if (!gui->getMainMenuCreated())
     {
-        gui->createMainMenuButtons(); // creates a MyGUI button.
+        gui->createMainMenuGUI(); // creates a MyGUI button.
     }
 //#endif
 
