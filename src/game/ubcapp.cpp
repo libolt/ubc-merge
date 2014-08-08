@@ -83,7 +83,8 @@ int main(int argc, char *argv[])
     gui->initMyGUI(); // Initializes MyGUI
     if (!gui->getMainMenuCreated())
     {
-        gui->createMainMenuGUI(); // creates a MyGUI button.
+        gui->createMainMenuGUI(); // creates the main menu gui.
+		gui->createBackButtons(); // creates the back buttons.
     }
 //#endif
 

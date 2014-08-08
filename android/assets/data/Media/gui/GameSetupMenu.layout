@@ -22,8 +22,5 @@
     <Widget type="Button" skin="Button" position="300 300 300 26" align="Default" layer="Main" name="team1SelectButton">
             <Property key="Caption" value="(A)way TeamSelect"/>
     </Widget>
-    <Widget type="Button" skin="Button" position="200 350 300 26" align="Default" layer="Main" name="backNetworkClientButtonButton">
-            <Property key="Caption" value="(B)ack to Network Client Setup"/>
-    </Widget>
     <CodeGeneratorSettings/>
 </MyGUI>

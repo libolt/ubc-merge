@@ -241,14 +241,6 @@ bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup s
     connectButton->setVisible(false);
     connectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::connectButtonClicked);
 
-	backMainMenuButton = mGUI->findWidget<MyGUI::Button>("backMainMenuButton"); // loads Back to Main Menu Button
-    backMainMenuButton->setVisible(false);
-    backMainMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backMainMenuButtonClicked);
-
-	backNetworkSetupButton = mGUI->findWidget<MyGUI::Button>("backNetworkSetupButton"); // loads Back to Network Setup Button
-    backNetworkSetupButton->setVisible(false);
-    backNetworkSetupButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backNetworkSetupButtonClicked);
-
     networkSetupMenuCreated = true;
     menuActive = true;
 	previousActiveMenu = activeMenu;
@@ -277,6 +269,25 @@ bool GUISystem::createOptionsMenuGUI()	// creates GUI for options menu screen.
     menuActive = true;
 	previousActiveMenu = activeMenu;
 	activeMenu = OPTIONS;
+	return (true);
+}
+
+bool GUISystem::createBackButtons() // creates the back buttons for the menus
+{
+	MyGUI::LayoutManager::getInstance().loadLayout("BackButtons.layout");
+
+	backMainMenuButton = mGUI->findWidget<MyGUI::Button>("backMainMenuButton"); // loads Back to Main Menu Button
+    backMainMenuButton->setVisible(false);
+    backMainMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backMainMenuButtonClicked);
+
+	backNetworkSetupButton = mGUI->findWidget<MyGUI::Button>("backNetworkSetupButton"); // loads Back to Network Setup Button
+    backNetworkSetupButton->setVisible(false);
+    backNetworkSetupButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backNetworkSetupButtonClicked);
+
+	backNetworkClientButton = mGUI->findWidget<MyGUI::Button>("backNetworkClientButton"); // loads team 1 Button
+	backNetworkClientButton->setVisible(false);
+	backNetworkClientButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backNetworkClientButtonClicked);
+
 	return (true);
 }
 
@@ -313,10 +324,6 @@ bool GUISystem::createGameSetupMenuGUI()	// creates GUI for game setup menu scre
 	team1SelectButton = mGUI->findWidget<MyGUI::Button>("team1SelectButton"); // loads team 1 Button
 	team1SelectButton->setVisible(false);
 	team1SelectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::team1SelectButtonClicked);
-
-	backNetworkClientButton = mGUI->findWidget<MyGUI::Button>("backNetworkClientButton"); // loads team 1 Button
-	backNetworkClientButton->setVisible(false);
-	backNetworkClientButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backNetworkClientButtonClicked);
 
 	return (true);
 }
@@ -529,7 +536,10 @@ void GUISystem::hideGameSetupMenuWidgets()  // hides all widgets tied to the Gam
 	{
         backMainMenuButton->setVisible(false);
 	}
-	
+	else if (previousActiveMenu == NETWORKCLIENT)
+	{
+        backNetworkClientButton->setVisible(false);
+	}
 }
 void GUISystem::showGameSetupMenuWidgets()  // shows all widgets tied to the Game Setup Menu
 {
@@ -537,10 +547,15 @@ void GUISystem::showGameSetupMenuWidgets()  // shows all widgets tied to the Gam
 	team1SelectBox->setVisible(true);
 	team0SelectButton->setVisible(true);
 	team1SelectButton->setVisible(true);
+	
 	if (previousActiveMenu == MAIN)
 	{
 	    backMainMenuButton->setVisible(true);
     }
+	else if (previousActiveMenu == NETWORKCLIENT)
+	{
+        backNetworkClientButton->setVisible(true);
+	}
 }
 
 void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key input
@@ -722,9 +737,21 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 	else if (keyPressed == "b")
     {
 	    hideGameSetupMenuWidgets();
-	    showNetworkClientSetupWidgets();
-	    previousActiveMenu = activeMenu;
-	    activeMenu = NETWORKCLIENT;
+		if (previousActiveMenu == MAIN)
+		{
+			showMainMenuWidgets();
+			previousActiveMenu = activeMenu;
+	        activeMenu = MAIN;
+		}
+		else if (previousActiveMenu == NETWORKCLIENT)
+		{
+	        showNetworkClientSetupWidgets();
+			previousActiveMenu = activeMenu;
+	        activeMenu = NETWORKCLIENT;
+		}
+		
+//	    previousActiveMenu = activeMenu;
+//	    activeMenu = NETWORKCLIENT;
 	}
 }
 
@@ -783,10 +810,12 @@ void GUISystem::gameSetupMenu() // displays game setup menu
 		createGameSetupMenuGUI();
 		gameSetupMenuCreated = true;
 	}
+	
 	showGameSetupMenuWidgets();
 	menuActive = true;
 	previousActiveMenu = activeMenu;
 	activeMenu = GAMESETUP;
+
 }
 
 void GUISystem::clientSetup() // sets up the client connection

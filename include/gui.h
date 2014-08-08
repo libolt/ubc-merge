@@ -82,6 +82,7 @@ public:
     bool createInputSettingsGUI();	// creates GUI for input settings screen.
 	bool createAudioSettingsGUI();	// creates GUI for audo settings screen.
     bool createGameSetupMenuGUI();	// creates GUI for game setup menu screen.
+	bool createBackButtons(); // creates the back buttons for the menus
 	
     void menuReceiveKeyPress(std::string keyPressed); // processes key input
 	void processMainMenuKeyPress(std::string keyPressed); // processes main menu key input
@@ -187,7 +188,7 @@ private:
     bool inputSettingsMenuCreated;   // determines whether the input settings menu gui has been created
     bool audioSettingsMenuCreated;   // determines whether the audio settings menu gui has been created
     bool gameSetupMenuCreated;  // determines whether the game setup menu gui has been created
-	
+	bool backButtonsCreated; // determines the back buttons have been created
 	bool menuActive; // stores whether a menu is being diplayed
 
 	activeMenus activeMenu; // stores which menu is being displayed
