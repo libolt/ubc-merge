@@ -711,7 +711,7 @@ void GUISystem::processOptionsMenuKeyPress(std::string keyPressed) // processes 
         hideOptionsMenuWidgets();
         showInputMenuWidgets();
 		previousActiveMenu = activeMenu;
-        activeMenu = INPUT;
+        activeMenu = INPUTMENU;
     }
 	else if (keyPressed == "o")
     {

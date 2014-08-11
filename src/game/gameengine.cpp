@@ -250,28 +250,30 @@ void gameEngine::gameLoop()	// Main Game Loop
 	//		Ogre::WindowEventUtilities::messagePump();
 //		   exit(0);
 
-		   if (gameS->getGameType() == SINGLE)
-		   {
-//			   exit(0);
+	       if (gameS->getGameSetupComplete())   // checks to make sure game setup is complete before continuing
+	       {
+               if (gameS->getGameType() == SINGLE)
+               {
+    //			   exit(0);
 
-				if (!sceneCreated)
-				{
-					createScene = true;
-				}
+                    if (!sceneCreated)
+                    {
+                        createScene = true;
+                    }
 
-		   }
+               }
 
-		   else if (gameS->getGameType() == MULTI)
-		   {
-				if (network->getServerReceivedConnection() || network->getClientEstablishedConnection())	// checks if server and client are connected
-				{
-					if (!sceneCreated)
-					{
-						createScene = true;
-					}
-				}
-		   }
-
+               else if (gameS->getGameType() == MULTI)
+               {
+                    if (network->getServerReceivedConnection() || network->getClientEstablishedConnection())	// checks if server and client are connected
+                    {
+                        if (!sceneCreated)
+                        {
+                            createScene = true;
+                        }
+                    }
+               }
+	       }
 	    	if (createScene)	// checks if the scene should be created
 	    	{
 //	    		if (render->createScene())

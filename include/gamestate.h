@@ -52,9 +52,11 @@ class gameState
     virtual void setCourtStartPositions();	// sets the initial coordinates for the court(s).
     virtual void setHoopStartPositions();	// sets the initial coordinates for the hoop(s).
 
-	
+
     virtual gameTypes getGameType(); // retrieves the value of gameType
     virtual void setGameType(gameTypes type);	  // sets the value of gameType
+    bool getGameSetupComplete();    // retrieves the value of gameSetupComplete
+    void setGameSetupComplete(bool complete);   // sets the value of gameSetupComplete
     virtual bool getTipOffComplete();	// retrieves tipOffComplete value
     virtual void setTipOffComplete(bool complete);	// sets tipOffComplete value
     virtual bool getBallTipped();	// retrieves the value of the ballTipped variable
@@ -139,6 +141,7 @@ class gameState
     static gameState *pInstance;
 
     gameTypes gameType;	// Indicates whether a single or multi player game is being played.
+    bool gameSetupComplete; // indicates whether initial game setup is complete.
     quarters currentQuarter;    // defines which quarter the game is in.
 
     float gameTimeLeft; // Indicates the time left in the game

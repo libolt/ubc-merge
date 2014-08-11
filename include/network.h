@@ -30,6 +30,8 @@
 #include "OgreStringConverter.h"
 #include "Ogre.h"
 
+#include "enums.h"
+
 using namespace std;
 
 enum packetType { PLAYER, BALL, COURT };
@@ -120,8 +122,12 @@ class networkEngine
     ENetHost *server;
     ENetPacket *packet;
 
+    netGameTypes netGameType;   // stores what type of network game this instance is
+
+    // FiXME! deprecated in favor of netGameTypes
     bool isClient;	// stores whether or not this instance is the client
     bool isServer; // stores whethr or not this instance is the server
+
     bool serverSetupComplete;	// stores whether or not the server is setup and running
     bool clientEstablishedConnection;	// stores whether or not a connection from client to server was successful
     bool serverReceivedConnection;		// stores whether or not server received a client connection.

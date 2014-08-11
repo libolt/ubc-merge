@@ -56,6 +56,7 @@ gameState::gameState()
     teamWithBall = -1;
 
     gameType = NOGAME;
+    gameSetupComplete = false;
     tipOffComplete = false;
     ballTipped = false;
     ballTippedToTeam = -1;
@@ -79,6 +80,15 @@ gameTypes gameState::getGameType() // retrieves the value of gameType
 void gameState::setGameType(gameTypes type)	  // sets the value of gameType
 {
 	gameType = type;
+}
+
+bool gameState::getGameSetupComplete()    // retrieves the value of gameSetupComplete
+{
+    return (gameSetupComplete);
+}
+void gameState::setGameSetupComplete(bool complete)   // sets the value of gameSetupComplete
+{
+    gameSetupComplete = complete;
 }
 
 // gets and sets courtInstance std::vector

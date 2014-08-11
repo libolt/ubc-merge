@@ -24,11 +24,12 @@
 	enum inputMaps { INNO, INUP, INDOWN, INLEFT, INRIGHT, INUPLEFT, INUPRIGHT, INDOWNLEFT, INDOWNRIGHT, INSHOOTBLOCK, INPASSSTEAL, INQUIT }; // map of human player input
 	enum directions { UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT };	// direction objects are moving
 	enum gameTypes { NOGAME, SINGLE, MULTI }; // defines whether a game is single or multi player
+	enum netGameTypes { CLIENT, SERVER}; // defines which type of network game this instance is running
 	enum quarters { FIRST, SECOND, THIRD, FOURTH }; // defines the quarters within the game
 	enum courtSide_t {RIGHTSIDE, LEFTSIDE };	// defines which side of the court the offensive team is on
 
 	// GUI
-	enum activeMenus { MAIN, NETWORK, NETWORKCLIENT, OPTIONS, DISPLAY, INPUT, AUDIO, GAMESETUP }; // stores which menu is set to active
+	enum activeMenus { MAIN, NETWORK, NETWORKCLIENT, OPTIONS, DISPLAY, INPUTMENU, AUDIO, GAMESETUP }; // stores which menu is set to active
 	// offense / defense
 	enum playerDesignations { PG, SG, SF, PF, C }; // defines designations for each player position
 	enum directiveTypes { WAIT, FREELANCE}; // defines the type of directive a player has
