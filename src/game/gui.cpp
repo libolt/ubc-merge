@@ -56,12 +56,12 @@ GUISystem::GUISystem()
 	inputSettingsMenuCreated = false;
 	audioSettingsMenuCreated = false;
 	gameSetupMenuCreated = false;
-	
+
     menuActive = false;
-	
-	activeMenu = NULL;
-	previousActiveMenu = NULL;
-	
+
+	//activeMenu = NULL;
+	//previousActiveMenu = NULL;
+
 }
 
 GUISystem::~GUISystem()
@@ -245,7 +245,7 @@ bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup s
     menuActive = true;
 	previousActiveMenu = activeMenu;
 	activeMenu = NETWORK;
-	
+
 	return true;
 }
 
@@ -349,7 +349,7 @@ void GUISystem::startMultiGameButtonClicked(MyGUI::Widget *_sender)	// handles s
 void GUISystem::optionsButtonClicked(MyGUI::Widget *_sender)	// handles optionsButton click event
 {
     optionsMenu();
-	
+
 //	MyGUI::Widget *widget = MyGUI::InputManager::getInstance().getMouseFocusWidget();
 //	_sender->_get
 //	std::cout << "Button clicked is " << widget-> << std::endl;
@@ -409,27 +409,27 @@ void GUISystem::backNetworkSetupButtonClicked(MyGUI::Widget *_sender) // handles
 
 void GUISystem::displayButtonClicked(MyGUI::Widget *_sender) // handles didplayButton click event
 {
-	
+
 }
 
 void GUISystem::inputButtonClicked(MyGUI::Widget *_sender) // handles inputButton click event
 {
-	
+
 }
 
 void GUISystem::audioButtonClicked(MyGUI::Widget *_sender) // handles audioButton click event
 {
-	
+
 }
 
 void GUISystem::team0SelectButtonClicked(MyGUI::Widget *_sender) // handles team0SelectButton click event
 {
-	
+
 }
 
 void GUISystem::team1SelectButtonClicked(MyGUI::Widget *_sender) // handles team1SelectButton click event
 {
-	
+
 }
 
 void GUISystem::backNetworkClientButtonClicked(MyGUI::Widget *_sender) // handles backNetworkClientButton click event
@@ -501,29 +501,29 @@ void GUISystem::showOptionsMenuWidgets()  // shows all widgets tied to the Optio
 
 void GUISystem::hideDisplayMenuWidgets()	// hides all widgets tied to the Display Menu
 {
-	
+
 }
 void GUISystem::showDisplayMenuWidgets()  // shows all widgets tied to the Display Menu
 {
-	
+
 }
 
 void GUISystem::hideInputMenuWidgets()  // hides all widgets tied to the Input Menu
 {
-	
+
 }
 void GUISystem::showInputMenuWidgets()  // shows all widgets tied to the Input Menu
 {
-	
+
 }
 
 void GUISystem::hideAudioMenuWidgets()  // hides all widgets tied to the Audio Menu
 {
-	
+
 }
 void GUISystem::showAudioMenuWidgets()  // shows all widgets tied to the Main Menu
 {
-	
+
 }
 
 void GUISystem::hideGameSetupMenuWidgets()  // hides all widgets tied to the Game Setup Menu
@@ -547,7 +547,7 @@ void GUISystem::showGameSetupMenuWidgets()  // shows all widgets tied to the Gam
 	team1SelectBox->setVisible(true);
 	team0SelectButton->setVisible(true);
 	team1SelectButton->setVisible(true);
-	
+
 	if (previousActiveMenu == MAIN)
 	{
 	    backMainMenuButton->setVisible(true);
@@ -749,7 +749,7 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 			previousActiveMenu = activeMenu;
 	        activeMenu = NETWORKCLIENT;
 		}
-		
+
 //	    previousActiveMenu = activeMenu;
 //	    activeMenu = NETWORKCLIENT;
 	}
@@ -786,12 +786,12 @@ void GUISystem::startMultiPlayerGame() // starts multiplayer game
 void GUISystem::optionsMenu() // displays options menu
 {
 	hideMainMenuWidgets();
-	
+
 	if (!optionsMenuCreated)
 	{
 		createOptionsMenuGUI();
 		optionsMenuCreated = true;
-		
+
 	}
 	if (!networkSetupMenuCreated)
 	{
@@ -810,7 +810,7 @@ void GUISystem::gameSetupMenu() // displays game setup menu
 		createGameSetupMenuGUI();
 		gameSetupMenuCreated = true;
 	}
-	
+
 	showGameSetupMenuWidgets();
 	menuActive = true;
 	previousActiveMenu = activeMenu;
