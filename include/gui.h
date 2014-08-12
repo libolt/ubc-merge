@@ -172,6 +172,7 @@ private:
 	MyGUI::Button *audioButton;
 	MyGUI::Button *team0SelectButton;
 	MyGUI::Button *team1SelectButton;
+	MyGUI::Button *startGameButton;
 	MyGUI::Button *backNetworkClientButton;
     // text widgets
     MyGUI::EditBox *ipAddressBox;

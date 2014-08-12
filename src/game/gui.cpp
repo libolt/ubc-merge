@@ -325,6 +325,10 @@ bool GUISystem::createGameSetupMenuGUI()	// creates GUI for game setup menu scre
 	team1SelectButton->setVisible(false);
 	team1SelectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::team1SelectButtonClicked);
 
+	startGameButton = mGUI->findWidget<MyGUI::Button>("startGameButton"); // loads team 1 Button
+	startGameButton->setVisible(false);
+	startGameButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::team1SelectButtonClicked);
+
 	return (true);
 }
 
@@ -532,6 +536,7 @@ void GUISystem::hideGameSetupMenuWidgets()  // hides all widgets tied to the Gam
 	team1SelectBox->setVisible(false);
 	team0SelectButton->setVisible(false);
 	team1SelectButton->setVisible(false);
+	startGameButton->setVisible(false);
 	if (previousActiveMenu == MAIN)
 	{
         backMainMenuButton->setVisible(false);
@@ -547,7 +552,7 @@ void GUISystem::showGameSetupMenuWidgets()  // shows all widgets tied to the Gam
 	team1SelectBox->setVisible(true);
 	team0SelectButton->setVisible(true);
 	team1SelectButton->setVisible(true);
-
+    startGameButton->setVisible(true);
 	if (previousActiveMenu == MAIN)
 	{
 	    backMainMenuButton->setVisible(true);
@@ -622,7 +627,9 @@ void GUISystem::processNetworkMenuKeyPress(std::string keyPressed) // processes 
     }
     else if (keyPressed == "s")
     {
-        networkServer();
+	    hideNetworkSetupWidgets();
+		gameSetupMenu();
+ //       networkServer();
     }
     else
     {
@@ -827,13 +834,13 @@ void GUISystem::networkServer()  // sets up  game as a network server
     networkEngine * network = networkEngine::Instance();
     gameEngine * gameE = gameEngine::Instance();
     gameState *gameS = gameState::Instance();
-
+    
     gameS->setGameType(MULTI);
     hideNetworkSetupWidgets();  // Hides Network Setup Menu widgets
     menuActive = false;
     network->setIPAddress(ipAddressBox->getCaption());  // sets the neworkEngine's ipAddress string to that of the caption
-//    network->networkServer();
     network->serverSetup();
+	
 //    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scene
 
 }

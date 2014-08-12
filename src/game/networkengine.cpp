@@ -326,7 +326,7 @@ void networkEngine::networkClient()
 void networkEngine::serverSetup()
 {
     gameEngine *gameE = gameEngine::Instance();
-
+    
 /* Bind the server to the default localhost.     */
 /* A specific host address can be specified by   */
 /* enet_address_set_host (& address, "x.x.x.x"); */
@@ -338,6 +338,7 @@ void networkEngine::serverSetup()
 
 //	listenAddress.host = enet_address_set_host (& listenAddress, ipAddress.c_str());
     listenAddress.host = enet_address_set_host (& listenAddress, ENET_HOST_ANY);
+	
     /* Bind the server to port 1234. */
 	listenAddress.port = 1234;
 
