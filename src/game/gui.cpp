@@ -293,16 +293,38 @@ bool GUISystem::createBackButtons() // creates the back buttons for the menus
 
 bool GUISystem::createDisplaySettingsGUI()	// creates GUI for display settings screen.
 {
+	MyGUI::LayoutManager::getInstance().loadLayout("DispkaySetupMenu.layout");
+
+	changeResolutionButton = mGUI->findWidget<MyGUI::Button>("changeResolutionButton"); // loads team 1 Button
+	changeResolutionButton->setVisible(false);
+	changeResolutionButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
 	return (true);
 }
 
 bool GUISystem::createInputSettingsGUI()	// creates GUI for input settings screen.
 {
+	MyGUI::LayoutManager::getInstance().loadLayout("InputSetupMenu.layout");
+
+	changeInputTypeButton = mGUI->findWidget<MyGUI::Button>("changeInputTypeButton"); // loads team 1 Button
+	changeInputTypeButton->setVisible(false);
+	changeInputTypeButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backNetworkClientButtonClicked);
+
 	return (true);
 }
 
 bool GUISystem::createAudioSettingsGUI()	// creates GUI for audo settings screen.
 {
+	MyGUI::LayoutManager::getInstance().loadLayout("AudioSetupMenu.layout");
+
+	enableAudioButton = mGUI->findWidget<MyGUI::Button>("enableAudioButton"); // loads team 1 Button
+	enableAudioButton->setVisible(false);
+	enableAudioButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::enableAudioButtonClicked);
+
+	disableAudioButton = mGUI->findWidget<MyGUI::Button>("disableAudioButton"); // loads team 1 Button
+	disableAudioButton->setVisible(false);
+	disableAudioButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::disableAudioButtonClicked);
+
 	return (true);
 }
 
@@ -537,6 +559,8 @@ void GUISystem::hideGameSetupMenuWidgets()  // hides all widgets tied to the Gam
 	team0SelectButton->setVisible(false);
 	team1SelectButton->setVisible(false);
 	startGameButton->setVisible(false);
+	logMsg("previousActiveMenu = " +Ogre::StringConverter::toString(previousActiveMenu));
+	
 	if (previousActiveMenu == MAIN)
 	{
         backMainMenuButton->setVisible(false);
@@ -548,6 +572,7 @@ void GUISystem::hideGameSetupMenuWidgets()  // hides all widgets tied to the Gam
 	else if (previousActiveMenu == NETWORK)
 	{
 	    backNetworkSetupButton->setVisible(false);
+	
 	}
 }
 void GUISystem::showGameSetupMenuWidgets()  // shows all widgets tied to the Game Setup Menu
@@ -598,14 +623,17 @@ void GUISystem::processMainMenuKeyPress(std::string keyPressed) // processes mai
 {
 	if (keyPressed == "s")
 	{
+		hideMainMenuWidgets();	// Hides the widgets from the main menu
 		startSinglePlayerGame();
 	}
 	else if (keyPressed == "m")
 	{
+		hideMainMenuWidgets();	// Hides the widgets from the main menu
 		startMultiPlayerGame();
 	}
 	else if (keyPressed == "o")
 	{
+		hideMainMenuWidgets();	// Hides the widgets from the main menu
         optionsMenu();
 	}
 	else if (keyPressed == "e")
@@ -701,7 +729,9 @@ void GUISystem::processNetworkClientMenuKeyPress(std::string keyPressed) // proc
 	else if (keyPressed == "b")
     {
         hideNetworkClientSetupWidgets();
-//        showNetworkSetupWidgets();
+        showNetworkSetupWidgets();
+		previousActiveMenu = activeMenu;
+		activeMenu = NETWORK;
         startMultiPlayerGame();
     }
 
@@ -790,14 +820,18 @@ void GUISystem::startSinglePlayerGame() // starts single player game
 
     gameS->setGameType(SINGLE);
 	hideMainMenuWidgets();	// Hides the widgets from the main menu
+	previousActiveMenu = activeMenu;
+	activeMenu = GAMESETUP,
     gameSetupMenu();
 //	menuActive = false;
 }
 
 void GUISystem::startMultiPlayerGame() // starts multiplayer game
 {
+    menuActive = true;
+	previousActiveMenu = activeMenu;
+    activeMenu = NETWORK;
 
-	hideMainMenuWidgets();	// Hides the widgets from the main menu
 	if (networkSetupMenuCreated)
 	{
 	    showNetworkSetupWidgets();
@@ -807,9 +841,7 @@ void GUISystem::startMultiPlayerGame() // starts multiplayer game
 	    createNetworkSetupGUI();	// creates the GUI for the Network Setup Screen
 	    showNetworkSetupWidgets();
 	}
-    menuActive = true;
-	previousActiveMenu = activeMenu;
-    activeMenu = NETWORK;
+    
 }
 
 void GUISystem::optionsMenu() // displays options menu
@@ -842,8 +874,8 @@ void GUISystem::gameSetupMenu() // displays game setup menu
 
 	showGameSetupMenuWidgets();
 	menuActive = true;
-	previousActiveMenu = activeMenu;
-	activeMenu = GAMESETUP;
+//	previousActiveMenu = activeMenu;
+//	activeMenu = GAMESETUP;
 
 }
 
