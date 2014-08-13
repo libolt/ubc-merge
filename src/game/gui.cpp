@@ -545,6 +545,10 @@ void GUISystem::hideGameSetupMenuWidgets()  // hides all widgets tied to the Gam
 	{
         backNetworkClientButton->setVisible(false);
 	}
+	else if (previousActiveMenu == NETWORK)
+	{
+	    backNetworkSetupButton->setVisible(false);
+	}
 }
 void GUISystem::showGameSetupMenuWidgets()  // shows all widgets tied to the Game Setup Menu
 {
@@ -560,6 +564,10 @@ void GUISystem::showGameSetupMenuWidgets()  // shows all widgets tied to the Gam
 	else if (previousActiveMenu == NETWORKCLIENT)
 	{
         backNetworkClientButton->setVisible(true);
+	}
+	else if (previousActiveMenu == NETWORK)
+	{
+	    backNetworkSetupButton->setVisible(true);
 	}
 }
 
@@ -629,6 +637,8 @@ void GUISystem::processNetworkMenuKeyPress(std::string keyPressed) // processes 
     {
 	    hideNetworkSetupWidgets();
 		gameSetupMenu();
+		previousActiveMenu = activeMenu;
+		activeMenu = GAMESETUP;
  //       networkServer();
     }
     else
@@ -746,6 +756,7 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 	    hideGameSetupMenuWidgets();
 		if (previousActiveMenu == MAIN)
 		{
+		    backMainMenuButton->setVisible(false);
 			showMainMenuWidgets();
 			previousActiveMenu = activeMenu;
 	        activeMenu = MAIN;
@@ -756,9 +767,20 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 			previousActiveMenu = activeMenu;
 	        activeMenu = NETWORKCLIENT;
 		}
+		else if (previousActiveMenu == NETWORK)
+		{
+		    showNetworkSetupWidgets();
+		    previousActiveMenu = activeMenu;
+		    activeMenu = NETWORK;
+		}
 
 //	    previousActiveMenu = activeMenu;
 //	    activeMenu = NETWORKCLIENT;
+	}
+	else if (keyPressed == "s")
+	{
+	    hideGameSetupMenuWidgets();
+	    networkServer();
 	}
 }
 
@@ -834,13 +856,13 @@ void GUISystem::networkServer()  // sets up  game as a network server
     networkEngine * network = networkEngine::Instance();
     gameEngine * gameE = gameEngine::Instance();
     gameState *gameS = gameState::Instance();
-    
+
     gameS->setGameType(MULTI);
-    hideNetworkSetupWidgets();  // Hides Network Setup Menu widgets
+ //   hideNetworkSetupWidgets();  // Hides Network Setup Menu widgets
     menuActive = false;
     network->setIPAddress(ipAddressBox->getCaption());  // sets the neworkEngine's ipAddress string to that of the caption
     network->serverSetup();
-	
+
 //    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scene
 
 }
