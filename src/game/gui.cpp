@@ -308,7 +308,7 @@ bool GUISystem::createInputSettingsGUI()	// creates GUI for input settings scree
 
 	changeInputTypeButton = mGUI->findWidget<MyGUI::Button>("changeInputTypeButton"); // loads team 1 Button
 	changeInputTypeButton->setVisible(false);
-	changeInputTypeButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backNetworkClientButtonClicked);
+	changeInputTypeButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeInputTypeButtonClicked);
 
 	return (true);
 }
@@ -448,6 +448,26 @@ void GUISystem::audioButtonClicked(MyGUI::Widget *_sender) // handles audioButto
 
 }
 
+void GUISystem::changeResolutionButtonClicked(MyGUI::Widget *_sender) // handles changeResolutionButton click event
+{
+
+}
+
+void GUISystem::changeInputTypeButtonClicked(MyGUI::Widget *_sender) // handles changeInputTypeButton click event
+{
+
+}
+
+void GUISystem::enableAudioButtonClicked(MyGUI::Widget *_sender) // handles eneableAudioButton click event
+{
+
+}
+
+void GUISystem::disableAudioButtonClicked(MyGUI::Widget *_sender) // handles eneableAudioButton click event
+{
+
+}
+
 void GUISystem::team0SelectButtonClicked(MyGUI::Widget *_sender) // handles team0SelectButton click event
 {
 
@@ -527,29 +547,32 @@ void GUISystem::showOptionsMenuWidgets()  // shows all widgets tied to the Optio
 
 void GUISystem::hideDisplayMenuWidgets()	// hides all widgets tied to the Display Menu
 {
+    changeResolutionButton->setVisible(false);
 
 }
 void GUISystem::showDisplayMenuWidgets()  // shows all widgets tied to the Display Menu
 {
-
+    changeResolutionButton->setVisible(true);
 }
 
 void GUISystem::hideInputMenuWidgets()  // hides all widgets tied to the Input Menu
 {
-
+    changeInputTypeButton->setVisible(false);
 }
 void GUISystem::showInputMenuWidgets()  // shows all widgets tied to the Input Menu
 {
-
+    changeInputTypeButton->setVisible(true);
 }
 
 void GUISystem::hideAudioMenuWidgets()  // hides all widgets tied to the Audio Menu
 {
-
+    enableAudioButton->setVisible(false);
+    disableAudioButton->setVisible(false);
 }
 void GUISystem::showAudioMenuWidgets()  // shows all widgets tied to the Main Menu
 {
-
+    enableAudioButton->setVisible(true);
+    disableAudioButton->setVisible(true);
 }
 
 void GUISystem::hideGameSetupMenuWidgets()  // hides all widgets tied to the Game Setup Menu
@@ -560,7 +583,7 @@ void GUISystem::hideGameSetupMenuWidgets()  // hides all widgets tied to the Gam
 	team1SelectButton->setVisible(false);
 	startGameButton->setVisible(false);
 	logMsg("previousActiveMenu = " +Ogre::StringConverter::toString(previousActiveMenu));
-	
+
 	if (previousActiveMenu == MAIN)
 	{
         backMainMenuButton->setVisible(false);
@@ -572,7 +595,7 @@ void GUISystem::hideGameSetupMenuWidgets()  // hides all widgets tied to the Gam
 	else if (previousActiveMenu == NETWORK)
 	{
 	    backNetworkSetupButton->setVisible(false);
-	
+
 	}
 }
 void GUISystem::showGameSetupMenuWidgets()  // shows all widgets tied to the Game Setup Menu
@@ -612,6 +635,14 @@ void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key inp
 		case OPTIONS:
 			processOptionsMenuKeyPress(keyPressed);
 			break;
+		case DISPLAY:
+		    processDisplayMenuKeyPress(keyPressed);
+		    break;
+		case INPUTMENU:
+		    processInputMenuKeyPress(keyPressed);
+		    break;
+		case AUDIO:
+		    processAudioMenuKeyPress(keyPressed);
 		case GAMESETUP:
 			processGameSetupMenuKeyPress(keyPressed);
 		default:
@@ -773,6 +804,21 @@ void GUISystem::processOptionsMenuKeyPress(std::string keyPressed) // processes 
     }
 }
 
+void GUISystem::processDisplayMenuKeyPress(std::string keyPressed) // processes display settings menu key input
+{
+
+}
+
+void GUISystem::processInputMenuKeyPress(std::string keyPressed) // processes input settings menu key input
+{
+
+}
+
+void GUISystem::processAudioMenuKeyPress(std::string keyPressed) // processes audio settings menu key input
+{
+
+}
+
 void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processes game setup menu key input
 {
 	if (keyPressed == "a")
@@ -841,7 +887,7 @@ void GUISystem::startMultiPlayerGame() // starts multiplayer game
 	    createNetworkSetupGUI();	// creates the GUI for the Network Setup Screen
 	    showNetworkSetupWidgets();
 	}
-    
+
 }
 
 void GUISystem::optionsMenu() // displays options menu

@@ -83,7 +83,7 @@ public:
 	bool createAudioSettingsGUI();	// creates GUI for audo settings screen.
     bool createGameSetupMenuGUI();	// creates GUI for game setup menu screen.
 	bool createBackButtons(); // creates the back buttons for the menus
-	
+
     void menuReceiveKeyPress(std::string keyPressed); // processes key input
 	void processMainMenuKeyPress(std::string keyPressed); // processes main menu key input
     void processNetworkMenuKeyPress(std::string keyPressed); // processes network menu key input
@@ -94,7 +94,7 @@ public:
     void processAudioMenuKeyPress(std::string keyPressed); // processes audio settings menu key input
     void processGameSetupMenuKeyPress(std::string keyPressed); // processes game setup menu key input
 
-	
+
 	void startSinglePlayerGame(); // starts single player game
 	void startMultiPlayerGame(); // starts multiplayer game
     void optionsMenu(); // displays options menu
@@ -122,11 +122,15 @@ protected:
     void displayButtonClicked(MyGUI::Widget *_sender); // handles didplayButton click event
     void inputButtonClicked(MyGUI::Widget *_sender); // handles inputButton click event
     void audioButtonClicked(MyGUI::Widget *_sender); // handles audioButton click event
+    void changeResolutionButtonClicked(MyGUI::Widget *_sender); // handles changeResolutionButton click event
+    void changeInputTypeButtonClicked(MyGUI::Widget *_sender); // handles changeInputTypeButton click event
+    void enableAudioButtonClicked(MyGUI::Widget *_sender); // handles eneableAudioButton click event
+    void disableAudioButtonClicked(MyGUI::Widget *_sender); // handles eneableAudioButton click event
     void team0SelectButtonClicked(MyGUI::Widget *_sender); // handles team0SelectButton click event
     void team1SelectButtonClicked(MyGUI::Widget *_sender); // handles team1SelectButton click event
     void backNetworkClientButtonClicked(MyGUI::Widget *_sender); // handles backNetworkClientButton click event
 
-	
+
     void hideMainMenuWidgets();	// hides all widgets tied to the Main Menu
     void showMainMenuWidgets(); // shows all widgets tied to the Main Menu
 
@@ -174,13 +178,18 @@ private:
 	MyGUI::Button *team1SelectButton;
 	MyGUI::Button *startGameButton;
 	MyGUI::Button *backNetworkClientButton;
+	MyGUI::Button *changeResolutionButton;
+	MyGUI::Button *changeInputTypeButton;
+	MyGUI::Button *enableAudioButton;
+	MyGUI::Button *disableAudioButton;
+
     // text widgets
     MyGUI::EditBox *ipAddressBox;
 
 	// listbox widgets
 	MyGUI::ListBox *team0SelectBox;
 	MyGUI::ListBox *team1SelectBox;
-	
+
 	// booleans
     bool mainMenuCreated;   // determines whether the main menu gui has been created
     bool networkSetupMenuCreated;   // determines whether the network setup gui has been created
