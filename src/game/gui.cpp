@@ -543,6 +543,7 @@ void GUISystem::showNetworkSetupWidgets()     // shows all widgets tied to the N
 //    ipAddressBox->setVisible(true);
     serverButton->setVisible(true);
     clientButton->setVisible(true);
+    backMainMenuButton->setPosition(362, 250);
 	backMainMenuButton->setVisible(true);
 }
 
@@ -638,6 +639,7 @@ void GUISystem::showGameSetupMenuWidgets()  // shows all widgets tied to the Gam
     startGameButton->setVisible(true);
 	if (previousActiveMenu == MAIN)
 	{
+	    backMainMenuButton->setPosition(362, 250);
 	    backMainMenuButton->setVisible(true);
     }
 	else if (previousActiveMenu == NETWORKCLIENT)
