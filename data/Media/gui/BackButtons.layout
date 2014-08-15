@@ -9,5 +9,8 @@
     <Widget type="Button" skin="Button" position="200 400 300 26" align="Default" layer="Main" name="backNetworkClientButton">
             <Property key="Caption" value="(B)ack to Network Client Setup"/>
     </Widget>
+    <Widget type="Button" skin="Button" position="200 400 300 26" align="Default" layer="Main" name="backOptionsMenuButton">
+            <Property key="Caption" value="(B)ack to Options Menu"/>
+    </Widget>
     <CodeGeneratorSettings/>
 </MyGUI>
