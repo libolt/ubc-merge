@@ -47,20 +47,23 @@ public:
     bool getMainMenuCreated();   // retrieves the value of mainMenuCreated
     void setMainMenuCreated(bool created); // sets the value of mainMenuCreated
 
+	bool getBackButtonsCreated(); // retrieves the value of backButtonsCreated
+	void setBackButtonsCreated(bool created); // sets the value of backButtonsCreated
+	
     bool getNetworkSetupMenuCreated();  // retrieves the value of networkSetupMenuCreated
     void setNetworkSetupMenuCreated(bool created);  // sets the value of networkSetupMenuCreated
 
 	bool getOptionsMenuCreated();  // retrieves the value of optionsMenuCreated
     void setOptionsMenuCreated(bool created);  // sets the value of optionsMenuCreated
 
-	bool getDisplaySettingsMenuCreated();  // retrieves the value of displaySettingsMenuCreated
-    void setDisplaySettingsMenuCreated(bool created);  // sets the value of displaySettingsMenuCreated
+	bool getDisplaySetupMenuCreated();  // retrieves the value of displaySettingsMenuCreated
+    void setDisplaySetupMenuCreated(bool created);  // sets the value of displaySettingsMenuCreated
 
-	bool getInputSettingsMenuCreated();  // retrieves the value of inputSettingsMenuCreated
-    void setInputSettingsMenuCreated(bool created);  // sets the value of inputSettingsMenuCreated
+	bool getInputSetupMenuCreated();  // retrieves the value of inputSettingsMenuCreated
+    void setInputSetupMenuCreated(bool created);  // sets the value of inputSettingsMenuCreated
 
-	bool getAuduoSettingsMenuCreated();  // retrieves the value of audioSettingsMenuCreated
-    void setAudioSettingsMenuCreated(bool created);  // sets the value of audioSettingsMenuCreated
+	bool getAuduoSetupMenuCreated();  // retrieves the value of audioSettingsMenuCreated
+    void setAudioSetupMenuCreated(bool created);  // sets the value of audioSettingsMenuCreated
 
 	bool getGameSetupMenuCreated();  // retrieves the value of gameSetupMenuCreated
     void setGameSetupMenuCreated(bool created);  // sets the value of gameSetupMenuCreated
@@ -78,9 +81,9 @@ public:
     bool createMainMenuGUI(); // creates GUI gor main menu screen.
     bool createNetworkSetupGUI();	// creates GUI for network setup screen.
 	bool createOptionsMenuGUI();	// creates GUI for options menu screen.
-    bool createDisplaySettingsGUI();	// creates GUI for display settings screen.
-    bool createInputSettingsGUI();	// creates GUI for input settings screen.
-	bool createAudioSettingsGUI();	// creates GUI for audo settings screen.
+    bool createDisplaySetupGUI();	// creates GUI for display settings screen.
+    bool createInputSetupGUI();	// creates GUI for input settings screen.
+	bool createAudioSetupGUI();	// creates GUI for audo settings screen.
     bool createGameSetupMenuGUI();	// creates GUI for game setup menu screen.
 	bool createBackButtons(); // creates the back buttons for the menus
 
@@ -129,8 +132,9 @@ protected:
     void team0SelectButtonClicked(MyGUI::Widget *_sender); // handles team0SelectButton click event
     void team1SelectButtonClicked(MyGUI::Widget *_sender); // handles team1SelectButton click event
     void backNetworkClientButtonClicked(MyGUI::Widget *_sender); // handles backNetworkClientButton click event
+    void backOptionsMenuButtonClicked(MyGUI::Widget *_sender); // handles backOptionsMenuButton click event
 
-
+	
     void hideMainMenuWidgets();	// hides all widgets tied to the Main Menu
     void showMainMenuWidgets(); // shows all widgets tied to the Main Menu
 
@@ -182,7 +186,8 @@ private:
 	MyGUI::Button *changeInputTypeButton;
 	MyGUI::Button *enableAudioButton;
 	MyGUI::Button *disableAudioButton;
-
+    MyGUI::Button *backOptionsMenuButton;
+	
     // text widgets
     MyGUI::EditBox *ipAddressBox;
 
@@ -194,9 +199,9 @@ private:
     bool mainMenuCreated;   // determines whether the main menu gui has been created
     bool networkSetupMenuCreated;   // determines whether the network setup gui has been created
     bool optionsMenuCreated;   // determines whether the options menu gui has been created
-    bool displaySettingsMenuCreated;   // determines whether the display settings menu gui has been created
-    bool inputSettingsMenuCreated;   // determines whether the input settings menu gui has been created
-    bool audioSettingsMenuCreated;   // determines whether the audio settings menu gui has been created
+    bool displaySetupMenuCreated;   // determines whether the display settings menu gui has been created
+    bool inputSetupMenuCreated;   // determines whether the input settings menu gui has been created
+    bool audioSetupMenuCreated;   // determines whether the audio settings menu gui has been created
     bool gameSetupMenuCreated;  // determines whether the game setup menu gui has been created
 	bool backButtonsCreated; // determines the back buttons have been created
 	bool menuActive; // stores whether a menu is being diplayed
