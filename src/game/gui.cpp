@@ -521,6 +521,7 @@ void GUISystem::hideMainMenuWidgets()	// hides the widgets tied to the Main Menu
 	startMultiGameButton->setVisible(false);
 	optionsButton->setVisible(false);
 	exitButton->setVisible(false);
+	startSingleGameButton->setStateSelected(false);
 }
 void GUISystem::showMainMenuWidgets()         // shows all widgets tied to the Main Menu
 {
@@ -813,7 +814,7 @@ void GUISystem::processOptionsMenuKeyPress(std::string keyPressed) // processes 
     else if (keyPressed == "b")
     {
         hideOptionsMenuWidgets();
-        showMainMenuWidgets();
+//        showMainMenuWidgets();
 		previousActiveMenu = activeMenu;
         activeMenu = MAIN;
     }
