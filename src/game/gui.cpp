@@ -22,8 +22,10 @@
 #include "gui.h"
 #include "gameengine.h"
 #include "gamestate.h"
+#include "load.h"
 #include "logging.h"
 #include "network.h"
+#include "teamdata.h"
 
 #ifdef __ANDROID__
 #include "android-config.h"
@@ -353,13 +355,29 @@ bool GUISystem::createAudioSetupGUI()	// creates GUI for audo settings screen.
 
 bool GUISystem::createGameSetupMenuGUI()	// creates GUI for game setup menu screen.
 {
+    gameState *gameS = gameState::Instance();
+    loader *load = loader::Instance();
+
+    load->loadTeams();
+    std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
+
 	MyGUI::LayoutManager::getInstance().loadLayout("GameSetupMenu.layout");
 
 	team0SelectBox = mGUI->findWidget<MyGUI::ListBox>("team0SelectBox"); // loads team 0 ListBox
 	team0SelectBox->setVisible(false);
 
-	team1SelectBox = mGUI->findWidget<MyGUI::ListBox>("team1SelectBox"); // loads team 1 ListBox
-	team1SelectBox->setVisible(false);
+    team1SelectBox = mGUI->findWidget<MyGUI::ListBox>("team1SelectBox"); // loads team 1 ListBox
+    team1SelectBox->setVisible(false);
+
+	logMsg(Ogre::StringConverter::toString(teamDataInstance.size()));
+
+	for (int x=0;x<teamDataInstance.size(); ++x)
+	{
+	    std::string teamName = teamDataInstance[x].getCity() + " " +teamDataInstance[x].getName();
+
+	    team0SelectBox->addItem(teamName);
+	    team1SelectBox->addItem(teamName);
+	}
 
 	team0SelectButton = mGUI->findWidget<MyGUI::Button>("team0SelectButton"); // loads team 0 Select Button
 	team0SelectButton->setVisible(false);

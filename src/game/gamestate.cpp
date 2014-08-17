@@ -494,7 +494,7 @@ bool gameState::setupState()
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //	exit(0);
     logMsg("Setting up state!");
-    load->loadTeams();  // loads teams from XML files
+ //   load->loadTeams();  // loads teams from XML files
 //#else
     load->loadPlayers();    // loads players from XML files
 
