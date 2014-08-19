@@ -892,6 +892,7 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
     {
 		MyGUI::InputManager::getInstance().setKeyFocusWidget(team1SelectBox);
 		gameSetupMenuAwaySelected = true;
+		gameSetupMenuHomeSelected = false;
 /*		logMsg(Ogre::StringConverter::toString(team1SelectBox->getIndexSelected()));
 
 		logMsg(team1SelectBox->getItemNameAt(team1SelectBox->getIndexSelected()));
@@ -904,6 +905,7 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
     {
 		MyGUI::InputManager::getInstance().setKeyFocusWidget(team0SelectBox);
         gameSetupMenuHomeSelected = true;
+		gameSetupMenuAwaySelected = false;
 	}
 	else if (keyPressed == "b")
     {
@@ -978,29 +980,30 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 		if (gameSetupMenuAwaySelected)
 		{
 			int x = team1SelectBox->getIndexSelected() -1;
-			if (x > 0)
+			if (x < 0)
 			{
-			    team0SelectBox->setIndexSelected(x);
-	            team0SelectBox->beginToItemAt(x);
+			    team1SelectBox->setIndexSelected(teamDataInstance.size() -1);
+	            team1SelectBox->beginToItemAt(teamDataInstance.size() -1);
 			}
 			else
 			{
-				team0SelectBox->setIndexSelected(teamDataInstance.size() -1);
-	            team0SelectBox->beginToItemAt(teamDataInstance.size() -1);
+				//exit(0);
+				team1SelectBox->setIndexSelected(x);
+	            team1SelectBox->beginToItemAt(x);
 			}
 		}
 		else if (gameSetupMenuHomeSelected)
 		{
 			int x = team0SelectBox->getIndexSelected() -1;
-			if (x > 0)
+			if (x < 0)
 			{
-			    team0SelectBox->setIndexSelected(x);
-	            team0SelectBox->beginToItemAt(x);
+			    team0SelectBox->setIndexSelected(teamDataInstance.size() -1);
+	            team0SelectBox->beginToItemAt(teamDataInstance.size() -1);
 			}
 			else
 			{
-				team0SelectBox->setIndexSelected(teamDataInstance.size() -1);
-	            team0SelectBox->beginToItemAt(teamDataInstance.size() -1);
+				team0SelectBox->setIndexSelected(x);
+	            team0SelectBox->beginToItemAt(x);
 			}
 		}
 		else
