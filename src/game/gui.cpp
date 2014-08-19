@@ -19,7 +19,7 @@
  ***************************************************************************/
 
 
-#include "gui.h"
+#include "gui.h"a
 #include "gameengine.h"
 #include "gamestate.h"
 #include "load.h"
@@ -882,7 +882,9 @@ void GUISystem::processAudioMenuKeyPress(std::string keyPressed) // processes au
 }
 
 void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processes game setup menu key input
-{
+{ 
+    gameState *gameS = gameState::Instance();
+	
 	if (keyPressed == "a")
     {
 	}
@@ -918,7 +920,9 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 	else if (keyPressed == "s")
 	{
 	    hideGameSetupMenuWidgets();
-	    networkServer();
+		menuActive = false;
+		gameS->setGameSetupComplete(true);
+//	    networkServer();
 	}
 }
 
