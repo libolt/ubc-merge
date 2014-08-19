@@ -205,7 +205,9 @@ private:
     bool gameSetupMenuCreated;  // determines whether the game setup menu gui has been created
 	bool backButtonsCreated; // determines the back buttons have been created
 	bool menuActive; // stores whether a menu is being diplayed
-
+    bool gameSetupMenuAwaySelected; // determines whether the away team listbox is selected;
+	bool gameSetupMenuHomeSelected; // determines whether the home team listbox is selected;
+	
 	activeMenus activeMenu; // stores which menu is being displayed
 	activeMenus previousActiveMenu; // stores which menu was last displayed
 };

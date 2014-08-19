@@ -58,7 +58,8 @@ GUISystem::GUISystem()
 	inputSetupMenuCreated = false;
 	audioSetupMenuCreated = false;
 	gameSetupMenuCreated = false;
-
+    gameSetupMenuAwaySelected = false;
+	gameSetupMenuHomeSelected = false;
     menuActive = false;
 
 	//activeMenu = NULL;
@@ -378,7 +379,9 @@ bool GUISystem::createGameSetupMenuGUI()	// creates GUI for game setup menu scre
 	    team0SelectBox->addItem(teamName);
 	    team1SelectBox->addItem(teamName);
 	}
-
+    team0SelectBox->setIndexSelected(0);
+	team1SelectBox->setIndexSelected(0);
+	team1SelectBox->beginToItemAt(1);
 	team0SelectButton = mGUI->findWidget<MyGUI::Button>("team0SelectButton"); // loads team 0 Select Button
 	team0SelectButton->setVisible(false);
 	team0SelectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::team0SelectButtonClicked);
@@ -884,12 +887,23 @@ void GUISystem::processAudioMenuKeyPress(std::string keyPressed) // processes au
 void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processes game setup menu key input
 { 
     gameState *gameS = gameState::Instance();
-	
-	if (keyPressed == "a")
+	std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
+	if (keyPressed == "a" && !gameSetupMenuAwaySelected)
     {
+		MyGUI::InputManager::getInstance().setKeyFocusWidget(team1SelectBox);
+		gameSetupMenuAwaySelected = true;
+/*		logMsg(Ogre::StringConverter::toString(team1SelectBox->getIndexSelected()));
+
+		logMsg(team1SelectBox->getItemNameAt(team1SelectBox->getIndexSelected()));
+        team1SelectBox->setIndexSelected(0);
+	team1SelectBox->beginToItemAt(1);
+		exit(0);
+*/
 	}
-	else if (keyPressed == "h")
+	else if (keyPressed == "h" && !gameSetupMenuHomeSelected)
     {
+		MyGUI::InputManager::getInstance().setKeyFocusWidget(team0SelectBox);
+        gameSetupMenuHomeSelected = true;
 	}
 	else if (keyPressed == "b")
     {
@@ -923,6 +937,76 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 		menuActive = false;
 		gameS->setGameSetupComplete(true);
 //	    networkServer();
+	}
+	else if (keyPressed == "x")
+	{
+		if (gameSetupMenuAwaySelected)
+		{
+			int x = team1SelectBox->getIndexSelected() +1;
+			if (x < teamDataInstance.size())
+			{
+			    team1SelectBox->setIndexSelected(x);
+	            team1SelectBox->beginToItemAt(x);
+			}
+			else
+			{
+				team1SelectBox->setIndexSelected(0);
+	            team1SelectBox->beginToItemAt(0);
+			}
+		}
+		else if (gameSetupMenuHomeSelected)
+		{
+			int x = team0SelectBox->getIndexSelected() +1;
+			if (x < teamDataInstance.size())
+			{
+			    team0SelectBox->setIndexSelected(x);
+	            team0SelectBox->beginToItemAt(x);
+			}
+			else
+			{
+				team0SelectBox->setIndexSelected(0);
+	            team0SelectBox->beginToItemAt(0);
+			}
+		}
+		else
+		{
+			
+		}
+	}
+	else if (keyPressed == "z")
+	{
+		if (gameSetupMenuAwaySelected)
+		{
+			int x = team1SelectBox->getIndexSelected() -1;
+			if (x > 0)
+			{
+			    team0SelectBox->setIndexSelected(x);
+	            team0SelectBox->beginToItemAt(x);
+			}
+			else
+			{
+				team0SelectBox->setIndexSelected(teamDataInstance.size() -1);
+	            team0SelectBox->beginToItemAt(teamDataInstance.size() -1);
+			}
+		}
+		else if (gameSetupMenuHomeSelected)
+		{
+			int x = team0SelectBox->getIndexSelected() -1;
+			if (x > 0)
+			{
+			    team0SelectBox->setIndexSelected(x);
+	            team0SelectBox->beginToItemAt(x);
+			}
+			else
+			{
+				team0SelectBox->setIndexSelected(teamDataInstance.size() -1);
+	            team0SelectBox->beginToItemAt(teamDataInstance.size() -1);
+			}
+		}
+		else
+		{
+			
+		}
 	}
 }
 
