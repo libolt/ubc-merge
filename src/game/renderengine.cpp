@@ -107,6 +107,15 @@ void renderEngine::setMWindow(RenderWindow *window)
 	mWindow = window;
 }
 
+Ogre::Viewport *renderEngine::getViewPort() // retrieves the value of viewPort
+{
+	return (viewPort);
+}
+void renderEngine::setViewPort(Ogre::Viewport *vp) // sets the value of viewPort
+{
+	viewPort = vp;
+}
+
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 
 AAssetManager *renderEngine::getMAssetMgr()

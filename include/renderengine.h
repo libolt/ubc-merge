@@ -71,6 +71,9 @@ class renderEngine
     virtual RenderWindow *getMWindow();
     void setMWindow(RenderWindow *window);
 
+	Ogre::Viewport *getViewPort(); // retrieves the value of viewPort
+	void setViewPort(Ogre::Viewport *vp); // sets the value of viewPort
+	
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	Ogre::DataStreamPtr openAPKFile(const Ogre::String& fileName);
 
