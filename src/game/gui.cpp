@@ -25,6 +25,7 @@
 #include "load.h"
 #include "logging.h"
 #include "network.h"
+#include "renderengine.h"
 #include "teamdata.h"
 
 #ifdef __ANDROID__
@@ -199,7 +200,9 @@ bool GUISystem::initMyGUI()
 
 bool GUISystem::createMainMenuGUI()
 {
-
+    renderEngine *renderE = renderEngine::Instance();
+	Ogre::Viewport *viewPort = renderE->getViewPort();
+	
 	logMsg("Loading MainMenu layout");
 	MyGUI::LayoutManager::getInstance().loadLayout("MainMenu.layout");
 	logMsg("MainMenu layout loaded");
@@ -209,20 +212,28 @@ bool GUISystem::createMainMenuGUI()
 	startSingleGameButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::startSingleGameButtonClicked);
     startSingleGameButton->setStateSelected(true);
 	MyGUI::InputManager::getInstance().setKeyFocusWidget(startSingleGameButton);
-
+    startSingleGameButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.1 *viewPort->getActualHeight()) );
+	startSingleGameButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	
 	startMultiGameButton = mGUI->findWidget<MyGUI::Button>("startMultiGameButton");
 	startMultiGameButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::startMultiGameButtonClicked);
-
+    startMultiGameButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.14 *viewPort->getActualHeight()) );
+	startMultiGameButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	
 //	optionsButton = mGUI->createWidget<MyGUI::Button>("Button", 362, 125, 300, 26, MyGUI::Align::Default, "Main");
 //	optionsButton->setCaption("Options");
 	optionsButton = mGUI->findWidget<MyGUI::Button>("optionsButton");
 	optionsButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::optionsButtonClicked);
-
+    optionsButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.18 *viewPort->getActualHeight()) );
+	optionsButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	
 //	exitButton = mGUI->createWidget<MyGUI::Button>("Button", 362, 150, 300, 26, MyGUI::Align::Default, "Main");
 //	exitButton->setCaption("Exit");
 	exitButton = mGUI->findWidget<MyGUI::Button>("exitButton");
 	exitButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::exitButtonClicked);
-
+    exitButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.22 *viewPort->getActualHeight()) );
+	exitButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	
 	mainMenuCreated = true;
 	menuActive = true;
 	activeMenu = MAIN;
@@ -236,23 +247,34 @@ bool GUISystem::createMainMenuGUI()
 
 bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup screen
 {
+	renderEngine *renderE = renderEngine::Instance();
+	Ogre::Viewport *viewPort = renderE->getViewPort();
+	
 	MyGUI::LayoutManager::getInstance().loadLayout("NetworkSetupMenu.layout");
 
 	ipAddressBox = mGUI->findWidget<MyGUI::EditBox>("ipAddressBox"); // loads IP Address EditBox
 	ipAddressBox->setVisible(false);
-
+    ipAddressBox->setPosition((0.3 *viewPort->getActualWidth() ), (0.10 *viewPort->getActualHeight()) );
+	ipAddressBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	
 	serverButton = mGUI->findWidget<MyGUI::Button>("serverButton"); // loads Server Button
 	serverButton->setVisible(false);
 	serverButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::serverButtonClicked);
-
+    serverButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.14 *viewPort->getActualHeight()) );
+	serverButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	
 	clientButton = mGUI->findWidget<MyGUI::Button>("clientButton"); // loads Client Button
 	clientButton->setVisible(false);
 	clientButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::clientButtonClicked);
-
+    clientButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.18 *viewPort->getActualHeight()) );
+	clientButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	
     connectButton = mGUI->findWidget<MyGUI::Button>("connectButton"); // loads Connect Button
     connectButton->setVisible(false);
     connectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::connectButtonClicked);
-
+    connectButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.22 *viewPort->getActualHeight()) );
+	connectButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	
     networkSetupMenuCreated = true;
 /*    menuActive = true;
 	previousActiveMenu = activeMenu;
@@ -263,6 +285,9 @@ bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup s
 
 bool GUISystem::createOptionsMenuGUI()	// creates GUI for options menu screen.
 {
+	renderEngine *renderE = renderEngine::Instance();
+	Ogre::Viewport *viewPort = renderE->getViewPort();
+	
 	MyGUI::LayoutManager::getInstance().loadLayout("OptionsMenu.layout");
 
 	displayButton = mGUI->findWidget<MyGUI::Button>("displayButton"); // loads Display Settings Button
@@ -287,24 +312,31 @@ bool GUISystem::createOptionsMenuGUI()	// creates GUI for options menu screen.
 
 bool GUISystem::createBackButtons() // creates the back buttons for the menus
 {
+	renderEngine *renderE = renderEngine::Instance();
+	Ogre::Viewport *viewPort = renderE->getViewPort();
+	
 	MyGUI::LayoutManager::getInstance().loadLayout("BackButtons.layout");
 
 	backMainMenuButton = mGUI->findWidget<MyGUI::Button>("backMainMenuButton"); // loads Back to Main Menu Button
     backMainMenuButton->setVisible(false);
     backMainMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backMainMenuButtonClicked);
-
+    backMainMenuButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	
 	backNetworkSetupButton = mGUI->findWidget<MyGUI::Button>("backNetworkSetupButton"); // loads Back to Network Setup Button
     backNetworkSetupButton->setVisible(false);
     backNetworkSetupButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backNetworkSetupButtonClicked);
-
+    backNetworkSetupButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	
 	backNetworkClientButton = mGUI->findWidget<MyGUI::Button>("backNetworkClientButton"); // loads Back to Network Client Button
 	backNetworkClientButton->setVisible(false);
 	backNetworkClientButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backNetworkClientButtonClicked);
-
+    backNetworkClientButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	
 	backOptionsMenuButton = mGUI->findWidget<MyGUI::Button>("backOptionsMenuButton"); // loads Back to Options Menu Button
 	backOptionsMenuButton->setVisible(false);
 	backOptionsMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backOptionsMenuButtonClicked);
-
+    backOptionsMenuButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	
 	backButtonsCreated = true;
 
 	return (true);
@@ -312,6 +344,9 @@ bool GUISystem::createBackButtons() // creates the back buttons for the menus
 
 bool GUISystem::createDisplaySetupGUI()	// creates GUI for display settings screen.
 {
+	renderEngine *renderE = renderEngine::Instance();
+	Ogre::Viewport *viewPort = renderE->getViewPort();
+	
 	MyGUI::LayoutManager::getInstance().loadLayout("DispkaySetupMenu.layout");
 
 	changeResolutionButton = mGUI->findWidget<MyGUI::Button>("changeResolutionButton"); // loads team 1 Button
@@ -325,6 +360,9 @@ bool GUISystem::createDisplaySetupGUI()	// creates GUI for display settings scre
 
 bool GUISystem::createInputSetupGUI()	// creates GUI for input settings screen.
 {
+	renderEngine *renderE = renderEngine::Instance();
+	Ogre::Viewport *viewPort = renderE->getViewPort();
+	
 	MyGUI::LayoutManager::getInstance().loadLayout("InputSetupMenu.layout");
 
 	changeInputTypeButton = mGUI->findWidget<MyGUI::Button>("changeInputTypeButton"); // loads team 1 Button
@@ -338,6 +376,9 @@ bool GUISystem::createInputSetupGUI()	// creates GUI for input settings screen.
 
 bool GUISystem::createAudioSetupGUI()	// creates GUI for audo settings screen.
 {
+	renderEngine *renderE = renderEngine::Instance();
+	Ogre::Viewport *viewPort = renderE->getViewPort();
+	
 	MyGUI::LayoutManager::getInstance().loadLayout("AudioSetupMenu.layout");
 
 	enableAudioButton = mGUI->findWidget<MyGUI::Button>("enableAudioButton"); // loads team 1 Button
@@ -358,7 +399,9 @@ bool GUISystem::createGameSetupMenuGUI()	// creates GUI for game setup menu scre
 {
     gameState *gameS = gameState::Instance();
     loader *load = loader::Instance();
-
+    renderEngine *renderE = renderEngine::Instance();
+	Ogre::Viewport *viewPort = renderE->getViewPort();
+	
     load->loadTeams();
     std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
 
@@ -381,7 +424,7 @@ bool GUISystem::createGameSetupMenuGUI()	// creates GUI for game setup menu scre
 	}
     team0SelectBox->setIndexSelected(0);
 	team1SelectBox->setIndexSelected(0);
-	team1SelectBox->beginToItemAt(1);
+	
 	team0SelectButton = mGUI->findWidget<MyGUI::Button>("team0SelectButton"); // loads team 0 Select Button
 	team0SelectButton->setVisible(false);
 	team0SelectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::team0SelectButtonClicked);
@@ -562,11 +605,16 @@ void GUISystem::hideNetworkSetupWidgets()	// hides the widgets tied to the Netwo
 }
 void GUISystem::showNetworkSetupWidgets()     // shows all widgets tied to the Network Setup Menu
 {
+	renderEngine *renderE = renderEngine::Instance();
+	Ogre::Viewport *viewPort = renderE->getViewPort();
+	
 //    ipAddressBox->setVisible(true);
     serverButton->setVisible(true);
     clientButton->setVisible(true);
-    backMainMenuButton->setPosition(362, 250);
+    
 	backMainMenuButton->setVisible(true);
+	backMainMenuButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.26 *viewPort->getActualHeight()) );
+	
 }
 
 void GUISystem::hideNetworkClientSetupWidgets()   // hides the widgets tied to the Network Setup Menu
@@ -591,6 +639,9 @@ void GUISystem::hideOptionsMenuWidgets()	// hides all widgets tied to the Option
 }
 void GUISystem::showOptionsMenuWidgets()  // shows all widgets tied to the Options Menu
 {
+	renderEngine *renderE = renderEngine::Instance();
+	Ogre::Viewport *viewPort = renderE->getViewPort();
+	
 	displayButton->setVisible(true);
 	inputButton->setVisible(true);
 	audioButton->setVisible(true);
@@ -654,6 +705,9 @@ void GUISystem::hideGameSetupMenuWidgets()  // hides all widgets tied to the Gam
 }
 void GUISystem::showGameSetupMenuWidgets()  // shows all widgets tied to the Game Setup Menu
 {
+	renderEngine *renderE = renderEngine::Instance();
+	Ogre::Viewport *viewPort = renderE->getViewPort();
+	
 	team0SelectBox->setVisible(true);
 	team1SelectBox->setVisible(true);
 	team0SelectButton->setVisible(true);
