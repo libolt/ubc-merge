@@ -19,7 +19,7 @@
  ***************************************************************************/
 
 
-#include "gui.h"a
+#include "gui.h"
 #include "gameengine.h"
 #include "gamestate.h"
 #include "load.h"
