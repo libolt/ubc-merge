@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<Player>
+	<ID>45</ID>
+	<TeamID>3</TeamID>
+        <Name>
+		<First>Heath</First>
+		<Last>Flith</Last>
+	</Name>
+	<Age>34</Age>
+	<Height>83</Height>
+	<Weight>259</Weight>
+	<Model>Player.mesh</Model>
+	<Position>C</Position>
+	<TeamInitials>ssc</TeamInitials>
+</Player>
