@@ -2,7 +2,7 @@
 <Player>
 	<ID>41</ID>
 	<TeamID>3</TeamID>
-        <Name>
+    <Name>
 		<First>Chance</First>
 		<Last>Taylor</Last>
 	</Name>
@@ -11,5 +11,31 @@
 	<Weight>210</Weight>
 	<Model>Player.mesh</Model>
 	<Position>PG</Position>
-	<TeamInitials>ssc</TeamInitials>
+	<Shooting>90</Shooting>
+	<Freethrow>95</Freethrow>
+	<Layup>90</Layup>
+	<Dunk>75</Dunk>
+	<Inside>45</Inside>
+	<Midrange>94</Midrange>
+	<ThreePoint>90</ThreePoint>
+	<BallHandling>77</BallHandling>
+	<BallSecurity>83</BallSecurity>
+	<Passing>63</Passing>
+	<PickSetting>40</PickSetting>
+	<OffenseAwareness>85</OffenseAwareness>
+	<DefenseAwareness>47</DefenseAwareness>
+	<OffenseRebound>25</OffenseRebound>
+	<DefenseRebound>30</DefenseRebound>
+	<Blocking>25</Blocking>
+	<Stealing>45</Stealing>
+	<InteriorDefense>10</InteriorDefense>
+	<MidrangeDefense>52</MidrangeDefense>
+	<PerimeterDefense>43</PerimeterDefense>
+	<Hustle>35</Hustle>
+	<Speed>83</Speed>
+	<Quickness>90</Quickness>
+	<Fatigue>82</Fatigue>
+	<Durability>83</Durability>
+	<Demeanor>80</Demeanor>
+	<Improvability>74</Improvability>
 </Player>

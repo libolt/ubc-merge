@@ -642,7 +642,7 @@ bool loader::loadPlayerFile(string fileName)
     int weight;
     string model;
     string position;
-    string teamInitials;
+    
     playerData player;
 
 //    TiXmlDocument doc(fileName.c_str());
@@ -724,13 +724,6 @@ bool loader::loadPlayerFile(string fileName)
 //        cout << "model = " << model << endl;
     }
 
-    pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = pElem->GetText();
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
     pElem=hRoot.FirstChild("Position").Element();
     if (pElem)
     {
@@ -752,6 +745,209 @@ bool loader::loadPlayerFile(string fileName)
 //        cout << "ID = " << ID << endl;
     }
 
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+	
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("TeamInitials").Element();
+    if (pElem)
+    {
+        teamInitials = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+	
     playerD.setFirstName(firstName);
     playerD.setLastName(lastName);
     playerD.setAge(age);

@@ -9,7 +9,33 @@
 	<Age>22</Age>
 	<Height>74</Height>
 	<Weight>200</Weight>
-        <Model>Player.mesh</Model>
+    <Model>Player.mesh</Model>
 	<Position>SG</Position>
-        <TeamInitials>klb</TeamInitials>
+	<Shooting></Shooting>
+	<Freethrow></Freethrow>
+	<Layup></Layup>
+	<Dunk></Dunk>
+	<Inside></Inside>
+	<Midrange></Midrange>
+	<ThreePoint></ThreePoint>
+	<BallHandling></BallHandling>
+	<BallSecurity></BallSecurity>
+	<Passing></Passing>
+	<PickSetting></PickSetting>
+	<OffenseAwareness></OffenseAwareness>
+	<DefenseAwareness></DefenseAwareness>
+	<OffenseRebound></OffenseRebound>
+	<DefenseRebound></DefenseRebound>
+	<Blocking></Blocking>
+	<Stealing></Stealing>
+	<InteriorDefense></InteriorDefense>
+	<MidrangeDefense></MidrangeDefense>
+	<PerimeterDefense></PerimeterDefense>
+	<Hustle></Hustle>
+	<Speed></Speed>
+	<Quickness></Quickness>
+	<Fatigue></Fatigue>
+	<Durability></Durability>
+	<Demeanor></Demeanor>
+	<Improvability></Improvability>
 </Player>
