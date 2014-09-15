@@ -2,7 +2,7 @@
 <Player>
 	<ID>39</ID>
 	<TeamID>2</TeamID>
-        <Name>
+    <Name>
 		<First>Keith</First>
 		<Last>Orion</Last>
 	</Name>
@@ -11,31 +11,31 @@
 	<Weight>200</Weight>
 	<Model>Player.mesh</Model>
 	<Position>PG</Position>
-	<Shooting></Shooting>
-	<Freethrow></Freethrow>
-	<Layup></Layup>
-	<Dunk></Dunk>
-	<Inside></Inside>
-	<Midrange></Midrange>
-	<ThreePoint></ThreePoint>
-	<BallHandling></BallHandling>
-	<BallSecurity></BallSecurity>
-	<Passing></Passing>
-	<PickSetting></PickSetting>
-	<OffenseAwareness></OffenseAwareness>
-	<DefenseAwareness></DefenseAwareness>
-	<OffenseRebound></OffenseRebound>
-	<DefenseRebound></DefenseRebound>
-	<Blocking></Blocking>
-	<Stealing></Stealing>
-	<InteriorDefense></InteriorDefense>
-	<MidrangeDefense></MidrangeDefense>
-	<PerimeterDefense></PerimeterDefense>
-	<Hustle></Hustle>
-	<Speed></Speed>
-	<Quickness></Quickness>
-	<Fatigue></Fatigue>
-	<Durability></Durability>
-	<Demeanor></Demeanor>
-	<Improvability></Improvability>
+	<Shooting>74</Shooting>
+	<Freethrow>81</Freethrow>
+	<Layup>83</Layup>
+	<Dunk>43</Dunk>
+	<Inside>41</Inside>
+	<Midrange>70</Midrange>
+	<ThreePoint>66</ThreePoint>
+	<BallHandling>77</BallHandling>
+	<BallSecurity>78</BallSecurity>
+	<Passing>73</Passing>
+	<PickSetting>30</PickSetting>
+	<OffenseAwareness>75</OffenseAwareness>
+	<DefenseAwareness>55</DefenseAwareness>
+	<OffenseRebound>41</OffenseRebound>
+	<DefenseRebound>70</DefenseRebound>
+	<Blocking>20</Blocking>
+	<Stealing>72</Stealing>
+	<InteriorDefense>22</InteriorDefense>
+	<MidrangeDefense>57</MidrangeDefense>
+	<PerimeterDefense>61</PerimeterDefense>
+	<Hustle>61</Hustle>
+	<Speed>80</Speed>
+	<Quickness>85</Quickness>
+	<Fatigue>46</Fatigue>
+	<Durability>60</Durability>
+	<Demeanor>43</Demeanor>
+	<Improvability>78</Improvability>
 </Player>
