@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<Player>
+	<ID>1</ID>
+	<TeamID>1</TeamID>
+    <Name>
+		<First>Adrian</First>
+		<Last>Mathias</Last>
+	</Name>
+	<Age>20</Age>
+	<Height>80</Height>
+	<Weight>235</Weight>
+    <Model>Player.mesh</Model>
+	<Position>PG</Position>
+	<Shooting>86</Shooting>
+	<Freethrow>85</Freethrow>
+	<Layup>82</Layup>
+	<Dunk>74</Dunk>
+	<Inside>77</Inside>
+	<Midrange>70</Midrange>
+	<ThreePoint>86</ThreePoint>
+	<BallHandling>83</BallHandling>
+	<BallSecurity>80</BallSecurity>
+	<Passing>70</Passing>
+	<PickSetting>70</PickSetting>
+	<OffenseAwareness>87</OffenseAwareness>
+	<DefenseAwareness>65</DefenseAwareness>
+	<OffenseRebound>45</OffenseRebound>
+	<DefenseRebound>66</DefenseRebound>
+	<Blocking>65</Blocking>
+	<Stealing>70</Stealing>
+	<InteriorDefense>45</InteriorDefense>
+	<MidrangeDefense>67</MidrangeDefense>
+	<PerimeterDefense>60</PerimeterDefense>
+	<Hustle>60</Hustle>
+	<Speed>75</Speed>
+	<Quickness>69</Quickness>
+	<Fatigue>73</Fatigue>
+	<Durability>76</Durability>
+	<Demeanor>56</Demeanor>
+	<Improvability>80</Improvability>
+</Player>
