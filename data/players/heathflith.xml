@@ -2,7 +2,7 @@
 <Player>
 	<ID>45</ID>
 	<TeamID>3</TeamID>
-        <Name>
+    <Name>
 		<First>Heath</First>
 		<Last>Flith</Last>
 	</Name>
@@ -11,31 +11,31 @@
 	<Weight>259</Weight>
 	<Model>Player.mesh</Model>
 	<Position>C</Position>
-	<Shooting></Shooting>
-	<Freethrow></Freethrow>
-	<Layup></Layup>
-	<Dunk></Dunk>
-	<Inside></Inside>
-	<Midrange></Midrange>
-	<ThreePoint></ThreePoint>
-	<BallHandling></BallHandling>
-	<BallSecurity></BallSecurity>
-	<Passing></Passing>
-	<PickSetting></PickSetting>
-	<OffenseAwareness></OffenseAwareness>
-	<DefenseAwareness></DefenseAwareness>
-	<OffenseRebound></OffenseRebound>
-	<DefenseRebound></DefenseRebound>
-	<Blocking></Blocking>
-	<Stealing></Stealing>
-	<InteriorDefense></InteriorDefense>
-	<MidrangeDefense></MidrangeDefense>
-	<PerimeterDefense></PerimeterDefense>
-	<Hustle></Hustle>
-	<Speed></Speed>
-	<Quickness></Quickness>
-	<Fatigue></Fatigue>
-	<Durability></Durability>
-	<Demeanor></Demeanor>
-	<Improvability></Improvability>
+	<Shooting>70</Shooting>
+	<Freethrow>67</Freethrow>
+	<Layup>65</Layup>
+	<Dunk>75</Dunk>
+	<Inside>71</Inside>
+	<Midrange>45</Midrange>
+	<ThreePoint>20</ThreePoint>
+	<BallHandling>34</BallHandling>
+	<BallSecurity>40</BallSecurity>
+	<Passing>65</Passing>
+	<PickSetting>80</PickSetting>
+	<OffenseAwareness>55</OffenseAwareness>
+	<DefenseAwareness>73</DefenseAwareness>
+	<OffenseRebound>70</OffenseRebound>
+	<DefenseRebound>70</DefenseRebound>
+	<Blocking>80</Blocking>
+	<Stealing>15</Stealing>
+	<InteriorDefense>82</InteriorDefense>
+	<MidrangeDefense>32</MidrangeDefense>
+	<PerimeterDefense>12</PerimeterDefense>
+	<Hustle>34</Hustle>
+	<Speed>62</Speed>
+	<Quickness>65</Quickness>
+	<Fatigue>54</Fatigue>
+	<Durability>63</Durability>
+	<Demeanor>20</Demeanor>
+	<Improvability>43</Improvability>
 </Player>

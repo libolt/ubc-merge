@@ -2,14 +2,14 @@
 <Player>
 	<ID>7</ID>
 	<TeamID>3</TeamID>
-        <Name>
+    <Name>
 		<First>Frank</First>
 		<Last>Thomason</Last>
 	</Name>
 	<Age>21</Age>
 	<Height>82</Height>
 	<Weight>212</Weight>
-        <Model>Player.mesh</Model>
+    <Model>Player.mesh</Model>
 	<Position>SF</Position>
 	<Shooting></Shooting>
 	<Freethrow></Freethrow>

@@ -2,7 +2,7 @@
 <Player>
 	<ID>5</ID>
 	<TeamID>1</TeamID>
-        <Name>
+    <Name>
 		<First>Clark</First>
 		<Last>Lang</Last>
 	</Name>
@@ -11,31 +11,31 @@
 	<Weight>270</Weight>
         <Model>Player.mesh</Model>
 	<Position>PF</Position>
-	<Shooting></Shooting>
-	<Freethrow></Freethrow>
-	<Layup></Layup>
-	<Dunk></Dunk>
-	<Inside></Inside>
-	<Midrange></Midrange>
-	<ThreePoint></ThreePoint>
-	<BallHandling></BallHandling>
-	<BallSecurity></BallSecurity>
-	<Passing></Passing>
-	<PickSetting></PickSetting>
-	<OffenseAwareness></OffenseAwareness>
-	<DefenseAwareness></DefenseAwareness>
-	<OffenseRebound></OffenseRebound>
-	<DefenseRebound></DefenseRebound>
-	<Blocking></Blocking>
-	<Stealing></Stealing>
-	<InteriorDefense></InteriorDefense>
-	<MidrangeDefense></MidrangeDefense>
-	<PerimeterDefense></PerimeterDefense>
-	<Hustle></Hustle>
-	<Speed></Speed>
-	<Quickness></Quickness>
-	<Fatigue></Fatigue>
-	<Durability></Durability>
-	<Demeanor></Demeanor>
-	<Improvability></Improvability>
+	<Shooting>72</Shooting>
+	<Freethrow>76</Freethrow>
+	<Layup>70</Layup>
+	<Dunk>80</Dunk>
+	<Inside>73</Inside>
+	<Midrange>65</Midrange>
+	<ThreePoint>32</ThreePoint>
+	<BallHandling>61</BallHandling>
+	<BallSecurity>43</BallSecurity>
+	<Passing>70</Passing>
+	<PickSetting>85</PickSetting>
+	<OffenseAwareness>80</OffenseAwareness>
+	<DefenseAwareness>80</DefenseAwareness>
+	<OffenseRebound>70</OffenseRebound>
+	<DefenseRebound>74</DefenseRebound>
+	<Blocking>75</Blocking>
+	<Stealing>23</Stealing>
+	<InteriorDefense>76</InteriorDefense>
+	<MidrangeDefense>67</MidrangeDefense>
+	<PerimeterDefense>43</PerimeterDefense>
+	<Hustle>37</Hustle>
+	<Speed>64</Speed>
+	<Quickness>70</Quickness>
+	<Fatigue>56</Fatigue>
+	<Durability>68</Durability>
+	<Demeanor>43</Demeanor>
+	<Improvability>40</Improvability>
 </Player>

@@ -2,7 +2,7 @@
 <Player>
 	<ID>29</ID>
 	<TeamID>1</TeamID>
-        <Name>
+    <Name>
 		<First>Oswald</First>
 		<Last>Remington</Last>
 	</Name>
@@ -11,31 +11,31 @@
 	<Weight>220</Weight>
 	<Model>Player.mesh</Model>
 	<Position>SF</Position>
-	<Shooting></Shooting>
-	<Freethrow></Freethrow>
-	<Layup></Layup>
-	<Dunk></Dunk>
-	<Inside></Inside>
-	<Midrange></Midrange>
-	<ThreePoint></ThreePoint>
-	<BallHandling></BallHandling>
-	<BallSecurity></BallSecurity>
-	<Passing></Passing>
-	<PickSetting></PickSetting>
-	<OffenseAwareness></OffenseAwareness>
-	<DefenseAwareness></DefenseAwareness>
-	<OffenseRebound></OffenseRebound>
-	<DefenseRebound></DefenseRebound>
-	<Blocking></Blocking>
-	<Stealing></Stealing>
-	<InteriorDefense></InteriorDefense>
-	<MidrangeDefense></MidrangeDefense>
-	<PerimeterDefense></PerimeterDefense>
-	<Hustle></Hustle>
-	<Speed></Speed>
-	<Quickness></Quickness>
-	<Fatigue></Fatigue>
-	<Durability></Durability>
-	<Demeanor></Demeanor>
-	<Improvability></Improvability>
+	<Shooting>72</Shooting>
+	<Freethrow>78</Freethrow>
+	<Layup>73</Layup>
+	<Dunk>65</Dunk>
+	<Inside>55</Inside>
+	<Midrange>71</Midrange>
+	<ThreePoint>45</ThreePoint>
+	<BallHandling>65</BallHandling>
+	<BallSecurity>57</BallSecurity>
+	<Passing>68</Passing>
+	<PickSetting>90</PickSetting>
+	<OffenseAwareness>80</OffenseAwareness>
+	<DefenseAwareness>65</DefenseAwareness>
+	<OffenseRebound>60</OffenseRebound>
+	<DefenseRebound>60</DefenseRebound>
+	<Blocking>23</Blocking>
+	<Stealing>75</Stealing>
+	<InteriorDefense>50</InteriorDefense>
+	<MidrangeDefense>67</MidrangeDefense>
+	<PerimeterDefense>65</PerimeterDefense>
+	<Hustle>54</Hustle>
+	<Speed>77</Speed>
+	<Quickness>75</Quickness>
+	<Fatigue>78</Fatigue>
+	<Durability>72</Durability>
+	<Demeanor>21</Demeanor>
+	<Improvability>83</Improvability>
 </Player>

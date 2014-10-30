@@ -2,40 +2,40 @@
 <Player>
 	<ID>11</ID>
 	<TeamID>2</TeamID>
-        <Name>
+    <Name>
 		<First>Sam</First>
 		<Last>Jones</Last>
 	</Name>
 	<Age>24</Age>
 	<Height>79</Height>
 	<Weight>245</Weight>
-        <Model>Player.mesh</Model>
+    <Model>Player.mesh</Model>
 	<Position>C</Position>
-	<Shooting></Shooting>
-	<Freethrow></Freethrow>
-	<Layup></Layup>
-	<Dunk></Dunk>
-	<Inside></Inside>
-	<Midrange></Midrange>
-	<ThreePoint></ThreePoint>
-	<BallHandling></BallHandling>
-	<BallSecurity></BallSecurity>
-	<Passing></Passing>
-	<PickSetting></PickSetting>
-	<OffenseAwareness></OffenseAwareness>
-	<DefenseAwareness></DefenseAwareness>
-	<OffenseRebound></OffenseRebound>
-	<DefenseRebound></DefenseRebound>
-	<Blocking></Blocking>
-	<Stealing></Stealing>
-	<InteriorDefense></InteriorDefense>
-	<MidrangeDefense></MidrangeDefense>
-	<PerimeterDefense></PerimeterDefense>
-	<Hustle></Hustle>
-	<Speed></Speed>
-	<Quickness></Quickness>
-	<Fatigue></Fatigue>
-	<Durability></Durability>
-	<Demeanor></Demeanor>
-	<Improvability></Improvability>
+	<Shooting>63</Shooting>
+	<Freethrow>65</Freethrow>
+	<Layup>55</Layup>
+	<Dunk>68</Dunk>
+	<Inside>66</Inside>
+	<Midrange>26</Midrange>
+	<ThreePoint>13</ThreePoint>
+	<BallHandling>15</BallHandling>
+	<BallSecurity>20</BallSecurity>
+	<Passing>35</Passing>
+	<PickSetting>85</PickSetting>
+	<OffenseAwareness>45</OffenseAwareness>
+	<DefenseAwareness>78</DefenseAwareness>
+	<OffenseRebound>65</OffenseRebound>
+	<DefenseRebound>87</DefenseRebound>
+	<Blocking>88</Blocking>
+	<Stealing>22</Stealing>
+	<InteriorDefense>86</InteriorDefense>
+	<MidrangeDefense>35</MidrangeDefense>
+	<PerimeterDefense>14</PerimeterDefense>
+	<Hustle>60</Hustle>
+	<Speed>62</Speed>
+	<Quickness>54</Quickness>
+	<Fatigue>78</Fatigue>
+	<Durability>86</Durability>
+	<Demeanor>87</Demeanor>
+	<Improvability>65</Improvability>
 </Player>

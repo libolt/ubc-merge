@@ -2,7 +2,7 @@
 <Player>
 	<ID>26</ID>
 	<TeamID>0</TeamID>
-        <Name>
+    <Name>
 		<First>Isaace</First>
 		<Last>Delton</Last>
 	</Name>
@@ -11,31 +11,31 @@
 	<Weight>230</Weight>
 	<Model>Player.mesh</Model>
 	<Position>SF</Position>
-	<<Shooting></Shooting>
-	<Freethrow></Freethrow>
-	<Layup></Layup>
-	<Dunk></Dunk>
-	<Inside></Inside>
-	<Midrange></Midrange>
-	<ThreePoint></ThreePoint>
-	<BallHandling></BallHandling>
-	<BallSecurity></BallSecurity>
-	<Passing></Passing>
-	<PickSetting></PickSetting>
-	<OffenseAwareness></OffenseAwareness>
-	<DefenseAwareness></DefenseAwareness>
-	<OffenseRebound></OffenseRebound>
-	<DefenseRebound></DefenseRebound>
-	<Blocking></Blocking>
-	<Stealing></Stealing>
-	<InteriorDefense></InteriorDefense>
-	<MidrangeDefense></MidrangeDefense>
-	<PerimeterDefense></PerimeterDefense>
-	<Hustle></Hustle>
-	<Speed></Speed>
-	<Quickness></Quickness>
-	<Fatigue></Fatigue>
-	<Durability></Durability>
-	<Demeanor></Demeanor>
-	<Improvability></Improvability>
+	<<Shooting>82</Shooting>
+	<Freethrow>82</Freethrow>
+	<Layup>81</Layup>
+	<Dunk>90</Dunk>
+	<Inside>74</Inside>
+	<Midrange>83</Midrange>
+	<ThreePoint>75</ThreePoint>
+	<BallHandling>70</BallHandling>
+	<BallSecurity>71</BallSecurity>
+	<Passing>73</Passing>
+	<PickSetting>79</PickSetting>
+	<OffenseAwareness>84</OffenseAwareness>
+	<DefenseAwareness>75</DefenseAwareness>
+	<OffenseRebound>74</OffenseRebound>
+	<DefenseRebound>77</DefenseRebound>
+	<Blocking>70</Blocking>
+	<Stealing>74</Stealing>
+	<InteriorDefense>68</InteriorDefense>
+	<MidrangeDefense>74</MidrangeDefense>
+	<PerimeterDefense>76</PerimeterDefense>
+	<Hustle>57</Hustle>
+	<Speed>86</Speed>
+	<Quickness>90</Quickness>
+	<Fatigue>79</Fatigue>
+	<Durability>87</Durability>
+	<Demeanor>33</Demeanor>
+	<Improvability>70</Improvability>
 </Player>
