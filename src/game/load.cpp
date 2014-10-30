@@ -635,13 +635,40 @@ bool loader::loadPlayerFile(string fileName)
     std::vector<playerData> playerDataInstance = gameS->getPlayerDataInstance();
     string firstName;
     string lastName;
+    string model;
+    string position;
     int ID;
     int teamID;
     int age;
     int height;
     int weight;
-    string model;
-    string position;
+    int shooting;
+    int freeThrow;
+    int layup;
+    int dunk;
+    int inside;
+    int midRange;
+    int threePoint;
+    int ballHandling;
+    int ballSecurity;
+    int passing;
+    int pickSetting;
+    int offenseAwareness;
+    int defenseAwareness;
+    int offenseRebound;
+    int defenseRebound;
+    int blocking;
+    int stealing;
+    int interiorDefense;
+    int midRangeDefense;
+    int perimeterDefense;
+    int hustle;
+    int speed;
+    int quickness;
+    int fatigue;
+    int durability;
+    int demeanor;
+    int improvability;
     
     playerData player;
 
@@ -745,13 +772,195 @@ bool loader::loadPlayerFile(string fileName)
 //        cout << "ID = " << ID << endl;
     }
 
-	pElem=hRoot.FirstChild("TeamInitials").Element();
+	pElem=hRoot.FirstChild("Shooting").Element();
     if (pElem)
     {
-        teamInitials = atoi(pElem->GetText());
+        shooting = atoi(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 	
+	pElem=hRoot.FirstChild("FreeThrow").Element();
+    if (pElem)
+    {
+        freeThrow = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("Layup").Element();
+    if (pElem)
+    {
+        layup = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("Dunk").Element();
+    if (pElem)
+    {
+        dunk = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("Inside").Element();
+    if (pElem)
+    {
+        inside = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("Midrange").Element();
+    if (pElem)
+    {
+        midRange = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("ThreePoint").Element();
+    if (pElem)
+    {
+        threePoint = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("BallHandling").Element();
+    if (pElem)
+    {
+        ballHandling = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("BallSecurity").Element();
+    if (pElem)
+    {
+        ballSecurity = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("Passing").Element();
+    if (pElem)
+    {
+        passing = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("PickSetting").Element();
+    if (pElem)
+    {
+        pickSetting = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("offenseAwareness").Element();
+    if (pElem)
+    {
+        offenseAwareness = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("DefenseAwareness").Element();
+    if (pElem)
+    {
+        defenseAwareness = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("OffenseRebound").Element();
+    if (pElem)
+    {
+        offenseRebound = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("DefenseRebound").Element();
+    if (pElem)
+    {
+        defenseRebound = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("Blocking").Element();
+    if (pElem)
+    {
+        blocking = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("Stealing").Element();
+    if (pElem)
+    {
+        stealing = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("InteriorDefense").Element();
+    if (pElem)
+    {
+        interiorDefense = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("MidrangeDefense").Element();
+    if (pElem)
+    {
+        midRangeDefense = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("PerimeterDefense").Element();
+    if (pElem)
+    {
+        perimeterDefense = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("Hustle").Element();
+    if (pElem)
+    {
+        hustle = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("Speed").Element();
+    if (pElem)
+    {
+        speed = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("Quickness").Element();
+    if (pElem)
+    {
+        quickness = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("Fatigue").Element();
+    if (pElem)
+    {
+        fatigue = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("Durability").Element();
+    if (pElem)
+    {
+        durability = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("Demeanor").Element();
+    if (pElem)
+    {
+        demeanor = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+
+	pElem=hRoot.FirstChild("Improvability").Element();
+    if (pElem)
+    {
+        improvability = atoi(pElem->GetText());
+//        cout << "Team Initials = " << teamInitials << endl;
+    }
+/*
 	pElem=hRoot.FirstChild("TeamInitials").Element();
     if (pElem)
     {
@@ -765,189 +974,7 @@ bool loader::loadPlayerFile(string fileName)
         teamInitials = atoi(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-
-	pElem=hRoot.FirstChild("TeamInitials").Element();
-    if (pElem)
-    {
-        teamInitials = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
-    }
-	
+*/
     playerD.setFirstName(firstName);
     playerD.setLastName(lastName);
     playerD.setAge(age);
@@ -956,7 +983,7 @@ bool loader::loadPlayerFile(string fileName)
 	playerD.setID(ID);
 	playerD.setTeamID(teamID);
     playerD.setModel(model);
-    playerD.setTeamInits(teamInitials);
+//    playerD.setTeamInits(teamInitials);
     playerD.setPosition(position);
 
     playerDataInstance.push_back(playerD);
