@@ -687,6 +687,7 @@ bool loader::loadPlayerFile(string fileName)
 #else*/
     char *contents = NULL;
 	readFile(fileName.c_str(), &contents);
+    logMsg("playerblam");
 	fileContents = Ogre::StringConverter::toString(contents);
 //#endif
 	if (!doc.Parse(contents))

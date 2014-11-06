@@ -21,7 +21,7 @@
 	<BallHandling>86</BallHandling>
 	<BallSecurity>88</BallSecurity>
 	<Passing>90</Passing>
-	<PickSetting></PickSetting>
+	<PickSetting>56</PickSetting>
 	<OffenseAwareness>87</OffenseAwareness>
 	<DefenseAwareness>85</DefenseAwareness>
 	<OffenseRebound>67</OffenseRebound>
