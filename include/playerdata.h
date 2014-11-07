@@ -66,48 +66,7 @@ class playerData
         string getModel();  // retrieves the value of the model variable
         virtual void setModel(string Model);    // sets the value of the model variable
 
-        int getFieldGoalRating(void);
-        void setFieldGoalRating(int rating);
-
-        int getThreePointRating(void);
-        void setThreePointRating(int rating);
-
-        int getDunkRating(void);
-        void setDunkGoalRating(int rating);
-
-        int getFreeThrowRating(void);
-        void setFreeThrowRating(int rating);
-
-        int getPassRating(void);
-        void setPassRating(int rating);
-
-        int getStealRating(void);
-        void setStealRating(int rating);
-
-        int getOffensiveReboundRating(void);
-        void setOffensiveReboundRating(int rating);
-
-        int getDefensiveReboundRating(void);
-        void setDefensiveReboundRating(int rating);
-
-        int getBlockRating(void);
-        void setBlockRating(int rating);
-
-        int getStaminaRating(void);
-        void setStaminaRating(int rating);
-
-        int getClutchRating(void);
-        void setClutchRating(int rating);
-
-        int getSpeedRating(void);
-        void setSpeedRating(int rating);
-
-        int getQuicknessRating(void);
-        void setQuicknessRating(int rating);
-
-        int getInjuryRating(void);
-        void setInjuryRating(int rating);
-
+ 
     private:
 
         string firstName;   // stores the first name of the player
@@ -117,7 +76,34 @@ class playerData
         int weight; // stores the weight of the player in pounds.
         int ID; // stores the unique ID of the player.
         int teamID;	// stores the unique ID of the team the player plays for.
-
+        int shooting; 
+        int freeThrow;
+        int layup;
+        int dunk;
+        int inside;
+        int midRange;
+        int threePoint;
+        int ballHandling;
+        int ballSecurity;
+        int passing;
+        int pickSetting;
+        int offenseAwareness;
+        int defenseAwareness;
+        int offenseRebound;
+        int defenseRebound;
+        int blocking;
+        int stealing;
+        int interiorDefense;
+        int midRangeDefense;
+        int perimeterDefense;
+        int hustle;
+        int speed;
+        int quickness;
+        int fatigue;
+        int durability;
+        int demeanor;
+        int improvability;
+        
         // if player is playing this is true
         bool active;
 

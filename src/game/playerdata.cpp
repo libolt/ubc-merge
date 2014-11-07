@@ -34,8 +34,36 @@ playerData::playerData()
     weight = 0;
     ID = 0;
     teamID = -1;
-
+    shooting = 0; 
+    freeThrow = 0;
+    layup = 0;
+    dunk = 0;
+    inside = 0;
+    midRange = 0;
+    threePoint = 0;
+    ballHandling = 0;
+    ballSecurity = 0;
+    passing = 0;
+    pickSetting = 0;
+    offenseAwareness = 0;
+    defenseAwareness = 0;
+    offenseRebound = 0;
+    defenseRebound = 0;
+    blocking = 0;
+    stealing = 0;
+    interiorDefense = 0;
+    midRangeDefense = 0;
+    perimeterDefense = 0;
+    hustle = 0;
+    speed = 0;
+    quickness = 0;
+    fatigue = 0;
+    durability = 0;
+    demeanor = 0;
+    improvability = 0;
+    
     active = false;
+    
 
 
 }
@@ -150,142 +178,4 @@ void playerData::setPosition(string Position) // sets the value of position
     position = Position;
 }
 
-int playerData::getFieldGoalRating(void)
-{
-    return(fieldGoalRating);
-}
-void playerData::setFieldGoalRating(int rating)
-{
-    fieldGoalRating = rating;
-}
-
-int playerData::getThreePointRating(void)
-{
-    return(threePointRating);
-}
-
-void playerData::setThreePointRating(int rating)
-{
-    threePointRating = rating;
-}
-
-int playerData::getDunkRating(void)
-{
-    return(dunkRating);
-}
-
-void playerData::setDunkGoalRating(int rating)
-{
-    dunkRating = rating;
-}
-
-int playerData::getFreeThrowRating(void)
-{
-    return(freeThrowRating);
-}
-
-void playerData::setFreeThrowRating(int rating)
-{
-    freeThrowRating = rating;
-}
-
-int playerData::getPassRating(void)
-{
-    return(passRating);
-}
-
-void playerData::setPassRating(int rating)
-{
-    passRating = rating;
-}
-
-int playerData::getStealRating(void)
-{
-    return(stealRating);
-}
-
-void playerData::setStealRating(int rating)
-{
-    stealRating = rating;
-}
-
-int playerData::getOffensiveReboundRating(void)
-{
-    return(offensiveReboundRating);
-}
-
-void playerData::setOffensiveReboundRating(int rating)
-{
-    offensiveReboundRating = rating;
-}
-
-int playerData::getDefensiveReboundRating(void)
-{
-    return(defensiveReboundRating);
-}
-
-void playerData::setDefensiveReboundRating(int rating)
-{
-    defensiveReboundRating = rating;
-}
-
-int playerData::getBlockRating(void)
-{
-    return(blockRating);
-}
-
-void playerData::setBlockRating(int rating)
-{
-    blockRating = rating;
-}
-
-int playerData::getStaminaRating(void)
-{
-    return(staminaRating);
-}
-
-void playerData::setStaminaRating(int rating)
-{
-    staminaRating = rating;
-}
-
-int playerData::getClutchRating(void)
-{
-    return(clutchRating);
-}
-
-void playerData::setClutchRating(int rating)
-{
-    clutchRating = rating;
-}
-
-int playerData::getSpeedRating(void)
-{
-    return(speedRating);
-}
-
-void playerData::setSpeedRating(int rating)
-{
-    speedRating = rating;
-}
-
-int playerData::getQuicknessRating(void)
-{
-    return(quicknessRating);
-}
-
-void playerData::setQuicknessRating(int rating)
-{
-    quicknessRating = rating;
-}
-
-int playerData::getInjuryRating(void)
-{
-    return(injuryRating);
-}
-
-void playerData::setInjuryRating(int rating)
-{
-    injuryRating = rating;
-}
 
