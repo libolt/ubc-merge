@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<Player>
+	<ID>10</ID>
+	<TeamID>0</TeamID>
+    <Name>
+		<First>Miles</First>
+		<Last>Bradshaw</Last>
+	</Name>
+	<Age>28</Age>
+	<Height>82</Height>
+	<Weight>214</Weight>
+    <Model>Player.mesh</Model>
+	<Position>SF</Position>
+	<Shooting>71</Shooting>
+	<Freethrow>78</Freethrow>
+	<Layup>72</Layup>
+	<Dunk>81</Dunk>
+	<Inside>64</Inside>
+	<Midrange>70</Midrange>
+	<ThreePoint>42</ThreePoint>
+	<BallHandling>64</BallHandling>
+	<BallSecurity>70</BallSecurity>
+	<Passing>50</Passing>
+	<PickSetting>63</PickSetting>
+	<OffenseAwareness>65</OffenseAwareness>
+	<DefenseAwareness>78</DefenseAwareness>
+	<OffenseRebound>63</OffenseRebound>
+	<DefenseRebound>63</DefenseRebound>
+	<Blocking>65</Blocking>
+	<Stealing>78</Stealing>
+	<InteriorDefense>45</InteriorDefense>
+	<MidrangeDefense>78</MidrangeDefense>
+	<PerimeterDefense>72</PerimeterDefense>
+	<Hustle>72</Hustle>
+	<Speed>76</Speed>
+	<Quickness>62</Quickness>
+	<Fatigue>71</Fatigue>
+	<Durability>69</Durability>
+	<Demeanor>81</Demeanor>
+	<Improvability>80</Improvability>
+</Player>
