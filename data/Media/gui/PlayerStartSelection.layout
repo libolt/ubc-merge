@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team0PGSelectBox">
+        <Property key="Caption" value=""/>
+        <Property key="Colour" value="0.321637 0.312233 0.312233"/>
+        <Property key="Enabled" value="true"/>
+        <Property key="FontName" value="DejaVuSansFont_15"/>
+        <Property key="TextAlign" value="Center"/>
+        <Property key="TextColour" value="1 1 1"/>
+    </Widget>
+    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team0SGSelectBox">
+        <Property key="Caption" value=""/>
+        <Property key="Colour" value="0.321637 0.312233 0.312233"/>
+        <Property key="Enabled" value="true"/>
+        <Property key="FontName" value="DejaVuSansFont_15"/>
+        <Property key="TextAlign" value="Center"/>
+        <Property key="TextColour" value="1 1 1"/>
+    </Widget>
+    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team0SFSelectBox">
+        <Property key="Caption" value=""/>
+        <Property key="Colour" value="0.321637 0.312233 0.312233"/>
+        <Property key="Enabled" value="true"/>
+        <Property key="FontName" value="DejaVuSansFont_15"/>
+        <Property key="TextAlign" value="Center"/>
+        <Property key="TextColour" value="1 1 1"/>
+    </Widget>
+    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team0PFSelectBox">
+        <Property key="Caption" value=""/>
+        <Property key="Colour" value="0.321637 0.312233 0.312233"/>
+        <Property key="Enabled" value="true"/>
+        <Property key="FontName" value="DejaVuSansFont_15"/>
+        <Property key="TextAlign" value="Center"/>
+        <Property key="TextColour" value="1 1 1"/>
+    </Widget>
+    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team0CSelectBox">
+        <Property key="Caption" value=""/>
+        <Property key="Colour" value="0.321637 0.312233 0.312233"/>
+        <Property key="Enabled" value="true"/>
+        <Property key="FontName" value="DejaVuSansFont_15"/>
+        <Property key="TextAlign" value="Center"/>
+        <Property key="TextColour" value="1 1 1"/>
+    </Widget>
+    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team1PGSelectBox">
+        <Property key="Caption" value=""/>
+        <Property key="Colour" value="0.321637 0.312233 0.312233"/>
+        <Property key="Enabled" value="true"/>
+        <Property key="FontName" value="DejaVuSansFont_15"/>
+        <Property key="TextAlign" value="Center"/>
+        <Property key="TextColour" value="1 1 1"/>
+    </Widget>
+    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team1SGSelectBox">
+        <Property key="Caption" value=""/>
+        <Property key="Colour" value="0.321637 0.312233 0.312233"/>
+        <Property key="Enabled" value="true"/>
+        <Property key="FontName" value="DejaVuSansFont_15"/>
+        <Property key="TextAlign" value="Center"/>
+        <Property key="TextColour" value="1 1 1"/>
+    </Widget>
+    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team1SFSelectBox">
+        <Property key="Caption" value=""/>
+        <Property key="Colour" value="0.321637 0.312233 0.312233"/>
+        <Property key="Enabled" value="true"/>
+        <Property key="FontName" value="DejaVuSansFont_15"/>
+        <Property key="TextAlign" value="Center"/>
+        <Property key="TextColour" value="1 1 1"/>
+    </Widget>
+    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team1PFSelectBox">
+        <Property key="Caption" value=""/>
+        <Property key="Colour" value="0.321637 0.312233 0.312233"/>
+        <Property key="Enabled" value="true"/>
+        <Property key="FontName" value="DejaVuSansFont_15"/>
+        <Property key="TextAlign" value="Center"/>
+        <Property key="TextColour" value="1 1 1"/>
+    </Widget>
+    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team1CSelectBox">
+        <Property key="Caption" value=""/>
+        <Property key="Colour" value="0.321637 0.312233 0.312233"/>
+        <Property key="Enabled" value="true"/>
+        <Property key="FontName" value="DejaVuSansFont_15"/>
+        <Property key="TextAlign" value="Center"/>
+        <Property key="TextColour" value="1 1 1"/>
+    </Widget>
+
+    <Widget type="Button" skin="Button" position="362 100 500 52" align="Default" layer="Main" name="team0StartingLineupSetButton">
+        <Property key="Caption" value="Start (S)ingle Player Game"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="362 150 500 52" align="Default" layer="Main" name="team1StartinglineupSetButton">
+        <Property key="Caption" value="Start (M)ulti Player Game" />
+    </Widget>
+    <CodeGeneratorSettings/>
+</MyGUI>

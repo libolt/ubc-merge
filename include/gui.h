@@ -49,7 +49,7 @@ public:
 
 	bool getBackButtonsCreated(); // retrieves the value of backButtonsCreated
 	void setBackButtonsCreated(bool created); // sets the value of backButtonsCreated
-	
+
     bool getNetworkSetupMenuCreated();  // retrieves the value of networkSetupMenuCreated
     void setNetworkSetupMenuCreated(bool created);  // sets the value of networkSetupMenuCreated
 
@@ -85,6 +85,7 @@ public:
     bool createInputSetupGUI();	// creates GUI for input settings screen.
 	bool createAudioSetupGUI();	// creates GUI for audo settings screen.
     bool createGameSetupMenuGUI();	// creates GUI for game setup menu screen.
+    bool createPlayerStartSelectionMenuGUI();  // creates GUI for player selection menu screen.
 	bool createBackButtons(); // creates the back buttons for the menus
 
     void menuReceiveKeyPress(std::string keyPressed); // processes key input
@@ -96,7 +97,7 @@ public:
     void processInputMenuKeyPress(std::string keyPressed); // processes input settings menu key input
     void processAudioMenuKeyPress(std::string keyPressed); // processes audio settings menu key input
     void processGameSetupMenuKeyPress(std::string keyPressed); // processes game setup menu key input
-
+    void processPlayerStartSelectionMenuKeyPress(std::string keyPressed);   // process player start selection menu key input
 
 	void startSinglePlayerGame(); // starts single player game
 	void startMultiPlayerGame(); // starts multiplayer game
@@ -134,7 +135,7 @@ protected:
     void backNetworkClientButtonClicked(MyGUI::Widget *_sender); // handles backNetworkClientButton click event
     void backOptionsMenuButtonClicked(MyGUI::Widget *_sender); // handles backOptionsMenuButton click event
 
-	
+
     void hideMainMenuWidgets();	// hides all widgets tied to the Main Menu
     void showMainMenuWidgets(); // shows all widgets tied to the Main Menu
 
@@ -187,7 +188,7 @@ private:
 	MyGUI::Button *enableAudioButton;
 	MyGUI::Button *disableAudioButton;
     MyGUI::Button *backOptionsMenuButton;
-	
+
     // text widgets
     MyGUI::EditBox *ipAddressBox;
 
@@ -207,7 +208,7 @@ private:
 	bool menuActive; // stores whether a menu is being diplayed
     bool gameSetupMenuAwaySelected; // determines whether the away team listbox is selected;
 	bool gameSetupMenuHomeSelected; // determines whether the home team listbox is selected;
-	
+
 	activeMenus activeMenu; // stores which menu is being displayed
 	activeMenus previousActiveMenu; // stores which menu was last displayed
 };

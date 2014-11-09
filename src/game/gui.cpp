@@ -447,6 +447,20 @@ bool GUISystem::createGameSetupMenuGUI()	// creates GUI for game setup menu scre
 	return (true);
 }
 
+bool createPlayerStartSelectionMenuGUI()  // creates GUI for player selection menu screen.
+{
+    gameState *gameS = gameState::Instance();
+    loader *load = loader::Instance();
+    renderEngine *renderE = renderEngine::Instance();
+    Ogre::Viewport *viewPort = renderE->getViewPort();
+
+//    load->loadTeams();
+//    std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
+
+    MyGUI::LayoutManager::getInstance().loadLayout("PlayerStartSelection.layout");
+
+    return (true);
+}
 void GUISystem::startSingleGameButtonClicked(MyGUI::Widget *_sender)	// handles startSingleGameButton click event
 {
 	startSinglePlayerGame();
@@ -1091,6 +1105,11 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 
 		}
 	}
+}
+
+void processPlayerStartSelectionMenuKeyPress(std::string keyPressed)   // process player start selection menu key input
+{
+
 }
 
 void GUISystem::startSinglePlayerGame() // starts single player game
