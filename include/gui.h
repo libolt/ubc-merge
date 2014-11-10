@@ -68,6 +68,9 @@ public:
 	bool getGameSetupMenuCreated();  // retrieves the value of gameSetupMenuCreated
     void setGameSetupMenuCreated(bool created);  // sets the value of gameSetupMenuCreated
 
+    bool getPlayerStartSelectionMenuCreated();  // retrieves the value of playerStartSelectionMenuCreated
+    void setPlayerStartSelectionMenuCreated(bool created);  // sets the value of playerStartSelectionMenuCreated
+
 	bool getMenuActive(); // retrieves the value of menuActive
 	void setMenuActive(bool active); // sets the value of menuActive
 
@@ -132,6 +135,7 @@ protected:
     void disableAudioButtonClicked(MyGUI::Widget *_sender); // handles eneableAudioButton click event
     void team0SelectButtonClicked(MyGUI::Widget *_sender); // handles team0SelectButton click event
     void team1SelectButtonClicked(MyGUI::Widget *_sender); // handles team1SelectButton click event
+    void teamsSelectedButtonClicked(MyGUI::Widget *_sender); // handles teamsSelectedButton click event
     void backNetworkClientButtonClicked(MyGUI::Widget *_sender); // handles backNetworkClientButton click event
     void backOptionsMenuButtonClicked(MyGUI::Widget *_sender); // handles backOptionsMenuButton click event
 
@@ -160,6 +164,9 @@ protected:
 	void hideGameSetupMenuWidgets();  // hides all widgets tied to the Game Setup Menu
     void showGameSetupMenuWidgets();  // shows all widgets tied to the Game Setup Menu
 
+    void hidePlayerStartSelectionMenuWidgets(); // hides all widgets tied to the Player Start Selection Menu
+    void showPlayerStartSelectionMenuWidgets(); // shows all widgets tied to the Player Start Selection Menu
+
 private:
 
     static GUISystem *pInstance;
@@ -181,6 +188,7 @@ private:
 	MyGUI::Button *audioButton;
 	MyGUI::Button *team0SelectButton;
 	MyGUI::Button *team1SelectButton;
+	MyGUI::Button *teamsSelectedButton;
 	MyGUI::Button *startGameButton;
 	MyGUI::Button *backNetworkClientButton;
 	MyGUI::Button *changeResolutionButton;
@@ -204,6 +212,7 @@ private:
     bool inputSetupMenuCreated;   // determines whether the input settings menu gui has been created
     bool audioSetupMenuCreated;   // determines whether the audio settings menu gui has been created
     bool gameSetupMenuCreated;  // determines whether the game setup menu gui has been created
+    bool playerStartSelectionMenuCreated; // determines whether the game setup menu gui has been created
 	bool backButtonsCreated; // determines the back buttons have been created
 	bool menuActive; // stores whether a menu is being diplayed
     bool gameSetupMenuAwaySelected; // determines whether the away team listbox is selected;

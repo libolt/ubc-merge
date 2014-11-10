@@ -22,8 +22,8 @@
     <Widget type="Button" skin="Button" position="300 300 300 26" align="Default" layer="Main" name="team1SelectButton">
             <Property key="Caption" value="(A)way TeamSelect"/>
     </Widget>
-    <Widget type="Button" skin="Button" position="300 325 300 26" align="Default" layer="Main" name="startGameButton">
-            <Property key="Caption" value="(S)tart Game"/>
+    <Widget type="Button" skin="Button" position="300 325 300 26" align="Default" layer="Main" name="teamsSelectedButton">
+            <Property key="Caption" value="(T)eams Selected"/>
     </Widget>
     <CodeGeneratorSettings/>
 </MyGUI>

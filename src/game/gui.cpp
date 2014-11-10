@@ -146,6 +146,15 @@ void GUISystem::setGameSetupMenuCreated(bool created)  // sets the value of game
 	gameSetupMenuCreated = created;
 }
 
+bool GUISystem::getPlayerStartSelectionMenuCreated()  // retrieves the value of playerStartSelectionMenuCreated
+{
+    return (playerStartSelectionMenuCreated);
+}
+void GUISystem::setPlayerStartSelectionMenuCreated(bool created)  // sets the value of playerStartSelectionMenuCreated
+{
+    playerStartSelectionMenuCreated = created;
+}
+
 bool GUISystem::getMenuActive() // retrieves the value of menuActive
 {
 	return (menuActive);
@@ -437,10 +446,10 @@ bool GUISystem::createGameSetupMenuGUI()	// creates GUI for game setup menu scre
 	team1SelectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::team1SelectButtonClicked);
 	team1SelectButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
-	startGameButton = mGUI->findWidget<MyGUI::Button>("startGameButton"); // loads team 1 Button
-	startGameButton->setVisible(false);
-	startGameButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::team1SelectButtonClicked);
-	startGameButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	teamsSelectedButton = mGUI->findWidget<MyGUI::Button>("teamsSelectedButton"); // loads team 1 Button
+	teamsSelectedButton->setVisible(false);
+	teamsSelectedButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::teamsSelectedButtonClicked);
+	teamsSelectedButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
 	gameSetupMenuCreated = true;
 
@@ -585,6 +594,11 @@ void GUISystem::team1SelectButtonClicked(MyGUI::Widget *_sender) // handles team
 
 }
 
+void GUISystem::teamsSelectedButtonClicked(MyGUI::Widget *_sender) // handles teamsSelectButton click event
+{
+
+}
+
 void GUISystem::backNetworkClientButtonClicked(MyGUI::Widget *_sender) // handles backNetworkClientButton click event
 {
 	hideGameSetupMenuWidgets();
@@ -714,7 +728,7 @@ void GUISystem::hideGameSetupMenuWidgets()  // hides all widgets tied to the Gam
 	team1SelectBox->setVisible(false);
 	team0SelectButton->setVisible(false);
 	team1SelectButton->setVisible(false);
-	startGameButton->setVisible(false);
+	teamsSelectedButton->setVisible(false);
 	logMsg("previousActiveMenu = " +Ogre::StringConverter::toString(previousActiveMenu));
 
 	if (previousActiveMenu == MAIN)
@@ -748,8 +762,8 @@ void GUISystem::showGameSetupMenuWidgets()  // shows all widgets tied to the Gam
     team1SelectButton->setVisible(true);
     team1SelectButton->setPosition((0.5 *viewPort->getActualWidth() ), (0.14 *viewPort->getActualHeight()) );
 
-    startGameButton->setVisible(true);
-    startGameButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.18 *viewPort->getActualHeight()) );
+    teamsSelectedButton->setVisible(true);
+    teamsSelectedButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.18 *viewPort->getActualHeight()) );
 	if (previousActiveMenu == MAIN)
 	{
 	    backMainMenuButton->setVisible(true);
@@ -766,6 +780,15 @@ void GUISystem::showGameSetupMenuWidgets()  // shows all widgets tied to the Gam
 	    backNetworkSetupButton->setVisible(true);
 	    backNetworkSetupButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.22 *viewPort->getActualHeight()) );
 	}
+}
+
+void hidePlayerStartSelectionMenuWidgets() // hides all widgets tied to the Player Start Selection Menu
+{
+
+}
+void showPlayerStartSelectionMenuWidgets() // shows all widgets tied to the Player Start Selection Menu
+{
+
 }
 
 void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key input
