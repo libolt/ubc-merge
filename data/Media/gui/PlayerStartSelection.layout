@@ -86,17 +86,17 @@
     <Widget type="Button" skin="Button" position="515 555 260 52" align="Default" layer="Main" name="team1StartinglineupSetButton">
         <Property key="Caption" value="Set Team (2)&apos;s Starting Lineup"/>
     </Widget>
-    <Widget type="TextBox" skin="TextBox" position="330 395 45 25" layer="Main" name="Team0PGRating"/>
-    <Widget type="TextBox" skin="TextBox" position="330 425 45 25" layer="Main" name="Team0SGRating"/>
-    <Widget type="TextBox" skin="TextBox" position="330 455 45 25" layer="Main" name="Team0SFRating"/>
-    <Widget type="TextBox" skin="TextBox" position="330 485 45 25" layer="Main" name="Team0PFRating"/>
-    <Widget type="TextBox" skin="TextBox" position="330 515 45 25" layer="Main" name="Team0CRating"/>
-    <Widget type="TextBox" skin="TextBox" position="755 395 45 25" layer="Main" name="Team1PGRating"/>
-    <Widget type="TextBox" skin="TextBox" position="755 425 45 25" layer="Main" name="Team1SGRating"/>
-    <Widget type="TextBox" skin="TextBox" position="755 455 45 25" layer="Main" name="Team1SFRating"/>
-    <Widget type="TextBox" skin="TextBox" position="755 485 45 25" layer="Main" name="Team1PFRating"/>
-    <Widget type="TextBox" skin="TextBox" position="755 515 45 25" layer="Main" name="Team1CRating"/>
-    <Widget type="ImageBox" skin="ImageBox" position="90 90 260 200" layer="Main" name="Team0Logo"/>
-    <Widget type="ImageBox" skin="ImageBox" position="515 90 260 200" layer="Main" name="Team1Logo"/>
+    <Widget type="TextBox" skin="TextBox" position="330 395 45 25" layer="Main" name="team0PGRating"/>
+    <Widget type="TextBox" skin="TextBox" position="330 425 45 25" layer="Main" name="team0SGRating"/>
+    <Widget type="TextBox" skin="TextBox" position="330 455 45 25" layer="Main" name="team0SFRating"/>
+    <Widget type="TextBox" skin="TextBox" position="330 485 45 25" layer="Main" name="team0PFRating"/>
+    <Widget type="TextBox" skin="TextBox" position="330 515 45 25" layer="Main" name="team0CRating"/>
+    <Widget type="TextBox" skin="TextBox" position="755 395 45 25" layer="Main" name="team1PGRating"/>
+    <Widget type="TextBox" skin="TextBox" position="755 425 45 25" layer="Main" name="team1SGRating"/>
+    <Widget type="TextBox" skin="TextBox" position="755 455 45 25" layer="Main" name="team1SFRating"/>
+    <Widget type="TextBox" skin="TextBox" position="755 485 45 25" layer="Main" name="team1PFRating"/>
+    <Widget type="TextBox" skin="TextBox" position="755 515 45 25" layer="Main" name="team1CRating"/>
+    <Widget type="ImageBox" skin="ImageBox" position="90 90 260 200" layer="Main" name="team0Logo"/>
+    <Widget type="ImageBox" skin="ImageBox" position="515 90 260 200" layer="Main" name="team1Logo"/>
     <CodeGeneratorSettings/>
 </MyGUI>

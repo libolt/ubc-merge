@@ -61,6 +61,7 @@ GUISystem::GUISystem()
 	gameSetupMenuCreated = false;
     gameSetupMenuAwaySelected = false;
 	gameSetupMenuHomeSelected = false;
+    playerStartSelectionMenuCreated = false;
     menuActive = false;
 
 	//activeMenu = NULL;
@@ -456,7 +457,7 @@ bool GUISystem::createGameSetupMenuGUI()	// creates GUI for game setup menu scre
 	return (true);
 }
 
-bool createPlayerStartSelectionMenuGUI()  // creates GUI for player selection menu screen.
+bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player selection menu screen.
 {
     gameState *gameS = gameState::Instance();
     loader *load = loader::Instance();
@@ -468,8 +469,107 @@ bool createPlayerStartSelectionMenuGUI()  // creates GUI for player selection me
 
     MyGUI::LayoutManager::getInstance().loadLayout("PlayerStartSelection.layout");
 
+    team0PGSelectBox = mGUI->findWidget<MyGUI::ListBox>("team0PGSelectBox"); // loads team0PGSelectBox
+    team0PGSelectBox->setVisible(false);
+//    team0PGSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team0SGSelectBox = mGUI->findWidget<MyGUI::ListBox>("team0SGSelectBox"); // loads team0SGSelectBox
+    team0SGSelectBox->setVisible(false);
+//    team0SGSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team0SFSelectBox = mGUI->findWidget<MyGUI::ListBox>("team0SFSelectBox"); // loads team0SFSelectBox
+    team0SFSelectBox->setVisible(false);
+//    team0SFSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team0PFSelectBox = mGUI->findWidget<MyGUI::ListBox>("team0PFSelectBox"); // loads team0PFSelectBox
+    team0PFSelectBox->setVisible(false);
+//    team0PFSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team0CSelectBox = mGUI->findWidget<MyGUI::ListBox>("team0CSelectBox"); // loads team0CSelectBox
+    team0CSelectBox->setVisible(false);
+//    team0CSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team1PGSelectBox = mGUI->findWidget<MyGUI::ListBox>("team1PGSelectBox"); // loads team1PGSelectBox
+    team1PGSelectBox->setVisible(false);
+//    team1PGSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team1SGSelectBox = mGUI->findWidget<MyGUI::ListBox>("team1SGSelectBox"); // loads team1SGSelectBox
+    team1SGSelectBox->setVisible(false);
+//    team1SGSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team1SFSelectBox = mGUI->findWidget<MyGUI::ListBox>("team1SFSelectBox"); // loads team1SFSelectBox
+    team1SFSelectBox->setVisible(false);
+//    team1SFSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team1PFSelectBox = mGUI->findWidget<MyGUI::ListBox>("team0PFSelectBox"); // loads team0PFSelectBox
+    team1PFSelectBox->setVisible(false);
+//    team1PFSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team1CSelectBox = mGUI->findWidget<MyGUI::ListBox>("team1CSelectBox"); // loads team1CSelectBox
+    team1CSelectBox->setVisible(false);
+//    team1CSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team0PGRating = mGUI->findWidget<MyGUI::TextBox>("team0PGRating"); // loads team0PGRatimg
+    team0PGRating->setVisible(false);
+//    team0PGRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team0SGRating = mGUI->findWidget<MyGUI::TextBox>("team0SGRating"); // loads team0SGRatimg
+    team0SGRating->setVisible(false);
+//    team0SGRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team0SFRating = mGUI->findWidget<MyGUI::TextBox>("team0SFRating"); // loads team0SFRatimg
+    team0SFRating->setVisible(false);
+//    team0SFRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team0PFRating = mGUI->findWidget<MyGUI::TextBox>("team0PFRating"); // loads team0PFRatimg
+    team0PFRating->setVisible(false);
+//    team0PFRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team0CRating = mGUI->findWidget<MyGUI::TextBox>("team0CRating"); // loads team0CRatimg
+    team0CRating->setVisible(false);
+//    team0CRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team1PGRating = mGUI->findWidget<MyGUI::TextBox>("team1PGRating"); // loads team1PGRatimg
+    team1PGRating->setVisible(false);
+//    team1PGRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team1SGRating = mGUI->findWidget<MyGUI::TextBox>("team1SGRating"); // loads team1SGRatimg
+    team1SGRating->setVisible(false);
+//    team1SGRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team1SFRating = mGUI->findWidget<MyGUI::TextBox>("team1SFRating"); // loads team1SFRatimg
+    team1SFRating->setVisible(false);
+//    team1SFRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team1PFRating = mGUI->findWidget<MyGUI::TextBox>("team1PFRating"); // loads team1PFRatimg
+    team1PFRating->setVisible(false);
+//    team1PFRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team1CRating = mGUI->findWidget<MyGUI::TextBox>("team1CRating"); // loads team1CRatimg
+    team1CRating->setVisible(false);
+//    team1CRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    
+    team0StartingLineupSetButton = mGUI->findWidget<MyGUI::Button>("team0StartingLineupSetButton"); // loads team0StartingLineupSetButton
+    team0StartingLineupSetButton->setVisible(false);
+//    team0StartingLineupSetButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    team1StartingLineupSetButton = mGUI->findWidget<MyGUI::Button>("team1StartingLineupSetButton"); // loads team1StartingLineupSetButton
+    team1StartingLineupSetButton->setVisible(false);
+//    team0StartingLineupSetButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+
+    
+/*
+    changeResolutionButton = mGUI->findWidget<MyGUI::Button>("changeResolutionButton"); // loads team 1 Button
+    changeResolutionButton->setVisible(false);
+    changeResolutionButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+*/
+    
+    playerStartSelectionMenuCreated = true;
+    
     return (true);
 }
+
 void GUISystem::startSingleGameButtonClicked(MyGUI::Widget *_sender)	// handles startSingleGameButton click event
 {
 	startSinglePlayerGame();
@@ -782,13 +882,80 @@ void GUISystem::showGameSetupMenuWidgets()  // shows all widgets tied to the Gam
 	}
 }
 
-void hidePlayerStartSelectionMenuWidgets() // hides all widgets tied to the Player Start Selection Menu
+void GUISystem::hidePlayerStartSelectionMenuWidgets() // hides all widgets tied to the Player Start Selection Menu
 {
+    
+    // Team 0 widgets
+    team0PGSelectBox->setVisible(false);
+    team0SGSelectBox->setVisible(false);
+    team0SFSelectBox->setVisible(false);
+    team0PFSelectBox->setVisible(false);
+    team0CSelectBox->setVisible(false);
+    
+    team0PGRating->setVisible(false);
+    team0SGRating->setVisible(false);
+    team0SFRating->setVisible(false);
+    team0PFRating->setVisible(false);
+    team0CRating->setVisible(false);
+    
+    team0Logo->setVisible(false);
 
+    team0StartingLineupSetButton->setVisible(false);
+    
+    // Team 1 widgets
+    team1PGSelectBox->setVisible(false);
+    team1SGSelectBox->setVisible(false);
+    team1SFSelectBox->setVisible(false);
+    team1PFSelectBox->setVisible(false);
+    team1CSelectBox->setVisible(false);
+    
+    team1PGRating->setVisible(false);
+    team1SGRating->setVisible(false);
+    team1SFRating->setVisible(false);
+    team1PFRating->setVisible(false);
+    team1CRating->setVisible(false);
+    
+    team1Logo->setVisible(false);
+    
+    team1StartingLineupSetButton->setVisible(false);
+    
 }
-void showPlayerStartSelectionMenuWidgets() // shows all widgets tied to the Player Start Selection Menu
+void GUISystem::showPlayerStartSelectionMenuWidgets() // shows all widgets tied to the Player Start Selection Menu
 {
+    // Team 0 widgets
+    team0PGSelectBox->setVisible(true);
+    team0SGSelectBox->setVisible(true);
+    team0SFSelectBox->setVisible(true);
+    team0PFSelectBox->setVisible(true);
+    team0CSelectBox->setVisible(true);
+    
+    team0PGRating->setVisible(true);
+    team0SGRating->setVisible(true);
+    team0SFRating->setVisible(true);
+    team0PFRating->setVisible(true);
+    team0CRating->setVisible(true);
+    
+    team0Logo->setVisible(true);
 
+    team0StartingLineupSetButton->setVisible(true);
+    
+    // Team 1 widgets
+    team1PGSelectBox->setVisible(true);
+    team1SGSelectBox->setVisible(true);
+    team1SFSelectBox->setVisible(true);
+    team1PFSelectBox->setVisible(true);
+    team1CSelectBox->setVisible(true);
+    
+    team1PGRating->setVisible(true);
+    team1SGRating->setVisible(true);
+    team1SFRating->setVisible(true);
+    team1PFRating->setVisible(true);
+    team1CRating->setVisible(true);
+    
+    team1Logo->setVisible(true);
+    
+    team1StartingLineupSetButton->setVisible(true);
+    
 }
 
 void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key input
@@ -817,6 +984,8 @@ void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key inp
 		    processAudioMenuKeyPress(keyPressed);
 		case GAMESETUP:
 			processGameSetupMenuKeyPress(keyPressed);
+        case PLAYERSTART:
+            processPlayerStartSelectionMenuKeyPress(keyPressed);
 		default:
 		    break;
 	}
@@ -1050,11 +1219,14 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 //	    previousActiveMenu = activeMenu;
 //	    activeMenu = NETWORKCLIENT;
 	}
-	else if (keyPressed == "s")
+	else if (keyPressed == "t")
 	{
 	    hideGameSetupMenuWidgets();
-		menuActive = false;
-		gameS->setGameSetupComplete(true);
+//		menuActive = false;
+        previousActiveMenu = activeMenu;
+	    activeMenu = PLAYERSTART;
+        playerStartSelectionMenu();
+//        gameS->setGameSetupComplete(true);
 //	    networkServer();
 	}
 	else if (keyPressed == "x")
@@ -1130,9 +1302,15 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 	}
 }
 
-void processPlayerStartSelectionMenuKeyPress(std::string keyPressed)   // process player start selection menu key input
+void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed)   // process player start selection menu key input
 {
-
+    gameState *gameS = gameState::Instance();
+    
+    
+    if (keyPressed == "p")
+    {
+        gameS->setGameSetupComplete(true);
+    }
 }
 
 void GUISystem::startSinglePlayerGame() // starts single player game
@@ -1142,7 +1320,7 @@ void GUISystem::startSinglePlayerGame() // starts single player game
     gameS->setGameType(SINGLE);
 	hideMainMenuWidgets();	// Hides the widgets from the main menu
 	previousActiveMenu = activeMenu;
-	activeMenu = GAMESETUP,
+	activeMenu = GAMESETUP;
     gameSetupMenu();
 //	menuActive = false;
 }
@@ -1196,6 +1374,20 @@ void GUISystem::gameSetupMenu() // displays game setup menu
 
 }
 
+void GUISystem::playerStartSelectionMenu() // displays player start selection menu
+{
+    if (!playerStartSelectionMenuCreated)
+    {
+        createPlayerStartSelectionMenuGUI();
+        playerStartSelectionMenuCreated = true;
+    }
+
+    showPlayerStartSelectionMenuWidgets();
+    menuActive = true;
+//  previousActiveMenu = activeMenu;
+//  activeMenu = GAMESETUP;
+
+}
 void GUISystem::clientSetup() // sets up the client connection
 {
 

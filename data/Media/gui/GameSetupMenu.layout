@@ -8,7 +8,7 @@
         <Property key="TextAlign" value="Center"/>
         <Property key="TextColour" value="1 1 1"/>
     </Widget>
-    <Widget type="ListBox" skin="ListBox" position="500 200 300 26" align="Default" layer="Main" name="team1SelectBox">
+    <Widget type="ListBox" skin="ListBox" position="300 200 300 26" align="Default" layer="Main" name="team1SelectBox">
         <Property key="Caption" value=""/>
         <Property key="Colour" value="0.321637 0.312233 0.312233"/>
         <Property key="Enabled" value="true"/>
@@ -23,7 +23,7 @@
             <Property key="Caption" value="(A)way TeamSelect"/>
     </Widget>
     <Widget type="Button" skin="Button" position="300 325 300 26" align="Default" layer="Main" name="teamsSelectedButton">
-            <Property key="Caption" value="(T)eams Selected"/>
+            <Property key="Caption" value="(T)eams selected"/>
     </Widget>
     <CodeGeneratorSettings/>
 </MyGUI>

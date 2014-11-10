@@ -106,6 +106,7 @@ public:
 	void startMultiPlayerGame(); // starts multiplayer game
     void optionsMenu(); // displays options menu
     void gameSetupMenu(); // displays game setup menu
+    void playerStartSelectionMenu(); // displays player start selection menu
 	void clientSetup(); // sets up the client connection
 
      void networkServer();  // sets up  game as a network server
@@ -188,7 +189,6 @@ private:
 	MyGUI::Button *audioButton;
 	MyGUI::Button *team0SelectButton;
 	MyGUI::Button *team1SelectButton;
-	MyGUI::Button *teamsSelectedButton;
 	MyGUI::Button *startGameButton;
 	MyGUI::Button *backNetworkClientButton;
 	MyGUI::Button *changeResolutionButton;
@@ -196,14 +196,47 @@ private:
 	MyGUI::Button *enableAudioButton;
 	MyGUI::Button *disableAudioButton;
     MyGUI::Button *backOptionsMenuButton;
-
-    // text widgets
+    
+    // Player Start Selection Menu
+    MyGUI::Button *team0StartingLineupSetButton;
+    MyGUI::Button *team1StartingLineupSetButton;
+    MyGUI::Button *teamsSelectedButton;
+    
+    // editbox widgets
     MyGUI::EditBox *ipAddressBox;
 
 	// listbox widgets
 	MyGUI::ListBox *team0SelectBox;
 	MyGUI::ListBox *team1SelectBox;
-
+    
+    // Player Selection Menu widgets
+    MyGUI::ListBox *team0PGSelectBox;
+    MyGUI::ListBox *team0SGSelectBox;
+    MyGUI::ListBox *team0SFSelectBox;
+    MyGUI::ListBox *team0PFSelectBox;
+    MyGUI::ListBox *team0CSelectBox;
+    
+    MyGUI::ListBox *team1PGSelectBox;
+    MyGUI::ListBox *team1SGSelectBox;
+    MyGUI::ListBox *team1SFSelectBox;
+    MyGUI::ListBox *team1PFSelectBox;
+    MyGUI::ListBox *team1CSelectBox;
+    
+    MyGUI::TextBox *team0PGRating;
+    MyGUI::TextBox *team0SGRating;
+    MyGUI::TextBox *team0SFRating;
+    MyGUI::TextBox *team0PFRating;
+    MyGUI::TextBox *team0CRating;
+    
+    MyGUI::TextBox *team1PGRating;
+    MyGUI::TextBox *team1SGRating;
+    MyGUI::TextBox *team1SFRating;
+    MyGUI::TextBox *team1PFRating;
+    MyGUI::TextBox *team1CRating;
+    
+    MyGUI::ImageBox *team0Logo;
+    MyGUI::ImageBox *team1Logo;
+    
 	// booleans
     bool mainMenuCreated;   // determines whether the main menu gui has been created
     bool networkSetupMenuCreated;   // determines whether the network setup gui has been created
