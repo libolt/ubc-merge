@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team0PGSelectBox">
+    <Widget type="ListBox" skin="ListBox" position="100 395 215 25" align="Default" layer="Main" name="team0PGSelectBox">
         <Property key="Caption" value=""/>
         <Property key="Colour" value="0.321637 0.312233 0.312233"/>
         <Property key="Enabled" value="true"/>
@@ -8,7 +8,7 @@
         <Property key="TextAlign" value="Center"/>
         <Property key="TextColour" value="1 1 1"/>
     </Widget>
-    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team0SGSelectBox">
+    <Widget type="ListBox" skin="ListBox" position="100 425 215 25" align="Default" layer="Main" name="team0SGSelectBox">
         <Property key="Caption" value=""/>
         <Property key="Colour" value="0.321637 0.312233 0.312233"/>
         <Property key="Enabled" value="true"/>
@@ -16,7 +16,7 @@
         <Property key="TextAlign" value="Center"/>
         <Property key="TextColour" value="1 1 1"/>
     </Widget>
-    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team0SFSelectBox">
+    <Widget type="ListBox" skin="ListBox" position="100 455 215 25" align="Default" layer="Main" name="team0SFSelectBox">
         <Property key="Caption" value=""/>
         <Property key="Colour" value="0.321637 0.312233 0.312233"/>
         <Property key="Enabled" value="true"/>
@@ -24,7 +24,7 @@
         <Property key="TextAlign" value="Center"/>
         <Property key="TextColour" value="1 1 1"/>
     </Widget>
-    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team0PFSelectBox">
+    <Widget type="ListBox" skin="ListBox" position="100 515 215 25" align="Default" layer="Main" name="team0PFSelectBox">
         <Property key="Caption" value=""/>
         <Property key="Colour" value="0.321637 0.312233 0.312233"/>
         <Property key="Enabled" value="true"/>
@@ -32,7 +32,7 @@
         <Property key="TextAlign" value="Center"/>
         <Property key="TextColour" value="1 1 1"/>
     </Widget>
-    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team0CSelectBox">
+    <Widget type="ListBox" skin="ListBox" position="100 485 215 25" align="Default" layer="Main" name="team0CSelectBox">
         <Property key="Caption" value=""/>
         <Property key="Colour" value="0.321637 0.312233 0.312233"/>
         <Property key="Enabled" value="true"/>
@@ -40,7 +40,7 @@
         <Property key="TextAlign" value="Center"/>
         <Property key="TextColour" value="1 1 1"/>
     </Widget>
-    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team1PGSelectBox">
+    <Widget type="ListBox" skin="ListBox" position="525 395 215 25" align="Default" layer="Main" name="team1PGSelectBox">
         <Property key="Caption" value=""/>
         <Property key="Colour" value="0.321637 0.312233 0.312233"/>
         <Property key="Enabled" value="true"/>
@@ -48,7 +48,7 @@
         <Property key="TextAlign" value="Center"/>
         <Property key="TextColour" value="1 1 1"/>
     </Widget>
-    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team1SGSelectBox">
+    <Widget type="ListBox" skin="ListBox" position="525 425 215 25" align="Default" layer="Main" name="team1SGSelectBox">
         <Property key="Caption" value=""/>
         <Property key="Colour" value="0.321637 0.312233 0.312233"/>
         <Property key="Enabled" value="true"/>
@@ -56,7 +56,7 @@
         <Property key="TextAlign" value="Center"/>
         <Property key="TextColour" value="1 1 1"/>
     </Widget>
-    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team1SFSelectBox">
+    <Widget type="ListBox" skin="ListBox" position="525 455 215 25" align="Default" layer="Main" name="team1SFSelectBox">
         <Property key="Caption" value=""/>
         <Property key="Colour" value="0.321637 0.312233 0.312233"/>
         <Property key="Enabled" value="true"/>
@@ -64,7 +64,7 @@
         <Property key="TextAlign" value="Center"/>
         <Property key="TextColour" value="1 1 1"/>
     </Widget>
-    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team1PFSelectBox">
+    <Widget type="ListBox" skin="ListBox" position="525 485 215 25" align="Default" layer="Main" name="team1PFSelectBox">
         <Property key="Caption" value=""/>
         <Property key="Colour" value="0.321637 0.312233 0.312233"/>
         <Property key="Enabled" value="true"/>
@@ -72,7 +72,7 @@
         <Property key="TextAlign" value="Center"/>
         <Property key="TextColour" value="1 1 1"/>
     </Widget>
-    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team1CSelectBox">
+    <Widget type="ListBox" skin="ListBox" position="525 515 215 25" align="Default" layer="Main" name="team1CSelectBox">
         <Property key="Caption" value=""/>
         <Property key="Colour" value="0.321637 0.312233 0.312233"/>
         <Property key="Enabled" value="true"/>
@@ -80,12 +80,23 @@
         <Property key="TextAlign" value="Center"/>
         <Property key="TextColour" value="1 1 1"/>
     </Widget>
-
-    <Widget type="Button" skin="Button" position="362 100 500 52" align="Default" layer="Main" name="team0StartingLineupSetButton">
-        <Property key="Caption" value="Start (S)ingle Player Game"/>
+    <Widget type="Button" skin="Button" position="90 555 260 52" align="Default" layer="Main" name="team0StartingLineupSetButton">
+        <Property key="Caption" value="Set Team (1)&apos;s Starting Lineup"/>
     </Widget>
-    <Widget type="Button" skin="Button" position="362 150 500 52" align="Default" layer="Main" name="team1StartinglineupSetButton">
-        <Property key="Caption" value="Start (M)ulti Player Game" />
+    <Widget type="Button" skin="Button" position="515 555 260 52" align="Default" layer="Main" name="team1StartinglineupSetButton">
+        <Property key="Caption" value="Set Team (2)&apos;s Starting Lineup"/>
     </Widget>
+    <Widget type="TextBox" skin="TextBox" position="330 395 45 25" layer="Main" name="Team0PGRating"/>
+    <Widget type="TextBox" skin="TextBox" position="330 425 45 25" layer="Main" name="Team0SGRating"/>
+    <Widget type="TextBox" skin="TextBox" position="330 455 45 25" layer="Main" name="Team0SFRating"/>
+    <Widget type="TextBox" skin="TextBox" position="330 485 45 25" layer="Main" name="Team0PFRating"/>
+    <Widget type="TextBox" skin="TextBox" position="330 515 45 25" layer="Main" name="Team0CRating"/>
+    <Widget type="TextBox" skin="TextBox" position="755 395 45 25" layer="Main" name="Team1PGRating"/>
+    <Widget type="TextBox" skin="TextBox" position="755 425 45 25" layer="Main" name="Team1SGRating"/>
+    <Widget type="TextBox" skin="TextBox" position="755 455 45 25" layer="Main" name="Team1SFRating"/>
+    <Widget type="TextBox" skin="TextBox" position="755 485 45 25" layer="Main" name="Team1PFRating"/>
+    <Widget type="TextBox" skin="TextBox" position="755 515 45 25" layer="Main" name="Team1CRating"/>
+    <Widget type="ImageBox" skin="ImageBox" position="90 90 260 200" layer="Main" name="Team0Logo"/>
+    <Widget type="ImageBox" skin="ImageBox" position="515 90 260 200" layer="Main" name="Team1Logo"/>
     <CodeGeneratorSettings/>
 </MyGUI>
