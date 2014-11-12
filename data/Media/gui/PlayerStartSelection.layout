@@ -98,7 +98,7 @@
     <Widget type="TextBox" skin="TextBox" position="755 515 45 25" layer="Main" name="team1CRating"/>
     <Widget type="ImageBox" skin="ImageBox" position="90 90 260 200" layer="Main" name="team0Logo"/>
     <Widget type="ImageBox" skin="ImageBox" position="515 90 260 200" layer="Main" name="team1Logo"/>
-    <Widget type="Button" skin="Button" position="310 630 260 52" layer="Main" name="startingLineupsSet">
+    <Widget type="Button" skin="Button" position="310 630 260 52" layer="Main" name="startingLineupsSetButton">
         <Property key="Caption" value="(S)tarting Lineups Set"/>
     </Widget>
     <CodeGeneratorSettings/>

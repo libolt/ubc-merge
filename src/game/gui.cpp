@@ -1357,6 +1357,8 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
     else if (keyPressed == "b")
     {
     	hidePlayerStartSelectionMenuWidgets();
+    	previousActiveMenu = activeMenu;
+    	activeMenu = GAMESETUP;
     	gameSetupMenu();
     }
 }
