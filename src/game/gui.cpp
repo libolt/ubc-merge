@@ -252,6 +252,7 @@ bool GUISystem::createMainMenuGUI()
 	// or
 	//button->eventMouseButtonClick += MyGUI::newDelegate(STATIC_METHOD_NAME);
 	//button->eventMouseButtonClick += MyGUI::newDelegate(GLOBAL_FUNC_NAME);
+    
 	return true;
 }
 
@@ -432,7 +433,7 @@ bool GUISystem::createGameSetupMenuGUI()	// creates GUI for game setup menu scre
 
 	logMsg(Ogre::StringConverter::toString(teamDataInstance.size()));
 
-	for (int x=0;x<teamDataInstance.size(); ++x)
+	for (size_t x=0;x<teamDataInstance.size(); ++x)
 	{
 	    std::string teamName = teamDataInstance[x].getCity() + " " +teamDataInstance[x].getName();
 
@@ -469,6 +470,11 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
     renderEngine *renderE = renderEngine::Instance();
     Ogre::Viewport *viewPort = renderE->getViewPort();
 
+    
+    load->loadPlayers();
+    
+    std::vector<playerData> playerDataInstance = gameS->getPlayerDataInstance();
+	
 //    load->loadTeams();
 //    std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
 
@@ -477,102 +483,102 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
     team0PGSelectBox = mGUI->findWidget<MyGUI::ListBox>("team0PGSelectBox"); // loads team0PGSelectBox
     team0PGSelectBox->setVisible(false);
 //    team0PGSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team0PGSelectBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team0PGSelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team0SGSelectBox = mGUI->findWidget<MyGUI::ListBox>("team0SGSelectBox"); // loads team0SGSelectBox
     team0SGSelectBox->setVisible(false);
 //    team0SGSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team0SGSelectBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team0SGSelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team0SFSelectBox = mGUI->findWidget<MyGUI::ListBox>("team0SFSelectBox"); // loads team0SFSelectBox
     team0SFSelectBox->setVisible(false);
 //    team0SFSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team0SFSelectBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team0SFSelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team0PFSelectBox = mGUI->findWidget<MyGUI::ListBox>("team0PFSelectBox"); // loads team0PFSelectBox
     team0PFSelectBox->setVisible(false);
 //    team0PFSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team0PFSelectBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team0PFSelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team0CSelectBox = mGUI->findWidget<MyGUI::ListBox>("team0CSelectBox"); // loads team0CSelectBox
     team0CSelectBox->setVisible(false);
 //    team0CSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team0CSelectBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team0CSelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team1PGSelectBox = mGUI->findWidget<MyGUI::ListBox>("team1PGSelectBox"); // loads team1PGSelectBox
     team1PGSelectBox->setVisible(false);
 //    team1PGSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team1PGSelectBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team1PGSelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team1SGSelectBox = mGUI->findWidget<MyGUI::ListBox>("team1SGSelectBox"); // loads team1SGSelectBox
     team1SGSelectBox->setVisible(false);
 //    team1SGSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team1SGSelectBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team1SGSelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team1SFSelectBox = mGUI->findWidget<MyGUI::ListBox>("team1SFSelectBox"); // loads team1SFSelectBox
     team1SFSelectBox->setVisible(false);
 //    team1SFSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team1SFSelectBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team1SFSelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team1PFSelectBox = mGUI->findWidget<MyGUI::ListBox>("team1PFSelectBox"); // loads team0PFSelectBox
     team1PFSelectBox->setVisible(false);
 //    team1PFSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team1PFSelectBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team1PFSelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team1CSelectBox = mGUI->findWidget<MyGUI::ListBox>("team1CSelectBox"); // loads team1CSelectBox
     team1CSelectBox->setVisible(false);
 //    team1CSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team1CSelectBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team1CSelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team0PGRating = mGUI->findWidget<MyGUI::TextBox>("team0PGRating"); // loads team0PGRatimg
     team0PGRating->setVisible(false);
 //    team0PGRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team0PGRating->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team0PGRating->setSize((0.1 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team0SGRating = mGUI->findWidget<MyGUI::TextBox>("team0SGRating"); // loads team0SGRatimg
     team0SGRating->setVisible(false);
 //    team0SGRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team0SGRating->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team0SGRating->setSize((0.1 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team0SFRating = mGUI->findWidget<MyGUI::TextBox>("team0SFRating"); // loads team0SFRatimg
     team0SFRating->setVisible(false);
 //    team0SFRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team0SFRating->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team0SFRating->setSize((0.1 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team0PFRating = mGUI->findWidget<MyGUI::TextBox>("team0PFRating"); // loads team0PFRatimg
     team0PFRating->setVisible(false);
 //    team0PFRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team0PFRating->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team0PFRating->setSize((0.1 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team0CRating = mGUI->findWidget<MyGUI::TextBox>("team0CRating"); // loads team0CRatimg
     team0CRating->setVisible(false);
 //    team0CRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team0CRating->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team0CRating->setSize((0.1 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team1PGRating = mGUI->findWidget<MyGUI::TextBox>("team1PGRating"); // loads team1PGRatimg
     team1PGRating->setVisible(false);
 //    team1PGRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team1PGRating->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team1PGRating->setSize((0.1 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team1SGRating = mGUI->findWidget<MyGUI::TextBox>("team1SGRating"); // loads team1SGRatimg
     team1SGRating->setVisible(false);
 //    team1SGRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team1SGRating->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team1SGRating->setSize((0.1 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team1SFRating = mGUI->findWidget<MyGUI::TextBox>("team1SFRating"); // loads team1SFRatimg
     team1SFRating->setVisible(false);
 //    team1SFRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team1SFRating->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team1SFRating->setSize((0.1 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team1PFRating = mGUI->findWidget<MyGUI::TextBox>("team1PFRating"); // loads team1PFRatimg
     team1PFRating->setVisible(false);
 //    team1PFRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team1PFRating->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team1PFRating->setSize((0.1 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team1CRating = mGUI->findWidget<MyGUI::TextBox>("team1CRating"); // loads team1CRatimg
     team1CRating->setVisible(false);
 //    team1CRating->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	team1CRating->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	team1CRating->setSize((0.1 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
 
     team0StartingLineupSetButton = mGUI->findWidget<MyGUI::Button>("team0StartingLineupSetButton"); // loads team0StartingLineupSetButton
@@ -596,6 +602,12 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
     changeResolutionButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
 */
 
+    for (size_t i = 0;i < playerDataInstance.size(); ++i)
+    {
+        logMsg("pDTeam = " +Ogre::StringConverter::toString(playerDataInstance[i].getTeamID()));
+    }
+    std::string playerName = playerDataInstance[0].getFirstName() +" " +playerDataInstance[0].getLastName();
+    team0PGSelectBox->addItem(playerName);
     playerStartSelectionMenuCreated = true;
 
     return (true);
@@ -958,46 +970,93 @@ void GUISystem::hidePlayerStartSelectionMenuWidgets() // hides all widgets tied 
 }
 void GUISystem::showPlayerStartSelectionMenuWidgets() // shows all widgets tied to the Player Start Selection Menu
 {
+    
+    renderEngine *renderE = renderEngine::Instance();
+    Ogre::Viewport *viewPort = renderE->getViewPort();
+
     // Team 0 widgets
     team0PGSelectBox->setVisible(true);
+    team0PGSelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.05 *viewPort->getActualHeight()) );
+	
     team0SGSelectBox->setVisible(true);
+    team0SGSelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.09 *viewPort->getActualHeight()) );
+	
     team0SFSelectBox->setVisible(true);
+    team0SFSelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.13 *viewPort->getActualHeight()) );
+	
     team0PFSelectBox->setVisible(true);
+    team0PFSelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.17 *viewPort->getActualHeight()) );
+	
     team0CSelectBox->setVisible(true);
-
+    team0CSelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
+	
     team0PGRating->setVisible(true);
+    team0PGRating->setPosition((0.3 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
+	team0PGRating->setCaption("Test");
+
     team0SGRating->setVisible(true);
+    team0SGRating->setPosition((0.3 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
+	
     team0SFRating->setVisible(true);
+    team0SFRating->setPosition((0.3 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
+	
     team0PFRating->setVisible(true);
+    team0PFRating->setPosition((0.3 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
+	
     team0CRating->setVisible(true);
+    team0CRating->setPosition((0.3 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
+	
 
 // FIXME! needs image loaded to work
 //    team0Logo->setVisible(true);
 
     team0StartingLineupSetButton->setVisible(true);
-
+    team0StartingLineupSetButton->setPosition((0.1 *viewPort->getActualWidth() ), (0.31 *viewPort->getActualHeight()) );
+	
     // Team 1 widgets
     team1PGSelectBox->setVisible(true);
+    team1PGSelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.05 *viewPort->getActualHeight()) );
+	
     team1SGSelectBox->setVisible(true);
+    team1SGSelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.09 *viewPort->getActualHeight()) );
+	
     team1SFSelectBox->setVisible(true);
+    team1SFSelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.13 *viewPort->getActualHeight()) );
+	
     team1PFSelectBox->setVisible(true);
+    team1PFSelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.17 *viewPort->getActualHeight()) );
+	
     team1CSelectBox->setVisible(true);
-
+    team1CSelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
+	
     team1PGRating->setVisible(true);
+    team1PGRating->setPosition((0.8 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
+	
     team1SGRating->setVisible(true);
+    team1SGRating->setPosition((0.8 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
+	
     team1SFRating->setVisible(true);
+    team1SFRating->setPosition((0.8 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
+	
     team1PFRating->setVisible(true);
+    team1PFRating->setPosition((0.8 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
+	
     team1CRating->setVisible(true);
+    team1CRating->setPosition((0.8 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
 
 // FIXME! needs image loaded to work
 //    team1Logo->setVisible(true);
 
     team1StartingLineupSetButton->setVisible(true);
-
+    team1StartingLineupSetButton->setPosition((0.5 *viewPort->getActualWidth() ), (0.31 *viewPort->getActualHeight()) );
+	
+    
     startingLineupsSetButton->setVisible(true);
-
+    startingLineupsSetButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.35 *viewPort->getActualHeight()) );
+	
     backGameSetupMenuButton->setVisible(true);
-
+    backGameSetupMenuButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.4 *viewPort->getActualHeight()) );
+	
 }
 
 void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key input
@@ -1267,6 +1326,8 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 //		menuActive = false;
         previousActiveMenu = activeMenu;
 	    activeMenu = PLAYERSTART;
+        std::vector<int> teamID;
+        teamID.push_back(team0SelectBox->getIndexSelected());
         playerStartSelectionMenu();
 //        gameS->setGameSetupComplete(true);
 //	    networkServer();

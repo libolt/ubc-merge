@@ -277,6 +277,7 @@ bool gameState::assignTeams()
 // assigns the players that are playing to the game state machine
 bool gameState::assignPlayers()
 {
+    
     gameState *gameS = gameState::Instance();
     players *player = players::Instance();
     teams *team = teams::Instance();
@@ -496,20 +497,22 @@ bool gameState::setupState()
     logMsg("Setting up state!");
  //   load->loadTeams();  // loads teams from XML files
 //#else
-    load->loadPlayers();    // loads players from XML files
-
+ 
+//    moved to GUI code 
+//    load->loadPlayers();    // loads players from XML files
+/*
     team->assignPlayers();  // assigns players to teams
     team->assignStarters(); // assigns starting players to teams
 
     assignTeams();    // assigns teams playing
 
     assignPlayers();  // assigns players currently playing
-
+*/
     if (!teamInstancesCreated)	// checks if teamInstances have been created
     {
     	if(createTeamInstances())	// creates the team instances
     	{
-    	    Ogre::LogManager::getSingletonPtr()->logMessage("TIC!");
+    	    logMsg("TIC!");
    		teamInstancesCreated = true;
     	}
     }
