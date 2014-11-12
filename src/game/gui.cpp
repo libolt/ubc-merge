@@ -588,7 +588,7 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
     startingLineupsSetButton = mGUI->findWidget<MyGUI::Button>("startingLineupsSetButton"); // loads team1StartingLineupSetButton
     startingLineupsSetButton->setVisible(false);
 //    team0StartingLineupSetButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
-	startingLineupsSetButton>setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+	startingLineupsSetButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
 /*
     changeResolutionButton = mGUI->findWidget<MyGUI::Button>("changeResolutionButton"); // loads team 1 Button
