@@ -252,7 +252,7 @@ bool GUISystem::createMainMenuGUI()
 	// or
 	//button->eventMouseButtonClick += MyGUI::newDelegate(STATIC_METHOD_NAME);
 	//button->eventMouseButtonClick += MyGUI::newDelegate(GLOBAL_FUNC_NAME);
-    
+
 	return true;
 }
 
@@ -470,11 +470,11 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
     renderEngine *renderE = renderEngine::Instance();
     Ogre::Viewport *viewPort = renderE->getViewPort();
 
-    
+
     load->loadPlayers();
-    
+
     std::vector<playerData> playerDataInstance = gameS->getPlayerDataInstance();
-	
+
 //    load->loadTeams();
 //    std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
 
@@ -605,9 +605,31 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
     for (size_t i = 0;i < playerDataInstance.size(); ++i)
     {
         logMsg("pDTeam = " +Ogre::StringConverter::toString(playerDataInstance[i].getTeamID()));
+        logMsg("teamID == " +Ogre::StringConverter::toString(gameS->getTeamID()[1]));
+
+        if (playerDataInstance[i].getTeamID() == gameS->getTeamID()[0])
+        {
+            std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName();
+
+            team0PGSelectBox->addItem(playerName);
+            team0SGSelectBox->addItem(playerName);
+            team0SFSelectBox->addItem(playerName);
+            team0PFSelectBox->addItem(playerName);
+            team0CSelectBox->addItem(playerName);
+
+        }
+        if (playerDataInstance[i].getTeamID() == gameS->getTeamID()[1])
+        {
+            std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName();
+
+            team1PGSelectBox->addItem(playerName);
+            team1SGSelectBox->addItem(playerName);
+            team1SFSelectBox->addItem(playerName);
+            team1PFSelectBox->addItem(playerName);
+            team1CSelectBox->addItem(playerName);
+
+        }
     }
-    std::string playerName = playerDataInstance[0].getFirstName() +" " +playerDataInstance[0].getLastName();
-    team0PGSelectBox->addItem(playerName);
     playerStartSelectionMenuCreated = true;
 
     return (true);
@@ -970,77 +992,77 @@ void GUISystem::hidePlayerStartSelectionMenuWidgets() // hides all widgets tied 
 }
 void GUISystem::showPlayerStartSelectionMenuWidgets() // shows all widgets tied to the Player Start Selection Menu
 {
-    
+
     renderEngine *renderE = renderEngine::Instance();
     Ogre::Viewport *viewPort = renderE->getViewPort();
 
     // Team 0 widgets
     team0PGSelectBox->setVisible(true);
     team0PGSelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.05 *viewPort->getActualHeight()) );
-	
+
     team0SGSelectBox->setVisible(true);
     team0SGSelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.09 *viewPort->getActualHeight()) );
-	
+
     team0SFSelectBox->setVisible(true);
     team0SFSelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.13 *viewPort->getActualHeight()) );
-	
+
     team0PFSelectBox->setVisible(true);
     team0PFSelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.17 *viewPort->getActualHeight()) );
-	
+
     team0CSelectBox->setVisible(true);
     team0CSelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
-	
+
     team0PGRating->setVisible(true);
     team0PGRating->setPosition((0.3 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
 	team0PGRating->setCaption("Test");
 
     team0SGRating->setVisible(true);
     team0SGRating->setPosition((0.3 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
-	
+
     team0SFRating->setVisible(true);
     team0SFRating->setPosition((0.3 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
-	
+
     team0PFRating->setVisible(true);
     team0PFRating->setPosition((0.3 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
-	
+
     team0CRating->setVisible(true);
     team0CRating->setPosition((0.3 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
-	
+
 
 // FIXME! needs image loaded to work
 //    team0Logo->setVisible(true);
 
     team0StartingLineupSetButton->setVisible(true);
     team0StartingLineupSetButton->setPosition((0.1 *viewPort->getActualWidth() ), (0.31 *viewPort->getActualHeight()) );
-	
+
     // Team 1 widgets
     team1PGSelectBox->setVisible(true);
     team1PGSelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.05 *viewPort->getActualHeight()) );
-	
+
     team1SGSelectBox->setVisible(true);
     team1SGSelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.09 *viewPort->getActualHeight()) );
-	
+
     team1SFSelectBox->setVisible(true);
     team1SFSelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.13 *viewPort->getActualHeight()) );
-	
+
     team1PFSelectBox->setVisible(true);
     team1PFSelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.17 *viewPort->getActualHeight()) );
-	
+
     team1CSelectBox->setVisible(true);
     team1CSelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
-	
+
     team1PGRating->setVisible(true);
     team1PGRating->setPosition((0.8 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
-	
+
     team1SGRating->setVisible(true);
     team1SGRating->setPosition((0.8 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
-	
+
     team1SFRating->setVisible(true);
     team1SFRating->setPosition((0.8 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
-	
+
     team1PFRating->setVisible(true);
     team1PFRating->setPosition((0.8 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
-	
+
     team1CRating->setVisible(true);
     team1CRating->setPosition((0.8 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
 
@@ -1049,14 +1071,14 @@ void GUISystem::showPlayerStartSelectionMenuWidgets() // shows all widgets tied 
 
     team1StartingLineupSetButton->setVisible(true);
     team1StartingLineupSetButton->setPosition((0.5 *viewPort->getActualWidth() ), (0.31 *viewPort->getActualHeight()) );
-	
-    
+
+
     startingLineupsSetButton->setVisible(true);
     startingLineupsSetButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.35 *viewPort->getActualHeight()) );
-	
+
     backGameSetupMenuButton->setVisible(true);
     backGameSetupMenuButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.4 *viewPort->getActualHeight()) );
-	
+
 }
 
 void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key input
@@ -1328,6 +1350,8 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 	    activeMenu = PLAYERSTART;
         std::vector<int> teamID;
         teamID.push_back(team0SelectBox->getIndexSelected());
+        teamID.push_back(team1SelectBox->getIndexSelected());
+        gameS->setTeamID(teamID);
         playerStartSelectionMenu();
 //        gameS->setGameSetupComplete(true);
 //	    networkServer();
