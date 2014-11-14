@@ -610,12 +610,39 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
         if (playerDataInstance[i].getTeamID() == gameS->getTeamID()[0])
         {
             std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName();
-
+            std::string PName;
+            
             team0PGSelectBox->addItem(playerName);
-            team0SGSelectBox->addItem(playerName);
-            team0SFSelectBox->addItem(playerName);
-            team0PFSelectBox->addItem(playerName);
-            team0CSelectBox->addItem(playerName);
+            PName = team0PGSelectBox->getItemNameAt(0);
+//            logMsg("PGName = " +PGName);
+            if (playerName.compare(PName) != 0)
+            {
+                exit(0);
+                logMsg("Adding: " +playerName);
+                team0SGSelectBox->addItem(playerName);
+            }
+            exit(0);
+            PName = team0SGSelectBox->getItemNameAt(0);
+//      
+            if (playerName.compare(PName) != 0)
+            {
+                logMsg("Adding: " +playerName);
+                team0SFSelectBox->addItem(playerName);
+            }
+            PName = team0SFSelectBox->getItemNameAt(0);
+//      
+            if (playerName.compare(PName) != 0)
+            {
+                logMsg("Adding: " +playerName);
+                team0PFSelectBox->addItem(playerName);
+            }
+            PName = team0PFSelectBox->getItemNameAt(0);
+//      
+            if (playerName.compare(PName) != 0)
+            {
+                logMsg("Adding: " +playerName);
+                team0CSelectBox->addItem(playerName);
+            }
 
         }
         if (playerDataInstance[i].getTeamID() == gameS->getTeamID()[1])
