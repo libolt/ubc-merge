@@ -212,9 +212,19 @@ bool GUISystem::createMainMenuGUI()
 {
     renderEngine *renderE = renderEngine::Instance();
 	Ogre::Viewport *viewPort = renderE->getViewPort();
+    
+    if (viewPort->getActualHeight() >= 1000)
+    {
+        MyGUI::FontManager::getInstance().setDefaultFont("DejaVuSansFont_18");
+    }
+    else
+    {
+        MyGUI::FontManager::getInstance().setDefaultFont("DejaVuSansFont_16");
 
+    }
 	logMsg("Loading MainMenu layout");
 	MyGUI::LayoutManager::getInstance().loadLayout("MainMenu.layout");
+    
 	logMsg("MainMenu layout loaded");
 //	startGameButton = mGUI->createWidget<MyGUI::Button>("Button", 362, 100, 300, 26, MyGUI::Align::Default, "Main");
 //	startGameButton->setCaption("Start Game");
