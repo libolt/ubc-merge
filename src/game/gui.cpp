@@ -611,50 +611,97 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
         {
             std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName();
             std::string PName;
-            
+
             team0PGSelectBox->addItem(playerName);
             PName = team0PGSelectBox->getItemNameAt(0);
 //            logMsg("PGName = " +PGName);
             if (playerName.compare(PName) != 0)
             {
-                exit(0);
-                logMsg("Adding: " +playerName);
+ //               exit(0);
+                logMsg("Adding to SG: " +playerName);
                 team0SGSelectBox->addItem(playerName);
+                logMsg("Da");
             }
-            exit(0);
-            PName = team0SGSelectBox->getItemNameAt(0);
-//      
-            if (playerName.compare(PName) != 0)
+            if (team0SGSelectBox->getItemCount() > 0)
             {
-                logMsg("Adding: " +playerName);
-                team0SFSelectBox->addItem(playerName);
+                PName = team0SGSelectBox->getItemNameAt(0);
+                logMsg("SG");
+                if (playerName.compare(PName) != 0)
+                {
+//                    exit(0);
+                    logMsg("Adding to SF: " +playerName);
+                    team0SFSelectBox->addItem(playerName);
+                }
+//                exit(0);
             }
-            PName = team0SFSelectBox->getItemNameAt(0);
-//      
-            if (playerName.compare(PName) != 0)
+            if (team0SFSelectBox->getItemCount() > 0)
             {
-                logMsg("Adding: " +playerName);
-                team0PFSelectBox->addItem(playerName);
-            }
-            PName = team0PFSelectBox->getItemNameAt(0);
-//      
-            if (playerName.compare(PName) != 0)
-            {
-                logMsg("Adding: " +playerName);
-                team0CSelectBox->addItem(playerName);
-            }
+                logMsg("SF");
+                PName = team0SFSelectBox->getItemNameAt(0);
 
+                if (playerName.compare(PName) != 0)
+                {
+                    logMsg("Adding to PF: " +playerName);
+                    team0PFSelectBox->addItem(playerName);
+                }
+            }
+            if (team0PFSelectBox->getItemCount() > 0)
+            {
+                PName = team0PFSelectBox->getItemNameAt(0);
+
+                if (playerName.compare(PName) != 0)
+                {
+                    logMsg("Adding to C: " +playerName);
+                    team0CSelectBox->addItem(playerName);
+                }
+            }
         }
         if (playerDataInstance[i].getTeamID() == gameS->getTeamID()[1])
         {
             std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName();
+            std::string PName;
 
             team1PGSelectBox->addItem(playerName);
-            team1SGSelectBox->addItem(playerName);
-            team1SFSelectBox->addItem(playerName);
-            team1PFSelectBox->addItem(playerName);
-            team1CSelectBox->addItem(playerName);
+            PName = team1PGSelectBox->getItemNameAt(0);
+            if (playerName.compare(PName) != 0)
+            {
+ //               exit(0);
+                logMsg("Adding to SG: " +playerName);
+                team1SGSelectBox->addItem(playerName);
+            }
+            if (team1SGSelectBox->getItemCount() > 0)
+            {
+                PName = team1SGSelectBox->getItemNameAt(0);
+                logMsg("SG");
+                if (playerName.compare(PName) != 0)
+                {
+//                    exit(0);
+                    logMsg("Adding to SF: " +playerName);
+                    team1SFSelectBox->addItem(playerName);
+                }
+//                exit(0);
+            }
+            if (team1SFSelectBox->getItemCount() > 0)
+            {
+                logMsg("SF");
+                PName = team1SFSelectBox->getItemNameAt(0);
 
+                if (playerName.compare(PName) != 0)
+                {
+                    logMsg("Adding to PF: " +playerName);
+                    team1PFSelectBox->addItem(playerName);
+                }
+            }
+            if (team1PFSelectBox->getItemCount() > 0)
+            {
+                PName = team1PFSelectBox->getItemNameAt(0);
+
+                if (playerName.compare(PName) != 0)
+                {
+                    logMsg("Adding to C: " +playerName);
+                    team1CSelectBox->addItem(playerName);
+                }
+            }
         }
     }
     playerStartSelectionMenuCreated = true;
