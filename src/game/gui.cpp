@@ -212,7 +212,7 @@ bool GUISystem::createMainMenuGUI()
 {
     renderEngine *renderE = renderEngine::Instance();
 	Ogre::Viewport *viewPort = renderE->getViewPort();
-    
+
     if (viewPort->getActualHeight() >= 1000)
     {
         MyGUI::FontManager::getInstance().setDefaultFont("DejaVuSansFont_18");
@@ -224,7 +224,7 @@ bool GUISystem::createMainMenuGUI()
     }
 	logMsg("Loading MainMenu layout");
 	MyGUI::LayoutManager::getInstance().loadLayout("MainMenu.layout");
-    
+
 	logMsg("MainMenu layout loaded");
 //	startGameButton = mGUI->createWidget<MyGUI::Button>("Button", 362, 100, 300, 26, MyGUI::Align::Default, "Main");
 //	startGameButton->setCaption("Start Game");
@@ -494,7 +494,6 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
     team0PGSelectBox->setVisible(false);
 //    team0PGSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
 	team0PGSelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
-
     team0SGSelectBox = mGUI->findWidget<MyGUI::ListBox>("team0SGSelectBox"); // loads team0SGSelectBox
     team0SGSelectBox->setVisible(false);
 //    team0SGSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
@@ -714,6 +713,17 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
             }
         }
     }
+    team0PGSelectBox->setIndexSelected(0);
+    team0SGSelectBox->setIndexSelected(0);
+    team0SFSelectBox->setIndexSelected(0);
+    team0PFSelectBox->setIndexSelected(0);
+    team0CSelectBox->setIndexSelected(0);
+    team1PGSelectBox->setIndexSelected(0);
+    team1SGSelectBox->setIndexSelected(0);
+    team1SFSelectBox->setIndexSelected(0);
+    team1PFSelectBox->setIndexSelected(0);
+    team1CSelectBox->setIndexSelected(0);
+
     playerStartSelectionMenuCreated = true;
 
     return (true);
@@ -1097,8 +1107,9 @@ void GUISystem::showPlayerStartSelectionMenuWidgets() // shows all widgets tied 
     team0CSelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
 
     team0PGRating->setVisible(true);
-    team0PGRating->setPosition((0.3 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
-	team0PGRating->setCaption("Test");
+    team0PGRating->setPosition((0.3 *viewPort->getActualWidth() ), (0.05 *viewPort->getActualHeight()) );
+    team0PGRating->setTextColour(MyGUI::Colour("Red"));
+	team0PGRating->setCaption("99");
 
     team0SGRating->setVisible(true);
     team0SGRating->setPosition((0.3 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
@@ -1520,7 +1531,22 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
 
     if (keyPressed == "s")
     {
-    	hidePlayerStartSelectionMenuWidgets();
+        std::vector<std::string> team0Starters;
+        std::vector<std::string> team1Starters;
+
+        team0Starters.push_back(team0PGSelectBox->getItemNameAt(team0PGSelectBox->getIndexSelected()));
+        team0Starters.push_back(team0SGSelectBox->getItemNameAt(team0SGSelectBox->getIndexSelected()));
+        team0Starters.push_back(team0SFSelectBox->getItemNameAt(team0SFSelectBox->getIndexSelected()));
+        team0Starters.push_back(team0PFSelectBox->getItemNameAt(team0PFSelectBox->getIndexSelected()));
+        team0Starters.push_back(team0CSelectBox->getItemNameAt(team0CSelectBox->getIndexSelected()));
+        team1Starters.push_back(team1PGSelectBox->getItemNameAt(team1PGSelectBox->getIndexSelected()));
+        team1Starters.push_back(team1SGSelectBox->getItemNameAt(team1SGSelectBox->getIndexSelected()));
+        team1Starters.push_back(team1SFSelectBox->getItemNameAt(team0SFSelectBox->getIndexSelected()));
+        team1Starters.push_back(team1PFSelectBox->getItemNameAt(team1PFSelectBox->getIndexSelected()));
+        team1Starters.push_back(team1CSelectBox->getItemNameAt(team1CSelectBox->getIndexSelected()));
+
+        hidePlayerStartSelectionMenuWidgets();
+    	menuActive = false;
         gameS->setGameSetupComplete(true);
     }
     else if (keyPressed == "b")
