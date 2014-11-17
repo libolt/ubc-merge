@@ -33,40 +33,120 @@ class playerData
         playerData();
         ~playerData();
 
-        string getFirstName(void);	// retrieves the value for the firstName variable
-        void setFirstName(string first);	// sets the value for the firstName variable
+        string getFirstName(void);	// retrieves the value of firstName
+        void setFirstName(string first);	// sets the value of firstName
 
-        string getLastName(void);	// retrieves the value for the lastName variable
-        void setLastName(string last);	// sets the value for the lastName variable
+        string getLastName(void);	// retrieves the value of lastName
+        void setLastName(string last);	// sets the value of lastName
 
-        int getAge(void);	// retrieves the value for the age variable
-        void setAge(int age);	// sets the value for the age variable
+        int getAge(void);	// retrieves the value of age
+        void setAge(int age);	// sets the value of  age
 
-        int getHeight(void);	// retrieves the value for the height variable
-        void setHeight(int height);	// sets the value for the height variable
+        int getHeight(void);	// retrieves the value of height
+        void setHeight(int height);	// sets the value of height 
 
-        int getWeight(void);		// retrieves the value for the weight variable
-        void setWeight(int weight);	// sets the value for the weight variable
+        int getWeight(void);		// retrieves the value of weight
+        void setWeight(int weight);	// sets the value of weight
 
-        int getID(void);	// retrieves the value for the ID variable.
-        void setID(int id);	// sets the value for the ID variable.
+        int getID(void);	// retrieves the value of ID
+        void setID(int id);	// sets the value of ID
 
-        int getTeamID(void);	// retrieves the value for the teamID variable
-        void setTeamID(int id);	// sets the value for the teamID variable
+        int getTeamID(void);	// retrieves the value of teamID
+        void setTeamID(int id);	// sets the value of teamID
 
-        bool getActive(void);	// retrieves the value of the active variable
-        void setActive(bool active);	// sets the value of the active variable
+        bool getActive(void);	// retrieves the value of active
+        void setActive(bool active);	// sets the value of active
 
-        string getTeamInits(void);  // retrieves the value of the teamInits variable
-        void setTeamInits(string inits);    // sets the value of the teamInits variable
+        string getTeamInits(void);  // retrieves the value of teamInits
+        void setTeamInits(string inits);    // sets the value teamInits
 
-        string getPosition();   // retrieves the value of the position variable
-        virtual void setPosition(string Position); // sets the value of the position variable
+        string getPosition();   // retrieves the value of position
+        void setPosition(string Position); // sets the value of position
 
-        string getModel();  // retrieves the value of the model variable
-        virtual void setModel(string Model);    // sets the value of the model variable
+        string getModel();  // retrieves the value of model
+        void setModel(string Model);    // sets the value of model
 
- 
+        int getShooting(); // retrieves the value of shooting
+        void setShooting(int set); // sets the value of shooting
+        
+        int getFreeThrow(); // retrieves the value of freeThrow
+        void setFreeThrow(int set); // sets the value of freeThrow
+        
+        int getLayup(); // retrieves the value of layup
+        void setLayup(int set); // sets the value of layup
+        
+        int getDunk(); // retrieves the value of dunk
+        void setDunk(int set); // sets the value of dunk
+        
+        int getInside(); // retrieves the value of inside
+        void setInside(int set); // sets the value of inside
+        
+        int getMidRange(); // retrieves the value of midRange
+        void setMidRange(int set); // sets the value of midRange
+        
+        int getThreePoint(); // retrieves the value of threePoint
+        void setThreePoint(int set); // sets the value of threePoint
+        
+        int getBallHandling(); // retrieves the value of ballHandling
+        void setBallHandling(int set); // sets the value of ballHandling
+        
+        int getBallSecurity(); // retrieves the value of ballSecurity
+        void setBallSecurity(int set); // sets the value of ballSecurity
+        
+        int getPassing(); // retrieves the value of passing
+        void setPassing(int set); // sets the value of passing
+        
+        int getPickSetting(); // retrieves the value of pickSetting
+        void setPickSetting(int set); // sets the value of pickSetting
+        
+        int getOffenseAwareness(); // retrieves the value of offenseAwareness
+        void setOffenseAwareness(int set); // sets the value of offenseAwareness
+        
+        int getDefenseAwareness(); // retrieves the value of defenseAwareness
+        void setDefenseAwareness(int set); // sets the value of defenseAwareness
+
+        int getOffenseRebound(); // retrieves the value of offenseRebound
+        void setOffenseRebound(int set); // sets the value of offenseRebound
+        
+        int getDefenseRebound(); // retrieves the value of defenseRebound
+        void setDefenseRebound(int set); // sets the value of defenseRebound
+        
+        int getBlocking(); // retrieves the value of blocking
+        void setBlocking(int set); // sets the value of blocking
+        
+        int getStealing(); // retrieves the value of stealing
+        void setStealing(int set); // sets the value of stealing
+        
+        int getInteriorDefense(); // retrieves the value of interiorDefense
+        void setInteriorDefense(int set); // sets the value of interiorDefense
+        
+        int getMidRangeDefense(); // retrieves the value of midRangeDefense
+        void setMidRangeDefense(int set); // sets the value of midRangeDefense
+        
+        int getPerimeterDefense(); // retrieves the value of perimeterDefense
+        void setPerimeterDefense(int set); // sets the value of perimeterDefense
+        
+        int getHustle(); // retrieves the value of hustle
+        void setHustle(int set); // sets the value of hustle
+        
+        int getSpeed(); // retrieves the value of speed
+        void setSpeed(int set); // sets the value of speed
+        
+        int getQuickness(); // retrieves the value of quickness
+        void setQuickness(int set); // sets the value of quickness
+        
+        int getFatigue(); // retrieves the value of fatigue
+        void setFatigue(int set); // sets the value of fatigue
+        
+        int getDurability(); // retrieves the value of durability
+        void setDurability(int set); // sets the value of durability
+        
+        int getDemeanor(); // retrieves the value of demeanor
+        void setDemeanor(int set); // sets the value of demeanor
+        
+        int getImprovability(); // retrieves the value of improvability
+        void setImprovability(int set); // sets the value of improvability
+        
     private:
 
         string firstName;   // stores the first name of the player

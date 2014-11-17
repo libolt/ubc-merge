@@ -986,7 +986,34 @@ bool loader::loadPlayerFile(string fileName)
     playerD.setModel(model);
 //    playerD.setTeamInits(teamInitials);
     playerD.setPosition(position);
-
+    playerD.setShooting(shooting);
+    playerD.setFreeThrow(freeThrow);
+    playerD.setLayup(layup);
+    playerD.setDunk(dunk);
+    playerD.setInside(inside);
+    playerD.setMidRange(midRange);
+    playerD.setThreePoint(threePoint);
+    playerD.setBallHandling(ballHandling);
+    playerD.setBallSecurity(ballSecurity);
+    playerD.setPassing(passing);
+    playerD.setPickSetting(pickSetting);
+    playerD.setOffenseAwareness(offenseAwareness);
+    playerD.setDefenseAwareness(defenseAwareness);
+    playerD.setOffenseRebound(offenseRebound);
+    playerD.setDefenseRebound(defenseRebound);
+    playerD.setBlocking(blocking);
+    playerD.setStealing(stealing);
+    playerD.setInteriorDefense(interiorDefense);
+    playerD.setMidRangeDefense(midRangeDefense);
+    playerD.setPerimeterDefense(perimeterDefense);
+    playerD.setHustle(hustle);
+    playerD.setSpeed(speed);
+    playerD.setQuickness(quickness);
+    playerD.setFatigue(fatigue);
+    playerD.setDurability(durability);
+    playerD.setDemeanor(demeanor);
+    playerD.setImprovability(improvability);
+    
     playerDataInstance.push_back(playerD);
 
     gameS->setPlayerDataInstances(playerDataInstance);
