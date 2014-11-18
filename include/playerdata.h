@@ -156,33 +156,33 @@ class playerData
         int weight; // stores the weight of the player in pounds.
         int ID; // stores the unique ID of the player.
         int teamID;	// stores the unique ID of the team the player plays for.
-        int shooting; 
-        int freeThrow;
-        int layup;
-        int dunk;
-        int inside;
-        int midRange;
-        int threePoint;
-        int ballHandling;
-        int ballSecurity;
-        int passing;
-        int pickSetting;
-        int offenseAwareness;
-        int defenseAwareness;
-        int offenseRebound;
-        int defenseRebound;
-        int blocking;
-        int stealing;
-        int interiorDefense;
-        int midRangeDefense;
-        int perimeterDefense;
-        int hustle;
-        int speed;
-        int quickness;
-        int fatigue;
-        int durability;
-        int demeanor;
-        int improvability;
+        int shooting; // stores the overall shooting proficiency
+        int freeThrow; // storee freethrow shooting proficiency
+        int layup; // storee layup shooting proficiencu
+        int dunk; // stores dunking proficiency
+        int inside; // stores scoring profiency in the paint
+        int midRange; // stores mid range scoring proficiency
+        int threePoint; // stores three point scoring proficiency
+        int ballHandling; // stores ability to dribble the ball
+        int ballSecurity; // stores ability to hang on to the ball when defended
+        int passing; // stores ability to make passes accurately
+        int pickSetting; // stores ability to set a pick
+        int offenseAwareness; // stores awareness of what happens during offense execution
+        int defenseAwareness; // stores awareness of what happens playing defense
+        int offenseRebound; // stores ability to rebound missed shots on offense
+        int defenseRebound; // stores ability to rebound missed shots on defense
+        int blocking; // stores ability to block opposing players' shot
+        int stealing; // stores ability to steal ball from opposing player
+        int interiorDefense; // stores ability to defend the paint
+        int midRangeDefense; // stores ability to defend between paint and three point linr
+        int perimeterDefense; // stores ability to defend from three point line extended
+        int hustle; // stores willingness to go after loose balls and rebounds
+        int speed; // stores how fast player can run
+        int quickness; // stores how quick player takes off on move
+        int fatigue; // stores how quickly player tires
+        int durability; // stores how healthy a player stays during game/season
+        int demeanor; // stores how passive, excited, agressive a player is
+        int improvability; // stores players ability to improve skills
         
         // if player is playing this is true
         bool active;
@@ -192,22 +192,7 @@ class playerData
         string teamInits;   // stores the initials of the team the player plays for
 
         string model;   // stores the name of the 3D model to load for the player
-        // Ratigns
-
-        int fieldGoalRating;
-        int threePointRating;
-        int dunkRating;
-        int freeThrowRating;
-        int passRating;
-        int stealRating;
-        int offensiveReboundRating;
-        int defensiveReboundRating;
-        int blockRating;
-        int staminaRating;
-        int clutchRating;
-        int speedRating;
-        int quicknessRating;
-        int injuryRating;
+        
 
 
 };
