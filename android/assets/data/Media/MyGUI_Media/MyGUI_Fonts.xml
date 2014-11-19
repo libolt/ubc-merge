@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
-	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont_18">
-		<Property key="Source" value="DejaVuSans.ttf"/>
+	<Resource type="ResourceTrueTypeFont" name="LuxiBoldFont_18">
+		<Property key="Source" value="luximb.ttf"/>
 		<Property key="Size" value="18"/>
 		<Property key="Hinting" value="use_native"/>
 		<Property key="Resolution" value="96"/>
@@ -16,8 +16,8 @@
 		</Codes>
 	</Resource>
 	
-	 	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont_16">
-		<Property key="Source" value="DejaVuSans.ttf"/>
+	 	<Resource type="ResourceTrueTypeFont" name="LuxiBoldFont_16">
+		<Property key="Source" value="luximb.ttf"/>
 		<Property key="Size" value="16"/>
 		<Property key="Hinting" value="use_native"/>
 		<Property key="Resolution" value="96"/>
