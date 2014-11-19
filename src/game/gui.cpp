@@ -672,10 +672,25 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
             int overallRating = playerDataInstance[i].getOverallRating();
             std::string playerOverallRating = Ogre::StringConverter::toString(overallRating);
             std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName(); // +"            "; // +playerOverallRating;
-            if (playerName.length() < 23)
+            bool playerNameLengthReached = false;
+            while (!playerNameLengthReached)
+            {
+                if (playerName.length() >= 18)
+                {
+                    playerNameLengthReached = true;
+                }
+                else
+                {
+                    playerName += " ";
+
+                }
+            }
+            playerName += playerOverallRating;
+
+/*            if (playerName.length() < 13)
             {
                 logMsg("length == " +Ogre::StringConverter::toString(playerName.length()));
-                while (playerName.length() < 23)
+                while (playerName.length() < 13)
                 {
                     playerName += " ";
                 }
@@ -686,11 +701,12 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
             else
             {
                 logMsg("length in else == " +Ogre::StringConverter::toString(playerName.length()));
-//              
+//
                 playerName += playerOverallRating;
             }
+*/
             std::string PName;
-            
+
             team1PGSelectBox->addItem(playerName);
             PName = team1PGSelectBox->getItemNameAt(0);
             if (playerName.compare(PName) != 0)

@@ -637,39 +637,39 @@ bool loader::loadPlayerFile(string fileName)
     string lastName;
     string model;
     string position;
-    int ID;
-    int teamID;
-    int age;
-    int height;
-    int weight;
-    int shooting;
-    int freeThrow;
-    int layup;
-    int dunk;
-    int inside;
-    int midRange;
-    int threePoint;
-    int ballHandling;
-    int ballSecurity;
-    int passing;
-    int pickSetting;
-    int offenseAwareness;
-    int defenseAwareness;
-    int offenseRebound;
-    int defenseRebound;
-    int blocking;
-    int stealing;
-    int interiorDefense;
-    int midRangeDefense;
-    int perimeterDefense;
-    int hustle;
-    int speed;
-    int quickness;
-    int fatigue;
-    int durability;
-    int demeanor;
-    int improvability;
-    
+    int ID = 0;
+    int teamID = 0;
+    int age = 0;
+    int height = 0;
+    int weight = 0;
+    int shooting = 0;
+    int freeThrow = 0;
+    int layup = 0;
+    int dunk = 0;
+    int inside = 0;
+    int midRange = 0;
+    int threePoint = 0;
+    int ballHandling = 0;
+    int ballSecurity = 0;
+    int passing = 0;
+    int pickSetting = 0;
+    int offenseAwareness = 0;
+    int defenseAwareness = 0;
+    int offenseRebound = 0;
+    int defenseRebound = 0;
+    int blocking = 0;
+    int stealing = 0;
+    int interiorDefense = 0;
+    int midRangeDefense = 0;
+    int perimeterDefense = 0;
+    int hustle = 0;
+    int speed = 0;
+    int quickness = 0;
+    int fatigue = 0;
+    int durability = 0;
+    int demeanor = 0;
+    int improvability = 0;
+
     playerData player;
 
 //    TiXmlDocument doc(fileName.c_str());
@@ -779,7 +779,7 @@ bool loader::loadPlayerFile(string fileName)
         shooting = atoi(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
-	
+
 	pElem=hRoot.FirstChild("FreeThrow").Element();
     if (pElem)
     {
@@ -1197,7 +1197,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 	std::vector<Ogre::Vector3> pExecuteCoords;
     offensePlays::playerDirectives pPlayerDirective;
     playerDesignations pPlayerDirectiveDesignation;
-	
+
 //    TiXmlDocument doc(fileName.c_str());
 //    if (!doc.LoadFile()) return(false);
 
@@ -1372,7 +1372,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 				{
 	                numDirectives += 1;
 				    TiXmlElement *h;
-					
+
 					pPlayerDirective.setPlayerDesignation(pPlayerDirectiveDesignation);
 				    h = g->FirstChildElement("Type");
 

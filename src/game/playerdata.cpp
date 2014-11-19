@@ -36,7 +36,7 @@ playerData::playerData()
     weight = 0;
     ID = 0;
     teamID = -1;
-    shooting = 0; 
+    shooting = 0;
     freeThrow = 0;
     layup = 0;
     dunk = 0;
@@ -63,9 +63,9 @@ playerData::playerData()
     durability = 0;
     demeanor = 0;
     improvability = 0;
-    
+    overallRating = 0;
     active = false;
-    
+
 
 
 }
@@ -427,16 +427,17 @@ int playerData::getOverallRating() // retrieves the value of overallRating
 void playerData::setOverallRating(int set) // sets the value of overallRating
 {
     overallRating = set;
-} 
+}
 
 void playerData::calculateOverallRating() // calculates the value of overallRating
 {
-    overallRating = (shooting + freeThrow + layup + dunk + inside + midRange +
-        threePoint + ballHandling + ballSecurity + passing + pickSetting + 
+    overallRating = shooting + freeThrow + layup + dunk + inside + midRange +
+        threePoint + ballHandling + ballSecurity + passing + pickSetting +
         offenseAwareness + defenseAwareness + offenseRebound + defenseRebound +
         blocking + stealing + interiorDefense + midRangeDefense + perimeterDefense +
-        hustle + speed + quickness + fatigue + durability + demeanor + improvability) /
-        27;
-        
-        logMsg("Overall Rating = " +Ogre::StringConverter::toString(overallRating));
+        hustle + speed + quickness + fatigue + durability + demeanor + improvability;
+
+    overallRating = overallRating / 27;
+    logMsg("Overall Rating = " +Ogre::StringConverter::toString(overallRating));
+//    exit(0);
 }
