@@ -147,6 +147,11 @@ class playerData
         int getImprovability(); // retrieves the value of improvability
         void setImprovability(int set); // sets the value of improvability
         
+        int getOverallRating(); // retrieves the value of overallRating
+        void setOverallRating(int set); // sets the value of overallRating
+        
+        void calculateOverallRating(); // calculates the value of overallRating
+        
     private:
 
         string firstName;   // stores the first name of the player
@@ -183,6 +188,7 @@ class playerData
         int durability; // stores how healthy a player stays during game/season
         int demeanor; // stores how passive, excited, agressive a player is
         int improvability; // stores players ability to improve skills
+        int overallRating; // stores overall rating which is the sum of all ratings/number of ratings
         
         // if player is playing this is true
         bool active;

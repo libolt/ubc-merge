@@ -1013,7 +1013,7 @@ bool loader::loadPlayerFile(string fileName)
     playerD.setDurability(durability);
     playerD.setDemeanor(demeanor);
     playerD.setImprovability(improvability);
-    
+    playerD.calculateOverallRating();
     playerDataInstance.push_back(playerD);
 
     gameS->setPlayerDataInstances(playerDataInstance);

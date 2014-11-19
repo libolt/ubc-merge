@@ -618,7 +618,9 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
 
         if (playerDataInstance[i].getTeamID() == gameS->getTeamID()[0])
         {
-            std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName();
+            int overallRating = playerDataInstance[i].getOverallRating();
+            std::string playerOverallRating = Ogre::StringConverter::toString(overallRating);
+            std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName() +" " +playerOverallRating;
             std::string PName;
 
             team0PGSelectBox->addItem(playerName);
@@ -667,9 +669,28 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
         }
         if (playerDataInstance[i].getTeamID() == gameS->getTeamID()[1])
         {
-            std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName();
+            int overallRating = playerDataInstance[i].getOverallRating();
+            std::string playerOverallRating = Ogre::StringConverter::toString(overallRating);
+            std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName(); // +"            "; // +playerOverallRating;
+            if (playerName.length() < 23)
+            {
+                logMsg("length == " +Ogre::StringConverter::toString(playerName.length()));
+                while (playerName.length() < 23)
+                {
+                    playerName += " ";
+                }
+                logMsg("length after loop == " +Ogre::StringConverter::toString(playerName.length()));
+//                exit(0);
+//                playerName += playerOverallRating;
+            }
+            else
+            {
+                logMsg("length in else == " +Ogre::StringConverter::toString(playerName.length()));
+//              
+                playerName += playerOverallRating;
+            }
             std::string PName;
-
+            
             team1PGSelectBox->addItem(playerName);
             PName = team1PGSelectBox->getItemNameAt(0);
             if (playerName.compare(PName) != 0)

@@ -19,6 +19,8 @@
  ***************************************************************************/
 
 #include "playerdata.h"
+#include "logging.h"
+#include "Ogre.h"
 
 using namespace std;
 
@@ -417,4 +419,24 @@ void playerData::setImprovability(int set) // sets the value of improvability
 {
     improvability = set;
 }
+
+int playerData::getOverallRating() // retrieves the value of overallRating
+{
+    return (overallRating);
+}
+void playerData::setOverallRating(int set) // sets the value of overallRating
+{
+    overallRating = set;
+} 
+
+void playerData::calculateOverallRating() // calculates the value of overallRating
+{
+    overallRating = (shooting + freeThrow + layup + dunk + inside + midRange +
+        threePoint + ballHandling + ballSecurity + passing + pickSetting + 
+        offenseAwareness + defenseAwareness + offenseRebound + defenseRebound +
+        blocking + stealing + interiorDefense + midRangeDefense + perimeterDefense +
+        hustle + speed + quickness + fatigue + durability + demeanor + improvability) /
+        27;
         
+        logMsg("Overall Rating = " +Ogre::StringConverter::toString(overallRating));
+}
