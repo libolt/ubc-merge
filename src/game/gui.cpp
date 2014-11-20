@@ -612,9 +612,11 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
 */
     std::vector<int> overAllRatings;
 
-    
+
     std::vector< std::vector<std::string> > playerNames;
     std::vector<std::string> pNames;
+//    std::vector< std::vector<std::string> > playerPositions;
+//    std::vector<std::string> pPositions;
     std::vector< std::vector<int> > overallRatings;
     std::vector<int> overall;
 
@@ -622,13 +624,16 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
     int flag = 1;
     int temp = 0;
     string tempString;
-    
+
     playerNames.push_back(pNames);
     playerNames.push_back(pNames);
-    
+
+//    playerPositions.push_back(pPositions);
+//    playerPositions.push_back(pPositions);
+
     overallRatings.push_back(overall);
     overallRatings.push_back(overall);
-    
+
     for (size_t i = 0;i < playerDataInstance.size(); ++i)
     {
         logMsg("pDTeam = " +Ogre::StringConverter::toString(playerDataInstance[i].getTeamID()));
@@ -637,24 +642,24 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
         {
             int overallRating = playerDataInstance[i].getOverallRating();
             std::string playerOverallRating = Ogre::StringConverter::toString(overallRating);
-            std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName(); // +"            "; // +playerOverallRating;
- 
+            std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName() +" " +playerDataInstance[i].getPosition(); // +"            "; // +playerOverallRating;
+
             playerNames[0].push_back(playerName);
             overallRatings[0].push_back(overallRating);
         }
-        
+
         if (playerDataInstance[i].getTeamID() == gameS->getTeamID()[1])
         {
             int overallRating = playerDataInstance[i].getOverallRating();
             std::string playerOverallRating = Ogre::StringConverter::toString(overallRating);
-            std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName(); // +"            "; // +playerOverallRating;
+            std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName( ) +" " +playerDataInstance[i].getPosition(); // +"            "; // +playerOverallRating;
             bool playerNameLengthReached = false;
-            
+
             playerNames[1].push_back(playerName);
             overallRatings[1].push_back(overallRating);
         }
     }
-    
+
     overallRatingsSize = overallRatings[0].size();
     flag = 1;
     temp = 0;
@@ -666,7 +671,7 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
         for (size_t j=0; j < (overallRatingsSize -1); ++j)
         {
             if (overallRatings[0][j+1] > overallRatings[0][j])      // ascending order simply changes to <
-            { 
+            {
                 temp = overallRatings[0][j];             // swap elements
                 tempString = playerNames[0][j];
                 overallRatings[0][j] = overallRatings[0][j+1];
@@ -676,7 +681,7 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
                 flag = 1;               // indicates that a swap occurred.
             }
         }
-        
+
     }
     logMsg("overallRating after = " +Ogre::StringConverter::toString(overallRatings[0][0]));
 
@@ -691,7 +696,7 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
         for (size_t j=0; j < (overallRatingsSize -1); ++j)
         {
             if (overallRatings[1][j+1] > overallRatings[1][j])      // ascending order simply changes to <
-            { 
+            {
                 temp = overallRatings[1][j];             // swap elements
                 tempString = playerNames[1][j];
                 overallRatings[1][j] = overallRatings[1][j+1];
@@ -701,7 +706,7 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
                 flag = 1;               // indicates that a swap occurred.
             }
         }
-        
+
     }
     logMsg("overallRating after = " +Ogre::StringConverter::toString(overallRatings[1][0]));
 
@@ -719,9 +724,9 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
                 playerNames[0][i] += " ";
             }
         }
-        playerNames[0][i] += Ogre::StringConverter::toString(overallRatings[0][i]);
+        playerNames[0][i] += " " +Ogre::StringConverter::toString(overallRatings[0][i]);
         logMsg("playerNames[0][i] == " +playerNames[0][i]);
-        
+
         std::string PName;
 
             team0PGSelectBox->addItem(playerNames[0][i]);
@@ -783,9 +788,9 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
                 playerNames[1][i] += " ";
             }
         }
-        playerNames[1][i] += Ogre::StringConverter::toString(overallRatings[1][i]);
+        playerNames[1][i] += " " +Ogre::StringConverter::toString(overallRatings[1][i]);
         logMsg("playerNames[1][i] == " +playerNames[1][i]);
-        
+
         std::string PName;
 
             team1PGSelectBox->addItem(playerNames[1][i]);
