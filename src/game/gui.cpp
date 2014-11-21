@@ -451,7 +451,7 @@ bool GUISystem::createGameSetupMenuGUI()	// creates GUI for game setup menu scre
 	    team1SelectBox->addItem(teamName);
 	}
     team0SelectBox->setIndexSelected(0);
-	team1SelectBox->setIndexSelected(0);
+	team1SelectBox->setIndexSelected(1);
 
 	team0SelectButton = mGUI->findWidget<MyGUI::Button>("team0SelectButton"); // loads team 0 Select Button
 	team0SelectButton->setVisible(false);
@@ -747,51 +747,38 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
         logMsg("playerNames[0][i] == " +playerNames[0][i]);
 
         std::string PName;
-
+        if (playerPositions[0][i] == "PG")
+        {
             team0PGSelectBox->addItem(playerNames[0][i]);
-            PName = team0PGSelectBox->getItemNameAt(0);
-//            logMsg("PGName = " +PGName);
-            if (playerNames[0][i].compare(PName) != 0)
-            {
- //               exit(0);
-                logMsg("Adding to SG: " +playerNames[0][i]);
-                team0SGSelectBox->addItem(playerNames[0][i]);
-                logMsg("Da");
-            }
-            if (team0SGSelectBox->getItemCount() > 0)
-            {
-                PName = team0SGSelectBox->getItemNameAt(0);
-                logMsg("SG");
-                if (playerNames[0][i].compare(PName) != 0)
-                {
-//                    exit(0);
-                    logMsg("Adding to SF: " +playerNames[0][i]);
-                    team0SFSelectBox->addItem(playerNames[0][i]);
-                }
-//                exit(0);
-            }
-            if (team0SFSelectBox->getItemCount() > 0)
-            {
-                logMsg("SF");
-                PName = team0SFSelectBox->getItemNameAt(0);
-
-                if (playerNames[0][i].compare(PName) != 0)
-                {
-                    logMsg("Adding to PF: " +playerNames[0][i]);
-                    team0PFSelectBox->addItem(playerNames[0][i]);
-                }
-            }
-            if (team0PFSelectBox->getItemCount() > 0)
-            {
-                PName = team0PFSelectBox->getItemNameAt(0);
-
-                if (playerNames[0][i].compare(PName) != 0)
-                {
-                    logMsg("Adding to C: " +playerNames[0][i]);
-                    team0CSelectBox->addItem(playerNames[0][i]);
-                }
-            }
+        }
+        else if (playerPositions[0][i] == "SG")
+        {
+            team0SGSelectBox->addItem(playerNames[0][i]);
+        }
+        else if (playerPositions[0][i] == "SF")
+        {
+            team0SFSelectBox->addItem(playerNames[0][i]);
+        }
+        else if (playerPositions[0][i] == "PF")
+        {
+            team0PFSelectBox->addItem(playerNames[0][i]);
+        }
+        else if (playerPositions[0][i] == "C")
+        {
+            team0CSelectBox->addItem(playerNames[0][i]);
+        }
+        else
+        {
+            
+        }
     }
+    
+    logMsg("PG == " +team0PGSelectBox->getItemNameAt(0));
+    logMsg("SG == " +team0SGSelectBox->getItemNameAt(0));
+    logMsg("SF == " +team0SFSelectBox->getItemNameAt(0));
+    logMsg("PF == " +team0PFSelectBox->getItemNameAt(0));
+    logMsg("C == " +team0CSelectBox->getItemNameAt(0));
+
 
     for (size_t i = 0;i < playerNames[1].size(); ++i)
     {
@@ -812,51 +799,43 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
 
         std::string PName;
 
+        if (playerPositions[1][i] == "PG")
+        {
             team1PGSelectBox->addItem(playerNames[1][i]);
-            PName = team1PGSelectBox->getItemNameAt(0);
-//            logMsg("PGName = " +PGName);
-            if (playerNames[1][i].compare(PName) != 0)
-            {
- //               exit(0);
-                logMsg("Adding to SG: " +playerNames[1][i]);
-                team1SGSelectBox->addItem(playerNames[1][i]);
-                logMsg("Da");
-            }
-            if (team1SGSelectBox->getItemCount() > 0)
-            {
-                PName = team1SGSelectBox->getItemNameAt(0);
-                logMsg("SG");
-                if (playerNames[1][i].compare(PName) != 0)
-                {
-//                    exit(0);
-                    logMsg("Adding to SF: " +playerNames[1][i]);
-                    team1SFSelectBox->addItem(playerNames[1][i]);
-                }
-//                exit(0);
-            }
-            if (team1SFSelectBox->getItemCount() > 0)
-            {
-                logMsg("SF");
-                PName = team1SFSelectBox->getItemNameAt(0);
-
-                if (playerNames[1][i].compare(PName) != 0)
-                {
-                    logMsg("Adding to PF: " +playerNames[1][i]);
-                    team1PFSelectBox->addItem(playerNames[1][i]);
-                }
-            }
-            if (team1PFSelectBox->getItemCount() > 0)
-            {
-                PName = team1PFSelectBox->getItemNameAt(0);
-
-                if (playerNames[1][i].compare(PName) != 0)
-                {
-                    logMsg("Adding to C: " +playerNames[1][i]);
-                    team1CSelectBox->addItem(playerNames[1][i]);
-                }
-            }
+            logMsg("Adding PG1");
+        }
+        else if (playerPositions[1][i] == "SG")
+        {
+            team1SGSelectBox->addItem(playerNames[1][i]);
+            logMsg("Adding SG1");
+        }
+        else if (playerPositions[1][i] == "SF")
+        {
+            team1SFSelectBox->addItem(playerNames[1][i]);
+            logMsg("Adding SF1");
+        }
+        else if (playerPositions[1][i] == "PF")
+        {
+            team1PFSelectBox->addItem(playerNames[1][i]);
+            logMsg("Adding PF1");
+        }
+        else if (playerPositions[1][i] == "C")
+        {
+            team1CSelectBox->addItem(playerNames[1][i]);
+            logMsg("Adding C1");
+        }
+        else
+        {
+            
+        }
     }
 
+    logMsg("PG1 == " +team1PGSelectBox->getItemNameAt(0));
+    logMsg("SG1 == " +team1SGSelectBox->getItemNameAt(0));
+    logMsg("SF1 == " +team1SFSelectBox->getItemNameAt(0));
+    logMsg("PF1 == " +team1PFSelectBox->getItemNameAt(0));
+    logMsg("C1 == " +team1CSelectBox->getItemNameAt(0));
+    
     team0PGSelectBox->setIndexSelected(0);
     team0SGSelectBox->setIndexSelected(0);
     team0SFSelectBox->setIndexSelected(0);

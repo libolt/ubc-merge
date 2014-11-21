@@ -263,6 +263,7 @@ void gameState::setBasketballModelLoaded(bool loaded)	// sets the value of the b
 // assigns teams that are playing to the game state machine
 bool gameState::assignTeams()
 {
+    exit(0);
 //    gameState *gameS = gameState::Instance();
 
     // sets the teams that are playing to teamID
@@ -292,7 +293,8 @@ bool gameState::assignPlayers()
         if (teamN[x].getID() == teamID[0])     // checks if teamN's ID matches that of teamIDS[0]
         {
 
-            team1Starters = teamN[x].getStarters();     // copies the starters to the team1Starters std::vector
+        //    team1Starters = teamN[x].getStarters();     // copies the starters to the team1Starters std::vector
+            exit(0);
         }
         else if (teamN[x].getID() == teamID[1])        // checks if teamN's ID matches taht of teamIDs[1]
         {
