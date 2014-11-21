@@ -278,7 +278,7 @@ bool gameState::assignTeams()
 // assigns the players that are playing to the game state machine
 bool gameState::assignPlayers()
 {
-    
+    exit(0);
     gameState *gameS = gameState::Instance();
     players *player = players::Instance();
     teams *team = teams::Instance();
@@ -345,12 +345,13 @@ bool gameState::createBasketballInstances()
 // creates team Instances
 bool gameState::createTeamInstances()
 {
+    //exit(0);
 	teamState tInstance;
 	teamInstance.push_back(tInstance);	// adds empty teamState to teamInstance vector
 	teamInstance.push_back(tInstance);	// adds empty teamState to teamInstance vector
 
-	teamInstance[0].setTeamNumber(0);
-	teamInstance[1].setTeamNumber(1);
+	teamInstance[0].setTeamNumber(teamID[0]);
+	teamInstance[1].setTeamNumber(teamID[1]);
 	teamInstance[0].setHumanControlled(true);
 	teamInstance[1].setHumanControlled(true);
 	teamInstance[0].setupState();
@@ -499,8 +500,8 @@ bool gameState::setupState()
     logMsg("Setting up state!");
  //   load->loadTeams();  // loads teams from XML files
 //#else
- 
-//    moved to GUI code 
+
+//    moved to GUI code
 //    load->loadPlayers();    // loads players from XML files
 /*
     team->assignPlayers();  // assigns players to teams
