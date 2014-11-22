@@ -257,6 +257,8 @@ private:
 	activeMenus activeMenu; // stores which menu is being displayed
 	activeMenus previousActiveMenu; // stores which menu was last displayed
     
+    std::vector< std::vector<std::string> > playerNames;
+    std::vector< std::vector<std::string> > playerPositions;
     std::vector< std::vector<int> > playerIDs;  // stores player IDs for each team
 
     std::vector< std::vector<int> > teamStarterID; // stores the selected starters for each team

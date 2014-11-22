@@ -1426,6 +1426,7 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
         team1Starters.push_back(team1CSelectBox->getItemNameAt(team1CSelectBox->getIndexSelected()));
 
         logMsg("team 0 starter 1 = " +Ogre::StringConverter::toString(playerIDs[0][1]));
+        logMsg("team 0 starter 1 = " +playerNames[0][1]);
         teamStarterID[0].push_back(playerIDs[0][team0PGSelectBox->getIndexSelected()]);
         
         hidePlayerStartSelectionMenuWidgets();
@@ -1526,9 +1527,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
 
     std::vector<playerData> playerDataInstance = gameS->getPlayerDataInstance();
     std::vector<int> overAllRatings;
-    std::vector< std::vector<std::string> > playerNames;
     std::vector<std::string> pNames;
-    std::vector< std::vector<std::string> > playerPositions;
     std::vector<std::string> pPositions;
     std::vector<int> pIDs;
     std::vector< std::vector<int> > overallRatings;
@@ -1659,6 +1658,19 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
     }
     logMsg("overallRating after = " +Ogre::StringConverter::toString(overallRatings[1][0]));
 
+    std::vector<int> starters; // used for initial creatio  of teamStarterID vector
+//    starters.push_back(1);
+    teamStarterID.push_back(starters);
+    teamStarterID.push_back(starters);
+
+    for (size_t i=0;i<5;++i)
+    {
+        
+        teamStarterID[0].push_back(starters[0]);
+        exit(0);
+        teamStarterID[1].push_back(starters[0]);
+        exit(0);
+    }
     for (size_t i = 0;i < playerNames[0].size(); ++i)
     {
        bool playerNameLengthReached = false;
