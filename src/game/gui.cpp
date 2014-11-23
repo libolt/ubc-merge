@@ -477,7 +477,7 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
 {
     renderEngine *renderE = renderEngine::Instance();
     Ogre::Viewport *viewPort = renderE->getViewPort();
-    
+
 //    load->loadTeams();
 //    std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
 
@@ -1415,20 +1415,30 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
         std::vector<std::string> team1Starters;
 
         team0Starters.push_back(team0PGSelectBox->getItemNameAt(team0PGSelectBox->getIndexSelected()));
+        teamStarterID[0][0] = playerIDs[0][team0PGSelectBox->getIndexSelected()];
         team0Starters.push_back(team0SGSelectBox->getItemNameAt(team0SGSelectBox->getIndexSelected()));
+        teamStarterID[0][1] = playerIDs[0][team0SGSelectBox->getIndexSelected()];
         team0Starters.push_back(team0SFSelectBox->getItemNameAt(team0SFSelectBox->getIndexSelected()));
+        teamStarterID[0][2] = playerIDs[0][team0SFSelectBox->getIndexSelected()];
         team0Starters.push_back(team0PFSelectBox->getItemNameAt(team0PFSelectBox->getIndexSelected()));
+        teamStarterID[0][3] = playerIDs[0][team0PFSelectBox->getIndexSelected()];
         team0Starters.push_back(team0CSelectBox->getItemNameAt(team0CSelectBox->getIndexSelected()));
+        teamStarterID[0][4] = playerIDs[0][team0CSelectBox->getIndexSelected()];
         team1Starters.push_back(team1PGSelectBox->getItemNameAt(team1PGSelectBox->getIndexSelected()));
+        teamStarterID[1][0] = playerIDs[1][team1PGSelectBox->getIndexSelected()];
         team1Starters.push_back(team1SGSelectBox->getItemNameAt(team1SGSelectBox->getIndexSelected()));
+        teamStarterID[1][1] = playerIDs[1][team1SGSelectBox->getIndexSelected()];
         team1Starters.push_back(team1SFSelectBox->getItemNameAt(team0SFSelectBox->getIndexSelected()));
+        teamStarterID[1][2] = playerIDs[1][team1SFSelectBox->getIndexSelected()];
         team1Starters.push_back(team1PFSelectBox->getItemNameAt(team1PFSelectBox->getIndexSelected()));
+        teamStarterID[1][3] = playerIDs[1][team1PFSelectBox->getIndexSelected()];
         team1Starters.push_back(team1CSelectBox->getItemNameAt(team1CSelectBox->getIndexSelected()));
+        teamStarterID[1][4] = playerIDs[1][team1CSelectBox->getIndexSelected()];
 
-        logMsg("team 0 starter 1 = " +Ogre::StringConverter::toString(playerIDs[0][1]));
-        logMsg("team 0 starter 1 = " +playerNames[0][1]);
+        logMsg("team 1 starter 4 = " +Ogre::StringConverter::toString(playerIDs[1][4]));
+        logMsg("team 0 starter 1 = " +playerNames[1][4]);
         teamStarterID[0].push_back(playerIDs[0][team0PGSelectBox->getIndexSelected()]);
-        
+
         hidePlayerStartSelectionMenuWidgets();
     	menuActive = false;
         gameS->setGameSetupComplete(true);
@@ -1548,7 +1558,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
 
     playerIDs.push_back(pIDs);
     playerIDs.push_back(pIDs);
-    
+
     overallRatings.push_back(overall);
     overallRatings.push_back(overall);
 
@@ -1563,7 +1573,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
             std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName() +" " +playerDataInstance[i].getPosition(); // +"            "; // +playerOverallRating;
             std::string playerPosition = playerDataInstance[i].getPosition();
             int playerID = playerDataInstance[i].getID();
-            
+
             playerNames[0].push_back(playerName);
             playerPositions[0].push_back(playerPosition);
             playerIDs[0].push_back(playerID);
@@ -1578,7 +1588,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
             bool playerNameLengthReached = false;
             std::string playerPosition = playerDataInstance[i].getPosition();
             int playerID = playerDataInstance[i].getID();
-            
+
             playerNames[1].push_back(playerName);
             playerPositions[1].push_back(playerPosition);
             playerIDs[1].push_back(playerID);
@@ -1604,17 +1614,17 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
                 tempName = playerNames[0][j];
                 tempPosition = playerPositions[0][j];
                 tempID = playerIDs[0][j];
-                
+
                 overallRatings[0][j] = overallRatings[0][j+1];
                 playerNames[0][j] = playerNames[0][j+1];
                 playerPositions[0][j] = playerPositions[0][j+1];
                 playerIDs[0][j] = playerIDs[0][j+1];
-                
+
                 overallRatings[0][j+1] = temp;
                 playerNames[0][j+1] = tempName;
                 playerPositions[0][j+1] = tempPosition;
                 playerIDs[0][j+1] = tempID;
-                
+
                 flag = 1;               // indicates that a swap occurred.
             }
         }
@@ -1640,17 +1650,17 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
                 tempName = playerNames[1][j];
                 tempPosition = playerPositions[1][j];
                 tempID = playerIDs[1][j];
-                
+
                 overallRatings[1][j] = overallRatings[1][j+1];
                 playerNames[1][j] = playerNames[1][j+1];
                 playerPositions[1][j] = playerPositions[1][j+1];
                 playerIDs[1][j] = playerIDs[1][j+1];
-                
+
                 overallRatings[1][j+1] = temp;
                 playerNames[1][j+1] = tempName;
                 playerPositions[1][j+1] = tempPosition;
                 playerIDs[1][j+1] = tempID;
-                
+
                 flag = 1;               // indicates that a swap occurred.
             }
         }
@@ -1662,14 +1672,14 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
 //    starters.push_back(1);
     teamStarterID.push_back(starters);
     teamStarterID.push_back(starters);
-
+    int startID = 0;
     for (size_t i=0;i<5;++i)
     {
-        
-        teamStarterID[0].push_back(starters[0]);
-        exit(0);
-        teamStarterID[1].push_back(starters[0]);
-        exit(0);
+
+        teamStarterID[0].push_back(startID);
+//        exit(0);
+        teamStarterID[1].push_back(startID);
+//        exit(0);
     }
     for (size_t i = 0;i < playerNames[0].size(); ++i)
     {
@@ -1711,10 +1721,10 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
         }
         else
         {
-            
+
         }
     }
-    
+
     logMsg("PG == " +team0PGSelectBox->getItemNameAt(0));
     logMsg("SG == " +team0SGSelectBox->getItemNameAt(0));
     logMsg("SF == " +team0SFSelectBox->getItemNameAt(0));
@@ -1768,7 +1778,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
         }
         else
         {
-            
+
         }
     }
 
@@ -1777,7 +1787,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
     logMsg("SF1 == " +team1SFSelectBox->getItemNameAt(0));
     logMsg("PF1 == " +team1PFSelectBox->getItemNameAt(0));
     logMsg("C1 == " +team1CSelectBox->getItemNameAt(0));
-    
+
     team0PGSelectBox->setIndexSelected(0);
     team0SGSelectBox->setIndexSelected(0);
     team0SFSelectBox->setIndexSelected(0);
