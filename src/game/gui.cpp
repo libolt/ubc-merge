@@ -1413,32 +1413,55 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
     {
         std::vector<std::string> team0Starters;
         std::vector<std::string> team1Starters;
-
+        std::vector<int> starters; // used for initial creatio  of teamStarterID vector
+        int IDs = 0;
+        while (teamStarterID.size() < 2)
+        {
+            teamStarterID.push_back(starters);
+        }
+        while (teamStarterID[0].size() <5)
+        {
+            teamStarterID[0].push_back(IDs);
+        }
+        while (teamStarterID[1].size() <5)
+        {
+            teamStarterID[1].push_back(IDs);
+        }
         team0Starters.push_back(team0PGSelectBox->getItemNameAt(team0PGSelectBox->getIndexSelected()));
-        teamStarterID[0][0] = playerIDs[0][team0PGSelectBox->getIndexSelected()];
+        teamStarterID[0][0] = team0IDs[0][team0PGSelectBox->getIndexSelected()];
+        logMsg("teamStarterID[0][0] = " +Ogre::StringConverter::toString(teamStarterID[0][0]));
         team0Starters.push_back(team0SGSelectBox->getItemNameAt(team0SGSelectBox->getIndexSelected()));
         teamStarterID[0][1] = playerIDs[0][team0SGSelectBox->getIndexSelected()];
+        logMsg("teamStarterID[0][1] = " +Ogre::StringConverter::toString(teamStarterID[0][1]));
         team0Starters.push_back(team0SFSelectBox->getItemNameAt(team0SFSelectBox->getIndexSelected()));
         teamStarterID[0][2] = playerIDs[0][team0SFSelectBox->getIndexSelected()];
+        logMsg("teamStarterID[0][2] = " +Ogre::StringConverter::toString(teamStarterID[0][2]));
         team0Starters.push_back(team0PFSelectBox->getItemNameAt(team0PFSelectBox->getIndexSelected()));
         teamStarterID[0][3] = playerIDs[0][team0PFSelectBox->getIndexSelected()];
+        logMsg("teamStarterID[0][3] = " +Ogre::StringConverter::toString(teamStarterID[0][3]));
         team0Starters.push_back(team0CSelectBox->getItemNameAt(team0CSelectBox->getIndexSelected()));
         teamStarterID[0][4] = playerIDs[0][team0CSelectBox->getIndexSelected()];
+        logMsg("teamStarterID[0][4] = " +Ogre::StringConverter::toString(teamStarterID[0][4]));
         team1Starters.push_back(team1PGSelectBox->getItemNameAt(team1PGSelectBox->getIndexSelected()));
         teamStarterID[1][0] = playerIDs[1][team1PGSelectBox->getIndexSelected()];
+        logMsg("teamStarterID[1][0] = " +Ogre::StringConverter::toString(teamStarterID[1][0]));
         team1Starters.push_back(team1SGSelectBox->getItemNameAt(team1SGSelectBox->getIndexSelected()));
         teamStarterID[1][1] = playerIDs[1][team1SGSelectBox->getIndexSelected()];
+        logMsg("teamStarterID[1][1] = " +Ogre::StringConverter::toString(teamStarterID[1][1]));
         team1Starters.push_back(team1SFSelectBox->getItemNameAt(team0SFSelectBox->getIndexSelected()));
         teamStarterID[1][2] = playerIDs[1][team1SFSelectBox->getIndexSelected()];
+        logMsg("teamStarterID[1][2] = " +Ogre::StringConverter::toString(teamStarterID[1][2]));
         team1Starters.push_back(team1PFSelectBox->getItemNameAt(team1PFSelectBox->getIndexSelected()));
         teamStarterID[1][3] = playerIDs[1][team1PFSelectBox->getIndexSelected()];
+        logMsg("teamStarterID[1][3] = " +Ogre::StringConverter::toString(teamStarterID[1][3]));
         team1Starters.push_back(team1CSelectBox->getItemNameAt(team1CSelectBox->getIndexSelected()));
         teamStarterID[1][4] = playerIDs[1][team1CSelectBox->getIndexSelected()];
+        logMsg("teamStarterID[1][4] = " +Ogre::StringConverter::toString(teamStarterID[1][4]));
 
-        logMsg("team 1 starter 4 = " +Ogre::StringConverter::toString(playerIDs[1][4]));
-        logMsg("team 0 starter 1 = " +playerNames[1][4]);
-        teamStarterID[0].push_back(playerIDs[0][team0PGSelectBox->getIndexSelected()]);
-
+        logMsg("team 0 C selectbox id = " +Ogre::StringConverter::toString(teamStarterID[0][1]));
+        logMsg("team 0 starter 0 = " +Ogre::StringConverter::toString(teamStarterID[0][0]));
+        logMsg("team  0 starter 0 = " +team0Starters[0]);
+        exit(0);
         hidePlayerStartSelectionMenuWidgets();
     	menuActive = false;
         gameS->setGameSetupComplete(true);
@@ -1670,10 +1693,14 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
 
     std::vector<int> starters; // used for initial creatio  of teamStarterID vector
 //    starters.push_back(1);
-    teamStarterID.push_back(starters);
-    teamStarterID.push_back(starters);
-    int startID = 0;
     for (size_t i=0;i<5;++i)
+    {
+        team0IDs.push_back(starters);
+        team1IDs.push_back(starters);
+    }
+
+    int startID = 0;
+/*    for (size_t i=0;i<5;++i)
     {
 
         teamStarterID[0].push_back(startID);
@@ -1681,6 +1708,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
         teamStarterID[1].push_back(startID);
 //        exit(0);
     }
+*/
     for (size_t i = 0;i < playerNames[0].size(); ++i)
     {
        bool playerNameLengthReached = false;
@@ -1702,23 +1730,29 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
         if (playerPositions[0][i] == "PG")
         {
             team0PGSelectBox->addItem(playerNames[0][i]);
+            team0IDs[0].push_back(playerIDs[0][i]);
+//            exit(0);
         }
         else if (playerPositions[0][i] == "SG")
         {
             team0SGSelectBox->addItem(playerNames[0][i]);
-        }
+            team0IDs[1].push_back(playerIDs[0][i]);
+       }
         else if (playerPositions[0][i] == "SF")
         {
             team0SFSelectBox->addItem(playerNames[0][i]);
+            team0IDs[2].push_back(playerIDs[0][i]);
         }
         else if (playerPositions[0][i] == "PF")
         {
             team0PFSelectBox->addItem(playerNames[0][i]);
-        }
+            team0IDs[3].push_back(playerIDs[0][i]);
+       }
         else if (playerPositions[0][i] == "C")
         {
             team0CSelectBox->addItem(playerNames[0][i]);
-        }
+            team0IDs[4].push_back(playerIDs[0][i]);
+       }
         else
         {
 
@@ -1726,11 +1760,17 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
     }
 
     logMsg("PG == " +team0PGSelectBox->getItemNameAt(0));
+    logMsg("PG ID == " +Ogre::StringConverter::toString(team0IDs[0][0]));
+//    exit(0);
     logMsg("SG == " +team0SGSelectBox->getItemNameAt(0));
+    logMsg("SG ID == " +Ogre::StringConverter::toString(team0IDs[0][1]));
     logMsg("SF == " +team0SFSelectBox->getItemNameAt(0));
+    logMsg("SF ID == " +Ogre::StringConverter::toString(team0IDs[0][2]));
     logMsg("PF == " +team0PFSelectBox->getItemNameAt(0));
+    logMsg("PF ID == " +Ogre::StringConverter::toString(team0IDs[0][3]));
     logMsg("C == " +team0CSelectBox->getItemNameAt(0));
-
+    logMsg("C ID == " +Ogre::StringConverter::toString(team0IDs[0][4]));
+    exit(0);
 
     for (size_t i = 0;i < playerNames[1].size(); ++i)
     {
@@ -1754,32 +1794,38 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
         if (playerPositions[1][i] == "PG")
         {
             team1PGSelectBox->addItem(playerNames[1][i]);
+            team1IDs[0].push_back(playerIDs[1][i]);
             logMsg("Adding PG1");
         }
         else if (playerPositions[1][i] == "SG")
         {
             team1SGSelectBox->addItem(playerNames[1][i]);
+            team1IDs[1].push_back(playerIDs[1][i]);
             logMsg("Adding SG1");
         }
         else if (playerPositions[1][i] == "SF")
         {
             team1SFSelectBox->addItem(playerNames[1][i]);
+            team1IDs[2].push_back(playerIDs[1][i]);
             logMsg("Adding SF1");
         }
         else if (playerPositions[1][i] == "PF")
         {
             team1PFSelectBox->addItem(playerNames[1][i]);
+            team1IDs[3].push_back(playerIDs[1][i]);
             logMsg("Adding PF1");
         }
         else if (playerPositions[1][i] == "C")
         {
             team1CSelectBox->addItem(playerNames[1][i]);
+            team1IDs[4].push_back(playerIDs[1][i]);
             logMsg("Adding C1");
         }
         else
         {
 
         }
+
     }
 
     logMsg("PG1 == " +team1PGSelectBox->getItemNameAt(0));
@@ -1797,7 +1843,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
     team1SGSelectBox->setIndexSelected(0);
     team1SFSelectBox->setIndexSelected(0);
     team1PFSelectBox->setIndexSelected(0);
-    team1CSelectBox->setIndexSelected(0);
+    team1CSelectBox->setIndexSelected(1);
 
 }
 

@@ -108,7 +108,7 @@ public:
     void gameSetupMenu(); // displays game setup menu
     void playerStartSelectionMenu(); // displays player start selection menu
 	void clientSetup(); // sets up the client connection
-    
+
     void addPlayerStartSelectionMenuData(); // adds data to Player Start Selection Menu widgets
 
     void networkServer();  // sets up  game as a network server
@@ -256,11 +256,12 @@ private:
 
 	activeMenus activeMenu; // stores which menu is being displayed
 	activeMenus previousActiveMenu; // stores which menu was last displayed
-    
+
     std::vector< std::vector<std::string> > playerNames;
     std::vector< std::vector<std::string> > playerPositions;
     std::vector< std::vector<int> > playerIDs;  // stores player IDs for each team
-
+    std::vector< std::vector<int> > team0IDs;
+    std::vector< std::vector<int> > team1IDs;
     std::vector< std::vector<int> > teamStarterID; // stores the selected starters for each team
 };
 
