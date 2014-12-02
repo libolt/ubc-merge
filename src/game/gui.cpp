@@ -1431,37 +1431,37 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
         teamStarterID[0][0] = team0IDs[0][team0PGSelectBox->getIndexSelected()];
         logMsg("teamStarterID[0][0] = " +Ogre::StringConverter::toString(teamStarterID[0][0]));
         team0Starters.push_back(team0SGSelectBox->getItemNameAt(team0SGSelectBox->getIndexSelected()));
-        teamStarterID[0][1] = playerIDs[0][team0SGSelectBox->getIndexSelected()];
+        teamStarterID[0][1] = team0IDs[1][team0SGSelectBox->getIndexSelected()];
         logMsg("teamStarterID[0][1] = " +Ogre::StringConverter::toString(teamStarterID[0][1]));
         team0Starters.push_back(team0SFSelectBox->getItemNameAt(team0SFSelectBox->getIndexSelected()));
-        teamStarterID[0][2] = playerIDs[0][team0SFSelectBox->getIndexSelected()];
+        teamStarterID[0][2] = team0IDs[2][team0SFSelectBox->getIndexSelected()];
         logMsg("teamStarterID[0][2] = " +Ogre::StringConverter::toString(teamStarterID[0][2]));
         team0Starters.push_back(team0PFSelectBox->getItemNameAt(team0PFSelectBox->getIndexSelected()));
-        teamStarterID[0][3] = playerIDs[0][team0PFSelectBox->getIndexSelected()];
+        teamStarterID[0][3] = team0IDs[3][team0PFSelectBox->getIndexSelected()];
         logMsg("teamStarterID[0][3] = " +Ogre::StringConverter::toString(teamStarterID[0][3]));
         team0Starters.push_back(team0CSelectBox->getItemNameAt(team0CSelectBox->getIndexSelected()));
-        teamStarterID[0][4] = playerIDs[0][team0CSelectBox->getIndexSelected()];
+        teamStarterID[0][4] = team0IDs[4][team0CSelectBox->getIndexSelected()];
         logMsg("teamStarterID[0][4] = " +Ogre::StringConverter::toString(teamStarterID[0][4]));
         team1Starters.push_back(team1PGSelectBox->getItemNameAt(team1PGSelectBox->getIndexSelected()));
-        teamStarterID[1][0] = playerIDs[1][team1PGSelectBox->getIndexSelected()];
+        teamStarterID[1][0] = team1IDs[0][team1PGSelectBox->getIndexSelected()];
         logMsg("teamStarterID[1][0] = " +Ogre::StringConverter::toString(teamStarterID[1][0]));
         team1Starters.push_back(team1SGSelectBox->getItemNameAt(team1SGSelectBox->getIndexSelected()));
-        teamStarterID[1][1] = playerIDs[1][team1SGSelectBox->getIndexSelected()];
+        teamStarterID[1][1] = team1IDs[1][team1SGSelectBox->getIndexSelected()];
         logMsg("teamStarterID[1][1] = " +Ogre::StringConverter::toString(teamStarterID[1][1]));
         team1Starters.push_back(team1SFSelectBox->getItemNameAt(team0SFSelectBox->getIndexSelected()));
-        teamStarterID[1][2] = playerIDs[1][team1SFSelectBox->getIndexSelected()];
+        teamStarterID[1][2] = team1IDs[2][team1SFSelectBox->getIndexSelected()];
         logMsg("teamStarterID[1][2] = " +Ogre::StringConverter::toString(teamStarterID[1][2]));
         team1Starters.push_back(team1PFSelectBox->getItemNameAt(team1PFSelectBox->getIndexSelected()));
-        teamStarterID[1][3] = playerIDs[1][team1PFSelectBox->getIndexSelected()];
+        teamStarterID[1][3] = team1IDs[3][team1PFSelectBox->getIndexSelected()];
         logMsg("teamStarterID[1][3] = " +Ogre::StringConverter::toString(teamStarterID[1][3]));
         team1Starters.push_back(team1CSelectBox->getItemNameAt(team1CSelectBox->getIndexSelected()));
-        teamStarterID[1][4] = playerIDs[1][team1CSelectBox->getIndexSelected()];
+        teamStarterID[1][4] = team1IDs[4][team1CSelectBox->getIndexSelected()];
         logMsg("teamStarterID[1][4] = " +Ogre::StringConverter::toString(teamStarterID[1][4]));
 
         logMsg("team 0 C selectbox id = " +Ogre::StringConverter::toString(teamStarterID[0][1]));
         logMsg("team 0 starter 0 = " +Ogre::StringConverter::toString(teamStarterID[0][0]));
         logMsg("team  0 starter 0 = " +team0Starters[0]);
-        exit(0);
+//        exit(0);
         hidePlayerStartSelectionMenuWidgets();
     	menuActive = false;
         gameS->setGameSetupComplete(true);
@@ -1618,7 +1618,9 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
             overallRatings[1].push_back(overallRating);
         }
     }
+    
 
+    
     overallRatingsSize = overallRatings[0].size();
     flag = 1;
     temp = 0;
@@ -1653,6 +1655,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
         }
 
     }
+
     logMsg("overallRating after = " +Ogre::StringConverter::toString(overallRatings[0][0]));
 
     overallRatingsSize = overallRatings[1].size();
@@ -1759,18 +1762,25 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
         }
     }
 
+    for (size_t i=0;i<playerIDs[0].size();++i)
+    {
+        logMsg("PlayerIDs == " +Ogre::StringConverter::toString(playerIDs[0][i]));
+    }
+
+//    exit(0);
+    
     logMsg("PG == " +team0PGSelectBox->getItemNameAt(0));
     logMsg("PG ID == " +Ogre::StringConverter::toString(team0IDs[0][0]));
 //    exit(0);
     logMsg("SG == " +team0SGSelectBox->getItemNameAt(0));
-    logMsg("SG ID == " +Ogre::StringConverter::toString(team0IDs[0][1]));
+    logMsg("SG ID == " +Ogre::StringConverter::toString(team0IDs[1][0]));
     logMsg("SF == " +team0SFSelectBox->getItemNameAt(0));
-    logMsg("SF ID == " +Ogre::StringConverter::toString(team0IDs[0][2]));
+    logMsg("SF ID == " +Ogre::StringConverter::toString(team0IDs[2][0]));
     logMsg("PF == " +team0PFSelectBox->getItemNameAt(0));
-    logMsg("PF ID == " +Ogre::StringConverter::toString(team0IDs[0][3]));
+    logMsg("PF ID == " +Ogre::StringConverter::toString(team0IDs[3][0]));
     logMsg("C == " +team0CSelectBox->getItemNameAt(0));
-    logMsg("C ID == " +Ogre::StringConverter::toString(team0IDs[0][4]));
-    exit(0);
+    logMsg("C ID == " +Ogre::StringConverter::toString(team0IDs[4][0]));
+//    exit(0);
 
     for (size_t i = 0;i < playerNames[1].size(); ++i)
     {
@@ -1829,10 +1839,21 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
     }
 
     logMsg("PG1 == " +team1PGSelectBox->getItemNameAt(0));
+    logMsg("PG1 ID == " +Ogre::StringConverter::toString(team1IDs[0][0]));
+
     logMsg("SG1 == " +team1SGSelectBox->getItemNameAt(0));
+    logMsg("SG1 ID == " +Ogre::StringConverter::toString(team1IDs[1][0]));
+
     logMsg("SF1 == " +team1SFSelectBox->getItemNameAt(0));
+    logMsg("SF1 ID == " +Ogre::StringConverter::toString(team1IDs[2][0]));
+
     logMsg("PF1 == " +team1PFSelectBox->getItemNameAt(0));
+    logMsg("PF1 ID == " +Ogre::StringConverter::toString(team1IDs[3][0]));
+
     logMsg("C1 == " +team1CSelectBox->getItemNameAt(0));
+    logMsg("C1 ID == " +Ogre::StringConverter::toString(team1IDs[4][0]));
+
+//    exit(0);
 
     team0PGSelectBox->setIndexSelected(0);
     team0SGSelectBox->setIndexSelected(0);
