@@ -1458,6 +1458,8 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
         teamStarterID[1][4] = team1IDs[4][team1CSelectBox->getIndexSelected()];
         logMsg("teamStarterID[1][4] = " +Ogre::StringConverter::toString(teamStarterID[1][4]));
 
+        gameS->setTeamStarterID(teamStarterID); // sets the selected starters for both teams in gameState class
+        
         logMsg("team 0 C selectbox id = " +Ogre::StringConverter::toString(teamStarterID[0][1]));
         logMsg("team 0 starter 0 = " +Ogre::StringConverter::toString(teamStarterID[0][0]));
         logMsg("team  0 starter 0 = " +team0Starters[0]);

@@ -150,6 +150,16 @@ void gameState::setPlayerID(std::vector<int> ID)
     playerID = ID;
 }
 
+std::vector< std::vector<int> > gameState::getTeamStarterID() // retrieves value of teamStarterID
+{
+    return (teamStarterID);
+}
+
+void gameState::setTeamStarterID(std::vector< std::vector<int> > ID) // sets the value of teamStarterID
+{
+    teamStarterID = ID;
+}
+
 // gets and sets teamInstance
 std::vector <teamState> gameState::getTeamInstance()
 {

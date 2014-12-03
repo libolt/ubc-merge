@@ -98,7 +98,10 @@ class gameState
 	std::vector<int> getPlayerID(void);
 	void setPlayerID(std::vector<int> ID);
 
+    std::vector< std::vector<int> > getTeamStarterID(); // retrieves value of teamStarterID
+    void setTeamStarterID(std::vector< std::vector<int> > ID); // sets the value of teamStarterID
 
+    
 	// gets and sets basketballInstance std::vector
 	std::vector <basketballs> getBasketballInstance();
 	void setBasketballInstance(std::vector<basketballs> bballInstance);
@@ -155,6 +158,9 @@ class gameState
     std::vector<int> teamID;      // std::vector that stores the IDs of the 2 teams currently playing
     std::vector<int> playerID;       // std::vector that stores the IDs of the players currently being used.
 
+    std::vector< std::vector<int> > teamStarterID; // stores the selected starters for each team
+
+    
     std::vector <basketballs> basketballInstance;    // creates instance of the basketballs class
     std::vector <courtState> courtInstance;  // creates instance of the courtState class
 	std::vector <hoop> hoopInstance;  // creates instance of the hoop class

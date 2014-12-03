@@ -481,6 +481,7 @@ bool teamState::createPlayerInstances()
 
 	gameState *gameS = gameState::Instance();
 
+    std::vector< std::vector<int> > teamStarterID = gameS->getTeamStarterID();
 	std::vector<playerData> playerDataInstance = gameS->getPlayerDataInstance();
 	int x = 0;
 	//	int playerID =
@@ -555,7 +556,12 @@ bool teamState::createPlayerInstances()
 //    exit(0);
 //    std::vector <playerState>::iterator pInstanceIT;
 
-
+    for (size_t i=0;i<5;++i)
+    {
+        int playerID = teamStarterID[teamNumber][i];
+        playerInstance[playerID].loadModel();
+    }
+/*
     for (size_t pInstanceIT = 0; pInstanceIT < playerInstance.size(); ++pInstanceIT)
     {
     	if (std::find(playerModelsLoaded.begin(), playerModelsLoaded.end(), playerInstance[pInstanceIT].getPlayerName()) != playerModelsLoaded.end())
@@ -577,6 +583,8 @@ bool teamState::createPlayerInstances()
             x += 1;
             logMsg("x = " +x);
     }
+    */
+    
     return true;
 }
 
