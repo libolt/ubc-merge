@@ -193,7 +193,7 @@ class playerData
         // if player is playing this is true
         bool active;
 
-        string position;    // stores which position the plaer plays
+        string position;    // stores which position the player plays
 
         string teamInits;   // stores the initials of the team the player plays for
 

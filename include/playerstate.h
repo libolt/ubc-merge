@@ -69,6 +69,9 @@ class playerState
         virtual int getWeight(void);
         virtual void setWeight(int weight);
 
+        virtual std::string getPosition();
+        virtual void setPosition(std::string set);
+
         virtual int getPlayerXCoord();
         virtual void setPlayerXCoord(int XCoord);
 
@@ -81,9 +84,6 @@ class playerState
 
         virtual int getDefending();
         virtual void setDefending(int set);
-
-        virtual int getPosition();
-        virtual void setPosition(int set);
 
         virtual bool getUserControlled();
         virtual void setUserControlled(bool set);
@@ -202,7 +202,6 @@ class playerState
 
     private:
 
-
         int playerID;
 
         bool networkControlled;	// if true player is controlled by a network client.
@@ -220,6 +219,8 @@ class playerState
 
         int ID; // stores the unique ID of the player.
 
+        std::string position;    // stores which position the player plays
+
         int playerXCoord;
         int playerYCoord;
 
@@ -227,9 +228,6 @@ class playerState
         int offDef;
         // holds value of which offensive player defender is gaurding
         int defending;
-
-        // position player plays: 0 PG, 1 SG; 2 SF; 3 PF; 4 C;
-        int position;
 
         // Sets whether or not a player is user controlled
         bool userControlled;

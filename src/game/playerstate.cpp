@@ -159,6 +159,16 @@ void playerState::setWeight(int playerWeight)
     weight = playerWeight;
 }
 
+string playerState::getPosition(void)
+{
+    return(position);
+}
+
+void playerState::setPosition(string set)
+{
+    position = set;
+}
+
 // gets and sets player X and Y positions
 
 int playerState::getPlayerXCoord(void)
@@ -203,16 +213,6 @@ int playerState::getDefending(void)
 void playerState::setDefending(int set)
 {
     defending = set;
-}
-
-int playerState::getPosition(void)
-{
-    return(position);
-}
-
-void playerState::setPosition(int set)
-{
-    position = set;
 }
 
 bool playerState::getUserControlled(void)

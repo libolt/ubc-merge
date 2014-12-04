@@ -516,6 +516,8 @@ bool teamState::createPlayerInstances()
 				pInstance.setFirstName(playerDataInstance[i].getFirstName());  // copies the first name from the playerData std::vector to the pInstance class
 				pInstance.setLastName(playerDataInstance[i].getLastName());    // copies the last name from the playerData std::vector to the pInstance class
 				pInstance.setPlayerName(playerDataInstance[i].getFirstName() + " " +playerDataInstance[i].getLastName());
+                pInstance.setPlayerID(playerDataInstance[i].getID());
+                pInstance.setPosition(playerDataInstance[i].getPosition());    // copies the position string from the playerData std::vector to the pInstance class
 				pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
 				pSteer->setTeamNumber(teamNumber);
 				pSteer->setID(id);
@@ -559,8 +561,22 @@ bool teamState::createPlayerInstances()
     for (size_t i=0;i<5;++i)
     {
         int playerID = teamStarterID[teamNumber][i];
-        playerInstance[playerID].loadModel();
+        logMsg("ID " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(playerID));
+
+        int x = 0;
+        while (x < playerInstance.size() && playerID != playerInstance[x].getPlayerID())
+        {
+            if (playerID == playerInstance[x].getPlayerID())
+            {
+                logMsg("Player ID = " +Ogre::StringConverter::toString(playerInstance[x].getPlayerID()));
+                logMsg("X " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(x));
+                playerInstance[x].loadModel();
+
+            }
+            x += 1;
+        }
     }
+//    exit(0);
 /*
     for (size_t pInstanceIT = 0; pInstanceIT < playerInstance.size(); ++pInstanceIT)
     {
@@ -590,7 +606,10 @@ bool teamState::createPlayerInstances()
 
 void teamState::setPlayerStartPositions()	// sets the initial coordinates for the players.
 {
+    gameState *gameS = gameState::Instance();
 
+    std::vector< std::vector<int> > teamStarterID = gameS->getTeamStarterID();
+	
     // set initial player coordinates for the tipoff
 
 	if (teamNumber == 0)	// assigns the positions and directions for team 1 players
@@ -602,19 +621,54 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 #else
         y = -23.5f;
 #endif
-		playerInstance[0].getNode()->setPosition(14.4f,y,352.0f);
-	    playerInstance[1].getNode()->setPosition(2.0f,y,347.6f);
-	    playerInstance[2].getNode()->setPosition(2.0f,y,360.0f);
-	    playerInstance[3].getNode()->setPosition(5.2f,y,351.6f);
-	    playerInstance[4].getNode()->setPosition(1.6f,y,352.0f);
 
-	    // assign directions
-	    playerInstance[0].setDirection(RIGHT);
-	    playerInstance[1].setDirection(RIGHT);
-	    playerInstance[2].setDirection(RIGHT);
-	    playerInstance[3].setDirection(RIGHT);
-	    playerInstance[4].setDirection(RIGHT);
+        for (size_t i=0;i<5;++i)
+        {
+            int playerID = teamStarterID[teamNumber][i];
+            logMsg("ID " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(playerID));
 
+            int x = 0;
+            while (x < playerInstance.size() && playerID != playerInstance[x].getPlayerID())
+            {
+                if (playerID == playerInstance[x].getPlayerID())
+                {
+                    logMsg("Player ID = " +Ogre::StringConverter::toString(playerInstance[x].getPlayerID()));
+                    logMsg("X " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(x));
+                    if (playerInstance[x].getPosition() == "PG")
+                    {
+                        playerInstance[x].getNode()->setPosition(14.4f,y,352.0f);
+                        playerInstance[x].setDirection(RIGHT);
+                    }
+                    else if (playerInstance[x].getPosition() == "SG")
+                    {
+                        playerInstance[x].getNode()->setPosition(2.0f,y,347.6f);
+                        playerInstance[x].setDirection(RIGHT);
+                    }
+                    else if (playerInstance[x].getPosition() == "SF")
+                    {
+                        playerInstance[x].getNode()->setPosition(2.0f,y,360.0f);
+                        playerInstance[x].setDirection(RIGHT);
+                    }
+                    else if (playerInstance[x].getPosition() == "PF")
+                    {
+                        playerInstance[x].getNode()->setPosition(5.2f,y,351.6f);
+                        playerInstance[x].setDirection(RIGHT);
+
+                    }
+                    else if (playerInstance[x].getPosition() == "C")
+                    {
+                        playerInstance[x].getNode()->setPosition(1.6f,y,352.0f);
+                        playerInstance[x].setDirection(RIGHT);
+                    }
+                    else
+                    {
+                    }
+                }
+                x += 1;
+            }
+        }
+        
+//	    exit(0);
 	}
 	else if (teamNumber == 1) // assigns the positions and directions for team 2 players
 	{
@@ -625,6 +679,59 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 #else
         y = -23.5f;
 #endif
+
+        for (size_t i=0;i<5;++i)
+        {
+            int playerID = teamStarterID[teamNumber][i];
+            logMsg("team 1 pID " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(playerID));
+
+            int x = 0;
+            while (x < playerInstance.size()) // && playerID != playerInstance[x].getPlayerID())
+            {
+                
+                if (playerID == playerInstance[x].getPlayerID())
+                {
+                    logMsg("team 1 Player ID = " +Ogre::StringConverter::toString(playerInstance[x].getPlayerID()));
+                    logMsg("team 1 X " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(x));
+                    
+                    if (playerInstance[x].getPosition() == "PG")
+                    {
+                        
+                        playerInstance[x].getNode()->setPosition(-12.8f,y,352.0f);
+                        exit(0);
+                        playerInstance[x].setDirection(LEFT);
+                    }/*
+                    else if (playerInstance[x].getPosition() == "SG")
+                    {
+                        playerInstance[x].getNode()->setPosition(-0.8f,y,347.6f);
+                        playerInstance[x].setDirection(LEFT);
+                    }
+                    else if (playerInstance[x].getPosition() == "SF")
+                    {
+                        playerInstance[x].getNode()->setPosition(-0.8f,y,360.8f);
+                        playerInstance[x].setDirection(LEFT);
+                    }
+                    else if (playerInstance[x].getPosition() == "PF")
+                    {
+                        playerInstance[x].getNode()->setPosition(4.4f,y,348.8f);
+                        playerInstance[x].setDirection(LEFT);
+
+                    }
+                    else if (playerInstance[x].getPosition() == "C")
+                    {
+                        playerInstance[x].getNode()->setPosition(-0.4f,y,352.0f);
+                        playerInstance[x].setDirection(LEFT);
+                    }
+                    else
+                    {
+                    }
+                    */
+                }
+                
+                x += 1;
+            }
+        }
+        /*
 	    playerInstance[0].getNode()->setPosition(-12.8f,y,352.0f);
 	    playerInstance[1].getNode()->setPosition(-0.8f,y,347.6f);
 	    playerInstance[2].getNode()->setPosition(-0.8f,y,360.8f);
@@ -637,7 +744,8 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 	    playerInstance[2].setDirection(LEFT);
 	    playerInstance[3].setDirection(LEFT);
 	    playerInstance[4].setDirection(LEFT);
-
+*/
+        exit(0);
 	}
 	else
 	{
