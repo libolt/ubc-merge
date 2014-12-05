@@ -175,6 +175,7 @@ void physicsEngine::setupState(void)
     {
     	if (setupPlayerPhysics()) // sets up physics state for players
     	{
+            exit(0);
     		playerPhysicsSetup = true;
     	}
     	else
@@ -250,9 +251,10 @@ bool physicsEngine::setupPlayerPhysics()
 		for (size_t i=0; i<playerInstance.size(); ++i)
 		{
 
+            
 			// create shape
-			BtOgre::StaticMeshToShapeConverter converter(playerInstance[i].getModel());
-
+			BtOgre::StaticMeshToShapeConverter converter(playerInstance[i].getModel()); 
+            
 			playerShape = converter.createCapsule();
 
 			// calculates inertia
@@ -292,8 +294,9 @@ bool physicsEngine::setupPlayerPhysics()
 			else
 			{
 			}
+            
 		}
-
+        exit(0);
 		teamInstance[x].setPlayerInstance(playerInstance);
     }
 //	playerInstance[0].getPhysBody()->translate(btVector3 (0,1,0));

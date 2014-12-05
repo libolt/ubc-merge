@@ -560,21 +560,54 @@ bool teamState::createPlayerInstances()
 
     for (size_t i=0;i<5;++i)
     {
+        if (teamNumber == 1)
+        {
+//            exit(0);
+            logMsg("TEAM 1");
+        }
         int playerID = teamStarterID[teamNumber][i];
-        logMsg("ID " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(playerID));
+//        logMsg("ID " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(playerID));
 
         int x = 0;
-        while (x < playerInstance.size() && playerID != playerInstance[x].getPlayerID())
+
+        logMsg("playerInstance.size() = " +Ogre::StringConverter::toString(playerInstance.size()));
+
+        bool IDMatch = false;
+//            for (size_t j=0;j<playerInstance.size();++j)
+        while (!IDMatch && x < playerInstance.size())
         {
+            logMsg("playerInstance[x].getPlayerID() = " +Ogre::StringConverter::toString(playerInstance[x].getPlayerID()));
             if (playerID == playerInstance[x].getPlayerID())
             {
-                logMsg("Player ID = " +Ogre::StringConverter::toString(playerInstance[x].getPlayerID()));
-                logMsg("X " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(x));
+                IDMatch = true;
+                logMsg("Success!");
                 playerInstance[x].loadModel();
-
+//                    exit(0);
             }
             x += 1;
         }
+        
+/*        while (x < playerInstance.size() && playerID != playerInstance[x].getPlayerID() && teamNumber != 1)
+        {
+            if (teamNumber == 1)
+            {
+//                logMsg("playerInstance.size() = " +Ogre::StringConverter::toString(playerInstance.size()));
+                logMsg("playerID = " +Ogre::StringConverter::toString(playerID));
+                logMsg("playerInstance[x].getPlayerID() = " +Ogre::StringConverter::toString(playerInstance[x].getPlayerID()));
+                logMsg("player name = " +playerInstance[x].getPlayerName());
+//                exit(0);
+            }
+            if (playerID == playerInstance[x].getPlayerID())
+            {
+//                exit(0);
+                logMsg("Player ID = " +Ogre::StringConverter::toString(playerInstance[x].getPlayerID()));
+                logMsg("X " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(x));
+                playerInstance[x].loadModel();
+                
+            }
+            x += 1;
+        }
+        */
     }
 //    exit(0);
 /*
@@ -698,7 +731,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
                     {
                         
                         playerInstance[x].getNode()->setPosition(-12.8f,y,352.0f);
-                        exit(0);
+//                        exit(0);
                         playerInstance[x].setDirection(LEFT);
                     }/*
                     else if (playerInstance[x].getPosition() == "SG")
@@ -745,7 +778,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 	    playerInstance[3].setDirection(LEFT);
 	    playerInstance[4].setDirection(LEFT);
 */
-        exit(0);
+//        exit(0);
 	}
 	else
 	{

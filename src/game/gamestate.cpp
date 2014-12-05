@@ -568,8 +568,9 @@ bool gameState::setupState()
 
 //    basketballInstance[0].getNode()->setPosition(1.4f,5.0f,366.0f);
 
+    
     physEngine->setupState();  // sets up the Physics Engine state
-
+    exit(0);
 	ai->setup();
 //        Ogre::Entity *ent;
 //        ent = player->getModel(0);
