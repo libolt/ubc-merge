@@ -45,160 +45,162 @@ class playerState
 
         Ogre::Vector3 getNodePosition();  // returns the position of player node
 
-        virtual int getPlayerID();								// returns playerID variable
-        virtual void setPlayerID(int id);						// sets playerID variable
+        int getPlayerID();								// returns playerID variable
+        void setPlayerID(int id);						// sets playerID variable
 
-        virtual bool getNetworkControlled();					// returns networkControlled variable
-        virtual void setNetworkControlled(bool controlled);		// sets networkControlled variable
+        bool getNetworkControlled();					// returns networkControlled variable
+        void setNetworkControlled(bool controlled);		// sets networkControlled variable
 
-        virtual Ogre::String getFirstName(void);				// returns firstName variable
-        virtual void setFirstName(Ogre::String first);			// sets firstName variable
+        Ogre::String getFirstName(void);				// returns firstName variable
+        void setFirstName(Ogre::String first);			// sets firstName variable
 
-        virtual Ogre::String getLastName(void);					// returns lastName variable
-        virtual void setLastName(Ogre::String last);			// sets lastName variable
+        Ogre::String getLastName(void);					// returns lastName variable
+        void setLastName(Ogre::String last);			// sets lastName variable
 
-        virtual Ogre::String getPlayerName(void);				// returns playerName variable
-        virtual void setPlayerName(Ogre::String name);			// sets playerName variable
+        Ogre::String getPlayerName(void);				// returns playerName variable
+        void setPlayerName(Ogre::String name);			// sets playerName variable
 
-        virtual int getAge(void);
-        virtual void setAge(int age);
+        int getAge(void);
+        void setAge(int age);
 
-        virtual int getHeight(void);
-        virtual void setHeight(int height);
+        int getHeight(void);
+        void setHeight(int height);
 
-        virtual int getWeight(void);
-        virtual void setWeight(int weight);
+        int getWeight(void);
+        void setWeight(int weight);
 
-        virtual std::string getPosition();
-        virtual void setPosition(std::string set);
+        std::string getPosition();
+        void setPosition(std::string set);
 
-        virtual int getPlayerXCoord();
-        virtual void setPlayerXCoord(int XCoord);
+        bool getIsActive(); // retrieves the value of isActive
+        void setIsActive(bool set); // sets the value of isActive
 
-        virtual int getPlayerYCoord();
-        virtual void setPlayerYCoord(int YCoord);
+        int getPlayerXCoord();
+        void setPlayerXCoord(int XCoord);
 
+        int getPlayerYCoord();
+        void setPlayerYCoord(int YCoord);
 
-        virtual int getOffDef();
-        virtual void setOffDef(int set);
+        int getOffDef();
+        void setOffDef(int set);
 
-        virtual int getDefending();
-        virtual void setDefending(int set);
+        int getDefending();
+        void setDefending(int set);
 
-        virtual bool getUserControlled();
-        virtual void setUserControlled(bool set);
+        bool getUserControlled();
+        void setUserControlled(bool set);
 
-        virtual int getUser();
-        virtual void setUser(int set);
+        int getUser();
+        void setUser(int set);
 
-        virtual int getPoints();
-        virtual void setPoints(int total);
+        int getPoints();
+        void setPoints(int total);
 
-        virtual int getFouls();
-        virtual void setFoulds(int total);
+        int getFouls();
+        void setFoulds(int total);
 
-        virtual int getOffensiveRebounds();
-        virtual void setOffensiveRebounds(int rebounds);
+        int getOffensiveRebounds();
+        void setOffensiveRebounds(int rebounds);
 
-        virtual int getDefensiveRebounds();
-        virtual void setDefensiveRebounds(int rebounds);
+        int getDefensiveRebounds();
+        void setDefensiveRebounds(int rebounds);
 
-        virtual int getTotalRebounds();
-        virtual void setTotalReboundS(int rebounds);
+        int getTotalRebounds();
+        void setTotalReboundS(int rebounds);
 
-        virtual int getStamina();
-        virtual void setStamina(int total);
+        int getStamina();
+        void setStamina(int total);
 
-        virtual int getSteals();
-        virtual void setSteals(int total);
+        int getSteals();
+        void setSteals(int total);
 
-        virtual int getBlocks();
-        virtual void setBlocks(int total);
+        int getBlocks();
+        void setBlocks(int total);
 
-        virtual int getTurnovers();
-        virtual void setTurnovers(int total);
+        int getTurnovers();
+        void setTurnovers(int total);
 
-        virtual int getAssists();
-        virtual void setAssists(int total);
+        int getAssists();
+        void setAssists(int total);
 
-        virtual int getFieldGoalsAttemped();
-        virtual void setFieldGoalsAttempted(int attempted);
+        int getFieldGoalsAttemped();
+        void setFieldGoalsAttempted(int attempted);
 
-        virtual int getFieldGoalsMade();
-        virtual void setFieldGoalsmade(int made);
+        int getFieldGoalsMade();
+        void setFieldGoalsmade(int made);
 
-        virtual int getThreePointersAttempted();
-        virtual void setThreePointersAttempted(int attempted);
+        int getThreePointersAttempted();
+        void setThreePointersAttempted(int attempted);
 
-        virtual int getThreePointersMade();
-        virtual void setThreePointersMade(int made);
+        int getThreePointersMade();
+        void setThreePointersMade(int made);
 
-        virtual int getFreeThrowsAttempted();
-        virtual void setFreeThrowsAttempted(int attempted);
+        int getFreeThrowsAttempted();
+        void setFreeThrowsAttempted(int attempted);
 
-        virtual int getFreeThrowsMade();
-        virtual void setFreeThrowsMade(int made);
+        int getFreeThrowsMade();
+        void setFreeThrowsMade(int made);
 
-        virtual std::string getModelName();
-        virtual void setModelName(std::string name);
+        std::string getModelName();
+        void setModelName(std::string name);
 
-        virtual Ogre::Entity *getModel();
-        virtual void setModel(Ogre::Entity *Model);
+        Ogre::Entity *getModel();
+        void setModel(Ogre::Entity *Model);
 
-        virtual Ogre::SceneNode *getNode();
-        virtual void setNode(Ogre::SceneNode *Node);
+        Ogre::SceneNode *getNode();
+        void setNode(Ogre::SceneNode *Node);
 
-        virtual btRigidBody *getPhysBody();	// returns physBody variable
-        virtual void setPhysBody(btRigidBody *body);
+        btRigidBody *getPhysBody();	// returns physBody variable
+        void setPhysBody(btRigidBody *body);
 
-		virtual playerSteer *getSteer(); // returns the steering instance
-		virtual void setSteer(playerSteer *instance); // sets the steering instance
+		playerSteer *getSteer(); // returns the steering instance
+		void setSteer(playerSteer *instance); // sets the steering instance
 
-        virtual bool getMovement();	// returns movement variable
-        virtual void setMovement(bool move);	// sets movement variable
+        bool getMovement();	// returns movement variable
+        void setMovement(bool move);	// sets movement variable
 
-        virtual directions getDirection();	// returns direction variable
-        virtual void setDirection(directions direct);	// sets direction variable
+        directions getDirection();	// returns direction variable
+        void setDirection(directions direct);	// sets direction variable
 
-        virtual directions getOldDirection();	// returns the value of the oldDirection variable
-        virtual void setOldDirection(directions direct);	// sets the value of the oldDirection variable
+        directions getOldDirection();	// returns the value of the oldDirection variable
+        void setOldDirection(directions direct);	// sets the value of the oldDirection variable
 
-        virtual Ogre::Vector3 getPosChange();	// returns the value of the posChange variable
+        Ogre::Vector3 getPosChange();	// returns the value of the posChange variable
         void setPosChange(Ogre::Vector3 change);	// sets the value of the posChange variable
 
-        virtual bool getPassBall();	// returns the value of the passBall variable
-        virtual void setPassBall(bool ball);	// sets the value of the passBall variable
+        bool getPassBall();	// returns the value of the passBall variable
+        void setPassBall(bool ball);	// sets the value of the passBall variable
 
-        virtual bool getPassCalculated();	// returns the value of the passCalculated variable
-        virtual void setPassCalculated(bool calc);	// sets the value of the passCalculatedvariable
+        bool getPassCalculated();	// returns the value of the passCalculated variable
+        void setPassCalculated(bool calc);	// sets the value of the passCalculatedvariable
 
-        virtual bool getPassCompleted();	// returns the value of the passCompleted variable
-        virtual void setPassCompleted(bool completed);	// sets the value of the passCompleted variable
+        bool getPassCompleted();	// returns the value of the passCompleted variable
+        void setPassCompleted(bool completed);	// sets the value of the passCompleted variable
 
-        virtual int getPassToPlayer();	// returns the value of the passToPlayer variable
-        virtual void setPassToPlayer(int player);	// sets the value of the passToPlayer variable
+        int getPassToPlayer();	// returns the value of the passToPlayer variable
+        void setPassToPlayer(int player);	// sets the value of the passToPlayer variable
 
-        virtual bool getShotTaken(void);		// retrieves the value of the shotTaken variable
-        virtual void setShotTaken(bool taken);	// sets the value of the shotTaken variable
+        bool getShotTaken(void);		// retrieves the value of the shotTaken variable
+        void setShotTaken(bool taken);	// sets the value of the shotTaken variable
 
-        virtual bool getShotComplete(void);	// retrieves the value of the shotComplete variable
-        virtual void setShotComplete(bool complete);	// sets the value of the shotComplete variable
+        bool getShotComplete(void);	// retrieves the value of the shotComplete variable
+        void setShotComplete(bool complete);	// sets the value of the shotComplete variable
 
-		virtual bool getOffenseSet(void); // retrieves the value of offenseState
-		virtual void setOffenseSet(bool set);  // sets the value of offenseState
+		bool getOffenseSet(void); // retrieves the value of offenseState
+		void setOffenseSet(bool set);  // sets the value of offenseState
 
-		virtual bool getDefenseSet(void); // retrieves the value of defenseState
-		virtual void setDefenseSet(bool set);  // sets the value of defenseState
+		bool getDefenseSet(void); // retrieves the value of defenseState
+		void setDefenseSet(bool set);  // sets the value of defenseState
 
-        virtual void updateState();	// updates the state of the object
+        void updateState();	// updates the state of the object
 
-        virtual bool loadModel();   // loads the 3D model from file specified in modelName
+        bool loadModel();   // loads the 3D model from file specified in modelName
 
-        virtual bool updatePosition();  // updates the X, Y and Z coordinates of the 3D model
+        bool updatePosition();  // updates the X, Y and Z coordinates of the 3D model
 
-        virtual void calculatePass();	// calculates which player to pass the ball to
+        void calculatePass();	// calculates which player to pass the ball to
 
-        virtual void shotLogic(Ogre::Vector3 playerPos);   // carries out basketball shot logic
+        void shotLogic(Ogre::Vector3 playerPos);   // carries out basketball shot logic
 
     private:
 
@@ -221,6 +223,8 @@ class playerState
 
         std::string position;    // stores which position the player plays
 
+
+        bool isActive;  // stores whether or not the player is on the court.
         int playerXCoord;
         int playerYCoord;
 

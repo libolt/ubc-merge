@@ -147,7 +147,7 @@ class teamState
     private:
 
         int teamNumber;	// stores which team number the object is
-        Ogre::String playerType;	// stores the type of player in control of the team (human,network,ai) are valid values
+        std::string playerType;	// stores the type of player in control of the team (human,network,ai) are valid values
         int assists;    // stores number of assists team has.
         int blocks; // stores the total number of blocks.
         int fouls;  // stores the total number of fouls.

@@ -169,6 +169,14 @@ void playerState::setPosition(string set)
     position = set;
 }
 
+bool playerState::getIsActive() // retrieves the value of isActive
+{
+    return (isActive);
+}
+void playerState::setIsActive(bool set) // sets the value of isActive
+{
+    isActive = set;
+}
 // gets and sets player X and Y positions
 
 int playerState::getPlayerXCoord(void)
