@@ -31,6 +31,8 @@
 playerState::playerState()
 {
     playerID = 0;
+    isActive = false;
+    modelLoaded = false;
     networkControlled = false;
     playerXCoord = 0;
     playerYCoord = 0;
@@ -177,6 +179,16 @@ void playerState::setIsActive(bool set) // sets the value of isActive
 {
     isActive = set;
 }
+
+bool playerState::getModelLoaded()  // retrieves the value of modelLoaded
+{
+    return (modelLoaded);
+}
+void playerState::setModelLoaded(bool set) // sets the value of modelLoaded
+{
+    modelLoaded = set;
+}
+
 // gets and sets player X and Y positions
 
 int playerState::getPlayerXCoord(void)

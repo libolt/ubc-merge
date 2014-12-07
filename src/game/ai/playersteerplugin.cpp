@@ -41,35 +41,47 @@ void playerSteerPlugin::open(void)
 	logMsg("Opening playerSteer plugin");
 
 	// builds team 0 steering instances
-	for (int x=0;x<team0PlayerInstance.size();++x)
+//	for (size_t x=0;x<team0PlayerInstance.size();++x)
+	size_t x = 0;
+	while (x<team0PlayerInstance.size())
 	{
 //		logMsg("Alive0");
+	    logMsg("team 0 steer!");
+	    if (team0PlayerInstance[x].getIsActive())
+	    {
+            playerSteer *steer = team0PlayerInstance[x].getSteer();
+    //		logMsg("Alive1");
+            logMsg("x = " +Ogre::StringConverter::toString(x));
+            logMsg("player position = " +Ogre::StringConverter::toString(team0PlayerInstance[x].getNodePosition()));
+            steer->setPosition(convertToOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
+    //		steer.setPosition(OpenSteer::Vec3(0,0,0));
+    //		logMsg("Alive2");
 
-	//
-		playerSteer *steer = team0PlayerInstance[x].getSteer();
-//		logMsg("Alive1");
-        logMsg("x = " +Ogre::StringConverter::toString(x));
-		logMsg("player position = " +Ogre::StringConverter::toString(team0PlayerInstance[x].getNodePosition()));
-		steer->setPosition(convertToOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
-//		steer.setPosition(OpenSteer::Vec3(0,0,0));
-//		logMsg("Alive2");
-
-//		steer->setID(x);
-		ai->selectedVehicle = steer;
-		team0PlayerInstance[x].setSteer(steer);
-		allPlayerSteers.push_back(team0PlayerInstance[x].getSteer());
+    //		steer->setID(x);
+            ai->selectedVehicle = steer;
+            team0PlayerInstance[x].setSteer(steer);
+            allPlayerSteers.push_back(team0PlayerInstance[x].getSteer());
 //        logMsg("team 0 playerInstance added =  " +Ogre::StringConverter::toString(x));
-
+	    }
+	    x += 1;
 	}
 //	exit(0);
 	// builds team 1 steering instances
-    for (int x=0;x<team1PlayerInstance.size();++x)
+
+	logMsg("team 1 steer!");
+	x = 0;
+//	for (size_t x=0;x<team1PlayerInstance.size();++x)
+	while (x<team1PlayerInstance.size())
 	{
-        playerSteer *steer = team1PlayerInstance[x].getSteer();
-		steer->setPosition(convertToOpenSteerVec3(team1PlayerInstance[x].getNodePosition()));
-//		steer->setID(x);
-		team1PlayerInstance[x].setSteer(steer);
-		allPlayerSteers.push_back(team1PlayerInstance[x].getSteer());
+        if (team1PlayerInstance[x].getIsActive())
+        {
+            playerSteer *steer = team1PlayerInstance[x].getSteer();
+            steer->setPosition(convertToOpenSteerVec3(team1PlayerInstance[x].getNodePosition()));
+    //		steer->setID(x);
+            team1PlayerInstance[x].setSteer(steer);
+            allPlayerSteers.push_back(team1PlayerInstance[x].getSteer());
+        }
+        x += 1;
 	}
 
     ai->setAllPlayerSteers(allPlayerSteers);	// stores the instances

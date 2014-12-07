@@ -175,7 +175,7 @@ void physicsEngine::setupState(void)
     {
     	if (setupPlayerPhysics()) // sets up physics state for players
     	{
-            exit(0);
+//            exit(0);
     		playerPhysicsSetup = true;
     	}
     	else
@@ -253,63 +253,66 @@ bool physicsEngine::setupPlayerPhysics()
 		while (i < playerInstance.size())
 		{
 
-            logMsg("Converting Mesh to Shape");
-			// create shape
-            logMsg("Converting " +playerInstance[i].getPlayerName() +"'s Mesh");
-			BtOgre::StaticMeshToShapeConverter converter(playerInstance[i].getModel());
+		    if (playerInstance[i].getIsActive() && playerInstance[i].getModelLoaded())
+		    {
+                logMsg("Converting Mesh to Shape");
+                // create shape
+                logMsg("Converting " +playerInstance[i].getPlayerName() +"'s Mesh");
+                BtOgre::StaticMeshToShapeConverter converter(playerInstance[i].getModel());
 
-			logMsg("Creating capsule");
-			playerShape = converter.createCapsule();
+                logMsg("Creating capsule");
+                playerShape = converter.createCapsule();
 
-			// calculates inertia
-			btScalar mass = 1;
-			btVector3 inertia, inertia2;
-			inertia = btVector3(0,0,0);
-			logMsg("Calculating local inertia");
-			playerShape->calculateLocalInertia(mass, inertia);
+                // calculates inertia
+                btScalar mass = 1;
+                btVector3 inertia, inertia2;
+                inertia = btVector3(0,0,0);
+                logMsg("Calculating local inertia");
+                playerShape->calculateLocalInertia(mass, inertia);
 
-			//Create BtOgre MotionState (connects Ogre and Bullet).
-		//    BtOgre::RigidBodyState *bodyState = new BtOgre::RigidBodyState(pInstance[2].getNode());
+                //Create BtOgre MotionState (connects Ogre and Bullet).
+            //    BtOgre::RigidBodyState *bodyState = new BtOgre::RigidBodyState(pInstance[2].getNode());
 
-			logMsg("Creating Body State");
-			playerBodyState = new BtOgre::RigidBodyState(playerInstance[i].getNode());
-	//        playerBodyState.at(i) = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(10.0f,-13.5f,380.0f)));
-			//Create the Body.
-	//        playerBody.at(i) = new btRigidBody(mass, playerBodyState.at(i), playerShape.at(i), inertia);
-			logMsg("Creating Rigid Body");
-			playerBody = new btRigidBody(mass, playerBodyState, playerShape, inertia);
-	 //       playerBody->setActivationState(DISABLE_DEACTIVATION);
+                logMsg("Creating Body State");
+                playerBodyState = new BtOgre::RigidBodyState(playerInstance[i].getNode());
+        //        playerBodyState.at(i) = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(10.0f,-13.5f,380.0f)));
+                //Create the Body.
+        //        playerBody.at(i) = new btRigidBody(mass, playerBodyState.at(i), playerShape.at(i), inertia);
+                logMsg("Creating Rigid Body");
+                playerBody = new btRigidBody(mass, playerBodyState, playerShape, inertia);
+         //       playerBody->setActivationState(DISABLE_DEACTIVATION);
 
-			logMsg("Setting PhysBody");
-			playerInstance[i].setPhysBody(playerBody);
-	//        world->addRigidBody(playerBody.at(i));
-			if (x == 0)
-			{
-			    logMsg("Setting Team 0 Player  Activation State");
-				playerInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
-				logMsg("team = " + Ogre::StringConverter::toString(x));
+                logMsg("Setting PhysBody");
+                playerInstance[i].setPhysBody(playerBody);
+        //        world->addRigidBody(playerBody.at(i));
+                if (x == 0)
+                {
+                    logMsg("Setting Team 0 Player  Activation State");
+                    playerInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
+                    logMsg("team = " + Ogre::StringConverter::toString(x));
 
-				logMsg("Adding Rigid Body to world");
-				world->addRigidBody(playerInstance[i].getPhysBody(), COL_TEAM1, team1CollidesWith);
-	//        	world->addRigidBody(pInstance[i].getPhysBody());
-			}
-			else if (x == 1)
-			{
-                logMsg("Setting Team 1 Player  Activation State");
-				playerInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
-				logMsg("team = " + Ogre::StringConverter::toString(x));
+                    logMsg("Adding Rigid Body to world");
+                    world->addRigidBody(playerInstance[i].getPhysBody(), COL_TEAM1, team1CollidesWith);
+        //        	world->addRigidBody(pInstance[i].getPhysBody());
+                }
+                else if (x == 1)
+                {
+                    logMsg("Setting Team 1 Player  Activation State");
+                    playerInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
+                    logMsg("team = " + Ogre::StringConverter::toString(x));
 
-				logMsg("Adding Rigid Body to world");
-				world->addRigidBody(playerInstance[i].getPhysBody(), COL_TEAM2, team2CollidesWith);
-	//        	world->addRigidBody(pInstance[i].getPhysBody());
+                    logMsg("Adding Rigid Body to world");
+                    world->addRigidBody(playerInstance[i].getPhysBody(), COL_TEAM2, team2CollidesWith);
+        //        	world->addRigidBody(pInstance[i].getPhysBody());
 
-			}
-			else
-			{
-			}
-			i += 1;
+                }
+                else
+                {
+                }
+		    }
+                i += 1;
 		}
-        exit(0);
+//        exit(0);
 		teamInstance[x].setPlayerInstance(playerInstance);
     }
 //	playerInstance[0].getPhysBody()->translate(btVector3 (0,1,0));

@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "ai.h"
+#include "logging.h"
 
 AISystem* AISystem::pInstance = 0;
 
@@ -74,9 +75,9 @@ void printPlugIn (OpenSteer::PlugIn& pi);
 // initial setup of AI state
 bool AISystem::setup(void)
 {
+
 	// select the default PlugIn
     selectDefaultPlugIn ();
-
     {
         // XXX this block is for debugging purposes,
         // XXX should it be replaced with something permanent?

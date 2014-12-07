@@ -75,6 +75,9 @@ class playerState
         bool getIsActive(); // retrieves the value of isActive
         void setIsActive(bool set); // sets the value of isActive
 
+        bool getModelLoaded();  // retrieves the value of modelLoaded
+        void setModelLoaded(bool set); // sets the value of modelLoaded
+
         int getPlayerXCoord();
         void setPlayerXCoord(int XCoord);
 
@@ -225,6 +228,9 @@ class playerState
 
 
         bool isActive;  // stores whether or not the player is on the court.
+
+        bool modelLoaded; // stores whether or not the player's model has been loaded from disk
+
         int playerXCoord;
         int playerYCoord;
 

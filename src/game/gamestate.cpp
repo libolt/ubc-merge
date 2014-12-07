@@ -568,10 +568,11 @@ bool gameState::setupState()
 
 //    basketballInstance[0].getNode()->setPosition(1.4f,5.0f,366.0f);
 
-    
+
     physEngine->setupState();  // sets up the Physics Engine state
-    exit(0);
+//    exit(0);
 	ai->setup();
+
 //        Ogre::Entity *ent;
 //        ent = player->getModel(0);
 //        player->mAnimationState2 = ent->getAnimationState("Walk");
@@ -622,7 +623,6 @@ bool gameState::logic()
     physicsEngine *physEngine = physicsEngine::Instance();
     Ogre::Vector3 playerPos;
 
-
 //	std::vector<basketballs> basketballInstance = getBasketballInstance();
 	// sets up and starts the dribbling animation
 //	basketballInstance[0].setDribblingStart(true);
@@ -662,7 +662,7 @@ bool gameState::logic()
 
     for (int x=0; x<5;++x)
     {
-    	logMsg("Player Position " +Ogre::StringConverter::toString(x) +" = " +Ogre::StringConverter::toString(teamInstance[1].getPlayerInstance()[x].getNodePosition()));
+//    	logMsg("Player Position " +Ogre::StringConverter::toString(x) +" = " +Ogre::StringConverter::toString(teamInstance[1].getPlayerInstance()[x].getNodePosition()));
     }
 	if (teamWithBall >= 0)
 	{
