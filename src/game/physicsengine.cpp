@@ -490,7 +490,9 @@ void physicsEngine::updateState()
 //			exit(0);
 			if(gameS->getTeamInstancesCreated())
 			{
+                
 				tipOffCollisionCheck();
+                exit(0);
 			}
 			if (gameS->getBallTipped() && gameS->getBallTipForceApplied())
 			{

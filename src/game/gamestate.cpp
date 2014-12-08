@@ -685,12 +685,12 @@ bool gameState::logic()
 */
     }
 
-
     physEngine->updateState();	// updates the state of the physics simulation
+    exit(0);
 	physEngine->stepWorld();	// steps the physics simulation
 
     updateDirectionsAndMovements();
-//	exit(0);
+	exit(0);
 
     updatePositions();   // updates positions of game world objects
 

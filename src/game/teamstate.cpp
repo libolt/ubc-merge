@@ -40,6 +40,11 @@ teamState::teamState()
     technicals = 0;
     timeouts = 0;
 
+    for (size_t x=0;x<5;++x)
+    {
+        activePlayerID.push_back(0);
+    }
+    
     offenseInstance = new offenseState;
     defenseInstance = new defenseState;
 
@@ -217,7 +222,7 @@ void teamState::setFreeThrowsMade(int freeThrows)    // sets freeThrowsMade
     freeThrowsMade = freeThrows;
 }
 
-vector<int> teamState::getPlayerID()  // retrieves playerID
+std::vector<int> teamState::getPlayerID()  // retrieves playerID
 {
     return (playerID);
 }
@@ -225,7 +230,22 @@ void teamState::setPlayerID(std::vector<int> ID)   // sets playerID
 {
     playerID = ID;
 }
-vector<int> teamState::getStarterID() // retrieves starterID
+
+std::vector<int> teamState::getActivePlayerID()  // retrieves activePlayerID variable
+{
+    return (activePlayerID);
+}
+void teamState::setActivePlayerID(std::vector<int> ID)   // sets activePlayerID variable
+{
+    for (size_t x=0;x<5;++x)
+    {
+        logMsg("x = " +x);
+        activePlayerID[x] = ID[x];
+    }
+    exit(0);
+}
+
+std::vector<int> teamState::getStarterID() // retrieves starterID
 {
     return (starterID);
 }
@@ -336,6 +356,7 @@ void teamState::setupState()	// sets up the state of the object
 //        	exit(0);
 		}
     }
+    
     setPlayerStartPositions();	// sets starting positions for the players
 
 //    playerWithBall = 3; // FIXME! Temporarily ahrd code player controlling ball
@@ -565,7 +586,8 @@ bool teamState::createPlayerInstances()
 //            exit(0);
             logMsg("TEAM 1");
         }
-        int playerID = teamStarterID[teamNumber][i];
+//        int playerID = teamStarterID[teamNumber][i];
+        int playerID = activePlayerID[i];
 //        logMsg("ID " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(playerID));
 
         int x = 0;
@@ -581,6 +603,7 @@ bool teamState::createPlayerInstances()
             {
                 IDMatch = true;
                 logMsg("Success!");
+                exit(0);
                 if (playerInstance[x].loadModel())
                 {
                     logMsg("Loading Model");
