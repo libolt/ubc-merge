@@ -40,11 +40,11 @@ teamState::teamState()
     technicals = 0;
     timeouts = 0;
 
-    for (size_t x=0;x<5;++x)
+/*    for (size_t x=0;x<5;++x)
     {
         activePlayerID.push_back(0);
     }
-    
+*/    
     offenseInstance = new offenseState;
     defenseInstance = new defenseState;
 
@@ -237,11 +237,15 @@ std::vector<int> teamState::getActivePlayerID()  // retrieves activePlayerID var
 }
 void teamState::setActivePlayerID(std::vector<int> ID)   // sets activePlayerID variable
 {
-    for (size_t x=0;x<5;++x)
-    {
-        logMsg("x = " +x);
-        activePlayerID[x] = ID[x];
-    }
+//    for (size_t x=0;x<5;++x)
+//    {
+//        logMsg("x = " +x);
+    activeID.resize(5);
+    
+//    activeID = ID;
+    exit(0);
+    activePlayerID[0] = 1; //ID[x];
+//    }
     exit(0);
 }
 

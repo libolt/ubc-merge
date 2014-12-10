@@ -170,6 +170,7 @@ class teamState
 
         std::vector<int> playerID;    // stores the player IDs from the teams class
         std::vector<int> activePlayerID; // stores which players are currently on the court.
+        std::vector<int> activeID;
         std::vector<int> starterID;  // stores the IDs of which players are listed as starters.
 
         bool offense;	// if set then the team is on offense
