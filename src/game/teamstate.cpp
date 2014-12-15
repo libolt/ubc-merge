@@ -40,6 +40,7 @@ teamState::teamState()
     technicals = 0;
     timeouts = 0;
 
+    activePlayerID = new int[5];
 /*    for (size_t x=0;x<5;++x)
     {
         activePlayerID.push_back(0);
@@ -231,22 +232,19 @@ void teamState::setPlayerID(std::vector<int> ID)   // sets playerID
     playerID = ID;
 }
 
-std::vector<int> teamState::getActivePlayerID()  // retrieves activePlayerID variable
+// FIXME VECTORS CRASH!!
+//std::vector<int> teamState::getActivePlayerID()  // retrieves activePlayerID variable
+int *teamState::getActivePlayerID()  // retrieves activePlayerID variable
 {
+    logMsg("FUCKYOU");
     return (activePlayerID);
 }
-void teamState::setActivePlayerID(std::vector<int> ID)   // sets activePlayerID variable
+//void teamState::setActivePlayerID(std::vector<int> ID)   // sets activePlayerID variable
+void teamState::setActivePlayerID(int *ID)   // sets activePlayerID variable
 {
-//    for (size_t x=0;x<5;++x)
-//    {
-//        logMsg("x = " +x);
-    activeID.resize(5);
-    
-//    activeID = ID;
-    exit(0);
-    activePlayerID[0] = 1; //ID[x];
-//    }
-    exit(0);
+    logMsg("B");
+    activePlayerID = ID;
+    logMsg("FD");
 }
 
 std::vector<int> teamState::getStarterID() // retrieves starterID
@@ -255,6 +253,7 @@ std::vector<int> teamState::getStarterID() // retrieves starterID
 }
 void teamState::setStarterID(std::vector<int> ID)  // sets starterID
 {
+    logMsg("blap");
     starterID = ID;
 }
 

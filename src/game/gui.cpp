@@ -1460,10 +1460,28 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
         logMsg("teamStarterID[1][4] = " +Ogre::StringConverter::toString(teamStarterID[1][4]));
 
         gameS->setTeamStarterID(teamStarterID); // sets the selected starters for both teams in gameState class
+
+        int *activeID = new int[5];
         
-        teamInstance[0].setActivePlayerID(teamStarterID[0]);
-        teamInstance[1].setActivePlayerID(teamStarterID[1]);
+ /*       for (size_t x=0;x<5;++x)
+        {
+            activeID[x] = teamStarterID[0][x];
+        }
+        teamInstance[0].setActivePlayerID(activeID);
         
+        for (size_t x=0;x<5;++x)
+        {
+            activeID[x] = teamStarterID[1][x];
+        }
+        teamInstance[1].setActivePlayerID(activeID);
+        */
+        
+        std::vector<int> test;
+        test.push_back(3);
+        test.push_back(4);
+        logMsg("bleep");
+        teamInstance[0].setStarterID(test);
+        logMsg("bloop");
         gameS->setTeamInstance(teamInstance); // sets the teamInstance vector
 
         
