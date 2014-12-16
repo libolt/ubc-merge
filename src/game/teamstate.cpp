@@ -56,6 +56,7 @@ teamState::teamState()
     humanControlled = false;
     humanPlayer = 4;
 
+    stateSet = false;
 //    setupState();
 }
 
@@ -347,20 +348,30 @@ void teamState::setDefenseInstance(defenseState *instance)	// sets the value of 
 	defenseInstance = instance;
 }
 
+bool teamState::getStateSet() // retrieves the value of stateSet
+{
+    return (stateSet);
+}
+void teamState::setStateSet(bool set) // sets the value of stateSet
+{
+    stateSet = set;
+}
 
 void teamState::setupState()	// sets up the state of the object
 {
-	physicsEngine *physEngine = physicsEngine::Instance();
-    if (!playerInstancesCreated)	// checks if playerInstances have been created
+    if (!stateSet)
     {
-    	if (createPlayerInstances()) // creates the player instances based on playerIDS
-		{
-    		playerInstancesCreated = true;
+	    physicsEngine *physEngine = physicsEngine::Instance();
+        if (!playerInstancesCreated)	// checks if playerInstances have been created
+        {
+    	    if (createPlayerInstances()) // creates the player instances based on playerIDS
+		    {
+    	    	playerInstancesCreated = true;
 //        	exit(0);
-		}
-    }
+		    }
+        }
     
-    setPlayerStartPositions();	// sets starting positions for the players
+        setPlayerStartPositions();	// sets starting positions for the players
 
 //    playerWithBall = 3; // FIXME! Temporarily ahrd code player controlling ball
 //    humanPlayer = 3;	// sets the human controlled player to the center for tip off
@@ -368,6 +379,8 @@ void teamState::setupState()	// sets up the state of the object
     player->mAnimationState2->setLoop(true);
     player->mAnimationState2->setEnabled(true);
 */
+    stateSet = true;
+    }
 }
 void teamState::updateState()	// updates the state of the object
 {

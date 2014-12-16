@@ -1412,9 +1412,11 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
     
     if (keyPressed == "s")
     {
+        
         std::vector<std::string> team0Starters;
         std::vector<std::string> team1Starters;
         std::vector<int> starters; // used for initial creatio  of teamStarterID vector
+        
         int IDs = 0;
         while (teamStarterID.size() < 2)
         {
@@ -1462,7 +1464,7 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
         gameS->setTeamStarterID(teamStarterID); // sets the selected starters for both teams in gameState class
 
         int *activeID = new int[5];
-        
+
  /*       for (size_t x=0;x<5;++x)
         {
             activeID[x] = teamStarterID[0][x];
@@ -1476,6 +1478,9 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
         teamInstance[1].setActivePlayerID(activeID);
         */
         
+        
+        teamInstance[0].setupState();
+        exit(0);
         std::vector<int> test;
         test.push_back(3);
         test.push_back(4);
@@ -1500,6 +1505,7 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
     	activeMenu = GAMESETUP;
     	gameSetupMenu();
     }
+
 }
 
 void GUISystem::startSinglePlayerGame() // starts single player game

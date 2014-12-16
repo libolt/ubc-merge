@@ -132,6 +132,8 @@ class teamState
         virtual defenseState *getDefenseInstance();	// retrieves the value of defenseInstance
         virtual void setDefenseInstance(defenseState *instance);	// sets the value of defenseInstance
 
+        bool getStateSet(); // retrieves the value of stateSet
+        void setStateSet(bool set); // sets the value of stateSet
         // creates player Instances
         bool createPlayerInstances();
 
@@ -146,6 +148,8 @@ class teamState
 
         virtual void setupState();		// sets up the state for teamState object
         virtual void updateState();	// updates the state of the teamState object
+        
+        
     protected:
     private:
 
@@ -188,6 +192,8 @@ class teamState
         offenseState *offenseInstance;
         defenseState *defenseInstance;
 
+        
+        bool stateSet; // stores whether or not the class state has been setup correctly
 };
 
 #endif // _TEAMSATE_H_
