@@ -249,68 +249,77 @@ bool physicsEngine::setupPlayerPhysics()
 
 		// loops through physics objects for all players
 		size_t i = 0;
+        size_t j = 0;
+        std::vector<int> activeID = teamInstance[x].getActivePlayerID();
+        
 //		for (size_t i=0; i<playerInstance.size(); ++i)
-		while (i < playerInstance.size())
+		while (i<playerInstance.size())
 		{
+            
+            while (j<activeID.size())
+            {
+//		    if (playerInstance[i].getIsActive() && playerInstance[i].getModelLoaded())
+                if (playerInstance[i].getPlayerID() == activeID[j])
+		        {
+                    logMsg("Converting Mesh to Shape");
+//                    exit(0);
+                    // create shape
+                    logMsg("Converting " +playerInstance[i].getPlayerName() +"'s Mesh");
+                    BtOgre::StaticMeshToShapeConverter converter(playerInstance[i].getModel());
 
-		    if (playerInstance[i].getIsActive() && playerInstance[i].getModelLoaded())
-		    {
-                logMsg("Converting Mesh to Shape");
-                // create shape
-                logMsg("Converting " +playerInstance[i].getPlayerName() +"'s Mesh");
-                BtOgre::StaticMeshToShapeConverter converter(playerInstance[i].getModel());
+                    logMsg("Creating capsule");
+                    playerShape = converter.createCapsule();
 
-                logMsg("Creating capsule");
-                playerShape = converter.createCapsule();
+                    // calculates inertia
+                    btScalar mass = 1;
+                    btVector3 inertia, inertia2;
+                    inertia = btVector3(0,0,0);
+                    logMsg("Calculating local inertia");
+                    playerShape->calculateLocalInertia(mass, inertia);
 
-                // calculates inertia
-                btScalar mass = 1;
-                btVector3 inertia, inertia2;
-                inertia = btVector3(0,0,0);
-                logMsg("Calculating local inertia");
-                playerShape->calculateLocalInertia(mass, inertia);
+                    //Create BtOgre MotionState (connects Ogre and Bullet).
+                //    BtOgre::RigidBodyState *bodyState = new BtOgre::RigidBodyState(pInstance[2].getNode());
 
-                //Create BtOgre MotionState (connects Ogre and Bullet).
-            //    BtOgre::RigidBodyState *bodyState = new BtOgre::RigidBodyState(pInstance[2].getNode());
-
-                logMsg("Creating Body State");
-                playerBodyState = new BtOgre::RigidBodyState(playerInstance[i].getNode());
+                    logMsg("Creating Body State");
+                    playerBodyState = new BtOgre::RigidBodyState(playerInstance[i].getNode());
         //        playerBodyState.at(i) = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(10.0f,-13.5f,380.0f)));
-                //Create the Body.
-        //        playerBody.at(i) = new btRigidBody(mass, playerBodyState.at(i), playerShape.at(i), inertia);
-                logMsg("Creating Rigid Body");
-                playerBody = new btRigidBody(mass, playerBodyState, playerShape, inertia);
-         //       playerBody->setActivationState(DISABLE_DEACTIVATION);
+                    //Create the Body.
+            //        playerBody.at(i) = new btRigidBody(mass, playerBodyState.at(i), playerShape.at(i), inertia);
+                    logMsg("Creating Rigid Body");
+                    playerBody = new btRigidBody(mass, playerBodyState, playerShape, inertia);
+             //       playerBody->setActivationState(DISABLE_DEACTIVATION);
 
-                logMsg("Setting PhysBody");
-                playerInstance[i].setPhysBody(playerBody);
-        //        world->addRigidBody(playerBody.at(i));
-                if (x == 0)
-                {
-                    logMsg("Setting Team 0 Player  Activation State");
-                    playerInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
-                    logMsg("team = " + Ogre::StringConverter::toString(x));
+                    logMsg("Setting PhysBody");
+                    playerInstance[i].setPhysBody(playerBody);
+            //        world->addRigidBody(playerBody.at(i));
+                    if (x == 0)
+                    {
+                        logMsg("Setting Team 0 Player  Activation State");
+                        playerInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
+                        logMsg("team = " + Ogre::StringConverter::toString(x));
 
-                    logMsg("Adding Rigid Body to world");
-                    world->addRigidBody(playerInstance[i].getPhysBody(), COL_TEAM1, team1CollidesWith);
-        //        	world->addRigidBody(pInstance[i].getPhysBody());
-                }
-                else if (x == 1)
-                {
-                    logMsg("Setting Team 1 Player  Activation State");
-                    playerInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
-                    logMsg("team = " + Ogre::StringConverter::toString(x));
+                        logMsg("Adding Rigid Body to world");
+                        world->addRigidBody(playerInstance[i].getPhysBody(), COL_TEAM1, team1CollidesWith);
+            //        	world->addRigidBody(pInstance[i].getPhysBody());
+                    }
+                    else if (x == 1)
+                    {
+                        logMsg("Setting Team 1 Player  Activation State");
+                        playerInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
+                        logMsg("team = " + Ogre::StringConverter::toString(x));
 
-                    logMsg("Adding Rigid Body to world");
-                    world->addRigidBody(playerInstance[i].getPhysBody(), COL_TEAM2, team2CollidesWith);
-        //        	world->addRigidBody(pInstance[i].getPhysBody());
+                        logMsg("Adding Rigid Body to world");
+                        world->addRigidBody(playerInstance[i].getPhysBody(), COL_TEAM2, team2CollidesWith);
+            //        	world->addRigidBody(pInstance[i].getPhysBody());
 
-                }
-                else
-                {
-                }
-		    }
-                i += 1;
+                    }
+                    else
+                    {
+                    }
+		        }
+                j++;
+            }
+                i++;
 		}
 //        exit(0);
 		teamInstance[x].setPlayerInstance(playerInstance);
@@ -715,8 +724,28 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 				std::vector<playerState> playerInstance = teamInstance[x].getPlayerInstance();
 				logMsg("Crash here?????");
 				logMsg("playerInstance Size = " +Ogre::StringConverter::toString(playerInstance.size()));
-
-				world->contactPairTest(bInstance[0].getPhysBody(), playerInstance[4].getPhysBody(), tipOffResult);
+                
+                int centerID = 0;
+                int i = 0;
+                std::vector<int> activeID = teamInstance[x].getActivePlayerID();
+                    
+                while (i < playerInstance.size()) // loops until the playerInstance is found that is currently playing center
+                {
+/*                    logMsg("i = " +Ogre::StringConverter::toString(i));
+                    logMsg("player ID = " +Ogre::StringConverter::toString(playerInstance[i].getPlayerID()));
+                   
+                    logMsg("player position = " +playerInstance[i].getPosition());
+                    logMsg("activeID[4] = " +Ogre::StringConverter::toString(activeID[4]));
+*/
+                    if (activeID[4] == playerInstance[i].getPlayerID())
+//                    if (playerInstance[i].getIsActive() && playerInstance[i].getPosition() == "C")
+		            {   
+                        centerID = i;
+                        logMsg("centerID = " +Ogre::StringConverter::toString(centerID));
+                    }
+                    i++;
+                }
+				world->contactPairTest(bInstance[0].getPhysBody(), playerInstance[centerID].getPhysBody(), tipOffResult);
 				logMsg("tipOffResult.m_connected = " +Ogre::StringConverter::toString(tipOffResult.m_connected));
 				bool test = false;
 	//			if (tipOffResult.collision)
