@@ -40,7 +40,7 @@ teamState::teamState()
     technicals = 0;
     timeouts = 0;
 
-    activePlayerID = new int[5];
+//    activePlayerID = new int[5];
 /*    for (size_t x=0;x<5;++x)
     {
         activePlayerID.push_back(0);
@@ -233,19 +233,14 @@ void teamState::setPlayerID(std::vector<int> ID)   // sets playerID
     playerID = ID;
 }
 
-// FIXME VECTORS CRASH!!
-//std::vector<int> teamState::getActivePlayerID()  // retrieves activePlayerID variable
-int *teamState::getActivePlayerID()  // retrieves activePlayerID variable
+
+std::vector<int> teamState::getActivePlayerID()  // retrieves activePlayerID variable
 {
-    logMsg("FUCKYOU");
     return (activePlayerID);
 }
-//void teamState::setActivePlayerID(std::vector<int> ID)   // sets activePlayerID variable
-void teamState::setActivePlayerID(int *ID)   // sets activePlayerID variable
+void teamState::setActivePlayerID(std::vector<int> ID)   // sets activePlayerID variable
 {
-    logMsg("B");
     activePlayerID = ID;
-    logMsg("FD");
 }
 
 std::vector<int> teamState::getStarterID() // retrieves starterID
@@ -361,18 +356,20 @@ void teamState::setupState()	// sets up the state of the object
 {
     if (!stateSet)
     {
-	    physicsEngine *physEngine = physicsEngine::Instance();
+        logMsg("Setting state");
+//	    physicsEngine *physEngine = physicsEngine::Instance();
         if (!playerInstancesCreated)	// checks if playerInstances have been created
         {
     	    if (createPlayerInstances()) // creates the player instances based on playerIDS
 		    {
+                logMsg("Player instances created!");
     	    	playerInstancesCreated = true;
 //        	exit(0);
 		    }
         }
     
-        setPlayerStartPositions();	// sets starting positions for the players
-
+//        setPlayerStartPositions();	// sets starting positions for the players
+        logMsg("Player start positions set");
 //    playerWithBall = 3; // FIXME! Temporarily ahrd code player controlling ball
 //    humanPlayer = 3;	// sets the human controlled player to the center for tip off
 /*    player->mAnimationState2 =  playerInstance[5].getModel()->getAnimationState("Walk");
@@ -602,10 +599,11 @@ bool teamState::createPlayerInstances()
 //            exit(0);
             logMsg("TEAM 1");
         }
+        logMsg("before playerID");
 //        int playerID = teamStarterID[teamNumber][i];
-        int playerID = activePlayerID[i];
+//        int playerID = activePlayerID[i];
 //        logMsg("ID " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(playerID));
-
+       logMsg("playerID = " +Ogre::StringConverter::toString(activePlayerID[i]));
         int x = 0;
 
         logMsg("playerInstance.size() = " +Ogre::StringConverter::toString(playerInstance.size()));
@@ -615,11 +613,12 @@ bool teamState::createPlayerInstances()
         while (!IDMatch && x < playerInstance.size())
         {
             logMsg("playerInstance[x].getPlayerID() = " +Ogre::StringConverter::toString(playerInstance[x].getPlayerID()));
-            if (playerID == playerInstance[x].getPlayerID())
+            if (activePlayerID[i] == playerInstance[x].getPlayerID())
             {
+                exit(0);
                 IDMatch = true;
                 logMsg("Success!");
-                exit(0);
+//                exit(0);
                 if (playerInstance[x].loadModel())
                 {
                     logMsg("Loading Model");
@@ -776,15 +775,17 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
                 {
                     logMsg("team 1 Player ID = " +Ogre::StringConverter::toString(playerInstance[x].getPlayerID()));
                     logMsg("team 1 X " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(x));
+                    logMsg("team 1 X " +Ogre::StringConverter::toString(i) +" position = " +playerInstance[x].getPosition());
+
                     playerInstance[x].setIsActive(true);    // sets the player active for startup which is used by other code such as physics and steering
 
                     if (playerInstance[x].getPosition() == "PG")
                     {
-
+                        
                         playerInstance[x].getNode()->setPosition(-12.8f,y,352.0f);
-//                        exit(0);
+                        exit(0);
                         playerInstance[x].setDirection(LEFT);
-                    }/*
+                    }
                     else if (playerInstance[x].getPosition() == "SG")
                     {
                         playerInstance[x].getNode()->setPosition(-0.8f,y,347.6f);
@@ -809,7 +810,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
                     else
                     {
                     }
-                    */
+                    
                 }
 
                 x += 1;
@@ -834,7 +835,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 	else
 	{
 	}
-
+    
 }
 
 void teamState::updatePlayerDirections()

@@ -96,8 +96,8 @@ class teamState
         virtual std::vector<int> getPlayerID();  // retrieves playerID variable
         virtual void setPlayerID(std::vector<int> ID);   // sets playerID variable
 
-        int *getActivePlayerID();  // retrieves activePlayerID variable
-        void setActivePlayerID(int *ID);   // sets activePlayerID variable
+        std::vector<int> getActivePlayerID();  // retrieves activePlayerID variable
+        void setActivePlayerID(std::vector<int> ID);   // sets activePlayerID variable
 
         std::vector<int> getStarterID(); // retrieves starterID variable
         void setStarterID(std::vector<int> ID);  // sets starterID variable
@@ -173,7 +173,7 @@ class teamState
         int freeThrowsMade; // stores the total number of free throws made.
 
         std::vector<int> playerID;    // stores the player IDs from the teams class
-        int *activePlayerID; // stores which players are currently on the court.
+        std::vector<int> activePlayerID; // stores which players are currently on the court.
 //        std::vector<int> activeID;
         std::vector<int> starterID;  // stores the IDs of which players are listed as starters.
 

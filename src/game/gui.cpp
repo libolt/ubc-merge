@@ -1272,6 +1272,7 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 {
     gameState *gameS = gameState::Instance();
 	std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
+    logMsg("processGameSetupMenuKeyPress");
 	if (keyPressed == "a" && !gameSetupMenuAwaySelected)
     {
 		MyGUI::InputManager::getInstance().setKeyFocusWidget(team1SelectBox);
@@ -1319,6 +1320,7 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 	}
 	else if (keyPressed == "t")
 	{
+        logMsg("T pressed!");
 	    hideGameSetupMenuWidgets();
 //		menuActive = false;
         previousActiveMenu = activeMenu;
@@ -1327,6 +1329,7 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
         teamID.push_back(team0SelectBox->getIndexSelected());
         teamID.push_back(team1SelectBox->getIndexSelected());
         gameS->setTeamID(teamID);
+        logMsg("Teams selected");
         playerStartSelectionMenu();
 //        gameS->setGameSetupComplete(true);
 //	    networkServer();
@@ -1408,11 +1411,19 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
 {
     gameState *gameS = gameState::Instance();
 
+    if (!gameS->getTeamInstancesCreated())
+    {
+        logMsg("Creating team instances!");
+        gameS->createTeamInstances();
+        gameS->setTeamInstancesCreated(true);
+        logMsg("Team instances created!");
+    }
     std::vector <teamState>  teamInstance = gameS->getTeamInstance();
-    
+    teamState testState;
     if (keyPressed == "s")
     {
-        
+        logMsg("S");
+//        exit(0);
         std::vector<std::string> team0Starters;
         std::vector<std::string> team1Starters;
         std::vector<int> starters; // used for initial creatio  of teamStarterID vector
@@ -1463,30 +1474,37 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
 
         gameS->setTeamStarterID(teamStarterID); // sets the selected starters for both teams in gameState class
 
-        int *activeID = new int[5];
+        std::vector<int> activeID;
 
- /*       for (size_t x=0;x<5;++x)
-        {
-            activeID[x] = teamStarterID[0][x];
-        }
-        teamInstance[0].setActivePlayerID(activeID);
-        
         for (size_t x=0;x<5;++x)
         {
-            activeID[x] = teamStarterID[1][x];
+            activeID.push_back(teamStarterID[0][x]);
+        }
+        teamInstance[0].setActivePlayerID(activeID);
+        teamInstance[0].setPlayerStartPositions();
+        logMsg("Team 0 player start positions set");
+        
+        activeID.clear();
+        for (size_t x=0;x<5;++x)
+        {
+            activeID.push_back(teamStarterID[1][x]);
         }
         teamInstance[1].setActivePlayerID(activeID);
-        */
-        
-        
-        teamInstance[0].setupState();
+        teamInstance[1].setPlayerStartPositions();
+        logMsg("Team 1 player start positions set");
+
         exit(0);
+/*        
+//        teamInstance[0].setupState();
+//        exit(0);
         std::vector<int> test;
         test.push_back(3);
         test.push_back(4);
         logMsg("bleep");
-        teamInstance[0].setStarterID(test);
+//        teamInstance[0].setStarterID(test);
+        testState.setStarterID(test);
         logMsg("bloop");
+*/
         gameS->setTeamInstance(teamInstance); // sets the teamInstance vector
 
         

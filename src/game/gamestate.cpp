@@ -40,7 +40,7 @@ gameState *gameState::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new gameState; // create sole instance
+        pInstance = new gameState; // t sole instance
     }
     return pInstance; // address of sole instance
 }
@@ -685,10 +685,11 @@ bool gameState::logic()
 */
     }
 
+    logMsg("Physics");
     physEngine->updateState();	// updates the state of the physics simulation
     exit(0);
 	physEngine->stepWorld();	// steps the physics simulation
-
+    logMsg("DirectionsAndMovement");
     updateDirectionsAndMovements();
 	exit(0);
 
