@@ -45,7 +45,7 @@ teamState::teamState()
     {
         activePlayerID.push_back(0);
     }
-*/    
+*/
     offenseInstance = new offenseState;
     defenseInstance = new defenseState;
 
@@ -358,16 +358,16 @@ void teamState::setupState()	// sets up the state of the object
     {
         logMsg("Setting state");
 //	    physicsEngine *physEngine = physicsEngine::Instance();
-        if (!playerInstancesCreated)	// checks if playerInstances have been created
+/*        if (!playerInstancesCreated)	// checks if playerInstances have been created
         {
     	    if (createPlayerInstances()) // creates the player instances based on playerIDS
 		    {
                 logMsg("Player instances created!");
-    	    	playerInstancesCreated = true;
+                playerInstancesCreated = true;
 //        	exit(0);
 		    }
         }
-    
+*/
 //        setPlayerStartPositions();	// sets starting positions for the players
         logMsg("Player start positions set");
 //    playerWithBall = 3; // FIXME! Temporarily ahrd code player controlling ball
@@ -603,6 +603,7 @@ bool teamState::createPlayerInstances()
 //        int playerID = teamStarterID[teamNumber][i];
 //        int playerID = activePlayerID[i];
 //        logMsg("ID " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(playerID));
+        logMsg("activePlayerID.size() = " +Ogre::StringConverter::toString(activePlayerID.size()));
        logMsg("playerID = " +Ogre::StringConverter::toString(activePlayerID[i]));
         int x = 0;
 
@@ -615,7 +616,7 @@ bool teamState::createPlayerInstances()
             logMsg("playerInstance[x].getPlayerID() = " +Ogre::StringConverter::toString(playerInstance[x].getPlayerID()));
             if (activePlayerID[i] == playerInstance[x].getPlayerID())
             {
-                exit(0);
+//                exit(0);
                 IDMatch = true;
                 logMsg("Success!");
 //                exit(0);
@@ -781,9 +782,9 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 
                     if (playerInstance[x].getPosition() == "PG")
                     {
-                        
+
                         playerInstance[x].getNode()->setPosition(-12.8f,y,352.0f);
-                        exit(0);
+//                        exit(0);
                         playerInstance[x].setDirection(LEFT);
                     }
                     else if (playerInstance[x].getPosition() == "SG")
@@ -810,7 +811,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
                     else
                     {
                     }
-                    
+
                 }
 
                 x += 1;
@@ -835,7 +836,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 	else
 	{
 	}
-    
+
 }
 
 void teamState::updatePlayerDirections()

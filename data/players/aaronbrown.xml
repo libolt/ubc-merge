@@ -9,7 +9,7 @@
 	<Age>25</Age>
 	<Height>78</Height>
 	<Weight>222</Weight>
-	<Model>Hoop.mesh</Model>
+	<Model>Player.mesh</Model>
 	<Position>PG</Position>
 	<Shooting>75</Shooting>
 	<Freethrow>83</Freethrow>

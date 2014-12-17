@@ -1427,7 +1427,7 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
         std::vector<std::string> team0Starters;
         std::vector<std::string> team1Starters;
         std::vector<int> starters; // used for initial creatio  of teamStarterID vector
-        
+
         int IDs = 0;
         while (teamStarterID.size() < 2)
         {
@@ -1481,20 +1481,40 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
             activeID.push_back(teamStarterID[0][x]);
         }
         teamInstance[0].setActivePlayerID(activeID);
+        if (!teamInstance[0].getPlayerInstancesCreated())    // checks if playerInstances have been created
+        {
+            if (teamInstance[0].createPlayerInstances()) // creates the player instances based on playerIDS
+            {
+                logMsg("Team 0 Player instances created!");
+                teamInstance[0].setPlayerInstancesCreated(true);
+//          exit(0);
+            }
+        }
+
         teamInstance[0].setPlayerStartPositions();
         logMsg("Team 0 player start positions set");
-        
+
         activeID.clear();
         for (size_t x=0;x<5;++x)
         {
             activeID.push_back(teamStarterID[1][x]);
         }
         teamInstance[1].setActivePlayerID(activeID);
+        if (!teamInstance[1].getPlayerInstancesCreated())    // checks if playerInstances have been created
+        {
+            if (teamInstance[1].createPlayerInstances()) // creates the player instances based on playerIDS
+            {
+                logMsg("Player instances created!");
+                teamInstance[1].setPlayerInstancesCreated(true);
+//          exit(0);
+            }
+        }
+
         teamInstance[1].setPlayerStartPositions();
         logMsg("Team 1 player start positions set");
 
-        exit(0);
-/*        
+//        exit(0);
+/*
 //        teamInstance[0].setupState();
 //        exit(0);
         std::vector<int> test;
@@ -1507,7 +1527,7 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
 */
         gameS->setTeamInstance(teamInstance); // sets the teamInstance vector
 
-        
+
         logMsg("team 0 C selectbox id = " +Ogre::StringConverter::toString(teamStarterID[0][1]));
         logMsg("team 0 starter 0 = " +Ogre::StringConverter::toString(teamStarterID[0][0]));
         logMsg("team  0 starter 0 = " +team0Starters[0]);
@@ -1669,9 +1689,9 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
             overallRatings[1].push_back(overallRating);
         }
     }
-    
 
-    
+
+
     overallRatingsSize = overallRatings[0].size();
     flag = 1;
     temp = 0;
@@ -1819,7 +1839,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
     }
 
 //    exit(0);
-    
+
     logMsg("PG == " +team0PGSelectBox->getItemNameAt(0));
     logMsg("PG ID == " +Ogre::StringConverter::toString(team0IDs[0][0]));
 //    exit(0);
