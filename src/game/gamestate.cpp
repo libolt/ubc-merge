@@ -737,7 +737,7 @@ bool gameState::logic()
         //FIXME crash in updateState code
     	teamInstance[0].updateState();
     	teamInstance[1].updateState();
-    	exit(0);
+//    	exit(0);
     }
     else
     {

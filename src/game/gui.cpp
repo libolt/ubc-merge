@@ -1502,6 +1502,8 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
         teamInstance[1].setActivePlayerID(activeID);
         if (!teamInstance[1].getPlayerInstancesCreated())    // checks if playerInstances have been created
         {
+            logMsg("Creating team 1 player instances");
+//            exit(0);
             if (teamInstance[1].createPlayerInstances()) // creates the player instances based on playerIDS
             {
                 logMsg("Player instances created!");
