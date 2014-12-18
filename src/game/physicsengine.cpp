@@ -251,16 +251,23 @@ bool physicsEngine::setupPlayerPhysics()
 		size_t i = 0;
         size_t j = 0;
         std::vector<int> activeID = teamInstance[x].getActivePlayerID();
-        
+
 //		for (size_t i=0; i<playerInstance.size(); ++i)
 		while (i<playerInstance.size())
 		{
-            
+		    j = 0;
             while (j<activeID.size())
             {
 //		    if (playerInstance[i].getIsActive() && playerInstance[i].getModelLoaded())
                 if (playerInstance[i].getPlayerID() == activeID[j])
 		        {
+//                    exit(0);
+/*                    if (i == 10)
+                    {
+                        logMsg("10 reached!");
+                        exit(0);
+                    }
+*/
                     logMsg("Converting Mesh to Shape");
 //                    exit(0);
                     // create shape
@@ -499,9 +506,9 @@ void physicsEngine::updateState()
 //			exit(0);
 			if(gameS->getTeamInstancesCreated())
 			{
-                
+
 				tipOffCollisionCheck();
-                exit(0);
+//s                exit(0);
 			}
 			if (gameS->getBallTipped() && gameS->getBallTipForceApplied())
 			{
@@ -724,27 +731,30 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 				std::vector<playerState> playerInstance = teamInstance[x].getPlayerInstance();
 				logMsg("Crash here?????");
 				logMsg("playerInstance Size = " +Ogre::StringConverter::toString(playerInstance.size()));
-                
-                int centerID = 0;
+
+                int centerID = -1;
                 int i = 0;
                 std::vector<int> activeID = teamInstance[x].getActivePlayerID();
-                    
+
                 while (i < playerInstance.size()) // loops until the playerInstance is found that is currently playing center
                 {
 /*                    logMsg("i = " +Ogre::StringConverter::toString(i));
                     logMsg("player ID = " +Ogre::StringConverter::toString(playerInstance[i].getPlayerID()));
-                   
+
                     logMsg("player position = " +playerInstance[i].getPosition());
                     logMsg("activeID[4] = " +Ogre::StringConverter::toString(activeID[4]));
 */
                     if (activeID[4] == playerInstance[i].getPlayerID())
 //                    if (playerInstance[i].getIsActive() && playerInstance[i].getPosition() == "C")
-		            {   
+		            {
                         centerID = i;
                         logMsg("centerID = " +Ogre::StringConverter::toString(centerID));
+                        logMsg("PlayerName = " +playerInstance[i].getPlayerName());
+                        logMsg("ModelLoaded = " +Ogre::StringConverter::toString(playerInstance[i].getModelLoaded()));
                     }
                     i++;
                 }
+                logMsg("centerID == " +Ogre::StringConverter::toString(centerID));
 				world->contactPairTest(bInstance[0].getPhysBody(), playerInstance[centerID].getPhysBody(), tipOffResult);
 				logMsg("tipOffResult.m_connected = " +Ogre::StringConverter::toString(tipOffResult.m_connected));
 				bool test = false;

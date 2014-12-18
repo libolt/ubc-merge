@@ -687,11 +687,11 @@ bool gameState::logic()
 
     logMsg("Physics");
     physEngine->updateState();	// updates the state of the physics simulation
-    exit(0);
+//    exit(0);
 	physEngine->stepWorld();	// steps the physics simulation
     logMsg("DirectionsAndMovement");
     updateDirectionsAndMovements();
-	exit(0);
+//	exit(0);
 
     updatePositions();   // updates positions of game world objects
 
@@ -734,8 +734,10 @@ bool gameState::logic()
     // updates the state of each team
     if (teamInstancesCreated)
     {
+        //FIXME crash in updateState code
     	teamInstance[0].updateState();
     	teamInstance[1].updateState();
+    	exit(0);
     }
     else
     {
