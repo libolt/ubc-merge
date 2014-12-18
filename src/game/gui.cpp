@@ -1493,7 +1493,18 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
 
         teamInstance[0].setPlayerStartPositions();
         logMsg("Team 0 player start positions set");
-
+        size_t i = 0;
+        std::vector<playerState> playerInstance;
+        playerInstance = teamInstance[0].getPlayerInstance();
+        while (i<playerInstance.size())
+        {
+            if (activeID[4] == playerInstance[i].getPlayerID())
+            {
+                teamInstance[0].setHumanPlayer(i);
+                logMsg("human player set!");
+            }
+            i++;
+        }
         activeID.clear();
         for (size_t x=0;x<5;++x)
         {
@@ -1511,7 +1522,16 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
 //          exit(0);
             }
         }
-
+        playerInstance = teamInstance[1].getPlayerInstance();
+        while (i<playerInstance.size())
+        {
+            if (activeID[4] == playerInstance[i].getPlayerID())
+            {
+                teamInstance[1].setHumanPlayer(i);
+                logMsg("human player set!");
+            }
+            i++;
+        }
         teamInstance[1].setPlayerStartPositions();
         logMsg("Team 1 player start positions set");
 

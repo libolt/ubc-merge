@@ -792,7 +792,15 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 					gameS->setBallTippedToTeam(x);
 					logMsg("Tipped X = " +Ogre::StringConverter::toString(x));
 	//				exit(0);
-					gameS->setBallTippedToPlayer(0);
+                    i = 0;
+                    while (i < playerInstance.size()) // loops until the playerInstance is found that is currently playing center
+                    {
+                        if (activeID[0] == playerInstance[i].getPlayerID())
+                        {
+					        gameS->setBallTippedToPlayer(i);
+                        }
+                        i++;
+                    }
 					gameS->setBallTipForceApplied(true);
 //					tipOffResult.m_connected = false;
 					gameS->setTeamInstance(teamInstance);
