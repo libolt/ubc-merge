@@ -395,8 +395,9 @@ void teamState::updateState()	// updates the state of the object
 //		exit(0);
 
 		// checks whether to execute offense or defense logic
-/*		if (offense == true && defense == false)
+		if (offense == true && defense == false)
 		{
+//            exit(0);
 			offenseInstance->setExecute(true);
 			defenseInstance->setExecute(false);
 		}
@@ -409,7 +410,7 @@ void teamState::updateState()	// updates the state of the object
 		{
 
 		}
-*/
+
 		if (gameS->getTipOffComplete())
 		{
 //			exit(0);

@@ -183,10 +183,12 @@ void offenseState::updateState(int teamNumber)	// updates the state of the objec
 
     if (!offenseSetup)
     {
+        
     	setupOffense();
     }
 	else
 	{
+        
 		executeOffense();
 	}
 	teamInstance[teamNumber].setPlayerInstance(playerInstance);
