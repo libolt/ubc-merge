@@ -306,6 +306,7 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
                     break;
                 }
             }
+            x++;
         }
 /*        
 			    if (x != humanPlayer && !playerDInstance[x].getDefenseSet())
