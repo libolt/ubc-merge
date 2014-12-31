@@ -56,6 +56,7 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
     std::vector<Ogre::Vector3> playerDPos;  // stores positions of defensive players
 
     int humanPlayer = teamInstance[teamNumber].getHumanPlayer();
+    int numPlayers = activeDID.size(); // stores the number of players on the court per team
 //	exit(0);
 	if (execute)
 	{
@@ -191,7 +192,7 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
         }
         
         x = 0; // resets x
-        while (x<5) //FIXME value should be replaced with number of active players per side
+        while (x<numPlayers) // loops until the number of players on court per team is reached
         {
             int DNum = activeDNum[x];
             if (activeDNum[DNum] != humanPlayer && !playerDInstance[DNum].getDefenseSet())
