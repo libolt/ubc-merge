@@ -126,7 +126,6 @@ void renderEngine::setMAssetMgr(AAssetManager *asset)
 {
 	mAssetMgr = asset;
 }
-
 android_app *renderEngine::getApp()
 {
 	return (app);
@@ -261,7 +260,6 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
 
 bool renderEngine::initSDL() // Initializes SDL Subsystem
 {
-	//if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0)
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
         fprintf(stderr,
@@ -281,31 +279,17 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     SDL_DisplayMode mode;
 	SDL_GetDesktopDisplayMode(0,&mode);
-/*    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
-	                           SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, 0);
-*/
+
     JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
 
     jclass class_sdl_activity   = env->FindClass("org/libsdl/app/SDLActivity");
     jmethodID method_get_native_surface = env->GetStaticMethodID(class_sdl_activity, "getNativeSurface", "()Landroid/view/Surface;");
     jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
     ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
-//    winHandle =  Ogre::StringConverter::toString((unsigned long)native_window);
-//    sdlWindow = SDL_CreateWindowFrom(app->window);
 
-/*    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge", SDL_WINDOWPOS_UNDEFINED,
-	                             SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
-
-
-    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge", SDL_WINDOWPOS_UNDEFINED,
-	                             SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_INPUT_GRABBED | SDL_WINDOW_OPENGL | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_SHOWN);
-*/
-//	sdlGLContext = SDL_GL_CreateContext(sdlWindow);
-//    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 0);
     std::string message = "SDL Window Created!";
 	logMsg(message);
-//    SDL_SetWindowGrab(sdlWindow, SDL_TRUE);
-    //SDL_SetRelativeMouseMode(SDL_TRUE);
+
 #else
     sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
 	                             SDL_WINDOWPOS_UNDEFINED,
@@ -323,6 +307,25 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 
 	return true;
 }
+
+/*    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
+                               SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, 0);
+*/
+//    winHandle =  Ogre::StringConverter::toString((unsigned long)native_window);
+//    sdlWindow = SDL_CreateWindowFrom(app->window);
+
+/*    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge", SDL_WINDOWPOS_UNDEFINED,
+                                 SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
+
+
+    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge", SDL_WINDOWPOS_UNDEFINED,
+                                 SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_INPUT_GRABBED | SDL_WINDOW_OPENGL | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_SHOWN);
+*/
+//  sdlGLContext = SDL_GL_CreateContext(sdlWindow);
+//    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 0);
+
+//    SDL_SetWindowGrab(sdlWindow, SDL_TRUE);
+//    SDL_SetRelativeMouseMode(SDL_TRUE);
 
 bool renderEngine::initOgre() // Initializes Ogre Subsystem
 {
@@ -391,12 +394,6 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 #else
 	Ogre::RenderSystemList rsList = mRoot->getAvailableRenderers();
 
-
-	//	r_it = renderEngine->begin();
-	//    	mRoot->setRenderSystem(*r_it);
-	//	mWindow = mRoot->initialise(false);
-	//	exit(0);
-
 	int c = 0;
 	bool foundit = false;
 	Ogre::RenderSystem *selectedRenderSystem = 0;
@@ -415,10 +412,6 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 
 	//we found it, we might as well use it!
 	mRoot->setRenderSystem(selectedRenderSystem);
-//		selectedRenderSystem->setConfigOption("Full Screen","False");
-//	selectedRenderSystem->setOption("Video Mode","1024 x 768 @ 32-bit colour");
-
-	//	mWindow = mRoot->initialise(true, "Ultimate Basketball Challenge");
 	mWindow = mRoot->initialise(false, "Ultimate Basketball Challenge");
 #endif
 
