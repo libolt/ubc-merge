@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "basketballs.h"
+#include "courtdata.h"
 #include "courtstate.h"
 #include "hoop.h"
 #include "playerstate.h"
@@ -39,56 +40,59 @@ class gameState
         ~gameState();
 
 
-    virtual void processNetworkEvents();	// processes events received from network connection.
-    virtual void processNetworkPlayerEvents();	// processes player evernts received from network connection
-    virtual void updateDirectionsAndMovements();	// updates the movement and directions of game world objecxts
-//    virtual void updatePlayerDirections();  // updates the direction players are facing
-    virtual void updateBasketballMovements();	// updates the movement of basketball(s)
-    virtual void updateBasketballDirections();	// updates the direction of basketball(s)
-    virtual bool assignTeams(); // assigns the teams which are playing
-    virtual bool assignPlayers();   // assigns the players that are playing.
-    virtual bool setupEnvironment();    // sets up the 3D environment for the game
-    virtual void setBasketballStartPositions();	// sets the initial coordinates for the basketball(s).
-    virtual void setCourtStartPositions();	// sets the initial coordinates for the court(s).
-    virtual void setHoopStartPositions();	// sets the initial coordinates for the hoop(s).
+    void processNetworkEvents();	// processes events received from network connection.
+    void processNetworkPlayerEvents();	// processes player evernts received from network connection
+    void updateDirectionsAndMovements();	// updates the movement and directions of game world objecxts
+//    void updatePlayerDirections();  // updates the direction players are facing
+    void updateBasketballMovements();	// updates the movement of basketball(s)
+    void updateBasketballDirections();	// updates the direction of basketball(s)
+    bool assignTeams(); // assigns the teams which are playing
+    bool assignPlayers();   // assigns the players that are playing.
+    bool setupEnvironment();    // sets up the 3D environment for the game
+    void setBasketballStartPositions();	// sets the initial coordinates for the basketball(s).
+    void setCourtStartPositions();	// sets the initial coordinates for the court(s).
+    void setHoopStartPositions();	// sets the initial coordinates for the hoop(s).
 
 
-    virtual gameTypes getGameType(); // retrieves the value of gameType
-    virtual void setGameType(gameTypes type);	  // sets the value of gameType
+    gameTypes getGameType(); // retrieves the value of gameType
+    void setGameType(gameTypes type);	  // sets the value of gameType
     bool getGameSetupComplete();    // retrieves the value of gameSetupComplete
     void setGameSetupComplete(bool complete);   // sets the value of gameSetupComplete
-    virtual bool getTipOffComplete();	// retrieves tipOffComplete value
-    virtual void setTipOffComplete(bool complete);	// sets tipOffComplete value
-    virtual bool getBallTipped();	// retrieves the value of the ballTipped variable
-    virtual void setBallTipped(bool tipped);	// sets the value of the ballTipped variable
-    virtual int getBallTippedToTeam();	// retrieves the value of the ballTippedToPlayer variable
-    virtual void setBallTippedToTeam(int team);	// sets the value of the ballTippedToPlayer variable
-    virtual int getBallTippedToPlayer();	// retrieves the value of the ballTippedToPlayer variable
-    virtual void setBallTippedToPlayer(int player);	// sets the value of the ballTippedToPlayer variable
-    virtual bool getBallTipForceApplied();	// retrieves the value of ballTipForceApplied
-    virtual void setBallTipForceApplied(bool tip);	// sets the value of ballTipForceApplied
-    virtual bool getGameStarted(void);	// retrieves the gameStarted value
-    virtual void setGameStarted(bool started);	// sets gameStarted value
-    virtual int getTeamWithBall(void);		// retrieves teamWithBall value
-    virtual void setTeamWithBall(int ball);	// sets teamWithBall value
-    virtual int getBballBounce();	// retrieves the value of bballBounce
-    virtual void setBballBounce(int bounce);	// sets the value of bballBounce
+    bool getTipOffComplete();	// retrieves tipOffComplete value
+    void setTipOffComplete(bool complete);	// sets tipOffComplete value
+    bool getBallTipped();	// retrieves the value of the ballTipped
+    void setBallTipped(bool tipped);	// sets the value of the ballTipped
+    int getBallTippedToTeam();	// retrieves the value of the ballTippedToPlayer
+    void setBallTippedToTeam(int team);	// sets the value of the ballTippedToPlayer
+    int getBallTippedToPlayer();	// retrieves the value of the ballTippedToPlayer
+    void setBallTippedToPlayer(int player);	// sets the value of the ballTippedToPlayer
+    bool getBallTipForceApplied();	// retrieves the value of ballTipForceApplied
+    void setBallTipForceApplied(bool tip);	// sets the value of ballTipForceApplied
+    bool getGameStarted(void);	// retrieves the gameStarted value
+    void setGameStarted(bool started);	// sets gameStarted value
+    int getTeamWithBall(void);		// retrieves teamWithBall value
+    void setTeamWithBall(int ball);	// sets teamWithBall value
+    int getBballBounce();	// retrieves the value of bballBounce
+    void setBballBounce(int bounce);	// sets the value of bballBounce
 
-    virtual bool getTeamInstancesCreated();	// gets the value of the teamInstancesCreated variable
-    virtual void setTeamInstancesCreated(bool created);	// sets the value of the teamInstancesCreated variable
+    bool getTeamInstancesCreated();	// gets the value of the teamInstancesCreated
+    void setTeamInstancesCreated(bool created);	// sets the value of the teamInstancesCreated
 
-    virtual bool getBasketballModelLoaded();	// gets the value of the basketballModelLoaded variable
-    virtual void setBasketballModelLoaded(bool loaded);	// sets the value of the basketballModelLoaded variable
+    bool getBasketballModelLoaded();	// gets the value of the basketballModelLoaded
+    void setBasketballModelLoaded(bool loaded);	// sets the value of the basketballModelLoaded
 
     // Tip Off execution code.  // Move to proper class
-    virtual bool setupTipOff();	// sets up Tip Off conditions
-    virtual bool executeTipOff();
+    bool setupTipOff();	// sets up Tip Off conditions
+    bool executeTipOff();
 
-    virtual std::vector<teamData> getTeamDataInstance();	// retrieves the value of  the teamDataInstance variable
-    virtual void setTeamDataInstances(std::vector<teamData> instance);	// sets the value of the teamDataInstance variable;
+    std::vector<teamData> getTeamDataInstance();	// retrieves the value of teamDataInstance
+    void setTeamDataInstances(std::vector<teamData> instance);	// sets the value of teamDataInstance;
 
-    virtual std::vector<playerData> getPlayerDataInstance();	// retrieves the value of  the playerDataInstance variable
-    virtual void setPlayerDataInstances(std::vector<playerData> instance);	// sets the value of the playerDataInstance variable;
+    std::vector<playerData> getPlayerDataInstance();	// retrieves the value of playerDataInstance
+    void setPlayerDataInstances(std::vector<playerData> instance);	// sets the value of playerDataInstance;
+
+    std::vector<courtData>	getCourtDataInstance();	// retrieves the value of courtDataInstance
+    void setCourtDataInstance(std::vector<courtData> instance);	// sets the value of courtDataInstance
 
 	// gets and sets teamID
 	std::vector<int> getTeamID(void);
@@ -101,7 +105,7 @@ class gameState
     std::vector< std::vector<int> > getTeamStarterID(); // retrieves value of teamStarterID
     void setTeamStarterID(std::vector< std::vector<int> > ID); // sets the value of teamStarterID
 
-    
+
 	// gets and sets basketballInstance std::vector
 	std::vector <basketballs> getBasketballInstance();
 	void setBasketballInstance(std::vector<basketballs> bballInstance);
@@ -130,11 +134,11 @@ class gameState
 	// creates hoop Instances
 	bool createHoopInstances();
 
-	virtual bool setupState();   // sets up the game condition
-	virtual bool logic();   // carries out in game logic
+	bool setupState();   // sets up the game condition
+	bool logic();   // carries out in game logic
 
 	// updates positions of gameState objects
-	virtual bool updatePositions();
+	bool updatePositions();
 
     protected:
         gameState();
@@ -152,15 +156,16 @@ class gameState
 
     bool finished;  // indicates whether a game is finished.
 
-    std::vector<teamData> teamDataInstance;	// stores the array of teams loaded from the xml files
-    std::vector<playerData> playerDataInstance;	// stores the array of the players loaded from the xml files
+    std::vector<teamData> teamDataInstance;	// stores the vector of teams loaded from the xml files
+    std::vector<playerData> playerDataInstance;	// stores the vector of the players loaded from the xml files
+    std::vector<courtData> courtDataInstance;	// stores the vector the courts loaded from the xml files
 
     std::vector<int> teamID;      // std::vector that stores the IDs of the 2 teams currently playing
     std::vector<int> playerID;       // std::vector that stores the IDs of the players currently being used.
 
     std::vector< std::vector<int> > teamStarterID; // stores the selected starters for each team
 
-    
+
     std::vector <basketballs> basketballInstance;    // creates instance of the basketballs class
     std::vector <courtState> courtInstance;  // creates instance of the courtState class
 	std::vector <hoop> hoopInstance;  // creates instance of the hoop class
@@ -176,7 +181,7 @@ class gameState
     bool sceneCreated;				// stores whether the scene has been created
     bool gameStarted;   // Determines whether or not a basketball game has been started
 
-    // Tip Off variables
+    // Tip Offs
     bool tipOffComplete;	// Determines whether or not game Tip Off has completed
     bool ballTipped;	//	stores whether or not the ball has been tipped
     bool ballTipForceApplied;	// stores whether or not force has been applied to tipped ball

@@ -95,6 +95,15 @@ void loader::setOffensePlayFiles(std::vector<std::string> files)
 	offensePlayFiles = files;
 }
 
+std::vector<std::string> loader::getCourtFiles()   // returns list of court xml files
+{
+	return (courtFiles);
+}
+void loader::setCourtFiles(std::vector<std::string> set)  // sets list of court xml files
+{
+	courtFiles = set;
+}
+
 // loads an xml file using SDL so that it can
 // be passed to TinyXML
 int loader::readFile(const char *sourceFile, char **destination)
@@ -1472,3 +1481,322 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 
 	return (play);
 }
+
+// Courts
+std::vector<courtData> loader::loadCourts()	// load offense plays from XML files
+{
+	std::vector<courtData> courts;
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	string courtList = "data/courts/courts.xml";
+#else
+    string courtList = findFile("courts/courts.xml");
+#endif
+	loadCourtListFile(courtList);
+//    std::vector<std::string> playerFiles = load->getPlayerFiles();
+
+    std::vector<std::string>::iterator it;
+    for (it = courtFiles.begin(); it != courtFiles.end(); ++it)
+    {
+		logMsg("courtFile = " +*it);
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+		courts.push_back(loadCourtFile("data/courts/" + *it));
+#else
+        courts.push_back(loadCourtFile(findFile("courts/" + *it)));
+#endif
+    }
+
+	return (courts);
+}
+
+bool loader::loadCourtListFile(string fileName)	// loads the list of offense play files from plays.xml
+{
+	renderEngine *renderE = renderEngine::Instance();
+    std::vector<std::string> courtFile;
+
+
+//	char *fileContents = NULL;
+	Ogre::String fileContents;
+	TiXmlDocument doc;
+	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
+//	readFile(fileName.c_str(), &fileContents);
+    logMsg(fileName);
+/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	fileContents = fileData->getAsString();
+#else*/
+    char *contents = NULL;
+	readFile(fileName.c_str(), &contents);
+	fileContents = Ogre::StringConverter::toString(contents);
+//#endif
+
+/*    TiXmlDocument doc(fileName.c_str());
+    if (!doc.LoadFile()) return(false);
+*/
+
+	if (!doc.Parse(contents))
+	{
+		logMsg("Unable to parse courts.xml file");
+		exit(0);
+	}
+
+    TiXmlHandle hDoc(&doc);
+    TiXmlElement* pElem;
+    TiXmlHandle hRoot(0);
+
+    pElem=hDoc.FirstChildElement().Element();
+    // should always have a valid root but handle gracefully if it does
+    if (!pElem) return(false);
+
+    // save this for later
+    hRoot=TiXmlHandle(pElem);
+
+    pElem=hRoot.FirstChild("CourtFile").Element();
+    for( pElem; pElem; pElem=pElem->NextSiblingElement())
+    {
+        string pKey=pElem->Value();
+//		cout << pKey << endl;
+        string pText=pElem->GetText();
+//		cout << pText << endl;
+        courtFile.push_back(pText);
+
+    }
+
+/*    std::vector<std::string>::iterator it;
+    for (it = playerFiles.begin(); it != playerFiles.end(); ++it)
+    {
+        cout << *it << endl;
+    }
+    */
+
+    setCourtFiles(courtFile);
+
+	return true;
+}
+
+courtData loader::loadCourtFile(string fileName)	// loads data from the offense play XML files
+{
+	courtData court;
+	std::string name;
+	std::string modelName;
+	int length;
+	int width;
+	int boundaryLength;
+	int boundaryWidth;
+	int boundaryXPos;
+	int boundaryZPos;
+	int centerCourt;
+	int centerJumpRadius;
+	int keyLength;
+	int keyWidth;
+	int keyJumpRadius;
+	int threePointSideLength;
+	int threePointSideZPos;
+	int threePointArcRadius;
+	int baselineInboundXPos;
+	int baselineInboundZPos;
+	int sidelineInboundXPos;
+	int sidelineInboundZPos;
+
+	// stores values read from XML files
+	std::string pPlayName;
+    int pVariation;
+    std::string pTitle;
+    std::string pPlayerDesignation;
+    std::string pType;
+    float pXCoord;
+    float pYCoord;
+    float pZCoord;
+    Ogre::Vector3 pCoords;
+	std::vector<Ogre::Vector3> pExecuteCoords;
+    offensePlays::playerDirectives pPlayerDirective;
+    playerDesignations pPlayerDirectiveDesignation;
+
+//    TiXmlDocument doc(fileName.c_str());
+//    if (!doc.LoadFile()) return(false);
+
+//	char *fileContents = NULL;
+	Ogre::String fileContents;
+	TiXmlDocument doc;
+	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
+//	readFile(fileName.c_str(), &fileContents);
+
+/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	fileContents = fileData->getAsString();
+#else*/
+    char *contents = NULL;
+	readFile(fileName.c_str(), &contents);
+	fileContents = Ogre::StringConverter::toString(contents);
+//#endif
+	if (!doc.Parse(contents))
+	{
+		logMsg("Unable to parse court file");
+		exit(0);
+	}
+
+    TiXmlHandle hDoc(&doc);
+    TiXmlElement *rootElement;
+    TiXmlElement* pElem;
+    TiXmlElement *child;
+    TiXmlNode *rootNode;
+    TiXmlNode *childNode;
+    TiXmlHandle hRoot(0);
+
+//    pElem=hDoc.FirstChildElement().Element();
+    rootElement = doc.FirstChildElement("Court");
+    // should always have a valid root but handle gracefully if it does
+    if (!rootElement)
+    {
+    	logMsg("Unable to load court element");
+    	exit(0);
+    }
+
+    child = rootElement->FirstChild()->ToElement();
+    if (child)
+    {
+    	string cKey = child->Value();
+    	if (cKey == "Name")
+    	{
+    		name = child->GetText();
+    		logMsg("name = " +name);
+    	}
+    	child = child->NextSiblingElement("Model");
+  		if (child)
+    	{
+  			modelName = child->GetText();
+    		logMsg("modelName = " +modelName);
+    	}
+  		child = child->NextSiblingElement("Length");
+		if (child)
+		{
+			length = atoi(child->GetText());
+			logMsg("Length = " +Ogre::StringConverter::toString(length));
+		} //      exit(0);
+  		child = child->NextSiblingElement("Width");
+		if (child)
+		{
+			length = atoi(child->GetText());
+			logMsg("Width = " +Ogre::StringConverter::toString(width));
+		} //      exit(0);
+  		child = child->NextSiblingElement("BoundaryLength");
+		if (child)
+		{
+			boundaryLength = atoi(child->GetText());
+			logMsg("Boundary Length = " +Ogre::StringConverter::toString(boundaryLength));
+		} //      exit(0);
+  		child = child->NextSiblingElement("BoundaryWidth");
+		if (child)
+		{
+			boundaryWidth = atoi(child->GetText());
+			logMsg("Boundary Width = " +Ogre::StringConverter::toString(boundaryWidth));
+		} //      exit(0);
+  		child = child->NextSiblingElement("BoundaryXPos");
+		if (child)
+		{
+			boundaryXPos = atoi(child->GetText());
+			logMsg("Boundary X Pos = " +Ogre::StringConverter::toString(boundaryXPos));
+		} //      exit(0);
+  		child = child->NextSiblingElement("BoundaryZPos");
+		if (child)
+		{
+			boundaryZPos = atoi(child->GetText());
+			logMsg("Boundary Z Pos = " +Ogre::StringConverter::toString(boundaryZPos));
+		} //      exit(0);
+  		child = child->NextSiblingElement("CenterCourt");
+		if (child)
+		{
+			centerCourt = atoi(child->GetText());
+			logMsg("Center Court = " +Ogre::StringConverter::toString(centerCourt));
+		} //      exit(0);
+  		child = child->NextSiblingElement("CenterJumpRadius");
+		if (child)
+		{
+			centerJumpRadius = atoi(child->GetText());
+			logMsg("Center Jump Radius = " +Ogre::StringConverter::toString(centerJumpRadius));
+		} //      exit(0);
+  		child = child->NextSiblingElement("KeyLength");
+		if (child)
+		{
+			keyLength = atoi(child->GetText());
+			logMsg("Key Length = " +Ogre::StringConverter::toString(keyLength));
+		} //      exit(0);
+  		child = child->NextSiblingElement("KeyWidth");
+		if (child)
+		{
+			keyWidth = atoi(child->GetText());
+			logMsg("Key Width = " +Ogre::StringConverter::toString(keyWidth));
+		} //      exit(0);
+  		child = child->NextSiblingElement("KeyJumpRadius");
+		if (child)
+		{
+			keyJumpRadius = atoi(child->GetText());
+			logMsg("Key Jump RAdius = " +Ogre::StringConverter::toString(keyJumpRadius));
+		} //      exit(0);
+  		child = child->NextSiblingElement("ThreePointSideLength");
+		if (child)
+		{
+			threePointSideLength = atoi(child->GetText());
+			logMsg("Three Point Side Length = " +Ogre::StringConverter::toString(threePointSideLength));
+		} //      exit(0);
+  		child = child->NextSiblingElement("ThreePointSideZPos");
+		if (child)
+		{
+			threePointSideZPos = atoi(child->GetText());
+			logMsg("Three Point Side Z Pos = " +Ogre::StringConverter::toString(threePointSideZPos));
+		} //      exit(0);
+  		child = child->NextSiblingElement("ThreePointArcRadius");
+		if (child)
+		{
+			threePointArcRadius = atoi(child->GetText());
+			logMsg("Three Point Arc Radius = " +Ogre::StringConverter::toString(threePointArcRadius));
+		} //      exit(0);
+  		child = child->NextSiblingElement("BaselineInboundXPos");
+		if (child)
+		{
+			baselineInboundXPos = atoi(child->GetText());
+			logMsg("Baseline Inbound X Pos = " +Ogre::StringConverter::toString(baselineInboundXPos));
+		} //      exit(0);
+  		child = child->NextSiblingElement("BaselineInboundZPos");
+		if (child)
+		{
+			baselineInboundZPos = atoi(child->GetText());
+			logMsg("Baseline Inbound Z Pos = " +Ogre::StringConverter::toString(baselineInboundZPos));
+		} //      exit(0);
+  		child = child->NextSiblingElement("SidelineInboundXPos");
+		if (child)
+		{
+			sidelineInboundXPos = atoi(child->GetText());
+			logMsg("Sideline Inbound X Pos = " +Ogre::StringConverter::toString(sidelineInboundXPos));
+		} //      exit(0);
+  		child = child->NextSiblingElement("SidelineInboundZPos");
+		if (child)
+		{
+			sidelineInboundZPos = atoi(child->GetText());
+			logMsg("Sideline Inbound Z Pos = " +Ogre::StringConverter::toString(sidelineInboundZPos));
+		} //      exit(0);
+
+    }
+
+    Ogre::Vector2 boundary = Ogre::Vector2(length,width);
+    Ogre::Vector2 boundaryPos = Ogre::Vector2(boundaryXPos,boundaryZPos);
+    Ogre::Vector2 keyDimensions = Ogre::Vector2(keyLength,keyWidth);
+    Ogre::Vector2 baselineInboundPos = Ogre::Vector2(baselineInboundXPos,baselineInboundZPos);
+    Ogre::Vector2 sidelineInboundPos = Ogre::Vector2(sidelineInboundXPos,sidelineInboundZPos);
+
+    court.setName(name);
+    court.setModelName(modelName);
+    court.setBoundary(boundary);
+    court.setBoundaryPos(boundaryPos);
+    court.setCenterCourt(centerCourt);
+    court.setCenterJumpRadius(centerJumpRadius);
+    court.setKeyDimensions(keyDimensions);
+    court.setKeyJumpRadius(keyJumpRadius);
+    court.setThreePointSideLength(threePointSideLength);
+    court.setThreePointZPos(threePointSideZPos);
+    court.setThreePointArcRadius(threePointArcRadius);
+    court.setBaselineInboundPos(baselineInboundPos);
+    court.setSidelineInboundPos(sidelineInboundPos);
+
+	return (court);
+}
+

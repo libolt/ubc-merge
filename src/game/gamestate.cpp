@@ -129,6 +129,15 @@ void gameState::setPlayerDataInstances(std::vector<playerData> instance)	// sets
 	playerDataInstance = instance;
 }
 
+std::vector<courtData>	gameState::getCourtDataInstance()	// retrieves the value of courtDataInstance
+{
+	return (courtDataInstance);
+}
+void gameState::setCourtDataInstance(std::vector<courtData> instance)	// sets the value of courtDataInstance
+{
+	courtDataInstance = instance;
+}
+
 // gets and sets teamID
 std::vector<int> gameState::getTeamID(void)
 {

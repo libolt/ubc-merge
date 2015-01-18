@@ -20,6 +20,7 @@
 
 
 #include "gui.h"
+#include "courtdata.h"
 #include "gameengine.h"
 #include "gamestate.h"
 #include "load.h"
@@ -1410,6 +1411,7 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed)   // process player start selection menu key input
 {
     gameState *gameS = gameState::Instance();
+    loader *load = loader::Instance();
 
     if (!gameS->getTeamInstancesCreated())
     {
@@ -1422,6 +1424,10 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
     teamState testState;
     if (keyPressed == "s")
     {
+    	//FIXME! Needs relocated!
+    	std::vector<courtData> courtDataInstance;
+    	courtDataInstance = load->loadCourts();
+		//
         logMsg("S");
 //        exit(0);
         std::vector<std::string> team0Starters;

@@ -27,6 +27,7 @@
 #include "Ogre.h"
 #include "tinyxml.h"
 
+#include "courtdata.h"
 #include "gamestate.h"
 #include "offenseplays.h"
 
@@ -36,17 +37,7 @@ class loader
 {
 public:
 
-
-    // loads all sprites
-    int loadSprites(void);
-
-    // loads player sprites
-    int loadPlayerSprites(void);
-
-    // loads court sprites
-    int loadCourtSprites();
-
-    std::vector<std::string> pathSplit(const std::string paths);
+	std::vector<std::string> pathSplit(const std::string paths);
     string findFile(string fileName);
 //	string * pathArray;
     static loader *Instance();
@@ -84,6 +75,10 @@ public:
     offensePlays loadOffensePlayFile(string fileName);	// loads data from the offense play XML files
 
 
+    std::vector<courtData> loadCourts();	// load court XML files
+    bool loadCourtListFile(string fileName);	// load the list of courts from courts.xml
+    courtData loadCourtFile(string fileName);	// loads data from the court XML files.
+
 protected:
     loader();
     loader(const loader&);
@@ -95,6 +90,7 @@ private:
     std::vector<std::string> playerFiles; // stores list of player xml files
     std::vector<std::string> teamFiles;	// stores list of team xml files
     std::vector<std::string> offensePlayFiles;	// stores list of offense play xml files
+    std::vector<std::string> courtFiles;	// stores list of court xml files
 
 
 };
