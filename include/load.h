@@ -52,34 +52,37 @@ public:
     static loader *Instance();
 
     std::vector<std::string> getPlayerFiles();    // returns list of player xml files
-    virtual void setPlayerFiles(std::vector<std::string> files);     // sets list of player xml files
+    void setPlayerFiles(std::vector<std::string> files);     // sets list of player xml files
 
     std::vector<std::string> getTeamFiles();    // returns list of player xml files
-    virtual void setTeamFiles(std::vector<std::string> files);    // sets list of player xml files
+    void setTeamFiles(std::vector<std::string> files);    // sets list of player xml files
 
     std::vector<std::string> getOffensePlayFiles();    // returns list of offense play xml files
-    virtual void setOffensePlayFiles(std::vector<std::string> files);     // sets list of offense play xml files
+    void setOffensePlayFiles(std::vector<std::string> files);     // sets list of offense play xml files
 
+    std::vector<std::string> getCourtFiles();   // returns list of court xml files
+    void setCourtFiles(std::vector<std::string> set);  // sets list of court xml files
 
-    virtual bool loadXMLFile(string fileName);
-    virtual int readFile(const char *sourceFile, char **destination);
-//    virtual int readFile(const char *sourceFile, Ogre::String *destination);
+    bool loadXMLFile(string fileName);
+    int readFile(const char *sourceFile, char **destination);
+//    int readFile(const char *sourceFile, Ogre::String *destination);
 
     // Teams
-    virtual bool loadTeams();   // loads team data from XML files
-    virtual bool loadTeamListFile(string fileName); // loads list of team files from teams.xml
-    virtual bool loadTeamFile(string fileName); // loads data from the team XML files
+    bool loadTeams();   // loads team data from XML files
+    bool loadTeamListFile(string fileName); // loads list of team files from teams.xml
+    bool loadTeamFile(string fileName); // loads data from the team XML files
 
     // Players
-    virtual bool loadPlayers(); // loads player data from XML files
-    virtual bool loadPlayerListFile(string fileName);   // loads list of player files from players.xml
-    virtual bool loadPlayerFile(string fileName);   // loads data from the player XML files
-    virtual bool loadUserFile(string fileName); // loads user file data from XML file(s)
+    bool loadPlayers(); // loads player data from XML files
+    bool loadPlayerListFile(string fileName);   // loads list of player files from players.xml
+    bool loadPlayerFile(string fileName);   // loads data from the player XML files
+    bool loadUserFile(string fileName); // loads user file data from XML file(s)
 
     //Offense
     std::vector<offensePlays> loadOffensePlays();	// load offense plays from XML files
     bool loadOffensePlayListFile(string fileName);	// loads the list of offense play files from plays.xml
     offensePlays loadOffensePlayFile(string fileName);	// loads data from the offense play XML files
+
 
 protected:
     loader();
