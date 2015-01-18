@@ -18,6 +18,6 @@
     <ThreePointArcRadius>25</ThreePointArcRadius>
     <BaselineInboundXPos>3</BaselineInboundXPos>
     <BaselineInboundZPos>10</BaselineInboundZPos>
-    <SideInboundXPos>40</SideInboundXPos>>
-    <SideInboundZPos>3</SideInboundZPos>
+    <SidelineInboundXPos>40</SidelineInboundXPos>>
+    <SidelineInboundZPos>3</SidelineInboundZPos>
 </Court>

@@ -18,6 +18,6 @@
     <ThreePointArcRadius></ThreePointArcRadius>
     <BaselineInboundXPos></BaselineInboundXPos>
     <BaselineInboundZPos></BaselineInboundZPos>
-    <SideInboundXPos></SideInboundXPos>>
-    <SideInboundZPos></SideInboundZPos>
+    <SidelineInboundXPos></SidelineInboundXPos>>
+    <SidelineInboundZPos></SidelineInboundZPos>
 </Court>
