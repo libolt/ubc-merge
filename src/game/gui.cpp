@@ -63,6 +63,7 @@ GUISystem::GUISystem()
     gameSetupMenuAwaySelected = false;
 	gameSetupMenuHomeSelected = false;
     playerStartSelectionMenuCreated = false;
+	courtSelectionMenuCreated = false;
     menuActive = false;
 
 	//activeMenu = NULL;
@@ -155,6 +156,15 @@ bool GUISystem::getPlayerStartSelectionMenuCreated()  // retrieves the value of 
 void GUISystem::setPlayerStartSelectionMenuCreated(bool created)  // sets the value of playerStartSelectionMenuCreated
 {
     playerStartSelectionMenuCreated = created;
+}
+
+bool GUISystem::getCourtSelectionMenuCreated()  // retrieves the value of courtSelectionMenuCreated
+{
+	return (courtSelectionMenuCreated);
+}
+void GUISystem::setCourtSelectionMenuCreated(bool created)  // sets the value of courtSelectionMenuCreated
+{
+	courtSelectionMenuCreated = created;
 }
 
 bool GUISystem::getMenuActive() // retrieves the value of menuActive
@@ -305,6 +315,11 @@ bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup s
 	return true;
 }
 
+bool GUISystem::createCourtStartSelectionMenuGUI()  // creates GUI for court selection menu screen.
+{
+	
+}
+
 bool GUISystem::createOptionsMenuGUI()	// creates GUI for options menu screen.
 {
 	renderEngine *renderE = renderEngine::Instance();
@@ -358,6 +373,11 @@ bool GUISystem::createBackButtons() // creates the back buttons for the menus
 	backOptionsMenuButton->setVisible(false);
 	backOptionsMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backOptionsMenuButtonClicked);
     backOptionsMenuButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+	backPlayerStartSelectionMenuButton = mGUI->findWidget<MyGUI::Button>("backPlayerStartSelectionMenuButton"); // loads Back to Player Start Selection Menu Button
+	backPlayerStartSelectionMenuButton->setVisible(false);
+	backPlayerStartSelectionMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backPlayerStartSelectionMenuButtonClicked);
+    backPlayerStartSelectionMenuButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
 	backGameSetupMenuButton = mGUI->findWidget<MyGUI::Button>("backGameSetupMenuButton"); // loads Back to Options Menu Button
 	backGameSetupMenuButton->setVisible(false);
@@ -752,6 +772,11 @@ void GUISystem::backOptionsMenuButtonClicked(MyGUI::Widget *_sender) // handles 
 
 }
 
+void GUISystem::backPlayerStartSelectionMenuButtonClicked(MyGUI::Widget *_sender) // handles backPlayerStartSelectionMenuButton click event
+{
+	 
+}
+
 void GUISystem::hideMainMenuWidgets()	// hides the widgets tied to the Main Menu
 {
 	startSingleGameButton->setVisible(false);
@@ -1055,6 +1080,15 @@ void GUISystem::showPlayerStartSelectionMenuWidgets() // shows all widgets tied 
     backGameSetupMenuButton->setVisible(true);
     backGameSetupMenuButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.4 *viewPort->getActualHeight()) );
 
+}
+
+void GUISystem::hideCourtSelectionMenuWidgets() // hides all widgets tied to the Court Selection Menu
+{
+	
+}
+void GUISystem::showCourtSelectionMenuWidgets() // show all widgets tied to the Court Selection Menu
+{
+	
 }
 
 void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key input
@@ -1574,6 +1608,11 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
 
 }
 
+void processCourtSelectionMenuKeyPress(std::string keyPressed)   // process court selection menu key input
+{
+	
+}
+
 void GUISystem::startSinglePlayerGame() // starts single player game
 {
 	gameState *gameS = gameState::Instance();
@@ -1648,6 +1687,11 @@ void GUISystem::playerStartSelectionMenu() // displays player start selection me
     menuActive = true;
 //  previousActiveMenu = activeMenu;
 //  activeMenu = GAMESETUP;
+}
+
+void courtSelectionMenu() // displays court selection menu
+{
+	
 }
 
 void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start Selection Menu widgets

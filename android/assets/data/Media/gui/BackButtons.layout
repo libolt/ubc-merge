@@ -15,5 +15,8 @@
     <Widget type="Button" skin="Button" position="250 490 300 26" layer="Main" name="backGameSetupMenuButton">
         <Property key="Caption" value="(B)ack to Game Setup Menu"/>
     </Widget>
+    <Widget type="Button" skin="Button" position="250 490 300 26" layer="Main" name="backPlayerStartSelectionMenuButton">
+        <Property key="Caption" value="(B)ack to Player Start Selection Menu"/>
+    </Widget>
     <CodeGeneratorSettings/>
 </MyGUI>
