@@ -29,7 +29,7 @@
 	enum courtSide_t {RIGHTSIDE, LEFTSIDE };	// defines which side of the court the offensive team is on
 
 	// GUI
-	enum activeMenus { MAIN, NETWORK, NETWORKCLIENT, OPTIONS, DISPLAY, INPUTMENU, AUDIO, GAMESETUP, PLAYERSTART }; // stores which menu is set to active
+	enum activeMenus { MAIN, NETWORK, NETWORKCLIENT, OPTIONS, DISPLAY, INPUTMENU, AUDIO, GAMESETUP, PLAYERSTART, COURTSELECT }; // stores which menu is set to active
 	// offense / defense
 	enum playerDesignations { PG, SG, SF, PF, C }; // defines designations for each player position
 	enum directiveTypes { WAIT, FREELANCE}; // defines the type of directive a player has

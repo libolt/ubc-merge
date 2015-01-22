@@ -317,7 +317,15 @@ bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup s
 
 bool GUISystem::createCourtStartSelectionMenuGUI()  // creates GUI for court selection menu screen.
 {
-	
+	renderEngine *renderE = renderEngine::Instance();
+	Ogre::Viewport *viewPort = renderE->getViewPort();
+
+	MyGUI::LayoutManager::getInstance().loadLayout("CourtSelectionMenu.layout");
+
+	courtSelectBox = mGUI->findWidget<MyGUI::ListBox>("courtSelectBox"); // loads Display Settings Button
+	courtSelectBox->setVisible(false);
+//	courtSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::displayButtonClicked);
+
 }
 
 bool GUISystem::createOptionsMenuGUI()	// creates GUI for options menu screen.
