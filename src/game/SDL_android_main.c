@@ -41,16 +41,17 @@ void Java_org_libsdl_app_SDLActivity_nativeInit(JNIEnv* env, jclass cls, jobject
 
 extern "C" 
 {
-/*
+
    JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved)
    {
-      dish_log_lazy_init();
+/*      dish_log_lazy_init();
       dish_log("JNI_OnLoad.");
-      dish::JniHelper& _jniHelper = dish::JniHelperManager::Instance();
-      _jniHelper.setJavaVM(vm);
-      return JNI_VERSION_1_4;
+      dish::JniHelper& _jniHelper = dish::JniHelperManager::Instance();*/
+//      _jniHelper.setJavaVM(vm);
+ //     return JNI_VERSION_1_4;
+//      exit(0);
    }
-
+/*
    JNIEXPORT void JNICALL Java_org_dish_ogre_DishNative_create(JNIEnv* env, jobject obj, jobject assetManager)
    {
       dish_log("DishNative_create.");
@@ -156,7 +157,7 @@ extern "C"
       _app.surfaceChanged(_width,_height);
    }
    */
-   JNIEXPORT void JNICALL Java_com_libolt_ubc_UBCActivity_handleActionDown(JNIEnv* env, jobject obj,jint pID, jfloat pX, jfloat pY)
+   JNIEXPORT void JNICALL Java_com_libolt_ubc_UBCGLSurfaceView_handleActionDown(JNIEnv* env, jobject obj,jint pID, jfloat pX, jfloat pY)
    {
 /*      UBCActivity::ImplApplication& _app = UBCActivity::ImplApplicationManager::Instance();
       _app.mousePress(pX, pY, MyGUI::MouseButton::Left);
