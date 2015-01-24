@@ -325,7 +325,7 @@ bool GUISystem::createCourtStartSelectionMenuGUI()  // creates GUI for court sel
 	courtSelectBox = mGUI->findWidget<MyGUI::ListBox>("courtSelectBox"); // loads Display Settings Button
 	courtSelectBox->setVisible(false);
 //	courtSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::displayButtonClicked);
-
+    return true;
 }
 
 bool GUISystem::createOptionsMenuGUI()	// creates GUI for options menu screen.
@@ -782,7 +782,7 @@ void GUISystem::backOptionsMenuButtonClicked(MyGUI::Widget *_sender) // handles 
 
 void GUISystem::backPlayerStartSelectionMenuButtonClicked(MyGUI::Widget *_sender) // handles backPlayerStartSelectionMenuButton click event
 {
-	 
+
 }
 
 void GUISystem::hideMainMenuWidgets()	// hides the widgets tied to the Main Menu
@@ -1092,11 +1092,11 @@ void GUISystem::showPlayerStartSelectionMenuWidgets() // shows all widgets tied 
 
 void GUISystem::hideCourtSelectionMenuWidgets() // hides all widgets tied to the Court Selection Menu
 {
-	
+
 }
 void GUISystem::showCourtSelectionMenuWidgets() // show all widgets tied to the Court Selection Menu
 {
-	
+
 }
 
 void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key input
@@ -1618,7 +1618,7 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
 
 void processCourtSelectionMenuKeyPress(std::string keyPressed)   // process court selection menu key input
 {
-	
+
 }
 
 void GUISystem::startSinglePlayerGame() // starts single player game
@@ -1699,7 +1699,7 @@ void GUISystem::playerStartSelectionMenu() // displays player start selection me
 
 void courtSelectionMenu() // displays court selection menu
 {
-	
+
 }
 
 void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start Selection Menu widgets
