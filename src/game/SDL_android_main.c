@@ -41,17 +41,17 @@ void Java_org_libsdl_app_SDLActivity_nativeInit(JNIEnv* env, jclass cls, jobject
 
 extern "C" 
 {
-
+/*
    JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved)
    {
-/*      dish_log_lazy_init();
+      dish_log_lazy_init();
       dish_log("JNI_OnLoad.");
-      dish::JniHelper& _jniHelper = dish::JniHelperManager::Instance();*/
+      dish::JniHelper& _jniHelper = dish::JniHelperManager::Instance();
 //      _jniHelper.setJavaVM(vm);
  //     return JNI_VERSION_1_4;
 //      exit(0);
    }
-/*
+
    JNIEXPORT void JNICALL Java_org_dish_ogre_DishNative_create(JNIEnv* env, jobject obj, jobject assetManager)
    {
       dish_log("DishNative_create.");

@@ -254,6 +254,7 @@ private:
 	MyGUI::Button *backPlayerStartSelectionMenuButton;
 	MyGUI::ListBox *courtSelectBox;  
 	MyGUI::ImageBox *courtPreviewImg;
+    MyGUI::TextBox *courtNameTxtBox;
 
 	// booleans
     bool mainMenuCreated;   // determines whether the main menu gui has been created

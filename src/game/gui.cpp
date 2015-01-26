@@ -325,6 +325,10 @@ bool GUISystem::createCourtStartSelectionMenuGUI()  // creates GUI for court sel
 	courtSelectBox = mGUI->findWidget<MyGUI::ListBox>("courtSelectBox"); // loads Display Settings Button
 	courtSelectBox->setVisible(false);
 //	courtSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::displayButtonClicked);
+//    courtNameTxtBox = mGUI->findWidget<MyGUI::TextBox>("courtNameTxtBox"); // loads Display Settings Button
+//    courtNameTxtBox->setVisible(false);
+//  courtNameTxtBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::displayButtonClicked);
+
     return true;
 }
 
