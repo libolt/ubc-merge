@@ -34,11 +34,12 @@ class playerSteer : public steering
 	    std::vector<playerSteer*> others;
 	    std::vector<playerSteer*> allplayers;
 //	    bool isTeamA;
-	    int id;
+        int id = 0;
 	    m_others = others;
 	    m_AllPlayers = allplayers;
 	    //m_Ball(ball),
 //	    b_ImTeamA = isTeamA;
+        m_MyID = 0;
         m_MyID = id;
 
 //    b_ImTeamA = true;

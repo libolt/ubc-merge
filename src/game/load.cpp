@@ -1260,7 +1260,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     	child = child->NextSiblingElement("Variation");
   		if (child)
     	{
-    		pVariation = atoi(child->GetText());
+            pVariation = atoi(child->GetText());
     		logMsg("pVariation = " +Ogre::StringConverter::toString(pVariation));
 			variation = pVariation;
     	}
@@ -1450,7 +1450,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 											{
 												logMsg("Position");
 												hKey = h->GetText();
-												pPlayerDirective.setPosition(atoi(hKey.c_str()));
+                                                pPlayerDirective.setPosition(atoi(hKey.c_str()));
 											}
 										}
 									}
@@ -1578,39 +1578,39 @@ courtData loader::loadCourtFile(string fileName)	// loads data from the offense 
 	courtData court;
 	std::string name;
 	std::string modelName;
-	int length;
-	int width;
-	int boundaryLength;
-	int boundaryWidth;
-	int boundaryXPos;
-	int boundaryZPos;
-	int centerCourt;
-	int centerJumpRadius;
-	int keyLength;
-	int keyWidth;
-	int keyJumpRadius;
-	int threePointSideLength;
-	int threePointSideZPos;
-	int threePointArcRadius;
-	int baselineInboundXPos;
-	int baselineInboundZPos;
-	int sidelineInboundXPos;
-	int sidelineInboundZPos;
-
+    float length = 0;
+    float width = 0;
+    float boundaryLength = 0;
+    float boundaryWidth = 0;
+    float boundaryXPos = 0;
+    float boundaryZPos = 0;
+    float centerCourt = 0;
+    float centerJumpRadius = 0;
+    float keyLength = 0;
+    float keyWidth = 0;
+    float keyJumpRadius = 0;
+    float threePointSideLength = 0;
+    float threePointSideZPos = 0;
+    float threePointArcRadius = 0;
+    float baselineInboundXPos = 0;
+    float baselineInboundZPos = 0;
+    float sidelineInboundXPos = 0;
+    float sidelineInboundZPos = 0;
+/*
 	// stores values read from XML files
 	std::string pPlayName;
     int pVariation;
     std::string pTitle;
     std::string pPlayerDesignation;
     std::string pType;
-    float pXCoord;
+    //float pXCoord;
     float pYCoord;
     float pZCoord;
     Ogre::Vector3 pCoords;
 	std::vector<Ogre::Vector3> pExecuteCoords;
     offensePlays::playerDirectives pPlayerDirective;
     playerDesignations pPlayerDirectiveDesignation;
-
+*/
 //    TiXmlDocument doc(fileName.c_str());
 //    if (!doc.LoadFile()) return(false);
 
@@ -1636,10 +1636,10 @@ courtData loader::loadCourtFile(string fileName)	// loads data from the offense 
 
     TiXmlHandle hDoc(&doc);
     TiXmlElement *rootElement;
-    TiXmlElement* pElem;
+//    TiXmlElement* pElem;
     TiXmlElement *child;
-    TiXmlNode *rootNode;
-    TiXmlNode *childNode;
+//    TiXmlNode *rootNode;
+//    TiXmlNode *childNode;
     TiXmlHandle hRoot(0);
 
 //    pElem=hDoc.FirstChildElement().Element();
@@ -1669,109 +1669,109 @@ courtData loader::loadCourtFile(string fileName)	// loads data from the offense 
   		child = child->NextSiblingElement("Length");
 		if (child)
 		{
-			length = atoi(child->GetText());
+            length = atof(child->GetText());
 			logMsg("Length = " +Ogre::StringConverter::toString(length));
 		} //      exit(0);
   		child = child->NextSiblingElement("Width");
 		if (child)
 		{
-			length = atoi(child->GetText());
+            length = atof(child->GetText());
 			logMsg("Width = " +Ogre::StringConverter::toString(width));
 		} //      exit(0);
   		child = child->NextSiblingElement("BoundaryLength");
 		if (child)
 		{
-			boundaryLength = atoi(child->GetText());
+            boundaryLength = atof(child->GetText());
 			logMsg("Boundary Length = " +Ogre::StringConverter::toString(boundaryLength));
 		} //      exit(0);
   		child = child->NextSiblingElement("BoundaryWidth");
 		if (child)
 		{
-			boundaryWidth = atoi(child->GetText());
+            boundaryWidth = atof(child->GetText());
 			logMsg("Boundary Width = " +Ogre::StringConverter::toString(boundaryWidth));
 		} //      exit(0);
   		child = child->NextSiblingElement("BoundaryXPos");
 		if (child)
 		{
-			boundaryXPos = atoi(child->GetText());
+            boundaryXPos = atof(child->GetText());
 			logMsg("Boundary X Pos = " +Ogre::StringConverter::toString(boundaryXPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("BoundaryZPos");
 		if (child)
 		{
-			boundaryZPos = atoi(child->GetText());
+            boundaryZPos = atof(child->GetText());
 			logMsg("Boundary Z Pos = " +Ogre::StringConverter::toString(boundaryZPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("CenterCourt");
 		if (child)
 		{
-			centerCourt = atoi(child->GetText());
+            centerCourt = atof(child->GetText());
 			logMsg("Center Court = " +Ogre::StringConverter::toString(centerCourt));
 		} //      exit(0);
   		child = child->NextSiblingElement("CenterJumpRadius");
 		if (child)
 		{
-			centerJumpRadius = atoi(child->GetText());
+            centerJumpRadius = atof(child->GetText());
 			logMsg("Center Jump Radius = " +Ogre::StringConverter::toString(centerJumpRadius));
 		} //      exit(0);
   		child = child->NextSiblingElement("KeyLength");
 		if (child)
 		{
-			keyLength = atoi(child->GetText());
+            keyLength = atof(child->GetText());
 			logMsg("Key Length = " +Ogre::StringConverter::toString(keyLength));
 		} //      exit(0);
   		child = child->NextSiblingElement("KeyWidth");
 		if (child)
 		{
-			keyWidth = atoi(child->GetText());
+            keyWidth = atof(child->GetText());
 			logMsg("Key Width = " +Ogre::StringConverter::toString(keyWidth));
 		} //      exit(0);
   		child = child->NextSiblingElement("KeyJumpRadius");
 		if (child)
 		{
-			keyJumpRadius = atoi(child->GetText());
+            keyJumpRadius = atof(child->GetText());
 			logMsg("Key Jump RAdius = " +Ogre::StringConverter::toString(keyJumpRadius));
 		} //      exit(0);
   		child = child->NextSiblingElement("ThreePointSideLength");
 		if (child)
 		{
-			threePointSideLength = atoi(child->GetText());
+            threePointSideLength = atof(child->GetText());
 			logMsg("Three Point Side Length = " +Ogre::StringConverter::toString(threePointSideLength));
 		} //      exit(0);
   		child = child->NextSiblingElement("ThreePointSideZPos");
 		if (child)
 		{
-			threePointSideZPos = atoi(child->GetText());
+            threePointSideZPos = atof(child->GetText());
 			logMsg("Three Point Side Z Pos = " +Ogre::StringConverter::toString(threePointSideZPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("ThreePointArcRadius");
 		if (child)
 		{
-			threePointArcRadius = atoi(child->GetText());
+            threePointArcRadius = atof(child->GetText());
 			logMsg("Three Point Arc Radius = " +Ogre::StringConverter::toString(threePointArcRadius));
 		} //      exit(0);
   		child = child->NextSiblingElement("BaselineInboundXPos");
 		if (child)
 		{
-			baselineInboundXPos = atoi(child->GetText());
+            baselineInboundXPos = atof(child->GetText());
 			logMsg("Baseline Inbound X Pos = " +Ogre::StringConverter::toString(baselineInboundXPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("BaselineInboundZPos");
 		if (child)
 		{
-			baselineInboundZPos = atoi(child->GetText());
+            baselineInboundZPos = atof(child->GetText());
 			logMsg("Baseline Inbound Z Pos = " +Ogre::StringConverter::toString(baselineInboundZPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("SidelineInboundXPos");
 		if (child)
 		{
-			sidelineInboundXPos = atoi(child->GetText());
+            sidelineInboundXPos = atof(child->GetText());
 			logMsg("Sideline Inbound X Pos = " +Ogre::StringConverter::toString(sidelineInboundXPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("SidelineInboundZPos");
 		if (child)
 		{
-			sidelineInboundZPos = atoi(child->GetText());
+            sidelineInboundZPos = atof(child->GetText());
 			logMsg("Sideline Inbound Z Pos = " +Ogre::StringConverter::toString(sidelineInboundZPos));
 		} //      exit(0);
 

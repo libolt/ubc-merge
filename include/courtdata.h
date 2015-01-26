@@ -46,26 +46,26 @@ public:
     Ogre::Vector2 getBoundaryPos();  // retrieves the value of boundaryPos
     void setBoundaryPos(Ogre::Vector2 set);  // sets the value of boundaryPos
 
-    int getCenterCourt();  // retrieves the value of centerCourt
-    void setCenterCourt(int set);  // sets the value of centerCourt
+    float getCenterCourt();  // retrieves the value of centerCourt
+    void setCenterCourt(float set);  // sets the value of centerCourt
     
-    int getCenterJumpRadius();  // retrieves the value of centerJumpRadius
-    void setCenterJumpRadius(int set);  // sets the value of centerJumpRadius
+    float getCenterJumpRadius();  // retrieves the value of centerJumpRadius
+    void setCenterJumpRadius(float set);  // sets the value of centerJumpRadius
     
     Ogre::Vector2 getKeyDimensions();  // retrieves the value of keyDimensions
     void setKeyDimensions(Ogre::Vector2 set);  // sets the value of keyDimensions
     
-    int getKeyJumpRadius();  // retrieves the value of keyJumpRadius
-    void setKeyJumpRadius(int set);  // sets the value of keyJumpRadius
+    float getKeyJumpRadius();  // retrieves the value of keyJumpRadius
+    void setKeyJumpRadius(float set);  // sets the value of keyJumpRadius
 
-    int getThreePointSideLength();  // retrieves the value of threePointSideLength
-    void setThreePointSideLength(int set);  // sets the value of threePointSideLength
+    float getThreePointSideLength();  // retrieves the value of threePointSideLength
+    void setThreePointSideLength(float set);  // sets the value of threePointSideLength
     
-    int getThreePointZPos();  // retrieves the value of threePointZPos
-    void setThreePointZPos(int set);  // sets the value of threePointZPos
+    float getThreePointZPos();  // retrieves the value of threePointZPos
+    void setThreePointZPos(float set);  // sets the value of threePointZPos
     
-    int getThreePointArcRadius();  // retrieves the value of threePointArcRadius
-    void setThreePointArcRadius(int set);  // sets the value of threePointArcRadius
+    float getThreePointArcRadius();  // retrieves the value of threePointArcRadius
+    void setThreePointArcRadius(float set);  // sets the value of threePointArcRadius
     
     Ogre::Vector2 getBaselineInboundPos();  // retrieves the value of baselineInputPos
     void setBaselineInboundPos(Ogre::Vector2 set);  // sets the value of baselineInputPos
@@ -81,13 +81,13 @@ private:
     Ogre::Vector2 dimensions;  // stores the length and width of the court
     Ogre::Vector2 boundary;  // stores the playable length and width of the court
     Ogre::Vector2 boundaryPos;  // stores the offset of the boundary from the x and y coords of the court
-    int centerCourt;  // stores the center court pisition within the boundary
-    int centerJumpRadius;  // stores the radius of the center jump ball circle
+    float centerCourt;  // stores the center court pisition within the boundary
+    float centerJumpRadius;  // stores the radius of the center jump ball circle
     Ogre::Vector2 keyDimensions;  // stores the length and width of the key
-    int keyJumpRadius;  // stores the radius of key jump ball circle
-    int threePointSideLength; // stores length of the straight portion of each side of the 3 point line
-    int threePointZPos;  // stores the offset of the sides of the 3 point line from the boundary
-    int threePointArcRadius;  // stores the radius of the three point arc
+    float keyJumpRadius;  // stores the radius of key jump ball circle
+    float threePointSideLength; // stores length of the straight portion of each side of the 3 pofloat line
+    float threePointZPos;  // stores the offset of the sides of the 3 pofloat line from the boundary
+    float threePointArcRadius;  // stores the radius of the three pofloat arc
     Ogre::Vector2 baselineInboundPos;  // stores the position a player inbounds the ball from on the baseline
     Ogre::Vector2 sidelineInboundPos;  // stores the position a player inbounds the ball from on the sideline
   

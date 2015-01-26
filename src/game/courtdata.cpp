@@ -87,20 +87,20 @@ void courtData::setBoundaryPos(Ogre::Vector2 set)  // sets the value of boundary
     boundaryPos = set;
 }
 
-int courtData::getCenterCourt()  // retrieves the value of centerCourt
+float courtData::getCenterCourt()  // retrieves the value of centerCourt
 {
     return (centerCourt);
 }
-void courtData::setCenterCourt(int set)  // sets the value of centerCourt
+void courtData::setCenterCourt(float set)  // sets the value of centerCourt
 {
     centerCourt = set;
 }
 
-int courtData::getCenterJumpRadius()  // retrieves the value of centerJumpRadius
+float courtData::getCenterJumpRadius()  // retrieves the value of centerJumpRadius
 {
     return (centerJumpRadius);
 }
-void courtData::setCenterJumpRadius(int set)  // sets the value of centerJumpRadius
+void courtData::setCenterJumpRadius(float set)  // sets the value of centerJumpRadius
 {
     centerJumpRadius = set;
 }
@@ -114,38 +114,38 @@ void courtData::setKeyDimensions(Ogre::Vector2 set)  // sets the value of keyDim
     keyDimensions = set;
 }
 
-int courtData::getKeyJumpRadius()  // retrieves the value of keyJumpRadius
+float courtData::getKeyJumpRadius()  // retrieves the value of keyJumpRadius
 {
     return (keyJumpRadius);
 }
-void courtData::setKeyJumpRadius(int set)  // sets the value of keyJumpRadius
+void courtData::setKeyJumpRadius(float set)  // sets the value of keyJumpRadius
 {
     keyJumpRadius = set;
 }
 
-int courtData::getThreePointSideLength()  // retrieves the value of threePointSideLength
+float courtData::getThreePointSideLength()  // retrieves the value of threePointSideLength
 {
     return (threePointSideLength);
 }
-void courtData::setThreePointSideLength(int set)  // sets the value of threePointSideLength
+void courtData::setThreePointSideLength(float set)  // sets the value of threePointSideLength
 {
     threePointSideLength = set;
 }
 
-int courtData::getThreePointZPos()  // retrieves the value of threePointZPos
+float courtData::getThreePointZPos()  // retrieves the value of threePointZPos
 {
     return (threePointZPos);
 }
-void courtData::setThreePointZPos(int set)  // sets the value of threePointZPos
+void courtData::setThreePointZPos(float set)  // sets the value of threePointZPos
 {
     threePointZPos = set;
 }
 
-int courtData::getThreePointArcRadius()  // retrieves the value of threePointArcRadius
+float courtData::getThreePointArcRadius()  // retrieves the value of threePointArcRadius
 {
     return (threePointArcRadius);
 }
-void courtData::setThreePointArcRadius(int set)  // sets the value of threePointArcRadius
+void courtData::setThreePointArcRadius(float set)  // sets the value of threePointArcRadius
 {
     threePointArcRadius = set;
 }
