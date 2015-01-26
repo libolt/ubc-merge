@@ -595,7 +595,7 @@ bool teamState::createPlayerInstances()
 //        int playerID = activePlayerID[i];
 //        logMsg("ID " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(playerID));
     logMsg("activePlayerID.size() = " +Ogre::StringConverter::toString(activePlayerID.size()));
-    logMsg("playerID = " +Ogre::StringConverter::toString(activePlayerID[i]));
+//    logMsg("playerID = " +Ogre::StringConverter::toString(activePlayerID[i]));
     size_t x = 0;
 
     logMsg("playerInstance.size() = " +Ogre::StringConverter::toString(playerInstance.size()));
