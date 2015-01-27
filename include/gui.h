@@ -148,6 +148,7 @@ protected:
     void backNetworkClientButtonClicked(MyGUI::Widget *_sender); // handles backNetworkClientButton click event
     void backOptionsMenuButtonClicked(MyGUI::Widget *_sender); // handles backOptionsMenuButton click event
     void backPlayerStartSelectionMenuButtonClicked(MyGUI::Widget *_sender); // handles backPlayerStartSelectionMenuButton click event
+    void courtSelectButtonClicked(MyGUI::Widget *_sender); // handles courtSelectButton click event
  
 
     void hideMainMenuWidgets();	// hides all widgets tied to the Main Menu
@@ -252,8 +253,9 @@ private:
 	
 	// Court selection menu widgets
 	MyGUI::Button *backPlayerStartSelectionMenuButton;
+	MyGUI::Button *courtSelectButton;
 	MyGUI::ListBox *courtSelectBox;  
-	MyGUI::ImageBox *courtPreviewImg;
+	MyGUI::ImageBox *courtPreviewImgBox;
     MyGUI::TextBox *courtNameTxtBox;
 
 	// booleans

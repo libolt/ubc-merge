@@ -322,12 +322,21 @@ bool GUISystem::createCourtStartSelectionMenuGUI()  // creates GUI for court sel
 
 	MyGUI::LayoutManager::getInstance().loadLayout("CourtSelectionMenu.layout");
 
-	courtSelectBox = mGUI->findWidget<MyGUI::ListBox>("courtSelectBox"); // loads Display Settings Button
+	courtSelectBox = mGUI->findWidget<MyGUI::ListBox>("courtSelectBox"); // loads Court Selection ListBox
 	courtSelectBox->setVisible(false);
 //	courtSelectBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::displayButtonClicked);
-//    courtNameTxtBox = mGUI->findWidget<MyGUI::TextBox>("courtNameTxtBox"); // loads Display Settings Button
-//    courtNameTxtBox->setVisible(false);
+
+    courtNameTxtBox = mGUI->findWidget<MyGUI::TextBox>("courtNameTxtBox"); // loads Court Name TextBox
+    courtNameTxtBox->setVisible(false);
 //  courtNameTxtBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::displayButtonClicked);
+
+	courtSelectButton = mGUI->findWidget<MyGUI::Button>("courtSelectButton"); // loads Court Selection Button
+    courtSelectButton->setVisible(false);
+    courtSelectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::courtSelectButtonClicked);
+
+    courtPreviewImgBox = mGUI->findWidget<MyGUI::ImageBox>("courtPreviewImgBox"); // loads Court Preview ImageBox
+    courtPreviewImgBox->setVisible(false);
+//  courtPreviewImgBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::displayButtonClicked);
 
     return true;
 }
@@ -789,6 +798,10 @@ void GUISystem::backPlayerStartSelectionMenuButtonClicked(MyGUI::Widget *_sender
 
 }
 
+void GUISystem::courtSelectButtonClicked(MyGUI::Widget *_sender) // handles courtSelectButton click event
+{
+	 
+}
 void GUISystem::hideMainMenuWidgets()	// hides the widgets tied to the Main Menu
 {
 	startSingleGameButton->setVisible(false);
@@ -1100,7 +1113,12 @@ void GUISystem::hideCourtSelectionMenuWidgets() // hides all widgets tied to the
 }
 void GUISystem::showCourtSelectionMenuWidgets() // show all widgets tied to the Court Selection Menu
 {
-
+    backPlayerStartSelectionMenuButton->setVisible(true);
+    courtSelectBox->setVisible(true);
+	courtNameTxtBox->setVisible(true);
+	courtPreviewImgBox->setVisible(true);
+	courtSelectButton->setVisible(true);
+	
 }
 
 void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key input
