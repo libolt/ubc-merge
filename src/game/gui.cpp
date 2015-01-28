@@ -315,7 +315,7 @@ bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup s
 	return true;
 }
 
-bool GUISystem::createCourtStartSelectionMenuGUI()  // creates GUI for court selection menu screen.
+bool GUISystem::createCourtSelectionMenuGUI()  // creates GUI for court selection menu screen.
 {
 	renderEngine *renderE = renderEngine::Instance();
 	Ogre::Viewport *viewPort = renderE->getViewPort();
@@ -338,6 +338,7 @@ bool GUISystem::createCourtStartSelectionMenuGUI()  // creates GUI for court sel
     courtPreviewImgBox->setVisible(false);
 //  courtPreviewImgBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::displayButtonClicked);
 
+    courtSelectionMenuCreated = true;
     return true;
 }
 
@@ -1109,6 +1110,11 @@ void GUISystem::showPlayerStartSelectionMenuWidgets() // shows all widgets tied 
 
 void GUISystem::hideCourtSelectionMenuWidgets() // hides all widgets tied to the Court Selection Menu
 {
+    backPlayerStartSelectionMenuButton->setVisible(false);
+    courtSelectBox->setVisible(false);
+    courtNameTxtBox->setVisible(false);
+    courtPreviewImgBox->setVisible(false);
+    courtSelectButton->setVisible(false);
 
 }
 void GUISystem::showCourtSelectionMenuWidgets() // show all widgets tied to the Court Selection Menu
@@ -1145,10 +1151,16 @@ void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key inp
 		    break;
 		case AUDIO:
 		    processAudioMenuKeyPress(keyPressed);
+            break;
 		case GAMESETUP:
 			processGameSetupMenuKeyPress(keyPressed);
+            break;
         case PLAYERSTART:
             processPlayerStartSelectionMenuKeyPress(keyPressed);
+            break;
+        case COURTSELECT:
+            processCourtSelectionMenuKeyPress(keyPressed);
+            break;
 		default:
 		    break;
 	}
@@ -1638,9 +1650,26 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
 
 }
 
-void processCourtSelectionMenuKeyPress(std::string keyPressed)   // process court selection menu key input
+void GUISystem::processCourtSelectionMenuKeyPress(std::string keyPressed)   // process court selection menu key input
 {
-
+    if (keyPressed == "b")
+    {
+        hideCourtSelectionMenuWidgets();
+        previousActiveMenu = activeMenu;
+        activeMenu = MAIN;
+        showMainMenuWidgets();
+    }
+    else if (keyPressed == "q")
+    {
+        exit(0);
+    }
+    else if (keyPressed == "s")
+    {
+        hideCourtSelectionMenuWidgets();
+        previousActiveMenu = activeMenu;
+        activeMenu = GAMESETUP;
+        gameSetupMenu();
+    }
 }
 
 void GUISystem::startSinglePlayerGame() // starts single player game
@@ -1650,8 +1679,9 @@ void GUISystem::startSinglePlayerGame() // starts single player game
     gameS->setGameType(SINGLE);
 	hideMainMenuWidgets();	// Hides the widgets from the main menu
 	previousActiveMenu = activeMenu;
-	activeMenu = GAMESETUP;
-    gameSetupMenu();
+    activeMenu = COURTSELECT;
+    courtSelectionMenu();   // displays the menu for selecting which court to use
+    //   gameSetupMenu();
 //	menuActive = false;
 }
 
@@ -1719,9 +1749,14 @@ void GUISystem::playerStartSelectionMenu() // displays player start selection me
 //  activeMenu = GAMESETUP;
 }
 
-void courtSelectionMenu() // displays court selection menu
+void GUISystem::courtSelectionMenu() // displays court selection menu
 {
-
+    if (!courtSelectionMenuCreated)
+    {
+        createCourtSelectionMenuGUI();
+    }
+    showCourtSelectionMenuWidgets();
+    menuActive = true;
 }
 
 void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start Selection Menu widgets

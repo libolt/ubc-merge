@@ -92,7 +92,7 @@ public:
 	bool createAudioSetupGUI();	// creates GUI for audo settings screen.
     bool createGameSetupMenuGUI();	// creates GUI for game setup menu screen.
     bool createPlayerStartSelectionMenuGUI();  // creates GUI for player start selection menu screen.
-	bool createCourtStartSelectionMenuGUI();  // creates GUI for court selection menu screen.
+    bool createCourtSelectionMenuGUI();  // creates GUI for court selection menu screen.
 	bool createBackButtons(); // creates the back buttons for the menus
 
     void menuReceiveKeyPress(std::string keyPressed); // processes key input
