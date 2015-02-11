@@ -333,10 +333,12 @@ bool GUISystem::createCourtSelectionMenuGUI()  // creates GUI for court selectio
 	courtSelectButton = mGUI->findWidget<MyGUI::Button>("courtSelectButton"); // loads Court Selection Button
     courtSelectButton->setVisible(false);
     courtSelectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::courtSelectButtonClicked);
+    courtSelectButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     courtPreviewImgBox = mGUI->findWidget<MyGUI::ImageBox>("courtPreviewImgBox"); // loads Court Preview ImageBox
     courtPreviewImgBox->setVisible(false);
 //  courtPreviewImgBox->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::displayButtonClicked);
+    courtPreviewImgBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     courtSelectionMenuCreated = true;
     return true;
@@ -1119,12 +1121,18 @@ void GUISystem::hideCourtSelectionMenuWidgets() // hides all widgets tied to the
 }
 void GUISystem::showCourtSelectionMenuWidgets() // show all widgets tied to the Court Selection Menu
 {
-    backPlayerStartSelectionMenuButton->setVisible(true);
+    renderEngine *renderE = renderEngine::Instance();
+    Ogre::Viewport *viewPort = renderE->getViewPort();
+
+    backMainMenuButton->setVisible(true);
+    backMainMenuButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.4 *viewPort->getActualHeight()) );
+
     courtSelectBox->setVisible(true);
 	courtNameTxtBox->setVisible(true);
 	courtPreviewImgBox->setVisible(true);
 	courtSelectButton->setVisible(true);
-	
+	courtSelectButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.36 *viewPort->getActualHeight()) );
+
 }
 
 void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key input
