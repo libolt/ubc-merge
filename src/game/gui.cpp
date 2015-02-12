@@ -1128,6 +1128,8 @@ void GUISystem::showCourtSelectionMenuWidgets() // show all widgets tied to the 
     backMainMenuButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.4 *viewPort->getActualHeight()) );
 
     courtSelectBox->setVisible(true);
+    courtSelectBox->setPosition((0.25 *viewPort->getActualWidth() ), (0.31 *viewPort->getActualHeight()) );
+
 	courtNameTxtBox->setVisible(true);
 	courtPreviewImgBox->setVisible(true);
 	courtSelectButton->setVisible(true);

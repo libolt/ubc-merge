@@ -51,6 +51,8 @@ gameState::gameState()
 	courtModelLoaded = false;
 	hoopModelLoaded = false;
 	setupEnvironmentCompleted = false;
+    courtDataLoaded = false;
+    courtInstanceCreated = false;
 	teamInstancesCreated = false;
     gameStarted = false;
     teamWithBall = -1;
@@ -260,6 +262,24 @@ int gameState::getBballBounce()	// retrieves the value of bballBounce
 void gameState::setBballBounce(int bounce)	// sets the value of bballBounce
 {
 	bballBounce = bounce;
+}
+
+bool gameState::getCourtDataLoaded()  // retrieves the value of courtDataLoaded
+{
+    return (courtDataLoaded);
+}
+void gameState::setCourtDataLoaded(bool loaded)  // sets the value of courtDataLoaded
+{
+    courtDataLoaded = loaded;
+}
+
+bool gameState::getCourtInstanceCreated() // gets the value of the courtInstanceCreated
+{
+    return (courtInstanceCreated);
+}
+void gameState::setCourtInstanceCreated(bool created) // sets the value of the courtInstanceCreated
+{
+    courtInstanceCreated = created;
 }
 
 bool gameState::getTeamInstancesCreated()	// gets the value of the teamInstancesCreated variable

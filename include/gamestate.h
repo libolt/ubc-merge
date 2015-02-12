@@ -75,11 +75,17 @@ class gameState
     int getBballBounce();	// retrieves the value of bballBounce
     void setBballBounce(int bounce);	// sets the value of bballBounce
 
-    bool getTeamInstancesCreated();	// gets the value of the teamInstancesCreated
-    void setTeamInstancesCreated(bool created);	// sets the value of the teamInstancesCreated
+    bool getCourtDataLoaded();  // retrieves the value of courtDataLoaded
+    void setCourtDataLoaded(bool loaded);  // sets the value of courtDataLoaded
+    
+    bool getCourtInstanceCreated(); // retrieves the value of courtInstanceCreated
+    void setCourtInstanceCreated(bool created); // sets the value of courtInstanceCreated
 
-    bool getBasketballModelLoaded();	// gets the value of the basketballModelLoaded
-    void setBasketballModelLoaded(bool loaded);	// sets the value of the basketballModelLoaded
+    bool getTeamInstancesCreated();	// retrieves the value of teamInstancesCreated
+    void setTeamInstancesCreated(bool created);	// sets the value of teamInstancesCreated
+
+    bool getBasketballModelLoaded();	// retrieves the value of basketballModelLoaded
+    void setBasketballModelLoaded(bool loaded);	// sets the value of basketballModelLoaded
 
     // Tip Off execution code.  // Move to proper class
     bool setupTipOff();	// sets up Tip Off conditions
@@ -177,7 +183,9 @@ class gameState
     bool courtModelLoaded;	// stores whether court model has been loaded
     bool hoopModelLoaded;  // stores whether the hoop model has been loaded
     bool setupEnvironmentCompleted;	// stores whether environment has been setup
-    bool teamInstancesCreated;		// stores whether team instances have been created
+    bool courtDataLoaded;  // stores whether or not the court data has been loaded from file
+    bool courtInstanceCreated;  // stores whether team instances have been created
+    bool teamInstancesCreated;  // stores whether team instances have been created
     bool sceneCreated;				// stores whether the scene has been created
     bool gameStarted;   // Determines whether or not a basketball game has been started
 
