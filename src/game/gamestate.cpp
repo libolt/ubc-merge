@@ -57,6 +57,8 @@ gameState::gameState()
     gameStarted = false;
     teamWithBall = -1;
 
+    selectedCourtDataInstance = -1;
+    
     gameType = NOGAME;
     gameSetupComplete = false;
     tipOffComplete = false;
@@ -138,6 +140,15 @@ std::vector<courtData>	gameState::getCourtDataInstance()	// retrieves the value 
 void gameState::setCourtDataInstance(std::vector<courtData> instance)	// sets the value of courtDataInstance
 {
 	courtDataInstance = instance;
+}
+
+int gameState::getSelectedCourtDataInstance()  // retrieves the value of selectedCourtDataInstance
+{
+    return (selectedCourtDataInstance);
+}
+void gameState::setSelectedCourtDataInstance(int selected)  // sets the value of selectedCourtDataInstance
+{
+    selectedCourtDataInstance = selected;
 }
 
 // gets and sets teamID
@@ -399,12 +410,25 @@ bool gameState::createTeamInstances()
     return true;
 }
 
+bool gameState::createCourtDataInstances()  // creates instances of court data
+{
+    loader *load = loader::Instance();
+    
+    courtDataInstance = load->loadCourts();
+    return (true);
+}
+
 // creates court Instances
 bool gameState::createCourtInstances()
 {
     courtState cInstance;  // creates an instance of the courtState class
 //    cInstance.setModelName("court.mesh");
-    cInstance.setModelName("Court.mesh");
+//    cInstance.setModelName("Court.mesh");
+    
+    logMsg("Model Name = " +courtDataInstance[selectedCourtDataInstance].getModelName());
+
+    cInstance.setModelName(courtDataInstance[selectedCourtDataInstance].getModelName());
+//    exit(0);
     cInstance.loadModel();
     courtInstance.push_back(cInstance);
 

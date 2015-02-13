@@ -78,6 +78,9 @@ class gameState
     bool getCourtDataLoaded();  // retrieves the value of courtDataLoaded
     void setCourtDataLoaded(bool loaded);  // sets the value of courtDataLoaded
     
+    int getSelectedCourtDataInstance();  // retrieves the value of selectedCourtDataInstance
+    void setSelectedCourtDataInstance(int selected);  // sets the value of selectedCourtDataInstance
+    
     bool getCourtInstanceCreated(); // retrieves the value of courtInstanceCreated
     void setCourtInstanceCreated(bool created); // sets the value of courtInstanceCreated
 
@@ -126,7 +129,9 @@ class gameState
 	// creates team Instances
 	bool createTeamInstances();
 
-	// gets and sets courtInstance std::vector
+    bool createCourtDataInstances();  // creates instances of court data
+	
+    // gets and sets courtInstance std::vector
 	std::vector <courtState> getCourtInstance();
 	void setCourtInstance(std::vector<courtState> Instance);
 
@@ -166,6 +171,8 @@ class gameState
     std::vector<playerData> playerDataInstance;	// stores the vector of the players loaded from the xml files
     std::vector<courtData> courtDataInstance;	// stores the vector the courts loaded from the xml files
 
+    int selectedCourtDataInstance;  // stores which court should be loaded by courtInstance
+    
     std::vector<int> teamID;      // std::vector that stores the IDs of the 2 teams currently playing
     std::vector<int> playerID;       // std::vector that stores the IDs of the players currently being used.
 

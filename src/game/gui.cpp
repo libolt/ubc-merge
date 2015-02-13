@@ -64,6 +64,8 @@ GUISystem::GUISystem()
 	gameSetupMenuHomeSelected = false;
     playerStartSelectionMenuCreated = false;
 	courtSelectionMenuCreated = false;
+    courtSelectionDataLoaded = false;
+    
     menuActive = false;
 
 	//activeMenu = NULL;
@@ -165,6 +167,15 @@ bool GUISystem::getCourtSelectionMenuCreated()  // retrieves the value of courtS
 void GUISystem::setCourtSelectionMenuCreated(bool created)  // sets the value of courtSelectionMenuCreated
 {
 	courtSelectionMenuCreated = created;
+}
+
+bool GUISystem::getCourtSelectionDataLoaded()  // retrieves the value of courtSelectionEntriesLoaded
+{
+    return (courtSelectionDataLoaded);
+}
+void GUISystem::setCourtSelectionDataLoaded(bool loaded)  // sets the value of courtSelectionEntriesLoaded
+{
+    courtSelectionDataLoaded = loaded;
 }
 
 bool GUISystem::getMenuActive() // retrieves the value of menuActive
@@ -1112,7 +1123,7 @@ void GUISystem::showPlayerStartSelectionMenuWidgets() // shows all widgets tied 
 
 void GUISystem::hideCourtSelectionMenuWidgets() // hides all widgets tied to the Court Selection Menu
 {
-    backPlayerStartSelectionMenuButton->setVisible(false);
+    backMainMenuButton->setVisible(false);
     courtSelectBox->setVisible(false);
     courtNameTxtBox->setVisible(false);
     courtPreviewImgBox->setVisible(false);
@@ -1510,10 +1521,6 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
     teamState testState;
     if (keyPressed == "s")
     {
-    	//FIXME! Needs relocated!
-    	std::vector<courtData> courtDataInstance;
-    	courtDataInstance = load->loadCourts();
-		//
         logMsg("S");
 //        exit(0);
         std::vector<std::string> team0Starters;
@@ -1662,6 +1669,8 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
 
 void GUISystem::processCourtSelectionMenuKeyPress(std::string keyPressed)   // process court selection menu key input
 {
+    gameState *gameS = gameState::Instance();
+
     if (keyPressed == "b")
     {
         hideCourtSelectionMenuWidgets();
@@ -1678,6 +1687,8 @@ void GUISystem::processCourtSelectionMenuKeyPress(std::string keyPressed)   // p
         hideCourtSelectionMenuWidgets();
         previousActiveMenu = activeMenu;
         activeMenu = GAMESETUP;
+        logMsg("Selected Court #" +Ogre::StringConverter::toString(courtSelectBox->getIndexSelected()));
+        gameS->setSelectedCourtDataInstance(courtSelectBox->getIndexSelected());
         gameSetupMenu();
     }
 }
@@ -1761,12 +1772,59 @@ void GUISystem::playerStartSelectionMenu() // displays player start selection me
 
 void GUISystem::courtSelectionMenu() // displays court selection menu
 {
+    gameState *gameS = gameState::Instance();
+    loader *load = loader::Instance();
+
     if (!courtSelectionMenuCreated)
     {
         createCourtSelectionMenuGUI();
     }
+    
+    if (!courtSelectionDataLoaded)
+    {
+        if (addCourtSelectionMenuData())
+        {
+            courtSelectBox->setIndexSelected(0);
+            courtSelectionDataLoaded = true;
+        }
+    }
+    
     showCourtSelectionMenuWidgets();
     menuActive = true;
+}
+
+bool GUISystem::addCourtSelectionMenuData() // adds data to Player Start Selection Menu widgets
+{
+    gameState *gameS = gameState::Instance();
+    
+    std::vector<courtData> courtDataInstance;
+    std::vector<std::string> courtName;
+    if (!gameS->getCourtDataLoaded())
+    {
+        if (gameS->createCourtDataInstances())
+        {
+            gameS->setCourtDataLoaded(true);
+        }
+        else
+        {
+        }
+    }
+    courtDataInstance = gameS->getCourtDataInstance();
+    
+    for (int x=0;x<courtDataInstance.size();++x)
+    {
+        courtName.push_back(courtDataInstance[x].getName());
+    }
+    
+    logMsg("courtName = " +courtName[0]);
+    int i = 0;
+    while (i<courtName.size())
+    {
+        courtSelectBox->addItem(courtName[i]);
+        ++i;
+    }
+    
+    return (true);
 }
 
 void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start Selection Menu widgets

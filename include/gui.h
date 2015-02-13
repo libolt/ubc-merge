@@ -74,6 +74,9 @@ public:
 	bool getCourtSelectionMenuCreated();  // retrieves the value of courtSelectionMenuCreated
     void setCourtSelectionMenuCreated(bool created);  // sets the value of courtSelectionMenuCreated
 	
+    bool getCourtSelectionDataLoaded();  // retrieves the value of courtSelectionEntriesLoaded
+    void setCourtSelectionDataLoaded(bool loaded);  // sets the value of courtSelectionEntriesLoaded
+	
 	bool getMenuActive(); // retrieves the value of menuActive
 	void setMenuActive(bool active); // sets the value of menuActive
 
@@ -114,6 +117,8 @@ public:
     void playerStartSelectionMenu(); // displays player start selection menu
 	void courtSelectionMenu(); // displays court selection menu
 	void clientSetup(); // sets up the client connection
+
+    bool addCourtSelectionMenuData(); // adds data to Court Selection Menu widgets
 
     void addPlayerStartSelectionMenuData(); // adds data to Player Start Selection Menu widgets
 
@@ -272,7 +277,8 @@ private:
 	bool menuActive; // stores whether a menu is being diplayed
     bool gameSetupMenuAwaySelected; // determines whether the away team listbox is selected;
 	bool gameSetupMenuHomeSelected; // determines whether the home team listbox is selected;
-
+    bool courtSelectionDataLoaded;  // determines whether court names have been added to the select box
+    
 	activeMenus activeMenu; // stores which menu is being displayed
 	activeMenus previousActiveMenu; // stores which menu was last displayed
 
