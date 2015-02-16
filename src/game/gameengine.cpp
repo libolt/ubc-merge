@@ -518,7 +518,23 @@ void gameEngine::gameLoop()	// Main Game Loop
                                             gameS->setTeamInstance(teamInstance);
 //                                        }
 									break;
-
+                                    case INSHOOTBLOCK:
+                                        netPStateObj.setPacketType(3);
+                                        netPStateObj.setTeamID(i);
+                                        netPStateObj.setPlayerID(humanPlayer);
+                                        netPStateObj.setMovement(false);
+                                        netPStateObj.setShootBlock(true);
+                                        ss << netPStateObj;
+                                        packetData = ss.str();
+//                                        if (serverRunning)
+//                                        {
+                                            playerInstance[humanPlayer].setMovement(false);
+                                            playerInstance[humanPlayer].setShotTaken(true);
+                                            teamInstance[i].setPlayerInstance(playerInstance);
+                                            gameS->setTeamInstance(teamInstance);
+//                                        }
+                                        //exit(0);
+                                    break;
 									case INQUIT:
 										Ogre::LogManager::getSingletonPtr()->logMessage("Quitting!");
 										quitGame = true;
