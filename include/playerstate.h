@@ -195,6 +195,9 @@ class playerState
 		bool getDefenseSet(void); // retrieves the value of defenseState
 		void setDefenseSet(bool set);  // sets the value of defenseState
 
+        bool getInitialized(void); // retreives the value of initialized
+        void setInitialized(bool set); // sets the value of initialized
+
         void updateState();	// updates the state of the object
 
         bool loadModel();   // loads the 3D model from file specified in modelName
@@ -328,6 +331,9 @@ class playerState
 
         // stores the steering objerct taht represents the player
         playerSteer *steer;
+
+        // temporary hack
+        bool initialized;
 };
 
 

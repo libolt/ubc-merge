@@ -608,6 +608,7 @@ bool teamState::createPlayerInstances()
 //        while (!IDMatch && x < playerInstance.size())
         while (i<activePlayerID.size())
         {
+
             logMsg("playerInstance[x].getPlayerID() = " +Ogre::StringConverter::toString(playerInstance[x].getPlayerID()));
             if (activePlayerID[i] == playerInstance[x].getPlayerID())
             {

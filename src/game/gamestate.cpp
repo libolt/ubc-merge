@@ -726,7 +726,7 @@ bool gameState::logic()
         float changeInTime = currentTime - oldTime;
    //     ai->update(currentTime, changeInTime);
 		logMsg("CHANGE == " +Ogre::StringConverter::toString(changeInTime));
-/*
+
 		if (changeInTime >= .5f)
 		{
 			logMsg("ELAPSED == " +Ogre::StringConverter::toString(changeInTime));
@@ -735,7 +735,7 @@ bool gameState::logic()
 			ai->update(currentTime, changeInTime);
 			ai->setOldTime(currentTime);
 		}
-*/
+
     }
 
     logMsg("Physics");

@@ -66,7 +66,7 @@ playerState::playerState()
     shotComplete = false;
 	offenseSet = false;
 	defenseSet = false;
-
+    initialized = false;
 }
 
 playerState::~playerState()
@@ -78,6 +78,7 @@ playerState::~playerState()
 
 Ogre::Vector3 playerState::getNodePosition()  // returns the position of player node
 {
+    logMsg("node position = " +Ogre::StringConverter::toString(node->getPosition()));
 	return (node->getPosition());
 }
 
@@ -571,6 +572,16 @@ void playerState::setDefenseSet(bool set)  // sets the value of defenseState
 	defenseSet = set;
 }
 
+bool playerState::getInitialized(void) // retreives the value of initialized
+{
+    return (initialized);
+}
+
+void playerState::setInitialized(bool set) // sets the value of initialized
+{
+    initialized = set;
+}
+
 bool playerState::loadModel()   // loads the player's 3D model from the file specified in modelName
 {
 
@@ -592,6 +603,8 @@ bool playerState::loadModel()   // loads the player's 3D model from the file spe
     node->setScale(0.28f,0.28f,0.28f);
     // sets the direction of playerNode
     node->yaw ( Degree (-270));
+
+    initialized = true;
     return true;
 }
 
