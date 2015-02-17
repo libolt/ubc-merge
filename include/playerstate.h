@@ -43,34 +43,34 @@ class playerState
         playerState();
         ~playerState();
 
-        Ogre::Vector3 getNodePosition();  // returns the position of player node
+        Ogre::Vector3 getNodePosition();  // retrieves the position of player node
 
-        int getPlayerID();								// returns playerID variable
-        void setPlayerID(int id);						// sets playerID variable
+        int getPlayerID();  // retrieves the value of playerID
+        void setPlayerID(int id);  // sets the value of playerID
 
-        bool getNetworkControlled();					// returns networkControlled variable
-        void setNetworkControlled(bool controlled);		// sets networkControlled variable
+        bool getNetworkControlled();  // retrieves the value of networkControlled
+        void setNetworkControlled(bool controlled);  // sets the value of networkControlled
 
-        Ogre::String getFirstName(void);				// returns firstName variable
-        void setFirstName(Ogre::String first);			// sets firstName variable
+        Ogre::String getFirstName(void);  // retrieves the value of firstName
+        void setFirstName(Ogre::String first);  // sets the value of firstName
 
-        Ogre::String getLastName(void);					// returns lastName variable
-        void setLastName(Ogre::String last);			// sets lastName variable
+        Ogre::String getLastName(void);  // retrieves the value of lastName
+        void setLastName(Ogre::String last);  // sets the value of lastName
 
-        Ogre::String getPlayerName(void);				// returns playerName variable
-        void setPlayerName(Ogre::String name);			// sets playerName variable
+        Ogre::String getPlayerName(void);  // retrieves the value of playerName
+        void setPlayerName(Ogre::String name);  // sets the value of playerName
 
-        int getAge(void);
-        void setAge(int age);
+        int getAge(void);  // retrieves the value of age
+        void setAge(int age); // sets the value of age
 
-        int getHeight(void);
-        void setHeight(int height);
+        int getHeight(void); // retrieves the value of height
+        void setHeight(int height);  // sets the value of height
 
-        int getWeight(void);
-        void setWeight(int weight);
+        int getWeight(void);  // retrieves the value of weight
+        void setWeight(int weight);  // sets the value of weight
 
-        std::string getPosition();
-        void setPosition(std::string set);
+        std::string getPosition();  // retrieves the value of position
+        void setPosition(std::string set);  // sets the value of position
 
         bool getIsActive(); // retrieves the value of isActive
         void setIsActive(bool set); // sets the value of isActive
@@ -78,116 +78,122 @@ class playerState
         bool getModelLoaded();  // retrieves the value of modelLoaded
         void setModelLoaded(bool set); // sets the value of modelLoaded
 
-        int getPlayerXCoord();
-        void setPlayerXCoord(int XCoord);
+        int getPlayerXCoord();  // retrieves the value of playerXCoord
+        void setPlayerXCoord(int XCoord);  // sets the value of playerXCoord
 
-        int getPlayerYCoord();
-        void setPlayerYCoord(int YCoord);
+        int getPlayerYCoord();  // retrieves the value of playerYCoord
+        void setPlayerYCoord(int YCoord);  // sets the value of playerYCoord
 
-        int getOffDef();
-        void setOffDef(int set);
+        int getOffDef();  // retrieves the value of offDef
+        void setOffDef(int set);  // sets the value of offDef
 
-        int getDefending();
-        void setDefending(int set);
+        int getDefending();  // reetrieves the value of defending
+        void setDefending(int set);  // sets the value of defending
 
-        bool getUserControlled();
-        void setUserControlled(bool set);
+        bool getUserControlled();  // retrieves the value of userControlled
+        void setUserControlled(bool set);  // sets the value of userControlled
 
-        int getUser();
-        void setUser(int set);
+        int getUser();  // retrieves the value of user
+        void setUser(int set);  // sets the value of user
 
-        int getPoints();
-        void setPoints(int total);
+        int getPoints();  // gets the value of points
+        void setPoints(int total);  // sets the value of points
 
-        int getFouls();
-        void setFoulds(int total);
+        int getFouls();  // retrieves the value of fouls
+        void setFoulds(int total);  // sets the value of fouls;
 
-        int getOffensiveRebounds();
-        void setOffensiveRebounds(int rebounds);
+        int getOffensiveRebounds();  // retrieves the value of offensiveRebounds
+        void setOffensiveRebounds(int rebounds);  // sets the value of offensiveRebounds
 
-        int getDefensiveRebounds();
-        void setDefensiveRebounds(int rebounds);
+        int getDefensiveRebounds();  // retrieves the value of defensiveRebounds
+        void setDefensiveRebounds(int rebounds);  // sets the value of defensiveRebounds
 
-        int getTotalRebounds();
-        void setTotalReboundS(int rebounds);
+        int getTotalRebounds();  // retrieves the value of totalRebounds
+        void setTotalReboundS(int rebounds);  // sets the value of totalRebounds
 
-        int getStamina();
-        void setStamina(int total);
+        int getStamina();  // retrieves the value of stamina
+        void setStamina(int total);  // sets the value of stamina
 
-        int getSteals();
-        void setSteals(int total);
+        int getSteals();  // retrieves the value of steals
+        void setSteals(int total);  // sets the value of steals
 
-        int getBlocks();
-        void setBlocks(int total);
+        int getBlocks();  // retrieves the value of blocks
+        void setBlocks(int total);  // sets the value of blocks
 
-        int getTurnovers();
-        void setTurnovers(int total);
+        int getTurnovers();  // retrieves the value of turnovers
+        void setTurnovers(int total);  // sets the value of turnovers
 
-        int getAssists();
-        void setAssists(int total);
+        int getAssists();  // retrieves the values of assists
+        void setAssists(int total);  // sets the value of assists
 
-        int getFieldGoalsAttemped();
-        void setFieldGoalsAttempted(int attempted);
+        int getFieldGoalsAttemped();  // retrieves the value of fieldGoalsAttempted
+        void setFieldGoalsAttempted(int attempted);  // sets the value of fieldGoalsAttempted
 
-        int getFieldGoalsMade();
-        void setFieldGoalsmade(int made);
+        int getFieldGoalsMade();  // retrieves the value of fieldGoalsMade
+        void setFieldGoalsmade(int made);  // sets the value of fieldGoalsMade
 
-        int getThreePointersAttempted();
-        void setThreePointersAttempted(int attempted);
+        int getThreePointersAttempted();  // retrieves the value of threePointersMade
+        void setThreePointersAttempted(int attempted);  // sets the value of threePointersAttempted
 
-        int getThreePointersMade();
-        void setThreePointersMade(int made);
+        int getThreePointersMade();  // retrieves the value of threePointersMade
+        void setThreePointersMade(int made);  // sests the value of threePointersMade
 
-        int getFreeThrowsAttempted();
-        void setFreeThrowsAttempted(int attempted);
+        int getFreeThrowsAttempted();  // retrieves the value of freeThrowsAttempted
+        void setFreeThrowsAttempted(int attempted);  // sets the value of freeThrowsAttempted
 
-        int getFreeThrowsMade();
-        void setFreeThrowsMade(int made);
+        int getFreeThrowsMade();  // retrieves the value of freeThrowsMade
+        void setFreeThrowsMade(int made);  // sest the value of freeThrowsMade
 
-        std::string getModelName();
-        void setModelName(std::string name);
+        std::string getModelName();  // retrieves the value of modelName
+        void setModelName(std::string name);  // sets the value of modelName
 
-        Ogre::Entity *getModel();
-        void setModel(Ogre::Entity *Model);
+        Ogre::Entity *getModel();  // retrieves the value of model
+        void setModel(Ogre::Entity *Model);  // sets the value of model
 
-        Ogre::SceneNode *getNode();
-        void setNode(Ogre::SceneNode *Node);
+        Ogre::SceneNode *getNode();  // retrieves the value of node
+        void setNode(Ogre::SceneNode *Node); // sets the value of node
 
-        btRigidBody *getPhysBody();	// returns physBody variable
-        void setPhysBody(btRigidBody *body);
+        btRigidBody *getPhysBody();	// retrieves the value of physBody
+        void setPhysBody(btRigidBody *body);  // sets the value of physBody
 
-		playerSteer *getSteer(); // returns the steering instance
+        playerSteer *getSteer(); // retrieves the steering instance
 		void setSteer(playerSteer *instance); // sets the steering instance
 
-        bool getMovement();	// returns movement variable
-        void setMovement(bool move);	// sets movement variable
+        bool getMovement();	// retrieves the value of movement
+        void setMovement(bool move);	// sets the value of movement
 
-        directions getDirection();	// returns direction variable
-        void setDirection(directions direct);	// sets direction variable
+        directions getDirection();	// retrieves the value of direction
+        void setDirection(directions direct);	// sets the value of direction
 
-        directions getOldDirection();	// returns the value of the oldDirection variable
-        void setOldDirection(directions direct);	// sets the value of the oldDirection variable
+        directions getOldDirection();	// retrieves the value of oldDirection
+        void setOldDirection(directions direct);	// sets the value of oldDirection
 
-        Ogre::Vector3 getPosChange();	// returns the value of the posChange variable
-        void setPosChange(Ogre::Vector3 change);	// sets the value of the posChange variable
+        Ogre::Vector3 getPosChange();	// retrieves the value of posChange
+        void setPosChange(Ogre::Vector3 change);	// sets the value of posChange
 
-        bool getPassBall();	// returns the value of the passBall variable
-        void setPassBall(bool ball);	// sets the value of the passBall variable
+        bool getShootBlock();  // retrieves the value of shootBlock
+        void setShootBlock(bool set);   // sets the value of shootBlock
 
-        bool getPassCalculated();	// returns the value of the passCalculated variable
-        void setPassCalculated(bool calc);	// sets the value of the passCalculatedvariable
+        bool getPassSteal();  // retrieves the value of passSteal
+        void setPassSteal(bool set); // sets the value of passSteal
 
-        bool getPassCompleted();	// returns the value of the passCompleted variable
-        void setPassCompleted(bool completed);	// sets the value of the passCompleted variable
+        bool getPassBall();	// retrieves the value of passBall
+        void setPassBall(bool ball);	// sets the value of passBall
 
-        int getPassToPlayer();	// returns the value of the passToPlayer variable
-        void setPassToPlayer(int player);	// sets the value of the passToPlayer variable
+        bool getPassCalculated();	// retrieves the value of passCalculated
+        void setPassCalculated(bool calc);	// sets the value of passCalculated
 
-        bool getShotTaken(void);		// retrieves the value of the shotTaken variable
-        void setShotTaken(bool taken);	// sets the value of the shotTaken variable
+        bool getPassCompleted();	// retrieves the value of passCompleted
+        void setPassCompleted(bool completed);	// sets the value of passCompleted
 
-        bool getShotComplete(void);	// retrieves the value of the shotComplete variable
-        void setShotComplete(bool complete);	// sets the value of the shotComplete variable
+        int getPassToPlayer();	// retrieves the value of passToPlayer
+        void setPassToPlayer(int player);	// sets the value of passToPlayer
+
+        bool getShotTaken(void);		// retrieves the value of shotTaken
+        void setShotTaken(bool taken);	// sets the value of shotTaken
+
+        bool getShotComplete(void);	// retrieves the value of shotComplete
+        void setShotComplete(bool complete);	// sets the value of shotComplete
 
 		bool getOffenseSet(void); // retrieves the value of offenseState
 		void setOffenseSet(bool set);  // sets the value of offenseState
@@ -210,7 +216,7 @@ class playerState
 
     private:
 
-        int playerID;
+        int playerID;  // stores the ID of the player which is unique to each player in the game
 
         bool networkControlled;	// if true player is controlled by a network client.
 
@@ -306,6 +312,10 @@ class playerState
 
         // stores value of players' position changes during logic updates
         Ogre::Vector3 posChange;
+
+        // variables for offense and defense;
+        bool shootBlock;  // stores whether or not a player attempts to shoot or block a shot
+        bool passSteal;  // stores whether a player attempts to pass or steal the ball
 
         // Passing variables
         bool passBall;	// stores whether a player is to pass the ball to another player or not.

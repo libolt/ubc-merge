@@ -59,6 +59,8 @@ playerState::playerState()
     freeThrowsMade = 0;
     posChange = Ogre::Vector3(0.0f,0.0f,0.0f);
     movement = false;
+    shootBlock = false;
+    passSteal = false;
     passBall = false;
     passCalculated = false;
     passToPlayer = -1;
@@ -76,7 +78,7 @@ playerState::~playerState()
 
 
 
-Ogre::Vector3 playerState::getNodePosition()  // returns the position of player node
+Ogre::Vector3 playerState::getNodePosition()  // retrieves the position of player node
 {
     logMsg("node position = " +Ogre::StringConverter::toString(node->getPosition()));
 	return (node->getPosition());
@@ -444,16 +446,16 @@ void playerState::setNode(Ogre::SceneNode *Node)
     node = Node;
 }
 
-btRigidBody *playerState::getPhysBody()	  // returns physBody variable
+btRigidBody *playerState::getPhysBody()	  // returns physBody
 {
 	return (physBody);
 }
-void playerState::setPhysBody(btRigidBody *body)  	// sets physBody variable
+void playerState::setPhysBody(btRigidBody *body)  	// sets physBody
 {
 	physBody = body;
 }
 
-playerSteer *playerState::getSteer() // returns the steering instance
+playerSteer *playerState::getSteer() // retrieves the steering instance
 {
 	return (steer);
 }
@@ -462,74 +464,92 @@ void playerState::setSteer(playerSteer *instance) // sets the steering instance
 	steer = instance;
 }
 
-bool playerState::getMovement()	// returns movement variable
+bool playerState::getMovement()	// returns movement
 {
 	return (movement);
 }
-void playerState::setMovement(bool move)	// sets movement variable
+void playerState::setMovement(bool move)	// sets movement
 {
 	movement = move;
 }
 
-directions playerState::getDirection()	// returns direction variable
+directions playerState::getDirection()	// retrieves the value of direction
 {
 	return (direction);
 }
-void playerState::setDirection(directions direct)	// sets direction variable
+void playerState::setDirection(directions direct)	// sets direction
 {
 	direction = direct;
 }
 
-directions playerState::getOldDirection()	// returns the value of the oldDirection variable
+directions playerState::getOldDirection()	// retrieves the value of the oldDirection
 {
 	return (oldDirection);
 }
-void playerState::setOldDirection(directions direct)	// sets the value of the oldDirection variable
+void playerState::setOldDirection(directions direct)	// sets the value of the oldDirection
 {
 	oldDirection = direct;
 }
-// gets and sets posChange
-Ogre::Vector3 playerState::getPosChange()
+
+Ogre::Vector3 playerState::getPosChange()  // retrieves the value of posChange
 {
     return (posChange);
 }
-void playerState::setPosChange(Ogre::Vector3 change)
+void playerState::setPosChange(Ogre::Vector3 change)  // sets the value of posChange
 {
     posChange = change;
 }
 
-bool playerState::getPassBall()	// returns the value of the passBall variable
+bool playerState::getShootBlock()  // retrieves the value of shootBlock
+{
+    return (shootBlock);
+}
+void playerState::setShootBlock(bool set)   // sets the value of shootBlock
+{
+    shootBlock = set;
+}
+
+bool playerState::getPassSteal()  // retrieves the value of passSteal
+{
+    return (passSteal);
+}
+void playerState::setPassSteal(bool set) // sets the value of passSteal
+{
+    passSteal = set;
+}
+
+bool playerState::getPassBall()	// retrieves the value of the passBall
 {
 	return (passBall);
 }
-void playerState::setPassBall(bool ball)	// sets the value of the passBall variable
+void playerState::setPassBall(bool ball)	// sets the value of the passBall
 {
 	passBall = ball;
 }
 
-bool playerState::getPassCalculated()	// returns the value of the passCalculated variable
+bool playerState::getPassCalculated()	// retrieves the value of the passCalculated
 {
 	return (passCalculated);
 }
-void playerState::setPassCalculated(bool calc)  	// sets the value of the passCalculatedvariable
+void playerState::setPassCalculated(bool calc)  	// sets the value of the passCalculated
 {
 	passCalculated = calc;
 }
 
-bool playerState::getPassCompleted()	// returns the value of the passCompleted variable
+bool playerState::getPassCompleted()	// retrieves the value of the passCompleted
 {
 	return (passCompleted);
 }
-void playerState::setPassCompleted(bool completed)	// sets the value of the passCompleted variable
+void playerState::setPassCompleted(bool completed)	// sets the value of the passCompleted
 {
 	passCompleted = completed;
 }
 
-int playerState::getPassToPlayer()	// returns the value of the passToPlayer variable
+int playerState::getPassToPlayer()	// retrieves the value of the passToPlayer
 {
 	return (passToPlayer);
 }
-void playerState::setPassToPlayer(int player)	// sets the value of the passToPlayer variable
+void playerState::setPassToPlayer(int player)	// sets the value of the passToPlayer
 {
 	passToPlayer = player;
 }
@@ -613,6 +633,7 @@ void playerState::updateState()
 	Ogre::Vector3 playerPos;
     if (shotTaken && !shotComplete)	// checks if a player takes a shot
     {
+        exit(0);
         shotLogic(playerPos);
     }
 
