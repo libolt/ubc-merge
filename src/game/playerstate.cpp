@@ -631,7 +631,8 @@ bool playerState::loadModel()   // loads the player's 3D model from the file spe
 void playerState::updateState()
 {
 	Ogre::Vector3 playerPos;
-    if (shotTaken && !shotComplete)	// checks if a player takes a shot
+//    if (shotTaken && !shotComplete)	// checks if a player takes a shot
+    if (shootBlock)
     {
         exit(0);
         shotLogic(playerPos);

@@ -470,6 +470,7 @@ void teamState::updateState()	// updates the state of the object
 			}
 		}
 
+        updatePlayerStates();
 		updatePlayerMovements();	// updates movement of player objects
 		updatePlayerDirections();	// updates the direction the players are facing
 //		exit(0);
@@ -743,6 +744,25 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 //	    exit(0);
 	}
 
+}
+
+void teamState::updatePlayerStates()  // updates the states of active players
+{
+    size_t x = 0;
+    size_t y = 0;
+    
+    while (x<playerInstance.size())
+    {
+        while (y<activePlayerID.size())
+        {
+            if (playerInstance[x].getPlayerID() == activePlayerID[y])
+            {
+                playerInstance[x].updateState();
+            }
+            ++y;
+        }
+        ++x;
+    }
 }
 
 void teamState::updatePlayerDirections()

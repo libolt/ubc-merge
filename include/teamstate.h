@@ -139,6 +139,7 @@ class teamState
 
         virtual void setPlayerStartPositions();	// sets the initial coordinates for the players.
 
+        void updatePlayerStates();  // updates the states of active players
         virtual void updatePlayerDirections();  // updates the direction players are facing
         virtual void updatePlayerMovements();	// updates the movement status of players
 

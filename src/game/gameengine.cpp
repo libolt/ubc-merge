@@ -529,7 +529,24 @@ void gameEngine::gameLoop()	// Main Game Loop
 //                                        if (serverRunning)
 //                                        {
                                             playerInstance[humanPlayer].setMovement(false);
-                                            playerInstance[humanPlayer].setShotTaken(true);
+                                            playerInstance[humanPlayer].setShootBlock(true);
+                                            teamInstance[i].setPlayerInstance(playerInstance);
+                                            gameS->setTeamInstance(teamInstance);
+//                                        }
+                                        //exit(0);
+                                    break;
+                                    case INPASSSTEAL:
+                                        netPStateObj.setPacketType(3);
+                                        netPStateObj.setTeamID(i);
+                                        netPStateObj.setPlayerID(humanPlayer);
+                                        netPStateObj.setMovement(false);
+                                        netPStateObj.setPassSteal(true);
+                                        ss << netPStateObj;
+                                        packetData = ss.str();
+//                                        if (serverRunning)
+//                                        {
+                                            playerInstance[humanPlayer].setMovement(false);
+                                            playerInstance[humanPlayer].setPassSteal(true);
                                             teamInstance[i].setPlayerInstance(playerInstance);
                                             gameS->setTeamInstance(teamInstance);
 //                                        }
