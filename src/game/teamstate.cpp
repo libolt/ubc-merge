@@ -469,7 +469,10 @@ void teamState::updateState()	// updates the state of the object
 //				logMsg("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition()));
 			}
 		}
+        logMsg("Team number = " +Ogre::StringConverter::toString(teamNumber));
 
+        logMsg("Human player = " +Ogre::StringConverter::toString(humanPlayer));
+                                        
         updatePlayerStates();
 		updatePlayerMovements();	// updates movement of player objects
 		updatePlayerDirections();	// updates the direction the players are facing
@@ -552,6 +555,7 @@ bool teamState::createPlayerInstances()
             pInstance.setLastName(playerDataInstance[i].getLastName());    // copies the last name from the playerData std::vector to the pInstance class
             pInstance.setPlayerName(playerDataInstance[i].getFirstName() + " " +playerDataInstance[i].getLastName());
             pInstance.setPlayerID(playerDataInstance[i].getID());
+            pInstance.setTeamNumber(teamNumber);  // sets the team number the player belongs to
             pInstance.setPosition(playerDataInstance[i].getPosition());    // copies the position string from the playerData std::vector to the pInstance class
             pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
             pSteer->setTeamNumber(teamNumber);

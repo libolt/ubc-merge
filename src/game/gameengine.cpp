@@ -365,6 +365,10 @@ void gameEngine::gameLoop()	// Main Game Loop
 						teamNumber = 0;
 					}
 					int i = teamNumber;
+                    int humanControlled = teamInstance[i].getHumanControlled();
+                    logMsg("teamNumber = " +Ogre::StringConverter::toString(teamNumber));
+					
+                    logMsg("humanControlled = " +Ogre::StringConverter::toString(humanControlled));
 						if (teamInstance[i].getPlayerInstancesCreated())
 						{
 
@@ -519,6 +523,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 //                                        }
 									break;
                                     case INSHOOTBLOCK:
+                                       
                                         netPStateObj.setPacketType(3);
                                         netPStateObj.setTeamID(i);
                                         netPStateObj.setPlayerID(humanPlayer);
@@ -528,6 +533,8 @@ void gameEngine::gameLoop()	// Main Game Loop
                                         packetData = ss.str();
 //                                        if (serverRunning)
 //                                        {
+                                      //  logMsg("Human player = " +Ogre::StringConverter::toString(humanPlayer));
+                                        
                                             playerInstance[humanPlayer].setMovement(false);
                                             playerInstance[humanPlayer].setShootBlock(true);
                                             teamInstance[i].setPlayerInstance(playerInstance);

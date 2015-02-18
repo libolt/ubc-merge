@@ -48,6 +48,9 @@ class playerState
         int getPlayerID();  // retrieves the value of playerID
         void setPlayerID(int id);  // sets the value of playerID
 
+        int getTeamNumber();  // retrieves the value of teamNumber
+        void setTeamNumber(int set);  // sets the value of teamNumber
+        
         bool getNetworkControlled();  // retrieves the value of networkControlled
         void setNetworkControlled(bool controlled);  // sets the value of networkControlled
 
@@ -218,6 +221,8 @@ class playerState
 
         int playerID;  // stores the ID of the player which is unique to each player in the game
 
+        int teamNumber;  // stores which of the two teams the player belongs to
+        
         bool networkControlled;	// if true player is controlled by a network client.
 
         Ogre::String firstName;   // stores the first name of the player

@@ -717,6 +717,7 @@ bool gameState::logic()
     {
 //    	logMsg("Player Position " +Ogre::StringConverter::toString(x) +" = " +Ogre::StringConverter::toString(teamInstance[1].getPlayerInstance()[x].getNodePosition()));
     }
+/*    
 	if (teamWithBall >= 0)
 	{
 //		logMsg("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
@@ -737,7 +738,7 @@ bool gameState::logic()
 		}
 
     }
-
+*/
     logMsg("Physics");
     physEngine->updateState();	// updates the state of the physics simulation
 //    exit(0);
@@ -1127,6 +1128,7 @@ void gameState::updateBasketballDirections()	// updates basketball direction(s)
 //        logMsg("playerDirection = " + Ogre::StringConverter::toString(&playerDirection));
 //        logMsg("oldPlayerDirection = " + Ogre::StringConverter::toString(&oldPlayerDirection));
 
+        logMsg("playerWithBall = " +Ogre::StringConverter::toString(playerWithBall));
 		if (playerDirection != oldPlayerDirection)
 		{
 			switch (playerDirection)

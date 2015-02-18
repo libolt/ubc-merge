@@ -151,6 +151,14 @@ inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
 	{
 		return(INSHOOTBLOCK);
 	}
+    else if (keyPressed == "n")
+    {
+        return(INPASSSTEAL);
+    }
+    else if (keyPressed == "m")
+    {
+        return(INSHOOTBLOCK);
+	}
 	else if (keyPressed == "q")
 	{
 		return(INQUIT);

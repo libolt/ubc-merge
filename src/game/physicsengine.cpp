@@ -700,6 +700,20 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 			teamInstance[ballTippedToTeam].setPlayerWithBall(gameS->getBallTippedToPlayer());
 			teamInstance[ballTippedToTeam].setHumanPlayer(gameS->getBallTippedToPlayer());
 			teamInstance[ballTippedToTeam].setPlayerWithBallDribbling(true);
+            int activeDefensivePlayer = -1;
+            switch (ballTippedToTeam)
+            {
+                case 0:
+                    activeDefensivePlayer = teamInstance[1].getActivePlayerID()[0];
+                    teamInstance[1].setHumanPlayer(activeDefensivePlayer);
+                    break;
+                case 1:
+                    activeDefensivePlayer = teamInstance[0].getActivePlayerID()[0];
+                    teamInstance[0].setHumanPlayer(activeDefensivePlayer);
+                    break;
+                default:
+                break;
+            }
 			//			gameS->setTeamInstance(teamInstance);
 
 			int humanPlayer = teamInstance[ballTippedToTeam].getHumanPlayer();
@@ -950,4 +964,25 @@ void physicsEngine::passCollisionCheck()	// checks whether the ball has collided
 		logMsg("Pass Collision");
 		passCollision = true;
 	}
+}
+
+bool physicsEngine::playerJump(int teamNumber, int playerID)  // calculates and executes player jumping in the air
+{
+    gameState *gameS = gameState::Instance();
+    teamState teamInstance = gameS->getTeamInstance()[teamNumber];
+    std::vector<playerState> playerInstance = teamInstance.getPlayerInstance();
+    std::vector<int> activePlayerID = teamInstance.getActivePlayerID();
+    
+    int x = 0;
+    int y = 0;
+    while (x<playerInstance.size())
+    {
+        if (playerInstance[x].getPlayerID() == playerID)
+        {
+            playerInstance[x].getPhysBody()->setLinearVelocity(btVector3(0,-15,0));
+            exit(0);
+        }
+        ++x;
+    }
+    return (true);
 }

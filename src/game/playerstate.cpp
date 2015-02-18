@@ -31,6 +31,7 @@
 playerState::playerState()
 {
     playerID = 0;
+    teamNumber = -1;
     isActive = false;
     modelLoaded = false;
     networkControlled = false;
@@ -92,6 +93,15 @@ int playerState::getPlayerID(void)
 void playerState::setPlayerID(int id)
 {
     playerID = id;
+}
+
+int playerState::getTeamNumber()  // retrieves the value of teamNumber
+{
+    return (teamNumber);
+}
+void playerState::setTeamNumber(int set)  // sets the value of teamNumber
+{
+    teamNumber = set;
 }
 
 bool playerState::getNetworkControlled()
@@ -630,13 +640,23 @@ bool playerState::loadModel()   // loads the player's 3D model from the file spe
 
 void playerState::updateState()
 {
+    gameState *gameS = gameState::Instance();
+    physicsEngine *physEngine = physicsEngine::Instance();
 	Ogre::Vector3 playerPos;
  //   exit(0);
 //    if (shotTaken && !shotComplete)	// checks if a player takes a shot
     if (shootBlock)
     {
-        exit(0);
-        shotLogic(playerPos);
+        if (teamNumber == gameS->getTeamWithBall())
+        {
+            shotLogic(playerPos);
+            exit(0);
+        }
+        else
+        {
+            physEngine->playerJump(teamNumber, playerID);
+        }
+        
     }
 
 }
