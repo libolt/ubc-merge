@@ -41,7 +41,7 @@ class basketballs
 public:
 
     basketballs();
-    virtual ~basketballs();	// destructor
+    ~basketballs();	// destructor
 
 
 // declaration of functions which access/modify private variables in the class
@@ -49,40 +49,40 @@ public:
     Ogre::Vector3 getNodePosition(); // retrieves position of basketball node
 
     float getXCoord(void);		// retrieves xCoord value
-    virtual void setXCoord(float XCoords);		// sets xCoord value
+    void setXCoord(float XCoords);		// sets xCoord value
 
     float getYCoord(void);		// retrieves yCoord value
-    virtual void setYCoord(float YCoords);		// sets yCoord value
+    void setYCoord(float YCoords);		// sets yCoord value
 
     float getZCoord(void);	// retrieves zCoord value
-    virtual void setZCoord(float ZCoords);	// sets zCoord value
+    void setZCoord(float ZCoords);	// sets zCoord value
 
     float getMaxHeight(void);		//	retrieves maxHeight value
-    virtual void setMaxHeight(float maxHeight);	//	sets maxHeight	 value
+    void setMaxHeight(float maxHeight);	//	sets maxHeight	 value
 
     bool getMaxHeightReached(void);	// retrieves maxHeightReached value
-    virtual void setMaxHeightReached(bool maxHeightReached);	//	sets maxHeightReached value
+    void setMaxHeightReached(bool maxHeightReached);	//	sets maxHeightReached value
 
     float getMinHeight(void);	// retrieves minHeight value
-    virtual void setMinHeight(float minHeight);	//	sets minHeight value
+    void setMinHeight(float minHeight);	//	sets minHeight value
 
     bool getMinHeightReached(void);	// retrieves minHeightReached value
-    virtual void setMinHeightReached(bool minHeightReached);	// sets minHeightReached value
+    void setMinHeightReached(bool minHeightReached);	// sets minHeightReached value
 
     int getDirection(void);	// retrieves motion value
-    virtual void setDirection(int motion);	// sets motion value
+    void setDirection(int motion);	// sets motion value
 
     int getRotate(void);	// retrieves rotate value
-    virtual void setRotate(int rotate);	// sets rotate value
+    void setRotate(int rotate);	// sets rotate value
 
     int getTeam(void);	// retrieves team value
-    virtual void setTeam(int team);	// sets team value
+    void setTeam(int team);	// sets team value
 
     int getPlayer(void);	// retrieves player value
-    virtual void setPlayer(int player);	// sets player value
+    void setPlayer(int player);	// sets player value
 
     Ogre::Vector3 getVelocity(void);	// retrieves xVelocity value
-    virtual void setVelocity(Ogre::Vector3 velocity);	// sets xVelocity value
+    void setVelocity(Ogre::Vector3 velocity);	// sets xVelocity value
 
 /*      float getXStartCoord(void);	// retrives xStartCoord value
     void setXStartCoord(float startX);	// sets xStartCoord value
@@ -95,52 +95,52 @@ public:
 */
 
     Ogre::Vector3 getStartCoords();	// retreives startCoords value
-    virtual void setStartCoords(Ogre::Vector3 start);	// sets startCoords value
+    void setStartCoords(Ogre::Vector3 start);	// sets startCoords value
 
     bool getMaxYReached();
-    virtual void setMaxYReached(bool maxY);
+    void setMaxYReached(bool maxY);
 
     bool getTipOffStart();	// retrieves tipOffStart value
-    virtual void setTipOffStart(bool start);	// sets tipOFfStart
+    void setTipOffStart(bool start);	// sets tipOFfStart
 
     bool getTipOff();	// retrieves tipOff value
-    virtual void setTipOff(bool TipOff);	// sets tipOff value
+    void setTipOff(bool TipOff);	// sets tipOff value
 
     bool getDribblingStart();	// retrieves dribblingStart value
-    virtual void setDribblingStart(bool start);	// sets dribblingStart value
+    void setDribblingStart(bool start);	// sets dribblingStart value
 
     bool getDribbling();	// retrieves dribbling value
-    virtual void setDribbling(bool Dribbling);	// sets dribbling value
+    void setDribbling(bool Dribbling);	// sets dribbling value
 
     // gets and sets modelName string
     std::string getModelName();
-    virtual void setModelName(std::string name);
+    void setModelName(std::string name);
 
     // gets and sets model entity
     Ogre::Entity *getModel();
-    virtual void setModel(Ogre::Entity *Model);
+    void setModel(Ogre::Entity *Model);
 
     // gets and sets node
     Ogre::SceneNode *getNode();
-    virtual void setNode(Ogre::SceneNode *node);
+    void setNode(Ogre::SceneNode *node);
 
-    virtual btRigidBody *getPhysBody();	// retrieves physBody variable
-    virtual void setPhysBody(btRigidBody *body);	// sets physBody variable
+    btRigidBody *getPhysBody();	// retrieves physBody variable
+    void setPhysBody(btRigidBody *body);	// sets physBody variable
 
-    virtual Ogre::Vector3 getPosChange();	// retrieves the value of posChange
-    virtual void setPosChange(Ogre::Vector3 change);	// sets the value of posChange
+    Ogre::Vector3 getPosChange();	// retrieves the value of posChange
+    void setPosChange(Ogre::Vector3 change);	// sets the value of posChange
 
     bool loadModel();   // loads the 3D model from file specified in modelName
 
-    virtual void updatePosition(); // updates the position of the basketball
+    void updatePosition(); // updates the position of the basketball
 
     Ogre::Vector3 calculatePositionChange();	// calculates the change in position of the basketball model in x,y,z coordinates
 
 //	int basketballXCoords;	// defines basketball's x coordinate on the screen
 //	int basketballYCoords;	// defines basketball's y coordinate on the screen
 
-    virtual bool calculateShot();   // calculates the trajectory the basketball travels when shot
-    virtual bool shotLogic();   // handles the shot logic as the ball travels towards the hoop
+    bool calculateShot();   // calculates the trajectory the basketball travels when shot
+    bool shotLogic();   // handles the shot logic as the ball travels towards the hoop
 
 
 //    static basketballs *Instance();

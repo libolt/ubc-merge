@@ -58,7 +58,7 @@ public:
     std::vector<teamData> getTeamArray();
 //    boost::shared_array<teamData> getTeamArray();
     // adds to array of player;
-    virtual void setTeamArray(teamData data);
+    void setTeamArray(teamData data);
 
 protected:
     teams();

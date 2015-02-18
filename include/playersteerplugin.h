@@ -36,7 +36,7 @@ class playerSteerPlugin : public OpenSteer::PlugIn, steering
     // bool requestInitialSelection() { return true;}
 
     // be more "nice" to avoid a compiler warning
-    virtual ~playerSteerPlugin() {}
+    ~playerSteerPlugin() {}
 
     void open(void);
 

@@ -46,9 +46,9 @@
 class UBC
 {
 public:
-	virtual ~UBC();	// destructor
+    ~UBC();	// destructor
 
-	virtual bool getQuitGame();
+    bool getQuitGame();
 	void setQuitGame(bool quit);
 protected:
     UBC();
@@ -64,23 +64,23 @@ private:
 {
 public:
 //	UBC(void);
-    virtual ~UBC();
+    ~UBC();
 
     static UBC *Instance();
 
-    virtual bool getMenuActive();
-    virtual void setMenuActive(bool active);
+    bool getMenuActive();
+    void setMenuActive(bool active);
 
     // starts a game
-    virtual bool startGame();
+    bool startGame();
 
     // quits entire game
-    virtual void quit();
+    void quit();
 
-    virtual void createScene();
-    virtual bool frameStarted();
-    virtual bool frameEnded();
-    virtual void createSceneManager();
+    void createScene();
+    bool frameStarted();
+    bool frameEnded();
+    void createSceneManager();
 
     bool quitGame;
 
@@ -90,7 +90,7 @@ protected:
     UBC& operator= (const UBC&);
 
 
-//    virtual void loads(string pFilename);	// loads data from XML files
+//    void loads(string pFilename);	// loads data from XML files
 
     int x;
     int y;

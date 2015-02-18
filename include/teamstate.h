@@ -40,61 +40,61 @@ class teamState
         teamState();
         ~teamState();
 
-        virtual int getTeamNumber();	// retrieves the value of the teamNumber variable
-        virtual void setTeamNumber(int number);	// sets the value of the teamNumber variable
-        virtual Ogre::String getPlayerType();	// retrieves playerType variable
-        virtual void setPlayerType(Ogre::String type);	// sets playerType variable
+        int getTeamNumber();	// retrieves the value of the teamNumber variable
+        void setTeamNumber(int number);	// sets the value of the teamNumber variable
+        Ogre::String getPlayerType();	// retrieves playerType variable
+        void setPlayerType(Ogre::String type);	// sets playerType variable
 
-        virtual int getAssists();   // retrieves assists variable
-        virtual void setAssists(int assist);    // sets assists variable
+        int getAssists();   // retrieves assists variable
+        void setAssists(int assist);    // sets assists variable
 
-        virtual int getBlocks();    // retrieves blocks variable
-        virtual void setBlocks(int block);  // sets blocks variable
+        int getBlocks();    // retrieves blocks variable
+        void setBlocks(int block);  // sets blocks variable
 
-        virtual int getFouls(); // retrieves fouls variable
-        virtual void setFouls(int foul);    // sets fouls variable
+        int getFouls(); // retrieves fouls variable
+        void setFouls(int foul);    // sets fouls variable
 
-        virtual int getRebounds();  // retrieves rebounds variable
-        virtual void setRebounds(int rebound);  // sets rebounds variable
+        int getRebounds();  // retrieves rebounds variable
+        void setRebounds(int rebound);  // sets rebounds variable
 
-        virtual int getOffensiveRebounds(); // retrieves offensiveRebounds variable
-        virtual void setOffensiveRebounds(int rebounds);    // sets offensiveRebounds variable
+        int getOffensiveRebounds(); // retrieves offensiveRebounds variable
+        void setOffensiveRebounds(int rebounds);    // sets offensiveRebounds variable
 
-        virtual int getDefensiveRebounds(); // retrieves defensiveRebounds variable
-        virtual void setDefensiveRebounds(int rebounds);    // sets defensiveRebounds variable
+        int getDefensiveRebounds(); // retrieves defensiveRebounds variable
+        void setDefensiveRebounds(int rebounds);    // sets defensiveRebounds variable
 
-        virtual int getSteals();    // retrieves steals variable
-        virtual void setSteals(int steal);  // sets steals variable
+        int getSteals();    // retrieves steals variable
+        void setSteals(int steal);  // sets steals variable
 
-        virtual int getTechnicals();    // retrieves technicals variable
-        virtual void setTechnicals(int technical);  // sets technicals variable
+        int getTechnicals();    // retrieves technicals variable
+        void setTechnicals(int technical);  // sets technicals variable
 
-        virtual int getTimeouts();  // retrieves timeouts variable
-        virtual void setTimeouts(int timeout);  // sets timeouts variable
+        int getTimeouts();  // retrieves timeouts variable
+        void setTimeouts(int timeout);  // sets timeouts variable
 
-        virtual int getTurnovers(); // retrieves turnovers variable
-        virtual void setTurnovers(int turnover);    // sets turnovers variable
+        int getTurnovers(); // retrieves turnovers variable
+        void setTurnovers(int turnover);    // sets turnovers variable
 
-        virtual int getFieldGoalsAttempted();   // retrieves fieldGoalsAttempted variable
-        virtual void setFieldGoalsAttempted(int fieldGoals);    // sets fieldGoalsAttempted variable
+        int getFieldGoalsAttempted();   // retrieves fieldGoalsAttempted variable
+        void setFieldGoalsAttempted(int fieldGoals);    // sets fieldGoalsAttempted variable
 
-        virtual int getFieldGoalsMade();    // retrieves fieldGoalsMade variable
-        virtual void setFieldGoalsMade(int fieldGoals); // sets fieldGoalsMade variable
+        int getFieldGoalsMade();    // retrieves fieldGoalsMade variable
+        void setFieldGoalsMade(int fieldGoals); // sets fieldGoalsMade variable
 
-        virtual int getThreePointersAttempted();   // retrieves threePointersAttempted variable
-        virtual void setThreePointersAttempted(int threePointers);  // sets threePointersAttempted variable
+        int getThreePointersAttempted();   // retrieves threePointersAttempted variable
+        void setThreePointersAttempted(int threePointers);  // sets threePointersAttempted variable
 
-        virtual int getThreePointersMade();    // retrieves threePointersMade variable
-        virtual void setThreePointersMade(int threePointers);   // sets threePointersMade variable
+        int getThreePointersMade();    // retrieves threePointersMade variable
+        void setThreePointersMade(int threePointers);   // sets threePointersMade variable
 
-        virtual int getFreeThrowsAttempted();   // retrieves freeThrowsAttempted variable
-        virtual void setFreeThrowsAttempted(int freeThrows);    // sets freeThrowsAttempted variable
+        int getFreeThrowsAttempted();   // retrieves freeThrowsAttempted variable
+        void setFreeThrowsAttempted(int freeThrows);    // sets freeThrowsAttempted variable
 
-        virtual int getFreeThrowsMade();    // retrieves freeThrowsMade variable
-        virtual void setFreeThrowsMade(int freeThrows); // sets freeThrowsMade variable
+        int getFreeThrowsMade();    // retrieves freeThrowsMade variable
+        void setFreeThrowsMade(int freeThrows); // sets freeThrowsMade variable
 
-        virtual std::vector<int> getPlayerID();  // retrieves playerID variable
-        virtual void setPlayerID(std::vector<int> ID);   // sets playerID variable
+        std::vector<int> getPlayerID();  // retrieves playerID variable
+        void setPlayerID(std::vector<int> ID);   // sets playerID variable
 
         std::vector<int> getActivePlayerID();  // retrieves activePlayerID variable
         void setActivePlayerID(std::vector<int> ID);   // sets activePlayerID variable
@@ -102,53 +102,53 @@ class teamState
         std::vector<int> getStarterID(); // retrieves starterID variable
         void setStarterID(std::vector<int> ID);  // sets starterID variable
 
-        virtual bool getOffense();	// returns offense variable
-        virtual void setOffense(bool set);	// sets offense variable
+        bool getOffense();	// returns offense variable
+        void setOffense(bool set);	// sets offense variable
 
-        virtual bool getDefense();	// returns defense variable
-        virtual void setDefense(bool set);	// sets defense variable
+        bool getDefense();	// returns defense variable
+        void setDefense(bool set);	// sets defense variable
 
         // gets and sets playerInstance std::vector
-        virtual std::vector <playerState> getPlayerInstance();
-        virtual void setPlayerInstance(std::vector<playerState> pInstance);
+        std::vector <playerState> getPlayerInstance();
+        void setPlayerInstance(std::vector<playerState> pInstance);
 
-        virtual bool getPlayerInstancesCreated();	// retrieves the value of the playerInstancesCreated variable
-        virtual void setPlayerInstancesCreated(bool created);	// sets the value of the playerInstancesCreated variable
+        bool getPlayerInstancesCreated();	// retrieves the value of the playerInstancesCreated variable
+        void setPlayerInstancesCreated(bool created);	// sets the value of the playerInstancesCreated variable
 
-        virtual int getPlayerWithBall();	// retrieves the value of the playerWithBall variable
-        virtual void setPlayerWithBall(int ball);	// sets the value of the playerWithBall variable
-        virtual bool getPlayerWithBallDribbling();	// retrieves the value of the playerWithBallDribbling variable
-        virtual void setPlayerWithBallDribbling(bool dribbling);	// sets the value of the playerWithBallDribbling variable
+        int getPlayerWithBall();	// retrieves the value of the playerWithBall variable
+        void setPlayerWithBall(int ball);	// sets the value of the playerWithBall variable
+        bool getPlayerWithBallDribbling();	// retrieves the value of the playerWithBallDribbling variable
+        void setPlayerWithBallDribbling(bool dribbling);	// sets the value of the playerWithBallDribbling variable
 
-        virtual bool getHumanControlled();		// retrieves the value of the humanControlled variable
-        virtual void setHumanControlled(bool controlled);		// sets the value of the humanControlled variable
+        bool getHumanControlled();		// retrieves the value of the humanControlled variable
+        void setHumanControlled(bool controlled);		// sets the value of the humanControlled variable
 
-        virtual int getHumanPlayer();		// retrieves the value of the humanPlayer variable
-        virtual void setHumanPlayer(int player);	// sets the value of the human player variable
+        int getHumanPlayer();		// retrieves the value of the humanPlayer variable
+        void setHumanPlayer(int player);	// sets the value of the human player variable
 
-        virtual offenseState *getOffenseInstance();	// retrievers the value of offenseInstance
-        virtual void setOffenseInstance(offenseState *instance);	// sets the value of offenseInstance
+        offenseState *getOffenseInstance();	// retrievers the value of offenseInstance
+        void setOffenseInstance(offenseState *instance);	// sets the value of offenseInstance
 
-        virtual defenseState *getDefenseInstance();	// retrieves the value of defenseInstance
-        virtual void setDefenseInstance(defenseState *instance);	// sets the value of defenseInstance
+        defenseState *getDefenseInstance();	// retrieves the value of defenseInstance
+        void setDefenseInstance(defenseState *instance);	// sets the value of defenseInstance
 
         bool getStateSet(); // retrieves the value of stateSet
         void setStateSet(bool set); // sets the value of stateSet
         // creates player Instances
         bool createPlayerInstances();
 
-        virtual void setPlayerStartPositions();	// sets the initial coordinates for the players.
+        void setPlayerStartPositions();	// sets the initial coordinates for the players.
 
         void updatePlayerStates();  // updates the states of active players
-        virtual void updatePlayerDirections();  // updates the direction players are facing
-        virtual void updatePlayerMovements();	// updates the movement status of players
+        void updatePlayerDirections();  // updates the direction players are facing
+        void updatePlayerMovements();	// updates the movement status of players
 
-        virtual void executePass();		// executes the pass between players
+        void executePass();		// executes the pass between players
 
-        virtual void updatePositions();	// updates the positions of game world objects
+        void updatePositions();	// updates the positions of game world objects
 
-        virtual void setupState();		// sets up the state for teamState object
-        virtual void updateState();	// updates the state of the teamState object
+        void setupState();		// sets up the state for teamState object
+        void updateState();	// updates the state of the teamState object
         
         
     protected:

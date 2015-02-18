@@ -49,13 +49,13 @@ public:
 	bool processUnbufferedGamepadInput(); // reads in unbuffered mouse input
 	
     // SDL Input functions
-    virtual SDL_Event getInputEvent();   // retrieves the value of the inputEvent variable
+    SDL_Event getInputEvent();   // retrieves the value of the inputEvent variable
     void setInputEvent(SDL_Event input); // sets the value of the inputEvent variable
 
-    virtual Ogre::String getKeyPressed(); // retrieves the value of the keyPressed pressed variable
+    Ogre::String getKeyPressed(); // retrieves the value of the keyPressed pressed variable
     void setKeyPressed(Ogre::String key); // sets the value of the keyPressed variable
 
-	virtual inputMaps getInputMap();  // retrieves the value of the inputMap variable
+    inputMaps getInputMap();  // retrieves the value of the inputMap variable
 	void setInputMap(inputMaps map);  // sets the value of the inputMap variable
 
 protected:
@@ -63,7 +63,7 @@ protected:
 	inputSystem(const inputSystem&);
 	inputSystem& operator= (const inputSystem&);
 
-    virtual ~inputSystem();
+    ~inputSystem();
     // SDL Input
     SDL_Event inputEvent;
     SDL_Event events[EVENT_BUF_SIZE];

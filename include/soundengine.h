@@ -27,11 +27,11 @@ class SoundSystem
 {
     public:
 
-        virtual ~SoundSystem();
+        ~SoundSystem();
 
         static SoundSystem *Instance();
 
-    virtual bool setup();   // sets up the sound system
+    bool setup();   // sets up the sound system
     protected:
 
         SoundSystem();

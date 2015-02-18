@@ -27,17 +27,17 @@ class defenses
 {
 public:
 
-    virtual int getTeamOnDefense();					// returns teamOnDefense variable
-    virtual void setTeamOnDefense(int team);		// sets teamOnDefense variable
+    int getTeamOnDefense();					// returns teamOnDefense variable
+    void setTeamOnDefense(int team);		// sets teamOnDefense variable
 
-    virtual defenseTypes getDefenseType();			// returns defenseType variable
-    virtual void setDefenseType(defenseTypes type);	// sets defenseType variable;
+    defenseTypes getDefenseType();			// returns defenseType variable
+    void setDefenseType(defenseTypes type);	// sets defenseType variable;
 
-    virtual bool getSetupDefense();					// returns setupDefense variable
-    virtual void setSetupDefense(bool defense);		// sets setupDefense variable
+    bool getSetupDefense();					// returns setupDefense variable
+    void setSetupDefense(bool defense);		// sets setupDefense variable
 
-    virtual bool getDefenseSet();					// returns defenseSet variable
-    virtual void setDefenseSet(bool set);			// sets defenseSet variable
+    bool getDefenseSet();					// returns defenseSet variable
+    void setDefenseSet(bool set);			// sets defenseSet variable
 
 
     bool getManToManSet();
@@ -47,14 +47,14 @@ public:
     void setZoneSet(bool set);
 
     // sets up defense
-    virtual bool setupTeamDefense();				// sets up the team's defense
-    virtual bool setupManToManDefense();			// sets up man to man defense
-    virtual bool setupZoneDefense();			// sets up zone defense
+    bool setupTeamDefense();				// sets up the team's defense
+    bool setupManToManDefense();			// sets up man to man defense
+    bool setupZoneDefense();			// sets up zone defense
 
     // executes defense
-    virtual bool executeDefense();	// executes defense routines
-    virtual bool executeManToManDefense();	// executes man to man defense routines
-    virtual bool executeZoneDefense();	// executes zone defense routines
+    bool executeDefense();	// executes defense routines
+    bool executeManToManDefense();	// executes man to man defense routines
+    bool executeZoneDefense();	// executes zone defense routines
 
 
 

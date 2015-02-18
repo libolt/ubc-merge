@@ -28,47 +28,47 @@ class offenses
 public:
 
     offenses();
-    virtual ~offenses();
+    ~offenses();
 
 protected:
 
-    virtual int execute(void);   // executes selected offense
+    int execute(void);   // executes selected offense
 
-    virtual int pgExecute(void);
+    int pgExecute(void);
 
-    virtual int sgExecute(void);
+    int sgExecute(void);
 
-    virtual int sfExecute(void);
+    int sfExecute(void);
 
-    virtual int pfExecute(void);
+    int pfExecute(void);
 
-    virtual int cExecute(void);
+    int cExecute(void);
 
-    virtual int checkPlayerPosition(void);
+    int checkPlayerPosition(void);
 
-    virtual float *getPlayerStartPos(void); // retrieves playerStartPos value
-    virtual void setPlayerStartPos(float *startPos);    // sets playerStartPos value
+    float *getPlayerStartPos(void); // retrieves playerStartPos value
+    void setPlayerStartPos(float *startPos);    // sets playerStartPos value
 
-    virtual bool getPlayerStartPosSet(void);    // retrieves playerStartPosSet value
-    virtual void setPlayerStartPosSet(bool set);    // sets playerStartPosSet value
+    bool getPlayerStartPosSet(void);    // retrieves playerStartPosSet value
+    void setPlayerStartPosSet(bool set);    // sets playerStartPosSet value
 
-    virtual bool getPgStartPosSet(void);    // retrieves pgStartPosSet value
-    virtual void setPgStartPosSet(bool set);    // sets pgStartPosSet value
+    bool getPgStartPosSet(void);    // retrieves pgStartPosSet value
+    void setPgStartPosSet(bool set);    // sets pgStartPosSet value
 
-    virtual bool getSgStartPosSet(void);    // retrieves sgStartPosSet value
-    virtual void setSgStartPosSet(bool set);    // sets sgStartPosSet value
+    bool getSgStartPosSet(void);    // retrieves sgStartPosSet value
+    void setSgStartPosSet(bool set);    // sets sgStartPosSet value
 
-    virtual bool getSfStartPosSet(void);    // retrieves sfStartPosSet value
-    virtual void setSfStartPosSet(bool set);    // sets sfStartPosSet value
+    bool getSfStartPosSet(void);    // retrieves sfStartPosSet value
+    void setSfStartPosSet(bool set);    // sets sfStartPosSet value
 
-    virtual bool getPfStartPosSet(void);    // retrieves pfStartPosSet value
-    virtual void setPfStartPosSet(bool set);    // sets pfStartPosSet value
+    bool getPfStartPosSet(void);    // retrieves pfStartPosSet value
+    void setPfStartPosSet(bool set);    // sets pfStartPosSet value
 
-    virtual bool getCStartPosSet(void);    // retrieves cStartPosSet value
-    virtual void setCStartPosSet(bool set);    // sets cStartPosSet value
+    bool getCStartPosSet(void);    // retrieves cStartPosSet value
+    void setCStartPosSet(bool set);    // sets cStartPosSet value
 
-    virtual offenseTypes getOffenseType(void);	// returns offenseType variable
-    virtual void setOffenseType(offenseTypes type);	// sets offenseType variable;
+    offenseTypes getOffenseType(void);	// returns offenseType variable
+    void setOffenseType(offenseTypes type);	// sets offenseType variable;
 private:
 
     float *playerStartPos;    // stores start Positions for player
@@ -89,20 +89,20 @@ class boxOffense : public offenses
 public:
 
     boxOffense();
-    virtual ~boxOffense();
+    ~boxOffense();
 
     courtSide_t getCourtSide(void);
     void setCourtSide(courtSide_t side);
 
 protected:
 
-    virtual int executeOffense(void);
-    virtual int setPositions(void);
-    virtual int pgExecuteOffense(void);
-    virtual int sgExecuteOffense(void);
-    virtual int sfExecuteOffense(void);
-    virtual int pfExecuteOffense(void);
-    virtual int cExecuteOffense(void);
+    int executeOffense(void);
+    int setPositions(void);
+    int pgExecuteOffense(void);
+    int sgExecuteOffense(void);
+    int sfExecuteOffense(void);
+    int pfExecuteOffense(void);
+    int cExecuteOffense(void);
 
 private:
 

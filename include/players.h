@@ -41,7 +41,7 @@ class players
 {
 public:
 //		players();
-    virtual ~players();
+    ~players();
 
     static players *Instance();
 
@@ -50,7 +50,7 @@ public:
     // returns array of player
     std::vector<playerData> getPlayer();
     // adds to array of player;
-    virtual void addPlayer(playerData data);
+    void addPlayer(playerData data);
 
     int getTotalPlayers(void);
     void setTotalPlayers(int players);
@@ -75,11 +75,11 @@ public:
 
     // gets and sets playerDirection
     std::vector<int> getPlayerDirection();
-    virtual void setPlayerDirection(std::vector<int> direction);
+    void setPlayerDirection(std::vector<int> direction);
 
     // gets and sets oldPlayerDirection
     std::vector<int> getOldPlayerDirection();
-    virtual void setOldPlayerDirection(std::vector<int> direction);
+    void setOldPlayerDirection(std::vector<int> direction);
 
     int getPlayerHasBasketball(void);
     void setPlayerHasBasketball(int player);
@@ -98,7 +98,7 @@ public:
 
 
 
-    virtual bool changePositions();	// changes the positions of the player nodes
+    bool changePositions();	// changes the positions of the player nodes
 
     int getPlayerTeam(int player);
     void setPlayerTeam(int player, int team);

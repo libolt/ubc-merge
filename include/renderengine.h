@@ -59,16 +59,16 @@ class renderEngine
 {
 	public:
 
-    virtual Root *getMRoot();
+    Root *getMRoot();
     void setMRoot(Root *root);
 
-    virtual Camera *getMCamera();
+    Camera *getMCamera();
     void setMCamera(Camera *camera);
 
-    virtual SceneManager *getMSceneMgr();
+    SceneManager *getMSceneMgr();
     void setMSceneMgr(SceneManager *sceneMgr);
 
-    virtual RenderWindow *getMWindow();
+    RenderWindow *getMWindow();
     void setMWindow(RenderWindow *window);
 
 	Ogre::Viewport *getViewPort(); // retrieves the value of viewPort
@@ -77,52 +77,52 @@ class renderEngine
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	Ogre::DataStreamPtr openAPKFile(const Ogre::String& fileName);
 
-	virtual AAssetManager* getMAssetMgr();
-	virtual void setMAssetMgr(AAssetManager* asset);
+    AAssetManager* getMAssetMgr();
+    void setMAssetMgr(AAssetManager* asset);
 	
-	virtual android_app *getApp();
-	virtual void setApp(android_app *ap);
+    android_app *getApp();
+    void setApp(android_app *ap);
 #endif
 
-    virtual Ogre::Vector3 getMTranslateVector();
+    Ogre::Vector3 getMTranslateVector();
     void setMTranslateVector(Ogre::Vector3 vector);
 
-    virtual Radian getMRotX();
+    Radian getMRotX();
     void setMRotX(Radian rotX);
 
-    virtual Radian getMRotY();
+    Radian getMRotY();
     void setMRotY(Radian rotY);
 
-    virtual Real getMMoveSpeed();
+    Real getMMoveSpeed();
     void setMMoveSpeed(Real speed);
 
-    virtual Degree getMRotateSpeed();
+    Degree getMRotateSpeed();
     void setMRotateSpeed(Degree speed);
 
-    virtual float getMMoveScale();
+    float getMMoveScale();
     void setMMoveScale(float scale);
 
-    virtual Degree getMRotScale();
+    Degree getMRotScale();
     void setMRotScale(Degree scale);
 
-    virtual String getMResourceGroup();
+    String getMResourceGroup();
     void setMResourceGroup(String resource);
 
 	SDL_Window *getSDLWindow();
 	void setSDLWindow(SDL_Window *window);
 
-    virtual ~renderEngine();
+    ~renderEngine();
 
     static renderEngine *Instance();
 
-    virtual bool initSDL();
-    virtual bool initOgre();
+    bool initSDL();
+    bool initOgre();
 
-	virtual bool createWindow();
-    virtual bool createScene();
-    virtual bool frameStarted();
-    virtual bool frameEnded();
-    virtual void createSceneManager();
+    bool createWindow();
+    bool createScene();
+    bool frameStarted();
+    bool frameEnded();
+    void createSceneManager();
 
 	protected:
     renderEngine();

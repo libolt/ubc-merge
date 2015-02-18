@@ -27,12 +27,12 @@ public:
 
 	defenseState();	// constructor
 
-	virtual bool getExecute();	// retrieves the value of execute variable
-	virtual void setExecute(bool ex);	// sets the value of the execute variable
+    bool getExecute();	// retrieves the value of execute variable
+    void setExecute(bool ex);	// sets the value of the execute variable
 
-	virtual void setupState();		// sets up initial state of the object
+    void setupState();		// sets up initial state of the object
 
-	virtual void updateState(int teamNumber);	// updates the state of the object
+    void updateState(int teamNumber);	// updates the state of the object
 
 private:
 

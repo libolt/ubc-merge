@@ -40,7 +40,7 @@ class GUISystem //: public renderEngine //, inputSystem
 {
 public:
 
-    virtual ~GUISystem();
+    ~GUISystem();
 
     static GUISystem *Instance();
 

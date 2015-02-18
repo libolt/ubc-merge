@@ -30,52 +30,52 @@ class gameEngine : public players
 {
 
 public:
-    virtual ~gameEngine();
+    ~gameEngine();
 
     static gameEngine *Instance();
 
-    virtual bool getMenuActive();					// retrieves menuActive variable
-    virtual void setMenuActive(bool active);		// sets menuActive variable
+    bool getMenuActive();					// retrieves menuActive variable
+    void setMenuActive(bool active);		// sets menuActive variable
 
-    virtual bool getQuitGame();						// retrieves quitGame variable
-    virtual void setQuitGame(bool quit);			// sets quitGame variable
+    bool getQuitGame();						// retrieves quitGame variable
+    void setQuitGame(bool quit);			// sets quitGame variable
 
-    virtual bool getServerRunning();				// retrieves serverRunning variable
-    virtual void setServerRunning(bool server);		// sets serverRunning variable
+    bool getServerRunning();				// retrieves serverRunning variable
+    void setServerRunning(bool server);		// sets serverRunning variable
 
-    virtual bool getClientRunning();				// retrieves clientRunning variable
-    virtual void setClientRunning(bool client);		// sets clientRunning variable
+    bool getClientRunning();				// retrieves clientRunning variable
+    void setClientRunning(bool client);		// sets clientRunning variable
 
-    virtual bool getCreateScene();					// retrieves createScene variable
-    virtual void setCreateScene(bool scene);		// sets createScene variable
+    bool getCreateScene();					// retrieves createScene variable
+    void setCreateScene(bool scene);		// sets createScene variable
 
-    virtual bool getSceneCreated();					// returns sceneCreated variable
-    virtual void setSceneCreated(bool created);		// sets sceneCreated variable
+    bool getSceneCreated();					// returns sceneCreated variable
+    void setSceneCreated(bool created);		// sets sceneCreated variable
 
-    virtual bool getRenderScene();					// retrieves renderScene variable
-    virtual void setRenderScene(bool scene);		// sets renderScene variable
+    bool getRenderScene();					// retrieves renderScene variable
+    void setRenderScene(bool scene);		// sets renderScene variable
 
-    virtual bool getMovePlayer();					// retrieves movePlayer variable
-    virtual void setMovePlayer(bool player);		    // sets movePlayer variable
+    bool getMovePlayer();					// retrieves movePlayer variable
+    void setMovePlayer(bool player);		    // sets movePlayer variable
 
-    virtual Ogre::Timer getLoopTime();				// retrieves loopTime variable
-    virtual void setLoopTIme(Ogre::Timer time);		// sets loopTime variable
+    Ogre::Timer getLoopTime();				// retrieves loopTime variable
+    void setLoopTIme(Ogre::Timer time);		// sets loopTime variable
 
-    virtual unsigned long getOldTime();				// retrieves oldTime variable
-    virtual void setOldTime(unsigned long time);	// sets oldTime variable
+    unsigned long getOldTime();				// retrieves oldTime variable
+    void setOldTime(unsigned long time);	// sets oldTime variable
 
-    virtual unsigned long getChangeInTime();			// retrieves changeInTime variable
-    virtual void setChangeInTime(unsigned long change);	// sets changeInTime variable
+    unsigned long getChangeInTime();			// retrieves changeInTime variable
+    void setChangeInTime(unsigned long change);	// sets changeInTime variable
 
-    virtual void updateChangeInTime();					// updates the game timer variables
+    void updateChangeInTime();					// updates the game timer variables
 
     // starts a game
-    virtual bool startGame();
+    bool startGame();
 
     // quits entire game
-    virtual void quit();
+    void quit();
 
-    virtual void gameLoop();	// runs the Main loop for the game
+    void gameLoop();	// runs the Main loop for the game
 
 protected:
     gameEngine();

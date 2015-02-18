@@ -71,17 +71,17 @@ public:
 	std::vector<playerDesignations> getPlayerDesignation();	// returns the value of playerName
 	void setPlayerDesignation(std::vector<playerDesignations> designation);	// sets the value of playerName
 
-	virtual std::vector<Ogre::Vector3> getStartPositions();	// retrieves the value of the startPositions variable
-	virtual void setStartPositions(std::vector<Ogre::Vector3> positions);	// sets the value startPositions variable
+    std::vector<Ogre::Vector3> getStartPositions();	// retrieves the value of the startPositions variable
+    void setStartPositions(std::vector<Ogre::Vector3> positions);	// sets the value startPositions variable
 
-	virtual std::vector <std::vector<Ogre::Vector3> > getExecutePositions();	// retrieves the value of the executePositions variable
-	virtual void setExecutePositions(std::vector< std::vector<Ogre::Vector3> > positions);	// sets the value executePositions variable
+    std::vector <std::vector<Ogre::Vector3> > getExecutePositions();	// retrieves the value of the executePositions variable
+    void setExecutePositions(std::vector< std::vector<Ogre::Vector3> > positions);	// sets the value executePositions variable
 
-	virtual std::vector<bool> getStartPositionSet();  // returns the value of startPositionSet
-	virtual void setStartPositionSet(std::vector<bool> set); // sets the value of startPositionSet
+    std::vector<bool> getStartPositionSet();  // returns the value of startPositionSet
+    void setStartPositionSet(std::vector<bool> set); // sets the value of startPositionSet
 
-	virtual std::vector< std::vector<bool> > getExecutePositionReached();  // returns the value of executePositionSet
-	virtual void setExecutePositionReached(std::vector< std::vector<bool> > reached); // sets the value of executePositionSet
+    std::vector< std::vector<bool> > getExecutePositionReached();  // returns the value of executePositionSet
+    void setExecutePositionReached(std::vector< std::vector<bool> > reached); // sets the value of executePositionSet
 
 	std::vector<playerDirectives> getPlayerDirective();  // returns the value of playerDirective
 	void setPlayerDirective(std::vector<playerDirectives> directive);  // sets the value of playerDirective

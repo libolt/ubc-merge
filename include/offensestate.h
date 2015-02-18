@@ -35,39 +35,39 @@ public:
 	int getSelectedOffense(); // returns value of selectedOffense
 	void setSelectedOffense(int selected); // sets the value of selectedOffense
 
-	virtual bool getExecute();	// retrieves the value of execute variable
-	virtual void setExecute(bool ex);	// sets the value of the execute variable
+    bool getExecute();	// retrieves the value of execute variable
+    void setExecute(bool ex);	// sets the value of the execute variable
 
 	std::vector<offensePlays> getPlays();	// returns the value of plays
 	void setPlays(std::vector<offensePlays> play);	// sets the value of plays
 
-	virtual std::vector<Ogre::Vector3> getStartPositions();	// retrieves the value of the startPositions variable
-	virtual void setStartPositions(std::vector<Ogre::Vector3> positions);	// sets the value startPositions variable
+    std::vector<Ogre::Vector3> getStartPositions();	// retrieves the value of the startPositions variable
+    void setStartPositions(std::vector<Ogre::Vector3> positions);	// sets the value startPositions variable
 
-	virtual std::vector <std::vector<Ogre::Vector3> > getExecutePositions();	// retrieves the value of the executePositions variable
-	virtual void setExecutePositions(std::vector< std::vector<Ogre::Vector3> > positions);	// sets the value executePositions variable
+    std::vector <std::vector<Ogre::Vector3> > getExecutePositions();	// retrieves the value of the executePositions variable
+    void setExecutePositions(std::vector< std::vector<Ogre::Vector3> > positions);	// sets the value executePositions variable
 
-	virtual bool getStartXPosSet();  // returns the value of startXPosSet
-	virtual void setStartXPosSet(bool *set); // sets the value of startXPosSet
+    bool getStartXPosSet();  // returns the value of startXPosSet
+    void setStartXPosSet(bool *set); // sets the value of startXPosSet
 
-	virtual bool getStartYPosSet();  // returns the value of startYPosSet
-	virtual void setStartYPosSet(bool *set); // sets the value of startYPosSet
+    bool getStartYPosSet();  // returns the value of startYPosSet
+    void setStartYPosSet(bool *set); // sets the value of startYPosSet
 
-	virtual bool getStartZPosSet();  // returns the value of startZPosSet
-	virtual void setStartZPosSet(bool *set); // sets the value of startZPosSet
+    bool getStartZPosSet();  // returns the value of startZPosSet
+    void setStartZPosSet(bool *set); // sets the value of startZPosSet
 
 	std::vector<bool> getStartPositionReached();  // returns the value of startPositionReached
-	virtual void setStartPositionReached(std::vector<bool> reached); // sets the value of startPositionReached
+    void setStartPositionReached(std::vector<bool> reached); // sets the value of startPositionReached
 
 	bool getAllStartPositionsReached(); // retrieves the value of allStartPositionsSet
 	void setAllStartPositionsReached(bool reached);  // sets the value of allStartPositionsSet
 
-	virtual std::vector< std::vector<bool> > getExecutePositionReached();  // returns the value of executePositionSet
-	virtual void setExecutePositionReached(std::vector< std::vector<bool> > reached); // sets the value of executePositionSet
+    std::vector< std::vector<bool> > getExecutePositionReached();  // returns the value of executePositionSet
+    void setExecutePositionReached(std::vector< std::vector<bool> > reached); // sets the value of executePositionSet
 
-	virtual void setupState();		// sets up initial state of the object
+    void setupState();		// sets up initial state of the object
 
-	virtual void updateState(int teamNumber);	// updates the state of the object
+    void updateState(int teamNumber);	// updates the state of the object
 
 	void loadPlays();	// loads offense plays from file
 

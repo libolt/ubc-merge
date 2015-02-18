@@ -1589,7 +1589,6 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
 //          exit(0);
             }
         }
-
         teamInstance[0].setPlayerStartPositions();
         logMsg("Team 0 player start positions set");
         size_t i = 0;

@@ -43,58 +43,58 @@ class networkEngine
     public:
 
 //    networkEngine();
-    virtual ~networkEngine();
+    ~networkEngine();
 
-    virtual bool getIsClient();	// returns the value of the isClient variable
-    virtual void setIsClient(bool client);	// sets the value of the isClient variable
+    bool getIsClient();	// returns the value of the isClient variable
+    void setIsClient(bool client);	// sets the value of the isClient variable
 
-    virtual bool getIsServer();	// returns the value of the isServer variable
-    virtual void setIsServer(bool server);	// sets the value of the isServer variable
+    bool getIsServer();	// returns the value of the isServer variable
+    void setIsServer(bool server);	// sets the value of the isServer variable
 
-    virtual bool getClientEstablishedConnection();					// returns clientEstablishedConnection variable
-    virtual void setClientEstablishedConnection(bool connection);	// sets clientEstablishedConnection variable
+    bool getClientEstablishedConnection();					// returns clientEstablishedConnection variable
+    void setClientEstablishedConnection(bool connection);	// sets clientEstablishedConnection variable
 
-    virtual bool getServerReceivedConnection();						// returns serverReceivedConnection variable
-    virtual void setServerReceivedConnection(bool connection);		// sets serverReceivedConnection variable
+    bool getServerReceivedConnection();						// returns serverReceivedConnection variable
+    void setServerReceivedConnection(bool connection);		// sets serverReceivedConnection variable
 
-    virtual bool getPacketReceived();								// returns packetReceived variable
-    virtual void setPacketReceived(bool received);					// sets packetReceived variable
+    bool getPacketReceived();								// returns packetReceived variable
+    void setPacketReceived(bool received);					// sets packetReceived variable
 
-    virtual int getClientID();	// returns the value of clientID variable;
-    virtual void setClientID(int ID);  // sets the value of clientID variable;
+    int getClientID();	// returns the value of clientID variable;
+    void setClientID(int ID);  // sets the value of clientID variable;
 
-    virtual Ogre::String getIPAddress();	// returns the value of the ipAddress string
-    virtual void setIPAddress(Ogre::String IP);	// sets the value of the ipAddress string
+    Ogre::String getIPAddress();	// returns the value of the ipAddress string
+    void setIPAddress(Ogre::String IP);	// sets the value of the ipAddress string
 
-    virtual Ogre::String getReceivedData();	// returns receivedData variable
-    virtual void setReceivedData(Ogre::String data);
+    Ogre::String getReceivedData();	// returns receivedData variable
+    void setReceivedData(Ogre::String data);
 
-    virtual ENetAddress getListenAddress();	// returns listenAddress variable
-    virtual void setListenAddress(ENetAddress address);	// sets listenAddress variable
+    ENetAddress getListenAddress();	// returns listenAddress variable
+    void setListenAddress(ENetAddress address);	// sets listenAddress variable
 
-    virtual ENetAddress getServerAddress();	// returns serverAddress variable
-    virtual void setServerAddress(ENetAddress address);	// sets serverAddress variable
+    ENetAddress getServerAddress();	// returns serverAddress variable
+    void setServerAddress(ENetAddress address);	// sets serverAddress variable
 
-    virtual ENetHost *getClient();	//	returns client variable
-    virtual void setClient(ENetHost *Client);	// sets client variable
+    ENetHost *getClient();	//	returns client variable
+    void setClient(ENetHost *Client);	// sets client variable
 
-    virtual ENetEvent getEvent();	// returns event variable
-    virtual void setEvent(ENetEvent Event);	// sets event variable
+    ENetEvent getEvent();	// returns event variable
+    void setEvent(ENetEvent Event);	// sets event variable
 
-    virtual ENetPeer *getPeer();	// returns peer variable
-    virtual void setPeer(ENetPeer *Peer);	// sets peer variable
+    ENetPeer *getPeer();	// returns peer variable
+    void setPeer(ENetPeer *Peer);	// sets peer variable
 
-    virtual ENetHost *getServer();	// returns server variable
-    virtual void setServer(ENetHost *Server);	// sets server variable
+    ENetHost *getServer();	// returns server variable
+    void setServer(ENetHost *Server);	// sets server variable
 
-    virtual int initialize();	// initialize networkEngine code
-    virtual void clientConnect();	// setup client connection.
-    virtual void networkClient();	// Client code
+    int initialize();	// initialize networkEngine code
+    void clientConnect();	// setup client connection.
+    void networkClient();	// Client code
 
-    virtual void serverSetup();	// setup server.
-    virtual void networkServer();	// Server code
+    void serverSetup();	// setup server.
+    void networkServer();	// Server code
 
-    virtual void sendPacket(Ogre::String packetData);	// sends a packet to the peer
+    void sendPacket(Ogre::String packetData);	// sends a packet to the peer
 
     static networkEngine *Instance();
 

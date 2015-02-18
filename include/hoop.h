@@ -33,33 +33,33 @@ class hoop
     public:
 
     hoop();   // constructor
-    virtual ~hoop();  // destructor
+    ~hoop();  // destructor
 
     // gets and sets modelName
     std::string getModelName();
-    virtual void setModelName(std::string name);
+    void setModelName(std::string name);
 
     // gets and sets entityName
     std::string getEntityName();
-    virtual void setEntityName(std::string name);
+    void setEntityName(std::string name);
 
     // gets and sets entityName
     std::string getNodeName();
-    virtual void setNodeName(std::string name);
+    void setNodeName(std::string name);
 
     // gets and sets model
     Ogre::Entity *getModel();
-    virtual void setModel(Ogre::Entity *Model);
+    void setModel(Ogre::Entity *Model);
 
     // gets and sets node
     Ogre::SceneNode *getNode();
-    virtual void setNode(Ogre::SceneNode *Node);
+    void setNode(Ogre::SceneNode *Node);
 
-    virtual btRigidBody *getPhysBody();	// retrieves physBody variable
-    virtual void setPhysBody(btRigidBody *body);	// sets physBody variable
+    btRigidBody *getPhysBody();	// retrieves physBody variable
+    void setPhysBody(btRigidBody *body);	// sets physBody variable
 
     // loads the 3D Model and attaches it to the node as well as sets coordinates
-    virtual bool loadModel();
+    bool loadModel();
 
     private:
 

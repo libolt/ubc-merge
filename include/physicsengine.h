@@ -31,41 +31,41 @@
 class physicsEngine
 {
 public:
-    virtual ~physicsEngine();	// destructor
+    ~physicsEngine();	// destructor
     static physicsEngine *Instance();
 
-    virtual bool getPlayerPhysicsSetup();	// retrieves the value of the playerPhysicsSetup variable
-    virtual void setPlayerPhysicsSetup(bool setup);	// sets the value of the playerPhysicsSetup variable
+    bool getPlayerPhysicsSetup();	// retrieves the value of the playerPhysicsSetup variable
+    void setPlayerPhysicsSetup(bool setup);	// sets the value of the playerPhysicsSetup variable
 
-    virtual bool getBasketballlPhysicsSetup();	// retrieves the value of the playerPhysicsSetup variable
-    virtual void setBasketballPhysicsSetup(bool setup);	// sets the value of the playerPhysicsSetup variable
+    bool getBasketballlPhysicsSetup();	// retrieves the value of the playerPhysicsSetup variable
+    void setBasketballPhysicsSetup(bool setup);	// sets the value of the playerPhysicsSetup variable
 
-    virtual bool getCourtPhysicsSetup();	// retrieves the value of the courtPhysicsSetup variable
-    virtual void setCourtPhysicsSetup(bool setup);	// sets the value of the courtPhysicsSetup variable
+    bool getCourtPhysicsSetup();	// retrieves the value of the courtPhysicsSetup variable
+    void setCourtPhysicsSetup(bool setup);	// sets the value of the courtPhysicsSetup variable
 
-    virtual bool getHoopPhysicsSetup();	// retrieves the value of the hoopPhysicsSetup variable
-    virtual void setHoopPhysicsSetup(bool setup);	// sets the value of the hoopPhysicsSetup variable
+    bool getHoopPhysicsSetup();	// retrieves the value of the hoopPhysicsSetup variable
+    void setHoopPhysicsSetup(bool setup);	// sets the value of the hoopPhysicsSetup variable
 
-    virtual bool getPairCollided();	// retrieves value of thepairCollided variable
-    virtual void setPairCollided(bool collided);	// sets value of thepairCollided variable
+    bool getPairCollided();	// retrieves value of thepairCollided variable
+    void setPairCollided(bool collided);	// sets value of thepairCollided variable
 
-    virtual bool getPassCollision();	// retrieves the value of the passCollision variable
-    virtual void setPassCollision(bool collision);	// sets the value of the passCollision variable
+    bool getPassCollision();	// retrieves the value of the passCollision variable
+    void setPassCollision(bool collision);	// sets the value of the passCollision variable
 
-    virtual void setupState();  // sets up state of physics engine.
+    void setupState();  // sets up state of physics engine.
 
     // sets up object physics
-    virtual bool setupBasketballPhysics(); // sets up basketball physics
-    virtual bool setupCourtPhysics();   // sets up court physics
-    virtual bool setupHoopPhysics();   // sets up hoop physics
-    virtual bool setupPlayerPhysics(); // setsup up player physics
+    bool setupBasketballPhysics(); // sets up basketball physics
+    bool setupCourtPhysics();   // sets up court physics
+    bool setupHoopPhysics();   // sets up hoop physics
+    bool setupPlayerPhysics(); // setsup up player physics
 
-    virtual void updateState(); // updates the state of the physics engine.
-	virtual void stepWorld();	// steps the physics simulation
+    void updateState(); // updates the state of the physics engine.
+    void stepWorld();	// steps the physics simulation
 
-    virtual void tipOffCollisionCheck();	// checks whether team 1 or team 2's center made contact with ball
-    virtual void ballDribbling();	// simulates basketball dribble
-    virtual void passCollisionCheck();	// checks whether the ball has collided with the player being passed to
+    void tipOffCollisionCheck();	// checks whether team 1 or team 2's center made contact with ball
+    void ballDribbling();	// simulates basketball dribble
+    void passCollisionCheck();	// checks whether the ball has collided with the player being passed to
 protected:
     physicsEngine();
     physicsEngine(const physicsEngine&);
@@ -135,8 +135,8 @@ private:
         MyContactResultCallback() : collision(false)
     	{
     	}
-    //	virtual btScalar addSingleResult(btManifoldPoint& cp,   const btCollisionObject* colObj0,int partId0,int index0,const btCollisionObject* colObj1,int partId1,int index1)
-    	virtual btScalar addSingleResult(btManifoldPoint& cp,    const btCollisionObjectWrapper* colObj0Wrap,int partId0,int index0,const btCollisionObjectWrapper* colObj1Wrap,int partId1,int index1)
+    //	btScalar addSingleResult(btManifoldPoint& cp,   const btCollisionObject* colObj0,int partId0,int index0,const btCollisionObject* colObj1,int partId1,int index1)
+        btScalar addSingleResult(btManifoldPoint& cp,    const btCollisionObjectWrapper* colObj0Wrap,int partId0,int index0,const btCollisionObjectWrapper* colObj1Wrap,int partId1,int index1)
     	{
 			
 			Ogre::LogManager::getSingletonPtr()->logMessage("Checking Collision!!");
@@ -165,8 +165,8 @@ struct   MyContactResultCallback : public btCollisionWorld::ContactResultCallbac
 	MyContactResultCallback() :m_connected(false)
 	{
 	}
-//	virtual   btScalar   addSingleResult(btManifoldPoint& cp, const btCollisionObject* colObj0, int partId0, int index0, const btCollisionObject* colObj1, int partId1, int index1)
-	virtual btScalar addSingleResult(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1)
+//	  btScalar   addSingleResult(btManifoldPoint& cp, const btCollisionObject* colObj0, int partId0, int index0, const btCollisionObject* colObj1, int partId1, int index1)
+    btScalar addSingleResult(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1)
 	{
 		if (cp.getDistance() <= 0)
 		{

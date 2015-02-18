@@ -782,101 +782,113 @@ void teamState::updatePlayerDirections()
 //    logMsg("playerID == " +playerID);
     // checks if a player's direction has changed and rotates the model accordingly.
 //    for(playersIT = playerNodes.begin(); playersIT != playerNodes.end(); ++playersIT)
-    for (size_t i = 0; i < playerInstance.size(); ++i)
+
+    size_t x = 0;
+    size_t y = 0;
+//    for (size_t i = 0; i < playerInstance.size(); ++i)
+    while (x<playerInstance.size())
     {
-    	playerDirection = playerInstance[i].getDirection();
-    	oldPlayerDirection = playerInstance[i].getOldDirection();
-        if (oldPlayerDirection != playerDirection)
+        while (y>activePlayerID.size())
         {
-        	/*
-        	Ogre::String oldPlayerDirect = Ogre::SingConverter::toString(oldPlayerDirection[i]);
-        	Ogre::String playerDirect = toString(playerDirection[i]);
-        	Ogre::String bballPlayer = toString(basketballInstance[0].getPlayer());
-            logMsg("oldPlayerDirection = " + oldPlayerDirect);
-            logMsg("playerDirection = " + playerDirect);
-            logMsg("bball player = " + bballPlayer);
-            playerInstance[basketballInstance[0].getPlayer()] = playerInstance[i];
-//            playerNodes.at(basketballInstance[0].getPlayer()) = playerNodes.at(i);  // sets the current player node
-            */
-            switch (oldPlayerDirection)
+            if (playerInstance[x].getPlayerID() == activePlayerID[y])
             {
-                case UP:
-                 	switch (playerDirection)
-                    {
-                        case DOWN:
-                            playerInstance[i].getNode()->yaw(Ogre::Degree (180));
-                            break;
-                        case LEFT:
-                            playerInstance[i].getNode()->yaw(Ogre::Degree (270));
-                            break;
-                        case RIGHT:
-                            playerInstance[i].getNode()->yaw(Ogre::Degree (90));
-                            break;
-                        default:
-                            break;
-                    }
-                	break;
-                case DOWN:
-                	switch (playerDirection)
+                playerDirection = playerInstance[x].getDirection();
+                oldPlayerDirection = playerInstance[x].getOldDirection();
+                if (oldPlayerDirection != playerDirection)
+                {
+                    /*
+                    Ogre::String oldPlayerDirect = Ogre::SingConverter::toString(oldPlayerDirection[i]);
+                    Ogre::String playerDirect = toString(playerDirection[i]);
+                    Ogre::String bballPlayer = toString(basketballInstance[0].getPlayer());
+                    logMsg("oldPlayerDirection = " + oldPlayerDirect);
+                    logMsg("playerDirection = " + playerDirect);
+                    logMsg("bball player = " + bballPlayer);
+                    playerInstance[basketballInstance[0].getPlayer()] = playerInstance[i];
+        //            playerNodes.at(basketballInstance[0].getPlayer()) = playerNodes.at(i);  // sets the current player node
+                    */
+                    switch (oldPlayerDirection)
                     {
                         case UP:
-                            playerInstance[i].getNode()->yaw(Ogre::Degree (180));
+                            switch (playerDirection)
+                            {
+                                case DOWN:
+                                    playerInstance[x].getNode()->yaw(Ogre::Degree (180));
+                                    break;
+                                case LEFT:
+                                    playerInstance[x].getNode()->yaw(Ogre::Degree (270));
+                                    break;
+                                case RIGHT:
+                                    playerInstance[x].getNode()->yaw(Ogre::Degree (90));
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
-                        case LEFT:
-                            playerInstance[i].getNode()->yaw(Ogre::Degree (90));
+                        case DOWN:
+                            switch (playerDirection)
+                            {
+                                case UP:
+                                    playerInstance[x].getNode()->yaw(Ogre::Degree (180));
+                                    break;
+                                case LEFT:
+                                    playerInstance[x].getNode()->yaw(Ogre::Degree (90));
+                                    break;
+                                case RIGHT:
+                                    playerInstance[x].getNode()->yaw(Ogre::Degree (270));
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
-                        case RIGHT:
-                            playerInstance[i].getNode()->yaw(Ogre::Degree (270));
-                            break;
+                            case LEFT:
+                                switch (playerDirection)
+                                {
+                                    case UP:
+                                        playerInstance[x].getNode()->yaw(Ogre::Degree (90));
+                                        break;
+                                    case DOWN:
+                                        playerInstance[x].getNode()->yaw(Ogre::Degree (270));
+                                        break;
+                                    case RIGHT:
+                                        playerInstance[x].getNode()->yaw(Ogre::Degree (180));
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case RIGHT:
+                                switch (playerDirection)
+                                {
+                                    case UP:
+                                        playerInstance[x].getNode()->yaw(Ogre::Degree (270));
+                                        break;
+                                    case DOWN:
+                                        playerInstance[x].getNode()->yaw(Ogre::Degree (90));
+                                        break;
+                                    case LEFT:
+                                        playerInstance[x].getNode()->yaw(Ogre::Degree (180));
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
                         default:
                             break;
                     }
-                	break;
-                	case LEFT:
-                    	switch (playerDirection)
-                        {
-                            case UP:
-                                playerInstance[i].getNode()->yaw(Ogre::Degree (90));
-                                break;
-                            case DOWN:
-                                playerInstance[i].getNode()->yaw(Ogre::Degree (270));
-                                break;
-                            case RIGHT:
-                                playerInstance[i].getNode()->yaw(Ogre::Degree (180));
-                                break;
-                            default:
-                                break;
-                        }
-                    	break;
-					case RIGHT:
-						switch (playerDirection)
-						{
-							case UP:
-								playerInstance[i].getNode()->yaw(Ogre::Degree (270));
-								break;
-							case DOWN:
-								playerInstance[i].getNode()->yaw(Ogre::Degree (90));
-								break;
-							case LEFT:
-								playerInstance[i].getNode()->yaw(Ogre::Degree (180));
-								break;
-							default:
-								break;
-						}
-						break;
-                default:
-                	break;
-            }
-        }
+                }
 
-        if (i != playerWithBall)
-        {
-        	oldPlayerDirection = playerDirection;
-        	playerInstance[i].setOldDirection(oldPlayerDirection);  // copies contents of oldPlayerDirection to the oldDirection variable
+                if (playerInstance[x].getPlayerID() != playerWithBall)
+                {
+                    oldPlayerDirection = playerDirection;
+                    playerInstance[x].setOldDirection(oldPlayerDirection);  // copies contents of oldPlayerDirection to the oldDirection variable
+                }
+                else
+                {
+                }
+            }
+            ++y;
         }
-        else
-        {
-        }
+        ++x;
     }
 }
 
@@ -885,68 +897,80 @@ void teamState::updatePlayerMovements()	// updates player movements
 {
 	Ogre::Vector3 posChange;	// stores change in position
 	posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
-	for (size_t i = 0; i < playerInstance.size(); ++i)
+
+    size_t x = 0;
+    size_t y = 0;
+//	for (size_t i = 0; i < playerInstance.size(); ++i)
+    while(x<playerInstance.size())
 	{
 //		logMsg("Player " +Ogre::StringConverter::toString(i) +" position = " +Ogre::StringConverter::toString(playerInstance[i].getNodePosition()));
 
 //        Ogre::LogManager::getSingletonPtr()->logMessage("i == " +Ogre::StringConverter::toString(i));
 
-		if (playerInstance[i].getMovement())	// if true sets coordinate change accordingly
-		{
-//			exit(0);
-			if (playerInstance[i].getDirection() == UP)
-			{
-				posChange = Ogre::Vector3(0.0f, 0.0f, -0.400f);
-				logMsg("UP!");
-//				exit(0);
-			}
-			else if (playerInstance[i].getDirection() == DOWN)
-			{
-				posChange = Ogre::Vector3(0.0f, 0.0f, 0.400f);
-			}
-			else if (playerInstance[i].getDirection() == LEFT)
-			{
-//			    exit(0);
+        while (y<activePlayerID.size())
+        {
+            if (playerInstance[x].getPlayerID() == activePlayerID[y])
+            {
+                if (playerInstance[x].getMovement())	// if true sets coordinate change accordingly
+                {
+//                    exit(0);
+                    if (playerInstance[x].getDirection() == UP)
+                    {
+                        posChange = Ogre::Vector3(0.0f, 0.0f, -0.400f);
+                        logMsg("UP!");
+        //				exit(0);
+                    }
+                    else if (playerInstance[x].getDirection() == DOWN)
+                    {
+                        posChange = Ogre::Vector3(0.0f, 0.0f, 0.400f);
+                    }
+                    else if (playerInstance[x].getDirection() == LEFT)
+                    {
+        //			    exit(0);
 
-				posChange = Ogre::Vector3(-0.400f, 0.0f, 0.0f);
-//			    playerInstance[i].getPhysBody()->setLinearVelocity(btVector3(0.4,0,0));
-			}
-			else if (playerInstance[i].getDirection() == RIGHT)
-			{
-				posChange = Ogre::Vector3(0.400f, 0.0f, 0.0f);
-			}
-			else if (playerInstance[i].getDirection() == UPLEFT)
-			{
-				posChange = Ogre::Vector3(-0.400f, 0.0f, -0.400f);
-			}
-			else if (playerInstance[i].getDirection() == UPRIGHT)
-			{
-				posChange = Ogre::Vector3(0.400f, 0.0f, -0.400f);
-			}
-			else if (playerInstance[i].getDirection() == DOWNLEFT)
-			{
-				posChange = Ogre::Vector3(-0.400f, 0.0f, 0.400f);
-			}
-			else if (playerInstance[i].getDirection() == DOWNRIGHT)
-			{
-				posChange = Ogre::Vector3(0.400f, 0.0f, 0.400f);
-			}
+                        posChange = Ogre::Vector3(-0.400f, 0.0f, 0.0f);
+        //			    playerInstance[i].getPhysBody()->setLinearVelocity(btVector3(0.4,0,0));
+                    }
+                    else if (playerInstance[x].getDirection() == RIGHT)
+                    {
+                        posChange = Ogre::Vector3(0.400f, 0.0f, 0.0f);
+                    }
+                    else if (playerInstance[x].getDirection() == UPLEFT)
+                    {
+                        posChange = Ogre::Vector3(-0.400f, 0.0f, -0.400f);
+                    }
+                    else if (playerInstance[x].getDirection() == UPRIGHT)
+                    {
+                        posChange = Ogre::Vector3(0.400f, 0.0f, -0.400f);
+                    }
+                    else if (playerInstance[x].getDirection() == DOWNLEFT)
+                    {
+                        posChange = Ogre::Vector3(-0.400f, 0.0f, 0.400f);
+                    }
+                    else if (playerInstance[x].getDirection() == DOWNRIGHT)
+                    {
+                        posChange = Ogre::Vector3(0.400f, 0.0f, 0.400f);
+                    }
 
-		}
-		else if (!playerInstance[i].getMovement())	// if false then sets their coordinate changes to 0.0
-		{
-			posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
-		}
+                }
+                else if (!playerInstance[x].getMovement())	// if false then sets their coordinate changes to 0.0
+                {
+                    posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
+                }
 
-		playerInstance[i].setPosChange(posChange);	// sets the posChange for current playerInstance
-/*		if (i != playerWithBall)	// only updates movement flag if player doesn't have ball
-		{
-		playerInstance[i].setMovement(false);
-		}
-		else
-		{
-		}	*/
-		playerInstance[i].setMovement(false);
+                playerInstance[x].setPosChange(posChange);	// sets the posChange for current playerInstance
+        /*		if (i != playerWithBall)	// only updates movement flag if player doesn't have ball
+                {
+                playerInstance[i].setMovement(false);
+                }
+                else
+                {
+                }	*/
+                playerInstance[x].setMovement(false);
+            }
+            ++y;
+        }
+        ++x;
 	}
 
 //	exit(0);

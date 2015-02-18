@@ -146,7 +146,7 @@ public:
 
 	// the default version: keep FORWARD parallel to velocity, change
 	// UP as little as possible.
-	virtual void regenerateLocalSpace (const OpenSteer::Vec3& newVelocity,
+    void regenerateLocalSpace (const OpenSteer::Vec3& newVelocity,
 									   const float elapsedTime);
 
 	// alternate version: keep FORWARD parallel to velocity, adjust UP
@@ -159,7 +159,7 @@ public:
 	// allows a specific vehicle class to redefine this adjustment.
 	// default is to disallow backward-facing steering at low speed.
 	// xxx experimental 8-20-02
-	virtual OpenSteer::Vec3 adjustRawSteeringForce (const OpenSteer::Vec3& force,
+    OpenSteer::Vec3 adjustRawSteeringForce (const OpenSteer::Vec3& force,
 										 const float deltaTime);
 
 	// apply a given braking force (for a given dt) to our momentum.
