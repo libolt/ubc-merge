@@ -862,7 +862,7 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
 
     if (gameS->getBballBounce() == 1)		// checks if the ball is set bounce downward
     {
-    	bInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,-15,0));
+        bInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,-15,0));
     }
     else
     {
@@ -969,20 +969,28 @@ void physicsEngine::passCollisionCheck()	// checks whether the ball has collided
 bool physicsEngine::playerJump(int teamNumber, int playerID)  // calculates and executes player jumping in the air
 {
     gameState *gameS = gameState::Instance();
-    teamState teamInstance = gameS->getTeamInstance()[teamNumber];
-    std::vector<playerState> playerInstance = teamInstance.getPlayerInstance();
-    std::vector<int> activePlayerID = teamInstance.getActivePlayerID();
+    std::vector<teamState> teamInstance = gameS->getTeamInstance();
+    std::vector<playerState> playerInstance = teamInstance[teamNumber].getPlayerInstance();
+    std::vector<int> activePlayerID = teamInstance[teamNumber].getActivePlayerID();
     
-    int x = 0;
-    int y = 0;
+    size_t x = 0;
+    size_t y = 0;
     while (x<playerInstance.size())
     {
-        if (playerInstance[x].getPlayerID() == playerID)
+        while (y<activePlayerID.size())
         {
-            playerInstance[x].getPhysBody()->setLinearVelocity(btVector3(0,-15,0));
-            exit(0);
+        if (playerInstance[x].getPlayerID() == activePlayerID[y])
+        {
+            playerInstance[x].getPhysBody()->setLinearVelocity(btVector3(15,15,0));
+            logMsg("JUMP!");
+          //  exit(0);
+        }
+            ++y;
         }
         ++x;
     }
+    teamInstance[teamNumber].setPlayerInstance(playerInstance);
+    gameS->setTeamInstance(teamInstance);
+    gameS->getTeamInstance()[teamNumber].getPlayerInstance()[playerID].getPhysBody()->setLinearVelocity(btVector3(15,-15,0));
     return (true);
 }

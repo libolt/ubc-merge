@@ -645,6 +645,9 @@ void playerState::updateState()
 	Ogre::Vector3 playerPos;
  //   exit(0);
 //    if (shotTaken && !shotComplete)	// checks if a player takes a shot
+
+    physEngine->playerJump(teamNumber, playerID);
+
     if (shootBlock)
     {
         if (teamNumber == gameS->getTeamWithBall())
@@ -654,7 +657,6 @@ void playerState::updateState()
         }
         else
         {
-            physEngine->playerJump(teamNumber, playerID);
         }
         
     }
