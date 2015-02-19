@@ -659,7 +659,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 		float y = 0.0f;
 		// assign positions
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-        y = -1.5f;
+        y = -0.0f;
 #else
         y = -23.5f;
 #endif

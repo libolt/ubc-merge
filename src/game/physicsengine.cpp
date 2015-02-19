@@ -302,7 +302,7 @@ bool physicsEngine::setupPlayerPhysics()
                     if (x == 0)
                     {
                         logMsg("Setting Team 0 Player  Activation State");
-                        playerInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
+                        //playerInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
                         logMsg("team = " + Ogre::StringConverter::toString(x));
 
                         logMsg("Adding Rigid Body to world");
@@ -312,7 +312,7 @@ bool physicsEngine::setupPlayerPhysics()
                     else if (x == 1)
                     {
                         logMsg("Setting Team 1 Player  Activation State");
-                        playerInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
+                     //   playerInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
                         logMsg("team = " + Ogre::StringConverter::toString(x));
 
                         logMsg("Adding Rigid Body to world");
@@ -377,9 +377,10 @@ bool physicsEngine::setupCourtPhysics()
     courtBody = new btRigidBody(info);
 
     cInstance[0].setPhysBody(courtBody);
-//    world->addRigidBody(cInstance[0].getPhysBody(), COL_COURT, courtCollidesWith);
-    world->addRigidBody(courtBody);
-
+    world->addRigidBody(cInstance[0].getPhysBody(), COL_COURT, courtCollidesWith);
+//    world->addRigidBody(courtBody);
+//    cInstance[0].getPhysBody()->setActivationState(ACTIVE_TAG);
+               
     gameS->setCourtInstance(cInstance);
 
     return true;
@@ -851,7 +852,7 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
 	Ogre::Vector3 bballPos = bInstance[0].getNode()->getPosition();
     Ogre::Vector3 courtPos = cInstance[0].getNode()->getPosition();
 
-    if (gameS->getBballBounce() == 0 && bballPos[1] < courtPos[1] + 3)	// checks if the ball is set to bounce up and hasn't reached the max height
+    if (gameS->getBballBounce() == 0 && bballPos[1] < courtPos[1]/* + 3*/)	// checks if the ball is set to bounce up and hasn't reached the max height
     {
     	bInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,15,0));
     }
@@ -977,16 +978,19 @@ bool physicsEngine::playerJump(int teamNumber, int playerID)  // calculates and 
     size_t y = 0;
     while (x<playerInstance.size())
     {
-        while (y<activePlayerID.size())
+//        while (y<activePlayerID.size())
+//        {
+//        if (playerInstance[x].getPlayerID() == activePlayerID[y])
+        if (playerInstance[x].getPlayerID() == playerID)
         {
-        if (playerInstance[x].getPlayerID() == activePlayerID[y])
-        {
-            playerInstance[x].getPhysBody()->setLinearVelocity(btVector3(15,15,0));
-            logMsg("JUMP!");
+           // playerInstance[x].getPhysBody()->setLinearVelocity(btVector3(-35,0,0));
+            playerInstance[x].getPhysBody()->translate(btVector3(1,1,0)/*, btVector3(-35,0,0)*/);
+
+           logMsg("JUMP!");
           //  exit(0);
         }
-            ++y;
-        }
+//            ++y;
+//        }
         ++x;
     }
     teamInstance[teamNumber].setPlayerInstance(playerInstance);
