@@ -1001,7 +1001,8 @@ bool physicsEngine::playerJump(int teamNumber, int playerID)  // calculates and 
                     playerJumpBeginPos = BtOgre::Convert::toBullet(playerInstance[x].getJumpBeginPos());
                     playerJumpEndPos = BtOgre::Convert::toBullet(playerInstance[x].getJumpEndPos());
                 // playerInstance[x].getPhysBody()->setLinearVelocity(btVector3(-35,0,0));
-                   playerInstance[x].getPhysBody()->translate(btVector3(0,1,0)/*, btVector3(-35,0,0)*/);
+                    playerInstance[x].getPhysBody()->forceActivationState(ACTIVE_TAG);
+                    playerInstance[x].getPhysBody()->translate(btVector3(0,0.5,0)/*, btVector3(-35,0,0)*/);
                 }
                 btTransform transform = playerInstance[x].getPhysBody()->getWorldTransform();
                 btVector3 playerCurrentPos = transform.getOrigin();
@@ -1018,7 +1019,7 @@ bool physicsEngine::playerJump(int teamNumber, int playerID)  // calculates and 
                 btVector3 playerPos = playerTransform.getOrigin();
                 logMsg("playerPos.getY = " +Ogre::StringConverter::toString(playerPos.getY()));
                 logMsg("courtPos.getY = " +Ogre::StringConverter::toString(courtPos.getY()));
-                if (playerPos.getY() > courtPos.getY() + 6)
+                if (playerPos.getY() > courtPos.getY() + 3.0)
                 {
                     playerInstance[x].getPhysBody()->forceActivationState(ACTIVE_TAG);
                 }
@@ -1026,7 +1027,10 @@ bool physicsEngine::playerJump(int teamNumber, int playerID)  // calculates and 
                 {
 //                    exit(0);
                     playerInstance[x].getPhysBody()->setLinearVelocity(btVector3(0,0,0));
-
+                    playerInstance[x].getPhysBody()->setActivationState(ISLAND_SLEEPING);
+                    playerInstance[x].setShootBlock(false);
+                    jumpSet = false;
+                    jumpComplete = false;
                 }
 //                playerInstance[x].getPhysBody()->setGravity(btVector3(0,-9.8,0));
 //                playerInstance[x].getPhysBody()->applyGravity();
