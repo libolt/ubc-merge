@@ -1055,3 +1055,76 @@ bool physicsEngine::playerJump(int teamNumber, int playerID)  // calculates and 
     gameS->getTeamInstance()[teamNumber].getPlayerInstance()[playerID].getPhysBody()->setLinearVelocity(btVector3(15,-15,0));
     return (true);
 }
+
+bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates and executes basketball being shot
+{
+    gameState *gameS = gameState::Instance();
+    std::vector<courtState> courtInstance = gameS->getCourtInstance();
+    std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
+    std::vector<teamState> teamInstance = gameS->getTeamInstance();
+    std::vector<playerState> playerInstance = teamInstance[teamNumber].getPlayerInstance();
+
+//    Ogre::Vector3 playerPos = playerInstance[x].getNode()->getPosition();
+//    Ogre::Vector3 basketballPos = basketballInstance[0].getNode()->getPosition();
+
+             
+    size_t x = 0;
+    while (x<playerInstance.size())
+    {
+        if (playerInstance[x].getPlayerID() == playerID)
+        {
+            bool shotSet = playerInstance[x].getShotSet();
+            bool shotComplete = playerInstance[x].getShotComplete();
+            if (!shotComplete)
+            {
+                if (!shotSet)
+                {
+                    if (teamInstance[teamNumber].getPlayerWithBallDribbling())
+                    {
+                        teamInstance[teamNumber].setPlayerWithBallDribbling(false);
+                    }       
+                    btTransform basketballTransform = basketballInstance[0].getPhysBody()->getWorldTransform();
+                    btVector3 basketballPos = basketballTransform.getOrigin();
+      
+                    btTransform playerTransform = playerInstance[x].getPhysBody()->getWorldTransform();
+                    btVector3 playerPos = playerTransform.getOrigin();
+
+                    if (playerInstance[x].getDirection() == RIGHT)
+                    {
+                        basketballPos.setX(playerPos.getX() + 3);
+                        basketballPos.setY(playerPos.getY() + 3);
+                        basketballPos.setZ(playerPos.getZ());
+                        
+                    }
+                    else if (playerInstance[x].getDirection() == LEFT)
+                    {
+                        basketballPos.setX(playerPos.getX() - 3);
+                        basketballPos.setY(playerPos.getY() + 3);
+                        basketballPos.setZ(playerPos.getZ());
+                        
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+                else
+                {
+                    
+                }
+            }
+            else
+            {
+                
+            }
+            
+           
+        }
+        ++x;
+    }
+    teamInstance[teamNumber].setPlayerInstance(playerInstance);
+    gameS->setTeamInstance(teamInstance);
+    gameS->getTeamInstance()[teamNumber].getPlayerInstance()[playerID].getPhysBody()->setLinearVelocity(btVector3(15,-15,0));
+
+    return (true);
+}

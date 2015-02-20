@@ -66,7 +66,11 @@ public:
     void tipOffCollisionCheck();	// checks whether team 1 or team 2's center made contact with ball
     void ballDribbling();	// simulates basketball dribble
     void passCollisionCheck();	// checks whether the ball has collided with the player being passed to
+
+    
     bool playerJump(int teamNumber, int playerID);  // calculates and executes player jumping in the air
+    bool shootBasketball(int teamNumber, int playerID);  // calculates and executes basketball being shot
+   
 protected:
     physicsEngine();
     physicsEngine(const physicsEngine&);

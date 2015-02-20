@@ -193,10 +193,13 @@ class playerState
         int getPassToPlayer();	// retrieves the value of passToPlayer
         void setPassToPlayer(int player);	// sets the value of passToPlayer
 
-        bool getShotTaken(void);		// retrieves the value of shotTaken
+        bool getShotTaken();		// retrieves the value of shotTaken
         void setShotTaken(bool taken);	// sets the value of shotTaken
-
-        bool getShotComplete(void);	// retrieves the value of shotComplete
+        
+        bool getShotSet(); // retrieves the value of shotSet
+        void setShotSet(bool set);  // sets the value of shotSet
+        
+        bool getShotComplete();	// retrieves the value of shotComplete
         void setShotComplete(bool complete);	// sets the value of shotComplete
 
         Ogre::Vector3 getJumpBeginPos();  // retrieves the value of playerJumpBeginPos
@@ -343,6 +346,7 @@ class playerState
 
         // Shooting variables
         bool shotTaken;	// Determines whether or not a player has shot the ball
+        bool shotSet;  // Determines if shot has been setup
         bool shotComplete;	// Determine whether or not a player's shot is complete
 
         // player Jump variables

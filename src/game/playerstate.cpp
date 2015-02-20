@@ -66,6 +66,7 @@ playerState::playerState()
     passCalculated = false;
     passToPlayer = -1;
     shotTaken = false;
+    shotSet = false;
     shotComplete = false;
 	offenseSet = false;
 	defenseSet = false;
@@ -575,6 +576,15 @@ void playerState::setShotTaken(bool taken)  // sets the value of shotTaken
     shotTaken = taken;
 }
 
+bool playerState::getShotSet() // retrieves the value of shotSet
+{
+    return (shotSet);
+}
+void playerState::setShotSet(bool set)  // sets the value of shotSet
+{
+    shotSet = set;
+}
+
 bool playerState::getShotComplete(void) // retrieves the value of shotComplete
 {
     return (shotComplete);
@@ -687,8 +697,10 @@ void playerState::updateState()
     {
         if (teamNumber == gameS->getTeamWithBall())
         {
-            shotLogic(playerPos);
-            exit(0);
+//            shotLogic(playerPos);
+//            exit(0);
+            physEngine->shootBasketball(teamNumber, playerID);
+
         }
         else
         {
