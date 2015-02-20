@@ -970,10 +970,12 @@ void physicsEngine::passCollisionCheck()	// checks whether the ball has collided
 bool physicsEngine::playerJump(int teamNumber, int playerID)  // calculates and executes player jumping in the air
 {
     gameState *gameS = gameState::Instance();
+    std::vector<courtState> cInstance = gameS->getCourtInstance();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<playerState> playerInstance = teamInstance[teamNumber].getPlayerInstance();
     std::vector<int> activePlayerID = teamInstance[teamNumber].getActivePlayerID();
-    
+    btVector3 playerJumpBeginPos;
+    btVector3 playerJumpEndPos;
     size_t x = 0;
     size_t y = 0;
     while (x<playerInstance.size())
@@ -983,10 +985,61 @@ bool physicsEngine::playerJump(int teamNumber, int playerID)  // calculates and 
 //        if (playerInstance[x].getPlayerID() == activePlayerID[y])
         if (playerInstance[x].getPlayerID() == playerID)
         {
-           // playerInstance[x].getPhysBody()->setLinearVelocity(btVector3(-35,0,0));
-            playerInstance[x].getPhysBody()->translate(btVector3(1,1,0)/*, btVector3(-35,0,0)*/);
+            bool jumpSet = playerInstance[x].getJumpSet();
+            bool jumpComplete = playerInstance[x].getJumpComplete();
+            if (!jumpComplete)
+            {
+                if (!jumpSet)
+                {
+                    playerJumpBeginPos = BtOgre::Convert::toBullet(playerInstance[x].getNode()->getPosition());
+                    playerJumpEndPos = playerJumpBeginPos;
+                    playerJumpEndPos.setY(playerJumpEndPos.getY() + 5);
+                    jumpSet = true;
+                }
+                else
+                {
+                    playerJumpBeginPos = BtOgre::Convert::toBullet(playerInstance[x].getJumpBeginPos());
+                    playerJumpEndPos = BtOgre::Convert::toBullet(playerInstance[x].getJumpEndPos());
+                // playerInstance[x].getPhysBody()->setLinearVelocity(btVector3(-35,0,0));
+                   playerInstance[x].getPhysBody()->translate(btVector3(0,1,0)/*, btVector3(-35,0,0)*/);
+                }
+                btTransform transform = playerInstance[x].getPhysBody()->getWorldTransform();
+                btVector3 playerCurrentPos = transform.getOrigin();
+                if (playerCurrentPos.getY() >= playerJumpEndPos.getY())
+                {
+                    jumpComplete = true;
+                }
+            }
+            else
+            {
+                btTransform courtTransform = cInstance[0].getPhysBody()->getWorldTransform();
+                btVector3 courtPos = courtTransform.getOrigin();
+                btTransform playerTransform = playerInstance[x].getPhysBody()->getWorldTransform();
+                btVector3 playerPos = playerTransform.getOrigin();
+                logMsg("playerPos.getY = " +Ogre::StringConverter::toString(playerPos.getY()));
+                logMsg("courtPos.getY = " +Ogre::StringConverter::toString(courtPos.getY()));
+                if (playerPos.getY() > courtPos.getY() + 6)
+                {
+                    playerInstance[x].getPhysBody()->forceActivationState(ACTIVE_TAG);
+                }
+                else
+                {
+//                    exit(0);
+                    playerInstance[x].getPhysBody()->setLinearVelocity(btVector3(0,0,0));
 
-           logMsg("JUMP!");
+                }
+//                playerInstance[x].getPhysBody()->setGravity(btVector3(0,-9.8,0));
+//                playerInstance[x].getPhysBody()->applyGravity();
+//                playerInstance[x].getPhysBody()->setLinearVelocity(btVector3(0,-.5,0));
+//                playerInstance[x].setShootBlock(false);
+ //               exit(0);
+            }
+            playerInstance[x].setJumpSet(jumpSet);
+            playerInstance[x].setJumpComplete(jumpComplete);
+            playerInstance[x].setJumpBeginPos(BtOgre::Convert::toOgre(playerJumpBeginPos));
+            playerInstance[x].setJumpEndPos(BtOgre::Convert::toOgre(playerJumpEndPos));
+
+             logMsg("JUMP!");
           //  exit(0);
         }
 //            ++y;

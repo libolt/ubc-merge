@@ -31,6 +31,7 @@
 #include "BtOgrePG.h"
 #include "BtOgreGP.h"
 #include "BtOgreExtras.h"
+#include "BulletDynamics/Dynamics/btRigidBody.h"
 
 #include "enums.h"
 
@@ -198,6 +199,18 @@ class playerState
         bool getShotComplete(void);	// retrieves the value of shotComplete
         void setShotComplete(bool complete);	// sets the value of shotComplete
 
+        Ogre::Vector3 getJumpBeginPos();  // retrieves the value of playerJumpBeginPos
+        void setJumpBeginPos(Ogre::Vector3 jumpBegin);  // sets the value of playerJumpBeginPos
+
+        Ogre::Vector3 getJumpEndPos();  // retrieves the value of playerJumpEndPos
+        void setJumpEndPos(Ogre::Vector3 set);  // sets the value of playerJumpEndPos
+
+        bool getJumpSet();  // retrieves the value of jumpSet
+        void setJumpSet(bool set);  // sets the value of jumpSet
+
+        bool getJumpComplete();  // retrieves the value of jumpComplete
+        void setJumpComplete(bool set);  // sets the value of jumpComplete
+
 		bool getOffenseSet(void); // retrieves the value of offenseState
 		void setOffenseSet(bool set);  // sets the value of offenseState
 
@@ -331,6 +344,12 @@ class playerState
         // Shooting variables
         bool shotTaken;	// Determines whether or not a player has shot the ball
         bool shotComplete;	// Determine whether or not a player's shot is complete
+
+        // player Jump variables
+        Ogre::Vector3 jumpBeginPos;  // stores the coordinates of the player at the beginning of the jump
+        Ogre::Vector3 jumpEndPos;  // stores the coordinates the player should reach at the end of the jump
+        bool jumpSet; // determines whether or not the playerJumpBeginPos has been set
+        bool jumpComplete;  // determines whether or not the jump has been completed
 
         bool offenseSet;  // tracks state of player's offense
 		bool defenseSet;  // tracks state of player's defense

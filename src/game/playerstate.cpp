@@ -70,6 +70,8 @@ playerState::playerState()
 	offenseSet = false;
 	defenseSet = false;
     initialized = false;
+    jumpSet = false;
+    jumpComplete = false;
 }
 
 playerState::~playerState()
@@ -564,24 +566,58 @@ void playerState::setPassToPlayer(int player)	// sets the value of the passToPla
 	passToPlayer = player;
 }
 
-// gets and sets shotTaken
-bool playerState::getShotTaken(void)
+bool playerState::getShotTaken(void)  // retrieves the value of shotTaken
 {
     return (shotTaken);
 }
-void playerState::setShotTaken(bool taken)
+void playerState::setShotTaken(bool taken)  // sets the value of shotTaken
 {
     shotTaken = taken;
 }
 
-// gets and sets shotComplete
-bool playerState::getShotComplete(void)
+bool playerState::getShotComplete(void) // retrieves the value of shotComplete
 {
     return (shotComplete);
 }
-void playerState::setShotComplete(bool complete)
+void playerState::setShotComplete(bool complete)  // sets the value of shotComplete
 {
     shotComplete = complete;
+}
+
+Ogre::Vector3 playerState::getJumpBeginPos()  // retrieves the value of playerJumpBeginPos
+{
+    return (jumpBeginPos);
+}
+void playerState::setJumpBeginPos(Ogre::Vector3 set)  // sets the value of playerJumpBeginPos
+{
+    jumpBeginPos = set;
+}
+
+Ogre::Vector3 playerState::getJumpEndPos()  // retrieves the value of playerJumpEndPos
+{
+    return (jumpEndPos);
+}
+void playerState::setJumpEndPos(Ogre::Vector3 set)  // sets the value of playerJumpEndPos
+{
+    jumpEndPos = set;
+}
+
+bool playerState::getJumpSet()  // retrieves the value of jumpSet
+{
+    return (jumpSet);
+}
+void playerState::setJumpSet(bool set)  // sets the value of jumpSet
+{
+    jumpSet = set;
+}
+
+bool playerState::getJumpComplete()  // retrieves the value of jumpComplete
+{
+    return (jumpComplete);
+}
+void playerState::setJumpComplete(bool set)  // sets the value of jumpComplete
+{
+    jumpComplete = set;
 }
 
 bool playerState::getOffenseSet(void) // retrieves the value of offenseState
