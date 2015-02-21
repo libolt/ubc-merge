@@ -56,6 +56,8 @@ teamState::teamState()
     humanControlled = false;
     humanPlayer = 4;
 
+    hoop = -1;
+
     stateSet = false;
 //    setupState();
 }
@@ -64,228 +66,229 @@ teamState::~teamState()
 {
 }
 
-int teamState::getTeamNumber()	// retrieves the value of the teamNumber variable
+int teamState::getTeamNumber()	// retrieves the value of teamNumber
 {
 	return (teamNumber);
 }
-void teamState::setTeamNumber(int number)	// sets the value of the teamNumber variable
+void teamState::setTeamNumber(int number)	// sets the value of the teamNumber
 {
 	teamNumber = number;
 }
 
-Ogre::String teamState::getPlayerType()	// retrieves playerType variable
+Ogre::String teamState::getPlayerType()	// retrieves the value of playerType
 {
 	return (playerType);
 }
-void teamState::setPlayerType(Ogre::String type)	// sets playerType variable
+void teamState::setPlayerType(Ogre::String type)	// sets the value of playerType
 {
 	playerType = type;
 }
-int teamState::getAssists(void)   // retrieves assists
+
+int teamState::getAssists(void)   // retrieves the value of assists
 {
     return (assists);
 }
-void teamState::setAssists(int assist)    // sets assists
+void teamState::setAssists(int assist)    // sets the value of assists
 {
     assists = assist;
 }
 
-int teamState::getBlocks(void)    // retrieves blocks
+int teamState::getBlocks(void)    // retrieves the value of blocks
 {
     return (blocks);
 }
-void teamState::setBlocks(int block)   // sets blocks
+void teamState::setBlocks(int block)   // sets the value of blocks
 {
     blocks = block;
 }
 
-int teamState::getFouls(void) // retrieves fouls
+int teamState::getFouls(void) // retrieves the value of fouls
 {
     return (fouls);
 }
-void teamState::setFouls(int foul)    // sets fouls
+void teamState::setFouls(int foul)    // sets the value of fouls
 {
     fouls = foul;
 }
 
-int teamState::getRebounds(void)  // retrieves rebounds
+int teamState::getRebounds(void)  // retrieves the value of rebounds
 {
     return (rebounds);
 }
-void teamState::setRebounds(int rebound)  // sets rebounds
+void teamState::setRebounds(int rebound)  // sets the value of rebounds
 {
     rebounds = rebound;
 }
 
-int teamState::getOffensiveRebounds(void) // retrieves offensiveRebounds
+int teamState::getOffensiveRebounds(void) // retrieves the value of offensiveRebounds
 {
     return (offensiveRebounds);
 }
-void teamState::setOffensiveRebounds(int rebounds)    // sets offensiveRebounds
+void teamState::setOffensiveRebounds(int rebounds)    // sets the value of offensiveRebounds
 {
     offensiveRebounds = rebounds;
 }
-int teamState::getDefensiveRebounds(void) // retrieves defensiveRebounds
+
+int teamState::getDefensiveRebounds(void) // retrieves the value of defensiveRebounds
 {
     return (defensiveRebounds);
 }
-void teamState::setDefensiveRebounds(int rebounds)    // sets defensiveRebounds
+void teamState::setDefensiveRebounds(int rebounds)    // sets the value of defensiveRebounds
 {
     defensiveRebounds = rebounds;
 }
 
-int teamState::getSteals(void)    // retrieves steals
+int teamState::getSteals(void)    // retrieves the value of steals
 {
     return (steals);
 }
-void teamState::setSteals(int steal)    // sets steals
+void teamState::setSteals(int steal)    // sets the value of steals
 {
     steals = steal;
 }
 
-int teamState::getTechnicals(void)    // retrieves technicals
+int teamState::getTechnicals(void)    // retrieves the value of technicals
 {
     return (technicals);
 }
-void teamState::setTechnicals(int technical)  // sets technicals
+void teamState::setTechnicals(int technical)  // sets the value of technicals
 {
     technicals = technical;
 }
 
-int teamState::getTimeouts(void)  // retrieves timeouts
+int teamState::getTimeouts(void)  // retrieves the value of timeouts
 {
     return (timeouts);
 }
-void teamState::setTimeouts(int timeout)  // sets timeouts
+void teamState::setTimeouts(int timeout)  // sets the value of timeouts
 {
     timeouts = timeout;
 }
 
-int teamState::getTurnovers() // retrieves turnovers variable
+int teamState::getTurnovers() // retrieves the value of turnovers
 {
 	return (turnovers);
 }
-void teamState::setTurnovers(int turnover)    // sets turnovers variable
+void teamState::setTurnovers(int turnover)    // sets the value of turnovers
 {
 	turnovers = turnover;
 }
 
-int teamState::getFieldGoalsAttempted(void)   // retrieves fieldGoalsAttempted
+int teamState::getFieldGoalsAttempted(void)   // retrieves the value of fieldGoalsAttempted
 {
     return (fieldGoalsAttempted);
 }
-void teamState::setFieldGoalsAttempted(int fieldGoals)    // sets fieldGoalsAttempted
+void teamState::setFieldGoalsAttempted(int fieldGoals)    // sets the value of fieldGoalsAttempted
 {
     fieldGoalsAttempted = fieldGoals;
 }
 
-int teamState::getFieldGoalsMade(void)   // retrieves fieldGoalsMade
+int teamState::getFieldGoalsMade(void)   // retrieves the value of fieldGoalsMade
 {
     return (fieldGoalsMade);
 }
-void teamState::setFieldGoalsMade(int fieldGoals)    // sets fieldGoalsMade
+void teamState::setFieldGoalsMade(int fieldGoals)    // sets the value of fieldGoalsMade
 {
     fieldGoalsMade = fieldGoals;
 }
 
-int teamState::getThreePointersAttempted(void)   // retrieves threePointersAttempted
+int teamState::getThreePointersAttempted(void)   // retrieves the value of threePointersAttempted
 {
     return (threePointersAttempted);
 }
-void teamState::setThreePointersAttempted(int threePointers)  // sets threePointersAttempted
+void teamState::setThreePointersAttempted(int threePointers)  // sets the value of threePointersAttempted
 {
     threePointersAttempted = threePointers;
 }
 
-int teamState::getThreePointersMade(void)   // retrieves threePointersMade
+int teamState::getThreePointersMade(void)   // retrieves the value of threePointersMade
 {
     return (threePointersMade);
 }
-void teamState::setThreePointersMade(int threePointers)  // sets threePointersMade
+void teamState::setThreePointersMade(int threePointers)  // sets the value of threePointersMade
 {
     threePointersMade = threePointers;
 }
 
-int teamState::getFreeThrowsAttempted(void)   // retrieves freeThrowsAttempted
+int teamState::getFreeThrowsAttempted(void)   // retrieves the value of freeThrowsAttempted
 {
     return (freeThrowsAttempted);
 }
-void teamState::setFreeThrowsAttempted(int freeThrows)    // sets freeThrowsAttempted
+void teamState::setFreeThrowsAttempted(int freeThrows)    // sets the value of freeThrowsAttempted
 {
     freeThrowsAttempted = freeThrows;
 }
 
-int teamState::getFreeThrowsMade(void)   // retrieves freeThrowsMade
+int teamState::getFreeThrowsMade(void)   // retrieves the value of freeThrowsMade
 {
     return (freeThrowsMade);
 }
-void teamState::setFreeThrowsMade(int freeThrows)    // sets freeThrowsMade
+void teamState::setFreeThrowsMade(int freeThrows)    // sets the value of freeThrowsMade
 {
     freeThrowsMade = freeThrows;
 }
 
-std::vector<int> teamState::getPlayerID()  // retrieves playerID
+std::vector<int> teamState::getPlayerID()  // retrieves the value of playerID
 {
     return (playerID);
 }
-void teamState::setPlayerID(std::vector<int> ID)   // sets playerID
+void teamState::setPlayerID(std::vector<int> ID)   // sets the value of playerID
 {
     playerID = ID;
 }
 
 
-std::vector<int> teamState::getActivePlayerID()  // retrieves activePlayerID variable
+std::vector<int> teamState::getActivePlayerID()  // retrieves the value of activePlayerID
 {
     return (activePlayerID);
 }
-void teamState::setActivePlayerID(std::vector<int> ID)   // sets activePlayerID variable
+void teamState::setActivePlayerID(std::vector<int> ID)   // sets the value of activePlayerID
 {
     activePlayerID = ID;
 }
 
-std::vector<int> teamState::getStarterID() // retrieves starterID
+std::vector<int> teamState::getStarterID() // retrieves the value of starterID
 {
     return (starterID);
 }
-void teamState::setStarterID(std::vector<int> ID)  // sets starterID
+void teamState::setStarterID(std::vector<int> ID)  // sets the value of starterID
 {
     logMsg("blap");
     starterID = ID;
 }
 
-bool teamState::getOffense()	// returns offense variable
+bool teamState::getOffense()	// returns the value of offense
 {
 	return (offense);
 }
-void teamState::setOffense(bool set)	// sets offense variable
+void teamState::setOffense(bool set)	// sets the value of offense
 {
 	offense = set;
 }
-bool teamState::getDefense()	// returns defense variable
+bool teamState::getDefense()	// returns the value of defense
 {
 	return (defense);
 }
-void teamState::setDefense(bool set)	// sets defense variable
+void teamState::setDefense(bool set)	// sets the value of defense
 {
 	defense = set;
 }
 
-// gets and sets playerInstance std::vector
-std::vector <playerState> teamState::getPlayerInstance()
+std::vector <playerState> teamState::getPlayerInstance()  // retrieves the value of  playerInstance
 {
     return (playerInstance);
 }
 
-void teamState::setPlayerInstance(std::vector<playerState> pInstance)
+void teamState::setPlayerInstance(std::vector<playerState> pInstance)  // sets the value of playerInstance
 {
     playerInstance = pInstance;
 }
 
-bool teamState::getPlayerInstancesCreated()	// retrieves the value of the playerInstancesCreated variable
+bool teamState::getPlayerInstancesCreated()	// retrieves the value of playerInstancesCreated
 {
 	return (playerInstancesCreated);
 }
-void teamState::setPlayerInstancesCreated(bool created)	// sets the value of the playerInstancesCreated variable
+void teamState::setPlayerInstancesCreated(bool created)	// sets the value of playerInstancesCreated
 {
 	playerInstancesCreated = created;
 }
@@ -308,22 +311,32 @@ void teamState::setPlayerWithBallDribbling(bool dribbling)	// sets the value of 
 	playerWithBallDribbling = dribbling;
 }
 
-bool teamState::getHumanControlled()		// retrieves the value of the humanControlled variable
+bool teamState::getHumanControlled()		// retrieves the value of humanControlled
 {
 	return (humanControlled);
 }
-void teamState::setHumanControlled(bool controlled)		// sets the value of the humanControlled variable
+void teamState::setHumanControlled(bool controlled)		// sets the value of humanControlled
 {
 	humanControlled = controlled;
 }
 
-int teamState::getHumanPlayer()		// retrieves the value of the humanPlayer variable
+int teamState::getHumanPlayer()		// retrieves the value of the humanPlayer
 {
 	return (humanPlayer);
 }
-void teamState::setHumanPlayer(int player)		// sets the value of the human player variable
+void teamState::setHumanPlayer(int player)		// sets the value of human player
 {
 	humanPlayer = player;
+}
+
+int teamState::getHoop()  // retrieves the value of hoop
+{
+    return (hoop);
+}
+
+void teamState::setHoop(int set)  // sets the value of hoop
+{
+    hoop = set;
 }
 
 offenseState *teamState::getOffenseInstance()	// retrievers the value of offenseInstance

@@ -45,17 +45,18 @@
     {
         COL_NOTHING = 0, //<Collide with nothing
         COL_COURT = BIT(0), // Collide with court
-        COL_BBALL = BIT(1), // Collide with basketball
-        COL_PLAYER0 = BIT(2), // Collides with player 0
-        COL_PLAYER1 = BIT(3), // Collides with player 1
-        COL_PLAYER2 = BIT(4), // Collides with player 2
-        COL_PLAYER3 = BIT(5), // Collides with player 3
-        COL_PLAYER4 = BIT(6), // Collides with player 4
-        COL_PLAYER5 = BIT(7), // Collides with player 5
-        COL_PLAYER6 = BIT(8), // Collides with player 6
-        COL_PLAYER7 = BIT(9), // Collides with player 7
-        COL_PLAYER8 = BIT(10), // Collides with player 8
-        COL_PLAYER9 = BIT(11), // Collides with player 9
+        COL_HOOP = BIT(1), // Collide with hoop
+        COL_BBALL = BIT(2), // Collide with basketball
+        COL_PLAYER0 = BIT(3), // Collides with player 0
+        COL_PLAYER1 = BIT(4), // Collides with player 1
+        COL_PLAYER2 = BIT(5), // Collides with player 2
+        COL_PLAYER3 = BIT(6), // Collides with player 3
+        COL_PLAYER4 = BIT(7), // Collides with player 4
+        COL_PLAYER5 = BIT(8), // Collides with player 5
+        COL_PLAYER6 = BIT(9), // Collides with player 6
+        COL_PLAYER7 = BIT(10), // Collides with player 7
+        COL_PLAYER8 = BIT(11), // Collides with player 8
+        COL_PLAYER9 = BIT(12), // Collides with player 9
         COL_TEAM1 = COL_PLAYER0 | COL_PLAYER1 | COL_PLAYER2 | COL_PLAYER3 | COL_PLAYER4, //<Collide with team1
         COL_TEAM2 = COL_PLAYER5 | COL_PLAYER6 | COL_PLAYER7 | COL_PLAYER8 | COL_PLAYER9  //<Collide with team2
 

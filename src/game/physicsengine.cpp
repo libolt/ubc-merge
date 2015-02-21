@@ -326,7 +326,7 @@ bool physicsEngine::setupPlayerPhysics()
 		        }
                 j++;
             }
-                i++;
+            i++;
 		}
 //        exit(0);
 		teamInstance[x].setPlayerInstance(playerInstance);
@@ -349,7 +349,7 @@ bool physicsEngine::setupCourtPhysics()
 //    courtState *courtS = courtState::Instance();
     gameState *gameS = gameState::Instance();
 
-    std::vector<courtState> cInstance = gameS->getCourtInstance();
+    std::vector<courtState> courtInstance = gameS->getCourtInstance();
     btRigidBody *courtBody;
     btScalar mass = 0;
     btVector3 inertia, inertia2;
@@ -357,7 +357,7 @@ bool physicsEngine::setupCourtPhysics()
 
 
     //Create the ground shape.
-    BtOgre::StaticMeshToShapeConverter converter(cInstance.at(0).getModel());
+    BtOgre::StaticMeshToShapeConverter converter(courtInstance.at(0).getModel());
 //    courtShape = converter.createTrimesh();
     courtShape = converter.createBox();
 //    courtShape = new btStaticPlaneShape(btVector3(0,1,0),1);
@@ -365,8 +365,8 @@ bool physicsEngine::setupCourtPhysics()
 //s    courtShape->
     //Create MotionState (no need for BtOgre here, you can use it if you want to though).
 //    courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-25,0)));
-    courtBodyState = new BtOgre::RigidBodyState(cInstance[0].getNode());
-//    courtBodyState = new BtOgre::RigidBodyState(cInstance.at(0).getNode());
+    courtBodyState = new BtOgre::RigidBodyState(courtInstance[0].getNode());
+//    courtBodyState = new BtOgre::RigidBodyState(courtInstance.at(0).getNode());
     btRigidBody::btRigidBodyConstructionInfo info(mass,courtBodyState,courtShape,inertia); //motion state would actually be non-null in most real usages
     info.m_restitution = 1.0f;
     info.m_friction = 15.5f;
@@ -376,12 +376,12 @@ bool physicsEngine::setupCourtPhysics()
 //    courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
     courtBody = new btRigidBody(info);
 
-    cInstance[0].setPhysBody(courtBody);
-    world->addRigidBody(cInstance[0].getPhysBody(), COL_COURT, courtCollidesWith);
+    courtInstance[0].setPhysBody(courtBody);
+    world->addRigidBody(courtInstance[0].getPhysBody(), COL_COURT, courtCollidesWith);
 //    world->addRigidBody(courtBody);
-//    cInstance[0].getPhysBody()->setActivationState(ACTIVE_TAG);
+//    courtInstance[0].getPhysBody()->setActivationState(ACTIVE_TAG);
                
-    gameS->setCourtInstance(cInstance);
+    gameS->setCourtInstance(courtInstance);
 
     return true;
 }
@@ -391,38 +391,44 @@ bool physicsEngine::setupHoopPhysics()
 //    courtState *courtS = courtState::Instance();
     gameState *gameS = gameState::Instance();
 
-    std::vector<hoop> hInstance = gameS->getHoopInstance();
+    std::vector<hoopState> hoopInstance = gameS->getHoopInstance();
     btRigidBody *hoopBody;
     btScalar mass = 0;
     btVector3 inertia, inertia2;
     inertia = btVector3(0,0,0);
 
+    size_t x = 0;
+    while (x<hoopInstance.size())
+    {
+        btCollisionShape *hoopShape;
+        BtOgre::RigidBodyState *hoopBodyState;
 
-    //Create the ground shape.
-    BtOgre::StaticMeshToShapeConverter converter(hInstance.at(0).getModel());
-//    courtShape = converter.createTrimesh();
-    hoopShape = converter.createBox();
-//    courtShape = new btStaticPlaneShape(btVector3(0,1,0),1);
-//    courtShape->;
-//s    courtShape->
-    //Create MotionState (no need for BtOgre here, you can use it if you want to though).
-//    courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-25,0)));
-    hoopBodyState = new BtOgre::RigidBodyState(hInstance[0].getNode());
-//    courtBodyState = new BtOgre::RigidBodyState(cInstance.at(0).getNode());
-    btRigidBody::btRigidBodyConstructionInfo info(mass,hoopBodyState,hoopShape,inertia); //motion state would actually be non-null in most real usages
-    info.m_restitution = 1.0f;
-    info.m_friction = 15.5f;
+        //Create the ground shape.
+        BtOgre::StaticMeshToShapeConverter converter(hoopInstance.at(x).getModel());
+    //    courtShape = converter.createTrimesh();
+        hoopShape = converter.createBox();
+    //    courtShape = new btStaticPlaneShape(btVector3(0,1,0),1);
+    //    courtShape->;
+    //s    courtShape->
+        //Create MotionState (no need for BtOgre here, you can use it if you want to though).
+    //    courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-25,0)));
+        hoopBodyState = new BtOgre::RigidBodyState(hoopInstance[x].getNode());
+    //    courtBodyState = new BtOgre::RigidBodyState(courtInstance.at(0).getNode());
+        btRigidBody::btRigidBodyConstructionInfo info(mass,hoopBodyState,hoopShape,inertia); //motion state would actually be non-null in most real usages
+        info.m_restitution = 1.0f;
+        info.m_friction = 15.5f;
 
 
-    //Create the Body.
-//    courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
-    hoopBody = new btRigidBody(info);
+        //Create the Body.
+    //    courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
+        hoopBody = new btRigidBody(info);
 
-    hInstance[0].setPhysBody(hoopBody);
-//    world->addRigidBody(cInstance[0].getPhysBody(), COL_COURT, courtCollidesWith);
-    world->addRigidBody(hoopBody);
-
-    gameS->setHoopInstance(hInstance);
+        hoopInstance[x].setPhysBody(hoopBody);
+    //    world->addRigiBody(courtInstance[0].getPhysBody(), COL_COURT, courtCollidesWith);
+        world->addRigidBody(hoopBody, COL_HOOP, hoopCollidesWith);
+        ++x;
+    }
+    gameS->setHoopInstance(hoopInstance);
 
     return (true);
 }
@@ -432,11 +438,11 @@ bool physicsEngine::setupBasketballPhysics()
 //    basketballs *bball = basketballs::Instance();
     gameState *gameS = gameState::Instance();
 
-    std::vector<basketballs> bInstance = gameS->getBasketballInstance();
+    std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
     btRigidBody *bballBody;
 
     //Create the basketball shape.
-    BtOgre::StaticMeshToShapeConverter converter(bInstance.at(0).getModel());
+    BtOgre::StaticMeshToShapeConverter converter(basketballInstance.at(0).getModel());
     basketballShape = converter.createSphere();
 
 
@@ -445,7 +451,7 @@ bool physicsEngine::setupBasketballPhysics()
     inertia = btVector3(0,0,0);
     basketballShape->calculateLocalInertia(mass, inertia);
 
-    basketballBodyState = new BtOgre::RigidBodyState(bInstance.at(0).getNode());
+    basketballBodyState = new BtOgre::RigidBodyState(basketballInstance.at(0).getNode());
 
     btRigidBody::btRigidBodyConstructionInfo info(mass,basketballBodyState,basketballShape,inertia); //motion state would actually be non-null in most real usages
     info.m_restitution = 0.85f;
@@ -461,12 +467,12 @@ bool physicsEngine::setupBasketballPhysics()
     bballBody = new btRigidBody(info);
 //    bballBody->setActivationState(DISABLE_DEACTIVATION);
 	//    bballBody->setCollisionFlags(bballBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
-    bInstance[0].setPhysBody(bballBody);
+    basketballInstance[0].setPhysBody(bballBody);
 
-    world->addRigidBody(bInstance[0].getPhysBody(), COL_BBALL, bballCollidesWith);
-//    world->addRigidBody(bInstance[0].getPhysBody());
+    world->addRigidBody(basketballInstance[0].getPhysBody(), COL_BBALL, bballCollidesWith);
+//    world->addRigidBody(basketballInstance[0].getPhysBody());
 
-    gameS->setBasketballInstance(bInstance);
+    gameS->setBasketballInstance(basketballInstance);
 
     return true;
 }
@@ -486,7 +492,7 @@ void physicsEngine::updateState()
 //    {
 		std::vector<teamState> teamInstance = gameS->getTeamInstance();
 		std::vector<playerState> playerInstance;
-		std::vector<basketballs> bInstance = gameS->getBasketballInstance();
+        std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
 //		exit(0);
 //		std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 //		exit(0);
@@ -518,9 +524,9 @@ void physicsEngine::updateState()
 					if (gameS->getBallTippedToPlayer() == 0)
 					{
 						//					exit(0);
-						//		bInstance[0].getPhysBody()->forceActivationState(ACTIVE_TAG);
-						//    	bInstance[0].getPhysBody()->applyForce(btVector3(1.20f, -1.60f, 0.0f),btVector3(0.0f,0.0f,0.0f));
-						bInstance[0].getPhysBody()->setLinearVelocity(btVector3(20, 0, 0));
+                        //		basketballInstance[0].getPhysBody()->forceActivationState(ACTIVE_TAG);
+                        //    	basketballInstance[0].getPhysBody()->applyForce(btVector3(1.20f, -1.60f, 0.0f),btVector3(0.0f,0.0f,0.0f));
+                        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(20, 0, 0));
 						//					exit(0);
 						//    	gameS->setBallTipForceApplied(true);
 
@@ -532,7 +538,7 @@ void physicsEngine::updateState()
 				{
 					if (gameS->getBallTippedToPlayer() == 0)
 					{
-						bInstance[0].getPhysBody()->setLinearVelocity(btVector3(-20, 0, 0));
+                        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(-20, 0, 0));
 
 					}
 				}
@@ -576,9 +582,9 @@ void physicsEngine::updateState()
 			if (!playerInstance[playerWithBall].getPassBall())
 			{
 				teamInstance[teamWithBall].setPlayerWithBallDribbling(true);
-	//			bInstance[0].getPhysBody()->forceActivationState(ACTIVE_TAG);
-	//        	bInstance[0].getPhysBody()->applyForce(btVector3(-0.0f, -31.0f, 0.0f),btVector3(0.0f,0.0f,0.0f));
-	//			bInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,-10,0));
+    //			basketballInstance[0].getPhysBody()->forceActivationState(ACTIVE_TAG);
+    //        	basketballInstance[0].getPhysBody()->applyForce(btVector3(-0.0f, -31.0f, 0.0f),btVector3(0.0f,0.0f,0.0f));
+    //			basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,-10,0));
 			}
 			else if (playerInstance[playerWithBall].getPassBall() && playerInstance[playerWithBall].getPassCalculated())
 			{
@@ -665,7 +671,7 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 
 //    std::vector<playerState> teamOnePlayerInstance = teamInstance[0].getPlayerInstance();
 //    std::vector<playerState> teamTwoPlayerInstance = teamInstance[1].getPlayerInstance();
-    std::vector<basketballs> bInstance = gameS->getBasketballInstance();
+    std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
 //    logMsg("Crash here?");
 	MyContactResultCallback tipOffResult;
 //    logMsg("Crash here??");
@@ -675,10 +681,10 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 //		logMsg("Physics team ball tipped to = " +Ogre::StringConverter::toString(ballTippedToTeam));
 
 		std::vector<playerState> playerInstance = teamInstance[ballTippedToTeam].getPlayerInstance();
-//		logMsg("bInstance size = " +Ogre::StringConverter::toString(bInstance.size()));
+//		logMsg("basketballInstance size = " +Ogre::StringConverter::toString(basketballInstance.size()));
 //		logMsg("playerInstance size = " + Ogre::StringConverter::toString(playerInstance.size()));
 
-		world->contactPairTest(bInstance[0].getPhysBody(), playerInstance[gameS->getBallTippedToPlayer()].getPhysBody(), tipOffResult);
+        world->contactPairTest(basketballInstance[0].getPhysBody(), playerInstance[gameS->getBallTippedToPlayer()].getPhysBody(), tipOffResult);
 //		exit(0);
 		if (!tipOffResult.m_connected)
 		{
@@ -687,9 +693,9 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 		{
 //						exit(0);
 			gameS->setBallTipForceApplied(false);
-			//        	bInstance[0].getPhysBody()->applyForce(btVector3(-1.0f, 0.50f, 0.0f),btVector3(0.0f,0.0f,0.0f));
-			//			bInstance[0].getPhysBody()->forceActivationState(ISLAND_SLEEPING);
-			bInstance[0].getPhysBody()->setLinearVelocity(btVector3(0, 0, 0));
+            //        	basketballInstance[0].getPhysBody()->applyForce(btVector3(-1.0f, 0.50f, 0.0f),btVector3(0.0f,0.0f,0.0f));
+            //			basketballInstance[0].getPhysBody()->forceActivationState(ISLAND_SLEEPING);
+            basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(0, 0, 0));
 			gameS->setTipOffComplete(true);
 			gameS->setBallTipped(false);
 			gameS->setTeamWithBall(ballTippedToTeam);
@@ -770,7 +776,7 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
                     i++;
                 }
                 logMsg("centerID == " +Ogre::StringConverter::toString(centerID));
-				world->contactPairTest(bInstance[0].getPhysBody(), playerInstance[centerID].getPhysBody(), tipOffResult);
+                world->contactPairTest(basketballInstance[0].getPhysBody(), playerInstance[centerID].getPhysBody(), tipOffResult);
 				logMsg("tipOffResult.m_connected = " +Ogre::StringConverter::toString(tipOffResult.m_connected));
 				bool test = false;
 	//			if (tipOffResult.collision)
@@ -786,14 +792,14 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 
 
 
-					//			bInstance[0].getPhysBody()->forceActivationState(ISLAND_SLEEPING);
-		//			bInstance[0].getPhysBody()->forceActivationState(DISABLE_DEACTIVATION);
+                    //			basketballInstance[0].getPhysBody()->forceActivationState(ISLAND_SLEEPING);
+        //			basketballInstance[0].getPhysBody()->forceActivationState(DISABLE_DEACTIVATION);
 		/*			for (int x=0;x<10;++x)
 					{
 						pInstance[x].getPhysBody()->forceActivationState(DISABLE_SIMULATION);
 					}
 		*/
-		//			bInstance[0].getPhysBody()->applyForce(btVector3(5.10f, .20f, 0.0f),btVector3(10.0f,0.0f,0.0f));
+        //			basketballInstance[0].getPhysBody()->applyForce(btVector3(5.10f, .20f, 0.0f),btVector3(10.0f,0.0f,0.0f));
 		//			logMsg("Player tipped to = 0");
 					logMsg("Ball Not Tipped");
 					//    	gameS->setTipOffComplete(true);
@@ -844,17 +850,17 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
 	gameState *gameS = gameState::Instance();
 
 //    std::vector<playerState> pInstance = gameS->getPlayerInstance();
-    std::vector<basketballs> bInstance = gameS->getBasketballInstance();
-    std::vector<courtState> cInstance = gameS->getCourtInstance();
+    std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
+    std::vector<courtState> courtInstance = gameS->getCourtInstance();
 
 	MyContactResultCallback courtCollisionResult;
 
-	Ogre::Vector3 bballPos = bInstance[0].getNode()->getPosition();
-    Ogre::Vector3 courtPos = cInstance[0].getNode()->getPosition();
+    Ogre::Vector3 bballPos = basketballInstance[0].getNode()->getPosition();
+    Ogre::Vector3 courtPos = courtInstance[0].getNode()->getPosition();
 
     if (gameS->getBballBounce() == 0 && bballPos[1] < courtPos[1]/* + 3*/)	// checks if the ball is set to bounce up and hasn't reached the max height
     {
-    	bInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,15,0));
+        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,15,0));
     }
     else
     {
@@ -863,7 +869,7 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
 
     if (gameS->getBballBounce() == 1)		// checks if the ball is set bounce downward
     {
-        bInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,-15,0));
+        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,-15,0));
     }
     else
     {
@@ -871,14 +877,14 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
     }
 
     pairCollided = false;
-//	logMsg("bInstance size = " +Ogre::StringConverter::toString(bInstance.size()));
-//	logMsg("cInstance size = " +Ogre::StringConverter::toString(cInstance.size()));
+//	logMsg("basketballInstance size = " +Ogre::StringConverter::toString(basketballInstance.size()));
+//	logMsg("courtInstance size = " +Ogre::StringConverter::toString(courtInstance.size()));
 
-//	logMsg("bInstance position = " + Ogre::StringConverter::toString(bInstance[0].getNode()->getPosition()));
-//	logMsg("cInstance position = " + Ogre::StringConverter::toString(cInstance[0].getNode()->getPosition()));
+//	logMsg("basketballInstance position = " + Ogre::StringConverter::toString(basketballInstance[0].getNode()->getPosition()));
+//	logMsg("courtInstance position = " + Ogre::StringConverter::toString(courtInstance[0].getNode()->getPosition()));
 
-	btRigidBody *bballPhysBody = bInstance[0].getPhysBody();
-	btRigidBody *courtPhysBody = cInstance[0].getPhysBody();
+    btRigidBody *bballPhysBody = basketballInstance[0].getPhysBody();
+    btRigidBody *courtPhysBody = courtInstance[0].getPhysBody();
 //	bballPhysBody->checkCollideWith(courtPhysBody);
 	world->contactPairTest(bballPhysBody, courtPhysBody, courtCollisionResult);
 
@@ -921,9 +927,9 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
 	{
 //		gameS->setPlayerWithBall(gameS->getBallTippedToPlayer());
 //		gameS->setBallTipForceApplied(false);
-//        	bInstance[0].getPhysBody()->applyForce(btVector3(-1.0f, 0.50f, 0.0f),btVector3(0.0f,0.0f,0.0f));
-//			bInstance[0].getPhysBody()->forceActivationState(ISLAND_SLEEPING);
-//		bInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,10,0));
+//        	basketballInstance[0].getPhysBody()->applyForce(btVector3(-1.0f, 0.50f, 0.0f),btVector3(0.0f,0.0f,0.0f));
+//			basketballInstance[0].getPhysBody()->forceActivationState(ISLAND_SLEEPING);
+//		basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,10,0));
 //	    gameS->setTipOffComplete(true);
 //			exit(0);
 		gameS->setBballBounce(0);
@@ -970,7 +976,7 @@ void physicsEngine::passCollisionCheck()	// checks whether the ball has collided
 bool physicsEngine::playerJump(int teamNumber, int playerID)  // calculates and executes player jumping in the air
 {
     gameState *gameS = gameState::Instance();
-    std::vector<courtState> cInstance = gameS->getCourtInstance();
+    std::vector<courtState> courtInstance = gameS->getCourtInstance();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<playerState> playerInstance = teamInstance[teamNumber].getPlayerInstance();
     std::vector<int> activePlayerID = teamInstance[teamNumber].getActivePlayerID();
@@ -1013,7 +1019,7 @@ bool physicsEngine::playerJump(int teamNumber, int playerID)  // calculates and 
             }
             else
             {
-                btTransform courtTransform = cInstance[0].getPhysBody()->getWorldTransform();
+                btTransform courtTransform = courtInstance[0].getPhysBody()->getWorldTransform();
                 btVector3 courtPos = courtTransform.getOrigin();
                 btTransform playerTransform = playerInstance[x].getPhysBody()->getWorldTransform();
                 btVector3 playerPos = playerTransform.getOrigin();
@@ -1060,6 +1066,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
 {
     gameState *gameS = gameState::Instance();
     std::vector<courtState> courtInstance = gameS->getCourtInstance();
+    std::vector<hoopState> hoopInstance = gameS->getHoopInstance();
     std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<playerState> playerInstance = teamInstance[teamNumber].getPlayerInstance();
@@ -1094,7 +1101,6 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                         basketballPos.setX(playerPos.getX() + 3);
                         basketballPos.setY(playerPos.getY() + 3);
                         basketballPos.setZ(playerPos.getZ());
-                        
                     }
                     else if (playerInstance[x].getDirection() == LEFT)
                     {
@@ -1103,10 +1109,26 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                         basketballPos.setZ(playerPos.getZ());
                         
                     }
+                    else if (playerInstance[x].getDirection() == UP)
+                    {
+                        basketballPos.setX(playerPos.getX() - 3);
+                        basketballPos.setY(playerPos.getY() + 3);
+                        basketballPos.setZ(playerPos.getZ() + 3);
+
+                    }
+                    else if (playerInstance[x].getDirection() == DOWN)
+                    {
+                        basketballPos.setX(playerPos.getX() - 3);
+                        basketballPos.setY(playerPos.getY() + 3);
+                        basketballPos.setZ(playerPos.getZ() - 3);
+
+                    }
                     else
                     {
-                        
+
                     }
+                    basketballTransform.setOrigin(basketballPos);
+                    basketballInstance[0].getPhysBody()->setWorldTransform(basketballTransform);
                 }
                 else
                 {
@@ -1125,6 +1147,6 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
     teamInstance[teamNumber].setPlayerInstance(playerInstance);
     gameS->setTeamInstance(teamInstance);
     gameS->getTeamInstance()[teamNumber].getPlayerInstance()[playerID].getPhysBody()->setLinearVelocity(btVector3(15,-15,0));
-
+    gameS->setBasketballInstance(basketballInstance);
     return (true);
 }

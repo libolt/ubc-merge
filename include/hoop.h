@@ -28,12 +28,12 @@
 #include "BtOgreExtras.h"
 
 
-class hoop
+class hoopState
 {
     public:
 
-    hoop();   // constructor
-    ~hoop();  // destructor
+    hoopState();   // constructor
+    ~hoopState();  // destructor
 
     // gets and sets modelName
     std::string getModelName();

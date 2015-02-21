@@ -35,52 +35,47 @@
 //using namespace std;
 class gameState
 {
-    public:
-        static gameState *Instance();
-        ~gameState();
+public:
 
-
-    void processNetworkEvents();	// processes events received from network connection.
-    void processNetworkPlayerEvents();	// processes player evernts received from network connection
-    void updateDirectionsAndMovements();	// updates the movement and directions of game world objecxts
-//    void updatePlayerDirections();  // updates the direction players are facing
-    void updateBasketballMovements();	// updates the movement of basketball(s)
-    void updateBasketballDirections();	// updates the direction of basketball(s)
-    bool assignTeams(); // assigns the teams which are playing
-    bool assignPlayers();   // assigns the players that are playing.
-    bool setupEnvironment();    // sets up the 3D environment for the game
-    void setBasketballStartPositions();	// sets the initial coordinates for the basketball(s).
-    void setCourtStartPositions();	// sets the initial coordinates for the court(s).
-    void setHoopStartPositions();	// sets the initial coordinates for the hoop(s).
-
+    static gameState *Instance();
+    ~gameState();
 
     gameTypes getGameType(); // retrieves the value of gameType
     void setGameType(gameTypes type);	  // sets the value of gameType
+
     bool getGameSetupComplete();    // retrieves the value of gameSetupComplete
     void setGameSetupComplete(bool complete);   // sets the value of gameSetupComplete
+
     bool getTipOffComplete();	// retrieves tipOffComplete value
     void setTipOffComplete(bool complete);	// sets tipOffComplete value
+
     bool getBallTipped();	// retrieves the value of the ballTipped
     void setBallTipped(bool tipped);	// sets the value of the ballTipped
+
     int getBallTippedToTeam();	// retrieves the value of the ballTippedToPlayer
     void setBallTippedToTeam(int team);	// sets the value of the ballTippedToPlayer
+
     int getBallTippedToPlayer();	// retrieves the value of the ballTippedToPlayer
     void setBallTippedToPlayer(int player);	// sets the value of the ballTippedToPlayer
+
     bool getBallTipForceApplied();	// retrieves the value of ballTipForceApplied
     void setBallTipForceApplied(bool tip);	// sets the value of ballTipForceApplied
+
     bool getGameStarted(void);	// retrieves the gameStarted value
     void setGameStarted(bool started);	// sets gameStarted value
+
     int getTeamWithBall(void);		// retrieves teamWithBall value
     void setTeamWithBall(int ball);	// sets teamWithBall value
+
     int getBballBounce();	// retrieves the value of bballBounce
     void setBballBounce(int bounce);	// sets the value of bballBounce
 
     bool getCourtDataLoaded();  // retrieves the value of courtDataLoaded
     void setCourtDataLoaded(bool loaded);  // sets the value of courtDataLoaded
-    
+
     int getSelectedCourtDataInstance();  // retrieves the value of selectedCourtDataInstance
     void setSelectedCourtDataInstance(int selected);  // sets the value of selectedCourtDataInstance
-    
+
     bool getCourtInstanceCreated(); // retrieves the value of courtInstanceCreated
     void setCourtInstanceCreated(bool created); // sets the value of courtInstanceCreated
 
@@ -89,10 +84,6 @@ class gameState
 
     bool getBasketballModelLoaded();	// retrieves the value of basketballModelLoaded
     void setBasketballModelLoaded(bool loaded);	// sets the value of basketballModelLoaded
-
-    // Tip Off execution code.  // Move to proper class
-    bool setupTipOff();	// sets up Tip Off conditions
-    bool executeTipOff();
 
     std::vector<teamData> getTeamDataInstance();	// retrieves the value of teamDataInstance
     void setTeamDataInstances(std::vector<teamData> instance);	// sets the value of teamDataInstance;
@@ -103,59 +94,67 @@ class gameState
     std::vector<courtData>	getCourtDataInstance();	// retrieves the value of courtDataInstance
     void setCourtDataInstance(std::vector<courtData> instance);	// sets the value of courtDataInstance
 
-	// gets and sets teamID
-	std::vector<int> getTeamID(void);
-	void setTeamID(std::vector<int> ID);
+    std::vector<int> getTeamID(void);  // retrieves the value of teamID
+    void setTeamID(std::vector<int> ID);  // sets the value of teamID
 
-	// gets and sets playerID
-	std::vector<int> getPlayerID(void);
-	void setPlayerID(std::vector<int> ID);
+    std::vector<int> getPlayerID(void);  // retrieves the value of playerID
+    void setPlayerID(std::vector<int> ID);  // sets the value of playerID
 
     std::vector< std::vector<int> > getTeamStarterID(); // retrieves value of teamStarterID
     void setTeamStarterID(std::vector< std::vector<int> > ID); // sets the value of teamStarterID
 
+    std::vector <basketballs> getBasketballInstance();  // retrieves the value of basketballInstance
+    void setBasketballInstance(std::vector<basketballs> bballInstance);  // sets the value of basketballInstance
 
-	// gets and sets basketballInstance std::vector
-	std::vector <basketballs> getBasketballInstance();
-	void setBasketballInstance(std::vector<basketballs> bballInstance);
+    std::vector <teamState> getTeamInstance();  // retireves the value of teamInstance
+    void setTeamInstance(std::vector<teamState> Instance);  // sets the value of teamInstance
 
-	// creates basketball Instances
-	bool createBasketballInstances();
+    std::vector <courtState> getCourtInstance();  // retrieves the value of courtInstance
+    void setCourtInstance(std::vector<courtState> Instance);  // sets the value of courtInstance
 
-	// gets and sets teamInstance
-	std::vector <teamState> getTeamInstance();
-	void setTeamInstance(std::vector<teamState> Instance);
+    std::vector <hoopState> getHoopInstance();  // retrieves the value of hoopInstance
+    void setHoopInstance(std::vector<hoopState> Instance);  // sets the value of hoopInstance
 
-	// creates team Instances
-	bool createTeamInstances();
+    void processNetworkEvents();	// processes events received from network connection.
+    void processNetworkPlayerEvents();	// processes player evernts received from network connection
+    void updateDirectionsAndMovements();	// updates the movement and directions of game world objecxts
+//    void updatePlayerDirections();  // updates the direction players are facing
+    void updateBasketballMovements();	// updates the movement of basketball(s)
+    void updateBasketballDirections();	// updates the direction of basketball(s)
+    bool assignHoopToTeams();  // assigns which hoop belongs to each team
+    bool assignTeams(); // assigns the teams which are playing
+    bool assignPlayers();   // assigns the players that are playing.
+    bool setupEnvironment();    // sets up the 3D environment for the game
+    void setBasketballStartPositions();	// sets the initial coordinates for the basketball(s).
+    void setCourtStartPositions();	// sets the initial coordinates for the court(s).
+    void setHoopStartPositions();	// sets the initial coordinates for the hoop(s).
+
+    // Tip Off execution code.  // Move to proper class
+    bool setupTipOff();	// sets up Tip Off conditions
+    bool executeTipOff();  // executes the game tip off
+
+    bool createBasketballInstances();  // creates the instances of the basketballs
+
+    bool createTeamInstances();  // creates the instances of the teams
 
     bool createCourtDataInstances();  // creates instances of court data
-	
-    // gets and sets courtInstance std::vector
-	std::vector <courtState> getCourtInstance();
-	void setCourtInstance(std::vector<courtState> Instance);
 
-	// creates court Instances
-	bool createCourtInstances();
+    bool createCourtInstances();  // creates court Instances
 
-	// gets and sets hoopInstance std::vector
-	std::vector <hoop> getHoopInstance();
-	void setHoopInstance(std::vector<hoop> Instance);
+    bool createHoopInstances();  // creates hoop Instances
 
-	// creates hoop Instances
-	bool createHoopInstances();
+    bool setupState();   // sets up the game condition
+    bool logic();   // carries out in game logic
 
-	bool setupState();   // sets up the game condition
-	bool logic();   // carries out in game logic
+    // updates positions of gameState objects
+    bool updatePositions();
 
-	// updates positions of gameState objects
-	bool updatePositions();
+protected:
+    gameState();
+    gameState(const gameState&);
+    gameState &operator = (const gameState&);
 
-    protected:
-        gameState();
-        gameState(const gameState&);
-        gameState &operator = (const gameState&);
-    private:
+private:
     static gameState *pInstance;
 
     gameTypes gameType;	// Indicates whether a single or multi player game is being played.
@@ -181,7 +180,7 @@ class gameState
 
     std::vector <basketballs> basketballInstance;    // creates instance of the basketballs class
     std::vector <courtState> courtInstance;  // creates instance of the courtState class
-	std::vector <hoop> hoopInstance;  // creates instance of the hoop class
+    std::vector <hoopState> hoopInstance;  // creates instance of the hoop class
 
 //    std::vector <playerState> playerInstance;    // creates instance of the playerState class
     std::vector <teamState>  teamInstance;   // creates instance of the teamState class

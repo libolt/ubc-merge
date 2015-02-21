@@ -362,7 +362,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 					}
 					else
 					{
-						teamNumber = 0;
+                        teamNumber = 1;
 					}
 					int i = teamNumber;
                     int humanControlled = teamInstance[i].getHumanControlled();
@@ -381,6 +381,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 								inputMaps inputMap = input->keyMap();
 //							    logMsg("INPUT MAP ======== "  +toString(inputMap));
                                 std::stringstream ss;
+                              //  exit(0);
 
 								switch (inputMap)
 								{

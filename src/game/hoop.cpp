@@ -22,70 +22,70 @@
 
 #include "renderengine.h"
 
-hoop::hoop()
+hoopState::hoopState()
 {
 }
 
-hoop::~hoop()
+hoopState::~hoopState()
 {
 }
 
 // gets and sets modelName
-std::string hoop::getModelName()
+std::string hoopState::getModelName()
 {
     return (modelName);
 }
-void hoop::setModelName(std::string name)
+void hoopState::setModelName(std::string name)
 {
     modelName = name;
 }
 
 // gets and sets entityName
-std::string hoop::getEntityName()
+std::string hoopState::getEntityName()
 {
     return (entityName);
 }
-void hoop::setEntityName(std::string name)
+void hoopState::setEntityName(std::string name)
 {
     entityName = name;
 }
 
 // gets and sets nodeName
-std::string hoop::getNodeName()
+std::string hoopState::getNodeName()
 {
     return (nodeName);
 }
-void hoop::setNodeName(std::string name)
+void hoopState::setNodeName(std::string name)
 {
     nodeName = name;
 }
 
 // gets and sets model
-Ogre::Entity *hoop::getModel()
+Ogre::Entity *hoopState::getModel()
 {
     return (model);
 }
-void hoop::setModel(Ogre::Entity *Model)
+void hoopState::setModel(Ogre::Entity *Model)
 {
     model = Model;
 }
 
 // gets and sets node
-Ogre::SceneNode *hoop::getNode()
+Ogre::SceneNode *hoopState::getNode()
 {
     return (node);
 }
-void hoop::setNode(Ogre::SceneNode *Node)
+void hoopState::setNode(Ogre::SceneNode *Node)
 {
     node = Node;
 }
 
-btRigidBody *hoop::getPhysBody()	// retrieves physBody variable
+btRigidBody *hoopState::getPhysBody()	// retrieves physBody variable
 {
 	return (physBody);
 }
 
-void hoop::setPhysBody(btRigidBody *body)	// sets physBody variable
+void hoopState::setPhysBody(btRigidBody *body)	// sets physBody variable
 {
 	physBody = body;
 
@@ -93,7 +93,7 @@ void hoop::setPhysBody(btRigidBody *body)	// sets physBody variable
 
 
 // loads the 3D Model and attaches it to the node as well as sets coordinates
-bool hoop::loadModel()
+bool hoopState::loadModel()
 {
     renderEngine *render = renderEngine::Instance();
 

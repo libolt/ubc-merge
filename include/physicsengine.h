@@ -101,8 +101,8 @@ private:
 	BtOgre::RigidBodyState *courtBodyState;
 	
 	// hoop
-	btCollisionShape *hoopShape;
-	BtOgre::RigidBodyState *hoopBodyState;
+//	btCollisionShape *hoopShape;
+//	BtOgre::RigidBodyState *hoopBodyState;
 	
     // basketball
 //    btRigidBody *basketballBody;
@@ -126,6 +126,7 @@ private:
 
     // collisions
     int courtCollidesWith;	// determines what the court collides with
+    int hoopCollidesWith;   // determines what the hoop collides with
     int bballCollidesWith;	// determines what the basketball collides with
     int team1CollidesWith;	// determines what team1 collides with
     int team2CollidesWith;  // | COL_BBALL | COL_TEAM1;	// determiens what team2 collides with
