@@ -699,6 +699,10 @@ void playerState::updateState()
         {
 //            shotLogic(playerPos);
 //            exit(0);
+            if (!shotTaken)
+            {
+                shotTaken = true;
+            }
             physEngine->shootBasketball(teamNumber, playerID);
 
         }

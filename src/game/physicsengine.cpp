@@ -1084,17 +1084,23 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
             bool shotComplete = playerInstance[x].getShotComplete();
             if (!shotComplete)
             {
+                int hoop = teamInstance[teamNumber].getHoop();
+                btTransform hoopTransform = hoopInstance[1].getPhysBody()->getWorldTransform();
+                btVector3 hoopPos = hoopTransform.getOrigin();
+
+                btTransform basketballTransform = basketballInstance[0].getPhysBody()->getWorldTransform();
+                btVector3 basketballPos = basketballTransform.getOrigin();
+
+                btTransform playerTransform = playerInstance[x].getPhysBody()->getWorldTransform();
+                btVector3 playerPos = playerTransform.getOrigin();
+                float hoopBasketballDistance = hoopPos.getX() - basketballPos.getX();
+
                 if (!shotSet)
                 {
                     if (teamInstance[teamNumber].getPlayerWithBallDribbling())
                     {
                         teamInstance[teamNumber].setPlayerWithBallDribbling(false);
                     }       
-                    btTransform basketballTransform = basketballInstance[0].getPhysBody()->getWorldTransform();
-                    btVector3 basketballPos = basketballTransform.getOrigin();
-      
-                    btTransform playerTransform = playerInstance[x].getPhysBody()->getWorldTransform();
-                    btVector3 playerPos = playerTransform.getOrigin();
 
                     if (playerInstance[x].getDirection() == RIGHT)
                     {
@@ -1125,14 +1131,26 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     }
                     else
                     {
-
                     }
                     basketballTransform.setOrigin(basketballPos);
                     basketballInstance[0].getPhysBody()->setWorldTransform(basketballTransform);
+                    shotSet = true;
                 }
                 else
                 {
-                    
+                    logMsg("X distance between hoop and basketball" +Ogre::StringConverter::toString(hoopBasketballDistance));
+
+                    if (hoopBasketballDistance < 0)
+                    {
+//                        exit(0);
+                        basketballInstance[0].getPhysBody()->applyForce(btVector3(-50,-20,0),btVector3(1,1,0));
+/*                        basketballPos.setX(basketballPos.getX() + 3);
+                        basketballTransform.setOrigin(basketballPos);
+                        basketballInstance[0].getPhysBody()->setWorldTransform(basketballTransform);
+                        logMsg("basketballPos.getX = " +Ogre::StringConverter::toString(basketballPos.getX()));
+                        gameS->setBasketballInstance(basketballInstance);
+*/
+                    }
                 }
             }
             else
@@ -1140,7 +1158,8 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                 
             }
             
-           
+           playerInstance[x].setShotSet(shotSet);
+           playerInstance[x].setShotComplete(shotComplete);
         }
         ++x;
     }
