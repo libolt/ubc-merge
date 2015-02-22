@@ -304,8 +304,8 @@ void gameState::setBasketballModelLoaded(bool loaded)	// sets the value of baske
 
 bool gameState::assignHoopToTeams()  // assigns which hoop belongs to each team
 {
-    teamInstance[0].setHoop(0);
-    teamInstance[1].setHoop(1);
+    teamInstance[0].setHoop(1);
+    teamInstance[1].setHoop(0);
     return (true);
 }
 // assigns teams that are playing to the game state machine
@@ -393,7 +393,6 @@ bool gameState::createBasketballInstances()
 // creates team Instances
 bool gameState::createTeamInstances()
 {
-    //exit(0);
 	teamState tInstance;
 	teamInstance.push_back(tInstance);	// adds empty teamState to teamInstance vector
 	teamInstance.push_back(tInstance);	// adds empty teamState to teamInstance vector
@@ -572,15 +571,16 @@ bool gameState::setupState()
 
     assignPlayers();  // assigns players currently playing
 */
+//    exit(0);
     if (!teamInstancesCreated)	// checks if teamInstances have been created
     {
     	if(createTeamInstances())	// creates the team instances
     	{
-    	    logMsg("TIC!");
-   		teamInstancesCreated = true;
+            logMsg("TIC!");
+            teamInstancesCreated = true;
+            assignHoopToTeams();  // assigns proper hoop to the teams that were created.
     	}
     }
-
 
 /*    if (!playerInstancesCreated)	// checks if playerInstances have been created
     {

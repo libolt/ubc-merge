@@ -1085,7 +1085,8 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
             if (!shotComplete)
             {
                 int hoop = teamInstance[teamNumber].getHoop();
-                btTransform hoopTransform = hoopInstance[1].getPhysBody()->getWorldTransform();
+                logMsg("Hoop number = " +Ogre::StringConverter::toString(hoop));
+                btTransform hoopTransform = hoopInstance[hoop].getPhysBody()->getWorldTransform();
                 btVector3 hoopPos = hoopTransform.getOrigin();
 
                 btTransform basketballTransform = basketballInstance[0].getPhysBody()->getWorldTransform();
@@ -1093,7 +1094,9 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
 
                 btTransform playerTransform = playerInstance[x].getPhysBody()->getWorldTransform();
                 btVector3 playerPos = playerTransform.getOrigin();
-                float hoopBasketballDistance = hoopPos.getX() - basketballPos.getX();
+                float hoopBasketballDistanceX = 0;
+                float hoopBasketballDistanceY = 0;
+                float hoopBasketballDistanceZ = 0;
 
                 if (!shotSet)
                 {
@@ -1138,20 +1141,70 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                 }
                 else
                 {
-                    logMsg("X distance between hoop and basketball" +Ogre::StringConverter::toString(hoopBasketballDistance));
+                    logMsg("X distance between hoop and basketball" +Ogre::StringConverter::toString(hoopBasketballDistanceX));
+                    btVector3 forceToApply;
+                    hoopBasketballDistanceX = hoopPos.getX() - basketballPos.getX();
+                    hoopBasketballDistanceY = hoopPos.getY() - basketballPos.getY();
+                    hoopBasketballDistanceZ = hoopPos.getZ() - basketballPos.getZ();
 
-                    if (hoopBasketballDistance < 0)
+                    if (hoopBasketballDistanceX <= 1)
                     {
+                        forceToApply.setX(-30);
+                    }
+                    else if (hoopBasketballDistanceX >= 1)
+                    {
+                        forceToApply.setX(30);
+                    }
+
+                    if (hoopBasketballDistanceY <= 1)
+                    {
+                        forceToApply.setY(30);
+                    }
+                    else if (hoopBasketballDistanceY >= 1)
+                    {
+                        forceToApply.setY(30);
+                    }
+
+                    if (hoopBasketballDistanceZ <= 1)
+                    {
+                        forceToApply.setZ(-20);
+                    }
+
+                    else if (hoopBasketballDistanceZ >= 1)
+                    {
+                        forceToApply.setZ(20);
+                    }
+
 //                        exit(0);
-                        basketballInstance[0].getPhysBody()->applyForce(btVector3(-50,-20,0),btVector3(1,1,0));
+                        basketballInstance[0].getPhysBody()->applyForce(forceToApply,btVector3(1,1,1));
 /*                        basketballPos.setX(basketballPos.getX() + 3);
                         basketballTransform.setOrigin(basketballPos);
                         basketballInstance[0].getPhysBody()->setWorldTransform(basketballTransform);
-                        logMsg("basketballPos.getX = " +Ogre::StringConverter::toString(basketballPos.getX()));
-                        gameS->setBasketballInstance(basketballInstance);
 */
+                        logMsg("basketballPos.getX = " +Ogre::StringConverter::toString(basketballPos.getX()));
+
+/*
+//                        gameS->setBasketballInstance(basketballInstance);
+
                     }
-                }
+                        if (hoopPos.getZ() < 0)
+                        {
+                            exit(0);
+                            forceToApply.setZ(60);
+                        }
+                        }
+                        else
+                        {
+                            forceToApply.setZ(0);
+                        }
+*/
+                        basketballInstance[0].getPhysBody()->applyForce(btVector3(50,72,0),btVector3(1,1,1));
+                        basketballInstance[0].getPhysBody()->setGravity(btVector3(92.8,0,0));
+                        basketballInstance[0].getPhysBody()->applyGravity();
+                        logMsg("basketballPos.getX = " +Ogre::StringConverter::toString(basketballPos.getX()));
+
+
+                 }
             }
             else
             {

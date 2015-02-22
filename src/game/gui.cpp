@@ -1515,6 +1515,7 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
         logMsg("Creating team instances!");
         gameS->createTeamInstances();
         gameS->setTeamInstancesCreated(true);
+        gameS->assignHoopToTeams();
         logMsg("Team instances created!");
     }
     std::vector <teamState>  teamInstance = gameS->getTeamInstance();
