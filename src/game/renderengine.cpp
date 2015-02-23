@@ -294,7 +294,7 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
     sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED,
-	                             1024,768,0);
+                                 1280,1024,0);
 
     SDL_VERSION( &sysInfo.version );
 
@@ -541,7 +541,7 @@ bool renderEngine::createScene()
 	// logMsg("Rendering!");
 	misc["externalWindowHandle"] = winHandle; //
 
-	mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1024, 768, false, &misc);
+    mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1280, 1024, false, &misc);
 
 	//    exit(0);
 	mWindow->setVisible(true);
