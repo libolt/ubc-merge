@@ -1140,6 +1140,10 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     hoopBasketballDistanceZ = hoopPos.getZ() - basketballPos.getZ();
                     logMsg("X distance between hoop and basketball" +Ogre::StringConverter::toString(hoopBasketballDistanceX));
 //                    exit(0);
+                    beginShotDistance.setX(hoopBasketballDistanceX);
+                    beginShotDistance.setY(hoopBasketballDistanceY);
+                    beginShotDistance.setZ(hoopBasketballDistanceZ);
+
                     basketballTransform.setOrigin(basketballPos);
                     basketballInstance[0].getPhysBody()->setWorldTransform(basketballTransform);
                     shotSet = true;
@@ -1163,15 +1167,40 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                         forceToApply.setX(75);
                     }
 
-                    if (hoopBasketballDistanceY < 0)
+                    if (beginShotDistance.getX() - hoopBasketballDistanceX > (beginShotDistance.getX()*0.5) )
                     {
-                        forceToApply.setY(90);
+                        if (hoopBasketballDistanceY < 0)
+                        {
+                            forceToApply.setY(30);
+                        }
+                        else if (hoopBasketballDistanceY > 0)
+                        {
+                            forceToApply.setY(-30);
+                        }
                     }
-                    else if (hoopBasketballDistanceY > 0)
+                    else if (beginShotDistance.getX() - hoopBasketballDistanceX > (beginShotDistance.getX()*0.75) )
                     {
-                        forceToApply.setY(-60);
+                        exit(0);
+                        if (hoopBasketballDistanceY < 0)
+                        {
+                            forceToApply.setY(45);
+                        }
+                        else if (hoopBasketballDistanceY > 0)
+                        {
+                            forceToApply.setY(-45);
+                        }
                     }
-
+                    else
+                    {
+                        if (hoopBasketballDistanceY < 0)
+                        {
+                            forceToApply.setY(80);
+                        }
+                        else if (hoopBasketballDistanceY > 0)
+                        {
+                            forceToApply.setY(-60);
+                        }
+                    }
                     if (hoopBasketballDistanceZ < 0)
                     {
                         forceToApply.setZ(-20);

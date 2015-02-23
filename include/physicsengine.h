@@ -131,6 +131,8 @@ private:
     int team1CollidesWith;	// determines what team1 collides with
     int team2CollidesWith;  // | COL_BBALL | COL_TEAM1;	// determiens what team2 collides with
 
+
+    btVector3 beginShotDistance;
 };
 
     // Collision Callback
