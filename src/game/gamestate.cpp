@@ -243,6 +243,7 @@ bool gameState::getGameStarted(void)  // retrieves the value of gameStarted
 {
     return(gameStarted);
 }
+
 void gameState::setGameStarted(bool started)  // sets the value of gameStarted
 {
     gameStarted = started;

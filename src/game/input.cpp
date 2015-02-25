@@ -220,6 +220,7 @@ bool inputSystem::processInput()	// processes all input
 
         switch (inputEvent.type)
         {
+            /*
             case SDL_FINGERMOTION:
                 logMsg("Motion!");
                 exit(0);
@@ -254,7 +255,7 @@ bool inputSystem::processInput()	// processes all input
                 if (processUnbufferedTouchInput() == false)
                 {
                     return false;
-                }
+                }*/
                 break;
             case SDL_KEYDOWN:
 				logMsg("Keydown!");
