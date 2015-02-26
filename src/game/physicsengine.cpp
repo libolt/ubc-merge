@@ -1148,22 +1148,22 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     beginShotDistance.setZ(hoopBasketballDistanceZ);
                     if (beginShotDistance.getX() <= 10)
                     {
-                        beginShotForce.setY(beginShotDistance.getX() * 1.85);
+                        beginShotForce.setY(beginShotDistance.getX() * 2.85);
                         logMsg("force1");
                     }
                     else if (beginShotDistance.getX() <= 20 && beginShotDistance.getX() > 10)
                     {
-                        beginShotForce.setY(beginShotDistance.getX() * 1.80);
+                        beginShotForce.setY(beginShotDistance.getX() * 2.80);
                         logMsg("force2");
                     }
                     else if (beginShotDistance.getX() <= 30 && beginShotDistance.getX() > 20)
                     {
-                        beginShotForce.setY(beginShotDistance.getX() * 1.75);
+                        beginShotForce.setY(beginShotDistance.getX() * 2.75);
                         logMsg("force3");
                     }
                     else if (beginShotDistance.getX() <= 40 && beginShotDistance.getX() > 30)
                     {
-                        beginShotForce.setY(beginShotDistance.getX() * 1.70);
+                        beginShotForce.setY(beginShotDistance.getX() * 2.70);
                         logMsg("force4");
                     }
                     else if (beginShotDistance.getX() <= 50 && beginShotDistance.getX() > 40)
@@ -1412,7 +1412,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     else if (currentDistance > (beginShotDistance.getX()*0.70) && currentDistance < (beginShotDistance.getX()*0.80))
                     {
                         logMsg("forceApplyY8");
-                        forceShotY = beginShotForce.getY() * 1.30;
+                        forceShotY = beginShotForce.getY() * .30;
                         if (hoopBasketballDistanceY < 0)
                         {
                             forceToApply.setY(forceShotY);
@@ -1425,7 +1425,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     else if (currentDistance > (beginShotDistance.getX()*0.80) && currentDistance < (beginShotDistance.getX()*0.90))
                     {
                         logMsg("forceApplyY9");
-                        forceShotY = beginShotForce.getY() * 1.20;
+                        forceShotY = beginShotForce.getY() * .20;
                         if (hoopBasketballDistanceY < 0)
                         {
                             forceToApply.setY(forceShotY);
@@ -1438,7 +1438,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     else if (currentDistance > (beginShotDistance.getX()*0.90) && currentDistance < (beginShotDistance.getX()*1.0))
                     {
                         logMsg("forceApplyY10");
-                        forceShotY = beginShotForce.getY() * 1.10;
+                        forceShotY = beginShotForce.getY() * .10;
                         if (hoopBasketballDistanceY < 0)
                         {
                             forceToApply.setY(forceShotY);
