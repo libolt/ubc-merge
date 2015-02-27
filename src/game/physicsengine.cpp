@@ -50,7 +50,7 @@ physicsEngine::physicsEngine()
 	solver = new btSequentialImpulseConstraintSolver();
 
 	world = new btDiscreteDynamicsWorld(dispatcher, broadPhase, solver, collisionConfig);
-    world->setGravity(btVector3(0,-4.8,0));
+    world->setGravity(btVector3(0,-9.8,0));
 
     contactInfo = world->getSolverInfo();
     contactInfo.m_restingContactRestitutionThreshold = 1e30;
