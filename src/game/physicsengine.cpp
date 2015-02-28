@@ -529,7 +529,7 @@ void physicsEngine::updateState()
 						//					exit(0);
                         //		basketballInstance[0].getPhysBody()->forceActivationState(ACTIVE_TAG);
                         //    	basketballInstance[0].getPhysBody()->applyForce(btVector3(1.20f, -1.60f, 0.0f),btVector3(0.0f,0.0f,0.0f));
-                        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(20, 0, 0));
+                        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(20, -1, 0));
 						//					exit(0);
 						//    	gameS->setBallTipForceApplied(true);
 
@@ -541,7 +541,7 @@ void physicsEngine::updateState()
 				{
 					if (gameS->getBallTippedToPlayer() == 0)
 					{
-                        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(-20, 0, 0));
+                        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(-20, -1, 0));
 
 					}
 				}
@@ -861,9 +861,9 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
     Ogre::Vector3 bballPos = basketballInstance[0].getNode()->getPosition();
     Ogre::Vector3 courtPos = courtInstance[0].getNode()->getPosition();
 
-    if (gameS->getBballBounce() == 0 && bballPos[1] < courtPos[1]/* + 3*/)	// checks if the ball is set to bounce up and hasn't reached the max height
+    if (gameS->getBballBounce() == 0 && bballPos[1] < courtPos[1] + 5)	// checks if the ball is set to bounce up and hasn't reached the max height
     {
-        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,15,0));
+        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,10,0));
     }
     else
     {
@@ -872,7 +872,7 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
 
     if (gameS->getBballBounce() == 1)		// checks if the ball is set bounce downward
     {
-        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,-15,0));
+        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,-10,0));
     }
     else
     {
@@ -890,7 +890,7 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
     btRigidBody *courtPhysBody = courtInstance[0].getPhysBody();
 //	bballPhysBody->checkCollideWith(courtPhysBody);
 	world->contactPairTest(bballPhysBody, courtPhysBody, courtCollisionResult);
-
+//    logMsg("court collision " +Ogre::StringConverter::toString(courtCollisionResult));
 /*	int numManifolds = world->getDispatcher()->getNumManifolds();
 	for (int i = 0; i<numManifolds; i++)
 	{
