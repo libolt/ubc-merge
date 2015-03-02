@@ -292,7 +292,7 @@ bool physicsEngine::setupPlayerPhysics()
 
                     logMsg("Creating Body State");
                     playerBodyState = new BtOgre::RigidBodyState(playerInstance[i].getNode());
-        //        playerBodyState.at(i) = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(10.0f,-13.5f,380.0f)));
+        //        playerBodyState.at(i) = new btDefaultMotionState(btform(btQuaternion(0,0,0,1),btVector3(10.0f,-13.5f,380.0f)));
                     //Create the Body.
             //        playerBody.at(i) = new btRigidBody(mass, playerBodyState.at(i), playerShape.at(i), inertia);
                     logMsg("Creating Rigid Body");
@@ -1234,6 +1234,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                         }
                         else if (hoopBasketballDistanceX > -40 && hoopBasketballDistanceX <= -30)
                         {
+                            
                             forceToApply.setX(-40);
                         }
                         else if (hoopBasketballDistanceX > -50 && hoopBasketballDistanceX <= -40)
@@ -1267,192 +1268,196 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                         if (hoopBasketballDistanceX <= 10)
                         {
                             logMsg("forceX1");
-                            forceToApply.setX(10);
+                            forceToApply.setX(15);
                         }
                         else if (hoopBasketballDistanceX <= 20 && hoopBasketballDistanceX > 10)
                         {
                             logMsg("forceX2");
-                            forceToApply.setX(20);
+                            forceToApply.setX(25);
                         }
                         else if (hoopBasketballDistanceX <= 30 && hoopBasketballDistanceX > 20)
                         {
                             logMsg("forceX3");
-                            forceToApply.setX(30);
+                            forceToApply.setX(35);
                         }
                         else if (hoopBasketballDistanceX <= 40 && hoopBasketballDistanceX > 30)
                         {
                             logMsg("forceX4");
-                            forceToApply.setX(40);
+                            forceToApply.setX(45);
                         }
                         else if (hoopBasketballDistanceX <= 50 && hoopBasketballDistanceX > 40)
                         {
                             logMsg("forceX5");
-                            forceToApply.setX(50);
+                            forceToApply.setX(55);
                         }
                         else if (hoopBasketballDistanceX <= 60 && hoopBasketballDistanceX > 50)
                         {
                             logMsg("forceX6");
-                            forceToApply.setX(60);
+                            forceToApply.setX(65);
                         }
                         else if (hoopBasketballDistanceX <= 70 && hoopBasketballDistanceX > 60)
                         {
                             logMsg("forceX7");
-                            forceToApply.setX(70);
+                            forceToApply.setX(75);
                         }
                         else if (hoopBasketballDistanceX <= 80 && hoopBasketballDistanceX > 70)
                         {
                             logMsg("forceX8");
-                            forceToApply.setX(80);
+                            forceToApply.setX(85);
                         }
                         else if (hoopBasketballDistanceX <= 90 && hoopBasketballDistanceX > 80)
                         {
                             logMsg("forceX9");
-                            forceToApply.setX(90);
+                            forceToApply.setX(95);
                         }
                         else if (hoopBasketballDistanceX <= 100 && hoopBasketballDistanceX > 90)
                         {
                             logMsg("forceX10");
-                            forceToApply.setX(100);
+                            forceToApply.setX(105);
                         }
 
-                    }
-
-                    if (currentDistance <= (beginShotDistance.getX()*.10))
-                    {
-                        logMsg("forceApplyY1");
-                        forceShotY = beginShotForce.getY();
-                        if (hoopBasketballDistanceY < 0)
-                        {
-                            forceToApply.setY(forceShotY);
-                        }
-                        else if (hoopBasketballDistanceY > 0)
-                        {
-                            forceToApply.setY(-(forceShotY));
-                        }
-                    }
-                    else if (currentDistance > (beginShotDistance.getX()*0.10) && currentDistance < (beginShotDistance.getX()*0.20))
-                    {
-                        logMsg("forceApplyY2");
-                        forceShotY = beginShotForce.getY() * .90;
-                        if (hoopBasketballDistanceY < 0)
-                        {
-                            forceToApply.setY(forceShotY);
-                        }
-                        else if (hoopBasketballDistanceY > 0)
-                        {
-                            forceToApply.setY(-(forceShotY));
-                        }
-                    }
-                    else if (currentDistance > (beginShotDistance.getX()*0.20) && currentDistance < (beginShotDistance.getX()*0.30))
-                    {
-                        logMsg("forceApplyY3");
-                        forceShotY = beginShotForce.getY() * .80;
-                        if (hoopBasketballDistanceY < 0)
-                        {
-                            forceToApply.setY(forceShotY);
-                        }
-                        else if (hoopBasketballDistanceY > 0)
-                        {
-                            forceToApply.setY(-(forceShotY));
-                        }
-                    }
-                    else if (currentDistance > (beginShotDistance.getX()*0.30) && currentDistance < (beginShotDistance.getX()*0.40))
-                    {
-                        logMsg("forceApplyY4");
-                        forceShotY = beginShotForce.getY() * .70;
-                        if (hoopBasketballDistanceY < 0)
-                        {
-                            forceToApply.setY(forceShotY);
-                        }
-                        else if (hoopBasketballDistanceY > 0)
-                        {
-                            forceToApply.setY(-(forceShotY));
-                        }
-                    }
-                    else if (currentDistance > (beginShotDistance.getX()*0.40) && currentDistance < (beginShotDistance.getX()*0.50))
-                    {
-                        logMsg("forceApplyY5");
-                        forceShotY = beginShotForce.getY() * .60;
-                        if (hoopBasketballDistanceY < 0)
-                        {
-                            forceToApply.setY(forceShotY);
-                        }
-                        else if (hoopBasketballDistanceY > 0)
-                        {
-                            forceToApply.setY(-(forceShotY));
-                        }
-                    }
-                    else if (currentDistance > (beginShotDistance.getX()*0.50) && currentDistance < (beginShotDistance.getX()*0.60))
-                    {
-                        logMsg("forceApplyY6");
-                        forceShotY = beginShotForce.getY() * .50;
-                        if (hoopBasketballDistanceY < 0)
-                        {
-                            forceToApply.setY(forceShotY);
-                        }
-                        else if (hoopBasketballDistanceY > 0)
-                        {
-                            forceToApply.setY(-(forceShotY));
-                        }
-                    }
-                    else if (currentDistance > (beginShotDistance.getX()*0.60) && currentDistance < (beginShotDistance.getX()*0.70))
-                    {
- //                       exit(0);
-                        logMsg("forceApplyY7");
-                        forceShotY = beginShotForce.getY() * .40;
-                        if (hoopBasketballDistanceY < 0)
-                        {
-                            forceToApply.setY(forceShotY);
-                        }
-                        else if (hoopBasketballDistanceY > 0)
-                        {
-                            forceToApply.setY(-(forceShotY));
-                        }
-                    }
-                    else if (currentDistance > (beginShotDistance.getX()*0.70) && currentDistance < (beginShotDistance.getX()*0.80))
-                    {
-                        logMsg("forceApplyY8");
-                        forceShotY = beginShotForce.getY() * .30;
-                        if (hoopBasketballDistanceY < 0)
-                        {
-                            forceToApply.setY(forceShotY);
-                        }
-                        else if (hoopBasketballDistanceY > 0)
-                        {
-                            forceToApply.setY(-(forceShotY));
-                        }
-                    }
-                    else if (currentDistance > (beginShotDistance.getX()*0.80) && currentDistance < (beginShotDistance.getX()*0.90))
-                    {
-                        logMsg("forceApplyY9");
-                        forceShotY = beginShotForce.getY() * .20;
-                        if (hoopBasketballDistanceY < 0)
-                        {
-                            forceToApply.setY(forceShotY);
-                        }
-                        else if (hoopBasketballDistanceY > 0)
-                        {
-                            forceToApply.setY(-(forceShotY));
-                        }
-                    }
-                    else if (currentDistance > (beginShotDistance.getX()*0.90) && currentDistance < (beginShotDistance.getX()*1.0))
-                    {
-                        logMsg("forceApplyY10");
-                        forceShotY = beginShotForce.getY() * .10;
-                        if (hoopBasketballDistanceY < 0)
-                        {
-                            forceToApply.setY(forceShotY);
-                        }
-                        else if (hoopBasketballDistanceY > 0)
-                        {
-                            forceToApply.setY(-(forceShotY));
-                        }
                     }
                     
-                    else
+                    btTransform bballTransform = basketballInstance[0].getPhysBody()->getWorldTransform();
+                    btVector3 bballPos = bballTransform.getOrigin();
+                    if (bballPos.getY() < beginShotDistance.getY() +10)
                     {
-                        logMsg("Current distance between hoop and basketball" +Ogre::StringConverter::toString(beginShotDistance.getX()));
-                        logMsg("Current distance between hoop and basketball" +Ogre::StringConverter::toString(currentDistance));
+                        if (currentDistance <= (beginShotDistance.getX()*.10))
+                        {
+                            logMsg("forceApplyY1");
+                            forceShotY = beginShotForce.getY();
+                            if (hoopBasketballDistanceY < 0)
+                            {
+                                forceToApply.setY(forceShotY);
+                            }
+                            else if (hoopBasketballDistanceY > 0)
+                            {
+                                forceToApply.setY(-(forceShotY));
+                            }
+                        }    
+                        else if (currentDistance > (beginShotDistance.getX()*0.10) && currentDistance < (beginShotDistance.getX()*0.20))
+                        {
+                            logMsg("forceApplyY2");
+                            forceShotY = beginShotForce.getY() * .70;
+                            if (hoopBasketballDistanceY < 0)
+                            {
+                                forceToApply.setY(forceShotY);
+                            }
+                            else if (hoopBasketballDistanceY > 0)
+                            {
+                               forceToApply.setY(-(forceShotY));
+                            }
+                        }
+                        else if (currentDistance > (beginShotDistance.getX()*0.20) && currentDistance < (beginShotDistance.getX()*0.30))
+                        {   
+                            logMsg("forceApplyY3");
+                            forceShotY = beginShotForce.getY() * .60;
+                            if (hoopBasketballDistanceY < 0)
+                            {
+                                forceToApply.setY(forceShotY);
+                            }
+                            else if (hoopBasketballDistanceY > 0)
+                            {
+                                forceToApply.setY(-(forceShotY));
+                            }
+                        }
+                        else if (currentDistance > (beginShotDistance.getX()*0.30) && currentDistance < (beginShotDistance.getX()*0.40))
+                        {
+                            logMsg("forceApplyY4");
+                            forceShotY = beginShotForce.getY() * .50;
+                            if (hoopBasketballDistanceY < 0)
+                            {
+                                forceToApply.setY(forceShotY);
+                            }
+                            else if (hoopBasketballDistanceY > 0)
+                            {
+                                forceToApply.setY(-(forceShotY));
+                            }
+                        }    
+                        else if (currentDistance > (beginShotDistance.getX()*0.40) && currentDistance < (beginShotDistance.getX()*0.50))
+                        {
+                            logMsg("forceApplyY5");
+                            forceShotY = beginShotForce.getY() * .40;
+                            if (hoopBasketballDistanceY < 0)
+                            {
+                                forceToApply.setY(forceShotY);
+                            }
+                            else if (hoopBasketballDistanceY > 0)
+                            {
+                                forceToApply.setY(-(forceShotY));
+                            }
+                       }    
+                       else if (currentDistance > (beginShotDistance.getX()*0.50) && currentDistance < (beginShotDistance.getX()*0.60))
+                       {
+                            logMsg("forceApplyY6");
+                            forceShotY = beginShotForce.getY() * .30;
+                            if (hoopBasketballDistanceY < 0)
+                            {
+                                forceToApply.setY(forceShotY);
+                            }
+                            else if (hoopBasketballDistanceY > 0)
+                            {
+                                forceToApply.setY(-(forceShotY));
+                            }
+                        }
+                        else if (currentDistance > (beginShotDistance.getX()*0.60) && currentDistance < (beginShotDistance.getX()*0.70))
+                        {
+ //                       exit(0);
+                            logMsg("forceApplyY7");
+                            forceShotY = beginShotForce.getY() * .20;
+                            if (hoopBasketballDistanceY < 0)
+                            {
+                                forceToApply.setY(forceShotY);
+                            }
+                            else if (hoopBasketballDistanceY > 0)
+                            {
+                                forceToApply.setY(-(forceShotY));
+                            }
+                        }
+                        else if (currentDistance > (beginShotDistance.getX()*0.70) && currentDistance < (beginShotDistance.getX()*0.80))
+                        {
+                            logMsg("forceApplyY8");
+                            forceShotY = beginShotForce.getY() * .20;
+                            if (hoopBasketballDistanceY < 0)
+                            {
+                                forceToApply.setY(forceShotY);
+                            }
+                            else if (hoopBasketballDistanceY > 0)
+                            {
+                                forceToApply.setY(-(forceShotY));
+                            }
+                        }
+                        else if (currentDistance > (beginShotDistance.getX()*0.80) && currentDistance < (beginShotDistance.getX()*0.90))
+                        {
+                            logMsg("forceApplyY9");
+                            
+                            forceShotY = beginShotForce.getY() * .10;
+                            if (hoopBasketballDistanceY < 0)
+                            {
+                                forceToApply.setY(forceShotY);
+                            }
+                            else if (hoopBasketballDistanceY > 0)
+                            {
+                                forceToApply.setY(-(forceShotY));
+                            }
+                        }
+                        else if (currentDistance > (beginShotDistance.getX()*0.90) && currentDistance < (beginShotDistance.getX()*1.0))
+                        {
+                            logMsg("forceApplyY10");
+                            forceShotY = beginShotForce.getY() * .10;
+                            if (hoopBasketballDistanceY < 0)
+                            {
+                                forceToApply.setY(forceShotY);
+                            }
+                            else if (hoopBasketballDistanceY > 0)
+                            {
+                                forceToApply.setY(-(forceShotY));
+                            }
+                        }
+                        else
+                        {
+                            logMsg("Current distance between hoop and basketball" +Ogre::StringConverter::toString(beginShotDistance.getX()));
+                            logMsg("Current distance between hoop and basketball" +Ogre::StringConverter::toString(currentDistance));
                        // exit(0);
 /*                        exit(0);
                         if (hoopBasketballDistanceY < 0)
@@ -1464,6 +1469,11 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                             forceToApply.setY(-90);
                         }
                         */
+                        }
+                    }
+                    else
+                    {
+                        
                     }
                    // forceToApply.setY(1000);
                     if (hoopBasketballDistanceZ < 0)
