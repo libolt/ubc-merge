@@ -135,6 +135,10 @@ private:
     // shooting variables
     btVector3 beginShotDistance;
     btVector3 beginShotForce;
+    float maxShotHeight;
+    bool maxShotHeightReached;
+    bool forceToApplyXSet;
+    btVector3 forceToApply;
 };
 
     // Collision Callback
