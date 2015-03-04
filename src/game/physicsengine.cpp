@@ -1141,7 +1141,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     {
                     }
                     
-                    maxShotHeight = basketballPos.getY() -10;
+                    maxShotHeight = basketballPos.getY() -40;
                     hoopBasketballDistanceX = hoopPos.getX() - basketballPos.getX();
                     hoopBasketballDistanceY = hoopPos.getY() - basketballPos.getY();
                     hoopBasketballDistanceZ = hoopPos.getZ() - basketballPos.getZ();
@@ -1362,22 +1362,30 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                        
                          if (bballPos.getY() > maxShotHeight)
                          {
+                             forceToApply.setY(2);
+                             exit(0);
+/*
                              forceShotY = beginShotForce.getY();
-                             if (hoopBasketballDistanceY < 0)
+                             if (hoopBasketballDistanceY > 0)
                              {
-                                 forceToApply.setY(forceShotY);
+                                // forceToApply.setY((forceShotY));
+                                 forceToApply.setY(-2);
                                  logMsg("forceToApply y = " +Ogre::StringConverter::toString(forceToApply.getY()));
                        
                              //    exit(0);
                              }
-                             else if (hoopBasketballDistanceY > 0)
-                           {
-                                 forceToApply.setY(-(forceShotY));
+                             else if (hoopBasketballDistanceY < 0)
+                             {
+                              //   forceToApply.setY(-(forceShotY));
+                                 maxShotHeightReached = true;
                              }
+                             */
                          }
                          else
                          {
                              maxShotHeightReached = true;
+                             logMsg("MaxHeight Reached!");
+                             exit(0);
                          }
                         /*
                         if (currentDistance <= (beginShotDistance.getX()*.10))
@@ -1542,7 +1550,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     hoopBasketballDistanceY = hoopPos.getY() - basketballPos.getY();
                     hoopBasketballDistanceZ = hoopPos.getZ() - basketballPos.getZ();
                     logMsg("X distance between hoop and basketball" +Ogre::StringConverter::toString(hoopBasketballDistanceX));
-
+                    logMsg("forcetoApply.gety() = " +Ogre::StringConverter::toString(forceToApply.getY()));
 //                        exit(0);
                     //forceToApply.setY(50);
                     //forceToApply.setZ(0);
