@@ -92,6 +92,7 @@ physicsEngine::physicsEngine()
     beginShotPosSet = false;
     midShotPosSet = false;
     midShotPosReached = false;
+    midShotXPosReached = false;
     endShotPosSet = false;
 }
 //-------------------------------------------------------------------------------------
@@ -1178,11 +1179,11 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     // sets the midPoint of the shot
                     if (!midShotPosSet)
                     {
-                        midShotPos.setY(endShotPos.getY());
-                        if (midShotPos.getY() < 0)
+                        midShotPos.setY(endShotPos.getY() +8);
+                      /*  if (midShotPos.getY() < 0)
                         {
                             midShotPos.setY(-1 * (midShotPos.getY()));
-                        }
+                        }*/
                         midShotPosSet = true;
                         logMsg("midShotPos y = " +Ogre::StringConverter::toString(midShotPos.getY()));
                         logMsg("midShotPosSet");
@@ -1414,10 +1415,11 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     //forceToApply.setX(200);
                     btTransform bballTransform = basketballInstance[0].getPhysBody()->getWorldTransform();
                     btVector3 bballPos = bballTransform.getOrigin();
-                    if (bballPos.getX() > midShotPos.getX()/2)
+                    if (bballPos.getX() > midShotPos.getX()/2 && !midShotXPosReached)
                     {
                     //    exit(0);
-                        forceToApply.setX(forceToApply.getX() + 5);
+                        forceToApply.setX(forceToApply.getX() - 5);
+                        midShotXPosReached = true;
                     }
                     if (!midShotPosReached)
                     {
@@ -1428,11 +1430,11 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                          {
                              if (bballPos.getY() > (midShotPos.getY() * 0.75))
                              {
-                                 forceToApply.setY(forceToApply.getX() * 0.75);
+                                 forceToApply.setY(forceToApply.getX() * 0.40);
                              }
                              else
                              {
-                                 forceToApply.setY(forceToApply.getX() * 0.75);
+                                 forceToApply.setY(forceToApply.getX() * 0.40);
                              }
                             // exit(0);
 /*
@@ -1458,6 +1460,14 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                              logMsg("MaxHeight Reached!");
                              forceToApply.setY(0.0);
                           //   exit(0);
+                         }
+                         
+                         if ((endShotPos.getX() - bballPos.getX()) < 5 && (bballPos.getY() - endShotPos.getY()) < 5)
+                         {
+                             logMsg("X = " +Ogre::StringConverter::toString(bballPos.getX() - endShotPos.getX()));
+                             logMsg("Y = " +Ogre::StringConverter::toString(bballPos.getY() - endShotPos.getY()));
+                            
+                             exit(0);
                          }
                         /*
                         if (currentDistance <= (beginShotDistance.getX()*.10))

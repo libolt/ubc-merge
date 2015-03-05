@@ -695,7 +695,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
         y = -23.5f;
 #endif
 
-        startingPos.push_back(Ogre::Vector3(-23.8f,y,352.0f));
+        startingPos.push_back(Ogre::Vector3(-13.8f,y,352.0f));
         startingPos.push_back(Ogre::Vector3(-0.8f,y,347.6f));
         startingPos.push_back(Ogre::Vector3(-0.8f,y,360.8f));
         startingPos.push_back(Ogre::Vector3(4.4f,y,348.8f));

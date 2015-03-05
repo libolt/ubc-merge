@@ -147,6 +147,7 @@ private:
     bool beginShotPosSet;
     bool midShotPosSet;
     bool midShotPosReached;
+    bool midShotXPosReached;
     bool endShotPosSet;
 };
 
