@@ -515,7 +515,7 @@ bool gameState::setupTipOff()
     teams *team = teams::Instance();
 
 //    std::vector<basketballs> basketballInstance = getBasketballInstance();
-    SceneNode *bball;
+//    SceneNode *bball;
 /*    bball = basketballInstance[0].getNode();
     bball->setPosition(1.4f,5.0f,352.0f);
     basketballInstance[0].setNode(bball);

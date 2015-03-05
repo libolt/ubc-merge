@@ -77,11 +77,22 @@ physicsEngine::physicsEngine()
     pairCollided = false;
     passCollision = false;
 
+    beginShotPos = btVector3(0,0,0);
     beginShotDistance = btVector3(0,0,0);
     beginShotForce = btVector3(0,0,0);
+    midShotPos = btVector3(0,0,0);
+    endShotPos = btVector3(0,0,0);
+
     maxShotHeight = 0.0f;
+
+    shotSet = false;
+    shotComplete = false;
     maxShotHeightReached = false;
     forceToApplyXSet = false;
+    beginShotPosSet = false;
+    midShotPosSet = false;
+    midShotPosReached = false;
+    endShotPosSet = false;
 }
 //-------------------------------------------------------------------------------------
 physicsEngine::~physicsEngine()
@@ -1085,8 +1096,8 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
     {
         if (playerInstance[x].getPlayerID() == playerID)
         {
-            bool shotSet = playerInstance[x].getShotSet();
-            bool shotComplete = playerInstance[x].getShotComplete();
+            shotSet = playerInstance[x].getShotSet();
+            shotComplete = playerInstance[x].getShotComplete();
             if (!shotComplete)
             {
                 int hoop = teamInstance[teamNumber].getHoop();
@@ -1110,108 +1121,155 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                         teamInstance[teamNumber].setPlayerWithBallDribbling(false);
                     }       
 
-                    if (playerInstance[x].getDirection() == RIGHT)
+                    if (!beginShotPosSet)
                     {
-                        basketballPos.setX(playerPos.getX() + 3);
-                        basketballPos.setY(playerPos.getY() + 3);
-                        basketballPos.setZ(playerPos.getZ());
-                    }
-                    else if (playerInstance[x].getDirection() == LEFT)
-                    {
-                        basketballPos.setX(playerPos.getX() - 3);
-                        basketballPos.setY(playerPos.getY() + 3);
-                        basketballPos.setZ(playerPos.getZ());
-                        
-                    }
-                    else if (playerInstance[x].getDirection() == UP)
-                    {
-                        basketballPos.setX(playerPos.getX() - 3);
-                        basketballPos.setY(playerPos.getY() + 3);
-                        basketballPos.setZ(playerPos.getZ() + 3);
+                        if (playerInstance[x].getDirection() == RIGHT)
+                        {
+                            basketballPos.setX(playerPos.getX() + 3);
+                            basketballPos.setY(playerPos.getY() + 3);
+                            basketballPos.setZ(playerPos.getZ());
+                        }
+                        else if (playerInstance[x].getDirection() == LEFT)
+                        {
+                            basketballPos.setX(playerPos.getX() - 3);
+                            basketballPos.setY(playerPos.getY() + 3);
+                            basketballPos.setZ(playerPos.getZ());
 
-                    }
-                    else if (playerInstance[x].getDirection() == DOWN)
-                    {
-                        basketballPos.setX(playerPos.getX() - 3);
-                        basketballPos.setY(playerPos.getY() + 3);
-                        basketballPos.setZ(playerPos.getZ() - 3);
+                        }
+                        else if (playerInstance[x].getDirection() == UP)
+                        {
+                            basketballPos.setX(playerPos.getX() - 3);
+                            basketballPos.setY(playerPos.getY() + 3);
+                            basketballPos.setZ(playerPos.getZ() + 3);
 
-                    }
-                    else
-                    {
-                    }
-                    
-                    maxShotHeight = basketballPos.getY() + 15;
-                    hoopBasketballDistanceX = hoopPos.getX() - basketballPos.getX();
-                    hoopBasketballDistanceY = hoopPos.getY() - basketballPos.getY();
-                    hoopBasketballDistanceZ = hoopPos.getZ() - basketballPos.getZ();
-                    logMsg("X distance between hoop and basketball" +Ogre::StringConverter::toString(hoopBasketballDistanceX));
-//                    exit(0);
-                    beginShotDistance.setX(hoopBasketballDistanceX);
-                    beginShotDistance.setY(hoopBasketballDistanceY);
-                    beginShotDistance.setZ(hoopBasketballDistanceZ);
-                    if (beginShotDistance.getX() <= 10)
-                    {
-                        beginShotForce.setY(beginShotDistance.getX() * .85);
-                        logMsg("force1");
-                    }
-                    else if (beginShotDistance.getX() <= 20 && beginShotDistance.getX() > 10)
-                    {
-                        beginShotForce.setY(beginShotDistance.getX() * .80);
-                        logMsg("force2");
-                    }
-                    else if (beginShotDistance.getX() <= 30 && beginShotDistance.getX() > 20)
-                    {
-                        beginShotForce.setY(beginShotDistance.getX() * .75);
-                        logMsg("force3");
-                    }
-                    else if (beginShotDistance.getX() <= 40 && beginShotDistance.getX() > 30)
-                    {
-                        beginShotForce.setY(beginShotDistance.getX() * .70);
-                        logMsg("force4");
-                    }
-                    else if (beginShotDistance.getX() <= 50 && beginShotDistance.getX() > 40)
-                    {
-                        beginShotForce.setY(beginShotDistance.getX() * .65);
-                        logMsg("force5");
-                    }
-                    else if (beginShotDistance.getX() <= 60 && beginShotDistance.getX() > 50)
-                    {
-                        beginShotForce.setY(beginShotDistance.getX() * .60);
-                        logMsg("force6");
-                    }
-                    else if (beginShotDistance.getX() <= 70 && beginShotDistance.getX() > 60)
-                    {
-                        beginShotForce.setY(beginShotDistance.getX() * .55);
-                        logMsg("force7");
-                    }
-                    else if (beginShotDistance.getX() <= 80 && beginShotDistance.getX() > 70)
-                    {
-                        beginShotForce.setY(beginShotDistance.getX() * .50);
-                        logMsg("force8");
+                        }
+                        else if (playerInstance[x].getDirection() == DOWN)
+                        {
+                            basketballPos.setX(playerPos.getX() - 3);
+                            basketballPos.setY(playerPos.getY() + 3);
+                            basketballPos.setZ(playerPos.getZ() - 3);
 
+                        }
+                        else
+                        {
+                        }
+                        beginShotPos = basketballPos;
+                        beginShotPosSet = true;
+                        logMsg("beginShotPosSet");
                     }
 
-                    else if (beginShotDistance.getX() <= 90 && beginShotDistance.getX() > 80)
+                    // sets end position of the shot
+                    if (!endShotPosSet)
                     {
-                        beginShotForce.setY(beginShotDistance.getX() * .45);
-                        logMsg("force9");
+                        if (hoopPos.getX() < 0)
+                        {
+                            endShotPos.setX(hoopPos.getX() + 10);
+                        }
+                        else
+                        {
+                            endShotPos.setX(hoopPos.getX() - 10);
+                        }
+
+                        endShotPos.setY(hoopPos.getY() + 5);
+                        endShotPos.setZ(hoopPos.getZ() + 3);
+                        endShotPosSet = true;
+                        logMsg("endShotPosSet");
                     }
-                    else if (beginShotDistance.getX() <= 100 && beginShotDistance.getX() > 90)
+                    // sets the midPoint of the shot
+                    if (!midShotPosSet)
                     {
-                        beginShotForce.setY(beginShotDistance.getX() * .40);
-                        logMsg("force10");
+                        midShotPos.setY(endShotPos.getY());
+                        if (midShotPos.getY() < 0)
+                        {
+                            midShotPos.setY(-1 * (midShotPos.getY()));
+                        }
+                        midShotPosSet = true;
+                        logMsg("midShotPos y = " +Ogre::StringConverter::toString(midShotPos.getY()));
+                        logMsg("midShotPosSet");
                     }
 
-                    basketballTransform.setOrigin(basketballPos);
-                    basketballInstance[0].getPhysBody()->setWorldTransform(basketballTransform);
-                    shotSet = true;
+                    if (beginShotPosSet && midShotPosSet && endShotPosSet)
+                    {
+                        hoopBasketballDistanceX = endShotPos.getX() - basketballPos.getX();
+                        hoopBasketballDistanceY = endShotPos.getY() - basketballPos.getY();
+                        hoopBasketballDistanceZ = endShotPos.getZ() - basketballPos.getZ();
+                        logMsg("X distance between hoop and basketball" +Ogre::StringConverter::toString(hoopBasketballDistanceX));
+    //                    exit(0);
+                        beginShotDistance.setX(hoopBasketballDistanceX);
+                        beginShotDistance.setY(hoopBasketballDistanceY);
+                        beginShotDistance.setZ(hoopBasketballDistanceZ);
+//                        exit(0);
+
+                        midShotPos.setX(beginShotDistance.getX()/2);
+    //                    maxShotHeight = basketballPos.getY() + 15;
+                        if (beginShotDistance.getX() <= 10)
+                        {
+                            beginShotForce.setY(beginShotDistance.getX() * .85);
+                            logMsg("force1");
+                        }
+                        else if (beginShotDistance.getX() <= 20 && beginShotDistance.getX() > 10)
+                        {
+                            beginShotForce.setY(beginShotDistance.getX() * .80);
+                            logMsg("force2");
+                        }
+                        else if (beginShotDistance.getX() <= 30 && beginShotDistance.getX() > 20)
+                        {
+                            beginShotForce.setY(beginShotDistance.getX() * .75);
+                            logMsg("force3");
+                        }
+                        else if (beginShotDistance.getX() <= 40 && beginShotDistance.getX() > 30)
+                        {
+                            beginShotForce.setY(beginShotDistance.getX() * .70);
+                            logMsg("force4");
+                        }
+                        else if (beginShotDistance.getX() <= 50 && beginShotDistance.getX() > 40)
+                        {
+                            beginShotForce.setY(beginShotDistance.getX() * .65);
+                            logMsg("force5");
+                        }
+                        else if (beginShotDistance.getX() <= 60 && beginShotDistance.getX() > 50)
+                        {
+                            beginShotForce.setY(beginShotDistance.getX() * .60);
+                            logMsg("force6");
+                        }
+                        else if (beginShotDistance.getX() <= 70 && beginShotDistance.getX() > 60)
+                        {
+                            beginShotForce.setY(beginShotDistance.getX() * .55);
+                            logMsg("force7");
+                        }
+                        else if (beginShotDistance.getX() <= 80 && beginShotDistance.getX() > 70)
+                        {
+                            beginShotForce.setY(beginShotDistance.getX() * .50);
+                            logMsg("force8");
+
+                        }
+
+                        else if (beginShotDistance.getX() <= 90 && beginShotDistance.getX() > 80)
+                        {
+                            beginShotForce.setY(beginShotDistance.getX() * .45);
+                            logMsg("force9");
+                        }
+                        else if (beginShotDistance.getX() <= 100 && beginShotDistance.getX() > 90)
+                        {
+                            beginShotForce.setY(beginShotDistance.getX() * .40);
+                            logMsg("force10");
+                        }
+
+                        basketballTransform.setOrigin(basketballPos);
+                        basketballInstance[0].getPhysBody()->setWorldTransform(basketballTransform);
+
+                        shotSet = true;
+                        logMsg("shotSet!");
+
+                    }
+
                 }
                 else
                 {
-                    hoopBasketballDistanceX = hoopPos.getX() - basketballPos.getX();
-                    hoopBasketballDistanceY = hoopPos.getY() - basketballPos.getY();
-                    hoopBasketballDistanceZ = hoopPos.getZ() - basketballPos.getZ();
+//                    exit(0);
+                    hoopBasketballDistanceX = endShotPos.getX() - basketballPos.getX();
+                    hoopBasketballDistanceY = endShotPos.getY() - basketballPos.getY();
+                    hoopBasketballDistanceZ = endShotPos.getZ() - basketballPos.getZ();
 
                     logMsg("X distance between hoop and basketball" +Ogre::StringConverter::toString(hoopBasketballDistanceX));
 //                    exit(0);
@@ -1219,6 +1277,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     float forceShotX = 0.0f;
                     float forceShotY = 0.0f;
                     float forceShotZ = 0.0f;
+//                    exit(0);
 
                     float currentDistance = beginShotDistance.getX() - hoopBasketballDistanceX;
                     if (!forceToApplyXSet)
@@ -1283,62 +1342,62 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                             if (hoopBasketballDistanceX <= 10)
                             {
                                 logMsg("forceX1");
-                                forceToApply.setX(15);
+                                forceToApply.setX(215);
                                 forceToApplyXSet = true;
                             }
                             else if (hoopBasketballDistanceX <= 20 && hoopBasketballDistanceX > 10)
                             {
                                 logMsg("forceX2");
-                                forceToApply.setX(25);
+                                forceToApply.setX(205);
                                 forceToApplyXSet = true;
                             }
                             else if (hoopBasketballDistanceX <= 30 && hoopBasketballDistanceX > 20)
                             {
                                 logMsg("forceX3");
-                                forceToApply.setX(35);
+                                forceToApply.setX(195);
                                 forceToApplyXSet = true;
                             }
                             else if (hoopBasketballDistanceX <= 40 && hoopBasketballDistanceX > 30)
                             {
                                 logMsg("forceX4");
-                                forceToApply.setX(45);
+                                forceToApply.setX(185);
                                 forceToApplyXSet = true;
                             }
                             else if (hoopBasketballDistanceX <= 50 && hoopBasketballDistanceX > 40)
                             {
                                 logMsg("forceX5");
-                                forceToApply.setX(55);
+                                forceToApply.setX(175);
                                 forceToApplyXSet = true;
                             }
                             else if (hoopBasketballDistanceX <= 60 && hoopBasketballDistanceX > 50)
                             {
                                 logMsg("forceX6");
-                                forceToApply.setX(65);
+                                forceToApply.setX(165);
                                 forceToApplyXSet = true;
                             }
                             else if (hoopBasketballDistanceX <= 70 && hoopBasketballDistanceX > 60)
                             {
                                 logMsg("forceX7");
-                                forceToApply.setX(75);
+                                forceToApply.setX(155);
                                 forceToApplyXSet = true;
                             }
                             else if (hoopBasketballDistanceX <= 80 && hoopBasketballDistanceX > 70)
                             {
                                 logMsg("forceX8");
-                                forceToApply.setX(85);
+                                forceToApply.setX(145);
                                 forceToApplyXSet = true;
                             }
                             else if (hoopBasketballDistanceX <= 90 && hoopBasketballDistanceX > 80)
                             {
                                 logMsg("forceX9");
-                                forceToApply.setX(95);
+                                forceToApply.setX(135);
                                 forceToApplyXSet = true;
                             }
                             else if (hoopBasketballDistanceX <= 100 && hoopBasketballDistanceX > 90)
                             {
                             
                                 logMsg("forceX10");
-                                forceToApply.setX(105);
+                                forceToApply.setX(125);
                                 forceToApplyXSet = true;
                             }
 
@@ -1352,23 +1411,28 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     {
                         
                     }
-                    forceToApply.setX(200);
+                    //forceToApply.setX(200);
                     btTransform bballTransform = basketballInstance[0].getPhysBody()->getWorldTransform();
                     btVector3 bballPos = bballTransform.getOrigin();
-                    if (!maxShotHeightReached)
+                    if (bballPos.getX() > midShotPos.getX()/2)
                     {
-                        logMsg("maxShotHeight = " +Ogre::StringConverter::toString(maxShotHeight));
+                    //    exit(0);
+                        forceToApply.setX(forceToApply.getX() + 5);
+                    }
+                    if (!midShotPosReached)
+                    {
+                        logMsg("midShotPos = " +Ogre::StringConverter::toString(midShotPos));
                         logMsg("bballPos y = " +Ogre::StringConverter::toString(bballPos.getY()));
                        
-                         if (bballPos.getY() < maxShotHeight)
+                         if (bballPos.getY() < midShotPos.getY())
                          {
-                             if (bballPos.getY() > (maxShotHeight * 0.75))
+                             if (bballPos.getY() > (midShotPos.getY() * 0.75))
                              {
-                                 forceToApply.setY(90);
+                                 forceToApply.setY(forceToApply.getX() * 0.75);
                              }
                              else
                              {
-                                 forceToApply.setY(100);
+                                 forceToApply.setY(forceToApply.getX() * 0.75);
                              }
                             // exit(0);
 /*
@@ -1390,7 +1454,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                          }
                          else
                          {
-                             maxShotHeightReached = true;
+                             midShotPosReached = true;
                              logMsg("MaxHeight Reached!");
                              forceToApply.setY(0.0);
                           //   exit(0);
@@ -1604,7 +1668,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
             {
                 
             }
-            
+
            playerInstance[x].setShotSet(shotSet);
            playerInstance[x].setShotComplete(shotComplete);
         }
