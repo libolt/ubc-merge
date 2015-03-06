@@ -1164,11 +1164,11 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     {
                         if (hoopPos.getX() < 0)
                         {
-                            endShotPos.setX(hoopPos.getX() + 10);
+                            endShotPos.setX(hoopPos.getX() + 25);
                         }
                         else
                         {
-                            endShotPos.setX(hoopPos.getX() - 10);
+                            endShotPos.setX(hoopPos.getX() - 25);
                         }
 
                         endShotPos.setY(hoopPos.getY() + 5);
@@ -1462,7 +1462,10 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                           //   exit(0);
                          }
                          
-                         if ((endShotPos.getX() - bballPos.getX()) < 5 && (bballPos.getY() - endShotPos.getY()) < 5)
+                         logMsg("bballPos X = " +Ogre::StringConverter::toString(bballPos.getX()));
+                         logMsg("endShotPos X = " +Ogre::StringConverter::toString(endShotPos.getX()));
+                            
+                         if ((endShotPos.getX() - bballPos.getX()) <= .2 /* && (bballPos.getY() - endShotPos.getY()) < 5*/)
                          {
                              logMsg("X = " +Ogre::StringConverter::toString(bballPos.getX() - endShotPos.getX()));
                              logMsg("Y = " +Ogre::StringConverter::toString(bballPos.getY() - endShotPos.getY()));
