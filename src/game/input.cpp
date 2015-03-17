@@ -208,9 +208,10 @@ bool inputSystem::processInput()	// processes all input
 
 #else
 */
+    SDL_PumpEvents();
     int motion = SDL_EventState(SDL_FINGERMOTION, SDL_QUERY);
 	logMsg ("motion = " +Ogre::StringConverter::toString(motion));
-
+    SDL_StartTextInput();
     if (SDL_PollEvent(&inputEvent))
     {
         int numTouch = SDL_GetNumTouchDevices();
@@ -220,7 +221,7 @@ bool inputSystem::processInput()	// processes all input
 
         switch (inputEvent.type)
         {
-            /*
+            
             case SDL_FINGERMOTION:
                 logMsg("Motion!");
                 exit(0);
@@ -255,18 +256,29 @@ bool inputSystem::processInput()	// processes all input
                 if (processUnbufferedTouchInput() == false)
                 {
                     return false;
-                }*/
+                }
                 break;
+           
+            case SDL_TEXTINPUT:
+                if (processUnbufferedKeyInput(true) == false)
+                {
+                    return false;
+                }
+                
+                break;
+                /*
             case SDL_KEYDOWN:
 				logMsg("Keydown!");
-                if (processUnbufferedKeyInput() == false)
+                if (processUnbufferedKeyInput(false) == false)
                 {
                     return false;
                 }
                 break;
+                
             case SDL_KEYUP:
                 keyPressed = "";
                 break;
+                */
             case SDL_MOUSEMOTION:
             case SDL_MOUSEBUTTONDOWN:
             case SDL_MOUSEBUTTONUP:
@@ -324,12 +336,18 @@ bool inputSystem::processInput()	// processes all input
 	exit(0);
 }
 */
-bool inputSystem::processUnbufferedKeyInput()
+bool inputSystem::processUnbufferedKeyInput(bool textInput)
 {
 	GUISystem *gui = GUISystem::Instance();
 //	logMsg("Processing keyboard input");
 
 	logMsg("key == " +Ogre::StringConverter::toString(inputEvent.key.keysym.sym));
+    if (textInput)
+    {
+        keyPressed = inputEvent.text.text;
+        logMsg("key = " +keyPressed);
+        exit(0);
+    }
     switch (inputEvent.key.keysym.sym)
     {
         case SDLK_UP:

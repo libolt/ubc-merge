@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<UserInput>
+    <Name></Name>
+    <Input>
+        <Typ></Type>
+        <Up></Up>
+        <Down></Down>
+        <Left></Left>
+        <Right></Right>
+        <UpLeft></UpLeft>
+        <UpRight></UpRight>
+        <DownLeft></DownLeft>
+        <DownRight></DownRight>
+        <ShootBlock></ShootBlock>
+        <PassSteal></PassSteal>
+        <Pause></Pause>
+        <StartSelect></StartSelect>
+    </Input>
+</UserInput>

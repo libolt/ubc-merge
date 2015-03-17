@@ -30,6 +30,7 @@
 #include "courtdata.h"
 #include "gamestate.h"
 #include "offenseplays.h"
+#include "userinput.h"
 
 using namespace std;
 
@@ -54,6 +55,9 @@ public:
     std::vector<std::string> getCourtFiles();   // returns list of court xml files
     void setCourtFiles(std::vector<std::string> set);  // sets list of court xml files
 
+    std::vector<std::string> getUserInputFiles();   // returns list of user input xml files
+    void setUserInputFiles(std::vector<std::string> set);  // sets list of user input xml files
+
     bool loadXMLFile(string fileName);
     int readFile(const char *sourceFile, char **destination);
 //    int readFile(const char *sourceFile, Ogre::String *destination);
@@ -74,10 +78,15 @@ public:
     bool loadOffensePlayListFile(string fileName);	// loads the list of offense play files from plays.xml
     offensePlays loadOffensePlayFile(string fileName);	// loads data from the offense play XML files
 
-
+    // courts
     std::vector<courtData> loadCourts();	// load court XML files
     bool loadCourtListFile(string fileName);	// load the list of courts from courts.xml
     courtData loadCourtFile(string fileName);	// loads data from the court XML files.
+
+    // user input
+    std::vector<userInput> loadUserInputs();    // load user input XML files
+    bool loadUserInputListFile(string fileName);    // load the list of user input configs from userinputs.xml
+    userInput loadUserInputFile(string fileName);   // loads data from the user input XML files.
 
 protected:
     loader();
@@ -91,6 +100,7 @@ private:
     std::vector<std::string> teamFiles;	// stores list of team xml files
     std::vector<std::string> offensePlayFiles;	// stores list of offense play xml files
     std::vector<std::string> courtFiles;	// stores list of court xml files
+    std::vector<std::string> userInputFiles;    // stores list of court xml files
 
 
 };

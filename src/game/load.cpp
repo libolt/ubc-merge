@@ -104,6 +104,15 @@ void loader::setCourtFiles(std::vector<std::string> set)  // sets list of court 
 	courtFiles = set;
 }
 
+std::vector<std::string> loader::getUserInputFiles()   // returns list of user input xml files
+{
+    return (userInputFiles);
+}
+void loader::setUserInputFiles(std::vector<std::string> set)  // sets list of user input xml files
+{
+    userInputFiles = set;
+}
+
 // loads an xml file using SDL so that it can
 // be passed to TinyXML
 int loader::readFile(const char *sourceFile, char **destination)
@@ -1483,7 +1492,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 }
 
 // Courts
-std::vector<courtData> loader::loadCourts()	// load offense plays from XML files
+std::vector<courtData> loader::loadCourts()	// load court settings from XML files
 {
 	std::vector<courtData> courts;
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
@@ -1508,7 +1517,7 @@ std::vector<courtData> loader::loadCourts()	// load offense plays from XML files
 	return (courts);
 }
 
-bool loader::loadCourtListFile(string fileName)	// loads the list of offense play files from plays.xml
+bool loader::loadCourtListFile(string fileName)	// loads the list of court files from courts.xml
 {
 	renderEngine *renderE = renderEngine::Instance();
     std::vector<std::string> courtFile;
@@ -1798,5 +1807,358 @@ courtData loader::loadCourtFile(string fileName)	// loads data from the offense 
     court.setSidelineInboundPos(sidelineInboundPos);
 
 	return (court);
+}
+
+
+// User input
+std::vector<userInput> loader::loadUserInputs() // load user input settings from XML files
+{
+    std::vector<userInputs> userInputs;
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    string userInputList = "data/users/inputlist.xml";
+#else
+    string userInputList = findFile("users/inputlist.xml");
+#endif
+    loadUserInputListFile(userInputList);
+//    std::vector<std::string> playerFiles = load->getPlayerFiles();
+
+    std::vector<std::string>::iterator it;
+    for (it = userInputFiles.begin(); it != userInputFiles.end(); ++it)
+    {
+        logMsg("userInputFile = " +*it);
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+        userInputs.push_back(loadInputFile("data/usrs/" + *it));
+#else
+        userInputs.push_back(loadUserInputtFile(findFile("userss/" + *it)));
+#endif
+    }
+
+    return (userInputs);
+}
+
+bool loader::loadUserInputtListFile(string fileName) // loads the list of offense play files from plays.xml
+{
+    renderEngine *renderE = renderEngine::Instance();
+    std::vector<std::string> userInputFile;
+
+
+//  char *fileContents = NULL;
+    Ogre::String fileContents;
+    TiXmlDocument doc;
+    //    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
+//  readFile(fileName.c_str(), &fileContents);
+    logMsg(fileName);
+/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+    fileContents = fileData->getAsString();
+#else*/
+    char *contents = NULL;
+    readFile(fileName.c_str(), &contents);
+    fileContents = Ogre::StringConverter::toString(contents);
+//#endif
+
+/*    TiXmlDocument doc(fileName.c_str());
+    if (!doc.LoadFile()) return(false);
+*/
+
+    if (!doc.Parse(contents))
+    {
+        logMsg("Unable to parse inputlist.xml file");
+        exit(0);
+    }
+
+    TiXmlHandle hDoc(&doc);
+    TiXmlElement* pElem;
+    TiXmlHandle hRoot(0);
+
+    pElem=hDoc.FirstChildElement().Element();
+    // should always have a valid root but handle gracefully if it does
+    if (!pElem) return(false);
+
+    // save this for later
+    hRoot=TiXmlHandle(pElem);
+
+    pElem=hRoot.FirstChild("UserInputFile").Element();
+    for( pElem; pElem; pElem=pElem->NextSiblingElement())
+    {
+        string pKey=pElem->Value();
+//      cout << pKey << endl;
+        string pText=pElem->GetText();
+//      cout << pText << endl;
+        userInputFile.push_back(pText);
+
+    }
+
+/*    std::vector<std::string>::iterator it;
+    for (it = playerFiles.begin(); it != playerFiles.end(); ++it)
+    {
+        cout << *it << endl;
+    }
+    */
+
+    setUserInputFiles(userInputtFile);
+
+    return true;
+}
+
+userInput loader::loadUserInputFile(string fileName)    // loads data from the user input XML files
+{
+    userInput uInput;
+    std::string inputName;
+    std::string up;
+    std::string down;
+    std::string left;
+    std::string right;
+    std::string upLeft;
+    std::string upRight;
+    std::string downLeft;
+    std::string downRight;
+    std::string shootBlock;
+    std::string passSteal;
+    std::string pause;
+    std::string startSelect;
+    
+//  char *fileContents = NULL;
+    Ogre::String fileContents;
+    TiXmlDocument doc;
+    //    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
+//  readFile(fileName.c_str(), &fileContents);
+
+/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+    fileContents = fileData->getAsString();
+#else*/
+    char *contents = NULL;
+    readFile(fileName.c_str(), &contents);
+    fileContents = Ogre::StringConverter::toString(contents);
+//#endif
+    if (!doc.Parse(contents))
+    {
+        logMsg("Unable to parse user input file");
+        exit(0);
+    }
+
+    TiXmlHandle hDoc(&doc);
+    TiXmlElement *rootElement;
+//    TiXmlElement* pElem;
+    TiXmlElement *child;
+//    TiXmlNode *rootNode;
+//    TiXmlNode *childNode;
+    TiXmlHandle hRoot(0);
+
+//    pElem=hDoc.FirstChildElement().Element();
+    rootElement = doc.FirstChildElement("UserInput");
+    // should always have a valid root but handle gracefully if it does
+    if (!rootElement)
+    {
+        logMsg("Unable to load user input element");
+        exit(0);
+    }
+//pElem=hRoot.FirstChild("Name").FirstChild().Element();
+
+    
+    child = rootElement->FirstChild()->ToElement();
+    if (child)
+    {
+        string cKey = child->Value();
+        if (cKey == "Name")
+        {
+            inputName = child->GetText();
+            logMsg("name = " +inputName);
+        }
+        child = child->NextSiblingElement("Input");
+        if (child)
+        {
+            for( child; child; child=pElem->NextSiblingElement())
+            {
+                string pKey=pElem->Value();
+                if (pKey == "Type")
+                {
+                    type = child->GetText();
+                }
+                if (pKey == "Up")
+                {
+                    up = child->GetText();
+                }
+                if (pKey == "Down")
+                {
+                    down = child->GetText();
+                }
+                if (pKey == "Left")
+                {
+                    left = child->GetText();
+                }
+                if (pKey == "Right")
+                {
+                    right = child->GetText();
+                }
+                if (pKey == "UpLeft")
+                {
+                    upLeft = child->GetText();
+                }
+                if (pKey == "UpRight")
+                {
+                    upRight = child->GetText();
+                }
+                if (pKey == "DownLeft")
+                {
+                    downLeft = child->GetText();
+                }
+                if (pKey == "DownRight")
+                {
+                    downRight = child->GetText();
+                }
+                if (pKey == "ShootBlock")
+                {
+                    shootBlock = child->GetText();
+                }
+                if (pKey == "PassSteal")
+                {
+                    passSteal = child->GetText();
+                }
+                if (pKey == "Pause")
+                {
+                    pausr = child->GetText();
+                }
+                if (pKey == "StartSelect")
+                {
+                    startSelect = child->GetText();
+                }
+            }
+            modelName = child->GetText();
+            logMsg("modelName = " +modelName);
+        }
+        child = child->NextSiblingElement("Length");
+        if (child)
+        {
+            length = atof(child->GetText());
+            logMsg("Length = " +Ogre::StringConverter::toString(length));
+        } //      exit(0);
+        child = child->NextSiblingElement("Width");
+        if (child)
+        {
+            length = atof(child->GetText());
+            logMsg("Width = " +Ogre::StringConverter::toString(width));
+        } //      exit(0);
+        child = child->NextSiblingElement("BoundaryLength");
+        if (child)
+        {
+            boundaryLength = atof(child->GetText());
+            logMsg("Boundary Length = " +Ogre::StringConverter::toString(boundaryLength));
+        } //      exit(0);
+        child = child->NextSiblingElement("BoundaryWidth");
+        if (child)
+        {
+            boundaryWidth = atof(child->GetText());
+            logMsg("Boundary Width = " +Ogre::StringConverter::toString(boundaryWidth));
+        } //      exit(0);
+        child = child->NextSiblingElement("BoundaryXPos");
+        if (child)
+        {
+            boundaryXPos = atof(child->GetText());
+            logMsg("Boundary X Pos = " +Ogre::StringConverter::toString(boundaryXPos));
+        } //      exit(0);
+        child = child->NextSiblingElement("BoundaryZPos");
+        if (child)
+        {
+            boundaryZPos = atof(child->GetText());
+            logMsg("Boundary Z Pos = " +Ogre::StringConverter::toString(boundaryZPos));
+        } //      exit(0);
+        child = child->NextSiblingElement("CenterCourt");
+        if (child)
+        {
+            centerCourt = atof(child->GetText());
+            logMsg("Center Court = " +Ogre::StringConverter::toString(centerCourt));
+        } //      exit(0);
+        child = child->NextSiblingElement("CenterJumpRadius");
+        if (child)
+        {
+            centerJumpRadius = atof(child->GetText());
+            logMsg("Center Jump Radius = " +Ogre::StringConverter::toString(centerJumpRadius));
+        } //      exit(0);
+        child = child->NextSiblingElement("KeyLength");
+        if (child)
+        {
+            keyLength = atof(child->GetText());
+            logMsg("Key Length = " +Ogre::StringConverter::toString(keyLength));
+        } //      exit(0);
+        child = child->NextSiblingElement("KeyWidth");
+        if (child)
+        {
+            keyWidth = atof(child->GetText());
+            logMsg("Key Width = " +Ogre::StringConverter::toString(keyWidth));
+        } //      exit(0);
+        child = child->NextSiblingElement("KeyJumpRadius");
+        if (child)
+        {
+            keyJumpRadius = atof(child->GetText());
+            logMsg("Key Jump RAdius = " +Ogre::StringConverter::toString(keyJumpRadius));
+        } //      exit(0);
+        child = child->NextSiblingElement("ThreePointSideLength");
+        if (child)
+        {
+            threePointSideLength = atof(child->GetText());
+            logMsg("Three Point Side Length = " +Ogre::StringConverter::toString(threePointSideLength));
+        } //      exit(0);
+        child = child->NextSiblingElement("ThreePointSideZPos");
+        if (child)
+        {
+            threePointSideZPos = atof(child->GetText());
+            logMsg("Three Point Side Z Pos = " +Ogre::StringConverter::toString(threePointSideZPos));
+        } //      exit(0);
+        child = child->NextSiblingElement("ThreePointArcRadius");
+        if (child)
+        {
+            threePointArcRadius = atof(child->GetText());
+            logMsg("Three Point Arc Radius = " +Ogre::StringConverter::toString(threePointArcRadius));
+        } //      exit(0);
+        child = child->NextSiblingElement("BaselineInboundXPos");
+        if (child)
+        {
+            baselineInboundXPos = atof(child->GetText());
+            logMsg("Baseline Inbound X Pos = " +Ogre::StringConverter::toString(baselineInboundXPos));
+        } //      exit(0);
+        child = child->NextSiblingElement("BaselineInboundZPos");
+        if (child)
+        {
+            baselineInboundZPos = atof(child->GetText());
+            logMsg("Baseline Inbound Z Pos = " +Ogre::StringConverter::toString(baselineInboundZPos));
+        } //      exit(0);
+        child = child->NextSiblingElement("SidelineInboundXPos");
+        if (child)
+        {
+            sidelineInboundXPos = atof(child->GetText());
+            logMsg("Sideline Inbound X Pos = " +Ogre::StringConverter::toString(sidelineInboundXPos));
+        } //      exit(0);
+        child = child->NextSiblingElement("SidelineInboundZPos");
+        if (child)
+        {
+            sidelineInboundZPos = atof(child->GetText());
+            logMsg("Sideline Inbound Z Pos = " +Ogre::StringConverter::toString(sidelineInboundZPos));
+        } //      exit(0);
+
+    }
+
+    Ogre::Vector2 boundary = Ogre::Vector2(length,width);
+    Ogre::Vector2 boundaryPos = Ogre::Vector2(boundaryXPos,boundaryZPos);
+    Ogre::Vector2 keyDimensions = Ogre::Vector2(keyLength,keyWidth);
+    Ogre::Vector2 baselineInboundPos = Ogre::Vector2(baselineInboundXPos,baselineInboundZPos);
+    Ogre::Vector2 sidelineInboundPos = Ogre::Vector2(sidelineInboundXPos,sidelineInboundZPos);
+
+    court.setName(name);
+    court.setModelName(modelName);
+    court.setBoundary(boundary);
+    court.setBoundaryPos(boundaryPos);
+    court.setCenterCourt(centerCourt);
+    court.setCenterJumpRadius(centerJumpRadius);
+    court.setKeyDimensions(keyDimensions);
+    court.setKeyJumpRadius(keyJumpRadius);
+    court.setThreePointSideLength(threePointSideLength);
+    court.setThreePointZPos(threePointSideZPos);
+    court.setThreePointArcRadius(threePointArcRadius);
+    court.setBaselineInboundPos(baselineInboundPos);
+    court.setSidelineInboundPos(sidelineInboundPos);
+
+    return (court);
 }
 

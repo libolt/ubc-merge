@@ -43,7 +43,7 @@ public:
 	inputMaps keyMap();  // maps value of keyPressed string to inputMap
 	
     bool processInput();	// processes all input
-    bool processUnbufferedKeyInput();	// reads in unbuffered key presses
+    bool processUnbufferedKeyInput(bool textInput);	// reads in unbuffered key presses
     bool processUnbufferedMouseInput();	// reads in unbuffered mouse input
     bool processUnbufferedTouchInput(); // reads in unbuffered touch input
 	bool processUnbufferedGamepadInput(); // reads in unbuffered mouse input
@@ -80,7 +80,7 @@ private:
 	Ogre::String keyPressed; // stores which key was pressed
 	
 	inputMaps inputMap; // stores user input
-
+    
 };
 
 
