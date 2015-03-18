@@ -49,7 +49,55 @@ class userInput
         void setKeyDownLeft(std::string set);  // sets the value of keyDownLeft
 
         std::string getKeyDownRight();  // retrieves the value of keyDownRight
-        void setKeyDownRight(std::string set);  // sets the value of keyRight
+        void setKeyDownRight(std::string set);  // sets the value of keyDownRight
+
+        std::string getKeyShootBlock();  // retrieves the value of keyShootBlock
+        void setKeyShootBlock(std::string set);  // sets the value of keyShootBlock
+
+        std::string getKeyPassSteal();  // retrieves the value of keyPassSteal
+        void setKeyPassSteal(std::string set);  // sets the value of keyPassSteal
+
+        std::string getKeyPause();  // retrieves the value of keyPause
+        void setKeyPause(std::string set);  // sets the value of keyPause
+
+        std::string getKeyStartSelect();  // retrieves the value of keyStartSelect
+        void setKeyStartSelect(std::string set);  // sets the value of keyStartSelect
+
+        std::string getJoyUp();  // retrieves the value of joyUp
+        void setJoyUp(std::string set);  // sets the value of joyUp
+
+        std::string getJoyDown();  // retrieves the value of joyDown
+        void setJoyDown(std::string set);  // sets the value of joyDown
+        
+        std::string getJoyLeft();  // retrieves the value of joyLeft
+        void setJoyLeft(std::string set);  // sets the value of joyLeft
+
+        std::string getJoyRight();  // retrieves the value of joyRight
+        void setJoyRight(std::string set);  // sets the value of joyRight
+
+        std::string getJoyUpLeft();  // retrieves the value of joyUpLeft
+        void setJoyUpLeft(std::string set);  // sets the value of joyUpLeft
+
+        std::string getJoyUpRight();  // retrieves the value of joyUpRight
+        void setJoyUpRight(std::string set);  // sets the value of joyUpRight
+
+        std::string getJoyDownLeft();  // retrieves the value of joyDownLeft
+        void setJoyDownLeft(std::string set);  // sets the value of joyDownLeft
+
+        std::string getJoyDownRight();  // retrieves the value of joyDownRight
+        void setJoyDownRight(std::string set);  // sets the value of joyDownRight
+
+        std::string getJoyShootBlock();  // retrieves the value of joyShootBlock
+        void setJoyShootBlock(std::string set);  // sets the value of joyShootBlock
+
+        std::string getJoyPassSteal();  // retrieves the value of joyPassSteal
+        void setJoyPassSteal(std::string set);  // sets the value of joyPassSteal
+
+        std::string getJoyPause();  // retrieves the value of joyPause
+        void setJoyPause(std::string set);  // sets the value of joyPause
+
+        std::string getJoyStartSelect();  // retrieves the value of joyStartSelect
+        void setJoyStartSelect(std::string set);  // sets the value of joyStartSelect
 
     private:
     
@@ -64,6 +112,23 @@ class userInput
     std::string keyDownRight;
     std::string keyShootBlock;
     std::string keyPassSteal;
+    std::string keyPause;
+    std::string keyStartSelect;
+    
+    // joystick input strings
+    std::string joyUp;
+    std::string joyDown;
+    std::string joyLeft;
+    std::string joyRight;
+    std::string joyUpLeft;
+    std::string joyUpRight;
+    std::string joyDownLeft;
+    std::string joyDownRight;
+    std::string joyShootBlock;
+    std::string joyPassSteal;
+    std::string joyPause;
+    std::string joyStartSelect;
+    
 };
 
 #endif

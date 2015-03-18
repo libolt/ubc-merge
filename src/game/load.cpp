@@ -1813,7 +1813,7 @@ courtData loader::loadCourtFile(string fileName)	// loads data from the offense 
 // User input
 std::vector<userInput> loader::loadUserInputs() // load user input settings from XML files
 {
-    std::vector<userInputs> userInputs;
+    std::vector<userInput> userInputs;
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     string userInputList = "data/users/inputlist.xml";
 #else
@@ -1827,7 +1827,7 @@ std::vector<userInput> loader::loadUserInputs() // load user input settings from
     {
         logMsg("userInputFile = " +*it);
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-        userInputs.push_back(loadInputFile("data/usrs/" + *it));
+        userInputs.push_back(loadUserInputFile("data/usrs/" + *it));
 #else
         userInputs.push_back(loadUserInputtFile(findFile("userss/" + *it)));
 #endif
@@ -1836,7 +1836,7 @@ std::vector<userInput> loader::loadUserInputs() // load user input settings from
     return (userInputs);
 }
 
-bool loader::loadUserInputtListFile(string fileName) // loads the list of offense play files from plays.xml
+bool loader::loadUserInputListFile(string fileName) // loads the list of offense play files from plays.xml
 {
     renderEngine *renderE = renderEngine::Instance();
     std::vector<std::string> userInputFile;
@@ -1896,7 +1896,7 @@ bool loader::loadUserInputtListFile(string fileName) // loads the list of offens
     }
     */
 
-    setUserInputFiles(userInputtFile);
+    setUserInputFiles(userInputFile);
 
     return true;
 }
@@ -1905,6 +1905,7 @@ userInput loader::loadUserInputFile(string fileName)    // loads data from the u
 {
     userInput uInput;
     std::string inputName;
+    std::string type;
     std::string up;
     std::string down;
     std::string left;
@@ -1966,69 +1967,81 @@ userInput loader::loadUserInputFile(string fileName)    // loads data from the u
             inputName = child->GetText();
             logMsg("name = " +inputName);
         }
-        child = child->NextSiblingElement("Input");
-        if (child)
+        
+        bool inputTag = false;
+        while (!inputTag)
         {
-            for( child; child; child=pElem->NextSiblingElement())
+            child = child->NextSiblingElement("Input");
+            if (child)
             {
-                string pKey=pElem->Value();
-                if (pKey == "Type")
+                inputTag = true;
+                for( child; child; child=child->NextSiblingElement())
                 {
-                    type = child->GetText();
+                    string pKey=child->Value();
+                    if (pKey == "Type")
+                    {
+                        type = child->GetText();
+                    }
+                    if (pKey == "Up")
+                    {
+                        up = child->GetText();
+                    }
+                    if (pKey == "Down")
+                    {
+                        down = child->GetText();
+                    }
+                    if (pKey == "Left")
+                    {
+                        left = child->GetText();
+                    }
+                    if (pKey == "Right")
+                    {
+                        right = child->GetText();
+                    }
+                    if (pKey == "UpLeft")
+                    {
+                        upLeft = child->GetText();
+                    }
+                    if (pKey == "UpRight")
+                    {
+                        upRight = child->GetText();
+                    }
+                    if (pKey == "DownLeft")
+                    {
+                        downLeft = child->GetText();
+                    }
+                    if (pKey == "DownRight")
+                    {
+                        downRight = child->GetText();
+                    }
+                    if (pKey == "ShootBlock")
+                    {
+                        shootBlock = child->GetText();
+                    }
+                    if (pKey == "PassSteal")
+                    {
+                        passSteal = child->GetText();
+                    }
+                    if (pKey == "Pause")
+                    {
+                        pause = child->GetText();
+                    }
+                    if (pKey == "StartSelect")
+                    {
+                        startSelect = child->GetText();
+                    }
                 }
-                if (pKey == "Up")
-                {
-                    up = child->GetText();
-                }
-                if (pKey == "Down")
-                {
-                    down = child->GetText();
-                }
-                if (pKey == "Left")
-                {
-                    left = child->GetText();
-                }
-                if (pKey == "Right")
-                {
-                    right = child->GetText();
-                }
-                if (pKey == "UpLeft")
-                {
-                    upLeft = child->GetText();
-                }
-                if (pKey == "UpRight")
-                {
-                    upRight = child->GetText();
-                }
-                if (pKey == "DownLeft")
-                {
-                    downLeft = child->GetText();
-                }
-                if (pKey == "DownRight")
-                {
-                    downRight = child->GetText();
-                }
-                if (pKey == "ShootBlock")
-                {
-                    shootBlock = child->GetText();
-                }
-                if (pKey == "PassSteal")
-                {
-                    passSteal = child->GetText();
-                }
-                if (pKey == "Pause")
-                {
-                    pausr = child->GetText();
-                }
-                if (pKey == "StartSelect")
-                {
-                    startSelect = child->GetText();
-                }
+                
             }
-            modelName = child->GetText();
-            logMsg("modelName = " +modelName);
+            else
+            {
+                inputTag = false;
+            }
+//            modelName = child->GetText();
+//            logMsg("modelName = " +modelName);
         }
-        child = child->NextSiblingElement("Length");
+    }
+/*        child = child->NextSiblingElement("Length");
         if (child)
         {
             length = atof(child->GetText());
@@ -2158,7 +2171,7 @@ userInput loader::loadUserInputFile(string fileName)    // loads data from the u
     court.setThreePointArcRadius(threePointArcRadius);
     court.setBaselineInboundPos(baselineInboundPos);
     court.setSidelineInboundPos(sidelineInboundPos);
-
-    return (court);
+*/
+    return (uInput);
 }
 

@@ -86,9 +86,150 @@
     {
         return (keyDownRight); 
     }
-    void userInput::setKeyDownRight(std::string set)  // sets the value of keyRight
+    void userInput::setKeyDownRight(std::string set)  // sets the value of keyDownRight
     {
         keyDownRight = set;
     }
     
+std::string userInput::getKeyShootBlock()  // retrieves the value of keyShootBlock
+{
+    return (keyShootBlock);
+}
+void userInput::setKeyShootBlock(std::string set)  // sets the value of keyShootBlock
+{
+    keyShootBlock = set;
+}
 
+std::string userInput::getKeyPassSteal()  // retrieves the value of keyPassSteal
+{
+    return (keyPassSteal);
+}
+void userInput::setKeyPassSteal(std::string set)  // sets the value of keyPassSteal
+{
+    keyPassSteal = set;
+}
+
+std::string userInput::getKeyPause()  // retrieves the value of keyPause
+{
+    return (keyPause);
+}
+void userInput::setKeyPause(std::string set)  // sets the value of keyPause
+{
+    keyPause = set;
+}
+
+std::string userInput::getKeyStartSelect()  // retrieves the value of keyStartSelect
+{
+    return (keyStartSelect);
+}
+void userInput::setKeyStartSelect(std::string set)  // sets the value of keyStartSelect
+{
+    keyStartSelect = set;
+}
+
+    std::string userInput::getJoyUp()  // retrieves the value of keyUp
+    {
+        return (joyUp);
+    }
+    void userInput::setJoyUp(std::string set)  // sets the value of keyUp
+    {
+        joyUp = set;
+    }
+    
+    std::string userInput::getJoyDown()  // retrieves the value of keyDown
+    {
+        return (joyDown);
+    }
+    void userInput::setJoyDown(std::string set)  // sets the value of keyDown
+    {
+        joyDown = set;
+    }
+    std::string userInput::getJoyLeft()  // retrieves the value of keyLeft
+    {
+        return (joyLeft);
+    }
+    void userInput::setJoyLeft(std::string set)  // sets the value of keyLeft
+    {
+        joyLeft = set;
+    }
+    
+    std::string userInput::getJoyRight()  // retrieves the value of keyRight
+    {
+        return (key joyRight);
+    }
+    void userInput::setJoyRight(std::string set)  // sets the value of keyRight
+    {
+        joyRight = set;
+    }
+    
+    std::string userInput::getJoyUpLeft()  // retrieves the value of keyUpLeft
+    {
+        return (joyUpLeft);
+    }
+    void userInput::setJoyUpLeft(std::string set)  // sets the value of keyUpLeft
+    {
+        joyUpLeft = set;
+    }
+    
+    std::string userInput::getJoyUpRight()  // retrieves the value of keyUpRight
+    {
+        return (joyUpRight);
+    }
+    void userInput::setJoyUpRight(std::string set)  // sets the value of keyUpRight
+    {
+        joyUpRight = set;
+    }
+    
+    std::string userInput::getJoyDownLeft()  // retrieves the value of keyDownLeft
+    {
+        return (joyDownLeft);
+    }
+    void userInput::setJoyDownLeft(std::string set)  // sets the value of keyDownLeft
+    {
+        joyDownLeft = set;
+    } 
+    
+    std::string userInput::getJoyDownRight()  // retrieves the value of keyDownRight
+    {
+        return (joyDownRight); 
+    }
+    void userInput::setJoyyDownRight(std::string set)  // sets the value of keyDownRight
+    {
+        joyDownRight = set;
+    }
+    
+std::string userInput::getJoyShootBlock()  // retrieves the value of keyShootBlock
+{
+    return (joyShootBlock);
+}
+void userInput::setJoyShootBlock(std::string set)  // sets the value of keyShootBlock
+{
+    joyShootBlock = set;
+}
+
+std::string userInput::getJoyPassSteal()  // retrieves the value of keyPassSteal
+{
+    return (joyPassSteal);
+}
+void userInput::setJoyPassSteal(std::string set)  // sets the value of keyPassSteal
+{
+    joyPassSteal = set;
+}
+
+std::string userInput::getJoyPause()  // retrieves the value of keyPause
+{
+    return (joyPause);
+}
+void userInput::setJoyPause(std::string set)  // sets the value of keyPause
+{
+    joyPause = set;
+}
+
+std::string userInput::getJoyyStartSelect()  // retrieves the value of keyStartSelect
+{
+    return (joyyStartSelect);
+}
+void userInput::setJoyStartSelect(std::string set)  // sets the value of keyStartSelect
+{
+    joyStartSelect = set;
+}
