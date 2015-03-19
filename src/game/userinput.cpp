@@ -155,7 +155,7 @@ void userInput::setKeyStartSelect(std::string set)  // sets the value of keyStar
     
     std::string userInput::getJoyRight()  // retrieves the value of keyRight
     {
-        return (key joyRight);
+        return (joyRight);
     }
     void userInput::setJoyRight(std::string set)  // sets the value of keyRight
     {
@@ -193,7 +193,7 @@ void userInput::setKeyStartSelect(std::string set)  // sets the value of keyStar
     {
         return (joyDownRight); 
     }
-    void userInput::setJoyyDownRight(std::string set)  // sets the value of keyDownRight
+    void userInput::setJoyDownRight(std::string set)  // sets the value of keyDownRight
     {
         joyDownRight = set;
     }
@@ -225,9 +225,9 @@ void userInput::setJoyPause(std::string set)  // sets the value of keyPause
     joyPause = set;
 }
 
-std::string userInput::getJoyyStartSelect()  // retrieves the value of keyStartSelect
+std::string userInput::getJoyStartSelect()  // retrieves the value of keyStartSelect
 {
-    return (joyyStartSelect);
+    return (joyStartSelect);
 }
 void userInput::setJoyStartSelect(std::string set)  // sets the value of keyStartSelect
 {
