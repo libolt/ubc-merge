@@ -30,6 +30,7 @@
 #include "gui.h"
 #include "renderengine.h"
 #include "logging.h"
+#include "load.h"
 
 //static int32_t handleInput(struct android_app* app, AInputEvent* event);
 
@@ -89,15 +90,27 @@ void inputSystem::setInputMap(inputMaps map)  // sets the value of the inputMap 
 	inputMap = map;
 }
 
+std::vector<userInput> inputSystem::getUInput()  // retrieves the value of uInput
+{
+    return (uInput);
+}
+void inputSystem::setUInput(std::vector<userInput> set)  // sets the value of uInput
+{
+    uInput = set;
+}
+
 bool inputSystem::setup()   // sets up and initializes the OIS Input System
 {
 //    UBC *ubc = UBC::Instance();
 //    renderEngine * render = renderEngine::Instance();
 //              mDebugOverlay = OverlayManager::getSingleton().getByName("Core/DebugOverlay");
 
+    loader *load = loader::Instance();
+    
+    uInput = load->loadUserInputs();
+    
     logMsg("*** Initializing SDL Input System ***");
     SDL_ShowCursor(0); // Hides the SDL Cursor in favor of the MyGUI Cursor
-
 
     return true;
 }

@@ -205,7 +205,6 @@ bool gameEngine::startGame()
 
 void gameEngine::quit()
 {
-    using namespace OIS;
     inputSystem *input = inputSystem::Instance();
     input->destroy();
 

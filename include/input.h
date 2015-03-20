@@ -21,12 +21,12 @@
 #ifndef _INPUT_H_
 #define _INPUT_H_
 
-#include "OIS/OIS.h"
 #include "SDL.h"
 #include "SDL_syswm.h"
 #include "Ogre.h"
 
 #include "enums.h"
+#include "userinput.h"
 
 #define EVENT_BUF_SIZE 256
 
@@ -58,6 +58,9 @@ public:
     inputMaps getInputMap();  // retrieves the value of the inputMap variable
 	void setInputMap(inputMaps map);  // sets the value of the inputMap variable
 
+    std::vector<userInput> getUInput();  // retrieves the value of uInput
+    void setUInput(std::vector<userInput> set);  // sets the value of uInput
+    
 protected:
 	inputSystem();
 	inputSystem(const inputSystem&);
@@ -81,6 +84,7 @@ private:
 	
 	inputMaps inputMap; // stores user input
     
+    std::vector<userInput> uInput;  // stores user input mapping
 };
 
 

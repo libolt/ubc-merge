@@ -1,19 +1,19 @@
 <?xml version="1.0" ?>
 <UserInput>
     <Name>User1</Name>
-    <Input>
-        <Typ>Keyboard</Type>
-        <Up>w</Up>
-        <Down>s</Down>
-        <Left>a</Left>
-        <Right>d</Right>
-        <UpLeft>q</UpLeft>
-        <UpRight>e</UpRight>
-        <DownLeft>z</DownLeft>
-        <DownRight>c</DownRight>
-        <ShootBlock> </ShootBlock>
-        <PassSteal>.</PassSteal>
-        <Pause>p</Pause>
-        <StartSelect></StartSelect>
-    </Input>
+        <Input>
+            <Type>Keyboard</Type>
+            <Up>w</Up>
+            <Down>s</Down>
+            <Left>a</Left>
+            <Right>d</Right>
+            <UpLeft>q</UpLeft>
+            <UpRight>e</UpRight>
+            <DownLeft>z</DownLeft>
+            <DownRight>c</DownRight>
+            <ShootBlock>b</ShootBlock>
+            <PassSteal>.</PassSteal>
+            <Pause>p</Pause>
+            <StartSelect>b</StartSelect>
+        </Input>
 </UserInput>

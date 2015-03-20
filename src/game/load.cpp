@@ -1827,9 +1827,9 @@ std::vector<userInput> loader::loadUserInputs() // load user input settings from
     {
         logMsg("userInputFile = " +*it);
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-        userInputs.push_back(loadUserInputFile("data/usrs/" + *it));
+        userInputs.push_back(loadUserInputFile("data/users/" + *it));
 #else
-        userInputs.push_back(loadUserInputtFile(findFile("userss/" + *it)));
+        userInputs.push_back(loadUserInputtFile(findFile("users/" + *it)));
 #endif
     }
 
@@ -1930,23 +1930,27 @@ userInput loader::loadUserInputFile(string fileName)    // loads data from the u
     fileContents = fileData->getAsString();
 #else*/
     char *contents = NULL;
+   
     readFile(fileName.c_str(), &contents);
     fileContents = Ogre::StringConverter::toString(contents);
+   
 //#endif
     if (!doc.Parse(contents))
     {
         logMsg("Unable to parse user input file");
         exit(0);
     }
-
+//    exit(0);
     TiXmlHandle hDoc(&doc);
     TiXmlElement *rootElement;
 //    TiXmlElement* pElem;
     TiXmlElement *child;
+    TiXmlElement *nextChild;
 //    TiXmlNode *rootNode;
 //    TiXmlNode *childNode;
     TiXmlHandle hRoot(0);
 
+//    exit(0);
 //    pElem=hDoc.FirstChildElement().Element();
     rootElement = doc.FirstChildElement("UserInput");
     // should always have a valid root but handle gracefully if it does
@@ -1974,61 +1978,69 @@ userInput loader::loadUserInputFile(string fileName)    // loads data from the u
             child = child->NextSiblingElement("Input");
             if (child)
             {
+                nextChild = child->FirstChildElement("Type");
+
                 inputTag = true;
-                for( child; child; child=child->NextSiblingElement())
+                for( nextChild; nextChild; nextChild=nextChild->NextSiblingElement())
                 {
-                    string pKey=child->Value();
+                    
+                    string pKey=nextChild->Value();
+                    logMsg("pKey = " +pKey);
+                    exit(0);
                     if (pKey == "Type")
                     {
-                        type = child->GetText();
+                        type = nextChild->GetText();
+                        logMsg("type = " +type);
+                        exit(0);
                     }
                     if (pKey == "Up")
                     {
-                        up = child->GetText();
+                        up = nextChild->GetText();
                     }
                     if (pKey == "Down")
                     {
-                        down = child->GetText();
+                        down = nextChild->GetText();
                     }
                     if (pKey == "Left")
                     {
-                        left = child->GetText();
+                        left = nextChild->GetText();
                     }
                     if (pKey == "Right")
                     {
-                        right = child->GetText();
+                        right = nextChild->GetText();
                     }
                     if (pKey == "UpLeft")
                     {
-                        upLeft = child->GetText();
+                        upLeft = nextChild->GetText();
                     }
                     if (pKey == "UpRight")
                     {
-                        upRight = child->GetText();
+                        upRight = nextChild->GetText();
                     }
                     if (pKey == "DownLeft")
                     {
-                        downLeft = child->GetText();
+                        downLeft = nextChild->GetText();
                     }
                     if (pKey == "DownRight")
                     {
-                        downRight = child->GetText();
+                        downRight = nextChild->GetText();
                     }
                     if (pKey == "ShootBlock")
                     {
-                        shootBlock = child->GetText();
+                        shootBlock = nextChild->GetText();
                     }
                     if (pKey == "PassSteal")
                     {
-                        passSteal = child->GetText();
+                        passSteal = nextChild->GetText();
                     }
                     if (pKey == "Pause")
                     {
-                        pause = child->GetText();
+                        pause = nextChild->GetText();
                     }
                     if (pKey == "StartSelect")
                     {
-                        startSelect = child->GetText();
+                        startSelect = nextChild->GetText();
+                        exit(0);
                     }
                 }
                 
