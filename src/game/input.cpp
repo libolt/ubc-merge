@@ -107,9 +107,10 @@ bool inputSystem::setup()   // sets up and initializes the OIS Input System
 //              mDebugOverlay = OverlayManager::getSingleton().getByName("Core/DebugOverlay");
 
     loader *load = loader::Instance();
+
+    uInput = load->loadUserInputs();    // loads user defined input from file.
     
-    uInput = load->loadUserInputs();
-    
+    uInput[0].setActive(true);
     logMsg("*** Initializing SDL Input System ***");
     SDL_ShowCursor(0); // Hides the SDL Cursor in favor of the MyGUI Cursor
 
@@ -124,9 +125,11 @@ bool inputSystem::destroy() // destroys the OIS Input System and related objects
 
 inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
 {
+//    exit(0);
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    if (keyPressed == "w")
+    if (keyPressed == uInput[0].getKeyUp())
 	{
+ //     exit(0);
 		return(INUP);
 	}
 	else if (keyPressed == "s")
@@ -356,12 +359,14 @@ bool inputSystem::processUnbufferedKeyInput(bool textInput)
 //	logMsg("Processing keyboard input");
 
 	logMsg("key == " +Ogre::StringConverter::toString(inputEvent.key.keysym.sym));
-    if (textInput)
-    {
+//    if (textInput)
+//    {
         keyPressed = inputEvent.text.text;
         logMsg("key = " +keyPressed);
-        exit(0);
-    }
+//        exit(0);
+//    }
+
+/*
     switch (inputEvent.key.keysym.sym)
     {
         case SDLK_UP:
@@ -497,8 +502,10 @@ bool inputSystem::processUnbufferedKeyInput(bool textInput)
             keyPressed = "";
             break;
     }
+*/
 	if (gui->getMenuActive()) // checks if a menu is displayed
 	{
+        logMsg("keyPressed == " +keyPressed);
 		gui->menuReceiveKeyPress(keyPressed); // sends input to menu key input processing function
 	}
 	else

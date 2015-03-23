@@ -21,6 +21,7 @@
 #include "OgrePrerequisites.h"
 #include "gameengine.h"
 #include "gamestate.h"
+#include "logging.h"
 #include "ubcapp.h"
 
 #ifdef __ANDROID__
@@ -76,7 +77,6 @@ int main(int argc, char *argv[])
 	render->initSDL(); // Initializes the SDL Subsystem
 
     render->initOgre(); // Initializes the Ogre Subsystem
-
     render->createScene(); // creates rendering scene.
 
 //#ifndef __ANDROID__
@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 	gameS->setGameType(SINGLE);
 #endif
 */
-
+    logMsg("Initializing Input");
     inputSystem *input = inputSystem::Instance();
 
     gameE->gameLoop();

@@ -28,6 +28,8 @@ class userInput
 {
     public:
     
+        userInput();
+
         std::string getKeyUp();  // retrieves the value of keyUp
         void setKeyUp(std::string set);  // sets the value of keyUp
 
@@ -100,8 +102,12 @@ class userInput
         std::string getJoyStartSelect();  // retrieves the value of joyStartSelect
         void setJoyStartSelect(std::string set);  // sets the value of joyStartSelect
 
+        bool getActive();  // retrieves the value of active
+        void setActive(bool set);  // sets the value of active
+
+
     private:
-    
+
     // key input strings
     std::string keyUp;
     std::string keyDown;
@@ -129,6 +135,8 @@ class userInput
     std::string joyPassSteal;
     std::string joyPause;
     std::string joyStartSelect;
+
+    bool active;  // determines whether this input map is being used.
     
 };
 

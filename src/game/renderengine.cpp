@@ -357,10 +357,11 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	//std::cout << "winHandle = " << winHandle << std::endl;
 	mRoot = new Ogre::Root("", "", "Ogre.log");
 	const Ogre::String pluginDir = OGRE_PLUGIN_DIR;
+    logMsg("winHandle = " +winHandle);
 
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //#else
-	inputSystem *input = inputSystem::Instance();
+//	inputSystem *input = inputSystem::Instance();
 //#endif
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	const Ogre::String buildType = BUILD_TYPE;

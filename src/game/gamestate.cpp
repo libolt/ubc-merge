@@ -312,6 +312,7 @@ bool gameState::assignHoopToTeams()  // assigns which hoop belongs to each team
 // assigns teams that are playing to the game state machine
 bool gameState::assignTeams()
 {
+    logMsg("assigning teams");
     exit(0);
 //    gameState *gameS = gameState::Instance();
 
@@ -327,6 +328,7 @@ bool gameState::assignTeams()
 // assigns the players that are playing to the game state machine
 bool gameState::assignPlayers()
 {
+    logMsg("assigning players");
     exit(0);
     gameState *gameS = gameState::Instance();
     players *player = players::Instance();
