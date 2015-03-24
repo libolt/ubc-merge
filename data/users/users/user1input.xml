@@ -15,5 +15,6 @@
             <PassSteal>.</PassSteal>
             <Pause>p</Pause>
             <StartSelect>b</StartSelect>
+            <Quit>t</Quit>
         </Input>
 </UserInput>

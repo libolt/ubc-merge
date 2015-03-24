@@ -15,5 +15,6 @@
         <PassSteal></PassSteal>
         <Pause></Pause>
         <StartSelect></StartSelect>
+        <Quit></Quit>
     </Input>
 </UserInput>

@@ -1920,6 +1920,7 @@ userInput loader::loadUserInputFile(string fileName)    // loads data from the u
     std::string passSteal;
     std::string pause;
     std::string startSelect;
+    std::string quit;
     
 //  char *fileContents = NULL;
     Ogre::String fileContents;
@@ -2035,6 +2036,11 @@ userInput loader::loadUserInputFile(string fileName)    // loads data from the u
                         startSelect = nextChild->GetText();
 //                        exit(0);
                     }
+                    if (pKey == "Quit")
+                    {
+                        quit = nextChild->GetText();
+//                        exit(0);
+                    }
                 }
                 
             }
@@ -2058,6 +2064,7 @@ userInput loader::loadUserInputFile(string fileName)    // loads data from the u
                 uInput.setKeyPassSteal(passSteal);
                 uInput.setKeyPause(pause);
                 uInput.setKeyStartSelect(startSelect);
+                uInput.setKeyQuit(quit);
             }
             else if (type == "Joystick")
             {

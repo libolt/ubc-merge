@@ -66,6 +66,9 @@ class userInput
         std::string getKeyStartSelect();  // retrieves the value of keyStartSelect
         void setKeyStartSelect(std::string set);  // sets the value of keyStartSelect
 
+        std::string getKeyQuit();  // retrieves the value of keyStartSelect
+        void setKeyQuit(std::string set);  // sets the value of keyStartSelect
+
         std::string getJoyUp();  // retrieves the value of joyUp
         void setJoyUp(std::string set);  // sets the value of joyUp
 
@@ -121,6 +124,7 @@ class userInput
     std::string keyPassSteal;
     std::string keyPause;
     std::string keyStartSelect;
+    std::string keyQuit;
     
     // joystick input strings
     std::string joyUp;

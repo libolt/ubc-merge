@@ -134,76 +134,85 @@ void userInput::setKeyStartSelect(std::string set)  // sets the value of keyStar
     keyStartSelect = set;
 }
 
-    std::string userInput::getJoyUp()  // retrieves the value of keyUp
-    {
-        return (joyUp);
-    }
-    void userInput::setJoyUp(std::string set)  // sets the value of keyUp
-    {
-        joyUp = set;
-    }
+std::string userInput::getKeyQuit()  // retrieves the value of keyStartSelect
+{
+    return (keyQuit);
+}
+void userInput::setKeyQuit(std::string set)  // sets the value of keyStartSelect
+{
+    keyQuit = set;
+}
+std::string userInput::getJoyUp()  // retrieves the value of keyUp
+{
+    return (joyUp);
+}
+void userInput::setJoyUp(std::string set)  // sets the value of keyUp
+{
+    joyUp = set;
+}
     
-    std::string userInput::getJoyDown()  // retrieves the value of keyDown
-    {
-        return (joyDown);
-    }
-    void userInput::setJoyDown(std::string set)  // sets the value of keyDown
-    {
-        joyDown = set;
-    }
-    std::string userInput::getJoyLeft()  // retrieves the value of keyLeft
-    {
-        return (joyLeft);
-    }
-    void userInput::setJoyLeft(std::string set)  // sets the value of keyLeft
-    {
-        joyLeft = set;
-    }
+std::string userInput::getJoyDown()  // retrieves the value of keyDown
+{
+    return (joyDown);
+}
+void userInput::setJoyDown(std::string set)  // sets the value of keyDown
+{
+    joyDown = set;
+}
+
+std::string userInput::getJoyLeft()  // retrieves the value of keyLeft
+{
+    return (joyLeft);
+}
+void userInput::setJoyLeft(std::string set)  // sets the value of keyLeft
+{
+    joyLeft = set;
+}
     
-    std::string userInput::getJoyRight()  // retrieves the value of keyRight
-    {
-        return (joyRight);
-    }
-    void userInput::setJoyRight(std::string set)  // sets the value of keyRight
-    {
-        joyRight = set;
-    }
+std::string userInput::getJoyRight()  // retrieves the value of keyRight
+{
+    return (joyRight);
+}
+void userInput::setJoyRight(std::string set)  // sets the value of keyRight
+{
+    joyRight = set;
+}
     
-    std::string userInput::getJoyUpLeft()  // retrieves the value of keyUpLeft
-    {
-        return (joyUpLeft);
-    }
-    void userInput::setJoyUpLeft(std::string set)  // sets the value of keyUpLeft
-    {
-        joyUpLeft = set;
-    }
+std::string userInput::getJoyUpLeft()  // retrieves the value of keyUpLeft
+{
+    return (joyUpLeft);
+}
+void userInput::setJoyUpLeft(std::string set)  // sets the value of keyUpLeft
+{
+    joyUpLeft = set;
+}
     
-    std::string userInput::getJoyUpRight()  // retrieves the value of keyUpRight
-    {
-        return (joyUpRight);
-    }
-    void userInput::setJoyUpRight(std::string set)  // sets the value of keyUpRight
-    {
-        joyUpRight = set;
-    }
+std::string userInput::getJoyUpRight()  // retrieves the value of keyUpRight
+{
+    return (joyUpRight);
+}
+void userInput::setJoyUpRight(std::string set)  // sets the value of keyUpRight
+{
+    joyUpRight = set;
+}
     
-    std::string userInput::getJoyDownLeft()  // retrieves the value of keyDownLeft
-    {
-        return (joyDownLeft);
-    }
-    void userInput::setJoyDownLeft(std::string set)  // sets the value of keyDownLeft
-    {
-        joyDownLeft = set;
-    } 
+std::string userInput::getJoyDownLeft()  // retrieves the value of keyDownLeft
+{
+    return (joyDownLeft);
+}
+void userInput::setJoyDownLeft(std::string set)  // sets the value of keyDownLeft
+{
+    joyDownLeft = set;
+} 
     
-    std::string userInput::getJoyDownRight()  // retrieves the value of keyDownRight
-    {
-        return (joyDownRight); 
-    }
-    void userInput::setJoyDownRight(std::string set)  // sets the value of keyDownRight
-    {
-        joyDownRight = set;
-    }
+std::string userInput::getJoyDownRight()  // retrieves the value of keyDownRight
+{
+    return (joyDownRight); 
+}
+void userInput::setJoyDownRight(std::string set)  // sets the value of keyDownRight
+{
+    joyDownRight = set;
+}
     
 std::string userInput::getJoyShootBlock()  // retrieves the value of keyShootBlock
 {

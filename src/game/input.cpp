@@ -129,54 +129,54 @@ inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     if (keyPressed == uInput[0].getKeyUp())
 	{
- //     exit(0);
+//        exit(0);
 		return(INUP);
 	}
-	else if (keyPressed == "s")
+	else if (keyPressed == uInput[0].getKeyDown())
 	{
 		return(INDOWN);
 	}
-	else if (keyPressed == "a")
+	else if (keyPressed == uInput[0].getKeyLeft())
 	{
 		return(INLEFT);
 	}
-	else if (keyPressed == "d")
+	else if (keyPressed == uInput[0].getKeyRight())
 	{
 		return(INRIGHT);
 	}
-	else if (keyPressed == "upleft")
+	else if (keyPressed == uInput[0].getKeyUpLeft())
 	{
 		return(INUPLEFT);
 	}
-	else if (keyPressed == "upright")
+	else if (keyPressed == uInput[0].getKeyUpRight())
 	{
 		return(INUPRIGHT);
 	}
-	else if (keyPressed == "downleft")
+	else if (keyPressed == uInput[0].getKeyDownLeft())
 	{
 		return(INDOWNLEFT);
 	}
-	else if (keyPressed == "downright")
+	else if (keyPressed == uInput[0].getKeyDownRight())
 	{
 		return(INDOWNRIGHT);
 	}
-	else if (keyPressed == "z")
+	else if (keyPressed == uInput[0].getKeyPassSteal())
 	{
 		return(INPASSSTEAL);
 	}
-	else if (keyPressed == "x")
+	else if (keyPressed == uInput[0].getKeyShootBlock())
 	{
 		return(INSHOOTBLOCK);
 	}
-    else if (keyPressed == "n")
+    else if (keyPressed == uInput[0].getKeyPause())
     {
-        return(INPASSSTEAL);
+        return(INPAUSE);
     }
-    else if (keyPressed == "m")
+    else if (keyPressed == uInput[0].getKeyStartSelect())
     {
-        return(INSHOOTBLOCK);
+        return(INSTARTSELECT);
 	}
-	else if (keyPressed == "q")
+	else if (keyPressed == uInput[0].getKeyQuit())
 	{
 		return(INQUIT);
 	}
@@ -192,6 +192,8 @@ inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
 bool inputSystem::processInput()	// processes all input
 {
     renderEngine *renderE = renderEngine::Instance();
+
+    keyPressed = "";  // resets value of keyPressed
 //	Ogre::LogManager::getSingletonPtr()->logMessage("Processing input");
 
 //	SDL_StartTextInput();
@@ -277,6 +279,7 @@ bool inputSystem::processInput()	// processes all input
                 break;
            
             case SDL_TEXTINPUT:
+                keyPressed = "";
                 if (processUnbufferedKeyInput(true) == false)
                 {
                     return false;
