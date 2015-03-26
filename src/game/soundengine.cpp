@@ -20,28 +20,42 @@
 
 #include "soundengine.h"
 
-SoundSystem* SoundSystem::pInstance = 0;
-SoundSystem* SoundSystem::Instance()
+SoundEngine* SoundEngine::pInstance = 0;
+SoundEngine* SoundEngine::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new SoundSystem; // create sole instance
+        pInstance = new SoundEngine; // create sole instance
     }
     return pInstance; // address of sole instance
 }
 
-SoundSystem::SoundSystem()
+SoundEngine::SoundEngine()
 {
     setup();
 }
 
-SoundSystem::~SoundSystem()
+SoundEngine::~SoundEngine()
 {
 }
 
-bool SoundSystem::setup()
+bool SoundEngine::setup()
 {
 //    soundMgr = new OgreAL::SoundManager();
 //    exit(0);
+    
+    alGetError();
+
+    ALCdevice * deviceAL = alcOpenDevice(NULL);
+
+    if (deviceAL == NULL)
+    {
+        logMsg("Failed to init OpenAL device.");
+        return;
+    }
+
+    ALCcontext * contextAL = alcCreateContext(deviceAL, NULL);
+    AL_CHECK( alcMakeContextCurrent(contextAL) );
+  
     return true;
 }

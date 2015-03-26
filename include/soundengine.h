@@ -23,25 +23,126 @@
 
 //#include "OgreAL.h"
 
-class SoundSystem
+class SoundObject;
+
+typedef struct ALCdevice_struct ALCdevice;
+typedef struct ALCcontext_struct ALCcontext;
+
+#include <cstddef>
+
+#include <pthread.h>
+
+#include <unordered_map>
+#include <vector>
+#include <list>
+#include "AL/al.h"
+#include "AL/alc.h"
+
+#include "logging.h"
+
+#ifndef AL_CHECK
+#ifdef _DEBUG
+       #define AL_CHECK(stmt) do { \
+            stmt; \
+            CheckOpenALError(#stmt, __FILE__, __LINE__); \
+        } while (0);
+#else
+    #define AL_CHECK(stmt) stmt
+#endif
+#endif
+
+typedef struct SoundBuffer 
+{
+    bool free;      
+    uint32 refID;
+} SoundBuffer;
+
+typedef struct SoundSource 
+{
+    bool free;  
+    uint32 refID;
+} SoundSource;
+
+
+class SoundEngine
 {
     public:
 
-        ~SoundSystem();
+        ~SoundEngine();
 
-        static SoundSystem *Instance();
+        static SoundEngine *Instance();
 
-    bool setup();   // sets up the sound system
+        static std::vector<std::string> GetAllDevices();
+        static void Initialize(const std::string & deviceName = "", bool useThreadUpdate = true);
+        static void Destroy();          
+//        static SoundManager * GetInstance();            
+            
+        bool ExistSound(const std::string & name) const;
+        void ReleaseSound(const std::string & name);
+        void AddSound(const std::string & fileName, const std::string & name);
+        void AddSound(SoundObject * sound);
+    
+        SoundObject * GetSound(const std::string & name);
+
+        void Update();
+            
+        void SetMasterVolume(float volume);
+        void VolumeUp(float amount = 0.1f);
+        void VolumeDown(float amount = 0.1f);
+
+        bool IsEnabled();
+        void Disable();
+        void Enable();
+
+        friend class SoundObject;           
+
+        bool setup();   // sets up the sound system
     protected:
 
-        SoundSystem();
-        SoundSystem(const SoundSystem&);
-        SoundSystem& operator= (const SoundSystem&);
+        SoundEngine();
+        SoundEngine(const SoundEngine&);
+        SoundEngine& operator= (const SoundEngine&);
+        
+        
+        ALCdevice * deviceAL;
+        ALCcontext * contextAL;
+        std::string deviceName;
 
+        pthread_t updateThread;
+        pthread_mutex_t fakeMutex;
+        pthread_cond_t fakeCond;
+        bool useThreadUpdate;
+        bool ended;
+
+        bool enabled;
+        float lastVolume;
+
+        float masterVolume;
+
+        std::tr1::unordered_map<std::string, SoundObject *> sounds;
+
+        std::vector<SoundSource> sources;
+        std::vector<SoundBuffer> buffers;
+
+        std::list<SoundSource *> freeSources;
+        std::list<SoundBuffer *> freeBuffers;
+
+        void Init();
+            
+        SoundSource * GetFreeSource();
+        SoundBuffer * GetFreeBuffer();
+    
+        void FreeSource(SoundSource * source);
+        void FreeBuffer(SoundBuffer * buffer);
+
+        static void * UpdateThread(void * c);
+        void Wait(int timeInMS);
+        void ThreadUpdate();
+            
     private:
 
-        static SoundSystem *pInstance;
+        static SoundEngine *pInstance;
  //       OgreAL::SoundManager *soundMgr;
 };
 
-#endif // SOUND_H_
+#endif // SOUNDENGINE_H_
