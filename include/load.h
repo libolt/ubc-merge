@@ -26,6 +26,8 @@
 #include <vector>
 
 #include "Ogre.h"
+#include "SDL.h"
+
 #include "tinyxml.h"
 
 #include "courtdata.h"
@@ -60,7 +62,11 @@ public:
     void setUserInputFiles(std::vector<std::string> set);  // sets list of user input xml files
 
     bool loadXMLFile(string fileName);
+
     int readFile(const char *sourceFile, char **destination);
+
+    SDL_RWops *readBinaryFile(const char *sourceFile);
+
 //    int readFile(const char *sourceFile, Ogre::String *destination);
 
     // Teams

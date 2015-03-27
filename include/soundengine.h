@@ -23,6 +23,8 @@
 
 //#include "OgreAL.h"
 
+#include "soundobject.h"
+
 class SoundObject;
 
 typedef struct ALCdevice_struct ALCdevice;
@@ -51,17 +53,6 @@ typedef struct ALCcontext_struct ALCcontext;
 #endif
 #endif
 
-typedef struct SoundBuffer 
-{
-    bool free;      
-    uint32 refID;
-} SoundBuffer;
-
-typedef struct SoundSource 
-{
-    bool free;  
-    uint32 refID;
-} SoundSource;
 
 
 class SoundEngine
@@ -119,7 +110,7 @@ class SoundEngine
 
         float masterVolume;
 
-        std::tr1::unordered_map<std::string, SoundObject *> sounds;
+        std::unordered_map<std::string, SoundObject *> sounds;
 
         std::vector<SoundSource> sources;
         std::vector<SoundBuffer> buffers;

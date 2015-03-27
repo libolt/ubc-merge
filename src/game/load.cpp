@@ -40,7 +40,6 @@
 
 //#include "boost/shared_ptr.hpp"
 
-#include "SDL.h"
 
 using namespace std;
 
@@ -172,6 +171,19 @@ int loader::readFile(const char *sourceFile, char **destination)
 //#endif
     // Success!
     return EXIT_SUCCESS;
+}
+
+SDL_RWops *loader::readBinaryFile(const char *sourceFile)  // reads in a binary file
+{
+    int BLOCK_SIZE = 8;
+	int MAX_BLOCKS = 1024;
+    
+    logMsg("sourceFile = " +Ogre::StringConverter::toString(sourceFile));
+
+    SDL_RWops *file;
+    file = SDL_RWFromFile(sourceFile, "rb");
+
+    return (file);
 }
 
 // splits the path data into separate strings

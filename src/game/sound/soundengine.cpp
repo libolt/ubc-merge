@@ -32,11 +32,43 @@ SoundEngine* SoundEngine::Instance()
 
 SoundEngine::SoundEngine()
 {
+    this->deviceAL = NULL;
+    this->contextAL = NULL;
+    this->deviceName = deviceName;
+    this->ended = false;
+    this->useThreadUpdate = useThreadUpdate;
+
+    this->masterVolume = 1.0f;
+    this->lastVolume = 1.0f;
+
+	this->enabled = true;
     setup();
 }
 
 SoundEngine::~SoundEngine()
 {
+    std::unordered_map<std::string, SoundObject *>::iterator it;
+    for (it = this->sounds.begin(); it != this->sounds.end(); it++)
+    {       
+        it->second->Stop();
+//        SAFE_DELETE(it->second);
+    }
+
+    this->sounds.clear();
+
+
+    for (uint32_t i = 0; i < this->buffers.size(); i++)
+    {
+        AL_CHECK( alDeleteBuffers(1, &this->buffers[i].refID) );
+    }
+
+    for (uint32_t i = 0; i < this->sources.size(); i++)
+    {
+        AL_CHECK( alDeleteSources(1, &this->sources[i].refID) );
+    }
+
+    alcDestroyContext(this->contextAL);
+	alcCloseDevice(this->deviceAL);
 }
 
 bool SoundEngine::setup()
