@@ -1,13 +1,13 @@
 #ifndef SOUND_OBJECT_H
 #define SOUND_OBJECT_H
 
-/*namespace MySound 
-{
+//namespace MySound 
+//{
 	struct SoundSource;
 	struct SoundBuffer;
 	class ISoundFileWrapper;
-}
-*/
+//}
+//
 //struct VFS_FILE;
 
 #define PRELOAD_BUFFERS_COUNT 3
@@ -117,7 +117,7 @@ typedef struct SoundSource
 			void GetRawDataNormalized(std::vector<T> * rawData);
 			
 
-			friend class SoundManager;
+			friend class SoundEngine;
 	
 		protected:
 

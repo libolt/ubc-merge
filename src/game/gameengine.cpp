@@ -26,6 +26,7 @@
 #include "network.h"
 #include "networkplayerstateobject.h"
 #include "renderengine.h"
+#include "soundengine.h"
 
 gameEngine* gameEngine::pInstance = 0;
 gameEngine* gameEngine::Instance()
@@ -233,6 +234,11 @@ void gameEngine::gameLoop()	// Main Game Loop
     Ogre::Timer loopTime;	// loop timer
     loopTime.reset();	// resets the timer
 
+    SoundEngine *sound = SoundEngine::Instance();
+    std::string sndFile = "data/Media/Audio/roar.wav";
+    std::string sndName = "roar";
+    sound->AddSound(sndFile,sndName);
+    
 //	SDL_StartTextInput();
     while (!quitGame)
 	{
@@ -247,7 +253,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	//		Ogre::WindowEventUtilities::messagePump();
 //		   exit(0);
 
-        if (gameS->getGameSetupComplete())   // checks to make sure game setup is complete before continuing
+                if (gameS->getGameSetupComplete())   // checks to make sure game setup is complete before continuing
 	    {
             if (gameS->getGameType() == SINGLE)
             {

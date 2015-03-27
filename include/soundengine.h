@@ -39,6 +39,7 @@ typedef struct ALCcontext_struct ALCcontext;
 #include <list>
 #include "al.h"
 #include "alc.h"
+#include "OgreMath.h"
 
 #include "logging.h"
 
@@ -92,7 +93,7 @@ class SoundEngine
         bool setup();   // sets up the sound system
     protected:
 
-        SoundEngine();
+        SoundEngine(const std::string & deviceName, bool useThreadUpdate);
         SoundEngine(const SoundEngine&);
         SoundEngine& operator= (const SoundEngine&);
         
@@ -135,7 +136,7 @@ class SoundEngine
     private:
 
         static SoundEngine *pInstance;
- //       OgreAL::SoundManager *soundMgr;
-};
+        bool setupComplrte;
+ };
 
 #endif // SOUNDENGINE_H_
