@@ -7,7 +7,7 @@
 
 #include "soundengine.h"
 #include "load.h"
-//#include "../header/OpenAL.h"
+#include "openal.h"
 
 //#include "../../Utils/header/Logger.h"
 //#include "../../Utils/header/VFS/VFS.h"
@@ -200,7 +200,7 @@ void SoundObject::GetRawData(std::vector<char> * rawData)
 {
 	if (this->state == PLAYING)
 	{
-		logMsg("Can not get raw data for sound (%s), that is in PLAY state.", +this->settings.name);
+		logMsg("Can not get raw data for sound (%s), that is in PLAY state." +this->settings.name);
 		return;
 	}
 
@@ -272,7 +272,7 @@ void SoundObject::LoadData()
     }
 
 
-	
+/* FIXME!	
 	if (strcmp(vfsFile->ext, "ogg") == 0)
 	{
 		this->soundFileWrapper = new WrapperOgg(this->SINGLE_BUFFER_SIZE);
@@ -300,7 +300,7 @@ void SoundObject::LoadData()
 		this->soundFileWrapper->LoadFromMemory(this->soundData, this->dataSize, &this->soundInfo);
 	}
 
-	
+*/	
 	
 	//AL_CHECK( alGenSources((ALuint)1, &this->source)) ;
 		

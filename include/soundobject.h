@@ -129,11 +129,10 @@ typedef struct SoundSource
 			SoundSettings settings;
 			SoundInfo soundInfo;
 			
-//FIXME			VFS_FILE * vfsFile;
-            SDL_RWops *file;
+                        SDL_RWops *file;
             
 			char * soundData;
-			int dataSize;
+			size_t dataSize;
 			ISoundFileWrapper * soundFileWrapper;
 
 			SOUND_STATE state;

@@ -1,14 +1,16 @@
-#include "../header/Wrapper_WAV.h"
-#include "../header/SoundObject.h"
+#include "wrapper_wav.h"
+#include "soundobject.h"
 
-#include "../../Utils/header/Logger.h"
+//#include "../../Utils/header/Logger.h"
 
 
 #include <string.h>
 #include <climits>
 #include <algorithm>
 
-using namespace MySound;
+#include "logging.h"
+
+//using namespace MySound;
 
 
 WrapperWav::WrapperWav(int minProcesssLengthAtOnce)
@@ -23,8 +25,8 @@ WrapperWav::WrapperWav(int minProcesssLengthAtOnce)
 	{
 		if (this->minProcesssLengthAtOnce % WAV_BUFFER_SIZE != 0)
 		{
-			MyUtils::Logger::LogError("OGG buffer size and OpenAL buffer size are not modulable !!");
-			MyUtils::Logger::LogError("this->minProcesssLengthAtOnce % WAV_BUFFER_SIZE != 0");
+			logMsg("OGG buffer size and OpenAL buffer size are not modulable !!");
+			logMsg("this->minProcesssLengthAtOnce % WAV_BUFFER_SIZE != 0");
 		}
 	}
 
@@ -100,7 +102,7 @@ void WrapperWav::ReadData(void * dst, size_t size)
 	if (this->t.f != NULL)
 	{
 		//read from file directly
-		fread(dst, sizeof(uint8), size, this->t.f);
+		fread(dst, sizeof(uint8_t), size, this->t.f);
 	}
 	else 
 	{
@@ -123,7 +125,7 @@ void WrapperWav::Seek(size_t size, SEEK_POS start)
 	if (this->t.f != NULL)
 	{
 		//read from file directly
-		//fread(dst, sizeof(uint8), size, this->t.f);
+		//fread(dst, sizeof(uint8_t), size, this->t.f);
 		fseek(this->t.f, size, SEEK_CUR);
 	}
 	else
@@ -235,7 +237,7 @@ void WrapperWav::DecompressStream(std::vector<char> & decompressBuffer, bool inL
 			while (curBufSize < WAV_BUFFER_SIZE)
 			{
 				
-				uint64 remainToRead = WAV_BUFFER_SIZE - curBufSize;
+				uint64_t remainToRead = WAV_BUFFER_SIZE - curBufSize;
 
 				
 				if (this->curChunk.size <= 0)
@@ -254,7 +256,7 @@ void WrapperWav::DecompressStream(std::vector<char> & decompressBuffer, bool inL
 				{
 				
 
-					uint64 readSize = std::min(this->curChunk.size, remainToRead); //how many data can we read in current chunk
+					uint64_t readSize = std::min(this->curChunk.size, remainToRead); //how many data can we read in current chunk
 					
 					this->ReadData(this->bufArray + curBufSize, readSize);
 					

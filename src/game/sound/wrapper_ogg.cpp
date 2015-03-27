@@ -1,7 +1,7 @@
-#include "../header/Wrapper_OGG.h"
-#include "../header/SoundObject.h"
+#include "wrapper_ogg.h"
+#include "soundobject.h"
 
-#include "../../Utils/header/Logger.h"
+//#include "../../Utils/header/Logger.h"
 
 #ifdef _MSC_VER	
 	#pragma comment(lib, "libogg.lib")
@@ -18,7 +18,9 @@
 #include <string.h>
 #include <climits>
 
-using namespace MySound;
+#include "logging.h"
+
+//using namespace MySound;
 
 
 
@@ -93,8 +95,8 @@ WrapperOgg::WrapperOgg(int minDecompressLengthAtOnce)
 	{
 		if (this->minDecompressLengthAtOnce % OGG_BUFFER_SIZE != 0)
 		{
-			MyUtils::Logger::LogError("OGG buffer size and OpenAL buffer size are not modulable !!");
-			MyUtils::Logger::LogError("this->minDecompressLengthAtOnce % OGG_BUFFER_SIZE != 0");
+			logMsg("OGG buffer size and OpenAL buffer size are not modulable !!");
+			logMsg("this->minDecompressLengthAtOnce % OGG_BUFFER_SIZE != 0");
 		}
 	}
 
@@ -104,7 +106,7 @@ WrapperOgg::WrapperOgg(int minDecompressLengthAtOnce)
 WrapperOgg::~WrapperOgg()
 {
 	ov_clear(ov);
-	SAFE_DELETE(ov);
+//	SAFE_DELETE(ov);
 }
 
 
@@ -187,7 +189,7 @@ void WrapperOgg::ResetStream()
         int err = ov_raw_seek(this->ov, 0);
         if (err != 0)
         {
-            MyUtils::Logger::LogError("ov_raw_seek err: %i", err);
+            logMsg("ov_raw_seek err: %i" +Ogre::StringConverter::toString(err));
         }
     }
 }
@@ -207,7 +209,7 @@ void WrapperOgg::Seek(size_t pos, SEEK_POS start)
 	int err = ov_raw_seek(this->ov, pos);
 	if (err != 0)
 	{
-		MyUtils::Logger::LogError("ov_raw_seek err: %i", err);
+		logMsg("ov_raw_seek err: %i" +Ogre::StringConverter::toString(err));
 	}
 	
 }
@@ -253,7 +255,7 @@ void WrapperOgg::DecompressAll(std::vector<char> & decompressBuffer)
 
 		if (bytes < 0)
 		{
-			MyUtils::Logger::LogError("OGG stream ov_read error - returned %i", bytes);
+			logMsg("OGG stream ov_read error - returned %i" +Ogre::StringConverter::toString(bytes));
 			continue;
 		}
 
@@ -290,7 +292,7 @@ void WrapperOgg::DecompressStream(std::vector<char> & decompressBuffer, bool inL
 
             if(bytes < 0)
             {
-                MyUtils::Logger::LogError("OGG stream ov_read error - returned %i", bytes);
+                logMsg("OGG stream ov_read error - returned %i" +Ogre::StringConverter::toString(bytes));
                 continue;
             }
             

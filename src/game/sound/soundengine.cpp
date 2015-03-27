@@ -83,7 +83,7 @@ bool SoundEngine::setup()
     if (deviceAL == NULL)
     {
         logMsg("Failed to init OpenAL device.");
-        return;
+        return false;
     }
 
     ALCcontext * contextAL = alcCreateContext(deviceAL, NULL);

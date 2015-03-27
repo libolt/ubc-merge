@@ -1,14 +1,16 @@
-#include "../header/Wrapper_RAW.h"
-#include "../header/SoundObject.h"
+#include "wrapper_raw.h"
+#include "soundobject.h"
 
-#include "../../Utils/header/Logger.h"
+//#include "../../Utils/header/Logger.h"
 
 
 #include <string.h>
 #include <climits>
 #include <algorithm>
 
-using namespace MySound;
+#include "logging.h"
+
+//using namespace MySound;
 
 
 WrapperRaw::WrapperRaw(SoundInfo info, int minProcesssLengthAtOnce)
@@ -28,7 +30,7 @@ WrapperRaw::WrapperRaw(SoundInfo info, int minProcesssLengthAtOnce)
 
 WrapperRaw::~WrapperRaw()
 {
-	SAFE_DELETE_ARRAY(this->t.filePtr);
+//	SAFE_DELETE_ARRAY(this->t.filePtr);
 }
 
 
@@ -86,7 +88,7 @@ void WrapperRaw::ReadData(void * dst, size_t size)
 	if (this->t.f != NULL)
 	{
 		//read from file directly
-		fread(dst, sizeof(uint8), size, this->t.f);
+		fread(dst, sizeof(uint8_t), size, this->t.f);
 	}
 	else
 	{
@@ -109,7 +111,7 @@ void WrapperRaw::Seek(size_t size, SEEK_POS start)
 	if (this->t.f != NULL)
 	{
 		//read from file directly
-		//fread(dst, sizeof(uint8), size, this->t.f);
+		//fread(dst, sizeof(uint8_t), size, this->t.f);
 		fseek(this->t.f, size, SEEK_CUR);
 	}
 	else
@@ -208,10 +210,10 @@ void WrapperRaw::DecompressStream(std::vector<char> & decompressBuffer, bool inL
 			while (curBufSize < RAW_BUFFER_SIZE)
 			{
 
-				uint64 remainToRead = RAW_BUFFER_SIZE - curBufSize;
+				uint64_t remainToRead = RAW_BUFFER_SIZE - curBufSize;
 
 
-				uint64 readSize = std::min(this->remainDataSize, remainToRead); //how many data can we read in current chunk
+				uint64_t readSize = std::min(this->remainDataSize, remainToRead); //how many data can we read in current chunk
 
 				this->ReadData(this->bufArray + curBufSize, readSize);
 

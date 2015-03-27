@@ -37,10 +37,12 @@ typedef struct ALCcontext_struct ALCcontext;
 #include <unordered_map>
 #include <vector>
 #include <list>
-#include "AL/al.h"
-#include "AL/alc.h"
+#include "al.h"
+#include "alc.h"
 
 #include "logging.h"
+
+#include "openal.h"
 
 #ifndef AL_CHECK
 #ifdef _DEBUG
