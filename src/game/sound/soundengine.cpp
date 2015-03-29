@@ -42,6 +42,7 @@ SoundEngine::SoundEngine(const std::string & deviceName, bool useThreadUpdate)
     this->lastVolume = 1.0f;
 
 	this->enabled = true;
+    exit(0);
     setup();
 }
 
