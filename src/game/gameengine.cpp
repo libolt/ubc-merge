@@ -234,11 +234,11 @@ void gameEngine::gameLoop()	// Main Game Loop
     Ogre::Timer loopTime;	// loop timer
     loopTime.reset();	// resets the timer
 
-    SoundEngine *sound = SoundEngine::Instance();
+/*    SoundEngine *sound = SoundEngine::Instance();
     std::string sndFile = "data/Media/Audio/roar.wav";
     std::string sndName = "roar";
     sound->AddSound(sndFile,sndName);
-    
+  */
 //	SDL_StartTextInput();
     while (!quitGame)
 	{
