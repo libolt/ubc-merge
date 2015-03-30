@@ -20,7 +20,7 @@
 
 #ifndef SOUNDENGINE_H_
 #define SOUNDENGINE_H_
-/*
+
 //#include "OgreAL.h"
 
 #include "soundobject.h"
@@ -138,5 +138,5 @@ class SoundEngine
         static SoundEngine *pInstance;
         bool setupComplrte;
  };
-*/
+
 #endif // SOUNDENGINE_H_

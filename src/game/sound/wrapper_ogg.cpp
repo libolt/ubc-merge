@@ -2,7 +2,7 @@
 #include "soundobject.h"
 
 //#include "../../Utils/header/Logger.h"
-/*
+
 #ifdef _MSC_VER	
 	#pragma comment(lib, "libogg.lib")
 	#pragma comment(lib, "libvorbis.lib")
@@ -321,4 +321,4 @@ void WrapperOgg::DecompressStream(std::vector<char> & decompressBuffer, bool inL
 
 	
 }
-*/
+

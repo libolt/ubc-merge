@@ -12,7 +12,7 @@
 //#include "../../Utils/header/Logger.h"
 //#include "../../Utils/header/VFS/VFS.h"
 
-/*
+
 //using namespace MySound;
 
 SoundObject::SoundObject(const std::string & fileName, const std::string & name)
@@ -254,6 +254,7 @@ void SoundObject::GetRawDataNormalized(std::vector<T> * rawData)
 
 void SoundObject::LoadData()
 {
+    logMsg("loadData()");
     loader *load = loader::Instance();
 	for (int i = 0; i < PRELOAD_BUFFERS_COUNT; i++)
 	{
@@ -263,30 +264,44 @@ void SoundObject::LoadData()
 
 	this->spinLock = false;
 
-	SDL_RWops * file = load->readBinaryFile(this->settings.fileName.c_str());
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+//    string teamList = findFile("teams.xml");
+    string filePath = "data/Media/Audio/" +this->settings.fileName;
+#else
+    string filePath = load->findFile("Media/Audio/" +this->settings.fileName);
+#endif
+
+    SDL_RWops * file = load->readBinaryFile(filePath.c_str());
 
     if (file == NULL)
     {
-        logMsg("File %s not found" + this->settings.fileName);
+        logMsg("File %s not found" + filePath);
         return;
     }
-
+    logMsg("testing file");
 
 // FIXME!
-	if (strcmp(vfsFile->ext, "ogg") == 0)
+    std::string fileExtension;
+    size_t fileNameLength = settings.fileName.length();
+    fileExtension = settings.fileName.substr(fileNameLength - 3,3);
+    logMsg("file extension = " +fileExtension);
+//    exit(0);
+
+    if (strcmp(fileExtension.c_str(), "ogg") == 0)
 	{
 		this->soundFileWrapper = new WrapperOgg(this->SINGLE_BUFFER_SIZE);
 	}
-	else if (strcmp(vfsFile->ext, "wav") == 0)
+    else if (strcmp(fileExtension.c_str(), "wav") == 0)
 	{
+
 		this->soundFileWrapper = new WrapperWav(this->SINGLE_BUFFER_SIZE);
 	}
 	else 
 	{
-		logMsg("File extension %s not supported.", vfsFile->ext);
+        logMsg("File extension %s not supported." +fileExtension);
 	}
 
-
+/*
 	if (vfsFile->archiveInfo == NULL)
 	{
 		this->soundFileWrapper->LoadFromFile((FILE *)vfsFile->filePtr, &this->soundInfo);
@@ -300,7 +315,7 @@ void SoundObject::LoadData()
 		this->soundFileWrapper->LoadFromMemory(this->soundData, this->dataSize, &this->soundInfo);
 	}
 
-
+*/
 	
 	//AL_CHECK( alGenSources((ALuint)1, &this->source)) ;
 		
@@ -676,4 +691,4 @@ template void SoundObject::GetRawDataNormalized(std::vector<float> * rawData);
 
 template void SoundObject::GetRawDataNormalized(std::vector<double> * rawData);
 
-*/
+

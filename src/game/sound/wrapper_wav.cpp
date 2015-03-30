@@ -2,7 +2,7 @@
 #include "soundobject.h"
 
 //#include "../../Utils/header/Logger.h"
-/*
+
 
 #include <string.h>
 #include <climits>
@@ -15,6 +15,7 @@
 
 WrapperWav::WrapperWav(int minProcesssLengthAtOnce)
 {
+    logMsg("WrapperWav");
 	this->minProcesssLengthAtOnce = minProcesssLengthAtOnce;
 
 	if (this->minProcesssLengthAtOnce == -1)
@@ -311,4 +312,4 @@ void WrapperWav::DecompressStream(std::vector<char> & decompressBuffer, bool inL
 
 
 }
-*/
+

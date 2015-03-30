@@ -1,7 +1,7 @@
 #ifndef WRAPPER_WAV_H
 #define WRAPPER_WAV_H
 
-/*
+
 
 //namespace MySound
 //{
@@ -94,6 +94,6 @@ typedef struct WAV_CHUNK
 
 	};
 //}
-*/
+
 
 #endif

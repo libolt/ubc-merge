@@ -19,7 +19,7 @@
  ***************************************************************************/
 
 #include "soundengine.h"
-/*
+
 SoundEngine* SoundEngine::pInstance = 0;
 SoundEngine* SoundEngine::Instance()
 {
@@ -37,7 +37,9 @@ SoundEngine::SoundEngine(const std::string & deviceName, bool useThreadUpdate)
     this->deviceName = deviceName;
     this->ended = false;
     this->useThreadUpdate = useThreadUpdate;
+   // std::pair<std::string,std::string> soundObj ("test","test");
 
+    //this->sounds.insert(soundObj);
     this->masterVolume = 1.0f;
     this->lastVolume = 1.0f;
 
@@ -278,8 +280,12 @@ SoundObject * SoundEngine::GetSound(const std::string & name)
 
 bool SoundEngine::ExistSound(const std::string & name) const
 {
-    if (this->sounds.find(name) == this->sounds.end())
+    logMsg("Attempting to find sound!");
+    logMsg("Name = " +name);
+//    logMsg("sounds size = " +Ogre::StringConverter::toString(sounds.size()));
+//    if (this->sounds.find(name) == this->sounds.end())
     {
+        logMsg("found?");
         return false;
     }
 
@@ -300,15 +306,17 @@ void SoundEngine::ReleaseSound(const std::string & name)
 
 void SoundEngine::AddSound(const std::string & fileName, const std::string & name)
 {
+    logMsg("checks if sound exists!");
     if (this->ExistSound(name))
     {
         logMsg("Sound with name %s already exist." + name);
         return;
     }
-
-    SoundObject * sound = new SoundObject(fileName, name);
-    this->sounds.insert(std::make_pair(name, sound));
-
+    logMsg("Creating new sound object!");
+    SoundObject * soundObj = new SoundObject(fileName, name);
+    logMsg("created new sound object!");
+    this->sounds.insert(std::make_pair(name, soundObj));
+    logMsg("Inserted new sound object!");
     //sound->Play();
 }
 
@@ -408,4 +416,4 @@ void SoundEngine::ThreadUpdate()
         }
     }
 }
-*/
+

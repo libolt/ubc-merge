@@ -1,6 +1,6 @@
 #ifndef SOUND_OBJECT_H
 #define SOUND_OBJECT_H
-/*
+
 //namespace MySound 
 //{
 	struct SoundSource;
@@ -156,5 +156,5 @@ typedef struct SoundSource
 	};
 //}
 
-*/
+
 #endif
