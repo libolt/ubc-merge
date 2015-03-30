@@ -2,7 +2,7 @@
 #define WRAPPER_RAW_H
 
 
-
+/*
 
 #define RAW_BUFFER_SIZE 2048
 
@@ -64,5 +64,5 @@ typedef struct raw_file
 	};
 //}
 
-
+*/
 #endif

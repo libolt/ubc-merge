@@ -2,7 +2,7 @@
 #include "soundobject.h"
 
 //#include "../../Utils/header/Logger.h"
-
+/*
 
 #include <string.h>
 #include <climits>
@@ -311,3 +311,4 @@ void WrapperWav::DecompressStream(std::vector<char> & decompressBuffer, bool inL
 
 
 }
+*/

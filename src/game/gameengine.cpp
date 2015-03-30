@@ -232,7 +232,6 @@ void gameEngine::gameLoop()	// Main Game Loop
 //    int newTime;	// stores new time
 //    unsigned long oldTime = 0;	// stores old time
     Ogre::Timer loopTime;	// loop timer
-    loopTime.reset();	// resets the timer
 
 /*    SoundEngine *sound = SoundEngine::Instance();
     std::string sndFile = "data/Media/Audio/roar.wav";

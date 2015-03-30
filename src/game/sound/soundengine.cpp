@@ -19,7 +19,7 @@
  ***************************************************************************/
 
 #include "soundengine.h"
-
+/*
 SoundEngine* SoundEngine::pInstance = 0;
 SoundEngine* SoundEngine::Instance()
 {
@@ -408,3 +408,4 @@ void SoundEngine::ThreadUpdate()
         }
     }
 }
+*/

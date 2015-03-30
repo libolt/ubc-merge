@@ -12,7 +12,7 @@
 //#include "../../Utils/header/Logger.h"
 //#include "../../Utils/header/VFS/VFS.h"
 
-
+/*
 //using namespace MySound;
 
 SoundObject::SoundObject(const std::string & fileName, const std::string & name)
@@ -272,7 +272,7 @@ void SoundObject::LoadData()
     }
 
 
-/* FIXME!	
+// FIXME!
 	if (strcmp(vfsFile->ext, "ogg") == 0)
 	{
 		this->soundFileWrapper = new WrapperOgg(this->SINGLE_BUFFER_SIZE);
@@ -300,7 +300,7 @@ void SoundObject::LoadData()
 		this->soundFileWrapper->LoadFromMemory(this->soundData, this->dataSize, &this->soundInfo);
 	}
 
-*/	
+
 	
 	//AL_CHECK( alGenSources((ALuint)1, &this->source)) ;
 		
@@ -351,15 +351,15 @@ void SoundObject::LoadData()
 }
 
 
-/*-----------------------------------------------------------
-Function:	LoadRawData
-Parametrs:
-	[in] rawData - 
-	[in] dataSize - 
+//-----------------------------------------------------------
+//Function:	LoadRawData
+//Parametrs:
+//	[in] rawData -
+//	[in] dataSize -
 
-Use raw data for this sound object�s sound
-Raw data are copied into sound wrapper and later read from it
--------------------------------------------------------------*/
+//Use raw data for this sound object�s sound
+//Raw data are copied into sound wrapper and later read from it
+//-------------------------------------------------------------
 void SoundObject::LoadRawData(char * rawData, uint32_t dataSize)
 {
 	for (int i = 0; i < PRELOAD_BUFFERS_COUNT; i++)
@@ -675,3 +675,5 @@ void SoundObject::Update()
 template void SoundObject::GetRawDataNormalized(std::vector<float> * rawData);
 
 template void SoundObject::GetRawDataNormalized(std::vector<double> * rawData);
+
+*/

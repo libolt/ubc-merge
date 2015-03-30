@@ -1,7 +1,7 @@
 #ifndef WRAPPER_OGG_H
 #define WRAPPER_OGG_H
 
-
+/*
 
 //namespace MySound 
 //{
@@ -59,5 +59,6 @@ typedef struct ogg_file
 	};
 //}
 
+*/
 
 #endif
