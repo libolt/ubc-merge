@@ -231,7 +231,7 @@ int SoundEngine::UpdateThread(void * c)
     SoundEngine * context = ((SoundEngine *)c);
     while (true)
     {
-        
+        logMsg("context->ThreadUpdate()");
         context->ThreadUpdate();
         context->Wait(400);
         
@@ -412,6 +412,7 @@ void SoundEngine::Update()
 {
     if (this->useThreadUpdate == false)
     {
+        logMsg("this->ThreadUpdate();");
         this->ThreadUpdate();
     }
 }
