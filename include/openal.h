@@ -4,12 +4,11 @@
 
 #ifdef _MSC_VER	
 	#pragma comment(lib, "OpenAL32.lib")
-	#pragma comment(lib, "pthreadVCE2.lib")
+/*	#pragma comment(lib, "pthreadVCE2.lib")
 	#pragma comment(lib, "pthreadVSE2.lib")
 	#pragma comment(lib, "pthreadVC2.lib")
+*/
 #endif
-
-#include <pthread.h>
 
 #include <al.h>
 #include <alc.h>

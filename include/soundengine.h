@@ -33,8 +33,6 @@ typedef struct ALCcontext_struct ALCcontext;
 
 #include <cstddef>
 
-#include <pthread.h>
-
 #include <unordered_map>
 #include <vector>
 #include <list>
