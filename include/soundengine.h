@@ -24,6 +24,7 @@
 //#include "OgreAL.h"
 
 #include "soundobject.h"
+#include "gameengine.h"
 
 class SoundObject;
 
@@ -40,6 +41,8 @@ typedef struct ALCcontext_struct ALCcontext;
 #include "al.h"
 #include "alc.h"
 #include "OgreMath.h"
+#include "SDL_thread.h"
+#include "SDL_timer.h"
 
 #include "logging.h"
 
@@ -89,7 +92,7 @@ class SoundEngine
         void Enable();
 
         friend class SoundObject;           
-
+        friend class gameEngine;    
         bool setup();   // sets up the sound system
     protected:
 
@@ -102,9 +105,13 @@ class SoundEngine
         ALCcontext * contextAL;
         std::string deviceName;
 
-        pthread_t updateThread;
-        pthread_mutex_t fakeMutex;
-        pthread_cond_t fakeCond;
+//        pthread_t updateThread;
+        SDL_Thread *updateThread;
+//        pthread_mutex_t fakeMutex;
+        SDL_mutex *fakeMutex;
+//        pthread_cond_t fakeCond;
+        SDL_cond *fakeCond;
+        
         bool useThreadUpdate;
         bool ended;
 

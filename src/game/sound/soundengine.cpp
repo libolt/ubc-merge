@@ -44,8 +44,9 @@ SoundEngine::SoundEngine(const std::string & deviceName, bool useThreadUpdate)
     this->lastVolume = 1.0f;
 
 	this->enabled = true;
-    exit(0);
-    setup();
+//    exit(0);
+//    setup();
+    Init();
 }
 
 SoundEngine::~SoundEngine()
@@ -77,20 +78,22 @@ SoundEngine::~SoundEngine()
 bool SoundEngine::setup()
 {
 
+    logMsg("Sound Engine Setup!");
     
     alGetError();
-
+    logMsg("open device!");   
     ALCdevice * deviceAL = alcOpenDevice(NULL);
-
+    logMsg("check open device!");
     if (deviceAL == NULL)
     {
         logMsg("Failed to init OpenAL device.");
         return false;
     }
-
+    logMsg("create context");
     ALCcontext * contextAL = alcCreateContext(deviceAL, NULL);
     AL_CHECK( alcMakeContextCurrent(contextAL) );
   
+    logMsg("Sound Engine Setup Complete!");
     return true;
 }
 
@@ -162,7 +165,7 @@ void SoundEngine::Init()
     //reset error stack
     alGetError();
 
-    this->deviceAL = alcOpenDevice(NULL);
+    this->deviceAL = alcOpenDevice(0);
 
     if (this->deviceAL == NULL)
     {
@@ -192,6 +195,7 @@ void SoundEngine::Init()
 
     for (uint32_t i = 0; i < this->buffers.size(); i++)
     {
+        logMsg("adding freeBuffer");
         this->freeBuffers.push_back(&this->buffers[i]);
     }
 
@@ -202,10 +206,14 @@ void SoundEngine::Init()
 
     if (this->useThreadUpdate)
     {
-        this->fakeMutex = PTHREAD_MUTEX_INITIALIZER;
-        this->fakeCond = PTHREAD_COND_INITIALIZER;
+//        this->fakeMutex = PTHREAD_MUTEX_INITIALIZER;
+        this->fakeMutex = SDL_CreateMutex();
+//        this->fakeCond = PTHREAD_COND_INITIALIZER;
+        this->fakeCond = SDL_CreateCond();
 
-        if(pthread_create(&this->updateThread, NULL, &SoundEngine::UpdateThread, this)) 
+//        if(pthread_create(&this->updateThread, NULL, &SoundEngine::UpdateThread, this)) 
+        if(updateThread = SDL_CreateThread(&this->UpdateThread,"ThteadUpdate", NULL))
+
         {   
             logMsg("Error creating thread");
             return;
@@ -244,9 +252,12 @@ void SoundEngine::Wait(int timeInMS)
 //    MyUtils::Utils::WaitTime(timeInMS, &timeToWait.tv_sec, &timeToWait.tv_nsec);
     SDL_Delay(timeInMS);
 
-    pthread_mutex_lock(&this->fakeMutex);
-    pthread_cond_timedwait(&this->fakeCond, &this->fakeMutex, &timeToWait);
-    pthread_mutex_unlock(&this->fakeMutex);
+    //pthread_mutex_lock(&this->fakeMutex);
+    SDL_LockMutex(this->fakeMutex);
+    //pthread_cond_timedwait(&this->fakeCond, &this->fakeMutex, &timeToWait);
+    SDL_CondWaitTimeout(this->fakeCond, this->fakeMutex, &timeToWait);
+    //pthread_mutex_unlock(&this->fakeMutex);
+    SDL_UnlockMutex(this->fakeMutex);
     //printf("\nDone\n");
 }
 
@@ -353,13 +364,18 @@ SoundSource * SoundEngine::GetFreeSource()
 
 SoundBuffer * SoundEngine::GetFreeBuffer()
 {
+    logMsg("GetSoundBuffer()");
     if (this->freeBuffers.size() == 0)
     {
+        logMsg("No free buffers!");
         return NULL;
     }
 
+    logMsg("Creating buffer!");
     SoundBuffer * buf = this->freeBuffers.front();
+    logMsg("pop nee buffer to the front!");
     this->freeBuffers.pop_front();
+    logMsg("buf->free = false!");
     buf->free = false;
 
     return buf;
@@ -401,15 +417,18 @@ void SoundEngine::Update()
 
 void SoundEngine::ThreadUpdate()
 {
+    logMsg("ThreadUpdate!");
     if (this->enabled == false)
     {
         //return;
     }
 
+    logMsg("iterator");
     std::unordered_map<std::string, SoundObject *>::iterator it;
-
+    logMsg("for loop");
     for (it = this->sounds.begin(); it != this->sounds.end(); it++)
     {
+        logMsg("IsPlaying");
         if (it->second->IsPlaying())
         {
             it->second->Update();

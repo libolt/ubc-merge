@@ -301,6 +301,7 @@ void SoundObject::LoadData()
         logMsg("File extension %s not supported." +fileExtension);
 	}
 
+    file->read(file,this->soundData,sizeof(this->soundData),1);
 /*
 	if (vfsFile->archiveInfo == NULL)
 	{

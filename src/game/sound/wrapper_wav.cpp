@@ -77,6 +77,18 @@ void WrapperWav::LoadFromMemory(char * data, int dataSize, SoundInfo * soundInfo
 void WrapperWav::LoadFromFile(FILE * f, SoundInfo * soundInfo)
 {
 
+    memset(soundInfo, 0, sizeof(SoundInfo));
+
+    soundInfo->channels = this->format.channels;
+    soundInfo->bitrate_lower = this->format.byteRate;
+    soundInfo->bitrate_nominal = this->format.byteRate;
+    soundInfo->bitrate_upper = this->format.byteRate;
+    soundInfo->bitrate_window = this->format.byteRate;
+    soundInfo->freqency = this->format.sampleRate;
+    soundInfo->bitsPerChannel = this->format.bitsPerSample;
+
+
+	soundInfo->seekable = true;
 	//TO DO
 }
 
