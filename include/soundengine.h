@@ -136,7 +136,7 @@ class SoundEngine
         void FreeSource(SoundSource * source);
         void FreeBuffer(SoundBuffer * buffer);
 
-        static void * UpdateThread(void * c);
+        static int  UpdateThread(void * c);
         void Wait(int timeInMS);
         void ThreadUpdate();
             

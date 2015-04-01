@@ -225,7 +225,7 @@ void SoundEngine::Init()
 }
 
 
-void * SoundEngine::UpdateThread(void * c)
+int SoundEngine::UpdateThread(void * c)
 {
     
     SoundEngine * context = ((SoundEngine *)c);
@@ -248,14 +248,15 @@ void SoundEngine::Wait(int timeInMS)
 {
     //http://stackoverflow.com/questions/1486833/pthread-cond-timedwait-help
     
-    struct timespec timeToWait; 
+    //struct timespec timeToWait;
+    uint32_t timeToWait;
 //    MyUtils::Utils::WaitTime(timeInMS, &timeToWait.tv_sec, &timeToWait.tv_nsec);
     SDL_Delay(timeInMS);
 
     //pthread_mutex_lock(&this->fakeMutex);
     SDL_LockMutex(this->fakeMutex);
     //pthread_cond_timedwait(&this->fakeCond, &this->fakeMutex, &timeToWait);
-    SDL_CondWaitTimeout(this->fakeCond, this->fakeMutex, &timeToWait);
+    SDL_CondWaitTimeout(this->fakeCond, this->fakeMutex, timeToWait);
     //pthread_mutex_unlock(&this->fakeMutex);
     SDL_UnlockMutex(this->fakeMutex);
     //printf("\nDone\n");
