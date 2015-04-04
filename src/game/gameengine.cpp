@@ -234,14 +234,8 @@ void gameEngine::gameLoop()	// Main Game Loop
     Ogre::Timer loopTime;	// loop timer
     logMsg("Sound Test!");
     SoundEngine *sound = SoundEngine::Instance();
-    sound->Initialize();
-    //sound->Init();
-    logMsg("SoundEngine initialized!");
-    std::string sndFile = "roar.wav";
-    std::string sndName = "roar";
-    logMsg("Adding sound!");
-    sound->AddSound(sndFile,sndName);
-    logMsg("Sound Added!");
+    sound->setup();
+    sound->loadSound("roar.wav");
 //	SDL_StartTextInput();
     while (!quitGame)
 	{

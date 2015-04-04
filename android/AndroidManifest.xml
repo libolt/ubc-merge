@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.CAPTURE_AUDIO_OUTPUT" />
 	public class UBCAcivity extends SDLActivity { }
     <!-- This .apk has no Java code itself, so set hasCode to false. -->
-	    <application android:label="     " android:icon="@drawable/ic_launcher" android:hasCode="true">
+	    <application android:label="  UBC   " android:icon="@drawable/ic_launcher" android:hasCode="true">
  <!--       <activity android:name="android.app.UBCActivity" -->
 	    <activity android:name="UBCActivity"
                   android:label="UltimateBasketballChallenge"

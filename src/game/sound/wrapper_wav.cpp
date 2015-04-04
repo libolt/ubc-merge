@@ -17,7 +17,8 @@ WrapperWav::WrapperWav(int minProcesssLengthAtOnce)
 {
     logMsg("WrapperWav");
 	this->minProcesssLengthAtOnce = minProcesssLengthAtOnce;
-
+    
+    logMsg("check minProcesssLengthAtOnce");
 	if (this->minProcesssLengthAtOnce == -1)
 	{
 		this->minProcesssLengthAtOnce = INT_MAX;
@@ -76,7 +77,8 @@ void WrapperWav::LoadFromMemory(char * data, int dataSize, SoundInfo * soundInfo
 
 void WrapperWav::LoadFromFile(FILE * f, SoundInfo * soundInfo)
 {
-
+    logMsg("WrapperWav::LoadFromFile");
+    logMsg("sizeof(SoundInfo) " +Ogre::StringConverter::toString(sizeof(SoundInfo)));
     memset(soundInfo, 0, sizeof(SoundInfo));
 
     soundInfo->channels = this->format.channels;

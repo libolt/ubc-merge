@@ -271,6 +271,7 @@ void SoundObject::LoadData()
     string filePath = load->findFile("Media/Audio/" +this->settings.fileName);
 #endif
 
+//    logMsg("fileName = " +this->settings.fileName);
     SDL_RWops * file = load->readBinaryFile(filePath.c_str());
 
     if (file == NULL)
@@ -302,6 +303,8 @@ void SoundObject::LoadData()
 	}
 
     file->read(file,this->soundData,sizeof(this->soundData),1);
+    this->soundFileWrapper->LoadFromFile((FILE *)file, &this->soundInfo);
+
 /*
 	if (vfsFile->archiveInfo == NULL)
 	{

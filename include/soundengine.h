@@ -23,21 +23,16 @@
 
 //#include "OgreAL.h"
 
-#include "soundobject.h"
+//#include "soundobject.h"
 #include "gameengine.h"
 
-class SoundObject;
-
-typedef struct ALCdevice_struct ALCdevice;
-typedef struct ALCcontext_struct ALCcontext;
-
+#define MAX_SOURCES 16
 #include <cstddef>
 
 #include <unordered_map>
 #include <vector>
 #include <list>
-#include "al.h"
-#include "alc.h"
+#include "ALmixer.h"
 #include "OgreMath.h"
 #include "SDL_thread.h"
 #include "SDL_timer.h"
@@ -66,38 +61,16 @@ class SoundEngine
         ~SoundEngine();
 
         static SoundEngine *Instance();
+        
+        void Internal_SoundFinished_CallbackIntercept(ALint which_channel, ALuint al_source, ALmixer_Data* almixer_data, ALboolean finished_naturally, void* user_data);
 
-        static std::vector<std::string> GetAllDevices();
-        static void Initialize(const std::string & deviceName = "", bool useThreadUpdate = true);
-        static void Destroy();          
-//        static SoundManager * GetInstance();            
-            
-        bool ExistSound(const std::string & name) const;
-        void ReleaseSound(const std::string & name);
-        void AddSound(const std::string & fileName, const std::string & name);
-        void AddSound(SoundObject * sound);
-    
-        SoundObject * GetSound(const std::string & name);
-
-        void Update();
-            
-        void SetMasterVolume(float volume);
-        void VolumeUp(float amount = 0.1f);
-        void VolumeDown(float amount = 0.1f);
-
-        bool IsEnabled();
-        void Disable();
-        void Enable();
-
-        friend class SoundObject;           
-        friend class gameEngine;    
-        bool setup();   // sets up the sound system
+        bool loadSound(std::string sound);  // loads sounds from media file
+                bool setup();   // sets up the sound system
     protected:
 
         SoundEngine(const std::string & deviceName, bool useThreadUpdate);
         SoundEngine(const SoundEngine&);
         SoundEngine& operator= (const SoundEngine&);
-        
         
         ALCdevice * deviceAL;
         ALCcontext * contextAL;
@@ -109,39 +82,16 @@ class SoundEngine
         SDL_mutex *fakeMutex;
 //        pthread_cond_t fakeCond;
         SDL_cond *fakeCond;
-        
-        bool useThreadUpdate;
-        bool ended;
 
-        bool enabled;
-        float lastVolume;
-
-        float masterVolume;
-
-        std::unordered_map<std::string, SoundObject *> sounds;
-
-        std::vector<SoundSource> sources;
-        std::vector<SoundBuffer> buffers;
-
-        std::list<SoundSource *> freeSources;
-        std::list<SoundBuffer *> freeBuffers;
-
-        void Init();
-            
-        SoundSource * GetFreeSource();
-        SoundBuffer * GetFreeBuffer();
-    
-        void FreeSource(SoundSource * source);
-        void FreeBuffer(SoundBuffer * buffer);
-
-        static int  UpdateThread(void * c);
-        void Wait(int timeInMS);
-        void ThreadUpdate();
-            
     private:
+        
+        ALboolean g_PlayingAudio[MAX_SOURCES];
+        ALboolean still_playing;
 
+        ALmixer_Data *audio_data[MAX_SOURCES];
+        
         static SoundEngine *pInstance;
-        bool setupComplrte;
+        bool setupComplete;  // determines if setup has completed
  };
 
 #endif // SOUNDENGINE_H_
