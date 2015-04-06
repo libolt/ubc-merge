@@ -33,7 +33,9 @@
 #include <vector>
 #include <list>
 #include "ALmixer.h"
+#include "ALmixer_PlatformExtensions.h"
 #include "OgreMath.h"
+#include "SDL.h"
 #include "SDL_thread.h"
 #include "SDL_timer.h"
 
@@ -88,7 +90,7 @@ class SoundEngine
         ALboolean g_PlayingAudio[MAX_SOURCES];
         ALboolean still_playing;
 
-        ALmixer_Data *audio_data[MAX_SOURCES];
+        ALmixer_Data *audio_data;
         
         static SoundEngine *pInstance;
         bool setupComplete;  // determines if setup has completed

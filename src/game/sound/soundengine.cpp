@@ -51,11 +51,16 @@ void SoundEngine::Internal_SoundFinished_CallbackIntercept(ALint which_channel, 
 
 bool SoundEngine::loadSound(std::string sound)  // loads sounds from media file
 {
-    if(!(audio_data[0]=ALmixer_LoadAll( sound.c_str(), AL_FALSE) ))
+    ALmixer_Data *sample;
+    if(!(sample=ALmixer_LoadAll( "roar.wav", AL_FALSE) ))
+//    if (!(audio_data[0]=ALmixer_LoadStream( sound.c_str(), AL_FALSE) ))
     {
         logMsg(Ogre::StringConverter::toString(ALmixer_GetError()) +". Quiting program.");
 		return (false);
     }
+    audio_data = sample;
+    int which_channel = 0;
+    which_channel = ALmixer_PlayChannel(-1, audio_data, 0);
 }
 
 bool SoundEngine::setup()
@@ -74,6 +79,14 @@ bool SoundEngine::setup()
         logMsg("Maximum supported files is "  +Ogre::StringConverter::toString(MAX_SOURCES));
     }
 */
+
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+
+    JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
+    jobject UBCActivity = (jobject)SDL_AndroidGetActivity();
+    ALmixer_Android_Init(UBCActivity);
+#endif  
+    
     ALmixer_Init(22050, 0, 0);
     
 
