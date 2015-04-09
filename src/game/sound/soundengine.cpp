@@ -31,11 +31,12 @@ SoundEngine* SoundEngine::Instance()
     return pInstance; // address of sole instance
 }
 
-SoundEngine::SoundEngine(const std::string & deviceName, bool useThreadUpdate)
+SoundEngine::SoundEngine()
 {
 //    g_PlayingAudio[16];
     still_playing = AL_TRUE;
 //    audio_data = new ALmixer_Data;
+    setupComplete = false;
         
 }
 
@@ -50,18 +51,35 @@ void SoundEngine::Internal_SoundFinished_CallbackIntercept(ALint which_channel, 
     g_PlayingAudio[which_channel] = AL_FALSE;
 }
 
+bool SoundEngine::getSetupComplete()  // retrieves the value of setupComplete
+{
+    return (setupComplete);
+}
+void SoundEngine::setSetupComplete(bool set)  // sets the value of setupComplete
+{
+    setupComplete = set;
+}
+
 bool SoundEngine::loadSound(std::string sound)  // loads sounds from media file
 {
     ALmixer_Data *sample;
-    if(!(sample=ALmixer_LoadAll( "roar.wav", AL_FALSE) ))
+//    if(!(sample=ALmixer_LoadAll( "roar.wav", AL_FALSE) ))
 //    if (!(audio_data[0]=ALmixer_LoadStream( sound.c_str(), AL_FALSE) ))
     {
         logMsg(Ogre::StringConverter::toString(ALmixer_GetError()) +". Quiting program.");
 		return (false);
     }
+    sample = ALmixer_LoadAll("roar.wav", 0);
     audio_data = sample;
+    if (sample == NULL)
+    {
+        logMsg("Failed to load sample!");
+        exit(0);
+    }
     int which_channel = 0;
-    which_channel = ALmixer_PlayChannel(-1, audio_data, 0);
+    ALmixer_ReserveChannels(2);
+    which_channel = ALmixer_PlayChannel(0, audio_data, 0);
+    exit(0);
 }
 
 bool SoundEngine::setup()

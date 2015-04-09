@@ -227,8 +227,8 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
 
 	JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
 
-    jclass class_sdl_activity   = env->FindClass("org/libsdl/app/SDLActivity");
-    jclass class_activity       = env->FindClass("android/app/Activity");
+    jclass class_sdl_activity   = env->FindClass("com/libolt/ubc/UBCActivity");
+    jclass class_activity       = env->FindClass("com/libolt/ubc/UBCActivity");
     jclass class_resources      = env->FindClass("android/content/res/Resources");
     jmethodID method_get_resources      = env->GetMethodID(class_activity, "getResources", "()Landroid/content/res/Resources;");
     jmethodID method_get_assets         = env->GetMethodID(class_resources, "getAssets", "()Landroid/content/res/AssetManager;");
@@ -281,7 +281,7 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 
     JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
 
-    jclass class_sdl_activity   = env->FindClass("org/libsdl/app/SDLActivity");
+    jclass class_sdl_activity   = env->FindClass("com/libolt/ubc/UBCActivity");
     jmethodID method_get_native_surface = env->GetStaticMethodID(class_sdl_activity, "getNativeSurface", "()Landroid/view/Surface;");
     jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
     ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
@@ -338,7 +338,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 #elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
 
-    jclass class_sdl_activity   = env->FindClass("org/libsdl/app/SDLActivity");
+    jclass class_sdl_activity   = env->FindClass("com/libolt/ubc/UBCActivity");
     jmethodID method_get_native_surface = env->GetStaticMethodID(class_sdl_activity, "getNativeSurface", "()Landroid/view/Surface;");
     jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
     ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
@@ -448,7 +448,7 @@ bool renderEngine::createScene()
 //	mAssetMgr = app->activity->assetManager;
     JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
 
-    jclass class_sdl_activity   = env->FindClass("org/libsdl/app/SDLActivity");
+    jclass class_sdl_activity   = env->FindClass("com/libolt/ubc/UBCActivity");
     jmethodID method_get_native_surface = env->GetStaticMethodID(class_sdl_activity, "getNativeSurface", "()Landroid/view/Surface;");
     jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
     ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
@@ -459,7 +459,7 @@ bool renderEngine::createScene()
         return(0);
 	}
 
-    jclass class_activity       = env->FindClass("android/app/Activity");
+    jclass class_activity       = env->FindClass("com/libolt/ubc/UBCActivity");
     jclass class_resources      = env->FindClass("android/content/res/Resources");
     jmethodID method_get_resources      = env->GetMethodID(class_activity, "getResources", "()Landroid/content/res/Resources;");
     jmethodID method_get_assets         = env->GetMethodID(class_resources, "getAssets", "()Landroid/content/res/AssetManager;");

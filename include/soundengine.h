@@ -67,12 +67,15 @@ class SoundEngine
         
         void Internal_SoundFinished_CallbackIntercept(ALint which_channel, ALuint al_source, ALmixer_Data* almixer_data, ALboolean finished_naturally, void* user_data);
 
+        bool getSetupComplete();  // retrieves the value of setupComplete
+        void setSetupComplete(bool set);  // sets the value of setupComplete
+        
         bool loadSound(std::string sound);  // loads sounds from media file
-                bool setup();   // sets up the sound system
+        bool setup();   // sets up the sound system
     protected:
 
-        SoundEngine(const std::string & deviceName, bool useThreadUpdate);
-        SoundEngine(const SoundEngine&);
+        SoundEngine();
+//        SoundEngine(const SoundEngine&);
         SoundEngine& operator= (const SoundEngine&);
         
         ALCdevice * deviceAL;
