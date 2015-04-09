@@ -45,7 +45,7 @@ IF (WIN32)
     )
 ELSE (WIN32)
     FIND_LIBRARY(OGG_LIBRARY
-       NAMES libogg
+       NAMES libogg ogg
         PATHS
         $ENV{OGG_HOME}/lib
         /usr/local
@@ -67,7 +67,7 @@ IF (WIN32)
     )
 ELSE (WIN32)
     FIND_LIBRARY(VORBIS_LIBRARY
-       NAMES libvorbis
+       NAMES  libvorbis vorbis
         PATHS
         $ENV{VORBIS_HOME}/lib
         /usr/local
@@ -89,7 +89,7 @@ IF (WIN32)
     )
 ELSE (WIN32)
     FIND_LIBRARY(VORBISFILE_LIBRARY
-       NAMES libvorbisfile
+       NAMES libvorbisfile vorbisfile
         PATHS
         $ENV{VORBIS_HOME}/lib
         /usr/local

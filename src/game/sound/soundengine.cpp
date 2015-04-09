@@ -20,13 +20,14 @@
 
  
 #include "soundengine.h"
+#include "load.h"
 
 SoundEngine* SoundEngine::pInstance = 0;
 SoundEngine* SoundEngine::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-//        pInstance = new SoundEngine; // create sole instance
+        pInstance = new SoundEngine; // create sole instance
     }
     return pInstance; // address of sole instance
 }
@@ -53,6 +54,7 @@ void SoundEngine::Internal_SoundFinished_CallbackIntercept(ALint which_channel, 
 
 bool SoundEngine::getSetupComplete()  // retrieves the value of setupComplete
 {
+    logMsg("returning setupComplete!");
     return (setupComplete);
 }
 void SoundEngine::setSetupComplete(bool set)  // sets the value of setupComplete
@@ -62,14 +64,23 @@ void SoundEngine::setSetupComplete(bool set)  // sets the value of setupComplete
 
 bool SoundEngine::loadSound(std::string sound)  // loads sounds from media file
 {
+    loader *load = loader::Instance();
     ALmixer_Data *sample;
 //    if(!(sample=ALmixer_LoadAll( "roar.wav", AL_FALSE) ))
 //    if (!(audio_data[0]=ALmixer_LoadStream( sound.c_str(), AL_FALSE) ))
-    {
+/*    {
         logMsg(Ogre::StringConverter::toString(ALmixer_GetError()) +". Quiting program.");
 		return (false);
     }
-    sample = ALmixer_LoadAll("roar.wav", 0);
+    */
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+    std::string sampleFile = "data/Media/Audio/roar.wav";
+#else
+    std::string sampleFile = load->findFile("Media/Audio/roar.wav");
+#endif
+    logMsg("sampleFile = " +sampleFile);
+
+    sample = ALmixer_LoadAll(sampleFile.c_str(), 0);
     audio_data = sample;
     if (sample == NULL)
     {
@@ -79,7 +90,7 @@ bool SoundEngine::loadSound(std::string sound)  // loads sounds from media file
     int which_channel = 0;
     ALmixer_ReserveChannels(2);
     which_channel = ALmixer_PlayChannel(0, audio_data, 0);
-    exit(0);
+//    exit(0);
 }
 
 bool SoundEngine::setup()

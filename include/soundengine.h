@@ -30,7 +30,7 @@
 #define MAX_SOURCES 16
 #include <cstddef>
 
-#include <unordered_map>
+//#include <unordered_map>
 #include <vector>
 #include <list>
 #include "ALmixer.h"
@@ -60,7 +60,7 @@
 class SoundEngine
 {
     public:
-
+        SoundEngine();
         ~SoundEngine();
 
         static SoundEngine *Instance();
@@ -74,9 +74,8 @@ class SoundEngine
         bool setup();   // sets up the sound system
     protected:
 
-        SoundEngine();
 //        SoundEngine(const SoundEngine&);
-        SoundEngine& operator= (const SoundEngine&);
+//        SoundEngine& operator= (const SoundEngine&);
         
         ALCdevice * deviceAL;
         ALCcontext * contextAL;

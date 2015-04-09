@@ -15,7 +15,7 @@
 # Lots of simplifications by Adrian Friedli
 # > www.orxonox.net <
 
-FIND_PATH(ALMIXER_INCLUDE_DIRS ALMixer.h
+FIND_PATH(ALMIXER_INCLUDE_DIRS ALmixer.h
     PATHS
     $ENV{ALMIXER_HOME}/include
     /usr/local

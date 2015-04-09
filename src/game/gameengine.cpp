@@ -235,19 +235,7 @@ void gameEngine::gameLoop()	// Main Game Loop
     Ogre::Timer loopTime;	// loop timer
     logMsg("Sound Test!");
     SoundEngine *sound = SoundEngine::Instance();
-    if (!sound->getSetupComplete())
-    {
-        logMsg("Sound setup not complete!");
-        if (sound->setup())
-        {
-            logMsg("Sound setup!");
-            sound->setSetupComplete(true);
-        }
-    }
-    else
-    {
-        sound->loadSound("cbeep.wav");
-    }
+
 //	SDL_StartTextInput();
     while (!quitGame)
 	{
@@ -262,7 +250,21 @@ void gameEngine::gameLoop()	// Main Game Loop
 	//		Ogre::WindowEventUtilities::messagePump();
 //		   exit(0);
 
-                if (gameS->getGameSetupComplete())   // checks to make sure game setup is complete before continuing
+        if (!sound->getSetupComplete())
+        {
+            logMsg("Sound setup not complete!");
+            if (sound->setup())
+            {
+                logMsg("Sound setup!");
+                sound->setSetupComplete(true);
+            }
+        }
+        else
+        {
+            logMsg("Loading Sound!");
+            sound->loadSound("cbeep.wav");
+        }
+        if (gameS->getGameSetupComplete())   // checks to make sure game setup is complete before continuing
 	    {
             if (gameS->getGameType() == SINGLE)
             {
