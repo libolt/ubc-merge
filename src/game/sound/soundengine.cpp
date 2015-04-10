@@ -74,7 +74,7 @@ bool SoundEngine::loadSound(std::string sound)  // loads sounds from media file
     }
     */
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    std::string sampleFile = "data/Media/Audio/roar.wav";
+    std::string sampleFile = "Media/Audio/roar.wav";
 #else
     std::string sampleFile = load->findFile("Media/Audio/roar.wav");
 #endif
@@ -85,7 +85,7 @@ bool SoundEngine::loadSound(std::string sound)  // loads sounds from media file
     if (sample == NULL)
     {
         logMsg("Failed to load sample!");
-        exit(0);
+//        exit(0);
     }
     int which_channel = 0;
     ALmixer_ReserveChannels(2);

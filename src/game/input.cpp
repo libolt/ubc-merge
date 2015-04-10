@@ -227,20 +227,25 @@ bool inputSystem::processInput()	// processes all input
 
 #else
 */
-    SDL_PumpEvents();
+//    SDL_PumpEvents();
     int motion = SDL_EventState(SDL_FINGERMOTION, SDL_QUERY);
 	logMsg ("motion = " +Ogre::StringConverter::toString(motion));
+//    exit(0);
     SDL_StartTextInput();
-    if (SDL_PollEvent(&inputEvent))
+    while (SDL_PollEvent(&inputEvent))
     {
         int numTouch = SDL_GetNumTouchDevices();
         logMsg ("numTouch = " +Ogre::StringConverter::toString(numTouch));
+        //exit(0);
 
 //          Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
 
         switch (inputEvent.type)
         {
-            
+           /* case SDL_WINDOWEVENT:
+                logMsg("windowevent!");
+                exit(0);
+                break;*/
             case SDL_FINGERMOTION:
                 logMsg("Motion!");
                 exit(0);
@@ -309,6 +314,7 @@ bool inputSystem::processInput()	// processes all input
                 {
                     return false;
                 }
+               // exit(0);
                 break;
             case SDL_CONTROLLERAXISMOTION:
             case SDL_CONTROLLERBUTTONDOWN:
@@ -322,6 +328,7 @@ bool inputSystem::processInput()	// processes all input
                 {
                     return false;
                 }
+                exit(0);
                break;
             case SDL_QUIT:
                 break;
@@ -1204,11 +1211,11 @@ bool inputSystem::processUnbufferedMouseInput()
 //	std::cout << "Mouse State = " << state << std::endl;
     if (state == 1)
 	{
-	    exit(0);
+//	    exit(0);
 	}
 	if (MyGUI::InputManager::getInstance().isFocusMouse())
 	{
-		exit(0);
+//		exit(0);
 //		std::cout << "focused" << std::endl;
 		if(state == 1)
 		{

@@ -286,6 +286,13 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
     jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
     ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
 
+/*    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
+                                 SDL_WINDOWPOS_CENTERED,
+                                 SDL_WINDOWPOS_CENTERED,
+                                 mode.w,mode.h,SDL_WINDOW_SHOWN | SDL_WINDOW_BORDERLESS);
+*/                                 
+//    SDL_CreateWindowFrom(native_window);
+//    SDL_SetWindowFullscreen(sdlWindow, SDL_TRUE);                         
     std::string message = "SDL Window Created!";
 	logMsg(message);
 
@@ -342,10 +349,11 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
     jmethodID method_get_native_surface = env->GetStaticMethodID(class_sdl_activity, "getNativeSurface", "()Landroid/view/Surface;");
     jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
     ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
-//    winHandle = Ogre::StringConverter::toString((int)sysInfo.info.android.window);
+//    winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.android.window);
 //    winHandle =  Ogre::StringConverter::toString((unsigned long)SDL_GetWindowID(sdlWindow));
 	winHandle =  Ogre::StringConverter::toString((int)native_window);
 	logMsg("winHandle = " +winHandle);
+//    exit(0);
 //	logMsg("winHandle2 = " +winHandle2);
 	
 //	logMsg("grabbed = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(sdlWindow)));
@@ -356,7 +364,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	//std::cout << "winHandle = " << winHandle << std::endl;
 	mRoot = new Ogre::Root("", "", "Ogre.log");
 	const Ogre::String pluginDir = OGRE_PLUGIN_DIR;
-    logMsg("winHandle = " +winHandle);
+    logMsg("winHandle for Ogre = " +winHandle);
 
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //#else
@@ -466,6 +474,11 @@ bool renderEngine::createScene()
     jobject raw_activity = (jobject)SDL_AndroidGetActivity();
 	jobject raw_resources = env->CallObjectMethod(raw_activity, method_get_resources);
     jobject raw_asset_manager = env->CallObjectMethod(raw_resources, method_get_assets);
+//    jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
+
+//    ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
+
+    
     mAssetMgr = AAssetManager_fromJava(env, raw_asset_manager);
 	logMsg("Yello");
     AConfiguration_fromAssetManager(config, mAssetMgr);
@@ -491,15 +504,29 @@ bool renderEngine::createScene()
 	logMsg("Hello??");
 	mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 0, 0, false, &misc);
 //	exit(0);
+    logMsg("renderWindow created!");
 	unsigned long handle = 0;
 	mWindow->getCustomAttribute("WINDOW", &handle);
 	logMsg("mWindow handle = " +Ogre::StringConverter::toString(handle));
-	logMsg("Dead");
-	sdlWindow = SDL_CreateWindowFrom(handle);
+/*
+    jclass class_activity       = env->FindClass("com/libolt/ubc/UBCActivity");
+    jclass class_resources      = env->FindClass("android/content/res/Resources");
+    jmethodID method_get_resources      = env->GetMethodID(class_activity, "getResources", "()Landroid/content/res/Resources;");
+    jmethodID method_get_assets         = env->GetMethodID(class_resources, "getAssets", "()Landroid/content/res/AssetManager;");
+    jobject raw_activity = (jobject)SDL_AndroidGetActivity();
+    jobject raw_resources = env->CallObjectMethod(raw_activity, method_get_resources);
+    jobject raw_asset_manager = env->CallObjectMethod(raw_resources, method_get_assets);
+    jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
+
+    ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
+*/
+    logMsg("Dead");
+	sdlWindow = SDL_CreateWindowFrom(mWindow);
     logMsg("window ID = " +Ogre::StringConverter::toString(SDL_GetWindowID(sdlWindow)));
 	SDL_ShowWindow(sdlWindow);
 	SDL_SetWindowGrab(sdlWindow,SDL_TRUE);
 	SDL_MaximizeWindow(sdlWindow);
+
 
 #endif
 

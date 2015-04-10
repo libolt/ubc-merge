@@ -78,7 +78,32 @@ int main(int argc, char *argv[])
 
     render->initOgre(); // Initializes the Ogre Subsystem
     render->createScene(); // creates rendering scene.
+    
+    
+    JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
 
+    jclass class_sdl_activity   = env->FindClass("com/libolt/ubc/UBCActivity");
+
+    jclass class_activity       = env->FindClass("com/libolt/ubc/UBCActivity");
+    jclass class_resources      = env->FindClass("android/content/res/Resources");
+    jmethodID method_get_resources      = env->GetMethodID(class_activity, "getResources", "()Landroid/content/res/Resources;");
+    jmethodID method_get_assets         = env->GetMethodID(class_resources, "getAssets", "()Landroid/content/res/AssetManager;");
+    jmethodID method_get_native_surface = env->GetStaticMethodID(class_sdl_activity, "getNativeSurface", "()Landroid/view/Surface;");
+  
+    jobject raw_activity = (jobject)SDL_AndroidGetActivity();
+    jobject raw_resources = env->CallObjectMethod(raw_activity, method_get_resources);
+    jobject raw_asset_manager = env->CallObjectMethod(raw_resources, method_get_assets);
+    jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
+
+    ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
+/*
+    logMsg("Dead");
+    render->setSDLWindow(SDL_CreateWindowFrom(native_window));
+    logMsg("window ID = " +Ogre::StringConverter::toString(SDL_GetWindowID(render->getSDLWindow())));
+    SDL_ShowWindow(render->getSDLWindow());
+    SDL_SetWindowGrab(render->getSDLWindow(),SDL_TRUE);
+	SDL_MaximizeWindow(render->getSDLWindow());
+    */
 //#ifndef __ANDROID__
     gui->initMyGUI(); // Initializes MyGUI
     if (!gui->getMainMenuCreated())
