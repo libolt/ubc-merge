@@ -91,7 +91,7 @@ bool SoundEngine::loadSound(std::string sound)  // loads sounds from media file
     ALmixer_ReserveChannels(2);
     which_channel = ALmixer_PlayChannel(0, audio_data, 0);
 //    exit(0);
-}
+    return (true);}
 
 bool SoundEngine::setup()
 {

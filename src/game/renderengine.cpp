@@ -508,18 +508,7 @@ bool renderEngine::createScene()
 	unsigned long handle = 0;
 	mWindow->getCustomAttribute("WINDOW", &handle);
 	logMsg("mWindow handle = " +Ogre::StringConverter::toString(handle));
-/*
-    jclass class_activity       = env->FindClass("com/libolt/ubc/UBCActivity");
-    jclass class_resources      = env->FindClass("android/content/res/Resources");
-    jmethodID method_get_resources      = env->GetMethodID(class_activity, "getResources", "()Landroid/content/res/Resources;");
-    jmethodID method_get_assets         = env->GetMethodID(class_resources, "getAssets", "()Landroid/content/res/AssetManager;");
-    jobject raw_activity = (jobject)SDL_AndroidGetActivity();
-    jobject raw_resources = env->CallObjectMethod(raw_activity, method_get_resources);
-    jobject raw_asset_manager = env->CallObjectMethod(raw_resources, method_get_assets);
-    jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
 
-    ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
-*/
     logMsg("Dead");
 	sdlWindow = SDL_CreateWindowFrom(mWindow);
     logMsg("window ID = " +Ogre::StringConverter::toString(SDL_GetWindowID(sdlWindow)));
