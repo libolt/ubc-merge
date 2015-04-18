@@ -1291,7 +1291,7 @@ void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key inp
 		case DISPLAY:
 		    processDisplayMenuKeyPress(keyPressed);
 		    break;
-		case INPUT:
+		case INPUTMENU:
 		    processInputMenuKeyPress(keyPressed);
 		    break;
 		case AUDIO:
@@ -1854,7 +1854,7 @@ void GUISystem::inputMenu()  // displays the input menu
     hideActiveMenuWidgets();
     menuActive = true;
     previousActiveMenu = activeMenu;
-    activeMenu = INPUT;
+    activeMenu = INPUTMENU;
     showActiveMenuWidgets();
 }
 void GUISystem::audioMenu()  // displays the audio menu
@@ -2381,7 +2381,7 @@ void GUISystem::hideActiveMenuWidgets()  // hides active menus widgets
         case DISPLAY:
             hideDisplayMenuWidgets();
             break;
-        case INPUT:
+        case INPUTMENU:
             hideInputMenuWidgets();
             break;
         case AUDIO:
@@ -2420,7 +2420,7 @@ void GUISystem::showActiveMenuWidgets()  // shows active menus widgets
         case DISPLAY:
             showDisplayMenuWidgets();
             break;
-        case INPUT:
+        case INPUTMENU:
             showInputMenuWidgets();
             break;
         case AUDIO:
