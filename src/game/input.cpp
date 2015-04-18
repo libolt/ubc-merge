@@ -18,7 +18,6 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
  
-
 // Input
 
 #include "MyGUI.h"
@@ -191,7 +190,7 @@ inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
 
 bool inputSystem::processInput()	// processes all input
 {
-    renderEngine *renderE = renderEngine::Instance();
+    renderEngine *render = renderEngine::Instance();
 
     keyPressed = "";  // resets value of keyPressed
 //	Ogre::LogManager::getSingletonPtr()->logMessage("Processing input");
@@ -248,7 +247,7 @@ bool inputSystem::processInput()	// processes all input
                 break;*/
             case SDL_FINGERMOTION:
                 logMsg("Motion!");
-                exit(0);
+             //   exit(0);
                 // processes touch input
                 if (processUnbufferedTouchInput() == false)
                 {
@@ -257,7 +256,11 @@ bool inputSystem::processInput()	// processes all input
                 break;
             case SDL_FINGERDOWN:
                 logMsg("Finger Down!");
-                exit(0);
+                
+                logMsg("tfinger.x = " +Ogre::StringConverter::toString(inputEvent.tfinger.x*render->getWindowWidth()));
+                logMsg("tfinger.y = " +Ogre::StringConverter::toString(inputEvent.tfinger.y));
+                
+//                exit(0);
                 // processes touch input
                 if (processUnbufferedTouchInput() == false)
                 {
@@ -266,7 +269,7 @@ bool inputSystem::processInput()	// processes all input
                 break;
             case SDL_FINGERUP:
                 logMsg("Finger Up!");
-                exit(0);
+//                exit(0);
                 // processes touch input
                 if (processUnbufferedTouchInput() == false)
                 {
@@ -275,7 +278,7 @@ bool inputSystem::processInput()	// processes all input
                 break;
             case SDL_MULTIGESTURE:
                 logMsg("Multigesture!");
-                exit(0);
+            //    exit(0);
                 // processes touch input
                 if (processUnbufferedTouchInput() == false)
                 {
@@ -1182,7 +1185,7 @@ bool inputSystem::processUnbufferedKeyInput(bool textInput)
 
 bool inputSystem::processUnbufferedMouseInput()
 {
-	renderEngine *renderE = renderEngine::Instance();
+	renderEngine *render = renderEngine::Instance();
 
 	int x, y;
 	int state = -1;
@@ -1197,8 +1200,10 @@ bool inputSystem::processUnbufferedMouseInput()
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //#else
     int w, h;
-    SDL_Window *sdlWindow = SDL_GetMouseFocus();
-	SDL_GetWindowSize(sdlWindow,&w,&h);
+    //SDL_Window *sdlWindow = SDL_GetMouseFocus();
+	SDL_Window *sdlWindow = render->getSDLWindow();
+	
+    SDL_GetWindowMaximumSize(sdlWindow,&w,&h);
 	logMsg("sdlWindow width = " +Ogre::StringConverter::toString(w));
 	logMsg("sdlWindow height = " +Ogre::StringConverter::toString(h));
     SDL_GetGlobalMouseState(&x, &y);
@@ -1246,7 +1251,7 @@ bool inputSystem::processUnbufferedMouseInput()
 
 bool inputSystem::processUnbufferedTouchInput() // reads in unbuffered touch input
 {
-	renderEngine *renderE = renderEngine::Instance();
+	renderEngine *render = renderEngine::Instance();
 
 	int state = -1;
 	SDL_TouchFingerEvent touchMotion;
@@ -1266,8 +1271,39 @@ bool inputSystem::processUnbufferedTouchInput() // reads in unbuffered touch inp
     logMsg("evtState FINGERDOWN = " +Ogre::StringConverter::toString(evtState));
     SDL_Finger *finger = SDL_GetTouchFinger(0,0);
 	logMsg("Finger = " +Ogre::StringConverter::toString(finger));
-//	SDL_GetWindowSize(
-    while (SDL_PollEvent(&inputEvent) > 0)
+
+    evtState = 0;
+    evtState = SDL_EventState(SDL_FINGERUP, SDL_QUERY);
+    if (evtState > 0)
+    {
+        logMsg("evtState FINGERUP = " +Ogre::StringConverter::toString(evtState));
+    //    exit(0);
+    }
+    int x = inputEvent.tfinger.x*render->getWindowWidth();
+    int y = inputEvent.tfinger.y*render->getWindowHeight();
+//    if (MyGUI::InputManager::getInstance().isFocusMouse())
+//    {
+//      exit(0);
+//      std::cout << "focused" << std::endl;
+        if(SDL_EventState(SDL_FINGERDOWN, SDL_QUERY) == 1)
+        {
+            mouseLeftClick = 1;
+//            exit(0);
+             MyGUI::InputManager::getInstance().injectMousePress(x, y, MyGUI::MouseButton::Enum(0));
+
+    //      exit(0);
+        }
+        if (SDL_EventState(SDL_FINGERUP, SDL_QUERY) == 1) //if (SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(1) == 0)
+        {
+//            exit(0);
+            mouseLeftClick = 0;
+             MyGUI::InputManager::getInstance().injectMouseRelease(x, y, MyGUI::MouseButton::Enum(0));
+
+        }
+        
+//    }
+    //	SDL_GetWindowSize(
+/*    while (SDL_PollEvent(&inputEvent) > 0)
     {
 	    switch (inputEvent.type)
 		{
@@ -1319,6 +1355,7 @@ bool inputSystem::processUnbufferedTouchInput() // reads in unbuffered touch inp
 			break;
 		}
     }
+*/
 //	state =
 
 	return true;

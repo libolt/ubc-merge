@@ -56,6 +56,9 @@ renderEngine::renderEngine()
 #endif
    mWindow = NULL;
    mRoot = NULL;
+   
+   windowWidth = 0;
+   windowHeight = 0;
 }
 
 renderEngine::~renderEngine()
@@ -218,6 +221,24 @@ void renderEngine::setSDLWindow(SDL_Window *window)
 	sdlWindow = window;
 }
 
+uint32_t renderEngine::getWindowWidth()  // retrieves the value of windowWidth
+{
+    return (windowWidth);
+}
+void renderEngine::setWindowWidth(uint32_t set)  // sets the value of windowWidth
+{
+    windowWidth = set;
+}
+
+uint32_t renderEngine::getWindowHeight()  // retrieves the value of windowHeight
+{
+    return (windowHeight);
+}
+void renderEngine::setWindowHeight(uint32_t set)  // sets the value of windowHeight
+{
+    windowHeight = set;
+}
+
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
 {
@@ -256,6 +277,8 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
     return stream;
 }
 #endif
+
+
 
 bool renderEngine::initSDL() // Initializes SDL Subsystem
 {
@@ -478,6 +501,14 @@ bool renderEngine::createScene()
 
 //    ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
 
+    uint32_t w = ANativeWindow_getWidth(native_window);
+    uint32_t h = ANativeWindow_getHeight(native_window);
+
+    logMsg("Width = " +Ogre::StringConverter::toString(w));
+    logMsg("Height = " +Ogre::StringConverter::toString(h));
+    
+    windowWidth = w;
+    windowHeight = h;
     
     mAssetMgr = AAssetManager_fromJava(env, raw_asset_manager);
 	logMsg("Yello");
@@ -511,6 +542,15 @@ bool renderEngine::createScene()
 
     logMsg("Dead");
 	sdlWindow = SDL_CreateWindowFrom(mWindow);
+        
+    SDL_SetWindowSize(sdlWindow, w, h);
+//    SDL_GetWindowSize(sdlWindow, w, h);
+    Ogre::WindowEventUtilities::messagePump();
+    w = mWindow->getViewport(0)->getActualWidth();
+    h = mWindow->getViewport(0)->getActualHeight();
+    logMsg("Width = " +Ogre::StringConverter::toString(w));
+    logMsg("Height = " +Ogre::StringConverter::toString(h));
+//    exit(0);
     logMsg("window ID = " +Ogre::StringConverter::toString(SDL_GetWindowID(sdlWindow)));
 	SDL_ShowWindow(sdlWindow);
 	SDL_SetWindowGrab(sdlWindow,SDL_TRUE);

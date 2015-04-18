@@ -111,6 +111,12 @@ class renderEngine
 	SDL_Window *getSDLWindow();
 	void setSDLWindow(SDL_Window *window);
 
+    uint32_t getWindowWidth();  // retrieves the value of windowWidth
+    void setWindowWidth(uint32_t set);  // sets the value of windowWidth
+    
+    uint32_t getWindowHeight();  // retrieves the value of windowHeight
+    void setWindowHeight(uint32_t set);  // sets the value of windowHeight
+    
     ~renderEngine();
 
     static renderEngine *Instance();
@@ -136,6 +142,7 @@ class renderEngine
         AConfiguration* config;
 
     #endif
+    
     // SDL code
     SDL_Window *sdlWindow;
 	SDL_GLContext sdlGLContext;
@@ -152,6 +159,9 @@ class renderEngine
 	Ogre::NameValuePairList misc;	// options to pass to mWindow during creation
 	Ogre::String winHandle;			// window handle
 
+    // general
+    uint32_t windowWidth;  // stores the width of the window
+    uint32_t windowHeight;  // stores the height of the window
 	// Android support
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	AAssetManager* mAssetMgr;

@@ -89,7 +89,8 @@ public:
     bool initMyGUI();	// Initializes MyGUI
     bool createMainMenuGUI(); // creates GUI gor main menu screen.
     bool createNetworkSetupGUI();	// creates GUI for network setup screen.
-	bool createOptionsMenuGUI();	// creates GUI for options menu screen.
+    bool createNetworkServerSetupGUI();  // creates GUI for network server setup screen.
+    bool createOptionsMenuGUI();	// creates GUI for options menu screen.
     bool createDisplaySetupGUI();	// creates GUI for display settings screen.
     bool createInputSetupGUI();	// creates GUI for input settings screen.
 	bool createAudioSetupGUI();	// creates GUI for audo settings screen.
@@ -101,6 +102,7 @@ public:
     void menuReceiveKeyPress(std::string keyPressed); // processes key input
 	void processMainMenuKeyPress(std::string keyPressed); // processes main menu key input
     void processNetworkMenuKeyPress(std::string keyPressed); // processes network menu key input
+    void processNetworkServerMenuKeyPress(std::string keyPressed); // process network server menu key input
     void processNetworkClientMenuKeyPress(std::string keyPressed); // process network client menu key input
     void processOptionsMenuKeyPress(std::string keyPressed); // processes options menu key input
     void processDisplayMenuKeyPress(std::string keyPressed); // processes display settings menu key input
@@ -113,17 +115,27 @@ public:
 	void startSinglePlayerGame(); // starts single player game
 	void startMultiPlayerGame(); // starts multiplayer game
     void optionsMenu(); // displays options menu
+    void displayMenu();  // displays display menu
+    void inputMenu();  // displays the input menu
+    void audioMenu();  // displays the audio menu
     void gameSetupMenu(); // displays game setup menu
     void playerStartSelectionMenu(); // displays player start selection menu
 	void courtSelectionMenu(); // displays court selection menu
-	void clientSetup(); // sets up the client connection
-
+	void networkClientSetupMenu(); // sets up the network client connection
+    void networkServerSetupMenu();  // sets up the networkServer instance
+    
     bool addCourtSelectionMenuData(); // adds data to Court Selection Menu widgets
 
     void addPlayerStartSelectionMenuData(); // adds data to Player Start Selection Menu widgets
 
     void networkServer();  // sets up  game as a network server
     void networkClient();  // sets up game as a network client
+
+    void courtSelected();  // processes court selection
+    void backMainMenuSelected();  // processes back to main menu selection
+    void backNetworkSetupMenuSelected();  // returns back to network setup screen
+    void backNetworkClientMenuSelected();  // returns back to the network client menu
+    
 protected:
 
     GUISystem();
@@ -137,6 +149,7 @@ protected:
     void exitButtonClicked(MyGUI::Widget *_sender);
     void serverButtonClicked(MyGUI::Widget *_sender);
     void clientButtonClicked(MyGUI::Widget *_sender);
+    void hostGameButtonClicked(MyGUI::Widget *_sender); // handles hostGameButton click event
     void connectButtonClicked(MyGUI::Widget *_sender); // handles connectButton click event
     void backMainMenuButtonClicked(MyGUI::Widget *_sender); // handles backMainMenuButton click event
     void backNetworkSetupButtonClicked(MyGUI::Widget *_sender); // handles backNetworkSetupButton click event
@@ -162,8 +175,11 @@ protected:
     void hideNetworkSetupWidgets();	// hides all widgets tied to the Network Setup Menu
     void showNetworkSetupWidgets(); // shows all widgets tied to the Network Setup Menu
 
-    void hideNetworkClientSetupWidgets();  // hides all widgets tied to the Network Setup Menu
-    void showNetworkClientSetupWidgets();  // shows all widgets tied to the Network Setup Menu
+    void hideNetworkServerSetupWidgets();  // hides all widgets tied to the Network Server Setup Menu
+    void showNetworkServerSetupWidgets();  // shows all widgets tied to the Network Server Setup Menu
+
+    void hideNetworkClientSetupWidgets();  // hides all widgets tied to the Network Client Setup Menu
+    void showNetworkClientSetupWidgets();  // shows all widgets tied to the Network Client Setup Menu
 
 	void hideOptionsMenuWidgets();	// hides all widgets tied to the Options Menu
     void showOptionsMenuWidgets();  // shows all widgets tied to the Options Menu
@@ -186,6 +202,11 @@ protected:
 	void hideCourtSelectionMenuWidgets(); // hides all widgets tied to the Court Selection Menu
 	void showCourtSelectionMenuWidgets(); // show all widgets tied to the Court Selection Menu
 	
+    void hideActiveMenuWidgets();  // hides active menus widgets
+    void showActiveMenuWidgets();  // shows active menus widgets
+    
+    
+    
 private:
 
     static GUISystem *pInstance;
@@ -199,6 +220,7 @@ private:
     MyGUI::Button *optionsButton;
     MyGUI::Button *serverButton;
     MyGUI::Button *clientButton;
+    MyGUI::Button *hostGameButton;
     MyGUI::Button *connectButton;
     MyGUI::Button *backMainMenuButton;
 	MyGUI::Button *backNetworkSetupButton;
@@ -228,6 +250,20 @@ private:
 	MyGUI::ListBox *team0SelectBox;
 	MyGUI::ListBox *team1SelectBox;
 
+    // Network Server Setup Widgets
+    MyGUI::ListBox *networkUsersBox;  // allows you to select the number of network players
+    MyGUI::ListBox *team0Player1SelectBox;
+    MyGUI::ListBox *team0Player2SelectBox;
+    MyGUI::ListBox *team0Player3SelectBox;
+    MyGUI::ListBox *team0Player4SelectBox;
+    MyGUI::ListBox *team0Player5SelectBox;
+    MyGUI::ListBox *team1Player1SelectBox;
+    MyGUI::ListBox *team1Player2SelectBox;
+    MyGUI::ListBox *team1Player3SelectBox;
+    MyGUI::ListBox *team1Player4SelectBox;
+    MyGUI::ListBox *team1Player5SelectBox;
+    
+    
     // Player Selection Menu widgets
     MyGUI::ListBox *team0PGSelectBox;
     MyGUI::ListBox *team0SGSelectBox;
@@ -266,6 +302,8 @@ private:
 	// booleans
     bool mainMenuCreated;   // determines whether the main menu gui has been created
     bool networkSetupMenuCreated;   // determines whether the network setup gui has been created
+    bool networkServerSetupMenuCreated;   // determines whether the network server setup gui has been created
+    bool networkClientSetupMenuCreated;   // determines whether the network client setup gui has been created
     bool optionsMenuCreated;   // determines whether the options menu gui has been created
     bool displaySetupMenuCreated;   // determines whether the display settings menu gui has been created
     bool inputSetupMenuCreated;   // determines whether the input settings menu gui has been created

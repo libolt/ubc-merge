@@ -55,6 +55,8 @@ GUISystem::GUISystem()
 //    QuickGUI::registerScriptParser();
     mainMenuCreated = false;
     networkSetupMenuCreated = false;
+    networkServerSetupMenuCreated = false;
+    networkClientSetupMenuCreated = false;
 	optionsMenuCreated = false;
 	displaySetupMenuCreated = false;
 	inputSetupMenuCreated = false;
@@ -324,6 +326,64 @@ bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup s
 	activeMenu = NETWORK;
 */
 	return true;
+}
+
+bool GUISystem::createNetworkServerSetupGUI()  // creates GUI for network server setup screen.
+{
+    renderEngine *renderE = renderEngine::Instance();
+    Ogre::Viewport *viewPort = renderE->getViewPort();
+
+    MyGUI::LayoutManager::getInstance().loadLayout("NetworkServerSetupMenu.layout");
+
+    networkUsersBox = mGUI->findWidget<MyGUI::ListBox>("networkUsersBox"); // loads Network Users Selection ListBox
+	networkUsersBox->setVisible(false);
+    
+    team0Player1SelectBox = mGUI->findWidget<MyGUI::ListBox>("team0Player1SelectBox"); // loads Team 0 Player 1 Selection ListBox
+	team0Player1SelectBox->setVisible(false);
+    team0Player1SelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    team0Player2SelectBox = mGUI->findWidget<MyGUI::ListBox>("team0Player2SelectBox"); // loads Team 0 Player 2 Selection ListBox
+    team0Player2SelectBox->setVisible(false);
+    team0Player2SelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    team0Player3SelectBox = mGUI->findWidget<MyGUI::ListBox>("team0Player3SelectBox"); // loads Team 0 Player 3 Selection ListBox
+    team0Player3SelectBox->setVisible(false);
+    team0Player3SelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    team0Player4SelectBox = mGUI->findWidget<MyGUI::ListBox>("team0Player4SelectBox"); // loads Team 0 Player 4 Selection ListBox
+    team0Player4SelectBox->setVisible(false);
+    team0Player4SelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    team0Player5SelectBox = mGUI->findWidget<MyGUI::ListBox>("team0Player5SelectBox"); // loads Team 0 Player 5 Selection ListBox
+    team0Player5SelectBox->setVisible(false);
+    team0Player5SelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    team1Player1SelectBox = mGUI->findWidget<MyGUI::ListBox>("team1Player1SelectBox"); // loads Team 1 Player 1 Selection ListBox
+    team1Player1SelectBox->setVisible(false);
+    team1Player1SelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    team1Player2SelectBox = mGUI->findWidget<MyGUI::ListBox>("team1Player2SelectBox"); // loads Team 1 Player 2 Selection ListBox
+    team1Player2SelectBox->setVisible(false);
+    team1Player2SelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    team1Player3SelectBox = mGUI->findWidget<MyGUI::ListBox>("team1Player3SelectBox"); // loads Team 1 Player 3 Selection ListBox
+    team1Player3SelectBox->setVisible(false);
+    team1Player3SelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    team1Player4SelectBox = mGUI->findWidget<MyGUI::ListBox>("team1Player4SelectBox"); // loads Team 1 Player 4 Selection ListBox
+    team1Player4SelectBox->setVisible(false);
+    team1Player4SelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    team1Player5SelectBox = mGUI->findWidget<MyGUI::ListBox>("team1Player5SelectBox"); // loads Team 1 Player 5 Selection ListBox
+    team1Player5SelectBox->setVisible(false);
+    team1Player5SelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    hostGameButton = mGUI->findWidget<MyGUI::Button>("hostButton"); // loads Court Selection Button
+    hostGameButton->setVisible(false);
+    hostGameButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::hostGameButtonClicked);
+    hostGameButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    return true;
 }
 
 bool GUISystem::createCourtSelectionMenuGUI()  // creates GUI for court selection menu screen.
@@ -667,6 +727,7 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
 
 void GUISystem::startSingleGameButtonClicked(MyGUI::Widget *_sender)	// handles startSingleGameButton click event
 {
+    
 	startSinglePlayerGame();
 //    renderEngine * render = renderEngine::Instance();
 
@@ -677,6 +738,7 @@ void GUISystem::startSingleGameButtonClicked(MyGUI::Widget *_sender)	// handles 
 
 void GUISystem::startMultiGameButtonClicked(MyGUI::Widget *_sender)	// handles startMultiGameButton click event
 {
+    
 	startMultiPlayerGame();
 //    renderEngine * render = renderEngine::Instance();
 
@@ -685,6 +747,7 @@ void GUISystem::startMultiGameButtonClicked(MyGUI::Widget *_sender)	// handles s
 
 void GUISystem::optionsButtonClicked(MyGUI::Widget *_sender)	// handles optionsButton click event
 {
+    
     optionsMenu();
 
 //	MyGUI::Widget *widget = MyGUI::InputManager::getInstance().getMouseFocusWidget();
@@ -701,17 +764,17 @@ void GUISystem::exitButtonClicked(MyGUI::Widget *_sender)	// handles exitButton 
 
 void GUISystem::serverButtonClicked(MyGUI::Widget *_sender)	// handles serverButton click event
 {
-    networkServer();
+    networkServerSetupMenu();
 }
 
 void GUISystem::clientButtonClicked(MyGUI::Widget *_sender)	// handles clientButton click event
 {
-//    networkClient();
-    serverButton->setVisible(false);
-    ipAddressBox->setVisible(true);
-	MyGUI::InputManager::getInstance().setKeyFocusWidget(ipAddressBox);
-	previousActiveMenu = activeMenu;
-    activeMenu = NETWORKCLIENT;
+    networkClientSetupMenu();
+}
+
+void GUISystem::hostGameButtonClicked(MyGUI::Widget *_sender) // handles hostGameButton click event
+{
+    gameSetupMenu();
 }
 
 void GUISystem::connectButtonClicked(MyGUI::Widget *_sender) // handles connectButton click event
@@ -721,7 +784,9 @@ void GUISystem::connectButtonClicked(MyGUI::Widget *_sender) // handles connectB
 
 void GUISystem::backMainMenuButtonClicked(MyGUI::Widget *_sender) // handles backMainMenuButton click event
 {
-	hideNetworkSetupWidgets();
+	
+    backMainMenuSelected();
+/*    hideNetworkSetupWidgets();
 	if (mainMenuCreated)
 	{
 	    showMainMenuWidgets();
@@ -733,15 +798,12 @@ void GUISystem::backMainMenuButtonClicked(MyGUI::Widget *_sender) // handles bac
 	menuActive = true;
 	previousActiveMenu = activeMenu;
 	activeMenu = MAIN;
+    */
 }
 
 void GUISystem::backNetworkSetupButtonClicked(MyGUI::Widget *_sender) // handles backNetworkSetupButton click event
 {
-	hideNetworkClientSetupWidgets();
-	showNetworkSetupWidgets();
-	menuActive = true;
-	previousActiveMenu = activeMenu;
-	activeMenu = NETWORK;
+	backNetworkSetupMenuSelected();
 }
 
 void GUISystem::displayButtonClicked(MyGUI::Widget *_sender) // handles didplayButton click event
@@ -751,12 +813,12 @@ void GUISystem::displayButtonClicked(MyGUI::Widget *_sender) // handles didplayB
 
 void GUISystem::inputButtonClicked(MyGUI::Widget *_sender) // handles inputButton click event
 {
-
+    inputMenu();
 }
 
 void GUISystem::audioButtonClicked(MyGUI::Widget *_sender) // handles audioButton click event
 {
-
+    audioMenu();
 }
 
 void GUISystem::changeResolutionButtonClicked(MyGUI::Widget *_sender) // handles changeResolutionButton click event
@@ -796,15 +858,12 @@ void GUISystem::teamsSelectedButtonClicked(MyGUI::Widget *_sender) // handles te
 
 void GUISystem::backNetworkClientButtonClicked(MyGUI::Widget *_sender) // handles backNetworkClientButton click event
 {
-	hideGameSetupMenuWidgets();
-	showNetworkClientSetupWidgets();
-	previousActiveMenu = activeMenu;
-	activeMenu = NETWORKCLIENT;
+	networkClientSetupMenu();
 }
 
 void GUISystem::backOptionsMenuButtonClicked(MyGUI::Widget *_sender) // handles backOptionsMenuButton click event
 {
-
+    optionsMenu();
 }
 
 void GUISystem::backPlayerStartSelectionMenuButtonClicked(MyGUI::Widget *_sender) // handles backPlayerStartSelectionMenuButton click event
@@ -814,7 +873,7 @@ void GUISystem::backPlayerStartSelectionMenuButtonClicked(MyGUI::Widget *_sender
 
 void GUISystem::courtSelectButtonClicked(MyGUI::Widget *_sender) // handles courtSelectButton click event
 {
-	 
+	 courtSelected();
 }
 void GUISystem::hideMainMenuWidgets()	// hides the widgets tied to the Main Menu
 {
@@ -852,6 +911,68 @@ void GUISystem::showNetworkSetupWidgets()     // shows all widgets tied to the N
 	backMainMenuButton->setVisible(true);
 	backMainMenuButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.22 *viewPort->getActualHeight()) );
 
+}
+
+void GUISystem::hideNetworkServerSetupWidgets()  // hides all widgets tied to the Network Server Setup Menu
+{
+    networkUsersBox->setVisible(false);
+    team0Player1SelectBox->setVisible(false);
+    team0Player2SelectBox->setVisible(false);
+    team0Player3SelectBox->setVisible(false);
+    team0Player4SelectBox->setVisible(false);
+    team0Player5SelectBox->setVisible(false);
+    team1Player1SelectBox->setVisible(false);
+    team1Player2SelectBox->setVisible(false);
+    team1Player3SelectBox->setVisible(false);
+    team1Player4SelectBox->setVisible(false);
+    team1Player5SelectBox->setVisible(false);
+    hostGameButton->setVisible(false);
+    backNetworkSetupButton->setVisible(false);
+    
+    
+}
+void GUISystem::showNetworkServerSetupWidgets()  // shows all widgets tied to the Network Server Setup Menu
+{
+    renderEngine *renderE = renderEngine::Instance();
+    Ogre::Viewport *viewPort = renderE->getViewPort();
+
+    networkUsersBox->setVisible(true);
+    
+    team0Player1SelectBox->setVisible(true);
+    team0Player1SelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.05 *viewPort->getActualHeight()) );
+    
+    team0Player2SelectBox->setVisible(true);
+    team0Player2SelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.09 *viewPort->getActualHeight()) );
+    
+    team0Player3SelectBox->setVisible(true);
+    team0Player3SelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.13 *viewPort->getActualHeight()) );
+    
+    team0Player4SelectBox->setVisible(true);
+    team0Player4SelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.17 *viewPort->getActualHeight()) );
+
+    team0Player5SelectBox->setVisible(true);
+    team0Player5SelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
+    
+    team1Player1SelectBox->setVisible(true);
+    team1Player1SelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.05 *viewPort->getActualHeight()) );
+    
+    team1Player2SelectBox->setVisible(true);
+    team1Player2SelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.09 *viewPort->getActualHeight()) );
+    
+    team1Player3SelectBox->setVisible(true);
+    team1Player3SelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.13 *viewPort->getActualHeight()) );
+    
+    team1Player4SelectBox->setVisible(true);
+    team1Player4SelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.17 *viewPort->getActualHeight()) );
+    
+    team1Player5SelectBox->setVisible(true);
+    team1Player5SelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
+    
+    hostGameButton->setVisible(true);
+    hostGameButton->setPosition((0.1 *viewPort->getActualWidth() ), (0.05 *viewPort->getActualHeight()) );
+    
+    backNetworkSetupButton->setVisible(true);
+    backNetworkSetupButton->setPosition((0.1 *viewPort->getActualWidth() ), (0.05 *viewPort->getActualHeight()) );
 }
 
 void GUISystem::hideNetworkClientSetupWidgets()   // hides the widgets tied to the Network Setup Menu
@@ -1158,6 +1279,9 @@ void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key inp
 		case NETWORK:
 			processNetworkMenuKeyPress(keyPressed);
 			break;
+        case NETWORKSERVER:
+            processNetworkServerMenuKeyPress(keyPressed);
+            break;
 		case NETWORKCLIENT:
             processNetworkClientMenuKeyPress(keyPressed);
             break;
@@ -1167,7 +1291,7 @@ void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key inp
 		case DISPLAY:
 		    processDisplayMenuKeyPress(keyPressed);
 		    break;
-		case INPUTMENU:
+		case INPUT:
 		    processInputMenuKeyPress(keyPressed);
 		    break;
 		case AUDIO:
@@ -1191,17 +1315,14 @@ void GUISystem::processMainMenuKeyPress(std::string keyPressed) // processes mai
 {
 	if (keyPressed == "s")
 	{
-		hideMainMenuWidgets();	// Hides the widgets from the main menu
 		startSinglePlayerGame();
 	}
 	else if (keyPressed == "m")
 	{
-		hideMainMenuWidgets();	// Hides the widgets from the main menu
-		startMultiPlayerGame();
+        startMultiPlayerGame();
 	}
 	else if (keyPressed == "o")
 	{
-		hideMainMenuWidgets();	// Hides the widgets from the main menu
         optionsMenu();
 	}
 	else if (keyPressed == "e")
@@ -1217,30 +1338,25 @@ void GUISystem::processNetworkMenuKeyPress(std::string keyPressed) // processes 
 {
    if (keyPressed == "c")
     {
-       hideNetworkSetupWidgets();
-       showNetworkClientSetupWidgets();
-	   previousActiveMenu = activeMenu;
-       activeMenu = NETWORKCLIENT;
+       networkClientSetupMenu();
     }
     else if (keyPressed == "b")
     {
-        hideNetworkSetupWidgets();
-        showMainMenuWidgets();
-		previousActiveMenu = activeMenu;
-        activeMenu = MAIN;
+        backMainMenuSelected();
     }
     else if (keyPressed == "s")
     {
-	    hideNetworkSetupWidgets();
-		gameSetupMenu();
-		previousActiveMenu = activeMenu;
-		activeMenu = GAMESETUP;
- //       networkServer();
+		networkServerSetupMenu();
     }
     else
     {
 
     }
+}
+
+void GUISystem::processNetworkServerMenuKeyPress(std::string keyPressed) // process network server menu key input
+{
+    
 }
 
 void GUISystem::processNetworkClientMenuKeyPress(std::string keyPressed) // processes network menu key input
@@ -1296,10 +1412,6 @@ void GUISystem::processNetworkClientMenuKeyPress(std::string keyPressed) // proc
     }
 	else if (keyPressed == "b")
     {
-        hideNetworkClientSetupWidgets();
-        showNetworkSetupWidgets();
-		previousActiveMenu = activeMenu;
-		activeMenu = NETWORK;
         startMultiPlayerGame();
     }
 
@@ -1309,31 +1421,19 @@ void GUISystem::processOptionsMenuKeyPress(std::string keyPressed) // processes 
 {
     if (keyPressed == "d")
     {
-       hideOptionsMenuWidgets();
-       showDisplayMenuWidgets();
-	   previousActiveMenu = activeMenu;
-       activeMenu = DISPLAY;
+       displayMenu();
     }
     else if (keyPressed == "b")
     {
-        hideOptionsMenuWidgets();
-        showMainMenuWidgets();
-		previousActiveMenu = activeMenu;
-        activeMenu = MAIN;
+        backMainMenuSelected();
     }
     else if (keyPressed == "i")
     {
-        hideOptionsMenuWidgets();
-        showInputMenuWidgets();
-		previousActiveMenu = activeMenu;
-        activeMenu = INPUTMENU;
+        inputMenu();
     }
 	else if (keyPressed == "a")
     {
-        hideOptionsMenuWidgets();
-        showAudioMenuWidgets();
-		previousActiveMenu = activeMenu;
-        activeMenu = AUDIO;
+        audioMenu();
     }
     else
     {
@@ -1350,7 +1450,6 @@ void GUISystem::processDisplayMenuKeyPress(std::string keyPressed) // processes 
 	}
 	else if (keyPressed == "b")
 	{
-		hideDisplayMenuWidgets();
 		optionsMenu();
 	}
 
@@ -1358,12 +1457,26 @@ void GUISystem::processDisplayMenuKeyPress(std::string keyPressed) // processes 
 
 void GUISystem::processInputMenuKeyPress(std::string keyPressed) // processes input settings menu key input
 {
-
+    if (keyPressed == "c")
+    {
+        // placeholder
+    }
+    else if (keyPressed == "b")
+    {
+        optionsMenu();
+	}
 }
 
 void GUISystem::processAudioMenuKeyPress(std::string keyPressed) // processes audio settings menu key input
 {
-
+    if (keyPressed == "c")
+    {
+        // placeholder
+    }
+    else if (keyPressed == "b")
+    {
+        optionsMenu();
+	}
 }
 
 void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processes game setup menu key input
@@ -1395,22 +1508,15 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 	    hideGameSetupMenuWidgets();
 		if (previousActiveMenu == MAIN)
 		{
-		    backMainMenuButton->setVisible(false);
-			showMainMenuWidgets();
-			previousActiveMenu = activeMenu;
-	        activeMenu = MAIN;
+		    backMainMenuSelected();
 		}
 		else if (previousActiveMenu == NETWORKCLIENT)
 		{
-	        showNetworkClientSetupWidgets();
-			previousActiveMenu = activeMenu;
-	        activeMenu = NETWORKCLIENT;
+	        networkClientSetupMenu();
 		}
-		else if (previousActiveMenu == NETWORK)
+		else if (previousActiveMenu == NETWORKSERVER)
 		{
-		    showNetworkSetupWidgets();
-		    previousActiveMenu = activeMenu;
-		    activeMenu = NETWORK;
+		    networkServerSetupMenu();
 		}
 
 //	    previousActiveMenu = activeMenu;
@@ -1419,7 +1525,7 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 	else if (keyPressed == "t")
 	{
         logMsg("T pressed!");
-	    hideGameSetupMenuWidgets();
+	    hideActiveMenuWidgets();
 //		menuActive = false;
         previousActiveMenu = activeMenu;
 	    activeMenu = PLAYERSTART;
@@ -1653,16 +1759,13 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
         logMsg("team 0 starter 0 = " +Ogre::StringConverter::toString(teamStarterID[0][0]));
         logMsg("team  0 starter 0 = " +team0Starters[0]);
 //        exit(0);
-        hidePlayerStartSelectionMenuWidgets();
+        hideActiveMenuWidgets();
     	menuActive = false;
         gameS->setGameSetupComplete(true);
     }
     else if (keyPressed == "b")
     {
-    	hidePlayerStartSelectionMenuWidgets();
-    	previousActiveMenu = activeMenu;
-    	activeMenu = GAMESETUP;
-    	gameSetupMenu();
+        gameSetupMenu();
     }
 
 }
@@ -1673,10 +1776,7 @@ void GUISystem::processCourtSelectionMenuKeyPress(std::string keyPressed)   // p
 
     if (keyPressed == "b")
     {
-        hideCourtSelectionMenuWidgets();
-        previousActiveMenu = activeMenu;
-        activeMenu = MAIN;
-        showMainMenuWidgets();
+        backMainMenuSelected();
     }
     else if (keyPressed == "q")
     {
@@ -1684,12 +1784,8 @@ void GUISystem::processCourtSelectionMenuKeyPress(std::string keyPressed)   // p
     }
     else if (keyPressed == "s")
     {
-        hideCourtSelectionMenuWidgets();
-        previousActiveMenu = activeMenu;
-        activeMenu = GAMESETUP;
-        logMsg("Selected Court #" +Ogre::StringConverter::toString(courtSelectBox->getIndexSelected()));
-        gameS->setSelectedCourtDataInstance(courtSelectBox->getIndexSelected());
-        gameSetupMenu();
+        courtSelected();
+        
     }
 }
 
@@ -1698,9 +1794,7 @@ void GUISystem::startSinglePlayerGame() // starts single player game
 	gameState *gameS = gameState::Instance();
 
     gameS->setGameType(SINGLE);
-	hideMainMenuWidgets();	// Hides the widgets from the main menu
-	previousActiveMenu = activeMenu;
-    activeMenu = COURTSELECT;
+//	hideMainMenuWidgets();	// Hides the widgets from the main menu
     courtSelectionMenu();   // displays the menu for selecting which court to use
     //   gameSetupMenu();
 //	menuActive = false;
@@ -1708,36 +1802,73 @@ void GUISystem::startSinglePlayerGame() // starts single player game
 
 void GUISystem::startMultiPlayerGame() // starts multiplayer game
 {
-    menuActive = true;
-	previousActiveMenu = activeMenu;
-    activeMenu = NETWORK;
+	if (!networkSetupMenuCreated)
+	{
+	    createNetworkSetupGUI();    // creates the GUI for the Network Setup Screen
+	}
 
-	if (networkSetupMenuCreated)
-	{
-	    showNetworkSetupWidgets();
-	}
-	else
-	{
-	    createNetworkSetupGUI();	// creates the GUI for the Network Setup Screen
-	    showNetworkSetupWidgets();
-	}
+    hideActiveMenuWidgets();
+    menuActive = true;
+    previousActiveMenu = activeMenu;
+    activeMenu = NETWORK;
+    showActiveMenuWidgets();
 
 }
 
 void GUISystem::optionsMenu() // displays options menu
 {
-
-
 	if (!optionsMenuCreated)
 	{
 		createOptionsMenuGUI();
 	}
 
-	showOptionsMenuWidgets();
+	hideActiveMenuWidgets();
     menuActive = true;
 	previousActiveMenu = activeMenu;
 	activeMenu = OPTIONS;
+    showActiveMenuWidgets();
 
+}
+
+void GUISystem::displayMenu()  // displays display menu
+{
+    if (!displaySetupMenuCreated)
+    {
+        createDisplaySetupGUI();
+    }
+
+    hideActiveMenuWidgets();
+    menuActive = true;
+    previousActiveMenu = activeMenu;
+    activeMenu = DISPLAY;
+    showActiveMenuWidgets();
+}
+
+void GUISystem::inputMenu()  // displays the input menu
+{
+    if (!inputSetupMenuCreated)
+    {
+        createInputSetupGUI();
+    }
+
+    hideActiveMenuWidgets();
+    menuActive = true;
+    previousActiveMenu = activeMenu;
+    activeMenu = INPUT;
+    showActiveMenuWidgets();
+}
+void GUISystem::audioMenu()  // displays the audio menu
+{
+    if (!audioSetupMenuCreated)
+    {
+        createAudioSetupGUI();
+    }
+
+    hideActiveMenuWidgets();
+    menuActive = true;
+    previousActiveMenu = activeMenu;
+    activeMenu = AUDIO;
+    showActiveMenuWidgets();
 }
 
 void GUISystem::gameSetupMenu() // displays game setup menu
@@ -1748,11 +1879,11 @@ void GUISystem::gameSetupMenu() // displays game setup menu
 		gameSetupMenuCreated = true;
 	}
 
-	showGameSetupMenuWidgets();
+	hideActiveMenuWidgets();
 	menuActive = true;
-//	previousActiveMenu = activeMenu;
-//	activeMenu = GAMESETUP;
-
+	previousActiveMenu = activeMenu;
+	activeMenu = GAMESETUP;
+    showActiveMenuWidgets();
 }
 
 void GUISystem::playerStartSelectionMenu() // displays player start selection menu
@@ -1764,10 +1895,11 @@ void GUISystem::playerStartSelectionMenu() // displays player start selection me
         playerStartSelectionMenuCreated = true;
     }
 
-    showPlayerStartSelectionMenuWidgets();
+    hideActiveMenuWidgets();
     menuActive = true;
-//  previousActiveMenu = activeMenu;
-//  activeMenu = GAMESETUP;
+    previousActiveMenu = activeMenu;
+    activeMenu = PLAYERSTART;
+    showActiveMenuWidgets();
 }
 
 void GUISystem::courtSelectionMenu() // displays court selection menu
@@ -1789,7 +1921,11 @@ void GUISystem::courtSelectionMenu() // displays court selection menu
         }
     }
     
-    showCourtSelectionMenuWidgets();
+    hideActiveMenuWidgets();
+    previousActiveMenu = activeMenu;
+    activeMenu = COURTSELECT;
+    showActiveMenuWidgets();
+    
     menuActive = true;
 }
 
@@ -2144,9 +2280,19 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
 
 }
 
-void GUISystem::clientSetup() // sets up the client connection
+void GUISystem::networkClientSetupMenu() // sets up the client connection
 {
+    hideActiveMenuWidgets();
+    previousActiveMenu = activeMenu;
+    activeMenu = NETWORKCLIENT;
+    showActiveMenuWidgets();
+    MyGUI::InputManager::getInstance().setKeyFocusWidget(ipAddressBox);
 
+}
+
+void GUISystem::networkServerSetupMenu()  // sets up the networkServer instance
+{
+    
 }
 
 void GUISystem::networkServer()  // sets up  game as a network server
@@ -2179,4 +2325,117 @@ void GUISystem::networkClient()  // sets up game as a network client
     network->clientConnect();
 //    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scenetop
 
+}
+
+void GUISystem::courtSelected()  // processes court selection
+{
+    gameState *gameS = gameState::Instance();
+    
+    logMsg("Selected Court #" +Ogre::StringConverter::toString(courtSelectBox->getIndexSelected()));
+    gameS->setSelectedCourtDataInstance(courtSelectBox->getIndexSelected());
+    gameSetupMenu();
+}
+
+void GUISystem::backNetworkSetupMenuSelected()  // returns back to network setup screen
+{
+    hideActiveMenuWidgets();
+    menuActive = true;
+    previousActiveMenu = activeMenu;
+    activeMenu = NETWORK;
+    showActiveMenuWidgets();
+}
+
+void GUISystem::backMainMenuSelected()  // processes back to main menu selection
+{
+    hideActiveMenuWidgets();  
+    previousActiveMenu = activeMenu;
+    activeMenu = MAIN;
+    showMainMenuWidgets();
+}
+
+void GUISystem::backNetworkClientMenuSelected()  // returns back to the network client menu
+{
+    hideActiveMenuWidgets();
+    menuActive = true;
+    previousActiveMenu = activeMenu;
+    activeMenu = NETWORKCLIENT;
+    showActiveMenuWidgets();
+}
+
+void GUISystem::hideActiveMenuWidgets()  // hides active menus widgets
+{
+    switch (activeMenu)
+    {
+        case MAIN: 
+            hideMainMenuWidgets();
+            break;
+        case NETWORK:
+            hideNetworkSetupWidgets();
+            break;
+        case NETWORKCLIENT:
+            hideNetworkClientSetupWidgets();
+            break;
+        case OPTIONS:
+            hideOptionsMenuWidgets();
+            break;
+        case DISPLAY:
+            hideDisplayMenuWidgets();
+            break;
+        case INPUT:
+            hideInputMenuWidgets();
+            break;
+        case AUDIO:
+            hideAudioMenuWidgets();
+            break;
+        case GAMESETUP:
+            hideGameSetupMenuWidgets();
+            break;
+        case PLAYERSTART:
+            hidePlayerStartSelectionMenuWidgets();
+            break;
+        case COURTSELECT:
+            hideCourtSelectionMenuWidgets();
+            break;
+        default:
+            break;
+	}
+}
+
+void GUISystem::showActiveMenuWidgets()  // shows active menus widgets
+{
+    switch (activeMenu)
+    {
+        case MAIN: 
+            showMainMenuWidgets();
+            break;
+        case NETWORK:
+            showNetworkSetupWidgets();
+            break;
+        case NETWORKCLIENT:
+            showNetworkClientSetupWidgets();
+            break;
+        case OPTIONS:
+            showOptionsMenuWidgets();
+            break;
+        case DISPLAY:
+            showDisplayMenuWidgets();
+            break;
+        case INPUT:
+            showInputMenuWidgets();
+            break;
+        case AUDIO:
+            showAudioMenuWidgets();
+            break;
+        case GAMESETUP:
+            showGameSetupMenuWidgets();
+            break;
+        case PLAYERSTART:
+            showPlayerStartSelectionMenuWidgets();
+            break;
+        case COURTSELECT:
+            showCourtSelectionMenuWidgets();
+            break;
+        default:
+            break;
+	}
 }
