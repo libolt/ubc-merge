@@ -1197,7 +1197,7 @@ bool inputSystem::processUnbufferedMouseInput()
 //	logMsg("Processing mouse input");
 
     //FIXME Need to get MyGUI working on android
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //#else
     int w, h;
     //SDL_Window *sdlWindow = SDL_GetMouseFocus();
@@ -1206,7 +1206,7 @@ bool inputSystem::processUnbufferedMouseInput()
     SDL_GetWindowMaximumSize(sdlWindow,&w,&h);
 	logMsg("sdlWindow width = " +Ogre::StringConverter::toString(w));
 	logMsg("sdlWindow height = " +Ogre::StringConverter::toString(h));
-    SDL_GetGlobalMouseState(&x, &y);
+    //SDL_GetGlobalMouseState(&x, &y);
 	logMsg("mouse x = " +Ogre::StringConverter::toString(x));
 	logMsg("mouse y = " +Ogre::StringConverter::toString(y));
 
@@ -1244,7 +1244,7 @@ bool inputSystem::processUnbufferedMouseInput()
 	{
 		MyGUI::InputManager::getInstance().injectMouseMove(x,y,0);
 	}
-#endif
+//#endif
 //    logMsg("Mouse input processed");
     return true;
 }

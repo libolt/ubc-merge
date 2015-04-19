@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="ListBox" skin="ListBox" position="100 200 300 26" align="Default" layer="Main" name="team0SelectBox">
+        <Property key="Caption" value=""/>
+        <Property key="Colour" value="0.321637 0.312233 0.312233"/>
+        <Property key="Enabled" value="true"/>
+        <Property key="FontName" value="DejaVuSansFont_15"/>
+        <Property key="TextAlign" value="Center"/>
+        <Property key="TextColour" value="1 1 1"/>
+    </Widget>
+    <Widget type="ListBox" skin="ListBox" position="300 200 300 26" align="Default" layer="Main" name="team1SelectBox">
+        <Property key="Caption" value=""/>
+        <Property key="Colour" value="0.321637 0.312233 0.312233"/>
+        <Property key="Enabled" value="true"/>
+        <Property key="FontName" value="DejaVuSansFont_15"/>
+        <Property key="TextAlign" value="Center"/>
+        <Property key="TextColour" value="1 1 1"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="100 300  300 26" align="Default" layer="Main" name="team0SelectButton">
+            <Property key="Caption" value="(H)ome Team Select"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="300 300 300 26" align="Default" layer="Main" name="team1SelectButton">
+            <Property key="Caption" value="(A)way TeamSelect"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="300 325 300 26" align="Default" layer="Main" name="teamsSelectedButton">
+            <Property key="Caption" value="(T)eams selected"/>
+    </Widget>
+    <CodeGeneratorSettings/>
+</MyGUI>

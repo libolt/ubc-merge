@@ -65,6 +65,7 @@ GUISystem::GUISystem()
     gameSetupMenuAwaySelected = false;
 	gameSetupMenuHomeSelected = false;
     playerStartSelectionMenuCreated = false;
+    teamSelectionMenuCreated = false;
 	courtSelectionMenuCreated = false;
     courtSelectionDataLoaded = false;
     
@@ -160,6 +161,15 @@ bool GUISystem::getPlayerStartSelectionMenuCreated()  // retrieves the value of 
 void GUISystem::setPlayerStartSelectionMenuCreated(bool created)  // sets the value of playerStartSelectionMenuCreated
 {
     playerStartSelectionMenuCreated = created;
+}
+
+bool GUISystem::getTeamSelectionMenuCreated()  // retrieves the value of teamSelectionMenuCreated
+{
+    return (teamSelectionMenuCreated);
+}
+void GUISystem::setTeamSelectionMenuCreated(bool created)  // sets the value of teamSelectionMenuCreated
+{
+    teamSelectionMenuCreated = created;
 }
 
 bool GUISystem::getCourtSelectionMenuCreated()  // retrieves the value of courtSelectionMenuCreated
@@ -469,14 +479,19 @@ bool GUISystem::createBackButtons() // creates the back buttons for the menus
 	backOptionsMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backOptionsMenuButtonClicked);
     backOptionsMenuButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
+    backTeamSelectionMenuButton = mGUI->findWidget<MyGUI::Button>("backTeamSelectionMenuButton"); // loads Back to Team Selection Menu Button
+    backTeamSelectionMenuButton->setVisible(false);
+    backTeamSelectionMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backTeamSelectionMenuButtonClicked);
+    backTeamSelectionMenuButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
 	backPlayerStartSelectionMenuButton = mGUI->findWidget<MyGUI::Button>("backPlayerStartSelectionMenuButton"); // loads Back to Player Start Selection Menu Button
 	backPlayerStartSelectionMenuButton->setVisible(false);
 	backPlayerStartSelectionMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backPlayerStartSelectionMenuButtonClicked);
     backPlayerStartSelectionMenuButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
-	backGameSetupMenuButton = mGUI->findWidget<MyGUI::Button>("backGameSetupMenuButton"); // loads Back to Options Menu Button
+    backGameSetupMenuButton = mGUI->findWidget<MyGUI::Button>("backGameSetupMenuButton"); // loads Back to Game Setup Menu Button
 	backGameSetupMenuButton->setVisible(false);
-	backGameSetupMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backOptionsMenuButtonClicked);
+    backGameSetupMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backGameSetupMenuButtonClicked);
     backGameSetupMenuButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
 	backButtonsCreated = true;
@@ -701,17 +716,17 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
 
     team0StartingLineupSetButton = mGUI->findWidget<MyGUI::Button>("team0StartingLineupSetButton"); // loads team0StartingLineupSetButton
     team0StartingLineupSetButton->setVisible(false);
-//    team0StartingLineupSetButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+    team0StartingLineupSetButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::team0StartingLineupSetButtonClicked);
 	team0StartingLineupSetButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     team1StartingLineupSetButton = mGUI->findWidget<MyGUI::Button>("team1StartinglineupSetButton"); // loads team1StartingLineupSetButton
     team1StartingLineupSetButton->setVisible(false);
-//    team0StartingLineupSetButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+    team1StartingLineupSetButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::team1StartingLineupSetButtonClicked);
 	team1StartingLineupSetButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
     startingLineupsSetButton = mGUI->findWidget<MyGUI::Button>("startingLineupsSetButton"); // loads team1StartingLineupSetButton
     startingLineupsSetButton->setVisible(false);
-//    team0StartingLineupSetButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::changeResolutionButtonClicked);
+    startingLineupsSetButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::startingLineupSetButtonClicked);
 	startingLineupsSetButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
 /*
@@ -721,6 +736,58 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
 */
 
     playerStartSelectionMenuCreated = true;
+
+    return (true);
+}
+
+bool GUISystem::createTeamSelectionMenuGUI()	// creates GUI for team selection menu screen.
+{
+    gameState *gameS = gameState::Instance();
+    loader *load = loader::Instance();
+    renderEngine *renderE = renderEngine::Instance();
+    Ogre::Viewport *viewPort = renderE->getViewPort();
+
+    load->loadTeams();
+    std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
+
+    MyGUI::LayoutManager::getInstance().loadLayout("TeamSelectionMenu.layout");
+
+    team0SelectBox = mGUI->findWidget<MyGUI::ListBox>("team0SelectBox"); // loads team 0 ListBox
+    team0SelectBox->setVisible(false);
+    team0SelectBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    team1SelectBox = mGUI->findWidget<MyGUI::ListBox>("team1SelectBox"); // loads team 1 ListBox
+    team1SelectBox->setVisible(false);
+    team1SelectBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    logMsg(Ogre::StringConverter::toString(teamDataInstance.size()));
+
+    for (size_t x=0;x<teamDataInstance.size(); ++x)
+    {
+        std::string teamName = teamDataInstance[x].getCity() + " " +teamDataInstance[x].getName();
+
+        team0SelectBox->addItem(teamName);
+        team1SelectBox->addItem(teamName);
+    }
+    team0SelectBox->setIndexSelected(0);
+    team1SelectBox->setIndexSelected(1);
+
+    team0SelectButton = mGUI->findWidget<MyGUI::Button>("team0SelectButton"); // loads team 0 Select Button
+    team0SelectButton->setVisible(false);
+    team0SelectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::team0SelectButtonClicked);
+    team0SelectButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    team1SelectButton = mGUI->findWidget<MyGUI::Button>("team1SelectButton"); // loads team 1 Button
+    team1SelectButton->setVisible(false);
+    team1SelectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::team1SelectButtonClicked);
+    team1SelectButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    teamsSelectedButton = mGUI->findWidget<MyGUI::Button>("teamsSelectedButton"); // loads team 1 Button
+    teamsSelectedButton->setVisible(false);
+    teamsSelectedButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::teamsSelectedButtonClicked);
+    teamsSelectedButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    teamSelectionMenuCreated = true;
 
     return (true);
 }
@@ -774,7 +841,7 @@ void GUISystem::clientButtonClicked(MyGUI::Widget *_sender)	// handles clientBut
 
 void GUISystem::hostGameButtonClicked(MyGUI::Widget *_sender) // handles hostGameButton click event
 {
-    gameSetupMenu();
+    teamSelectionMenu();
 }
 
 void GUISystem::connectButtonClicked(MyGUI::Widget *_sender) // handles connectButton click event
@@ -843,17 +910,35 @@ void GUISystem::disableAudioButtonClicked(MyGUI::Widget *_sender) // handles ene
 
 void GUISystem::team0SelectButtonClicked(MyGUI::Widget *_sender) // handles team0SelectButton click event
 {
-
+    gameSetupHomeSelected();
 }
 
 void GUISystem::team1SelectButtonClicked(MyGUI::Widget *_sender) // handles team1SelectButton click event
 {
-
+    gameSetupAwaySelected();
 }
 
 void GUISystem::teamsSelectedButtonClicked(MyGUI::Widget *_sender) // handles teamsSelectButton click event
 {
+    teamsSelected();
+    playerStartSelectionMenu();
 
+}
+
+void GUISystem::team0StartingLineupSetButtonClicked(MyGUI::Widget *_sender) // handles team0StartingLineupSetButton click event
+{
+
+}
+
+void GUISystem::team1StartingLineupSetButtonClicked(MyGUI::Widget *_sender) // handles team1StartingLineupSetButton click event
+{
+
+}
+
+void GUISystem::startingLineupSetButtonClicked(MyGUI::Widget *_sender) // handles startingLineupSetButton click event
+{
+    checkTeamInstancesCreated();
+    playerStartSelected();
 }
 
 void GUISystem::backNetworkClientButtonClicked(MyGUI::Widget *_sender) // handles backNetworkClientButton click event
@@ -869,6 +954,16 @@ void GUISystem::backOptionsMenuButtonClicked(MyGUI::Widget *_sender) // handles 
 void GUISystem::backPlayerStartSelectionMenuButtonClicked(MyGUI::Widget *_sender) // handles backPlayerStartSelectionMenuButton click event
 {
 
+}
+
+void GUISystem::backTeamSelectionMenuButtonClicked(MyGUI::Widget *_sender) // handles backTeamSelectionMenuButton click event
+{
+    teamSelectionMenu();
+}
+
+void GUISystem::backGameSetupMenuButtonClicked(MyGUI::Widget *_sender) // handles backGameSetupMenuButton click event
+{
+    gameSetupMenu();
 }
 
 void GUISystem::courtSelectButtonClicked(MyGUI::Widget *_sender) // handles courtSelectButton click event
@@ -1147,7 +1242,7 @@ void GUISystem::hidePlayerStartSelectionMenuWidgets() // hides all widgets tied 
     team1StartingLineupSetButton->setVisible(false);
 
     startingLineupsSetButton->setVisible(false);
-    backGameSetupMenuButton->setVisible(false);
+    backTeamSelectionMenuButton->setVisible(false);
 
 }
 void GUISystem::showPlayerStartSelectionMenuWidgets() // shows all widgets tied to the Player Start Selection Menu
@@ -1237,9 +1332,70 @@ void GUISystem::showPlayerStartSelectionMenuWidgets() // shows all widgets tied 
     startingLineupsSetButton->setVisible(true);
     startingLineupsSetButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.35 *viewPort->getActualHeight()) );
 
-    backGameSetupMenuButton->setVisible(true);
-    backGameSetupMenuButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.4 *viewPort->getActualHeight()) );
+    backTeamSelectionMenuButton->setVisible(true);
+    backTeamSelectionMenuButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.4 *viewPort->getActualHeight()) );
 
+}
+
+void GUISystem::hideTeamSelectionMenuWidgets() // hides all widgets tied to the Team Selection Menu
+{
+    team0SelectBox->setVisible(false);
+    team1SelectBox->setVisible(false);
+    team0SelectButton->setVisible(false);
+    team1SelectButton->setVisible(false);
+    teamsSelectedButton->setVisible(false);
+    logMsg("previousActiveMenu = " +Ogre::StringConverter::toString(previousActiveMenu));
+
+    if (previousActiveMenu == MAIN)
+    {
+        backMainMenuButton->setVisible(false);
+    }
+    else if (previousActiveMenu == NETWORKCLIENT)
+    {
+        backNetworkClientButton->setVisible(false);
+    }
+    else if (previousActiveMenu == NETWORK)
+    {
+        backNetworkSetupButton->setVisible(false);
+
+    }
+}
+
+void GUISystem::showTeamSelectionMenuWidgets() // show all widgets tied to the Team Selection Menu
+{
+    renderEngine *renderE = renderEngine::Instance();
+    Ogre::Viewport *viewPort = renderE->getViewPort();
+
+    team0SelectBox->setVisible(true);
+    team0SelectBox->setPosition((0.1 *viewPort->getActualWidth() ), (0.10 *viewPort->getActualHeight()) );
+
+    team1SelectBox->setVisible(true);
+    team1SelectBox->setPosition((0.5*viewPort->getActualWidth() ), (0.10 *viewPort->getActualHeight()) );
+
+    team0SelectButton->setVisible(true);
+    team0SelectButton->setPosition((0.1 *viewPort->getActualWidth() ), (0.14 *viewPort->getActualHeight()) );
+
+    team1SelectButton->setVisible(true);
+    team1SelectButton->setPosition((0.5 *viewPort->getActualWidth() ), (0.14 *viewPort->getActualHeight()) );
+
+    teamsSelectedButton->setVisible(true);
+    teamsSelectedButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.18 *viewPort->getActualHeight()) );
+    if (previousActiveMenu == MAIN)
+    {
+        backMainMenuButton->setVisible(true);
+        backMainMenuButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.22 *viewPort->getActualHeight()) );
+
+    }
+    else if (previousActiveMenu == NETWORKCLIENT)
+    {
+        backNetworkClientButton->setVisible(true);
+        backNetworkClientButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.22 *viewPort->getActualHeight()) );
+    }
+    else if (previousActiveMenu == NETWORK)
+    {
+        backNetworkSetupButton->setVisible(true);
+        backNetworkSetupButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.22 *viewPort->getActualHeight()) );
+    }
 }
 
 void GUISystem::hideCourtSelectionMenuWidgets() // hides all widgets tied to the Court Selection Menu
@@ -1302,6 +1458,9 @@ void GUISystem::menuReceiveKeyPress(std::string keyPressed) // processes key inp
             break;
         case PLAYERSTART:
             processPlayerStartSelectionMenuKeyPress(keyPressed);
+            break;
+        case TEAMSELECT:
+            processTeamSelectionMenuKeyPress(keyPressed);
             break;
         case COURTSELECT:
             processCourtSelectionMenuKeyPress(keyPressed);
@@ -1486,27 +1645,15 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
     logMsg("processGameSetupMenuKeyPress");
 	if (keyPressed == "a" && !gameSetupMenuAwaySelected)
     {
-		MyGUI::InputManager::getInstance().setKeyFocusWidget(team1SelectBox);
-		gameSetupMenuAwaySelected = true;
-		gameSetupMenuHomeSelected = false;
-/*		logMsg(Ogre::StringConverter::toString(team1SelectBox->getIndexSelected()));
-
-		logMsg(team1SelectBox->getItemNameAt(team1SelectBox->getIndexSelected()));
-        team1SelectBox->setIndexSelected(0);
-	team1SelectBox->beginToItemAt(1);
-		exit(0);
-*/
+        gameSetupAwaySelected();
 	}
 	else if (keyPressed == "h" && !gameSetupMenuHomeSelected)
     {
-		MyGUI::InputManager::getInstance().setKeyFocusWidget(team0SelectBox);
-        gameSetupMenuHomeSelected = true;
-		gameSetupMenuAwaySelected = false;
+        gameSetupHomeSelected();
 	}
 	else if (keyPressed == "b")
     {
-	    hideGameSetupMenuWidgets();
-		if (previousActiveMenu == MAIN)
+        if (previousActiveMenu == MAIN)
 		{
 		    backMainMenuSelected();
 		}
@@ -1518,25 +1665,11 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 		{
 		    networkServerSetupMenu();
 		}
-
-//	    previousActiveMenu = activeMenu;
-//	    activeMenu = NETWORKCLIENT;
 	}
 	else if (keyPressed == "t")
 	{
-        logMsg("T pressed!");
-	    hideActiveMenuWidgets();
-//		menuActive = false;
-        previousActiveMenu = activeMenu;
-	    activeMenu = PLAYERSTART;
-        std::vector<int> teamID;
-        teamID.push_back(team0SelectBox->getIndexSelected());
-        teamID.push_back(team1SelectBox->getIndexSelected());
-        gameS->setTeamID(teamID);
-        logMsg("Teams selected");
+        teamsSelected();
         playerStartSelectionMenu();
-//        gameS->setGameSetupComplete(true);
-//	    networkServer();
 	}
 	else if (keyPressed == "x")
 	{
@@ -1616,158 +1749,123 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
     gameState *gameS = gameState::Instance();
     loader *load = loader::Instance();
 
-    if (!gameS->getTeamInstancesCreated())
-    {
-        logMsg("Creating team instances!");
-        gameS->createTeamInstances();
-        gameS->setTeamInstancesCreated(true);
-        gameS->assignHoopToTeams();
-        logMsg("Team instances created!");
-    }
-    std::vector <teamState>  teamInstance = gameS->getTeamInstance();
+    checkTeamInstancesCreated();
     teamState testState;
     if (keyPressed == "s")
     {
-        logMsg("S");
-//        exit(0);
-        std::vector<std::string> team0Starters;
-        std::vector<std::string> team1Starters;
-        std::vector<int> starters; // used for initial creatio  of teamStarterID vector
-
-        int IDs = 0;
-        while (teamStarterID.size() < 2)
-        {
-            teamStarterID.push_back(starters);
-        }
-        while (teamStarterID[0].size() <5)
-        {
-            teamStarterID[0].push_back(IDs);
-        }
-        while (teamStarterID[1].size() <5)
-        {
-            teamStarterID[1].push_back(IDs);
-        }
-        team0Starters.push_back(team0PGSelectBox->getItemNameAt(team0PGSelectBox->getIndexSelected()));
-        teamStarterID[0][0] = team0IDs[0][team0PGSelectBox->getIndexSelected()];
-        logMsg("teamStarterID[0][0] = " +Ogre::StringConverter::toString(teamStarterID[0][0]));
-        team0Starters.push_back(team0SGSelectBox->getItemNameAt(team0SGSelectBox->getIndexSelected()));
-        teamStarterID[0][1] = team0IDs[1][team0SGSelectBox->getIndexSelected()];
-        logMsg("teamStarterID[0][1] = " +Ogre::StringConverter::toString(teamStarterID[0][1]));
-        team0Starters.push_back(team0SFSelectBox->getItemNameAt(team0SFSelectBox->getIndexSelected()));
-        teamStarterID[0][2] = team0IDs[2][team0SFSelectBox->getIndexSelected()];
-        logMsg("teamStarterID[0][2] = " +Ogre::StringConverter::toString(teamStarterID[0][2]));
-        team0Starters.push_back(team0PFSelectBox->getItemNameAt(team0PFSelectBox->getIndexSelected()));
-        teamStarterID[0][3] = team0IDs[3][team0PFSelectBox->getIndexSelected()];
-        logMsg("teamStarterID[0][3] = " +Ogre::StringConverter::toString(teamStarterID[0][3]));
-        team0Starters.push_back(team0CSelectBox->getItemNameAt(team0CSelectBox->getIndexSelected()));
-        teamStarterID[0][4] = team0IDs[4][team0CSelectBox->getIndexSelected()];
-        logMsg("teamStarterID[0][4] = " +Ogre::StringConverter::toString(teamStarterID[0][4]));
-        team1Starters.push_back(team1PGSelectBox->getItemNameAt(team1PGSelectBox->getIndexSelected()));
-        teamStarterID[1][0] = team1IDs[0][team1PGSelectBox->getIndexSelected()];
-        logMsg("teamStarterID[1][0] = " +Ogre::StringConverter::toString(teamStarterID[1][0]));
-        team1Starters.push_back(team1SGSelectBox->getItemNameAt(team1SGSelectBox->getIndexSelected()));
-        teamStarterID[1][1] = team1IDs[1][team1SGSelectBox->getIndexSelected()];
-        logMsg("teamStarterID[1][1] = " +Ogre::StringConverter::toString(teamStarterID[1][1]));
-        team1Starters.push_back(team1SFSelectBox->getItemNameAt(team0SFSelectBox->getIndexSelected()));
-        teamStarterID[1][2] = team1IDs[2][team1SFSelectBox->getIndexSelected()];
-        logMsg("teamStarterID[1][2] = " +Ogre::StringConverter::toString(teamStarterID[1][2]));
-        team1Starters.push_back(team1PFSelectBox->getItemNameAt(team1PFSelectBox->getIndexSelected()));
-        teamStarterID[1][3] = team1IDs[3][team1PFSelectBox->getIndexSelected()];
-        logMsg("teamStarterID[1][3] = " +Ogre::StringConverter::toString(teamStarterID[1][3]));
-        team1Starters.push_back(team1CSelectBox->getItemNameAt(team1CSelectBox->getIndexSelected()));
-        teamStarterID[1][4] = team1IDs[4][team1CSelectBox->getIndexSelected()];
-        logMsg("teamStarterID[1][4] = " +Ogre::StringConverter::toString(teamStarterID[1][4]));
-
-        gameS->setTeamStarterID(teamStarterID); // sets the selected starters for both teams in gameState class
-
-        std::vector<int> activeID;
-
-        for (size_t x=0;x<5;++x)
-        {
-            activeID.push_back(teamStarterID[0][x]);
-        }
-        teamInstance[0].setActivePlayerID(activeID);
-        if (!teamInstance[0].getPlayerInstancesCreated())    // checks if playerInstances have been created
-        {
-            if (teamInstance[0].createPlayerInstances()) // creates the player instances based on playerIDS
-            {
-                logMsg("Team 0 Player instances created!");
-                teamInstance[0].setPlayerInstancesCreated(true);
-//          exit(0);
-            }
-        }
-        teamInstance[0].setPlayerStartPositions();
-        logMsg("Team 0 player start positions set");
-        size_t i = 0;
-        std::vector<playerState> playerInstance;
-        playerInstance = teamInstance[0].getPlayerInstance();
-        while (i<playerInstance.size())
-        {
-            if (activeID[4] == playerInstance[i].getPlayerID())
-            {
-                teamInstance[0].setHumanPlayer(i);
-                logMsg("human player set!");
-            }
-            i++;
-        }
-        activeID.clear();
-        for (size_t x=0;x<5;++x)
-        {
-            activeID.push_back(teamStarterID[1][x]);
-        }
-        teamInstance[1].setActivePlayerID(activeID);
-        if (!teamInstance[1].getPlayerInstancesCreated())    // checks if playerInstances have been created
-        {
-            logMsg("Creating team 1 player instances");
-//            exit(0);
-            if (teamInstance[1].createPlayerInstances()) // creates the player instances based on playerIDS
-            {
-                logMsg("Player instances created!");
-                teamInstance[1].setPlayerInstancesCreated(true);
-//          exit(0);
-            }
-        }
-        playerInstance = teamInstance[1].getPlayerInstance();
-        while (i<playerInstance.size())
-        {
-            if (activeID[4] == playerInstance[i].getPlayerID())
-            {
-                teamInstance[1].setHumanPlayer(i);
-                logMsg("human player set!");
-            }
-            i++;
-        }
-        teamInstance[1].setPlayerStartPositions();
-        logMsg("Team 1 player start positions set");
-
-//        exit(0);
-/*
-//        teamInstance[0].setupState();
-//        exit(0);
-        std::vector<int> test;
-        test.push_back(3);
-        test.push_back(4);
-        logMsg("bleep");
-//        teamInstance[0].setStarterID(test);
-        testState.setStarterID(test);
-        logMsg("bloop");
-*/
-        gameS->setTeamInstance(teamInstance); // sets the teamInstance vector
-
-
-        logMsg("team 0 C selectbox id = " +Ogre::StringConverter::toString(teamStarterID[0][1]));
-        logMsg("team 0 starter 0 = " +Ogre::StringConverter::toString(teamStarterID[0][0]));
-        logMsg("team  0 starter 0 = " +team0Starters[0]);
-//        exit(0);
-        hideActiveMenuWidgets();
-    	menuActive = false;
-        gameS->setGameSetupComplete(true);
+        playerStartSelected();
     }
     else if (keyPressed == "b")
     {
-        gameSetupMenu();
+        teamSelectionMenu();
     }
 
+}
+
+void GUISystem::processTeamSelectionMenuKeyPress(std::string keyPressed)   // process team selection menu key input
+{
+    gameState *gameS = gameState::Instance();
+    std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
+    logMsg("processGameSetupMenuKeyPress");
+    if (keyPressed == "a" && !gameSetupMenuAwaySelected)
+    {
+        gameSetupAwaySelected();
+    }
+    else if (keyPressed == "h" && !gameSetupMenuHomeSelected)
+    {
+        gameSetupHomeSelected();
+    }
+    else if (keyPressed == "b")
+    {
+        if (previousActiveMenu == MAIN)
+        {
+            backMainMenuSelected();
+        }
+        else if (previousActiveMenu == NETWORKCLIENT)
+        {
+            networkClientSetupMenu();
+        }
+        else if (previousActiveMenu == NETWORKSERVER)
+        {
+            networkServerSetupMenu();
+        }
+    }
+    else if (keyPressed == "t")
+    {
+        teamsSelected();
+        playerStartSelectionMenu();
+    }
+    else if (keyPressed == "x")
+    {
+        if (gameSetupMenuAwaySelected)
+        {
+            int x = team1SelectBox->getIndexSelected() +1;
+            if (x < teamDataInstance.size())
+            {
+                team1SelectBox->setIndexSelected(x);
+                team1SelectBox->beginToItemAt(x);
+            }
+            else
+            {
+                team1SelectBox->setIndexSelected(0);
+                team1SelectBox->beginToItemAt(0);
+            }
+        }
+        else if (gameSetupMenuHomeSelected)
+        {
+            int x = team0SelectBox->getIndexSelected() +1;
+            if (x < teamDataInstance.size())
+            {
+                team0SelectBox->setIndexSelected(x);
+                team0SelectBox->beginToItemAt(x);
+            }
+            else
+            {
+                team0SelectBox->setIndexSelected(0);
+                team0SelectBox->beginToItemAt(0);
+            }
+        }
+        else
+        {
+
+        }
+    }
+    else if (keyPressed == "z")
+    {
+        if (gameSetupMenuAwaySelected)
+        {
+            int x = team1SelectBox->getIndexSelected() -1;
+            if (x < 0)
+            {
+                team1SelectBox->setIndexSelected(teamDataInstance.size() -1);
+                team1SelectBox->beginToItemAt(teamDataInstance.size() -1);
+            }
+            else
+            {
+                //exit(0);
+                team1SelectBox->setIndexSelected(x);
+                team1SelectBox->beginToItemAt(x);
+            }
+        }
+        else if (gameSetupMenuHomeSelected)
+        {
+            int x = team0SelectBox->getIndexSelected() -1;
+            if (x < 0)
+            {
+                team0SelectBox->setIndexSelected(teamDataInstance.size() -1);
+                team0SelectBox->beginToItemAt(teamDataInstance.size() -1);
+            }
+            else
+            {
+                team0SelectBox->setIndexSelected(x);
+                team0SelectBox->beginToItemAt(x);
+            }
+        }
+        else
+        {
+
+        }
+    }
 }
 
 void GUISystem::processCourtSelectionMenuKeyPress(std::string keyPressed)   // process court selection menu key input
@@ -1899,6 +1997,21 @@ void GUISystem::playerStartSelectionMenu() // displays player start selection me
     menuActive = true;
     previousActiveMenu = activeMenu;
     activeMenu = PLAYERSTART;
+    showActiveMenuWidgets();
+}
+
+void GUISystem::teamSelectionMenu() // displays team selection menu
+{
+    if (!teamSelectionMenuCreated)
+    {
+        createTeamSelectionMenuGUI();
+        teamSelectionMenuCreated = true;
+    }
+
+    hideActiveMenuWidgets();
+    menuActive = true;
+    previousActiveMenu = activeMenu;
+    activeMenu = TEAMSELECT;
     showActiveMenuWidgets();
 }
 
@@ -2333,7 +2446,173 @@ void GUISystem::courtSelected()  // processes court selection
     
     logMsg("Selected Court #" +Ogre::StringConverter::toString(courtSelectBox->getIndexSelected()));
     gameS->setSelectedCourtDataInstance(courtSelectBox->getIndexSelected());
-    gameSetupMenu();
+    teamSelectionMenu();
+}
+
+void GUISystem::teamsSelected()  // processes team selection
+{
+    gameState *gameS = gameState::Instance();
+    std::vector<int> teamID;
+    teamID.push_back(team0SelectBox->getIndexSelected());
+    teamID.push_back(team1SelectBox->getIndexSelected());
+    gameS->setTeamID(teamID);
+    logMsg("Teams selected");
+}
+
+void GUISystem::playerStartSelected()  // process player start selection
+{
+    gameState *gameS = gameState::Instance();
+    std::vector <teamState>  teamInstance = gameS->getTeamInstance();
+
+    logMsg("S");
+//        exit(0);
+    std::vector<std::string> team0Starters;
+    std::vector<std::string> team1Starters;
+    std::vector<int> starters; // used for initial creatio  of teamStarterID vector
+
+    int IDs = 0;
+    while (teamStarterID.size() < 2)
+    {
+        teamStarterID.push_back(starters);
+    }
+    while (teamStarterID[0].size() <5)
+    {
+        teamStarterID[0].push_back(IDs);
+    }
+    while (teamStarterID[1].size() <5)
+    {
+        teamStarterID[1].push_back(IDs);
+    }
+    team0Starters.push_back(team0PGSelectBox->getItemNameAt(team0PGSelectBox->getIndexSelected()));
+    teamStarterID[0][0] = team0IDs[0][team0PGSelectBox->getIndexSelected()];
+    logMsg("teamStarterID[0][0] = " +Ogre::StringConverter::toString(teamStarterID[0][0]));
+    team0Starters.push_back(team0SGSelectBox->getItemNameAt(team0SGSelectBox->getIndexSelected()));
+    teamStarterID[0][1] = team0IDs[1][team0SGSelectBox->getIndexSelected()];
+    logMsg("teamStarterID[0][1] = " +Ogre::StringConverter::toString(teamStarterID[0][1]));
+    team0Starters.push_back(team0SFSelectBox->getItemNameAt(team0SFSelectBox->getIndexSelected()));
+    teamStarterID[0][2] = team0IDs[2][team0SFSelectBox->getIndexSelected()];
+    logMsg("teamStarterID[0][2] = " +Ogre::StringConverter::toString(teamStarterID[0][2]));
+    team0Starters.push_back(team0PFSelectBox->getItemNameAt(team0PFSelectBox->getIndexSelected()));
+    teamStarterID[0][3] = team0IDs[3][team0PFSelectBox->getIndexSelected()];
+    logMsg("teamStarterID[0][3] = " +Ogre::StringConverter::toString(teamStarterID[0][3]));
+    team0Starters.push_back(team0CSelectBox->getItemNameAt(team0CSelectBox->getIndexSelected()));
+    teamStarterID[0][4] = team0IDs[4][team0CSelectBox->getIndexSelected()];
+    logMsg("teamStarterID[0][4] = " +Ogre::StringConverter::toString(teamStarterID[0][4]));
+    team1Starters.push_back(team1PGSelectBox->getItemNameAt(team1PGSelectBox->getIndexSelected()));
+    teamStarterID[1][0] = team1IDs[0][team1PGSelectBox->getIndexSelected()];
+    logMsg("teamStarterID[1][0] = " +Ogre::StringConverter::toString(teamStarterID[1][0]));
+    team1Starters.push_back(team1SGSelectBox->getItemNameAt(team1SGSelectBox->getIndexSelected()));
+    teamStarterID[1][1] = team1IDs[1][team1SGSelectBox->getIndexSelected()];
+    logMsg("teamStarterID[1][1] = " +Ogre::StringConverter::toString(teamStarterID[1][1]));
+    team1Starters.push_back(team1SFSelectBox->getItemNameAt(team0SFSelectBox->getIndexSelected()));
+    teamStarterID[1][2] = team1IDs[2][team1SFSelectBox->getIndexSelected()];
+    logMsg("teamStarterID[1][2] = " +Ogre::StringConverter::toString(teamStarterID[1][2]));
+    team1Starters.push_back(team1PFSelectBox->getItemNameAt(team1PFSelectBox->getIndexSelected()));
+    teamStarterID[1][3] = team1IDs[3][team1PFSelectBox->getIndexSelected()];
+    logMsg("teamStarterID[1][3] = " +Ogre::StringConverter::toString(teamStarterID[1][3]));
+    team1Starters.push_back(team1CSelectBox->getItemNameAt(team1CSelectBox->getIndexSelected()));
+    teamStarterID[1][4] = team1IDs[4][team1CSelectBox->getIndexSelected()];
+    logMsg("teamStarterID[1][4] = " +Ogre::StringConverter::toString(teamStarterID[1][4]));
+
+    gameS->setTeamStarterID(teamStarterID); // sets the selected starters for both teams in gameState class
+
+    std::vector<int> activeID;
+
+    for (size_t x=0;x<5;++x)
+    {
+        activeID.push_back(teamStarterID[0][x]);
+    }
+    teamInstance[0].setActivePlayerID(activeID);
+    if (!teamInstance[0].getPlayerInstancesCreated())    // checks if playerInstances have been created
+    {
+        if (teamInstance[0].createPlayerInstances()) // creates the player instances based on playerIDS
+        {
+            logMsg("Team 0 Player instances created!");
+            teamInstance[0].setPlayerInstancesCreated(true);
+//          exit(0);
+        }
+    }
+    teamInstance[0].setPlayerStartPositions();
+    logMsg("Team 0 player start positions set");
+    size_t i = 0;
+    std::vector<playerState> playerInstance;
+    playerInstance = teamInstance[0].getPlayerInstance();
+    while (i<playerInstance.size())
+    {
+        if (activeID[4] == playerInstance[i].getPlayerID())
+        {
+            teamInstance[0].setHumanPlayer(i);
+            logMsg("human player set!");
+        }
+        i++;
+    }
+    activeID.clear();
+    for (size_t x=0;x<5;++x)
+    {
+        activeID.push_back(teamStarterID[1][x]);
+    }
+    teamInstance[1].setActivePlayerID(activeID);
+    if (!teamInstance[1].getPlayerInstancesCreated())    // checks if playerInstances have been created
+    {
+        logMsg("Creating team 1 player instances");
+//            exit(0);
+        if (teamInstance[1].createPlayerInstances()) // creates the player instances based on playerIDS
+        {
+            logMsg("Player instances created!");
+            teamInstance[1].setPlayerInstancesCreated(true);
+//          exit(0);
+        }
+    }
+    playerInstance = teamInstance[1].getPlayerInstance();
+    while (i<playerInstance.size())
+    {
+        if (activeID[4] == playerInstance[i].getPlayerID())
+        {
+            teamInstance[1].setHumanPlayer(i);
+            logMsg("human player set!");
+        }
+        i++;
+    }
+    teamInstance[1].setPlayerStartPositions();
+    logMsg("Team 1 player start positions set");
+
+//        exit(0);
+/*
+//        teamInstance[0].setupState();
+//        exit(0);
+    std::vector<int> test;
+    test.push_back(3);
+    test.push_back(4);
+    logMsg("bleep");
+//        teamInstance[0].setStarterID(test);
+    testState.setStarterID(test);
+    logMsg("bloop");
+*/
+    gameS->setTeamInstance(teamInstance); // sets the teamInstance vector
+
+
+    logMsg("team 0 C selectbox id = " +Ogre::StringConverter::toString(teamStarterID[0][1]));
+    logMsg("team 0 starter 0 = " +Ogre::StringConverter::toString(teamStarterID[0][0]));
+    logMsg("team  0 starter 0 = " +team0Starters[0]);
+//        exit(0);
+    hideActiveMenuWidgets();
+    menuActive = false;
+    gameS->setGameSetupComplete(true);
+
+}
+
+void GUISystem::gameSetupAwaySelected()  // processes away team selectdion on game setup menu
+{
+    MyGUI::InputManager::getInstance().setKeyFocusWidget(team1SelectBox);
+    gameSetupMenuAwaySelected = true;
+    gameSetupMenuHomeSelected = false;
+}
+
+void GUISystem::gameSetupHomeSelected()  // process home team selection on game setup menu
+{
+    MyGUI::InputManager::getInstance().setKeyFocusWidget(team0SelectBox);
+    gameSetupMenuHomeSelected = true;
+    gameSetupMenuAwaySelected = false;
 }
 
 void GUISystem::backNetworkSetupMenuSelected()  // returns back to network setup screen
@@ -2393,6 +2672,9 @@ void GUISystem::hideActiveMenuWidgets()  // hides active menus widgets
         case PLAYERSTART:
             hidePlayerStartSelectionMenuWidgets();
             break;
+        case TEAMSELECT:
+            hideTeamSelectionMenuWidgets();
+            break;
         case COURTSELECT:
             hideCourtSelectionMenuWidgets();
             break;
@@ -2432,10 +2714,28 @@ void GUISystem::showActiveMenuWidgets()  // shows active menus widgets
         case PLAYERSTART:
             showPlayerStartSelectionMenuWidgets();
             break;
+        case TEAMSELECT:
+            showTeamSelectionMenuWidgets();
+            break;
         case COURTSELECT:
             showCourtSelectionMenuWidgets();
             break;
         default:
             break;
 	}
+}
+
+
+void GUISystem::checkTeamInstancesCreated()  // Checks if team instances have been created and if not creates them.
+{
+    gameState *gameS = gameState::Instance();
+
+    if (!gameS->getTeamInstancesCreated())
+    {
+        logMsg("Creating team instances!");
+        gameS->createTeamInstances();
+        gameS->setTeamInstancesCreated(true);
+        gameS->assignHoopToTeams();
+        logMsg("Team instances created!");
+    }
 }

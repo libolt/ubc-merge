@@ -71,9 +71,12 @@ public:
     bool getPlayerStartSelectionMenuCreated();  // retrieves the value of playerStartSelectionMenuCreated
     void setPlayerStartSelectionMenuCreated(bool created);  // sets the value of playerStartSelectionMenuCreated
 
+    bool getTeamSelectionMenuCreated();  // retrieves the value of teamSelectionMenuCreated
+    void setTeamSelectionMenuCreated(bool created);  // sets the value of teamSelectionMenuCreated
+
 	bool getCourtSelectionMenuCreated();  // retrieves the value of courtSelectionMenuCreated
-    void setCourtSelectionMenuCreated(bool created);  // sets the value of courtSelectionMenuCreated
-	
+    void setCourtSelectionMenuCreated(bool created);  // sets the value of courtSelectionMenuCreated	
+
     bool getCourtSelectionDataLoaded();  // retrieves the value of courtSelectionEntriesLoaded
     void setCourtSelectionDataLoaded(bool loaded);  // sets the value of courtSelectionEntriesLoaded
 	
@@ -96,6 +99,7 @@ public:
 	bool createAudioSetupGUI();	// creates GUI for audo settings screen.
     bool createGameSetupMenuGUI();	// creates GUI for game setup menu screen.
     bool createPlayerStartSelectionMenuGUI();  // creates GUI for player start selection menu screen.
+    bool createTeamSelectionMenuGUI();	// creates GUI for team selection menu screen.
     bool createCourtSelectionMenuGUI();  // creates GUI for court selection menu screen.
 	bool createBackButtons(); // creates the back buttons for the menus
 
@@ -110,6 +114,7 @@ public:
     void processAudioMenuKeyPress(std::string keyPressed); // processes audio settings menu key input
     void processGameSetupMenuKeyPress(std::string keyPressed); // processes game setup menu key input
     void processPlayerStartSelectionMenuKeyPress(std::string keyPressed);   // process player start selection menu key input
+    void processTeamSelectionMenuKeyPress(std::string keyPressed);   // process team selection menu key input
     void processCourtSelectionMenuKeyPress(std::string keyPressed);   // process court selection menu key input
 	
 	void startSinglePlayerGame(); // starts single player game
@@ -120,6 +125,7 @@ public:
     void audioMenu();  // displays the audio menu
     void gameSetupMenu(); // displays game setup menu
     void playerStartSelectionMenu(); // displays player start selection menu
+    void teamSelectionMenu();  // displays team selection menu
 	void courtSelectionMenu(); // displays court selection menu
 	void networkClientSetupMenu(); // sets up the network client connection
     void networkServerSetupMenu();  // sets up the networkServer instance
@@ -132,10 +138,16 @@ public:
     void networkClient();  // sets up game as a network client
 
     void courtSelected();  // processes court selection
+    void teamsSelected();  // processes team selection
+    void playerStartSelected();  // process player start selection
+    void gameSetupAwaySelected();  // processes away team selectdion on game setup menu
+    void gameSetupHomeSelected();  // process home team selection on game setup menu
     void backMainMenuSelected();  // processes back to main menu selection
     void backNetworkSetupMenuSelected();  // returns back to network setup screen
     void backNetworkClientMenuSelected();  // returns back to the network client menu
     
+    void checkTeamInstancesCreated();  // Checks if team instances have been created and if not creates them.
+
 protected:
 
     GUISystem();
@@ -163,9 +175,14 @@ protected:
     void team0SelectButtonClicked(MyGUI::Widget *_sender); // handles team0SelectButton click event
     void team1SelectButtonClicked(MyGUI::Widget *_sender); // handles team1SelectButton click event
     void teamsSelectedButtonClicked(MyGUI::Widget *_sender); // handles teamsSelectedButton click event
+    void team0StartingLineupSetButtonClicked(MyGUI::Widget *_sender); // handles team0StartingLineupSetButton click event
+    void team1StartingLineupSetButtonClicked(MyGUI::Widget *_sender); // handles team1StartingLineupSetButton click event
+    void startingLineupSetButtonClicked(MyGUI::Widget *_sender); // handles startingLineupSetButton click event
     void backNetworkClientButtonClicked(MyGUI::Widget *_sender); // handles backNetworkClientButton click event
     void backOptionsMenuButtonClicked(MyGUI::Widget *_sender); // handles backOptionsMenuButton click event
     void backPlayerStartSelectionMenuButtonClicked(MyGUI::Widget *_sender); // handles backPlayerStartSelectionMenuButton click event
+    void backTeamSelectionMenuButtonClicked(MyGUI::Widget *_sender); // handles backPlayerStartSelectionMenuButton click event
+    void backGameSetupMenuButtonClicked(MyGUI::Widget *_sender); // handles backGameSetupMenuButton click event
     void courtSelectButtonClicked(MyGUI::Widget *_sender); // handles courtSelectButton click event
  
 
@@ -198,6 +215,9 @@ protected:
 
     void hidePlayerStartSelectionMenuWidgets(); // hides all widgets tied to the Player Start Selection Menu
     void showPlayerStartSelectionMenuWidgets(); // shows all widgets tied to the Player Start Selection Menu
+
+    void hideTeamSelectionMenuWidgets(); // hides all widgets tied to the Team Selection Menu
+    void showTeamSelectionMenuWidgets(); // show all widgets tied to the Team Selection Menu
 
 	void hideCourtSelectionMenuWidgets(); // hides all widgets tied to the Court Selection Menu
 	void showCourtSelectionMenuWidgets(); // show all widgets tied to the Court Selection Menu
@@ -237,6 +257,7 @@ private:
 	MyGUI::Button *disableAudioButton;
     MyGUI::Button *backOptionsMenuButton;
     MyGUI::Button *backGameSetupMenuButton;
+    MyGUI::Button *backTeamSelectionMenuButton;
     MyGUI::Button *teamsSelectedButton;
     // Player Start Selection Menu
     MyGUI::Button *team0StartingLineupSetButton;
@@ -310,6 +331,7 @@ private:
     bool audioSetupMenuCreated;   // determines whether the audio settings menu gui has been created
     bool gameSetupMenuCreated;  // determines whether the game setup menu gui has been created
     bool playerStartSelectionMenuCreated; // determines whether the player start selection menu gui has been created
+    bool teamSelectionMenuCreated; // determines whether the team selection menu gui has been created
 	bool courtSelectionMenuCreated;  // deteemines whether the court selection menu has been created;
 	bool backButtonsCreated; // determines the back buttons have been created
 	bool menuActive; // stores whether a menu is being diplayed
