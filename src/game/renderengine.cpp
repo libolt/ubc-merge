@@ -22,7 +22,6 @@
 #else
 #include "config.h"
 #endif
-
 #include "gameengine.h"
 #include "gamestate.h"
 #include "gui.h"

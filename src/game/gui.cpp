@@ -938,7 +938,9 @@ void GUISystem::team1StartingLineupSetButtonClicked(MyGUI::Widget *_sender) // h
 void GUISystem::startingLineupSetButtonClicked(MyGUI::Widget *_sender) // handles startingLineupSetButton click event
 {
     checkTeamInstancesCreated();
+    
     playerStartSelected();
+//    exit(0);
 }
 
 void GUISystem::backNetworkClientButtonClicked(MyGUI::Widget *_sender) // handles backNetworkClientButton click event
@@ -1753,6 +1755,7 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
     teamState testState;
     if (keyPressed == "s")
     {
+//        exit(0);
         playerStartSelected();
     }
     else if (keyPressed == "b")

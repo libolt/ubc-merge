@@ -18,5 +18,8 @@
     <Widget type="Button" skin="Button" position="250 490 300 26" layer="Main" name="backPlayerStartSelectionMenuButton">
         <Property key="Caption" value="(B)ack to Player Start Selection Menu"/>
     </Widget>
+    <Widget type="Button" skin="Button" position="250 490 300 26" layer="Main" name="backTeamSelectionMenuButton">
+        <Property key="Caption" value="(B)ack to Team Selection Menu"/>
+    </Widget>
     <CodeGeneratorSettings/>
 </MyGUI>
