@@ -1,41 +1,41 @@
 <?xml version="1.0" ?>
 <Player>
 	<ID>26</ID>
-	<TeamID>0</TeamID>
+	<TeamID>3</TeamID>
     <Name>
-		<First>Isaace</First>
+		<First>Isaac</First>
 		<Last>Delton</Last>
 	</Name>
-	<Age>29</Age>
-	<Height>81</Height>
-	<Weight>230</Weight>
+	<Age>24</Age>
+	<Height>84</Height>
+	<Weight>239</Weight>
 	<Model>Player.mesh</Model>
-	<Position>SF</Position>
-	<<Shooting>82</Shooting>
-	<Freethrow>82</Freethrow>
-	<Layup>81</Layup>
-	<Dunk>90</Dunk>
-	<Inside>74</Inside>
-	<Midrange>83</Midrange>
-	<ThreePoint>75</ThreePoint>
-	<BallHandling>70</BallHandling>
-	<BallSecurity>71</BallSecurity>
-	<Passing>73</Passing>
-	<PickSetting>79</PickSetting>
-	<OffenseAwareness>84</OffenseAwareness>
-	<DefenseAwareness>75</DefenseAwareness>
-	<OffenseRebound>74</OffenseRebound>
-	<DefenseRebound>77</DefenseRebound>
-	<Blocking>70</Blocking>
-	<Stealing>74</Stealing>
-	<InteriorDefense>68</InteriorDefense>
-	<MidrangeDefense>74</MidrangeDefense>
-	<PerimeterDefense>76</PerimeterDefense>
-	<Hustle>57</Hustle>
-	<Speed>86</Speed>
-	<Quickness>90</Quickness>
-	<Fatigue>79</Fatigue>
-	<Durability>87</Durability>
-	<Demeanor>33</Demeanor>
-	<Improvability>70</Improvability>
+	<Position>C</Position>
+	<Shooting>70</Shooting>
+	<Freethrow>67</Freethrow>
+	<Layup>65</Layup>
+	<Dunk>75</Dunk>
+	<Inside>71</Inside>
+	<Midrange>45</Midrange>
+	<ThreePoint>20</ThreePoint>
+	<BallHandling>34</BallHandling>
+	<BallSecurity>40</BallSecurity>
+	<Passing>65</Passing>
+	<PickSetting>80</PickSetting>
+	<OffenseAwareness>55</OffenseAwareness>
+	<DefenseAwareness>73</DefenseAwareness>
+	<OffenseRebound>70</OffenseRebound>
+	<DefenseRebound>70</DefenseRebound>
+	<Blocking>80</Blocking>
+	<Stealing>15</Stealing>
+	<InteriorDefense>82</InteriorDefense>
+	<MidrangeDefense>32</MidrangeDefense>
+	<PerimeterDefense>12</PerimeterDefense>
+	<Hustle>34</Hustle>
+	<Speed>62</Speed>
+	<Quickness>65</Quickness>
+	<Fatigue>54</Fatigue>
+	<Durability>63</Durability>
+	<Demeanor>20</Demeanor>
+	<Improvability>43</Improvability>
 </Player>

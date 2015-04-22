@@ -427,7 +427,7 @@ bool loader::loadTeamListFile(string fileName)
 //	if (!doc.Parse(fileData->getAsString().c_str()))
     if (!doc.Parse(contents))
     {
-		logMsg("Unable to parse fart file");
+		logMsg("Unable to parse teams.xml file");
 //		exit(0);
 	}
 
@@ -499,7 +499,7 @@ bool loader::loadTeamFile(string fileName)
 	if (!doc.Parse(contents))
 	{
 	    logMsg("Unable to parse team file");
-//		exit(0);
+		exit(0);
 	}
 
     TiXmlHandle hDoc(&doc);
@@ -621,7 +621,7 @@ bool loader::loadPlayerListFile( string fileName)
 	if (!doc.Parse(contents))
 	{
 		logMsg("Unable to parse players.xml file");
-//		exit(0);
+		exit(0);
 	}
 
     TiXmlHandle hDoc(&doc);
@@ -718,13 +718,13 @@ bool loader::loadPlayerFile(string fileName)
 #else*/
     char *contents = NULL;
 	readFile(fileName.c_str(), &contents);
-    logMsg("playerblam");
+    logMsg("loading: "+fileName);
 	fileContents = Ogre::StringConverter::toString(contents);
 //#endif
 	if (!doc.Parse(contents))
 	{
 		logMsg("Unable to parse player file");
-//		exit(0);
+		exit(0);
 	}
 
     TiXmlHandle hDoc(&doc);

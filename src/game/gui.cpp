@@ -479,6 +479,11 @@ bool GUISystem::createBackButtons() // creates the back buttons for the menus
 	backOptionsMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backOptionsMenuButtonClicked);
     backOptionsMenuButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
+    backCourtSelectionMenuButton = mGUI->findWidget<MyGUI::Button>("backCourtSelectionMenuButton"); // loads Back to Team Selection Menu Button
+    backCourtSelectionMenuButton->setVisible(false);
+    backCourtSelectionMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backCourtSelectionMenuButtonClicked);
+    backCourtSelectionMenuButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
     backTeamSelectionMenuButton = mGUI->findWidget<MyGUI::Button>("backTeamSelectionMenuButton"); // loads Back to Team Selection Menu Button
     backTeamSelectionMenuButton->setVisible(false);
     backTeamSelectionMenuButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::backTeamSelectionMenuButtonClicked);
@@ -963,6 +968,11 @@ void GUISystem::backTeamSelectionMenuButtonClicked(MyGUI::Widget *_sender) // ha
     teamSelectionMenu();
 }
 
+void GUISystem::backCourtSelectionMenuButtonClicked(MyGUI::Widget *_sender) // handles backCourtSelectionMenuButton click event
+{
+    courtSelectionMenu();
+}
+
 void GUISystem::backGameSetupMenuButtonClicked(MyGUI::Widget *_sender) // handles backGameSetupMenuButton click event
 {
     gameSetupMenu();
@@ -1332,10 +1342,10 @@ void GUISystem::showPlayerStartSelectionMenuWidgets() // shows all widgets tied 
 
 
     startingLineupsSetButton->setVisible(true);
-    startingLineupsSetButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.35 *viewPort->getActualHeight()) );
+    startingLineupsSetButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.38 *viewPort->getActualHeight()) );
 
     backTeamSelectionMenuButton->setVisible(true);
-    backTeamSelectionMenuButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.4 *viewPort->getActualHeight()) );
+    backTeamSelectionMenuButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.43 *viewPort->getActualHeight()) );
 
 }
 
@@ -1348,7 +1358,7 @@ void GUISystem::hideTeamSelectionMenuWidgets() // hides all widgets tied to the 
     teamsSelectedButton->setVisible(false);
     logMsg("previousActiveMenu = " +Ogre::StringConverter::toString(previousActiveMenu));
 
-    if (previousActiveMenu == MAIN)
+/*    if (previousActiveMenu == MAIN)
     {
         backMainMenuButton->setVisible(false);
     }
@@ -1361,6 +1371,8 @@ void GUISystem::hideTeamSelectionMenuWidgets() // hides all widgets tied to the 
         backNetworkSetupButton->setVisible(false);
 
     }
+    */
+    backCourtSelectionMenuButton->setVisible(false);
 }
 
 void GUISystem::showTeamSelectionMenuWidgets() // show all widgets tied to the Team Selection Menu
@@ -1375,14 +1387,14 @@ void GUISystem::showTeamSelectionMenuWidgets() // show all widgets tied to the T
     team1SelectBox->setPosition((0.5*viewPort->getActualWidth() ), (0.10 *viewPort->getActualHeight()) );
 
     team0SelectButton->setVisible(true);
-    team0SelectButton->setPosition((0.1 *viewPort->getActualWidth() ), (0.14 *viewPort->getActualHeight()) );
+    team0SelectButton->setPosition((0.1 *viewPort->getActualWidth() ), (0.19 *viewPort->getActualHeight()) );
 
     team1SelectButton->setVisible(true);
-    team1SelectButton->setPosition((0.5 *viewPort->getActualWidth() ), (0.14 *viewPort->getActualHeight()) );
+    team1SelectButton->setPosition((0.5 *viewPort->getActualWidth() ), (0.19 *viewPort->getActualHeight()) );
 
     teamsSelectedButton->setVisible(true);
-    teamsSelectedButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.18 *viewPort->getActualHeight()) );
-    if (previousActiveMenu == MAIN)
+    teamsSelectedButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.25 *viewPort->getActualHeight()) );
+/*    if (previousActiveMenu == MAIN)
     {
         backMainMenuButton->setVisible(true);
         backMainMenuButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.22 *viewPort->getActualHeight()) );
@@ -1398,6 +1410,10 @@ void GUISystem::showTeamSelectionMenuWidgets() // show all widgets tied to the T
         backNetworkSetupButton->setVisible(true);
         backNetworkSetupButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.22 *viewPort->getActualHeight()) );
     }
+    */
+    backCourtSelectionMenuButton->setVisible(true);
+    backCourtSelectionMenuButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.30 *viewPort->getActualHeight()) );
+
 }
 
 void GUISystem::hideCourtSelectionMenuWidgets() // hides all widgets tied to the Court Selection Menu
@@ -1780,6 +1796,7 @@ void GUISystem::processTeamSelectionMenuKeyPress(std::string keyPressed)   // pr
     }
     else if (keyPressed == "b")
     {
+        /*
         if (previousActiveMenu == MAIN)
         {
             backMainMenuSelected();
@@ -1792,6 +1809,8 @@ void GUISystem::processTeamSelectionMenuKeyPress(std::string keyPressed)   // pr
         {
             networkServerSetupMenu();
         }
+        */
+        courtSelectionMenu();
     }
     else if (keyPressed == "t")
     {
@@ -1995,7 +2014,7 @@ void GUISystem::playerStartSelectionMenu() // displays player start selection me
         addPlayerStartSelectionMenuData();
         playerStartSelectionMenuCreated = true;
     }
-
+    setSelectedIndexes();
     hideActiveMenuWidgets();
     menuActive = true;
     previousActiveMenu = activeMenu;
@@ -2383,6 +2402,11 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
 
 //    exit(0);
 
+    
+}
+
+void GUISystem::setSelectedIndexes()  // sets all player listbox indexes to zero
+{
     team0PGSelectBox->setIndexSelected(0);
     team0SGSelectBox->setIndexSelected(0);
     team0SFSelectBox->setIndexSelected(0);
@@ -2392,8 +2416,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
     team1SGSelectBox->setIndexSelected(0);
     team1SFSelectBox->setIndexSelected(0);
     team1PFSelectBox->setIndexSelected(0);
-    team1CSelectBox->setIndexSelected(1);
-
+    team1CSelectBox->setIndexSelected(0);
 }
 
 void GUISystem::networkClientSetupMenu() // sets up the client connection
@@ -2486,6 +2509,50 @@ void GUISystem::playerStartSelected()  // process player start selection
     {
         teamStarterID[1].push_back(IDs);
     }
+    
+    // checks to make sure that all player selectBoxes have a valid index value
+    if (team0PGSelectBox->getIndexSelected() < 0 || team0PGSelectBox->getIndexSelected() > team0PGSelectBox->getItemCount())
+    {
+        team0PGSelectBox->setIndexSelected(0);
+    }
+    if (team0SGSelectBox->getIndexSelected() < 0 || team0SGSelectBox->getIndexSelected() > team0SGSelectBox->getItemCount())
+    {
+        team0SGSelectBox->setIndexSelected(0);
+    }
+    if (team0SFSelectBox->getIndexSelected() < 0 || team0SFSelectBox->getIndexSelected() > team0SFSelectBox->getItemCount())
+    {
+        team0SFSelectBox->setIndexSelected(0);
+    }
+    if (team0PFSelectBox->getIndexSelected() < 0 || team0PFSelectBox->getIndexSelected() > team0PFSelectBox->getItemCount())
+    {
+        team0PFSelectBox->setIndexSelected(0);
+    }
+    if (team0CSelectBox->getIndexSelected() < 0 || team0CSelectBox->getIndexSelected() > team0CSelectBox->getItemCount())
+    {
+        team0CSelectBox->setIndexSelected(0);
+    }
+    if (team1PGSelectBox->getIndexSelected() < 0 || team1PGSelectBox->getIndexSelected() > team1PGSelectBox->getItemCount())
+    {
+        team1PGSelectBox->setIndexSelected(0);
+    }
+    if (team1SGSelectBox->getIndexSelected() < 0 || team1SGSelectBox->getIndexSelected() > team1SGSelectBox->getItemCount())
+    {
+        team1SGSelectBox->setIndexSelected(0);
+    }
+    if (team1SFSelectBox->getIndexSelected() < 0 || team1SFSelectBox->getIndexSelected() > team1SFSelectBox->getItemCount())
+    {
+        team1SFSelectBox->setIndexSelected(0);
+    }
+    if (team1PFSelectBox->getIndexSelected() < 0 || team1PFSelectBox->getIndexSelected() > team1PFSelectBox->getItemCount())
+    {
+        team1PFSelectBox->setIndexSelected(0);
+    }
+    if (team1CSelectBox->getIndexSelected() < 0 || team1CSelectBox->getIndexSelected() > team1CSelectBox->getItemCount())
+    {
+        team1CSelectBox->setIndexSelected(0);
+    }
+    
+//    teamStarterID[0][0] = team0IDs[0][team0PGSelectBox->getIndexSelected()];
     team0Starters.push_back(team0PGSelectBox->getItemNameAt(team0PGSelectBox->getIndexSelected()));
     teamStarterID[0][0] = team0IDs[0][team0PGSelectBox->getIndexSelected()];
     logMsg("teamStarterID[0][0] = " +Ogre::StringConverter::toString(teamStarterID[0][0]));
@@ -2512,6 +2579,7 @@ void GUISystem::playerStartSelected()  // process player start selection
     logMsg("teamStarterID[1][2] = " +Ogre::StringConverter::toString(teamStarterID[1][2]));
     team1Starters.push_back(team1PFSelectBox->getItemNameAt(team1PFSelectBox->getIndexSelected()));
     teamStarterID[1][3] = team1IDs[3][team1PFSelectBox->getIndexSelected()];
+    
     logMsg("teamStarterID[1][3] = " +Ogre::StringConverter::toString(teamStarterID[1][3]));
     team1Starters.push_back(team1CSelectBox->getItemNameAt(team1CSelectBox->getIndexSelected()));
     teamStarterID[1][4] = team1IDs[4][team1CSelectBox->getIndexSelected()];

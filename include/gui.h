@@ -134,6 +134,7 @@ public:
 
     void addPlayerStartSelectionMenuData(); // adds data to Player Start Selection Menu widgets
 
+    void setSelectedIndexes();  // sets all player listbox indexes to zero
     void networkServer();  // sets up  game as a network server
     void networkClient();  // sets up game as a network client
 
@@ -182,6 +183,7 @@ protected:
     void backOptionsMenuButtonClicked(MyGUI::Widget *_sender); // handles backOptionsMenuButton click event
     void backPlayerStartSelectionMenuButtonClicked(MyGUI::Widget *_sender); // handles backPlayerStartSelectionMenuButton click event
     void backTeamSelectionMenuButtonClicked(MyGUI::Widget *_sender); // handles backPlayerStartSelectionMenuButton click event
+    void backCourtSelectionMenuButtonClicked(MyGUI::Widget *_sender); // handles backCourtSelectionMenuButton click event
     void backGameSetupMenuButtonClicked(MyGUI::Widget *_sender); // handles backGameSetupMenuButton click event
     void courtSelectButtonClicked(MyGUI::Widget *_sender); // handles courtSelectButton click event
  
@@ -258,7 +260,9 @@ private:
     MyGUI::Button *backOptionsMenuButton;
     MyGUI::Button *backGameSetupMenuButton;
     MyGUI::Button *backTeamSelectionMenuButton;
+    MyGUI::Button *backCourtSelectionMenuButton;
     MyGUI::Button *teamsSelectedButton;
+    
     // Player Start Selection Menu
     MyGUI::Button *team0StartingLineupSetButton;
     MyGUI::Button *team1StartingLineupSetButton;
