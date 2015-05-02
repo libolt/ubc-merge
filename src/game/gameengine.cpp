@@ -250,7 +250,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	//		Ogre::WindowEventUtilities::messagePump();
 //		   exit(0);
 
-        if (!sound->getSetupComplete())
+/*        if (!sound->getSetupComplete())
         {
             logMsg("Sound setup not complete!");
             if (sound->setup())
@@ -264,6 +264,7 @@ void gameEngine::gameLoop()	// Main Game Loop
             logMsg("Loading Sound!");
             sound->loadSound("cbeep.wav");
         }
+*/
         if (gameS->getGameSetupComplete())   // checks to make sure game setup is complete before continuing
 	    {
             if (gameS->getGameType() == SINGLE)

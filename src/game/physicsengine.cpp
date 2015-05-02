@@ -1115,13 +1115,15 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                 float hoopBasketballDistanceY = 0;
                 float hoopBasketballDistanceZ = 0;
 
+                if (teamInstance[teamNumber].getPlayerWithBallDribbling())
+                {
+                    teamInstance[teamNumber].setPlayerWithBallDribbling(false);
+                    gameS->setTeamInstance(teamInstance);
+                }       
+
                 if (!shotSet)
                 {
-                    if (teamInstance[teamNumber].getPlayerWithBallDribbling())
-                    {
-                        teamInstance[teamNumber].setPlayerWithBallDribbling(false);
-                    }       
-
+                    
                     if (!beginShotPosSet)
                     {
                         if (playerInstance[x].getDirection() == RIGHT)
@@ -1205,11 +1207,14 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
     //                    maxShotHeight = basketballPos.getY() + 15;
                         
                     }
+                    shotSet = true;
                 }
                 else
                 {
-                      forceToApply.setX(3);
+                //    exit(0);
+                    
                 }
+                
                 if (hoopBasketballDistanceX > -1 && hoopBasketballDistanceX < 1 && shotSet)
                 {
                     shotComplete = true;
@@ -1219,7 +1224,14 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
             }
             else
             {
-                
+                if ( shotSet)
+                {
+                    forceToApply.setX(30);
+                    basketballInstance[0].getPhysBody()->applyForce(forceToApply,btVector3(1,1,1));
+                    basketballInstance[0].getPhysBody()->setGravity(btVector3(92.8,0,0));
+                    basketballInstance[0].getPhysBody()->applyGravity();
+                    logMsg("bballForce");
+                }
             }
 
            playerInstance[x].setShotSet(shotSet);
@@ -1227,6 +1239,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
         }
         ++x;
     }
+    logMsg("playerdribble = " +Ogre::StringConverter::toString(teamInstance[teamNumber].getPlayerWithBallDribbling()));
     teamInstance[teamNumber].setPlayerInstance(playerInstance);
     gameS->setTeamInstance(teamInstance);
     gameS->getTeamInstance()[teamNumber].getPlayerInstance()[playerID].getPhysBody()->setLinearVelocity(btVector3(15,-15,0));
