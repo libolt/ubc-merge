@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 //    networkEngine *network = networkEngine::Instance();
 //    players *player = players::Instance();
 
-	render->initSDL(); // Initializes the SDL Subsystem
+    render->initSDL(); // Initializes the SDL Subsystem
 
     render->initOgre(); // Initializes the Ogre Subsystem
     render->createScene(); // creates rendering scene.

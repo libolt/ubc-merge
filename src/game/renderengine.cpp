@@ -323,7 +323,7 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 	                             SDL_WINDOWPOS_UNDEFINED,
 	                             SDL_WINDOWPOS_UNDEFINED,
                                  1280,1024,0);
-
+//    exit(0);
     SDL_VERSION( &sysInfo.version );
 
 
@@ -361,9 +361,9 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	//    SoundSystem *sound = SoundSystem::Instance();
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	winHandle = Ogre::StringConverter::toString((unsigned long int)sysInfo.info.win.window);
+    winHandle = Ogre::StringConverter::toString((unsigned long int)sysInfo.info.win.window);
 #elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
-	winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.x11.window);
+    winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.x11.window);
 #elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
 
@@ -518,6 +518,7 @@ bool renderEngine::createScene()
     Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKFileSystemArchiveFactory(mAssetMgr) );
     Ogre::ArchiveManager::getSingleton().addArchiveFactory( new Ogre::APKZipArchiveFactory(mAssetMgr) );
 	logMsg("Hello?");
+#endif
 	//  AConfiguration_fromAssetManager(config, app->activity->assetManager);
 	//gAssetMgr = app->activity->assetManager;
 //	misc["currentGLContext"] = "true";
@@ -541,8 +542,8 @@ bool renderEngine::createScene()
 
     logMsg("Dead");
 	sdlWindow = SDL_CreateWindowFrom(mWindow);
-        
-    SDL_SetWindowSize(sdlWindow, w, h);
+/*        
+//    SDL_SetWindowSize(sdlWindow, w, h);
 //    SDL_GetWindowSize(sdlWindow, w, h);
     Ogre::WindowEventUtilities::messagePump();
     w = mWindow->getViewport(0)->getActualWidth();
@@ -554,9 +555,9 @@ bool renderEngine::createScene()
 	SDL_ShowWindow(sdlWindow);
 	SDL_SetWindowGrab(sdlWindow,SDL_TRUE);
 	SDL_MaximizeWindow(sdlWindow);
+*/
 
-
-#endif
+//#endif
 
 	mResourceGroup = "UBCData";
 	Ogre::ResourceGroupManager *rsm = Ogre::ResourceGroupManager::getSingletonPtr();

@@ -235,7 +235,7 @@ bool inputSystem::processInput()	// processes all input
     {
         int numTouch = SDL_GetNumTouchDevices();
         logMsg ("numTouch = " +Ogre::StringConverter::toString(numTouch));
-        //exit(0);
+        // exit(0);
 
 //          Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
 
@@ -243,11 +243,11 @@ bool inputSystem::processInput()	// processes all input
         {
            /* case SDL_WINDOWEVENT:
                 logMsg("windowevent!");
-                exit(0);
+//                exit(0);
                 break;*/
             case SDL_FINGERMOTION:
                 logMsg("Motion!");
-             //   exit(0);
+                exit(0);
                 // processes touch input
                 if (processUnbufferedTouchInput() == false)
                 {
@@ -292,7 +292,8 @@ bool inputSystem::processInput()	// processes all input
                 {
                     return false;
                 }
-                
+                logMsg("Key Pressed!");
+                exit(0); 
                 break;
                 /*
             case SDL_KEYDOWN:
