@@ -1877,7 +1877,7 @@ bool loader::loadUserInputListFile(string fileName) // loads the list of offense
     if (!doc.Parse(contents))
     {
         logMsg("Unable to parse inputlist.xml file");
-        exit(0);
+//        exit(0);
     }
 
     TiXmlHandle hDoc(&doc);
