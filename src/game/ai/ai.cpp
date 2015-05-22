@@ -20,7 +20,7 @@
 
 #include "ai.h"
 #include "logging.h"
-
+#include <ctime>
 AISystem* AISystem::pInstance = 0;
 
 AISystem* AISystem::Instance()
