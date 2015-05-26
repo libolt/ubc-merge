@@ -24,7 +24,7 @@
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     #define OGRE_STATIC_GLES2
-    #define OGRE_STATIC_ParticleFX
+//    #define OGRE_STATIC_ParticleFX
 //    #define OGRE_STATIC_OctreeSceneManager
     #include "OgreStaticPluginLoader.h"
 
