@@ -24,7 +24,9 @@
 #include "OgreTimer.h"
 #include "OgreVector3.h"
 
+
 #include "players.h"
+#include "threading.h"
 
 class gameEngine : public players
 {
@@ -68,7 +70,7 @@ public:
     void setChangeInTime(unsigned long change);	// sets changeInTime variable
 
     void updateChangeInTime();					// updates the game timer variables
-
+   
     // starts a game
     bool startGame();
 

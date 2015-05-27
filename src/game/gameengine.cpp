@@ -191,6 +191,8 @@ void gameEngine::setMovePlayer(bool player)
 {
 	movePlayer = player;
 }
+
+
 bool gameEngine::startGame()
 {
 //    gameState *gameS = gameState::Instance();
@@ -236,6 +238,18 @@ void gameEngine::gameLoop()	// Main Game Loop
     logMsg("Sound Test!");
     SoundEngine *sound = SoundEngine::Instance();
 
+	logMsg("main: startup");
+
+	threading threads;
+    boost::thread *workerThread;
+	workerThread = new boost::thread(boost::bind(&threading::workerFunc,&threads));
+
+   logMsg("main: waiting for thread");
+
+    workerThread->join();
+
+    logMsg("main: done");
+	
 //	SDL_StartTextInput();
     while (!quitGame)
 	{

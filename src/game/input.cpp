@@ -293,7 +293,7 @@ bool inputSystem::processInput()	// processes all input
                     return false;
                 }
                 logMsg("Key Pressed!");
-                exit(0); 
+          //      exit(0); 
                 break;
                 /*
             case SDL_KEYDOWN:
