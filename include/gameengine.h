@@ -96,6 +96,7 @@ private:
     unsigned long oldTime;	// stores the last reading of the timer.
     unsigned long changeInTime; // stores the difference between current reading of the timer and the previous reading.
 
+	
     static gameEngine *pInstance;
 
     // Flags

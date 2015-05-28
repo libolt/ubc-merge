@@ -20,7 +20,7 @@
 
  #include "threading.h"
  
- void threading::workerFunc()
+void threading::workerFunc()
 {
     boost::posix_time::seconds workTime(3);
 
