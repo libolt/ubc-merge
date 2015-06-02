@@ -79,6 +79,8 @@ public:
 
     void gameLoop();	// runs the Main loop for the game
 
+	void processInput();  // processes game input
+	
 protected:
     gameEngine();
     gameEngine(const gameEngine&);

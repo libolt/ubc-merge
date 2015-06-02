@@ -31,6 +31,7 @@
 	 public:
 	 
 	     void workerFunc();
+		 void workerFunc2();
 	
 	 private:
  };

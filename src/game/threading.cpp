@@ -32,3 +32,16 @@ void threading::workerFunc()
     logMsg("Worker: finished");
 //	exit(0);
 }
+
+void threading::workerFunc2()
+{
+    boost::posix_time::seconds workTime(3);
+
+    logMsg("Worker2: running");
+
+    // Pretend to do something useful...
+    boost::this_thread::sleep(workTime);
+
+    logMsg("Worker2: finished");
+//	exit(0);
+}

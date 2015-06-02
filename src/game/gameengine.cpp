@@ -215,6 +215,269 @@ void gameEngine::quit()
 
 }
 
+void gameEngine::processInput()  // processes game input
+{
+    gameState *gameS = gameState::Instance();
+
+    GUISystem *gui = GUISystem::Instance();
+
+    inputSystem *input = inputSystem::Instance();
+
+    networkEngine *network = networkEngine::Instance();
+    networkPlayerStateObject netPStateObj;
+
+//    players *player = players::Instance();
+
+    if (input->processInput())
+        {
+            if (gameS->getTeamInstancesCreated())
+            {
+                std::vector<teamState> teamInstance = gameS->getTeamInstance();
+//                  logMsg("teamInstance.size() ==== " +toString(teamInstance.size()));
+
+//                  for (int i=0;i<teamInstance.size();++i)
+//                  {
+//                      logMsg("teamInstance.size() ==== " +toString(teamInstance.size()));
+                int teamNumber;
+                if (serverRunning)
+                {
+                    teamNumber = 0;
+                }
+                else if (clientRunning)
+                {
+                    teamNumber = 1;
+                }
+                else
+                {
+                    teamNumber = 1;
+                }
+                int i = teamNumber;
+                int humanControlled = teamInstance[i].getHumanControlled();
+                logMsg("teamNumber = " +Ogre::StringConverter::toString(teamNumber));
+                    
+                logMsg("humanControlled = " +Ogre::StringConverter::toString(humanControlled));
+                if (teamInstance[i].getPlayerInstancesCreated())
+                {
+                    std::vector<playerState> playerInstance = teamInstance[i].getPlayerInstance();
+
+                    Ogre::String packetData;
+                    if (teamInstance[i].getHumanControlled())
+                    {
+                        int humanPlayer = teamInstance[i].getHumanPlayer();
+                        inputMaps inputMap = input->keyMap();
+//                              logMsg("INPUT MAP ======== "  +toString(inputMap));
+                        std::stringstream ss;
+                              //  exit(0);
+
+                        switch (inputMap)
+                        {
+                            case INUP:
+//                                      packetData = "player0up";
+                                netPStateObj.setPacketType(3);
+                                netPStateObj.setTeamID(i);
+                                netPStateObj.setPlayerID(humanPlayer);
+                                netPStateObj.setMovement(true);
+                                netPStateObj.setDirection(0);
+                                ss << netPStateObj;
+                                packetData = ss.str();
+//                                        if (serverRunning)
+//                                        {
+                                playerInstance[humanPlayer].setMovement(true);
+                                playerInstance[humanPlayer].setDirection(UP);
+                                teamInstance[i].setPlayerInstance(playerInstance);
+                                gameS->setTeamInstance(teamInstance);
+//                                        }
+                            break;
+                            case INDOWN:
+//                                      packetData = "player0down";
+                                netPStateObj.setPacketType(3);
+                                netPStateObj.setTeamID(i);
+                                netPStateObj.setPlayerID(humanPlayer);
+                                netPStateObj.setMovement(true);
+                                netPStateObj.setDirection(1);
+                                ss << netPStateObj;
+                                packetData = ss.str();
+//                                        if (serverRunning)
+//                                        {
+                                playerInstance[humanPlayer].setMovement(true);
+                                playerInstance[humanPlayer].setDirection(DOWN);
+                                teamInstance[i].setPlayerInstance(playerInstance);
+                                gameS->setTeamInstance(teamInstance);
+//                                        }
+                            break;
+                            case INLEFT:
+//                                      packetData = "player0left";
+                                netPStateObj.setPacketType(3);
+                                netPStateObj.setTeamID(i);
+                                netPStateObj.setPlayerID(humanPlayer);
+                                netPStateObj.setMovement(true);
+                                netPStateObj.setDirection(2);
+                                ss << netPStateObj;
+                                packetData = ss.str();
+  //                                      if (serverRunning)
+  //                                      {
+                                playerInstance[humanPlayer].setMovement(true);
+                                playerInstance[humanPlayer].setDirection(LEFT);
+                                teamInstance[i].setPlayerInstance(playerInstance);
+                                gameS->setTeamInstance(teamInstance);
+ //                                       }
+                            break;
+                            case INRIGHT:
+//                                      packetData = "player0right";
+                                netPStateObj.setPacketType(3);
+                                netPStateObj.setTeamID(i);
+                                netPStateObj.setPlayerID(humanPlayer);
+                                netPStateObj.setMovement(true);
+                                netPStateObj.setDirection(3);
+                                ss << netPStateObj;
+                                packetData = ss.str();
+//                                        if (serverRunning)
+//                                        {
+                                playerInstance[humanPlayer].setMovement(true);
+                                playerInstance[humanPlayer].setDirection(RIGHT);
+                                teamInstance[i].setPlayerInstance(playerInstance);
+                                gameS->setTeamInstance(teamInstance);
+//                                        }
+                            break;
+                            case INUPLEFT:
+//                                      packetData = "player0upleft";
+                                netPStateObj.setPacketType(3);
+                                netPStateObj.setTeamID(i);
+                                netPStateObj.setPlayerID(humanPlayer);
+                                netPStateObj.setMovement(true);
+                                netPStateObj.setDirection(4);
+                                ss << netPStateObj;
+                                packetData = ss.str();
+//                                        if (serverRunning)
+//                                        {
+                                playerInstance[humanPlayer].setMovement(true);
+                                playerInstance[humanPlayer].setDirection(UPLEFT);
+                                teamInstance[i].setPlayerInstance(playerInstance);
+                                gameS->setTeamInstance(teamInstance);
+//                                        }
+                            break;
+                            case INUPRIGHT:
+//                                      packetData = "player0upright";
+                                netPStateObj.setPacketType(3);
+                                netPStateObj.setTeamID(i);
+                                netPStateObj.setPlayerID(humanPlayer);
+                                netPStateObj.setMovement(true);
+                                netPStateObj.setDirection(5);
+                                ss << netPStateObj;
+                                packetData = ss.str();
+  //                                      if (serverRunning)
+  //                                      {
+                                playerInstance[humanPlayer].setMovement(true);
+                                playerInstance[humanPlayer].setDirection(UPRIGHT);
+                                teamInstance[i].setPlayerInstance(playerInstance);
+                                gameS->setTeamInstance(teamInstance);
+  //                                      }
+                            break;
+                            case INDOWNLEFT:
+//                                      packetData = "player0downleft";
+                                netPStateObj.setPacketType(3);
+                                netPStateObj.setTeamID(i);
+                                netPStateObj.setPlayerID(humanPlayer);
+                                netPStateObj.setMovement(true);
+                                netPStateObj.setDirection(6);
+                                ss << netPStateObj;
+                                packetData = ss.str();
+//                                        if (serverRunning)
+//                                        {
+                                playerInstance[humanPlayer].setMovement(true);
+                                playerInstance[humanPlayer].setDirection(DOWNLEFT);
+                                teamInstance[i].setPlayerInstance(playerInstance);
+                                gameS->setTeamInstance(teamInstance);
+//                                        }
+                            break;
+                            case INDOWNRIGHT:
+//                                      packetData = "player0downright";
+                                netPStateObj.setPacketType(3);
+                                netPStateObj.setTeamID(i);
+                                netPStateObj.setPlayerID(humanPlayer);
+                                netPStateObj.setMovement(true);
+                                netPStateObj.setDirection(7);
+                                ss << netPStateObj;
+                                packetData = ss.str();
+//                                        if (serverRunning)
+//                                        {
+                                playerInstance[humanPlayer].setMovement(true);
+                                playerInstance[humanPlayer].setDirection(DOWNRIGHT);
+                                teamInstance[i].setPlayerInstance(playerInstance);
+                                gameS->setTeamInstance(teamInstance);
+//                                        }
+                            break;
+                            case INSHOOTBLOCK:
+                                netPStateObj.setPacketType(3);
+                                netPStateObj.setTeamID(i);
+                                netPStateObj.setPlayerID(humanPlayer);
+                                netPStateObj.setMovement(false);
+                                netPStateObj.setShootBlock(true);
+                                ss << netPStateObj;
+                                packetData = ss.str();
+//                                        if (serverRunning)
+//                                        {
+                                      //  logMsg("Human player = " +Ogre::StringConverter::toString(humanPlayer));
+                                playerInstance[humanPlayer].setMovement(false);
+                                playerInstance[humanPlayer].setShootBlock(true);
+                                teamInstance[i].setPlayerInstance(playerInstance);
+                                gameS->setTeamInstance(teamInstance);
+//                                        }
+                                        //exit(0);
+                            break;
+                            case INPASSSTEAL:
+                                netPStateObj.setPacketType(3);
+                                netPStateObj.setTeamID(i);
+                                netPStateObj.setPlayerID(humanPlayer);
+                                netPStateObj.setMovement(false);
+                                netPStateObj.setPassSteal(true);
+                                ss << netPStateObj;
+                                packetData = ss.str();
+//                                        if (serverRunning)
+//                                        {
+                                playerInstance[humanPlayer].setMovement(false);
+                                playerInstance[humanPlayer].setPassSteal(true);
+                                teamInstance[i].setPlayerInstance(playerInstance);
+                                gameS->setTeamInstance(teamInstance);
+//                                        }
+                                        //exit(0);
+                            break;
+                            case INQUIT:
+                                logMsg("Quitting!");
+                                quitGame = true;
+                                exit(0);
+                            break;
+                            default:
+                                netPStateObj.setPacketType(3);
+                                netPStateObj.setTeamID(0);
+                                netPStateObj.setPlayerID(1);
+                                std::stringstream ss;
+                                ss << netPStateObj;
+                                packetData = ss.str();
+                            break;
+                        }
+                        gameS->setTeamInstance(teamInstance);
+
+                        if (gameS->getGameType() == MULTI && clientRunning && packetData != "") // checks if game is running in client mode
+                        {
+                            logMsg("client packetData = " +packetData);
+                            network->sendPacket(packetData);
+                        }
+                        else  if (gameS->getGameType() == MULTI && serverRunning && packetData != "")
+                        {
+                            logMsg("server packetData = " +packetData);
+                            network->sendPacket(packetData);
+                        }
+                        else
+                        {
+                        }
+                    }
+                }
+            }
+
+        }   
+}
+
 void gameEngine::gameLoop()	// Main Game Loop
 {
 
@@ -244,10 +507,14 @@ void gameEngine::gameLoop()	// Main Game Loop
 	threading threads;
     boost::thread *workerThread;
 	workerThread = new boost::thread(boost::bind(&threading::workerFunc,&threads));
+    
+	boost::thread *workerThread2;
+	workerThread2 = new boost::thread(boost::bind(&threading::workerFunc2,&threads));
 
    logMsg("main: waiting for thread");
 
     workerThread->join();
+	workerThread2->join();
 
     logMsg("main: done");
 	
@@ -369,523 +636,8 @@ void gameEngine::gameLoop()	// Main Game Loop
 	        // writes Framerate to Ogre.log
 //	                Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
 
-        if (input->processInput())
-        {
-            if (gameS->getTeamInstancesCreated())
-            {
-                std::vector<teamState> teamInstance = gameS->getTeamInstance();
-//                  logMsg("teamInstance.size() ==== " +toString(teamInstance.size()));
+        processInput();
 
-//					for (int i=0;i<teamInstance.size();++i)
-//					{
-//						logMsg("teamInstance.size() ==== " +toString(teamInstance.size()));
-                int teamNumber;
-                if (serverRunning)
-                {
-                    teamNumber = 0;
-                }
-                else if (clientRunning)
-                {
-                    teamNumber = 1;
-                }
-                else
-                {
-                    teamNumber = 1;
-                }
-                int i = teamNumber;
-                int humanControlled = teamInstance[i].getHumanControlled();
-                logMsg("teamNumber = " +Ogre::StringConverter::toString(teamNumber));
-					
-                logMsg("humanControlled = " +Ogre::StringConverter::toString(humanControlled));
-                if (teamInstance[i].getPlayerInstancesCreated())
-                {
-                    std::vector<playerState> playerInstance = teamInstance[i].getPlayerInstance();
-
-                    Ogre::String packetData;
-                    if (teamInstance[i].getHumanControlled())
-                    {
-                        int humanPlayer = teamInstance[i].getHumanPlayer();
-                        inputMaps inputMap = input->keyMap();
-//							    logMsg("INPUT MAP ======== "  +toString(inputMap));
-                        std::stringstream ss;
-                              //  exit(0);
-
-                        switch (inputMap)
-                        {
-                            case INUP:
-//										packetData = "player0up";
-                                netPStateObj.setPacketType(3);
-                                netPStateObj.setTeamID(i);
-                                netPStateObj.setPlayerID(humanPlayer);
-                                netPStateObj.setMovement(true);
-                                netPStateObj.setDirection(0);
-                                ss << netPStateObj;
-                                packetData = ss.str();
-//                                        if (serverRunning)
-//                                        {
-                                playerInstance[humanPlayer].setMovement(true);
-                                playerInstance[humanPlayer].setDirection(UP);
-                                teamInstance[i].setPlayerInstance(playerInstance);
-                                gameS->setTeamInstance(teamInstance);
-//                                        }
-                            break;
-                            case INDOWN:
-//										packetData = "player0down";
-                                netPStateObj.setPacketType(3);
-                                netPStateObj.setTeamID(i);
-                                netPStateObj.setPlayerID(humanPlayer);
-                                netPStateObj.setMovement(true);
-                                netPStateObj.setDirection(1);
-                                ss << netPStateObj;
-                                packetData = ss.str();
-//                                        if (serverRunning)
-//                                        {
-                                playerInstance[humanPlayer].setMovement(true);
-                                playerInstance[humanPlayer].setDirection(DOWN);
-                                teamInstance[i].setPlayerInstance(playerInstance);
-                                gameS->setTeamInstance(teamInstance);
-//                                        }
-                            break;
-                            case INLEFT:
-//										packetData = "player0left";
-                                netPStateObj.setPacketType(3);
-                                netPStateObj.setTeamID(i);
-                                netPStateObj.setPlayerID(humanPlayer);
-                                netPStateObj.setMovement(true);
-                                netPStateObj.setDirection(2);
-                                ss << netPStateObj;
-                                packetData = ss.str();
-  //                                      if (serverRunning)
-  //                                      {
-                                playerInstance[humanPlayer].setMovement(true);
-                                playerInstance[humanPlayer].setDirection(LEFT);
-                                teamInstance[i].setPlayerInstance(playerInstance);
-                                gameS->setTeamInstance(teamInstance);
- //                                       }
-                            break;
-                            case INRIGHT:
-//										packetData = "player0right";
-                                netPStateObj.setPacketType(3);
-                                netPStateObj.setTeamID(i);
-                                netPStateObj.setPlayerID(humanPlayer);
-                                netPStateObj.setMovement(true);
-                                netPStateObj.setDirection(3);
-                                ss << netPStateObj;
-                                packetData = ss.str();
-//                                        if (serverRunning)
-//                                        {
-                                playerInstance[humanPlayer].setMovement(true);
-                                playerInstance[humanPlayer].setDirection(RIGHT);
-                                teamInstance[i].setPlayerInstance(playerInstance);
-                                gameS->setTeamInstance(teamInstance);
-//                                        }
-                            break;
-                            case INUPLEFT:
-//										packetData = "player0upleft";
-                                netPStateObj.setPacketType(3);
-                                netPStateObj.setTeamID(i);
-                                netPStateObj.setPlayerID(humanPlayer);
-                                netPStateObj.setMovement(true);
-                                netPStateObj.setDirection(4);
-                                ss << netPStateObj;
-                                packetData = ss.str();
-//                                        if (serverRunning)
-//                                        {
-                                playerInstance[humanPlayer].setMovement(true);
-                                playerInstance[humanPlayer].setDirection(UPLEFT);
-                                teamInstance[i].setPlayerInstance(playerInstance);
-                                gameS->setTeamInstance(teamInstance);
-//                                        }
-                            break;
-                            case INUPRIGHT:
-//										packetData = "player0upright";
-                                netPStateObj.setPacketType(3);
-                                netPStateObj.setTeamID(i);
-                                netPStateObj.setPlayerID(humanPlayer);
-                                netPStateObj.setMovement(true);
-                                netPStateObj.setDirection(5);
-                                ss << netPStateObj;
-                                packetData = ss.str();
-  //                                      if (serverRunning)
-  //                                      {
-                                playerInstance[humanPlayer].setMovement(true);
-                                playerInstance[humanPlayer].setDirection(UPRIGHT);
-                                teamInstance[i].setPlayerInstance(playerInstance);
-                                gameS->setTeamInstance(teamInstance);
-  //                                      }
-                            break;
-                            case INDOWNLEFT:
-//										packetData = "player0downleft";
-                                netPStateObj.setPacketType(3);
-                                netPStateObj.setTeamID(i);
-                                netPStateObj.setPlayerID(humanPlayer);
-                                netPStateObj.setMovement(true);
-                                netPStateObj.setDirection(6);
-                                ss << netPStateObj;
-                                packetData = ss.str();
-//                                        if (serverRunning)
-//                                        {
-                                playerInstance[humanPlayer].setMovement(true);
-                                playerInstance[humanPlayer].setDirection(DOWNLEFT);
-                                teamInstance[i].setPlayerInstance(playerInstance);
-                                gameS->setTeamInstance(teamInstance);
-//                                        }
-                            break;
-                            case INDOWNRIGHT:
-//										packetData = "player0downright";
-                                netPStateObj.setPacketType(3);
-                                netPStateObj.setTeamID(i);
-                                netPStateObj.setPlayerID(humanPlayer);
-                                netPStateObj.setMovement(true);
-                                netPStateObj.setDirection(7);
-                                ss << netPStateObj;
-                                packetData = ss.str();
-//                                        if (serverRunning)
-//                                        {
-                                playerInstance[humanPlayer].setMovement(true);
-                                playerInstance[humanPlayer].setDirection(DOWNRIGHT);
-                                teamInstance[i].setPlayerInstance(playerInstance);
-                                gameS->setTeamInstance(teamInstance);
-//                                        }
-                            break;
-                            case INSHOOTBLOCK:
-                                netPStateObj.setPacketType(3);
-                                netPStateObj.setTeamID(i);
-                                netPStateObj.setPlayerID(humanPlayer);
-                                netPStateObj.setMovement(false);
-                                netPStateObj.setShootBlock(true);
-                                ss << netPStateObj;
-                                packetData = ss.str();
-//                                        if (serverRunning)
-//                                        {
-                                      //  logMsg("Human player = " +Ogre::StringConverter::toString(humanPlayer));
-                                playerInstance[humanPlayer].setMovement(false);
-                                playerInstance[humanPlayer].setShootBlock(true);
-                                teamInstance[i].setPlayerInstance(playerInstance);
-                                gameS->setTeamInstance(teamInstance);
-//                                        }
-                                        //exit(0);
-                            break;
-                            case INPASSSTEAL:
-                                netPStateObj.setPacketType(3);
-                                netPStateObj.setTeamID(i);
-                                netPStateObj.setPlayerID(humanPlayer);
-                                netPStateObj.setMovement(false);
-                                netPStateObj.setPassSteal(true);
-                                ss << netPStateObj;
-                                packetData = ss.str();
-//                                        if (serverRunning)
-//                                        {
-                                playerInstance[humanPlayer].setMovement(false);
-                                playerInstance[humanPlayer].setPassSteal(true);
-                                teamInstance[i].setPlayerInstance(playerInstance);
-                                gameS->setTeamInstance(teamInstance);
-//                                        }
-                                        //exit(0);
-                            break;
-                            case INQUIT:
-                                logMsg("Quitting!");
-                                quitGame = true;
-                                exit(0);
-                            break;
-                            default:
-                                netPStateObj.setPacketType(3);
-                                netPStateObj.setTeamID(0);
-                                netPStateObj.setPlayerID(1);
-                                std::stringstream ss;
-                                ss << netPStateObj;
-                                packetData = ss.str();
-                            break;
-                        }
-                        gameS->setTeamInstance(teamInstance);
-
-                        if (gameS->getGameType() == MULTI && clientRunning && packetData != "")	// checks if game is running in client mode
-                        {
-                            logMsg("client packetData = " +packetData);
-                            network->sendPacket(packetData);
-                        }
-                        else  if (gameS->getGameType() == MULTI && serverRunning && packetData != "")
-                        {
-                            logMsg("server packetData = " +packetData);
-                            network->sendPacket(packetData);
-                        }
-                        else
-                        {
-                        }
-                    }
-                }
-//					}
-
-/*					if (gameS->getGameType() == SINGLE)
-					{
-                       Ogre::LogManager::getSingletonPtr()->logMessage("Single Player Game");
-
-						std::vector<teamState> teamInstance = gameS->getTeamInstance();
-//						exit(0);
-						Ogre::String keyPressed = input->getKeyPressed();
-						int teamWithBall = gameS->getTeamWithBall();
-//						int humanPlayer = teamInstance[teamWithBall].getHumanPlayer();
-//							exit(0);
-//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-#else
-							if (teamInstance[0].getHumanControlled())
-							{
-								int humanPlayer = teamInstance[0].getHumanPlayer();
-								if (keyPressed == "q")
-								{
-									Ogre::LogManager::getSingletonPtr()->logMessage("Quitting!");
-									quitGame = true;
-									exit(0);
-								}
-								else if (keyPressed == "up")
-								{
-									Ogre::LogManager::getSingletonPtr()->logMessage("Human Player keypress = " +toString(humanPlayer));
-									Ogre::String packetData;
-									playerInstance[humanPlayer].setMovement(true);
-									playerInstance[humanPlayer].setDirection(UP);
-
-									teamInstance[0].setPlayerInstance(playerInstance);
-									gameS->setTeamInstance(teamInstance);
-
-								}
-								else if (keyPressed == "down")
-								{
-									Ogre::String packetData;
-									playerInstance[humanPlayer].setMovement(true);
-									playerInstance[humanPlayer].setDirection(DOWN);
-									teamInstance[0].setPlayerInstance(playerInstance);
-									gameS->setTeamInstance(teamInstance);
-								}
-								else if (keyPressed == "left")
-								{
-									Ogre::String packetData;
-									playerInstance[humanPlayer].setMovement(true);
-//									exit(0);
-									playerInstance[humanPlayer].setDirection(LEFT);
-									teamInstance[0].setPlayerInstance(playerInstance);
-									gameS->setTeamInstance(teamInstance);
-								}
-								else if (keyPressed == "right")
-								{
-									Ogre::String packetData;
-									playerInstance[humanPlayer].setMovement(true);
-									playerInstance[humanPlayer].setDirection(RIGHT);
-									teamInstance[0].setPlayerInstance(playerInstance);
-									gameS->setTeamInstance(teamInstance);
-								}
-								else if (keyPressed == "rightAlt")
-								{
-									playerInstance[humanPlayer].setPassBall(true);
-									playerInstance[humanPlayer].setPassCalculated(false);
-									teamInstance[0].setPlayerWithBallDribbling(false);
-									teamInstance[0].setPlayerInstance(playerInstance);
-									gameS->setTeamInstance(teamInstance);
-								}
-							}
-						}
-
-						if (teamInstance[1].getPlayerInstancesCreated())
-						{
-							std::vector<playerState> playerInstance = teamInstance[1].getPlayerInstance();
-
-							if (teamInstance[1].getHumanControlled())
-							{
-								int humanPlayer = teamInstance[1].getHumanPlayer();
-								if (keyPressed == "q")
-								{
-									Ogre::LogManager::getSingletonPtr()->logMessage("Quitting!");
-									quitGame = true;
-									exit(0);
-								}
-								else if (keyPressed == "w")
-								{
-									Ogre::String packetData;
-									playerInstance[humanPlayer].setMovement(true);
-									playerInstance[humanPlayer].setDirection(UP);
-									Ogre::LogManager::getSingletonPtr()->logMessage("Human Player keypress = " +toString(humanPlayer));
-
-									teamInstance[1].setPlayerInstance(playerInstance);
-									gameS->setTeamInstance(teamInstance);
-
-								}
-								else if (keyPressed == "s")
-								{
-									Ogre::String packetData;
-									playerInstance[humanPlayer].setMovement(true);
-									playerInstance[humanPlayer].setDirection(DOWN);
-									teamInstance[1].setPlayerInstance(playerInstance);
-									gameS->setTeamInstance(teamInstance);
-								}
-								else if (keyPressed == "a")
-								{
-									Ogre::String packetData;
-									playerInstance[humanPlayer].setMovement(true);
-									playerInstance[humanPlayer].setDirection(LEFT);
-									teamInstance[1].setPlayerInstance(playerInstance);
-									gameS->setTeamInstance(teamInstance);
-								}
-								else if (keyPressed == "d")
-								{
-									Ogre::String packetData;
-									playerInstance[humanPlayer].setMovement(true);
-									playerInstance[humanPlayer].setDirection(RIGHT);
-									teamInstance[1].setPlayerInstance(playerInstance);
-									gameS->setTeamInstance(teamInstance);
-								}
-								else if (keyPressed == "leftAlt")
-								{
-									playerInstance[humanPlayer].setPassBall(true);
-									playerInstance[humanPlayer].setPassCalculated(false);
-									teamInstance[1].setPlayerWithBallDribbling(false);
-									teamInstance[1].setPlayerInstance(playerInstance);
-									gameS->setTeamInstance(teamInstance);
-								}
-							}
-						}
-					}
-
-					else if (gameS->getGameType() == MULTI)
-					{
-						std::vector<teamState> teamInstance = gameS->getTeamInstance();
-						int teamWithBall = gameS->getTeamWithBall();
-						int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
-						if (clientRunning)	// checks if game is running in client mode
-						{
-							std::vector<playerState> playerInstance = teamInstance[1].getPlayerInstance();
-							Ogre::String keyPressed = input->getKeyPressed();
-							if (keyPressed == "q")
-							{
-								quitGame =true;
-							}
-							else if (keyPressed == "up")
-							{
-								Ogre::String packetData;
-								playerInstance[0].setMovement(true);
-								playerInstance[0].setDirection(UP);
-								teamInstance[1].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
-								packetData = "player0" + keyPressed;
-								network->sendPacket(packetData);
-							}
-							else if (keyPressed == "down")
-							{
-								Ogre::String packetData;
-								playerInstance[0].setMovement(true);
-								playerInstance[0].setDirection(DOWN);
-								teamInstance[1].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
-								packetData = "player0" + keyPressed;
-								network->sendPacket(packetData);
-							}
-							else if (keyPressed == "left")
-							{
-								Ogre::String packetData;
-								playerInstance[0].setMovement(true);
-								playerInstance[0].setDirection(LEFT);
-								teamInstance[1].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
-								packetData = "player0" + keyPressed;
-								network->sendPacket(packetData);
-							}
-							else if (keyPressed == "right")
-							{
-								Ogre::String packetData;
-								playerInstance[0].setMovement(true);
-								playerInstance[0].setDirection(RIGHT);
-								teamInstance[1].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
-								packetData = "player0" + keyPressed;
-								network->sendPacket(packetData);
-							}
-							else if (keyPressed == "rightAlt")
-							{
-								Ogre::String packetData;
-								playerInstance[playerWithBall].setPassBall(true);
-								playerInstance[playerWithBall].setPassCalculated(false);
-								teamInstance[1].setPlayerWithBallDribbling(false);
-								teamInstance[1].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
-								packetData = "player0" + keyPressed;
-								network->sendPacket(packetData);
-							}
-							else
-							{
-							}
-						}
-						else if (serverRunning)	// checks if game is running in server mode
-						{
-							std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
-							Ogre::String keyPressed = input->getKeyPressed();
-							if (keyPressed == "q")
-							{
-								quitGame = true;
-							}
-							else if (keyPressed == "up")
-							{
-								Ogre::String packetData;
-								playerInstance[0].setMovement(true);
-								playerInstance[0].setDirection(UP);
-								teamInstance[0].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
-								packetData = "player0" + keyPressed;
-								network->sendPacket(packetData);
-							}
-							else if (keyPressed == "down")
-							{
-								Ogre::String packetData;
-								playerInstance[0].setMovement(true);
-								playerInstance[0].setDirection(DOWN);
-								teamInstance[0].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
-								packetData = "player0" + keyPressed;
-								network->sendPacket(packetData);
-							}
-							else if (keyPressed == "left")
-							{
-								Ogre::String packetData;
-								playerInstance[0].setMovement(true);
-								playerInstance[0].setDirection(LEFT);
-								teamInstance[0].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
-								packetData = "player0" + keyPressed;
-								network->sendPacket(packetData);
-							}
-							else if (keyPressed == "right")
-							{
-								Ogre::String packetData;
-								playerInstance[0].setMovement(true);
-								playerInstance[0].setDirection(RIGHT);
-								teamInstance[0].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
-								packetData = "player0" + keyPressed;
-								network->sendPacket(packetData);
-							}
-							else if (keyPressed == "rightAlt")
-							{
-								Ogre::String packetData;
-								playerInstance[playerWithBall].setPassBall(true);
-								playerInstance[playerWithBall].setPassCalculated(false);
-								teamInstance[0].setPlayerWithBallDribbling(false);
-								teamInstance[0].setPlayerInstance(playerInstance);
-								gameS->setTeamInstance(teamInstance);
-								packetData = "player0" + keyPressed;
-								network->sendPacket(packetData);
-							}
-							else
-							{
-							}
-//#endif
-						}
-
-						else
-						{
-						}
-
-				    }
-*/
-            }
-
-        }   
 /*	    	else
 	    	{
 	    	}
