@@ -18,6 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "network.h"
 
 #include "gui.h"
 #include "courtdata.h"
@@ -25,7 +26,6 @@
 #include "gamestate.h"
 #include "load.h"
 #include "logging.h"
-#include "network.h"
 #include "renderengine.h"
 #include "teamdata.h"
 
