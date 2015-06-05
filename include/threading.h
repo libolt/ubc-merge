@@ -18,22 +18,35 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
- #ifndef _THREADING_H_
- #define _THREADING_H_
+#ifndef _THREADING_H_
+#define _THREADING_H_
  
-#include <boost/thread.hpp>
+#include <boost/thread/thread.hpp>
 #include <boost/date_time.hpp>
+#include <boost/thread/mutex.hpp>
+#include <boost/thread/condition_variable.hpp>
+#include <boost/thread/locks.hpp>
 
 #include "logging.h"
  
- class threading
- {
-	 public:
-	 
-	     void workerFunc();
-		 void workerFunc2();
+
+class threading
+{
+    public:
+	    threading();
+        void workerFunc();
+        void workerFunc2();
+        void inputWorkerFunc();  // handles input processing
 	
-	 private:
+        void producer();
+        void consumer();
+    private:
+     
+        boost::mutex mutex;
+        boost::condition_variable condvar;
+        typedef boost::unique_lock<boost::mutex> lockType;
+        double value;
+        int count;
  };
  
  #endif

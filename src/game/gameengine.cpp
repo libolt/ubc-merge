@@ -226,9 +226,13 @@ void gameEngine::processInput()  // processes game input
     networkEngine *network = networkEngine::Instance();
     networkPlayerStateObject netPStateObj;
 
+    logMsg("inputProcess!");
 //    players *player = players::Instance();
 
-    if (input->processInput())
+    size_t x = 0;
+    while (x != 1)
+    {
+        if (input->processInput())
         {
             if (gameS->getTeamInstancesCreated())
             {
@@ -474,8 +478,8 @@ void gameEngine::processInput()  // processes game input
                     }
                 }
             }
-
         }   
+    }
 }
 
 void gameEngine::gameLoop()	// Main Game Loop
@@ -511,7 +515,10 @@ void gameEngine::gameLoop()	// Main Game Loop
 	boost::thread *workerThread2;
 	workerThread2 = new boost::thread(boost::bind(&threading::workerFunc2,&threads));
 
-   logMsg("main: waiting for thread");
+    boost::thread *inputWorkerThread;
+    inputWorkerThread = new boost::thread(boost::bind(&threading::inputWorkerFunc,&threads));
+
+    logMsg("main: waiting for thread");
 
     workerThread->join();
 	workerThread2->join();
@@ -631,13 +638,13 @@ void gameEngine::gameLoop()	// Main Game Loop
                 oldTime = loopTime.getMilliseconds();
 
         }
-
+    
 
 	        // writes Framerate to Ogre.log
 //	                Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
 
         processInput();
-
+//          inputWorkerThread->join();
 /*	    	else
 	    	{
 	    	}

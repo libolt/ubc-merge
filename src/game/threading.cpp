@@ -19,6 +19,13 @@
  ***************************************************************************/
 
  #include "threading.h"
+ #include "gameengine.h"
+ 
+threading::threading()
+{
+    value = 0;
+    count = 0;
+}
  
 void threading::workerFunc()
 {
@@ -44,4 +51,71 @@ void threading::workerFunc2()
 
     logMsg("Worker2: finished");
 //	exit(0);
+}
+
+void threading::inputWorkerFunc()  // handles input processing
+{
+    gameEngine *gameE = gameEngine::Instance();
+    
+    logMsg("inputWorker!");
+    gameE->processInput();
+}
+
+void threading::producer()
+{
+    while (true)
+    {
+        {
+            // value and counter must both be updated atomically
+            // using a mutex lock
+            lockType lock(mutex);
+            value = std::rand();
+            ++count;
+
+            // Notify the consumer that a new value is ready.
+            condvar.notify_one();
+        }
+
+        // Simulate exaggerated 2ms delay
+        boost::this_thread::sleep(boost::posix_time::milliseconds(200));
+    }
+}
+
+void threading::consumer()
+{
+    // Local copies of 'count' and 'value' variables. We want to do the
+    // work using local copies so that they don't get clobbered by
+    // the producer when it updates.
+    int currentCount = 0;
+    double currentValue = 0;
+
+    while (true)
+    {
+        {
+            // Acquire the mutex before accessing 'count' and 'value' variables.
+            lockType lock(mutex); // mutex is locked while in this scope
+            while (count == currentCount)
+            {
+                // Wait for producer to signal that there is a new value.
+                // While we are waiting, Boost releases the mutex so that
+                // other threads may acquire it.
+                condvar.wait(lock);
+            }
+
+            // `lock` is automatically re-acquired when we come out of
+            // condvar.wait(lock). So it's safe to access the 'value'
+            // variable at this point.
+            currentValue = value; // Grab a copy of the latest value
+                                  // while we hold the lock.
+        }
+
+        // Now that we are out of the mutex lock scope, we work with our
+        // local copy of `value`. The producer can keep on clobbering the
+        // 'value' variable all it wants, but it won't affect us here
+        // because we are now using `currentValue`.
+        std::cout << "value = " << currentValue << "\n";
+
+        // Simulate exaggerated 5ms delay
+        boost::this_thread::sleep(boost::posix_time::milliseconds(500));
+    }
 }
