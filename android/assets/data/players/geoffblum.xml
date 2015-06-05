@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<Player>
+	<ID>18</ID>
+	<TeamID>0</TeamID>
+    <Name>
+		<First>Geoff</First>
+		<Last>Blum</Last>
+	</Name>
+	<Age>23</Age>
+	<Height>78</Height>
+	<Weight>222</Weight>
+    <Model>Player.mesh</Model>
+	<Position>SF</Position>
+	<Shooting>71</Shooting>
+	<Freethrow>65</Freethrow>
+	<Layup>73</Layup>
+	<Dunk>82</Dunk>
+	<Inside>70</Inside>
+	<Midrange>62</Midrange>
+	<ThreePoint>45</ThreePoint>
+	<BallHandling>34</BallHandling>
+	<BallSecurity>65</BallSecurity>
+	<Passing>47</Passing>
+	<PickSetting>58</PickSetting>
+	<OffenseAwareness>66</OffenseAwareness>
+	<DefenseAwareness>63</DefenseAwareness>
+	<OffenseRebound>42</OffenseRebound>
+	<DefenseRebound>70</DefenseRebound>
+	<Blocking>66</Blocking>
+	<Stealing>75</Stealing>
+	<InteriorDefense>71</InteriorDefense>
+	<MidrangeDefense>78</MidrangeDefense>
+	<PerimeterDefense>55</PerimeterDefense>
+	<Hustle>68</Hustle>
+	<Speed>76</Speed>
+	<Quickness>81</Quickness>
+	<Fatigue>55</Fatigue>
+	<Durability>74</Durability>
+	<Demeanor>24</Demeanor>
+	<Improvability>91</Improvability>
+</Player>
