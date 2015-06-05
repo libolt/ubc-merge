@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<Player>
+	<ID>33</ID>
+	<TeamID>1</TeamID>
+    <Name>
+		<First>Yancy</First>
+		<Last>Bates</Last>
+	</Name>
+	<Age>33</Age>
+	<Height>75</Height>
+	<Weight>213</Weight>
+	<Model>Player.mesh</Model>
+	<Position>PG</Position>
+	<Shooting>78</Shooting>
+	<Freethrow>85</Freethrow>
+	<Layup>86</Layup>
+	<Dunk>56</Dunk>
+	<Inside>35</Inside>
+	<Midrange>58</Midrange>
+	<ThreePoint>77</ThreePoint>
+	<BallHandling>78</BallHandling>
+	<BallSecurity>74</BallSecurity>
+	<Passing>76</Passing>
+	<PickSetting>21</PickSetting>
+	<OffenseAwareness>78</OffenseAwareness>
+	<DefenseAwareness>42</DefenseAwareness>
+	<OffenseRebound>21</OffenseRebound>
+	<DefenseRebound>22</DefenseRebound>
+	<Blocking>30</Blocking>
+	<Stealing>75</Stealing>
+	<InteriorDefense>24</InteriorDefense>
+	<MidrangeDefense>66</MidrangeDefense>
+	<PerimeterDefense>76</PerimeterDefense>
+	<Hustle>32</Hustle>
+	<Speed>80</Speed>
+	<Quickness>89</Quickness>
+	<Fatigue>60</Fatigue>
+	<Durability>75</Durability>
+	<Demeanor>55</Demeanor>
+	<Improvability>85</Improvability>
+</Player>

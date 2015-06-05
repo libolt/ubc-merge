@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<Player>
+	<ID>8</ID>
+	<TeamID>2</TeamID>
+    <Name>
+		<First>Jarin</First>
+		<Last>Mulder</Last>
+	</Name>
+	<Age>29</Age>
+	<Height>85</Height>
+	<Weight>251</Weight>
+    <Model>Player.mesh</Model>
+	<Position>PF</Position>
+	<Shooting>81</Shooting>
+	<Freethrow>77</Freethrow>
+	<Layup>79</Layup>
+	<Dunk>93</Dunk>
+	<Inside>84</Inside>
+	<Midrange>75</Midrange>
+	<ThreePoint>40</ThreePoint>
+	<BallHandling>50</BallHandling>
+	<BallSecurity>67</BallSecurity>
+	<Passing>60</Passing>
+	<PickSetting>78</PickSetting>
+	<OffenseAwareness>80</OffenseAwareness>
+	<DefenseAwareness>72</DefenseAwareness>
+	<OffenseRebound>77</OffenseRebound>
+	<DefenseRebound>84</DefenseRebound>
+	<Blocking>84</Blocking>
+	<Stealing>54</Stealing>
+	<InteriorDefense>71</InteriorDefense>
+	<MidrangeDefense>65</MidrangeDefense>
+	<PerimeterDefense>t0</PerimeterDefense>
+	<Hustle>65</Hustle>
+	<Speed>80</Speed>
+	<Quickness>82</Quickness>
+	<Fatigue>76</Fatigue>
+	<Durability>83</Durability>
+	<Demeanor>80</Demeanor>
+	<Improvability>77</Improvability>
+</Player>

@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<Player>
+	<ID>3</ID>
+	<TeamID>3</TeamID>
+    <Name>
+		<First>Ben</First>
+		<Last>Seasy</Last>
+	</Name>
+	<Age>27</Age>
+	<Height>76</Height>
+	<Weight>205</Weight>
+    <Model>Player.mesh</Model>
+	<Position>SG</Position>
+	<Shooting>87</Shooting>
+	<Freethrow>83</Freethrow>
+	<Layup>80</Layup>
+	<Dunk>83</Dunk>
+	<Inside>75</Inside>
+	<Midrange>74</Midrange>
+	<ThreePoint>89</ThreePoint>
+	<BallHandling>56</BallHandling>
+	<BallSecurity>70</BallSecurity>
+	<Passing>45</Passing>
+	<PickSetting>75</PickSetting>
+	<OffenseAwareness>83</OffenseAwareness>
+	<DefenseAwareness>54</DefenseAwareness>
+	<OffenseRebound>54</OffenseRebound>
+	<DefenseRebound>47</DefenseRebound>
+	<Blocking>60</Blocking>
+	<Stealing>44</Stealing>
+	<InteriorDefense>20</InteriorDefense>
+	<MidrangeDefense>50</MidrangeDefense>
+	<PerimeterDefense>46</PerimeterDefense>
+	<Hustle>40</Hustle>
+	<Speed>78</Speed>
+	<Quickness>85</Quickness>
+	<Fatigue>68</Fatigue>
+	<Durability>75</Durability>
+	<Demeanor>78</Demeanor>
+	<Improvability>70</Improvability>
+</Player>

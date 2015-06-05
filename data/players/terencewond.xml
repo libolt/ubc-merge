@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<Player>
+	<ID>13</ID>
+	<TeamID>0</TeamID>
+        <Name>
+		<First>Terence</First>
+		<Last>Wond</Last>
+	</Name>
+	<Age>30</Age>
+	<Height>86</Height>
+	<Weight>280</Weight>
+        <Model>Player.mesh</Model>
+	<Position>PF</Position>
+	<Shooting>78</Shooting>
+	<Freethrow>82</Freethrow>
+	<Layup>80</Layup>
+	<Dunk>85</Dunk>
+	<Inside>67</Inside>
+	<Midrange>78</Midrange>
+	<ThreePoint>68</ThreePoint>
+	<BallHandling>63</BallHandling>
+	<BallSecurity>60</BallSecurity>
+	<Passing>54</Passing>
+	<PickSetting>70</PickSetting>
+	<OffenseAwareness>72</OffenseAwareness>
+	<DefenseAwareness>65</DefenseAwareness>
+	<OffenseRebound>63</OffenseRebound>
+	<DefenseRebound>66</DefenseRebound>
+	<Blocking>62</Blocking>
+	<Stealing>34</Stealing>
+	<InteriorDefense>71</InteriorDefense>
+	<MidrangeDefense>65</MidrangeDefense>
+	<PerimeterDefense>40</PerimeterDefense>
+	<Hustle>45</Hustle>
+	<Speed>78</Speed>
+	<Quickness>82</Quickness>
+	<Fatigue>75</Fatigue>
+	<Durability>75</Durability>
+	<Demeanor>75</Demeanor>
+	<Improvability>79</Improvability>
+</Player>

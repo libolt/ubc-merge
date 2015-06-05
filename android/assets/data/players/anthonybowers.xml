@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<Player>
+	<ID>2</ID>
+	<TeamID>2</TeamID>
+    <Name>
+		<First>Anthony</First>
+		<Last>Bowers</Last>
+	</Name>
+	<Age>23</Age>
+	<Height>76</Height>
+	<Weight>223</Weight>
+    <Model>Player.mesh</Model>
+	<Position>PG</Position>
+	<Shooting>55</Shooting>
+	<Freethrow>80</Freethrow>
+	<Layup>65</Layup>
+	<Dunk>44</Dunk>
+	<Inside>50</Inside>
+	<Midrange>73</Midrange>
+	<ThreePoint>70</ThreePoint>
+	<BallHandling>86</BallHandling>
+	<BallSecurity>88</BallSecurity>
+	<Passing>90</Passing>
+	<PickSetting>56</PickSetting>
+	<OffenseAwareness>87</OffenseAwareness>
+	<DefenseAwareness>85</DefenseAwareness>
+	<OffenseRebound>67</OffenseRebound>
+	<DefenseRebound>75</DefenseRebound>
+	<Blocking>70</Blocking>
+	<Stealing>90</Stealing>
+	<InteriorDefense>34</InteriorDefense>
+	<MidrangeDefense>83</MidrangeDefense>
+	<PerimeterDefense>78</PerimeterDefense>
+	<Hustle>84</Hustle>
+	<Speed>78</Speed>
+	<Quickness>77</Quickness>
+	<Fatigue>65</Fatigue>
+	<Durability>69</Durability>
+	<Demeanor>23</Demeanor>
+	<Improvability>84</Improvability>
+</Player>

@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<Player>
+	<ID>42</ID>
+	<TeamID>3</TeamID>
+    <Name>
+		<First>Jumaine</First>
+		<Last>Testeverde</Last>
+	</Name>
+	<Age>28</Age>
+	<Height>73</Height>
+	<Weight>215</Weight>
+    <Model>Player.mesh</Model>
+	<Position>SG</Position>
+	<Shooting>79</Shooting>
+	<Freethrow>78</Freethrow>
+	<Layup>73</Layup>
+	<Dunk>77</Dunk>
+	<Inside>53</Inside>
+	<Midrange>69</Midrange>
+	<ThreePoint>65</ThreePoint>
+	<BallHandling>52</BallHandling>
+	<BallSecurity>44</BallSecurity>
+	<Passing>35</Passing>
+	<PickSetting>76</PickSetting>
+	<OffenseAwareness>70</OffenseAwareness>
+	<DefenseAwareness>49</DefenseAwareness>
+	<OffenseRebound>33</OffenseRebound>
+	<DefenseRebound>33</DefenseRebound>
+	<Blocking>32</Blocking>
+	<Stealing>33</Stealing>
+	<InteriorDefense>20</InteriorDefense>
+	<MidrangeDefense>60</MidrangeDefense>
+	<PerimeterDefense>55</PerimeterDefense>
+	<Hustle>85</Hustle>
+	<Speed>83</Speed>
+	<Quickness>82</Quickness>
+	<Fatigue>67</Fatigue>
+	<Durability>51</Durability>
+	<Demeanor>21</Demeanor>
+	<Improvability>85</Improvability>
+</Player>

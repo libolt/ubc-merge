@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Button" skin="Button" position="100 300  300 26" align="Default" layer="Main" name="enableAudioButton">
+            <Property key="Caption" value="(E)nable Audio"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="300 300 300 26" align="Default" layer="Main" name="disableAudioButton">
+            <Property key="Caption" value="(D)isable Audio"/>
+    </Widget>
+    <CodeGeneratorSettings/>
+</MyGUI>

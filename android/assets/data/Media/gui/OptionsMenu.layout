@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Button" skin="Button" position="362 200  300 26" align="Default" layer="Main" name="displayButton">
+            <Property key="Caption" value="(D)isplay Settings"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="362 225 300 26" align="Default" layer="Main" name="inputButton">
+            <Property key="Caption" value="(I)nput Settings"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="362 250 300 26" align="Default" layer="Main" name="audioButton">
+            <Property key="Caption" value="(A)udio Settings"/>
+    </Widget>
+    <CodeGeneratorSettings/>
+</MyGUI>

@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<Player>
+	<ID>14</ID>
+	<TeamID>1</TeamID>
+        <Name>
+		<First>Tom</First>
+		<Last>Fowlman</Last>
+	</Name>
+	<Age>32</Age>
+	<Height>83</Height>
+	<Weight>236</Weight>
+    <Model>Player.mesh</Model>
+	<Position>C</Position>
+	<Shooting>65</Shooting>
+	<Freethrow>60</Freethrow>
+	<Layup>63</Layup>
+	<Dunk>80</Dunk>
+	<Inside>71</Inside>
+	<Midrange>32</Midrange>
+	<ThreePoint>12</ThreePoint>
+	<BallHandling>25</BallHandling>
+	<BallSecurity>14</BallSecurity>
+	<Passing>32</Passing>
+	<PickSetting>86</PickSetting>
+	<OffenseAwareness>67</OffenseAwareness>
+	<DefenseAwareness>81</DefenseAwareness>
+	<OffenseRebound>75</OffenseRebound>
+	<DefenseRebound>90</DefenseRebound>
+	<Blocking>80</Blocking>
+	<Stealing>21</Stealing>
+	<InteriorDefense>85</InteriorDefense>
+	<MidrangeDefense>34</MidrangeDefense>
+	<PerimeterDefense>12</PerimeterDefense>
+	<Hustle>25</Hustle>
+	<Speed>54</Speed>
+	<Quickness>55</Quickness>
+	<Fatigue>55</Fatigue>
+	<Durability>78</Durability>
+	<Demeanor>85</Demeanor>
+	<Improvability>76</Improvability>
+</Player>

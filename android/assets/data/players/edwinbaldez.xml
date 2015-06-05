@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<Player>
+	<ID>20</ID>
+	<TeamID>0</TeamID>
+    <Name>
+		<First>Edwin</First>
+		<Last>Baldez</Last>
+	</Name>
+	<Age>30</Age>
+	<Height>76</Height>
+	<Weight>195</Weight>
+	<Model>Player.mesh</Model>
+	<Position>PG</Position>
+	<Shooting>65</Shooting>
+	<Freethrow>73</Freethrow>
+	<Layup>70</Layup>
+	<Dunk>21</Dunk>
+	<Inside>15</Inside>
+	<Midrange>65</Midrange>
+	<ThreePoint>50</ThreePoint>
+	<BallHandling>86</BallHandling>
+	<BallSecurity>85</BallSecurity>
+	<Passing>87</Passing>
+	<PickSetting>67</PickSetting>
+	<OffenseAwareness>85</OffenseAwareness>
+	<DefenseAwareness>89</DefenseAwareness>
+	<OffenseRebound>23</OffenseRebound>
+	<DefenseRebound>34</DefenseRebound>
+	<Blocking>23</Blocking>
+	<Stealing>89</Stealing>
+	<InteriorDefense>70</InteriorDefense>
+	<MidrangeDefense>87</MidrangeDefense>
+	<PerimeterDefense>90</PerimeterDefense>
+	<Hustle>76</Hustle>
+	<Speed>92</Speed>
+	<Quickness>95</Quickness>
+	<Fatigue>76</Fatigue>
+	<Durability>84</Durability>
+	<Demeanor>35</Demeanor>
+	<Improvability>80</Improvability>
+</Player>
