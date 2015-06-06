@@ -24,7 +24,7 @@ FIND_PATH(ALMIXER_INCLUDE_DIRS ALmixer.h
     )
 
 FIND_LIBRARY(ALMIXER_LIBRARY
-    NAMES ALmixer.dll.a
+    NAMES ALmixer.dll.a ALMixer AlMixer ALmixer almixer almixer.lib
     PATHS
     $ENV{ALMIXER_HOME}/lib
     /usr/local

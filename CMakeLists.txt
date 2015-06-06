@@ -10,6 +10,13 @@ IF (WIN32)
         SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4251 /wd4275" )
     ENDIF()
 ENDIF (WIN32)
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  message(STATUS "Setting build type to 'Debug' as none was specified.")
+  set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build." FORCE)
+  # Set the possible values of build type for cmake-gui
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release"
+    "MinSizeRel" "RelWithDebInfo")
+endif()
 
 INCLUDE (FindENet)
 INCLUDE (FindOGRE)
@@ -28,7 +35,6 @@ find_package(Threads REQUIRED)
 SET (UBC_DEPENDENCIES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dependencies)
 SET (UBC_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 SET (UBC_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-
 SET (UBC_DATA_DIR ${CMAKE_CURRENT_SOURCE_DIR}/data)
 
 
