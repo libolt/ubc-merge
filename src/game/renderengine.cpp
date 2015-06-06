@@ -541,8 +541,10 @@ bool renderEngine::createScene()
 	logMsg("mWindow handle = " +Ogre::StringConverter::toString(handle));
 
     logMsg("Dead");
+#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	sdlWindow = SDL_CreateWindowFrom(mWindow);
-/*        
+#endif
+/*
 //    SDL_SetWindowSize(sdlWindow, w, h);
 //    SDL_GetWindowSize(sdlWindow, w, h);
     Ogre::WindowEventUtilities::messagePump();
@@ -597,7 +599,7 @@ bool renderEngine::createScene()
 	// logMsg("Rendering!");
 	misc["externalWindowHandle"] = winHandle; //
 
-    mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1280, 1024, false, &misc);
+//    mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1280, 1024, false, &misc);
 
 	//    exit(0);
 	mWindow->setVisible(true);

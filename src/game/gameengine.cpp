@@ -516,7 +516,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	workerThread2 = new boost::thread(boost::bind(&threading::workerFunc2,&threads));
 
     boost::thread *inputWorkerThread;
-    inputWorkerThread = new boost::thread(boost::bind(&threading::inputWorkerFunc,&threads));
+//    inputWorkerThread = new boost::thread(boost::bind(&threading::inputWorkerFunc,&threads));
 
     logMsg("main: waiting for thread");
 
