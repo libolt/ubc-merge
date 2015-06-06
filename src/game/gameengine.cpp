@@ -643,7 +643,7 @@ void gameEngine::gameLoop()	// Main Game Loop
 	        // writes Framerate to Ogre.log
 //	                Ogre::LogManager::getSingletonPtr()->logMessage("FPS = " +currFPS);
 
-        processInput();
+//        processInput();
 //          inputWorkerThread->join();
 /*	    	else
 	    	{
