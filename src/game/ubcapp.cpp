@@ -55,7 +55,7 @@ void UBC::setQuitGame(bool quit)
 
 int main(int argc, char *argv[])
 {
-
+    
     renderEngine *render = renderEngine::Instance();
     gameEngine *gameE = gameEngine::Instance();
     gameState *gameS = gameState::Instance();
