@@ -46,6 +46,8 @@ class threading
         void producer();
         void consumer();
         
+        static int globalVariable;
+        
         class Reader   
         {
             public:
@@ -91,11 +93,11 @@ class threading
             private:
                 int _writerVariable;
                 int _waitTime;
-                static boost::mutex _writerMutex;
+                const boost::mutex _writerMutex;
         };
      
     private:
-        static int globalVariable;
+        
         boost::mutex mutex;
         boost::condition_variable condvar;
         typedef boost::unique_lock<boost::mutex> lockType;
