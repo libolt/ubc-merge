@@ -18,7 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef _THREADING_H_0
+#ifndef _THREADING_H_
 #define _THREADING_H_
  
 #include <vector>
