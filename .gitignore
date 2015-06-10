@@ -1,0 +1,45 @@
+# Compiled sources
+*.o
+*.o.d
+*.dex
+*.s
+*.bak*
+*.apk
+*.ap_
+R.java
+BuildConfig.java
+*.so
+*.dll
+*.lib
+*.a
+*.obj
+*.com
+*.class
+*.exe
+*.ld
+*.le
+*.c
+# Generated Build system files
+*.cbp
+UBC.layout
+Makefile
+cmake*.cmake
+#ubc
+CMakeCache.txt
+CMakeFiles
+proguard-project.txt
+# generated header files
+config.h
+
+# executables
+release/client
+release/server
+release/ubc
+debug/client
+debug/server
+debug/ubc
+
+# Log Files
+Ogre.log
+doh.txt
+*.swp
