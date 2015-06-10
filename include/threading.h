@@ -30,51 +30,8 @@
 
 #include "logging.h"
  
-const int globalVariable;
+//const int globalVariable;
 
-class Reader
-{
-  public:
-    Reader(int waitTime) { _waitTime = waitTime;}
-    void operator() () {
-      for (int i=0; i < 10; i++) {
-        std::cout << "Reader Api: " << globalVariable << std::endl;
- //       usleep(_waitTime);
-        boost::this_thread::sleep(boost::posix_time::microseconds(_waitTime));
-      }
-      return;
-    }
-  private:
-    int _waitTime;
-};
-
-
-class Writer
-{
-  public:
-    Writer(int variable, int waitTime)
-    {
-      _writerVariable = variable;
-      _waitTime = waitTime;
-    }
-    void operator () () {
-      for (int i=0; i < 10; i++) {
-//        usleep(_waitTime);
-          boost::this_thread::sleep(boost::posix_time::microseconds(_waitTime));
-
-          // Take lock and modify the global variable
-        boost::mutex::scoped_lock lock(_writerMutex);
-        globalVariable = _writerVariable;
-        _writerVariable++;
-        // since we have used scoped lock, 
-        // it automatically unlocks on going out of scope
-      }
-    }
-  private:
-    int _writerVariable;
-    int _waitTime;
-    static boost::mutex _writerMutex;
-};
 
 //   static boost::mutex Writer::_writerMutex;
 
@@ -89,10 +46,56 @@ class threading
         void producer();
         void consumer();
         
- 
-        
-    private:
+        class Reader   
+        {
+            public:
+            Reader(int waitTime) { _waitTime = waitTime;}
+            void operator() () 
+            {
+                for (int i=0; i < 10; i++) 
+                {
+                    std::cout << "Reader Api: " << globalVariable << std::endl;
+ //       usleep(_waitTime);
+                    boost::this_thread::sleep(boost::posix_time::microseconds(_waitTime));
+                }
+                return;
+            }
+        private:
+            int _waitTime;
+        };
+
+
+        class Writer
+        {
+            public:
+                Writer(int variable, int waitTime)
+                {
+                    _writerVariable = variable;
+                    _waitTime = waitTime;
+                }
+                void operator () () 
+                {
+                    for (int i=0; i < 10; i++) 
+                    {
+//        usleep(_waitTime);
+                        boost::this_thread::sleep(boost::posix_time::microseconds(_waitTime));
+
+                        // Take lock and modify the global variable
+                        boost::mutex::scoped_lock lock(_writerMutex);
+                        globalVariable = _writerVariable;
+                        _writerVariable++;
+                        // since we have used scoped lock, 
+                        // it automatically unlocks on going out of scope
+                    }   
+                }   
+            private:
+                int _writerVariable;
+                int _waitTime;
+                static boost::mutex _writerMutex;
+        };
      
+    private:
+        static int globalVariable;
         boost::mutex mutex;
         boost::condition_variable condvar;
         typedef boost::unique_lock<boost::mutex> lockType;
@@ -100,6 +103,5 @@ class threading
         int count;
  };
  
-
- 
  #endif
+ 
