@@ -18,7 +18,7 @@ BuildConfig.java
 *.exe
 *.ld
 *.le
-*.c
+#*.c
 # Generated Build system files
 *.cbp
 UBC.layout
