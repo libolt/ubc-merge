@@ -30,7 +30,7 @@
 
 #include "logging.h"
  
-static int globalVariable;
+const int globalVariable;
 
 class Reader
 {
@@ -39,7 +39,8 @@ class Reader
     void operator() () {
       for (int i=0; i < 10; i++) {
         std::cout << "Reader Api: " << globalVariable << std::endl;
-        usleep(_waitTime);
+ //       usleep(_waitTime);
+        boost::this_thread::sleep(boost::posix_time::microseconds(_waitTime));
       }
       return;
     }
@@ -58,8 +59,10 @@ class Writer
     }
     void operator () () {
       for (int i=0; i < 10; i++) {
-        usleep(_waitTime);
-        // Take lock and modify the global variable
+//        usleep(_waitTime);
+          boost::this_thread::sleep(boost::posix_time::microseconds(_waitTime));
+
+          // Take lock and modify the global variable
         boost::mutex::scoped_lock lock(_writerMutex);
         globalVariable = _writerVariable;
         _writerVariable++;
