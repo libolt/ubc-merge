@@ -10,17 +10,18 @@
  *   This program is distributed in the hope that it will be useful,       *
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
+ *9   GNU General Public License for more details.                          *
  *                                                                         *
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
+ *   Free Software Foundation, Inc.,   0                                    *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef _THREADING_H_
+#ifndef _THREADING_H_0
 #define _THREADING_H_
  
+#include <vector>
 #include <boost/thread/thread.hpp>
 #include <boost/date_time.hpp>
 #include <boost/thread/mutex.hpp>
@@ -29,6 +30,50 @@
 
 #include "logging.h"
  
+static int globalVariable;
+
+class Reader
+{
+  public:
+    Reader(int waitTime) { _waitTime = waitTime;}
+    void operator() () {
+      for (int i=0; i < 10; i++) {
+        std::cout << "Reader Api: " << globalVariable << std::endl;
+        usleep(_waitTime);
+      }
+      return;
+    }
+  private:
+    int _waitTime;
+};
+
+
+class Writer
+{
+  public:
+    Writer(int variable, int waitTime)
+    {
+      _writerVariable = variable;
+      _waitTime = waitTime;
+    }
+    void operator () () {
+      for (int i=0; i < 10; i++) {
+        usleep(_waitTime);
+        // Take lock and modify the global variable
+        boost::mutex::scoped_lock lock(_writerMutex);
+        globalVariable = _writerVariable;
+        _writerVariable++;
+        // since we have used scoped lock, 
+        // it automatically unlocks on going out of scope
+      }
+    }
+  private:
+    int _writerVariable;
+    int _waitTime;
+    static boost::mutex _writerMutex;
+};
+
+//   static boost::mutex Writer::_writerMutex;
 
 class threading
 {
@@ -40,6 +85,9 @@ class threading
 	
         void producer();
         void consumer();
+        
+ 
+        
     private:
      
         boost::mutex mutex;
@@ -48,5 +96,7 @@ class threading
         double value;
         int count;
  };
+ 
+
  
  #endif

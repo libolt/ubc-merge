@@ -508,12 +508,12 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	logMsg("main: startup");
 
-	threading threads;
+//	threading threads;
     boost::thread *workerThread;
-	workerThread = new boost::thread(boost::bind(&threading::workerFunc,&threads));
+//	workerThread = new boost::thread(boost::bind(&threading::workerFunc,&threads));
     
 	boost::thread *workerThread2;
-	workerThread2 = new boost::thread(boost::bind(&threading::workerFunc2,&threads));
+//	workerThread2 = new boost::thread(boost::bind(&threading::workerFunc2,&threads));
 
     boost::thread *inputWorkerThread;
 //    inputWorkerThread = new boost::thread(boost::bind(&threading::inputWorkerFunc,&threads));
