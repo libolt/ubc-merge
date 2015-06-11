@@ -38,7 +38,7 @@
 class threading
 {
     public:
-	    threading();
+        static threading *Instance();
         void workerFunc();
         void workerFunc2();
         void inputWorkerFunc();  // handles input processing
@@ -46,14 +46,24 @@ class threading
         void producer();
         void consumer();
         
-        static int globalVariable;
-        
+       
+        int getGlobalVariable()  // retrieves the value of globalVariable
+        {
+            return (globalVariable);
+        } 
+        void setGlobalVariable(int set) // sets the value of globalVariable 
+        {
+            globalVariable = set;
+        }
+
         class Reader   
         {
             public:
             Reader(int waitTime) { _waitTime = waitTime;}
             void operator() () 
             {
+                threading *thread = threading::Instance();
+                int globalVariable = thread->getGlobalVariable();
                 for (int i=0; i < 10; i++) 
                 {
                     std::cout << "Reader Api: " << globalVariable << std::endl;
@@ -77,6 +87,8 @@ class threading
                 }
                 void operator () () 
                 {
+                    threading *thread = threading::Instance();
+                    int globalVariable = thread->getGlobalVariable();
                     for (int i=0; i < 10; i++) 
                     {
 //        usleep(_waitTime);
@@ -85,6 +97,7 @@ class threading
                         // Take lock and modify the global variable
                         boost::mutex::scoped_lock lock(_writerMutex);
                         globalVariable = _writerVariable;
+                        thread->setGlobalVariable(globalVariable);
                         _writerVariable++;
                         // since we have used scoped lock, 
                         // it automatically unlocks on going out of scope
@@ -93,11 +106,16 @@ class threading
             private:
                 int _writerVariable;
                 int _waitTime;
-                const boost::mutex _writerMutex;
+                static boost::mutex _writerMutex;
         };
-     
+    
+    protected:
+        threading();
+        threading(const threading&);
+        threading& operator= (const threading&); 
     private:
-        
+        static threading *pInstance;       
+	int globalVariable; 
         boost::mutex mutex;
         boost::condition_variable condvar;
         typedef boost::unique_lock<boost::mutex> lockType;

@@ -20,11 +20,25 @@
 
 #include "threading.h"
 #include "gameengine.h" 
- 
+
+threading* threading::pInstance = 0;
+threading* threading::Instance()
+{
+    if (pInstance == 0)  // is it the first call?
+    {
+        pInstance = new threading; // create sole instance
+    }
+    return pInstance; // address of sole instance
+}
+
+
+boost::mutex threading::Writer::_writerMutex;
+//-------------------------------------------------------------------------------------
 threading::threading()
 {
     value = 0;
     count = 0;
+    globalVariable = 0;
 }
  
 void threading::workerFunc()
