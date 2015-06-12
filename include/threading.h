@@ -98,17 +98,19 @@ class threading
                     {
 //        usleep(_waitTime);
                         boost::this_thread::sleep(boost::posix_time::microseconds(_waitTime));
+                        logMsg("Waittime Variable: " +Ogre::StringConverter::toString(_waitTime));
 
                         // Take lock and modify the global variable
                         boost::mutex::scoped_lock lock(_writerMutex);
                         globalVariable = _writerVariable;
-                        
+                        thread->setGlobalVariable(globalVariable);
+     
                         _writerVariable++;
                         // since we have used scoped lock, 
                         // it automatically unlocks on going out of scope
                     }   
                     logMsg("Writer Variable: " +Ogre::StringConverter::toString(_writerVariable));
-                    thread->setGlobalVariable(globalVariable);
+//                    thread->setGlobalVariable(globalVariable);
                 }   
             private:
                 int _writerVariable;
