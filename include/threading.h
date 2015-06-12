@@ -84,10 +84,14 @@ class threading
                 Writer(int variable, int waitTime)
                 {
                     _writerVariable = variable;
+                    logMsg("Writer Variable: " +Ogre::StringConverter::toString(_writerVariable));
+
                     _waitTime = waitTime;
                 }
                 void operator () () 
                 {
+                    logMsg("Writer Variable: " +Ogre::StringConverter::toString(_writerVariable));
+
                     threading *thread = threading::Instance();
                     int globalVariable = thread->getGlobalVariable();
                     for (int i=0; i < 10; i++) 
@@ -103,6 +107,7 @@ class threading
                         // since we have used scoped lock, 
                         // it automatically unlocks on going out of scope
                     }   
+                    logMsg("Writer Variable: " +Ogre::StringConverter::toString(_writerVariable));
                     thread->setGlobalVariable(globalVariable);
                 }   
             private:

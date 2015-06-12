@@ -533,7 +533,9 @@ void gameEngine::gameLoop()	// Main Game Loop
 
     boost::thread readerThread(reads);
     boost::thread writerThread1(writes1);
-    usleep(100);
+//    usleep(100);
+    boost::this_thread::sleep(boost::posix_time::microseconds(100));
+
     boost::thread writerThread2(writes2);
 
     readerThread.join();
