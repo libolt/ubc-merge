@@ -527,18 +527,20 @@ void gameEngine::gameLoop()	// Main Game Loop
     logMsg("main: done");
 */
 
-  threading::Reader reads(100);
-  threading::Writer writes1(100, 200);
-  threading::Writer writes2(200, 200);
+    threading *thread = threading::Instance();
+    threading::Reader reads(100);
+    threading::Writer writes1(100, 200);
+    threading::Writer writes2(200, 200);
 
-  boost::thread readerThread(reads);
-  boost::thread writerThread1(writes1);
-  usleep(100);
-  boost::thread writerThread2(writes2);
+    boost::thread readerThread(reads);
+    boost::thread writerThread1(writes1);
+    usleep(100);
+    boost::thread writerThread2(writes2);
 
-  readerThread.join();
-  writerThread1.join();
-  writerThread2.join();
+    readerThread.join();
+    writerThread1.join();
+    writerThread2.join();
+    
 //	SDL_StartTextInput();
     while (!quitGame)
 	{
