@@ -19,8 +19,8 @@
  ***************************************************************************/
 
  
-#ifndef _THREADING_H_
-#define _THREADING_H_
+#ifndef _THREADS_H_
+#define _THREADS_H_
  
 #include <vector>
 #include <boost/thread/thread.hpp>
@@ -36,10 +36,10 @@
 
 //   static boost::mutex Writer::_writerMutex;
 
-class threading
+class threads
 {
     public:
-        static threading *Instance();
+        static threads *Instance();
         void workerFunc();
         void workerFunc2();
         void inputWorkerFunc();  // handles input processing
@@ -74,7 +74,7 @@ class threading
             Reader(int waitTime) { _waitTime = waitTime;}
             void operator() () 
             {
-                threading *thread = threading::Instance();
+                threads *thread = threads::Instance();
                 //boost::lock_guard<boost::mutex> lock(localVariableProtector);
 
                 int globalVariable = thread->getGlobalVariable();
@@ -107,9 +107,10 @@ class threading
                 }
                 void operator () () 
                 {
+
                     logMsg("Writer Variable: " +Ogre::StringConverter::toString(_writerVariable));
 
-                    threading *thread = threading::Instance();
+                    threads *thread = threads::Instance();
                     int globalVariable = thread->getGlobalVariable();
                     for (int i=0; i < 10; i++) 
                     {
@@ -128,7 +129,8 @@ class threading
                     }   
                     logMsg("Writer Variable: " +Ogre::StringConverter::toString(_writerVariable));
                     thread->setGlobalVariable(globalVariable);
-                }
+
+//                }
 
 //                    thread->setGlobalVariable(globalVariable);
                 }   
@@ -140,11 +142,11 @@ class threading
         };
     
     protected:
-        threading();
-        threading(const threading&);
-        threading& operator= (const threading&); 
+        threads();
+        threads(const threads&);
+        threads& operator= (const threads&); 
     private:
-        static threading *pInstance;
+        static threads *pInstance;
          boost::mutex globalVariableProtector;
 
         boost::mutex mutex;

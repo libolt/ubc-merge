@@ -18,15 +18,15 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "threading.h"
+#include "threads.h"
 #include "gameengine.h" 
 
-threading* threading::pInstance = 0;
-threading* threading::Instance()
+threads* threads::pInstance = 0;
+threads* threads::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new threading; // create sole instance
+        pInstance = new threads; // create sole instance
     }
     return pInstance; // address of sole instance
 }
@@ -34,14 +34,14 @@ threading* threading::Instance()
 
 boost::mutex threading::Writer::_writerMutex;
 //-------------------------------------------------------------------------------------
-threading::threading()
+threads::threads()
 {
     value = 0;
     count = 0;
     globalVariable = 0;
 }
  
-void threading::workerFunc()
+void threads::workerFunc()
 {
     boost::posix_time::seconds workTime(3);
 
@@ -54,7 +54,7 @@ void threading::workerFunc()
 //	exit(0);
 }
 
-void threading::workerFunc2()
+void threads::workerFunc2()
 {
     boost::posix_time::seconds workTime(3);
 
@@ -67,7 +67,7 @@ void threading::workerFunc2()
 //	exit(0);
 }
 
-void threading::inputWorkerFunc()  // handles input processing
+void threads::inputWorkerFunc()  // handles input processing
 {
     gameEngine *gameE = gameEngine::Instance();
     
@@ -75,7 +75,7 @@ void threading::inputWorkerFunc()  // handles input processing
     gameE->processInput();
 }
 
-void threading::producer()
+void threads::producer()
 {
     while (true)
     {
@@ -95,7 +95,7 @@ void threading::producer()
     }
 }
 
-void threading::consumer()
+void threads::consumer()
 {
     // Local copies of 'count' and 'value' variables. We want to do the
     // work using local copies so that they don't get clobbered by

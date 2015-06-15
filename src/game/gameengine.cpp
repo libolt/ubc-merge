@@ -526,10 +526,10 @@ void gameEngine::gameLoop()	// Main Game Loop
     logMsg("main: done");
 */
 
-    threading *thread = threading::Instance();
-    threading::Reader reads(100);
-    threading::Writer writes1(100, 200);
-    threading::Writer writes2(200, 200);
+    threads *thread = threads::Instance();
+    threads::Reader reads(100);
+    threads::Writer writes1(100, 200);
+    threads::Writer writes2(200, 200);
 
     boost::thread readerThread(reads);
     boost::thread writerThread1(writes1);

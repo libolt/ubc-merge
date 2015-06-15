@@ -26,7 +26,7 @@
 
 
 #include "players.h"
-#include "threading.h"
+#include "threads.h"
 
 class gameEngine : public players
 {
