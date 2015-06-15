@@ -127,14 +127,11 @@ class threading
                         // it automatically unlocks on going out of scope
                     }   
                     logMsg("Writer Variable: " +Ogre::StringConverter::toString(_writerVariable));
-<<<<<<< HEAD
                     thread->setGlobalVariable(globalVariable);
                 }
 
-=======
 //                    thread->setGlobalVariable(globalVariable);
                 }   
->>>>>>> 5c413aa306e8f90e72c07ea188ab7ff0144f8003
             private:
                 int _writerVariable;
                 int _waitTime;
