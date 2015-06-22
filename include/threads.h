@@ -74,6 +74,7 @@ class threads
             Reader(int waitTime) { _waitTime = waitTime;}
             void operator() () 
             {
+
                 threads *thread = threads::Instance();
                 //boost::lock_guard<boost::mutex> lock(localVariableProtector);
 
@@ -90,7 +91,7 @@ class threads
             }
         private:
             int _waitTime;
-            boost::mutex localVariableProtector;
+ //           boost::mutex localVariableProtector;
 
         };
 

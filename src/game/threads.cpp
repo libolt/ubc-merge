@@ -32,7 +32,7 @@ threads* threads::Instance()
 }
 
 
-boost::mutex threading::Writer::_writerMutex;
+boost::mutex threads::Writer::_writerMutex;
 //-------------------------------------------------------------------------------------
 threads::threads()
 {
