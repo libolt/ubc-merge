@@ -46,7 +46,6 @@ class threads
 	
         void producer();
         void consumer();
-        
        
  /*       int getGlobalVariable()  // retrieves the value of globalVariable
         {
@@ -60,14 +59,25 @@ class threads
 
         int getGlobalVariable()  // retrieves the value of globalVariable
         {
-            boost::lock_guard<boost::mutex> lock(globalVariableProtector);
+            boost::lock_guard<boost::mutex> lock(*globalVariableProtector);
             return (globalVariable);
         }
         void setGlobalVariable(int set) // sets the value of globalVariable
         {
-            boost::lock_guard<boost::mutex> lock(globalVariableProtector);
+            boost::lock_guard<boost::mutex> lock(*globalVariableProtector);
             globalVariable = set;
         }
+        
+        boost::mutex *getGlobalVariableProtector()  // returns the value of globalVariableProtector
+        {
+            return (globalVariableProtector);
+        }
+        void setGlobalVariableProtector(boost::mutex *set)
+        {
+            globalVariableProtector = set;
+        }
+        
+        
         class Reader   
         {
             public:
@@ -76,8 +86,11 @@ class threads
             {
 
                 threads *thread = threads::Instance();
-                //boost::lock_guard<boost::mutex> lock(localVariableProtector);
+                boost::mutex *globalVariableProtector = thread->getGlobalVariableProtector();
 
+                //boost::lock_guard<boost::mutex> lock(localVariableProtector);
+                boost::lock_guard<boost::mutex> lock(*globalVariableProtector);
+                    
                 int globalVariable = thread->getGlobalVariable();
                 for (int i=0; i < 10; i++) 
                 {
@@ -85,6 +98,8 @@ class threads
  //       usleep(_waitTime);
                     boost::this_thread::sleep(boost::posix_time::microseconds(_waitTime));
                 }
+                boost::lock_guard<boost::mutex> unlock(*globalVariableProtector);
+                    
                 //boost::lock_guard<boost::mutex> unlock(localVariableProtector);
 
                 return;
@@ -113,6 +128,9 @@ class threads
 
                     threads *thread = threads::Instance();
                     int globalVariable = thread->getGlobalVariable();
+                    boost::mutex *globalVariableProtector = thread->getGlobalVariableProtector();
+                    boost::lock_guard<boost::mutex> lock(*globalVariableProtector);
+                   
                     for (int i=0; i < 10; i++) 
                     {
 //        usleep(_waitTime);
@@ -120,14 +138,16 @@ class threads
                         logMsg("Waittime Variable: " +Ogre::StringConverter::toString(_waitTime));
 
                         // Take lock and modify the global variable
-                        boost::mutex::scoped_lock lock(_writerMutex);
+                      //  boost::mutex::scoped_lock lock(_writerMutex);
                         globalVariable = _writerVariable;
                         thread->setGlobalVariable(globalVariable);
-     
+                        
                         _writerVariable++;
                         // since we have used scoped lock, 
                         // it automatically unlocks on going out of scope
                     }   
+                    boost::lock_guard<boost::mutex> unlock(*globalVariableProtector);
+                        
                     logMsg("Writer Variable: " +Ogre::StringConverter::toString(_writerVariable));
                     thread->setGlobalVariable(globalVariable);
 
@@ -148,7 +168,7 @@ class threads
         threads& operator= (const threads&); 
     private:
         static threads *pInstance;
-         boost::mutex globalVariableProtector;
+         boost::mutex *globalVariableProtector;
 
         boost::mutex mutex;
         boost::condition_variable condvar;

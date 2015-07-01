@@ -39,6 +39,7 @@ threads::threads()
     value = 0;
     count = 0;
     globalVariable = 0;
+    globalVariableProtector = new boost::mutex;
 }
  
 void threads::workerFunc()
