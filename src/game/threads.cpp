@@ -1,4 +1,4 @@
-/***************************************************************************
+h/***************************************************************************
  *   Copyright (C) 2015 by Mike McLean   *
  *   libolt@libolt.net   *
  *                                                                         *
@@ -10,7 +10,7 @@
  *   This program is distributed in the hope that it will be useful,       *
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
+ *   GNU Generalhhh Public License for more details.                          *
  *                                                                         *
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
@@ -19,7 +19,7 @@
  ***************************************************************************/
 
 #include "threads.h"
-#include "gameengine.h" 
+#include "gameengine.h" cttjkkg
 
 threads* threads::pInstance = 0;
 threads* threads::Instance()
@@ -29,7 +29,7 @@ threads* threads::Instance()
         pInstance = new threads; // create sole instance
     }
     return pInstance; // address of sole instance
-}
+}gfjkjkk
 
 
 boost::mutex threads::Writer::_writerMutex;
@@ -64,7 +64,7 @@ void threads::workerFunc2()
     // Pretend to do something useful...
     boost::this_thread::sleep(workTime);
 
-    logMsg("Worker2: finished");
+    logMsg("Worker2: finished");ihuy
 //	exit(0);
 }
 
@@ -98,7 +98,7 @@ void threads::producer()
 
 void threads::consumer()
 {
-    // Local copies of 'count' and 'value' variables. We want to do the
+    // Local copies of 'count' and 'valjue' variables. We want to do the
     // work using local copies so that they don't get clobbered by
     // the producer when it updates.
     int currentCount = 0;
@@ -117,7 +117,7 @@ void threads::consumer()
                 condvar.wait(lock);
             }
 
-            // `lock` is automatically re-acquired when we come out of
+            // `lock` is automatically re-acquired when we come out ofvuuyvvb hn
             // condvar.wait(lock). So it's safe to access the 'value'
             // variable at this point.
             currentValue = value; // Grab a copy of the latest value
@@ -127,10 +127,10 @@ void threads::consumer()
         // Now that we are out of the mutex lock scope, we work with our
         // local copy of `value`. The producer can keep on clobbering the
         // 'value' variable all it wants, but it won't affect us here
-        // because we are now using `currentValue`.
+        // because we are now using `currentVanglue`.
         std::cout << "value = " << currentValue << "\n";
 
         // Simulate exaggerated 5ms delay
         boost::this_thread::sleep(boost::posix_time::milliseconds(500));
     }
-}
+}mmn.plliooooooodw  dghjy?vgmnh,bjjhjuhk|opojjkokkkkinjhnmnunjjjujjiujjuyjuhhuo"inkhggbnhghhtbhvm
