@@ -89,7 +89,7 @@ class threads
                 boost::mutex *globalVariableProtector = thread->getGlobalVariableProtector();
 
                 //boost::lock_guard<boost::mutex> lock(localVariableProtector);
-                boost::lock_guard<boost::mutex> lock(*globalVariableProtector);
+                //boost::lock_guard<boost::mutex> lock(*globalVariableProtector);
                     
                 int globalVariable = thread->getGlobalVariable();
                 for (int i=0; i < 10; i++) 
@@ -98,7 +98,7 @@ class threads
  //       usleep(_waitTime);
                     boost::this_thread::sleep(boost::posix_time::microseconds(_waitTime));
                 }
-                boost::lock_guard<boost::mutex> unlock(*globalVariableProtector);
+              //  boost::lock_guard<boost::mutex> unlock(*globalVariableProtector);
                     
                 //boost::lock_guard<boost::mutex> unlock(localVariableProtector);
 
@@ -129,10 +129,11 @@ class threads
                     threads *thread = threads::Instance();
                     int globalVariable = thread->getGlobalVariable();
                     boost::mutex *globalVariableProtector = thread->getGlobalVariableProtector();
-                    boost::lock_guard<boost::mutex> lock(*globalVariableProtector);
                    
                     for (int i=0; i < 10; i++) 
                     {
+                        boost::lock_guard<boost::mutex> lock(*globalVariableProtector);
+
 //        usleep(_waitTime);
                         boost::this_thread::sleep(boost::posix_time::microseconds(_waitTime));
                         logMsg("Waittime Variable: " +Ogre::StringConverter::toString(_waitTime));
@@ -145,8 +146,9 @@ class threads
                         _writerVariable++;
                         // since we have used scoped lock, 
                         // it automatically unlocks on going out of scope
-                    }   
-                    boost::lock_guard<boost::mutex> unlock(*globalVariableProtector);
+                        boost::lock_guard<boost::mutex> unlock(*globalVariableProtector);
+
+                    }
                         
                     logMsg("Writer Variable: " +Ogre::StringConverter::toString(_writerVariable));
                     thread->setGlobalVariable(globalVariable);

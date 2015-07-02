@@ -1,4 +1,4 @@
-h/***************************************************************************
+/***************************************************************************
  *   Copyright (C) 2015 by Mike McLean   *
  *   libolt@libolt.net   *
  *                                                                         *
@@ -19,7 +19,7 @@ h/***************************************************************************
  ***************************************************************************/
 
 #include "threads.h"
-#include "gameengine.h" cttjkkg
+#include "gameengine.h"
 
 threads* threads::pInstance = 0;
 threads* threads::Instance()
@@ -29,8 +29,7 @@ threads* threads::Instance()
         pInstance = new threads; // create sole instance
     }
     return pInstance; // address of sole instance
-}gfjkjkk
-
+}
 
 boost::mutex threads::Writer::_writerMutex;
 //-------------------------------------------------------------------------------------
@@ -64,7 +63,7 @@ void threads::workerFunc2()
     // Pretend to do something useful...
     boost::this_thread::sleep(workTime);
 
-    logMsg("Worker2: finished");ihuy
+    logMsg("Worker2: finished");
 //	exit(0);
 }
 
@@ -133,4 +132,4 @@ void threads::consumer()
         // Simulate exaggerated 5ms delay
         boost::this_thread::sleep(boost::posix_time::milliseconds(500));
     }
-}mmn.plliooooooodw  dghjy?vgmnh,bjjhjuhk|opojjkokkkkinjhnmnunjjjujjiujjuyjuhhuo"inkhggbnhghhtbhvm
+}
