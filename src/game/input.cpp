@@ -83,11 +83,20 @@ void inputSystem::setKeyPressed(Ogre::String key)
 
 inputMaps inputSystem::getInputMap()  // retrieves the value of the inputMap variable
 {
-	return(inputMap);
+//	return(inputMap);
 }
 void inputSystem::setInputMap(inputMaps map)  // sets the value of the inputMap variable
 {
-	inputMap = map;
+//	inputMap = map;
+}
+
+inputWorkQueues inputSystem::getInputWorkQueue()  // retrieves the value of inputWorkQueue
+{
+    return (inputWorkQueue);
+}
+void inputSystem::setInputWorkQueue(inputWorkQueues set)  // sets the value of inputWorkQueue
+{
+    inputWorkQueue = set;
 }
 
 std::vector<userInput> inputSystem::getUInput()  // retrieves the value of uInput
@@ -188,8 +197,9 @@ inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
 //#endif
 }
 
-bool inputSystem::processInput()	// processes all input
+void inputSystem::processInput()	// processes all input
 {
+    
     renderEngine *render = renderEngine::Instance();
 
     keyPressed = "";  // resets value of keyPressed
@@ -233,6 +243,7 @@ bool inputSystem::processInput()	// processes all input
     SDL_StartTextInput();
     while (SDL_PollEvent(&inputEvent))
     {
+//        exit(0);
         int numTouch = SDL_GetNumTouchDevices();
         logMsg ("numTouch = " +Ogre::StringConverter::toString(numTouch));
         // exit(0);
@@ -293,6 +304,16 @@ bool inputSystem::processInput()	// processes all input
                     return false;
                 }
                 logMsg("Key Pressed!");
+                if (keyPressed != "")
+                {
+                    if (inputWorkQueueMutex.try_lock())
+                    {
+                        exit(0);
+                        inputMaps inputMap = keyMap();
+                        internalInputWorkQueue.push_back(inputMap);
+                        inputWorkQueueMutex.unlock();
+                    }
+                }
           //      exit(0); 
                 break;
                 /*

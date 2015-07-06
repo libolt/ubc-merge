@@ -19,8 +19,92 @@
  ***************************************************************************/
 
 #include "threads.h"
+#include "gameengine.h" 
+#include <cstdlib>
+
 #include "gameengine.h"
 
+threads::threads()
+{
+    kMaxSleepTime_ms = 500;
+    gRunning = false;
+}
+
+// Consumes items in work queue
+void threads::consumerThread()
+{
+    while (gRunning)
+    {
+        if (gWorkQueueMutex.try_lock())
+        {
+            if (gWorkQueue.size())
+            {
+                long val = gWorkQueue.back();
+                gWorkQueue.pop_back();
+
+            //    printf("vvv %ld\n", val);
+                logMsg("display = " +Ogre::StringConverter::toString(val));
+            }
+
+            // Hold the mutex for a little while
+            boost::posix_time::milliseconds delayTime(50);
+            boost::this_thread::sleep(delayTime);
+
+            gWorkQueueMutex.unlock();
+        }
+        else
+        {
+        //    printf("v==\n");
+            logMsg("no lock");
+        }
+
+        // Slow things down a little
+        boost::posix_time::milliseconds delayTime(rand() % kMaxSleepTime_ms);
+        boost::this_thread::sleep(delayTime);
+    }
+}
+
+// Produces work items for queue
+void threads::producerThread()
+{
+    long val = 0;
+    while (gRunning)
+    {
+        if (gWorkQueueMutex.try_lock())
+        {
+        //    long val = rand();
+            val +=1;
+            gWorkQueue.push_back(val);
+
+            //printf("^^^ %ld\n", val);
+            logMsg("add " +Ogre::StringConverter::toString(val));
+            // Hold the mutex for a little while
+            boost::posix_time::milliseconds delayTime(15);
+            boost::this_thread::sleep(delayTime);
+
+            gWorkQueueMutex.unlock();
+        }
+        else
+        {
+            printf("^==\n");
+        }
+
+        // Slow things down a little
+        boost::posix_time::milliseconds delayTime(rand() % kMaxSleepTime_ms);
+        boost::this_thread::sleep(delayTime);
+    }
+}
+
+bool threads::getGRunning() // retrieves the value of gRunning
+{
+    return (gRunning);
+}
+
+void threads::setGRunning(bool set) // sets the value of gRunning
+{
+    gRunning = set;
+}
+/*
 threads* threads::pInstance = 0;
 threads* threads::Instance()
 {
@@ -133,3 +217,4 @@ void threads::consumer()
         boost::this_thread::sleep(boost::posix_time::milliseconds(500));
     }
 }
+*/

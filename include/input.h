@@ -25,11 +25,18 @@
 #include "SDL.h"
 #include "SDL_syswm.h"
 #include "Ogre.h"
+#include <boost/thread/thread.hpp>
+#include <boost/date_time.hpp>
+#include <boost/thread/mutex.hpp>
+#include <boost/thread/condition_variable.hpp>
+#include <boost/thread/locks.hpp>
 
 #include "enums.h"
 #include "userinput.h"
 
 #define EVENT_BUF_SIZE 256
+
+typedef std::vector<inputMaps>   inputWorkQueues;
 
 // input class
 class inputSystem
@@ -43,7 +50,7 @@ public:
 
 	inputMaps keyMap();  // maps value of keyPressed string to inputMap
 	
-    bool processInput();	// processes all input
+    void processInput();	// processes all input
     bool processUnbufferedKeyInput(bool textInput);	// reads in unbuffered key presses
     bool processUnbufferedMouseInput();	// reads in unbuffered mouse input
     bool processUnbufferedTouchInput(); // reads in unbuffered touch input
@@ -59,6 +66,9 @@ public:
     inputMaps getInputMap();  // retrieves the value of the inputMap variable
 	void setInputMap(inputMaps map);  // sets the value of the inputMap variable
 
+    inputWorkQueues getInputWorkQueue();  // retrieves the value of inputWorkQueue
+    void setInputWorkQueue(inputWorkQueues set);  // sets the value of inputWorkQueue
+    
     std::vector<userInput> getUInput();  // retrieves the value of uInput
     void setUInput(std::vector<userInput> set);  // sets the value of uInput
     
@@ -83,9 +93,13 @@ private:
 
 	Ogre::String keyPressed; // stores which key was pressed
 	
-	inputMaps inputMap; // stores user input
+//	inputMaps inputMap; // stores user input
     
     std::vector<userInput> uInput;  // stores user input mapping
+    
+    inputWorkQueues inputWorkQueue;
+    inputWorkQueues internalInputWorkQueue;
+    boost::mutex inputWorkQueueMutex;
 };
 
 
