@@ -33,9 +33,41 @@
  
 //const int globalVariable;
 
+typedef std::vector<long>   workqueue_t;
 
 //   static boost::mutex Writer::_writerMutex;
 
+class threads
+{
+    public:
+        threads();  // constructor
+
+        // Consumes items in work queue
+        void consumerThread();
+        // Consumes items in work queue
+        void producerThread();
+
+        bool getGRunning(); // retrieves the value of gRunning
+        void setGRunning(bool set); // sets the value of gRunning
+
+    protected:
+    private:
+        // Maximum sleep delay
+    unsigned kMaxSleepTime_ms;
+    // Work queue, a shared resource protected by a mutex
+    workqueue_t                 gWorkQueue;
+    boost::mutex                gWorkQueueMutex;
+    // Flag to tell threads to quit
+    bool gRunning;
+
+
+};
+
+
+
+
+
+/*
 class threads
 {
     public:
@@ -48,15 +80,15 @@ class threads
         void consumer();
         
        
- /*       int getGlobalVariable()  // retrieves the value of globalVariable
-        {
-            return (globalVariable);
-        } 
-        void setGlobalVariable(int set) // sets the value of globalVariable 
-        {
-            globalVariable = set;
-        }
-*/
+//        int getGlobalVariable()  // retrieves the value of globalVariable
+//        {
+//            return (globalVariable);
+//        }
+//        void setGlobalVariable(int set) // sets the value of globalVariable
+//        {
+//            globalVariable = set;
+//        }
+
 
         int getGlobalVariable()  // retrieves the value of globalVariable
         {
@@ -158,6 +190,6 @@ class threads
         int globalVariable;
 
  };
- 
+ */
  #endif
  

@@ -507,9 +507,25 @@ void gameEngine::gameLoop()	// Main Game Loop
 
 	logMsg("main: startup");
 
-/*
-//	threading threads;
-    boost::thread *workerThread;
+
+    threads thread;
+    thread.setGRunning(true);
+
+    boost::thread t1(boost::bind(&threads::producerThread,&thread));
+    boost::thread t2(boost::bind(&threads::consumerThread,&thread));
+
+    // Let them run for a while
+
+    boost::posix_time::milliseconds workTime(5000);
+    boost::this_thread::sleep(workTime);
+
+    // Stop gracefully and wait
+
+    thread.setGRunning(false);
+    t1.join();
+    t2.join();
+
+/*    boost::thread *workerThread;
 //	workerThread = new boost::thread(boost::bind(&threading::workerFunc,&threads));
     
 	boost::thread *workerThread2;
@@ -526,8 +542,9 @@ void gameEngine::gameLoop()	// Main Game Loop
     logMsg("main: done");
 */
 
-    threads *thread = threads::Instance();
-    threads::Reader reads(100);
+//    threads *thread = threads::Instance();
+
+/*    threads::Reader reads(100);
     threads::Writer writes1(100, 200);
     threads::Writer writes2(200, 200);
 
@@ -541,7 +558,8 @@ void gameEngine::gameLoop()	// Main Game Loop
     readerThread.join();
     writerThread1.join();
     writerThread2.join();
-    
+*/
+
 //	SDL_StartTextInput();
     while (!quitGame)
 	{
