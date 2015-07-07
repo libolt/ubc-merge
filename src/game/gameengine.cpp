@@ -535,8 +535,7 @@ void gameEngine::gameLoop()	// Main Game Loop
     boost::thread inputThread(boost::bind(&inputSystem::processInput,input));
 //    boost::thread t2(boost::bind(&threads::consumerThread,&thread));
 
-    
-/*    boost::thread *workerThread;
+    /*    boost::thread *workerThread;
 //	workerThread = new boost::thread(boost::bind(&threading::workerFunc,&threads));
     
 	boost::thread *workerThread2;

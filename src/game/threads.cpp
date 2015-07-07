@@ -43,6 +43,7 @@ void threads::consumerThread()
                 gWorkQueue.pop_back();
 
             //    printf("vvv %ld\n", val);
+
                 logMsg("display = " +Ogre::StringConverter::toString(val));
             }
 
@@ -78,15 +79,20 @@ void threads::producerThread()
 
             //printf("^^^ %ld\n", val);
             logMsg("add " +Ogre::StringConverter::toString(val));
+
+            //    logMsg("vvv " +Ogre::StringConverter::toString(val));
+            //}
+
             // Hold the mutex for a little while
-            boost::posix_time::milliseconds delayTime(15);
+            boost::posix_time::milliseconds delayTime(50);
             boost::this_thread::sleep(delayTime);
 
             gWorkQueueMutex.unlock();
         }
         else
         {
-            printf("^==\n");
+        //    printf("v==\n");
+            logMsg("v==");
         }
 
         // Slow things down a little
