@@ -19,8 +19,11 @@
  ***************************************************************************/
 
 #include "network.h"
+#include "networkplayerstateobject.h"
 #include "gameengine.h"
+#include "gamestate.h"
 #include "logging.h"
+#include "input.h"
 
 #if _MSC_VER
 #define snprintf _snprintf
@@ -31,6 +34,7 @@ networkEngine::networkEngine()
     initialize();
     counter = 0;
     clientID = 0;
+    teamNumber = -1;
     clientEstablishedConnection = false;
     serverReceivedConnection = false;
     serverSetupComplete = false;
@@ -52,6 +56,15 @@ networkEngine* networkEngine::Instance()
         pInstance = new networkEngine; // create sole instance
     }
     return pInstance; // address of sole instance
+}
+
+int networkEngine::getTeamNumber()  // returns the value of teamNumber
+{
+    return (teamNumber);
+}
+void networkEngine::setTeamNumber(int set)  // sets the value of teamNumber
+{
+    teamNumber = set;
 }
 
 bool networkEngine::getIsClient()	// returns the value of the isClient variable
@@ -424,6 +437,172 @@ void networkEngine::networkServer()
             }
         }
         logMsg("End of networkServer");
+}
+
+void networkEngine::processLocalInput()  // processes local input for sending to remote system
+{
+    inputSystem *input = inputSystem::Instance();
+    gameState *gameS = gameState::Instance();
+    inputWorkQueues inputQueue;
+    networkPlayerStateObject netPStateObj;
+
+    
+    std::vector<teamState> teamInstance = gameS->getTeamInstance();
+    int humanControlled = teamInstance[teamNumber].getHumanControlled();
+    int humanPlayer = teamInstance[teamNumber].getHumanPlayer();
+    
+//                              logMsg("INPUT MAP ======== "  +toString(inputMap));
+    std::string packetData;
+    std::stringstream ss;
+    //  exit(0);
+    size_t x = 0;
+    while (inputQueue.size() > 0)
+    {
+        // switch (inputMap)
+        switch (inputQueue[x])
+        {
+            case INUP:
+//                                      packetData = "player0up";
+                netPStateObj.setPacketType(3);
+                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setPlayerID(humanPlayer);
+                netPStateObj.setMovement(true);
+                netPStateObj.setDirection(0);
+                ss << netPStateObj;
+                packetData = ss.str();
+            break;
+            case INDOWN:
+//                                      packetData = "player0down";
+                netPStateObj.setPacketType(3);
+                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setPlayerID(humanPlayer);
+                netPStateObj.setMovement(true);
+                netPStateObj.setDirection(1);
+                ss << netPStateObj;
+                packetData = ss.str();
+            break;
+            case INLEFT:
+//                                      packetData = "player0left";
+                netPStateObj.setPacketType(3);
+                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setPlayerID(humanPlayer);
+                netPStateObj.setMovement(true);
+                netPStateObj.setDirection(2);
+                ss << netPStateObj;
+                packetData = ss.str();
+            break;
+            case INRIGHT:
+//                                      packetData = "player0right";
+                netPStateObj.setPacketType(3);
+                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setPlayerID(humanPlayer);
+                netPStateObj.setMovement(true);
+                netPStateObj.setDirection(3);
+                ss << netPStateObj;
+                packetData = ss.str();
+            break;
+            case INUPLEFT:
+//                                      packetData = "player0upleft";
+                netPStateObj.setPacketType(3);
+                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setPlayerID(humanPlayer);
+                netPStateObj.setMovement(true);
+                netPStateObj.setDirection(4);
+                ss << netPStateObj;
+                packetData = ss.str();
+            break;
+            case INUPRIGHT:
+//                                      packetData = "player0upright";
+                netPStateObj.setPacketType(3);
+                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setPlayerID(humanPlayer);
+                netPStateObj.setMovement(true);
+                netPStateObj.setDirection(5);
+                ss << netPStateObj;
+                packetData = ss.str();
+            break;
+            case INDOWNLEFT:
+//                                      packetData = "player0downleft";
+                netPStateObj.setPacketType(3);
+                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setPlayerID(humanPlayer);
+                netPStateObj.setMovement(true);
+                netPStateObj.setDirection(6);
+                ss << netPStateObj;
+                packetData = ss.str();
+            break;
+            case INDOWNRIGHT:
+//                                      packetData = "player0downright";
+                netPStateObj.setPacketType(3);
+                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setPlayerID(humanPlayer);
+                netPStateObj.setMovement(true);
+                netPStateObj.setDirection(7);
+                ss << netPStateObj;
+                packetData = ss.str();
+            break;
+            case INSHOOTBLOCK:
+                netPStateObj.setPacketType(3);
+                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setPlayerID(humanPlayer);
+                netPStateObj.setMovement(false);
+                netPStateObj.setShootBlock(true);
+                ss << netPStateObj;
+                packetData = ss.str();
+            break;
+            case INPASSSTEAL:
+                netPStateObj.setPacketType(3);
+                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setPlayerID(humanPlayer);
+                netPStateObj.setMovement(false);
+                netPStateObj.setPassSteal(true);
+                ss << netPStateObj;
+                packetData = ss.str();
+            break;
+            case INQUIT:
+                logMsg("Quitting!");
+//                quitGame = true;
+                //exit(0);
+            break;
+            default:
+            /*
+                netPStateObj.setPacketType(3);
+                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setPlayerID(1);
+                std::stringstream ss;
+                ss << netPStateObj;
+                packetData = ss.str();
+            */
+                packetData = "";
+            break;
+        }
+        if (packetData != "")
+        {
+            sendPacket(packetData);
+        }
+        ++x;
+    }
+    inputQueue.clear();
+    
+/*    if (gameS->getGameType() == MULTI && clientRunning && packetData != "") // checks if game is running in client mode
+    {
+        logMsg("client packetData = " +packetData);
+        sendPacket(packetData);
+    }
+    else  if (gameS->getGameType() == MULTI && serverRunning && packetData != "")
+    {
+        logMsg("server packetData = " +packetData);
+        sendPacket(packetData);
+    }
+    else
+    {
+    }
+*/
+}
+
+void networkEngine::processRemoteInput() // processes input received from a remote system
+{
+    
 }
 
 void networkEngine::sendPacket(Ogre::String packetData)

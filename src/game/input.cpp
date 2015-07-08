@@ -309,7 +309,7 @@ bool inputSystem::processInput()	// processes all input
                 {
                 //    exit(0);
                     inputMaps inputMap = keyMap();
-                    internalInputWorkQueue.push_back(inputMap);
+                    inputWorkQueue.push_back(inputMap);
                 }
           //      exit(0); 
                 break;

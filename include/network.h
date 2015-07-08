@@ -45,6 +45,9 @@ class networkEngine
 //    networkEngine();
     ~networkEngine();
 
+    int getTeamNumber();  // returns the value of teamNumber
+    void setTeamNumber(int set);  // sets the value of teamNumber
+    
     bool getIsClient();	// returns the value of the isClient variable
     void setIsClient(bool client);	// sets the value of the isClient variable
 
@@ -94,6 +97,9 @@ class networkEngine
     void serverSetup();	// setup server.
     void networkServer();	// Server code
 
+    void processLocalInput();  // processes local input for sending to remote system
+    void processRemoteInput(); // processes input received from a remote system
+    
     void sendPacket(Ogre::String packetData);	// sends a packet to the peer
 
     static networkEngine *Instance();
@@ -109,8 +115,8 @@ class networkEngine
     static networkEngine *pInstance;
 
     int clientID;	// defines the client ID number used to identify which client is communicating with the server
-    Ogre::String ipAddress; // stores IP Address used for either server or client code
-    Ogre::String receivedData; // stores received packet data
+    std::string ipAddress; // stores IP Address used for either server or client code
+    std::string receivedData; // stores received packet data
     bool packetReceived;	// if set then a packet was received from remote connection
 
     // ENET related code
@@ -123,7 +129,7 @@ class networkEngine
     ENetPacket *packet;
 
     netGameTypes netGameType;   // stores what type of network game this instance is
-
+    int teamNumber; // stores which team the network player is on
     // FiXME! deprecated in favor of netGameTypes
     bool isClient;	// stores whether or not this instance is the client
     bool isServer; // stores whethr or not this instance is the server
