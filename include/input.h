@@ -50,7 +50,7 @@ public:
 
 	inputMaps keyMap();  // maps value of keyPressed string to inputMap
 	
-    void processInput();	// processes all input
+    bool processInput();	// processes all input
     bool processUnbufferedKeyInput(bool textInput);	// reads in unbuffered key presses
     bool processUnbufferedMouseInput();	// reads in unbuffered mouse input
     bool processUnbufferedTouchInput(); // reads in unbuffered touch input

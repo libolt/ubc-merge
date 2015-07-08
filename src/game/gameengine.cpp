@@ -231,8 +231,8 @@ void gameEngine::processInput()  // processes game input
     
     //while (x != 1)
     //{
-      //  if (input->processInput())
-        if (true)
+        if (input->processInput())
+       // if (true)
         {
             if (gameS->getTeamInstancesCreated())
             {
@@ -532,7 +532,7 @@ void gameEngine::gameLoop()	// Main Game Loop
     t1.join();
     t2.join();
 */
-    boost::thread inputThread(boost::bind(&inputSystem::processInput,input));
+//    boost::thread inputThread(boost::bind(&inputSystem::processInput,input));
 //    boost::thread t2(boost::bind(&threads::consumerThread,&thread));
 
     /*    boost::thread *workerThread;

@@ -197,7 +197,7 @@ inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
 //#endif
 }
 
-void inputSystem::processInput()	// processes all input
+bool inputSystem::processInput()	// processes all input
 {
     
     renderEngine *render = renderEngine::Instance();
@@ -243,6 +243,7 @@ void inputSystem::processInput()	// processes all input
     SDL_StartTextInput();
     while (SDL_PollEvent(&inputEvent))
     {
+        
 //        exit(0);
         int numTouch = SDL_GetNumTouchDevices();
         logMsg ("numTouch = " +Ogre::StringConverter::toString(numTouch));
@@ -306,13 +307,9 @@ void inputSystem::processInput()	// processes all input
                 logMsg("Key Pressed!");
                 if (keyPressed != "")
                 {
-                    if (inputWorkQueueMutex.try_lock())
-                    {
-                        exit(0);
-                        inputMaps inputMap = keyMap();
-                        internalInputWorkQueue.push_back(inputMap);
-                        inputWorkQueueMutex.unlock();
-                    }
+                //    exit(0);
+                    inputMaps inputMap = keyMap();
+                    internalInputWorkQueue.push_back(inputMap);
                 }
           //      exit(0); 
                 break;
@@ -362,182 +359,20 @@ void inputSystem::processInput()	// processes all input
         }
 
     }
-//#endif
-/*
-    // processes touch input
-    if (processUnbufferedTouchInput() == false)
-    {
-        return false;
-    }
-/*
-    // processes gamepad input
-    if (processUnbufferedGamepadInput() == false)
-    {
-        return false;
-    }
-*/
-
-//		logMsg("Input processed");
 
     processUnbufferedMouseInput();
 	return true;
 }
 
-/* static int32_t handleInput(struct android_app* app, AInputEvent* event)
-{
-	exit(0);
-}
-*/
 bool inputSystem::processUnbufferedKeyInput(bool textInput)
 {
 	GUISystem *gui = GUISystem::Instance();
 //	logMsg("Processing keyboard input");
 
 	logMsg("key == " +Ogre::StringConverter::toString(inputEvent.key.keysym.sym));
-//    if (textInput)
-//    {
-        keyPressed = inputEvent.text.text;
-        logMsg("key = " +keyPressed);
-//        exit(0);
-//    }
+    keyPressed = inputEvent.text.text;
+    logMsg("key = " +keyPressed);
 
-/*
-    switch (inputEvent.key.keysym.sym)
-    {
-        case SDLK_UP:
-            keyPressed = "up";
-            break;
-        case SDLK_DOWN:
-            keyPressed = "down";
-            break;
-        case SDLK_LEFT:
-            keyPressed = "left";
-            break;
-        case SDLK_RIGHT:
-            keyPressed = "right";
-            break;
-        case SDLK_LALT:
-            keyPressed = "leftAlt";
-            break;
-        case SDLK_RALT:
-            keyPressed = "rightAlt";
-            break;
-        case SDLK_a:
-            keyPressed = "a";
-            break;
-		case SDLK_b:
-            keyPressed = "b";
-            break;
-		case SDLK_c:
-            keyPressed = "c";
-            break;
-        case SDLK_d:
-            keyPressed = "d";
-            break;
-		case SDLK_e:
-            keyPressed = "e";
-            break;
-		case SDLK_f:
-            keyPressed = "f";
-            break;
-		case SDLK_g:
-            keyPressed = "g";
-            break;
-		case SDLK_h:
-            keyPressed = "h";
-            break;
-		case SDLK_i:
-            keyPressed = "i";
-            break;
-		case SDLK_j:
-            keyPressed = "j";
-            break;
-		case SDLK_k:
-            keyPressed = "k";
-            break;
-		case SDLK_l:
-            keyPressed = "l";
-            break;
-		case SDLK_m:
-            keyPressed = "m";
-            break;
-		case SDLK_n:
-            keyPressed = "n";
-            break;
-		case SDLK_o:
-            keyPressed = "o";
-            break;
-		case SDLK_p:
-            keyPressed = "p";
-            break;
-		case SDLK_q:
-            keyPressed = "q";
-            break;
-		case SDLK_r:
-            keyPressed = "r";
-            break;
-        case SDLK_s:
-            keyPressed = "s";
-            break;
-		case SDLK_t:
-            keyPressed = "t";
-            break;
-		case SDLK_u:
-            keyPressed = "u";
-            break;
-		case SDLK_v:
-            keyPressed = "v";
-            break;
-        case SDLK_w:
-            keyPressed = "w";
-            break;
-        case SDLK_x:
-            keyPressed = "x";
-            break;
-		case SDLK_y:
-            keyPressed = "y";
-            break;
-		case SDLK_z:
-            keyPressed = "z";
-            break;
-		case SDLK_0:
-            keyPressed = "0";
-            break;
-		case SDLK_1:
-            keyPressed = "1";
-            break;
-		case SDLK_2:
-            keyPressed = "2";
-            break;
-		case SDLK_3:
-            keyPressed = "3";
-            break;
-		case SDLK_4:
-            keyPressed = "4";
-            break;
-		case SDLK_5:
-            keyPressed = "5";
-            break;
-		case SDLK_6:
-            keyPressed = "6";
-            break;
-		case SDLK_7:
-            keyPressed = "7";
-            break;
-		case SDLK_8:
-            keyPressed = "8";
-            break;
-		case SDLK_9:
-            keyPressed = "9";
-            break;
-		case SDLK_PERIOD:
-            keyPressed = ".";
-            break;
-        default:
-            keyPressed = "";
-            break;
-    }
-*/
 	if (gui->getMenuActive()) // checks if a menu is displayed
 	{
         logMsg("keyPressed == " +keyPressed);
