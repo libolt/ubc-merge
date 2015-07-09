@@ -43,18 +43,18 @@ class inputSystem
 {
 public:
 
-	static inputSystem *Instance();
+    static inputSystem *Instance();
 
     bool setup();   // sets up and initializes the  Input System
     bool destroy(); // destroys the Input system and related objects
 
-	inputMaps keyMap();  // maps value of keyPressed string to inputMap
+    inputMaps keyMap();  // maps value of keyPressed string to inputMap
 	
     bool processInput();	// processes all input
     bool processUnbufferedKeyInput(bool textInput);	// reads in unbuffered key presses
     bool processUnbufferedMouseInput();	// reads in unbuffered mouse input
     bool processUnbufferedTouchInput(); // reads in unbuffered touch input
-	bool processUnbufferedGamepadInput(); // reads in unbuffered mouse input
+    bool processUnbufferedGamepadInput(); // reads in unbuffered mouse input
 	
     // SDL Input functions
     SDL_Event getInputEvent();   // retrieves the value of the inputEvent variable
@@ -64,7 +64,7 @@ public:
     void setKeyPressed(Ogre::String key); // sets the value of the keyPressed variable
 
     inputMaps getInputMap();  // retrieves the value of the inputMap variable
-	void setInputMap(inputMaps map);  // sets the value of the inputMap variable
+    void setInputMap(inputMaps map);  // sets the value of the inputMap variable
 
     inputWorkQueues getInputWorkQueue();  // retrieves the value of inputWorkQueue
     void setInputWorkQueue(inputWorkQueues set);  // sets the value of inputWorkQueue
@@ -73,30 +73,30 @@ public:
     void setUInput(std::vector<userInput> set);  // sets the value of uInput
     
 protected:
-	inputSystem();
-	inputSystem(const inputSystem&);
-	inputSystem& operator= (const inputSystem&);
+    inputSystem();
+    inputSystem(const inputSystem&);
+    inputSystem& operator= (const inputSystem&);
 
     ~inputSystem();
     // SDL Input
     SDL_Event inputEvent;
     SDL_Event events[EVENT_BUF_SIZE];
     int eventWrite;
-	
+
     int mouseX; // stores the X coordinate of the mouse.
     int mouseY; // stores the Y coordinate of the mouse.
     int mouseLeftClick;	// stores state of Left mouse button
     int mouseRightClick; // stores state of Right mouse button;
 
 private:
-	static inputSystem *pInstance;
+    static inputSystem *pInstance;
 
-	Ogre::String keyPressed; // stores which key was pressed
-	
-//	inputMaps inputMap; // stores user input
-    
+    Ogre::String keyPressed; // stores which key was pressed
+
+    inputMaps inputMap; // stores user input
+ 
     std::vector<userInput> uInput;  // stores user input mapping
-    
+ 
     inputWorkQueues inputWorkQueue;
     inputWorkQueues internalInputWorkQueue;
     boost::mutex inputWorkQueueMutex;

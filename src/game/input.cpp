@@ -83,11 +83,11 @@ void inputSystem::setKeyPressed(Ogre::String key)
 
 inputMaps inputSystem::getInputMap()  // retrieves the value of the inputMap variable
 {
-//	return(inputMap);
+	return(inputMap);
 }
 void inputSystem::setInputMap(inputMaps map)  // sets the value of the inputMap variable
 {
-//	inputMap = map;
+	inputMap = map;
 }
 
 inputWorkQueues inputSystem::getInputWorkQueue()  // retrieves the value of inputWorkQueue
