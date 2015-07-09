@@ -92,6 +92,7 @@ public:
     bool initMyGUI();	// Initializes MyGUI
     bool createMainMenuGUI(); // creates GUI gor main menu screen.
     bool createNetworkSetupGUI();	// creates GUI for network setup screen.
+    bool createNetworkClientSetupGUI();  // creates GUI for network client setup screen.
     bool createNetworkServerSetupGUI();  // creates GUI for network server setup screen.
     bool createOptionsMenuGUI();	// creates GUI for options menu screen.
     bool createDisplaySetupGUI();	// creates GUI for display settings screen.
@@ -162,8 +163,8 @@ protected:
     void exitButtonClicked(MyGUI::Widget *_sender);
     void serverButtonClicked(MyGUI::Widget *_sender);
     void clientButtonClicked(MyGUI::Widget *_sender);
-    void hostGameButtonClicked(MyGUI::Widget *_sender); // handles hostGameButton click event
-    void connectButtonClicked(MyGUI::Widget *_sender); // handles connectButton click event
+    void serverHostButtonClicked(MyGUI::Widget *_sender); // handles hostGameButton click event
+    void clientConnectButtonClicked(MyGUI::Widget *_sender); // handles connectButton click event
     void backMainMenuButtonClicked(MyGUI::Widget *_sender); // handles backMainMenuButton click event
     void backNetworkSetupButtonClicked(MyGUI::Widget *_sender); // handles backNetworkSetupButton click event
     void displayButtonClicked(MyGUI::Widget *_sender); // handles didplayButton click event
@@ -242,8 +243,8 @@ private:
     MyGUI::Button *optionsButton;
     MyGUI::Button *serverButton;
     MyGUI::Button *clientButton;
-    MyGUI::Button *hostGameButton;
-    MyGUI::Button *connectButton;
+    MyGUI::Button *serverHostButton;
+    MyGUI::Button *clientConnectButton;
     MyGUI::Button *backMainMenuButton;
 	MyGUI::Button *backNetworkSetupButton;
     MyGUI::Button *displayButton;
@@ -270,6 +271,8 @@ private:
 
     // editbox widgets
     MyGUI::EditBox *ipAddressBox;
+    MyGUI::EditBox *serverIPAddressBox;
+    MyGUI::EditBox *clientIPAddressBox;
 
 	// listbox widgets
 	MyGUI::ListBox *team0SelectBox;

@@ -260,7 +260,7 @@ bool inputSystem::processInput()	// processes all input
                 break;*/
             case SDL_FINGERMOTION:
                 logMsg("Motion!");
-                exit(0);
+                //exit(0);
                 // processes touch input
                 if (processUnbufferedTouchInput() == false)
                 {
@@ -351,7 +351,7 @@ bool inputSystem::processInput()	// processes all input
                 {
                     return false;
                 }
-                exit(0);
+                //exit(0);
                break;
             case SDL_QUIT:
                 break;

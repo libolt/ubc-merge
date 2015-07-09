@@ -302,34 +302,24 @@ bool GUISystem::createMainMenuGUI()
 
 bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup screen
 {
-	renderEngine *renderE = renderEngine::Instance();
-	Ogre::Viewport *viewPort = renderE->getViewPort();
+    renderEngine *renderE = renderEngine::Instance();
+    Ogre::Viewport *viewPort = renderE->getViewPort();
 
-	MyGUI::LayoutManager::getInstance().loadLayout("NetworkSetupMenu.layout");
+    MyGUI::LayoutManager::getInstance().loadLayout("NetworkSetupMenu.layout");
 
-	ipAddressBox = mGUI->findWidget<MyGUI::EditBox>("ipAddressBox"); // loads IP Address EditBox
-	ipAddressBox->setVisible(false);
-    ipAddressBox->setPosition((0.3 *viewPort->getActualWidth() ), (0.10 *viewPort->getActualHeight()) );
-	ipAddressBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
-
-	serverButton = mGUI->findWidget<MyGUI::Button>("serverButton"); // loads Server Button
-	serverButton->setVisible(false);
-	serverButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::serverButtonClicked);
+    serverButton = mGUI->findWidget<MyGUI::Button>("serverButton"); // loads Server Button
+    serverButton->setVisible(false);
+    serverButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::serverButtonClicked);
     serverButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.14 *viewPort->getActualHeight()) );
-	serverButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+    serverButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
-	clientButton = mGUI->findWidget<MyGUI::Button>("clientButton"); // loads Client Button
-	clientButton->setVisible(false);
-	clientButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::clientButtonClicked);
+    clientButton = mGUI->findWidget<MyGUI::Button>("clientButton"); // loads Client Button
+    clientButton->setVisible(false);
+    clientButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::clientButtonClicked);
     clientButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.18 *viewPort->getActualHeight()) );
-	clientButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+    clientButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
-    connectButton = mGUI->findWidget<MyGUI::Button>("connectButton"); // loads Connect Button
-    connectButton->setVisible(false);
-    connectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::connectButtonClicked);
-    connectButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.22 *viewPort->getActualHeight()) );
-	connectButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
-
+    
     networkSetupMenuCreated = true;
 /*    menuActive = true;
 	previousActiveMenu = activeMenu;
@@ -338,13 +328,34 @@ bool GUISystem::createNetworkSetupGUI() // loads the GUI for the network setup s
 	return true;
 }
 
+bool GUISystem::createNetworkClientSetupGUI()  // creates GUI for network client setup screen.
+{
+    renderEngine *renderE = renderEngine::Instance();
+    Ogre::Viewport *viewPort = renderE->getViewPort();
+
+    MyGUI::LayoutManager::getInstance().loadLayout("NetworkClientSetupMenu.layout");
+
+    clientIPAddressBox = mGUI->findWidget<MyGUI::EditBox>("clientIPAddressBox"); // loads IP Address EditBox
+    clientIPAddressBox->setVisible(false);
+    clientIPAddressBox->setPosition((0.3 *viewPort->getActualWidth() ), (0.10 *viewPort->getActualHeight()) );
+    clientIPAddressBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    clientConnectButton = mGUI->findWidget<MyGUI::Button>("clientConnectButton"); // loads Court Selection Button
+    clientConnectButton->setVisible(false);
+    clientConnectButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::clientConnectButtonClicked);
+    clientConnectButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    networkClientSetupMenuCreated = true;
+    
+    return true;
+}
 bool GUISystem::createNetworkServerSetupGUI()  // creates GUI for network server setup screen.
 {
     renderEngine *renderE = renderEngine::Instance();
     Ogre::Viewport *viewPort = renderE->getViewPort();
 
     MyGUI::LayoutManager::getInstance().loadLayout("NetworkServerSetupMenu.layout");
-
+/*
     networkUsersBox = mGUI->findWidget<MyGUI::ListBox>("networkUsersBox"); // loads Network Users Selection ListBox
 	networkUsersBox->setVisible(false);
     
@@ -387,12 +398,19 @@ bool GUISystem::createNetworkServerSetupGUI()  // creates GUI for network server
     team1Player5SelectBox = mGUI->findWidget<MyGUI::ListBox>("team1Player5SelectBox"); // loads Team 1 Player 5 Selection ListBox
     team1Player5SelectBox->setVisible(false);
     team1Player5SelectBox->setSize((0.3 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+*/
 
-    hostGameButton = mGUI->findWidget<MyGUI::Button>("hostButton"); // loads Court Selection Button
-    hostGameButton->setVisible(false);
-    hostGameButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::hostGameButtonClicked);
-    hostGameButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+    serverIPAddressBox = mGUI->findWidget<MyGUI::EditBox>("serverIPAddressBox"); // loads IP Address EditBox
+    serverIPAddressBox->setVisible(false);
+    serverIPAddressBox->setPosition((0.3 *viewPort->getActualWidth() ), (0.10 *viewPort->getActualHeight()) );
+    serverIPAddressBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
+    serverHostButton = mGUI->findWidget<MyGUI::Button>("serverHostButton"); // loads Court Selection Button
+    serverHostButton->setVisible(false);
+    serverHostButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::serverHostButtonClicked);
+    serverHostButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
+
+    networkServerSetupMenuCreated = true;
     return true;
 }
 
@@ -844,12 +862,11 @@ void GUISystem::clientButtonClicked(MyGUI::Widget *_sender)	// handles clientBut
     networkClientSetupMenu();
 }
 
-void GUISystem::hostGameButtonClicked(MyGUI::Widget *_sender) // handles hostGameButton click event
+void GUISystem::serverHostButtonClicked(MyGUI::Widget *_sender) // handles serverHostButton click event
 {
-    teamSelectionMenu();
+    networkServer();
 }
-
-void GUISystem::connectButtonClicked(MyGUI::Widget *_sender) // handles connectButton click event
+void GUISystem::clientConnectButtonClicked(MyGUI::Widget *_sender) // handles clientConnectButton click event
 {
     networkClient();
 }
@@ -1022,6 +1039,7 @@ void GUISystem::showNetworkSetupWidgets()     // shows all widgets tied to the N
 
 void GUISystem::hideNetworkServerSetupWidgets()  // hides all widgets tied to the Network Server Setup Menu
 {
+/*
     networkUsersBox->setVisible(false);
     team0Player1SelectBox->setVisible(false);
     team0Player2SelectBox->setVisible(false);
@@ -1033,7 +1051,9 @@ void GUISystem::hideNetworkServerSetupWidgets()  // hides all widgets tied to th
     team1Player3SelectBox->setVisible(false);
     team1Player4SelectBox->setVisible(false);
     team1Player5SelectBox->setVisible(false);
-    hostGameButton->setVisible(false);
+*/
+    serverIPAddressBox->setVisible(false);
+    serverHostButton->setVisible(false);
     backNetworkSetupButton->setVisible(false);
     
     
@@ -1042,7 +1062,7 @@ void GUISystem::showNetworkServerSetupWidgets()  // shows all widgets tied to th
 {
     renderEngine *renderE = renderEngine::Instance();
     Ogre::Viewport *viewPort = renderE->getViewPort();
-
+/*
     networkUsersBox->setVisible(true);
     
     team0Player1SelectBox->setVisible(true);
@@ -1074,32 +1094,36 @@ void GUISystem::showNetworkServerSetupWidgets()  // shows all widgets tied to th
     
     team1Player5SelectBox->setVisible(true);
     team1Player5SelectBox->setPosition((0.5 *viewPort->getActualWidth() ), (0.21 *viewPort->getActualHeight()) );
-    
-    hostGameButton->setVisible(true);
-    hostGameButton->setPosition((0.1 *viewPort->getActualWidth() ), (0.05 *viewPort->getActualHeight()) );
+*/
+
+    serverIPAddressBox->setVisible(true);
+    serverIPAddressBox->setPosition((0.3 *viewPort->getActualWidth() ), (0.10 *viewPort->getActualHeight()) );
+
+    serverHostButton->setVisible(true);
+    serverHostButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.14 *viewPort->getActualHeight()) );
     
     backNetworkSetupButton->setVisible(true);
-    backNetworkSetupButton->setPosition((0.1 *viewPort->getActualWidth() ), (0.05 *viewPort->getActualHeight()) );
+    backNetworkSetupButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.18 *viewPort->getActualHeight()) );
 }
 
 void GUISystem::hideNetworkClientSetupWidgets()   // hides the widgets tied to the Network Setup Menu
 {
-    ipAddressBox->setVisible(false);
-    connectButton->setVisible(false);
-	backNetworkSetupButton->setVisible(false);
+    clientIPAddressBox->setVisible(false);
+    clientConnectButton->setVisible(false);
+    backNetworkSetupButton->setVisible(false);
 }
 void GUISystem::showNetworkClientSetupWidgets()     // shows all widgets tied to the Network Setup Menu
 {
     renderEngine *renderE = renderEngine::Instance();
     Ogre::Viewport *viewPort = renderE->getViewPort();
 
-    ipAddressBox->setVisible(true);
-    ipAddressBox->setPosition((0.3 *viewPort->getActualWidth() ), (0.10 *viewPort->getActualHeight()) );
+    clientIPAddressBox->setVisible(true);
+    clientIPAddressBox->setPosition((0.3 *viewPort->getActualWidth() ), (0.10 *viewPort->getActualHeight()) );
 
-    connectButton->setVisible(true);
-    connectButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.14 *viewPort->getActualHeight()) );
+    clientConnectButton->setVisible(true);
+    clientConnectButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.14 *viewPort->getActualHeight()) );
 
-	backNetworkSetupButton->setVisible(true);
+    backNetworkSetupButton->setVisible(true);
     backNetworkSetupButton->setPosition((0.3 *viewPort->getActualWidth() ), (0.18 *viewPort->getActualHeight()) );
 
 }
@@ -1533,56 +1557,128 @@ void GUISystem::processNetworkMenuKeyPress(std::string keyPressed) // processes 
 
 void GUISystem::processNetworkServerMenuKeyPress(std::string keyPressed) // process network server menu key input
 {
+    if (MyGUI::InputManager::getInstance().getKeyFocusWidget() == serverIPAddressBox)
+    {
+//        logMsg("clientIPAddressBox is focus!");
+//        exit(0);
+        if (keyPressed == "0")
+        {
+            serverIPAddressBox->addText("0");
+        }
+        else if (keyPressed == "1")
+        {
+            serverIPAddressBox->addText("1");
+        }
+        else if (keyPressed == "2")
+        {
+            serverIPAddressBox->addText("2");
+        }
+        else if (keyPressed == "3")
+        {
+            serverIPAddressBox->addText("3");
+        }
+        else if (keyPressed == "4")
+        {
+            serverIPAddressBox->addText("4");
+        }
+        else if (keyPressed == "5")
+        {
+            serverIPAddressBox->addText("5");
+        }
+        else if (keyPressed == "6")
+        {
+            serverIPAddressBox->addText("6");
+        }
+        else if (keyPressed == "7")
+        {
+            serverIPAddressBox->addText("7");
+        }
+        else if (keyPressed == "8")
+        {
+            serverIPAddressBox->addText("8");
+        }
+        else if (keyPressed == "9")
+        {
+            serverIPAddressBox->addText("9");
+        }
+        else if (keyPressed == ".")
+        {
+            serverIPAddressBox->addText(".");
+        }
+    }
+    else
+    {
+        
+    }
     
+    if (keyPressed == "h")
+    {
+        hideNetworkServerSetupWidgets();
+        networkServer();
+    }
+    else if (keyPressed == "b")
+    {
+        startMultiPlayerGame();
+    }
 }
 
 void GUISystem::processNetworkClientMenuKeyPress(std::string keyPressed) // processes network menu key input
 {
-    if (keyPressed == "0")
+    if (MyGUI::InputManager::getInstance().getKeyFocusWidget() == clientIPAddressBox)
     {
-        ipAddressBox->addText("0");
+//        logMsg("clientIPAddressBox is focus!");
+//        exit(0);
+        if (keyPressed == "0")
+        {
+            clientIPAddressBox->addText("0");
+        }
+        else if (keyPressed == "1")
+        {
+            clientIPAddressBox->addText("1");
+        }
+        else if (keyPressed == "2")
+        {
+            clientIPAddressBox->addText("2");
+        }
+        else if (keyPressed == "3")
+        {
+            clientIPAddressBox->addText("3");
+        }
+        else if (keyPressed == "4")
+        {
+            clientIPAddressBox->addText("4");
+        }
+        else if (keyPressed == "5")
+        {
+            clientIPAddressBox->addText("5");
+        }
+        else if (keyPressed == "6")
+        {
+            clientIPAddressBox->addText("6");
+        }
+        else if (keyPressed == "7")
+        {
+            clientIPAddressBox->addText("7");
+        }
+        else if (keyPressed == "8")
+        {
+            clientIPAddressBox->addText("8");
+        }
+        else if (keyPressed == "9")
+        {
+            clientIPAddressBox->addText("9");
+        }
+        else if (keyPressed == ".")
+        {
+            clientIPAddressBox->addText(".");
+        }
     }
-    else if (keyPressed == "1")
+    else
     {
-        ipAddressBox->addText("1");
+        
     }
-    else if (keyPressed == "2")
-    {
-        ipAddressBox->addText("2");
-    }
-    else if (keyPressed == "3")
-    {
-        ipAddressBox->addText("3");
-    }
-    else if (keyPressed == "4")
-    {
-        ipAddressBox->addText("4");
-    }
-    else if (keyPressed == "5")
-    {
-        ipAddressBox->addText("5");
-    }
-    else if (keyPressed == "6")
-    {
-        ipAddressBox->addText("6");
-    }
-    else if (keyPressed == "7")
-    {
-        ipAddressBox->addText("7");
-    }
-    else if (keyPressed == "8")
-    {
-        ipAddressBox->addText("8");
-    }
-    else if (keyPressed == "9")
-    {
-        ipAddressBox->addText("9");
-    }
-    else if (keyPressed == ".")
-    {
-        ipAddressBox->addText(".");
-    }
-    else if (keyPressed == "c")
+    
+    if (keyPressed == "c")
     {
         hideNetworkClientSetupWidgets();
         networkClient();
@@ -2421,17 +2517,30 @@ void GUISystem::setSelectedIndexes()  // sets all player listbox indexes to zero
 
 void GUISystem::networkClientSetupMenu() // sets up the client connection
 {
+    if (!networkClientSetupMenuCreated)
+    {
+        createNetworkClientSetupGUI();
+    }
     hideActiveMenuWidgets();
     previousActiveMenu = activeMenu;
     activeMenu = NETWORKCLIENT;
     showActiveMenuWidgets();
-    MyGUI::InputManager::getInstance().setKeyFocusWidget(ipAddressBox);
+    MyGUI::InputManager::getInstance().setKeyFocusWidget(clientIPAddressBox);
 
 }
 
 void GUISystem::networkServerSetupMenu()  // sets up the networkServer instance
 {
-    
+    if (!networkServerSetupMenuCreated)
+    {
+        createNetworkServerSetupGUI();
+    }
+    hideActiveMenuWidgets();
+    previousActiveMenu = activeMenu;
+    activeMenu = NETWORKSERVER;
+    showActiveMenuWidgets();
+    MyGUI::InputManager::getInstance().setKeyFocusWidget(serverIPAddressBox);
+
 }
 
 void GUISystem::networkServer()  // sets up  game as a network server
@@ -2443,7 +2552,7 @@ void GUISystem::networkServer()  // sets up  game as a network server
     gameS->setGameType(MULTI);
  //   hideNetworkSetupWidgets();  // Hides Network Setup Menu widgets
     menuActive = false;
-    network->setIPAddress(ipAddressBox->getCaption());  // sets the neworkEngine's ipAddress string to that of the caption
+    network->setIPAddress(serverIPAddressBox->getCaption());  // sets the neworkEngine's ipAddress string to that of the caption
     network->serverSetup();
 
 //    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scene
@@ -2459,7 +2568,7 @@ void GUISystem::networkClient()  // sets up game as a network client
 
 //    hideNetworkSetupWidgets();  // Hides Network Setup Menu widgets
     menuActive = false;
-    network->setIPAddress(ipAddressBox->getCaption());  // sets the neworkEngine's ipAddress string to that of the caption
+    network->setIPAddress(clientIPAddressBox->getCaption());  // sets the neworkEngine's ipAddress string to that of the caption
 //    network->networkClient();
     network->clientConnect();
 //    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scenetop
@@ -2725,6 +2834,9 @@ void GUISystem::hideActiveMenuWidgets()  // hides active menus widgets
         case NETWORKCLIENT:
             hideNetworkClientSetupWidgets();
             break;
+            case NETWORKSERVER:
+            hideNetworkServerSetupWidgets();
+            break;
         case OPTIONS:
             hideOptionsMenuWidgets();
             break;
@@ -2766,6 +2878,9 @@ void GUISystem::showActiveMenuWidgets()  // shows active menus widgets
             break;
         case NETWORKCLIENT:
             showNetworkClientSetupWidgets();
+            break;
+        case NETWORKSERVER:
+            showNetworkServerSetupWidgets();
             break;
         case OPTIONS:
             showOptionsMenuWidgets();
