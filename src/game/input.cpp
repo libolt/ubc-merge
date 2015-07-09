@@ -186,6 +186,7 @@ inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
 	}
 	else if (keyPressed == uInput[0].getKeyQuit())
 	{
+        logMsg("keyQuit = " +uInput[0].getKeyQuit());
 		return(INQUIT);
 	}
 	else

@@ -265,8 +265,10 @@ void gameEngine::processInput()  // processes game input
                     std::stringstream ss;
                               //  exit(0);
                     size_t x = 0;
-                    while (inputQueue.size() > 0)
+                    logMsg("inputQueue.size = " +Ogre::StringConverter::toString(inputQueue.size()));
+                    while (x < inputQueue.size())
                     {
+                        logMsg("inputQueue[" +Ogre::StringConverter::toString(x) +"] = " +Ogre::StringConverter::toString(inputQueue[x]));
                         // switch (inputMap)
                         switch (inputQueue[x])
                         {
@@ -275,7 +277,6 @@ void gameEngine::processInput()  // processes game input
                                 playerInstance[humanPlayer].setDirection(UP);
                                 teamInstance[i].setPlayerInstance(playerInstance);
                                 gameS->setTeamInstance(teamInstance);
-
                             break;
                             case INDOWN:
                                 playerInstance[humanPlayer].setMovement(true);
@@ -341,13 +342,15 @@ void gameEngine::processInput()  // processes game input
                         }
                         ++x;
                     }
-                    inputQueue.clear();
+                    
                     gameS->setTeamInstance(teamInstance);
 
                     if (gameS->getGameType() == MULTI)
                     {
                         network->processLocalInput();
                     }
+                    inputQueue.clear();
+                    input->setInputWorkQueue(inputQueue);
                 }
             }
         }

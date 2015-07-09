@@ -560,7 +560,7 @@ void networkEngine::processLocalInput()  // processes local input for sending to
                 packetData = ss.str();
             break;
             case INQUIT:
-                logMsg("Quitting!");
+//                logMsg("Quitting!");
 //                quitGame = true;
                 //exit(0);
             break;
