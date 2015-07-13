@@ -458,7 +458,7 @@ bool inputSystem::processUnbufferedKeyInput(bool textInput)
             case SDLK_F3:
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F3, 0);
             break;
-            c.ase SDLK_F4:
+            case SDLK_F4:
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F4, 0);
             break;
             case SDLK_F5:
