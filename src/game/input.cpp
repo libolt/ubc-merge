@@ -9,7 +9,7 @@
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   MERCH.ANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
  *   GNU General Public License for more details.                          *
  *                                                                         *
  *   You should have received a copy of the GNU General Public License     *
@@ -189,6 +189,12 @@ inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
         logMsg("keyQuit = " +uInput[0].getKeyQuit());
 		return(INQUIT);
 	}
+    else if (keyPressed == "Backspace")
+    {
+//        logMsg("keyQuit = " +uInput[0].getKeyQuit());
+//        exit(0);
+        return(INBACKSPACE);
+	}
 	else
 	{
 		return(INNO);
@@ -238,7 +244,7 @@ bool inputSystem::processInput()	// processes all input
 #else
 */
 //    SDL_PumpEvents();
-    int motion = SDL_EventState(SDL_FINGERMOTION, SDL_QUERY);
+    int motion = SDL_EviientState(SDL_FINGERMOTION, SDL_QUERY);
 	logMsg ("motion = " +Ogre::StringConverter::toString(motion));
 //    exit(0);
     SDL_StartTextInput();
@@ -298,7 +304,7 @@ bool inputSystem::processInput()	// processes all input
                     return false;
                 }
                 break;
-           
+            case SDL_KEYDOWN:
             case SDL_TEXTINPUT:
                 keyPressed = "";
                 if (processUnbufferedKeyInput(true) == false)
@@ -374,16 +380,6 @@ bool inputSystem::processUnbufferedKeyInput(bool textInput)
     keyPressed = inputEvent.text.text;
     logMsg("key = " +keyPressed);
 
-	if (gui->getMenuActive()) // checks if a menu is displayed
-	{
-        logMsg("keyPressed == " +keyPressed);
-		gui->menuReceiveKeyPress(keyPressed); // sends input to menu key input processing function
-	}
-	else
-	{
-		return (true);
-	}
-/*
 	if (MyGUI::InputManager::getInstance().isFocusKey())	// checks if a MyGUI widget has key focus
 	{
 
@@ -392,31 +388,35 @@ bool inputSystem::processUnbufferedKeyInput(bool textInput)
 		keyPressed = "";
         switch (inputEvent.key.keysym.sym)
         {
+            
             case SDLK_RETURN:
 //			case SDLK_AC_BACK:
 				logMsg("Return!");
-				exit(0);
+//				exit(0);
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Return, MyGUI::KeyCode::Return);
 
             break;
             case SDLK_BACKSPACE:
 				logMsg("Backspace!");
-				exit(0);
-                MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Backspace, 0);
+//				exit(0);
+                keyPressed = "Backspace";
+//                gui->menuReceiveKeyPress(keyPressed); // sends input to menu key input processing function
+
+//                MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Backspace, 0);
             break;
             case SDLK_ESCAPE:
 				logMsg("Escape!");
-				exit(0);
+//				exit(0);
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Escape, 0);
             break;
             case SDLK_TAB:
 				logMsg("Tab!");
-				exit(0);
+//				exit(0);
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Tab, 0);
             break;
             case SDLK_SPACE:
 				logMsg("Space!");
-				exit(0);
+//				exit(0);
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Space, ' ');
             break;
             case SDLK_LSHIFT:
@@ -458,7 +458,7 @@ bool inputSystem::processUnbufferedKeyInput(bool textInput)
             case SDLK_F3:
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F3, 0);
             break;
-            case SDLK_F4:
+            c.ase SDLK_F4:
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::F4, 0);
             break;
             case SDLK_F5:
@@ -572,10 +572,21 @@ bool inputSystem::processUnbufferedKeyInput(bool textInput)
                 MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Enum(6), '6');
             break;
             default:
-                MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Enum(inputEvent.key.keysym.sym), inputEvent.key.keysym.sym);
+            //    MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Enum(inputEvent.key.keysym.sym), inputEvent.key.keysym.sym);
             break;
+            
         }
-*/
+    }
+    if (gui->getMenuActive()) // checks if a menu is displayed
+    {
+        logMsg("keyPressed == " +keyPressed);
+        gui->menuReceiveKeyPress(keyPressed); // sends input to menu key input processing function
+        exit(0);
+    }
+    else
+    {
+        return (true);
+	}
 /*		if (SDL_PollEvent(&inputEvent))
 		{
 	        switch (inputEvent.type)

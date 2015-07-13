@@ -349,8 +349,8 @@ void networkEngine::serverSetup()
 //    cout << "IP Address to bind to:" << endl;
 //    cin >> ipAddress;
 
-//	listenAddress.host = enet_address_set_host (& listenAddress, ipAddress.c_str());
-    listenAddress.host = enet_address_set_host (& listenAddress, ENET_HOST_ANY);
+	listenAddress.host = enet_address_set_host (& listenAddress, ipAddress.c_str());
+//    listenAddress.host = enet_address_set_host (& listenAddress, ENET_HOST_ANY);
 	
     /* Bind the server to port 1234. */
 	listenAddress.port = 1234;

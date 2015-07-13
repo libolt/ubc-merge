@@ -1559,8 +1559,8 @@ void GUISystem::processNetworkServerMenuKeyPress(std::string keyPressed) // proc
 {
     if (MyGUI::InputManager::getInstance().getKeyFocusWidget() == serverIPAddressBox)
     {
-//        logMsg("clientIPAddressBox is focus!");
-//        exit(0);
+        logMsg("keypress = " +keyPressed);
+        exit(0);
         if (keyPressed == "0")
         {
             serverIPAddressBox->addText("0");
@@ -1604,6 +1604,12 @@ void GUISystem::processNetworkServerMenuKeyPress(std::string keyPressed) // proc
         else if (keyPressed == ".")
         {
             serverIPAddressBox->addText(".");
+        }
+        else if (keyPressed == "Backspace")
+        {
+            exit(0);
+        //    serverIPAddressBox->addText(".");
+            MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Backspace, 0);
         }
     }
     else
@@ -2553,6 +2559,7 @@ void GUISystem::networkServer()  // sets up  game as a network server
  //   hideNetworkSetupWidgets();  // Hides Network Setup Menu widgets
     menuActive = false;
     network->setIPAddress(serverIPAddressBox->getCaption());  // sets the neworkEngine's ipAddress string to that of the caption
+   logMsg("server ip = " +network->getIPAddress());
     network->serverSetup();
 
 //    gameE->setCreateScene(true); // sets variable true that tells gameEngine to start rendering the scene
