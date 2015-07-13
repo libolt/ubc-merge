@@ -244,7 +244,7 @@ bool inputSystem::processInput()	// processes all input
 #else
 */
 //    SDL_PumpEvents();
-    int motion = SDL_EviientState(SDL_FINGERMOTION, SDL_QUERY);
+    int motion = SDL_EventState(SDL_FINGERMOTION, SDL_QUERY);
 	logMsg ("motion = " +Ogre::StringConverter::toString(motion));
 //    exit(0);
     SDL_StartTextInput();
