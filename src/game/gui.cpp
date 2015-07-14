@@ -1607,7 +1607,7 @@ void GUISystem::processNetworkServerMenuKeyPress(std::string keyPressed) // proc
         }
         else if (keyPressed == "Backspace")
         {
-            exit(0);
+//            exit(0);
         //    serverIPAddressBox->addText(".");
             MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Backspace, 0);
         }
