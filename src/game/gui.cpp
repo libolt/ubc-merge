@@ -1560,7 +1560,7 @@ void GUISystem::processNetworkServerMenuKeyPress(std::string keyPressed) // proc
     if (MyGUI::InputManager::getInstance().getKeyFocusWidget() == serverIPAddressBox)
     {
         logMsg("keypress = " +keyPressed);
-        exit(0);
+//        exit(0);
         if (keyPressed == "0")
         {
             serverIPAddressBox->addText("0");
