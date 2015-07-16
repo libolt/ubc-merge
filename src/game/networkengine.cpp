@@ -397,6 +397,15 @@ void networkEngine::networkServer()
             	peer = event.peer;	// stores the peer connection for later use.
             	serverReceivedConnection = true;	// Tells code that a client has connected
  //           	exit(0);
+                std::stringstream ss;
+                netPStateObj.setPacketType(3);
+                netPStateObj.setTeamID(1);
+                netPStateObj.setPlayerID(1);
+                netPStateObj.setMovement(true);
+                netPStateObj.setDirection(0);
+                ss << netPStateObj;
+                packetData = ss.str();
+                sendPacket(packetData);
                 break;
 
             case ENET_EVENT_TYPE_RECEIVE:
@@ -421,7 +430,7 @@ void networkEngine::networkServer()
 
 				receivedData = data;	// copies conetents of data array to receivedData Ogre::String variable
 	            logMsg("receivedData == " +receivedData);
-
+                exit(0);
                 enet_packet_destroy (event.packet);
                 break;
 

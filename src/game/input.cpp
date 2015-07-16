@@ -639,6 +639,7 @@ bool inputSystem::processUnbufferedKeyInput(bool textInput)
         return (true);
 	}
 
+    keyPressed = "";
 //	logMsg("Keyboard Input Processed");
     // Return true to continue rendering
     return true;
