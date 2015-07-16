@@ -374,6 +374,8 @@ void networkEngine::networkServer()
     gameEngine *gameE = gameEngine::Instance();
    Ogre::String addressHost, addressPort, packetData, packetDataLength, packetPeer, packetChannelID;
     int x = 0;
+    networkPlayerStateObject netPStateObj;
+    std::stringstream ss;
 //    do
 //    {
         /* Wait up to 1000 milliseconds for an event. */
@@ -397,7 +399,7 @@ void networkEngine::networkServer()
             	peer = event.peer;	// stores the peer connection for later use.
             	serverReceivedConnection = true;	// Tells code that a client has connected
  //           	exit(0);
-                std::stringstream ss;
+
                 netPStateObj.setPacketType(3);
                 netPStateObj.setTeamID(1);
                 netPStateObj.setPlayerID(1);
