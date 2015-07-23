@@ -8,6 +8,15 @@
         <Property key="TextAlign" value="Center"/>
         <Property key="TextColour" value="1 1 1"/>
     </Widget>
+        <Widget type="ListBox" skin="ListBox" position="100 395 215 25" align="Default" layer="Main" name="numClientsSelectBox">
+        <Property key="Caption" value=""/>
+        <Property key="Colour" value="0.321637 0.312233 0.312233"/>
+        <Property key="Enabled" value="true"/>
+        <Property key="FontName" value="DejaVuSansFont_15"/>
+        <Property key="TextAlign" value="Center"/>
+        <Property key="TextColour" value="1 1 1"/>
+    </Widget>
+    <Widget type="TextBox" skin="TextBox" position="755 515 45 25" layer="Main" name="numClientsTxtBox"/>
     <Widget type="Button" skin="Button" position="362 200  300 26" align="Default" layer="Main" name="serverHostButton">
             <Property key="Caption" value="(H)ost"/>
     </Widget>

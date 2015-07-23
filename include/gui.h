@@ -243,8 +243,7 @@ private:
     MyGUI::Button *optionsButton;
     MyGUI::Button *serverButton;
     MyGUI::Button *clientButton;
-    MyGUI::Button *serverHostButton;
-    MyGUI::Button *clientConnectButton;
+    
     MyGUI::Button *backMainMenuButton;
 	MyGUI::Button *backNetworkSetupButton;
     MyGUI::Button *displayButton;
@@ -268,18 +267,20 @@ private:
     MyGUI::Button *team0StartingLineupSetButton;
     MyGUI::Button *team1StartingLineupSetButton;
     MyGUI::Button *startingLineupsSetButton;
-
-    // editbox widgets
-    MyGUI::EditBox *ipAddressBox;
-    MyGUI::EditBox *serverIPAddressBox;
-    MyGUI::EditBox *clientIPAddressBox;
-
+    
 	// listbox widgets
 	MyGUI::ListBox *team0SelectBox;
 	MyGUI::ListBox *team1SelectBox;
 
     // Network Server Setup Widgets
-    MyGUI::ListBox *networkUsersBox;  // allows you to select the number of network players
+    MyGUI::ListBox *numClientsSelectBox;  // allows you to select the number of network players
+    MyGUI::Button *serverHostButton;
+    MyGUI::EditBox *serverIPAddressBox;
+    
+    // Network Client Setup Widgets
+    MyGUI::EditBox *clientIPAddressBox;
+    MyGUI::Button *clientConnectButton;
+    
     MyGUI::ListBox *team0Player1SelectBox;
     MyGUI::ListBox *team0Player2SelectBox;
     MyGUI::ListBox *team0Player3SelectBox;

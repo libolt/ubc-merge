@@ -545,6 +545,7 @@ void gameEngine::gameLoop()	// Main Game Loop
             if (serverRunning)
             {
                 network->networkServer();	// Runs network server code
+                
             }
             if (clientRunning)
             {

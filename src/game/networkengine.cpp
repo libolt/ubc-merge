@@ -372,15 +372,29 @@ void networkEngine::networkServer()
 {
 //	serverSetup();
     gameEngine *gameE = gameEngine::Instance();
-   Ogre::String addressHost, addressPort, packetData, packetDataLength, packetPeer, packetChannelID;
+    char *host; 
+    Ogre::String addressHost, addressPort, packetData, packetDataLength, packetPeer, packetChannelID;
     int x = 0;
     networkPlayerStateObject netPStateObj;
     std::stringstream ss;
+                if (serverReceivedConnection)
+                {
+//                    exit(0);
+                    netPStateObj.setPacketType(3);
+                    netPStateObj.setTeamID(1);
+                    netPStateObj.setPlayerID(1);
+                    netPStateObj.setMovement(true);
+                    netPStateObj.setDirection(0);
+                    ss << netPStateObj;
+                    packetData = ss.str();
+                    sendPacket(packetData);
+                }
 //    do
 //    {
         /* Wait up to 1000 milliseconds for an event. */
         while (enet_host_service (server, & event, 1) > 0)
         {
+
 			logMsg("EVENT == " +event.type);
             switch (event.type)
             {
@@ -390,24 +404,18 @@ void networkEngine::networkServer()
             			event.peer -> address.host,
             			event.peer -> address.port);
 */
-            	addressHost = Ogre::StringConverter::toString(event.peer->address.host);
-            	addressPort = Ogre::StringConverter::toString(event.peer->address.port);
+                host = event.peer->address.host;
+            	//addressHost = Ogre::StringConverter::toString(event.peer->address.host);
+            	addressHost = Ogre::StringConverter::toString(host);
+                addressPort = Ogre::StringConverter::toString(event.peer->address.port);
             	logMsg("A new client connected from " + addressHost + ":" + addressPort);
             	/* Store any relevant client information here. */
 //                event.peer->data = "Client information";
-//            	exit(0);
+            	exit(0);
             	peer = event.peer;	// stores the peer connection for later use.
             	serverReceivedConnection = true;	// Tells code that a client has connected
  //           	exit(0);
-
-                netPStateObj.setPacketType(3);
-                netPStateObj.setTeamID(1);
-                netPStateObj.setPlayerID(1);
-                netPStateObj.setMovement(true);
-                netPStateObj.setDirection(0);
-                ss << netPStateObj;
-                packetData = ss.str();
-                sendPacket(packetData);
+//                logMsg("Peer == " +Ogre::StringConverter::toString(addressHost));     
                 break;
 
             case ENET_EVENT_TYPE_RECEIVE:
@@ -632,8 +640,10 @@ void networkEngine::sendPacket(Ogre::String packetData)
 		{
 		}
 	}
+    std::string host = Ogre::StringConverter::toString(peer->address.host);
     logMsg("packetData == " + packetData);
-	logMsg("Peer == " +Ogre::StringConverter::toString(peer));
+	logMsg("Peer host == " +host);
+    exit(0);
 	packet = enet_packet_create(packetData.c_str(),strlen(packetData.c_str())+1,ENET_PACKET_FLAG_RELIABLE);
     enet_peer_send (peer, 0, packet);
 
