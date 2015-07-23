@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "OgrePrerequisites.h"
+#include "conversion.h"
 #include "gameengine.h"
 #include "gamestate.h"
 #include "logging.h"
@@ -55,7 +56,8 @@ void UBC::setQuitGame(bool quit)
 
 int main(int argc, char *argv[])
 {
-    
+//    conversion convert;
+    conversion *convert = conversion::Instance();
     renderEngine *render = renderEngine::Instance();
     gameEngine *gameE = gameEngine::Instance();
     gameState *gameS = gameState::Instance();
@@ -69,6 +71,11 @@ int main(int argc, char *argv[])
     render->initOgre(); // Initializes the Ogre Subsystem
     render->createScene(); // creates rendering scene.
 
+    int i = 9;
+    std:: string test;
+    test = convert->toString(i);
+    logMsg("test = " +test);
+    exit(0);
     gui->initMyGUI(); // Initializes MyGUI
     if (!gui->getMainMenuCreated())
     {
