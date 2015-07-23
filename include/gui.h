@@ -228,6 +228,7 @@ protected:
     void hideActiveMenuWidgets();  // hides active menus widgets
     void showActiveMenuWidgets();  // shows active menus widgets
     
+    void changeActiveMenu(activeMenus menu);  // changes the actively displayed menu
     
     
 private:

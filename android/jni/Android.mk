@@ -257,6 +257,8 @@ LOCAL_SRC_FILES := \
                    $(subst $(LOCAL_PATH)/,, \
                        $(wildcard $(LOCAL_PATH)/../../src/game/gui/*.cpp)) \
                    $(subst $(LOCAL_PATH)/,, \
+                       $(wildcard $(LOCAL_PATH)/../../src/game/network/*.cpp)) \
+                   $(subst $(LOCAL_PATH)/,, \
                        $(wildcard $(LOCAL_PATH)/../../src/game/sound/*.cpp)) \
 
 

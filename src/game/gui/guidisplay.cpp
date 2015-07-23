@@ -502,3 +502,102 @@ void GUISystem::showCourtSelectionMenuWidgets() // show all widgets tied to the 
     courtSelectButton->setPosition((0.25 *viewPort->getActualWidth() ), (0.36 *viewPort->getActualHeight()) );
 
 }
+
+void GUISystem::hideActiveMenuWidgets()  // hides active menus widgets
+{
+    switch (activeMenu)
+    {
+        case MAIN: 
+            hideMainMenuWidgets();
+            break;
+        case NETWORK:
+            hideNetworkSetupWidgets();
+            break;
+        case NETWORKCLIENT:
+            hideNetworkClientSetupWidgets();
+            break;
+            case NETWORKSERVER:
+            hideNetworkServerSetupWidgets();
+            break;
+        case OPTIONS:
+            hideOptionsMenuWidgets();
+            break;
+        case DISPLAY:
+            hideDisplayMenuWidgets();
+            break;
+        case INPUTMENU:
+            hideInputMenuWidgets();
+            break;
+        case AUDIO:
+            hideAudioMenuWidgets();
+            break;
+        case GAMESETUP:
+            hideGameSetupMenuWidgets();
+            break;
+        case PLAYERSTART:
+            hidePlayerStartSelectionMenuWidgets();
+            break;
+        case TEAMSELECT:
+            hideTeamSelectionMenuWidgets();
+            break;
+        case COURTSELECT:
+            hideCourtSelectionMenuWidgets();
+            break;
+        default:
+            break;
+    }
+}
+
+void GUISystem::showActiveMenuWidgets()  // shows active menus widgets
+{
+    switch (activeMenu)
+    {
+        case MAIN: 
+            showMainMenuWidgets();
+            break;
+        case NETWORK:
+            showNetworkSetupWidgets();
+            break;
+        case NETWORKCLIENT:
+            showNetworkClientSetupWidgets();
+            break;
+        case NETWORKSERVER:
+            showNetworkServerSetupWidgets();
+            break;
+        case OPTIONS:
+            showOptionsMenuWidgets();
+            break;
+        case DISPLAY:
+            showDisplayMenuWidgets();
+            break;
+        case INPUTMENU:
+            showInputMenuWidgets();
+            break;
+        case AUDIO:
+            showAudioMenuWidgets();
+            break;
+        case GAMESETUP:
+            showGameSetupMenuWidgets();
+            break;
+        case PLAYERSTART:
+            showPlayerStartSelectionMenuWidgets();
+            break;
+        case TEAMSELECT:
+            showTeamSelectionMenuWidgets();
+            break;
+        case COURTSELECT:
+            showCourtSelectionMenuWidgets();
+            break;
+        default:
+            break;
+    }
+}
+
+void GUISystem::changeActiveMenu(activeMenus menu)  // changes the actively displayed menu
+{
+    hideActiveMenuWidgets();
+    menuActive = true;
+    previousActiveMenu = activeMenu;
+    activeMenu = menu;
+    showActiveMenuWidgets();
+}
