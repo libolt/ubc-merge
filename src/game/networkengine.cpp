@@ -404,14 +404,16 @@ void networkEngine::networkServer()
             			event.peer -> address.host,
             			event.peer -> address.port);
 */
-                host = event.peer->address.host;
+/*                host = event.peer->address.host;
             	//addressHost = Ogre::StringConverter::toString(event.peer->address.host);
             	addressHost = Ogre::StringConverter::toString(host);
                 addressPort = Ogre::StringConverter::toString(event.peer->address.port);
             	logMsg("A new client connected from " + addressHost + ":" + addressPort);
-            	/* Store any relevant client information here. */
+            	// Store any relevant client information here. 
+
 //                event.peer->data = "Client information";
             	exit(0);
+*/
             	peer = event.peer;	// stores the peer connection for later use.
             	serverReceivedConnection = true;	// Tells code that a client has connected
  //           	exit(0);
