@@ -43,8 +43,8 @@ public:
     int getTeamNumber();	// retrieves the value of teamNumber
     void setTeamNumber(int number);	// sets the value of teamNumber
 
-    Ogre::String getPlayerType();	// retrieves the value of playerType
-    void setPlayerType(Ogre::String type);	// sets the value of playerType
+    std::string getPlayerType();	// retrieves the value of playerType
+    void setPlayerType(std::string type);	// sets the value of playerType
 
     int getAssists();   // retrieves the value of assists
     void setAssists(int assist);    // sets the value of assists
@@ -187,7 +187,7 @@ private:
     bool defense;	// if set then the team is on defense
 
     std::vector <playerState> playerInstance;    // creates instance of the playerState class
-    std::vector <Ogre::String> playerModelsLoaded; // creates a vector of strings that holds the models which are loaded
+    std::vector <std::string> playerModelsLoaded; // creates a vector of strings that holds the models which are loaded
     bool playerInstancesCreated;	// stores whether player instances have been created
     int playerWithBall;	// stores which player has control of the basketball, valid values are 0 - 4
     bool playerWithBallDribbling;	// stores whether the player with the ball is dribbling

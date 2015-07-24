@@ -843,7 +843,7 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 	networkPlayerStateObject netPStateObj;
 	std::stringstream strStream;
     std::vector<playerState> playerInstance;
-	Ogre::String receivedData = network->getReceivedData();	// stores receivedData value
+	std::string receivedData = network->getReceivedData();	// stores receivedData value
 	int playerNumber = -1; // stores which player the data is for
 	int iterator;	// iterator for match loop
 
@@ -870,8 +870,8 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
     logMsg("playerInstance size == " +convert->toString(playerInstance.size()));
 /*	for (iterator = 0; iterator < 5; ++iterator)
 	{
-		Ogre::String searchString;	// stores search String
-        Ogre::String searchIterator = convert->toString(iterator); // converts iterator to a string
+		std::string searchString;	// stores search String
+        std::string searchIterator = convert->toString(iterator); // converts iterator to a string
 		searchString = "*" +searchIterator + "*";	// creates search string
 		if (Ogre::StringUtil::match(receivedData,searchString))	// checks for a match
 		{

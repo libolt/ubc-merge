@@ -66,11 +66,11 @@ class networkEngine
     int getClientID();	// returns the value of clientID variable;
     void setClientID(int ID);  // sets the value of clientID variable;
 
-    Ogre::String getIPAddress();	// returns the value of the ipAddress string
-    void setIPAddress(Ogre::String IP);	// sets the value of the ipAddress string
+    std::string getIPAddress();	// returns the value of the ipAddress string
+    void setIPAddress(std::string IP);	// sets the value of the ipAddress string
 
-    Ogre::String getReceivedData();	// returns receivedData variable
-    void setReceivedData(Ogre::String data);
+    std::string getReceivedData();	// returns receivedData variable
+    void setReceivedData(std::string data);
 
     ENetAddress getListenAddress();	// returns listenAddress variable
     void setListenAddress(ENetAddress address);	// sets listenAddress variable
@@ -100,7 +100,7 @@ class networkEngine
     void processLocalInput();  // processes local input for sending to remote system
     void processRemoteInput(); // processes input received from a remote system
     
-    void sendPacket(Ogre::String packetData);	// sends a packet to the peer
+    void sendPacket(std::string packetData);	// sends a packet to the peer
 
     static networkEngine *Instance();
 

@@ -72,12 +72,12 @@ void inputSystem::setInputEvent(SDL_Event input)
 }
 
 
-Ogre::String inputSystem::getKeyPressed() // retrieves keyPressed
+std::string inputSystem::getKeyPressed() // retrieves keyPressed
 {
 	return(keyPressed);
 }
 
-void inputSystem::setKeyPressed(Ogre::String key)
+void inputSystem::setKeyPressed(std::string key)
 {
 	keyPressed = key;
 }

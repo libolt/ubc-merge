@@ -67,7 +67,7 @@ public:
 
     SDL_RWops *readBinaryFile(const char *sourceFile);
 
-//    int readFile(const char *sourceFile, Ogre::String *destination);
+//    int readFile(const char *sourceFile, std:string *destination);
 
     // Teams
     bool loadTeams();   // loads team data from XML files

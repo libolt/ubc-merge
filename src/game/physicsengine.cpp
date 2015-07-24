@@ -630,8 +630,8 @@ void physicsEngine::updateState()
 		for (unsigned int x=0;x<teamInstance.size();++x)	// saves changes made to the playerInstance objects
 		{
 //			teamInstance[x].setPlayerInstance(playerInstance);
-            Ogre::String X = convert->toString(x);
-            Ogre::String size = convert->toString(playerInstance.size());
+            std::string X = convert->toString(x);
+            std::string size = convert->toString(playerInstance.size());
 //		    logMsg("Team " +X +" PlayerInstance Size = " +size);
 
 		}

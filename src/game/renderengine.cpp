@@ -241,7 +241,7 @@ void renderEngine::setWindowHeight(uint32_t set)  // sets the value of windowHei
 }
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
+Ogre::DataStreamPtr renderEngine::openAPKFile(const std::string& fileName)
 {
     struct android_app* app;
 	Ogre::DataStreamPtr stream;
@@ -294,7 +294,7 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 
 //        __android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Error = %s", SDL_GetError());
-        Ogre::String msg = "SDL Error = " +convert->toString(SDL_GetError());
+        std::string msg = "SDL Error = " +convert->toString(SDL_GetError());
         logMsg(msg);
 #endif
 
@@ -391,7 +391,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 
 	//std::cout << "winHandle = " << winHandle << std::endl;
 	mRoot = new Ogre::Root("", "", "Ogre.log");
-	const Ogre::String pluginDir = OGRE_PLUGIN_DIR;
+	const std::string pluginDir = OGRE_PLUGIN_DIR;
     logMsg("winHandle for Ogre = " +winHandle);
 
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
@@ -399,7 +399,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 //	inputSystem *input = inputSystem::Instance();
 //#endif
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	const Ogre::String buildType = BUILD_TYPE;
+	const std::string buildType = BUILD_TYPE;
 
 	if (buildType == "Debug")
 	{
@@ -436,7 +436,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	while (c < (int)rsList.size())
 	{
 		selectedRenderSystem = rsList.at(c);
-		Ogre::String rname = selectedRenderSystem->getName();
+		std::string rname = selectedRenderSystem->getName();
 		if (rname.compare("OpenGL Rendering Subsystem") == 0)
 		{
 			foundit = true;
@@ -580,7 +580,7 @@ bool renderEngine::createScene()
 //exit(0);
 	while (seci.hasMoreElements())
 	{
-		Ogre::String sec, type, arch;
+		std::string sec, type, arch;
 		sec = seci.peekNextKey();
 		Ogre::ConfigFile::SettingsMultiMap* settings = seci.getNext();
 		Ogre::ConfigFile::SettingsMultiMap::iterator i;

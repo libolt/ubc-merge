@@ -506,7 +506,7 @@ void gameEngine::gameLoop()	// Main Game Loop
         }
 //#else
         lastFPS = render->getMWindow()->getLastFPS();
-        Ogre::String currFPS = convert->toString(lastFPS);
+        std::string currFPS = convert->toString(lastFPS);
 
         logMsg("FPS = " +currFPS);
         updateChangeInTime();	// calculates the change in time.

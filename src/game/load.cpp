@@ -118,7 +118,7 @@ void loader::setUserInputFiles(std::vector<std::string> set)  // sets list of us
 // loads an xml file using SDL so that it can
 // be passed to TinyXML
 int loader::readFile(const char *sourceFile, char **destination)
-//int loader::readFile(const char *sourceFile, Ogre::String *destination)
+//int loader::readFile(const char *sourceFile, std::string *destination)
 {
     conversion *convert = conversion::Instance();
     renderEngine *renderE = renderEngine::Instance();
@@ -127,7 +127,7 @@ int loader::readFile(const char *sourceFile, char **destination)
 
 ///#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //	Ogre::DataStreamPtr fileData = renderE->openAPKFile("teamd.xml");
-//	destination = new Ogre::String;
+//	destination = new std::string;
 ///	destination = (char**)fileData->getAsString().c_str();
 //#else
 //    char *contents = NULL;
@@ -158,7 +158,7 @@ int loader::readFile(const char *sourceFile, char **destination)
 	// resets the file to beginnin
 	SDL_RWseek(file, 0, SEEK_SET);
     // Read text from file
-	Ogre::String *contents = new Ogre::String;
+	std::string *contents = new std::string;
     int n_blocks = SDL_RWread(file, (*destination), 1, fileLength);
     logMsg("Contents = " +convert->toString((*destination)));
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
@@ -491,7 +491,7 @@ bool loader::loadTeamFile(string fileName)
 //    TiXmlDocument doc(fileName.c_str());
 //    if (!doc.LoadFile()) return(false);
 //	const char *fileContents = NULL;
-	Ogre::String fileContents;
+	std::string fileContents;
 	TiXmlDocument doc;
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
@@ -608,7 +608,7 @@ bool loader::loadPlayerListFile( string fileName)
     players *player = players::Instance();
 
 //	char *fileContents = NULL;
-	Ogre::String fileContents;
+	std::string fileContents;
 	TiXmlDocument doc;
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
@@ -717,7 +717,7 @@ bool loader::loadPlayerFile(string fileName)
 //    if (!doc.LoadFile()) return(false);
 
 //	char *fileContents = NULL;
-	Ogre::String fileContents;
+	std::string fileContents;
 	TiXmlDocument doc;
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
@@ -1154,7 +1154,7 @@ bool loader::loadOffensePlayListFile(string fileName)	// loads the list of offen
 
 
 //	char *fileContents = NULL;
-	Ogre::String fileContents;
+	std::string fileContents;
 	TiXmlDocument doc;
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
@@ -1247,7 +1247,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 //    if (!doc.LoadFile()) return(false);
 
 //	char *fileContents = NULL;
-	Ogre::String fileContents;
+	std::string fileContents;
 	TiXmlDocument doc;
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
@@ -1552,7 +1552,7 @@ bool loader::loadCourtListFile(string fileName)	// loads the list of court files
 
 
 //	char *fileContents = NULL;
-	Ogre::String fileContents;
+	std::string fileContents;
 	TiXmlDocument doc;
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
@@ -1654,7 +1654,7 @@ courtData loader::loadCourtFile(string fileName)	// loads data from the offense 
 //    if (!doc.LoadFile()) return(false);
 
 //	char *fileContents = NULL;
-	Ogre::String fileContents;
+	std::string fileContents;
 	TiXmlDocument doc;
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
@@ -1874,7 +1874,7 @@ bool loader::loadUserInputListFile(string fileName) // loads the list of offense
 
 
 //  char *fileContents = NULL;
-    Ogre::String fileContents;
+    std::string fileContents;
     TiXmlDocument doc;
     //    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //  readFile(fileName.c_str(), &fileContents);
@@ -1955,7 +1955,7 @@ userInput loader::loadUserInputFile(string fileName)    // loads data from the u
     std::string quit;
     
 //  char *fileContents = NULL;
-    Ogre::String fileContents;
+    std::string fileContents;
     TiXmlDocument doc;
 
     char *contents = NULL;

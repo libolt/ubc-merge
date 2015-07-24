@@ -76,11 +76,11 @@ void teamState::setTeamNumber(int number)	// sets the value of the teamNumber
 	teamNumber = number;
 }
 
-Ogre::String teamState::getPlayerType()	// retrieves the value of playerType
+std::string teamState::getPlayerType()	// retrieves the value of playerType
 {
 	return (playerType);
 }
-void teamState::setPlayerType(Ogre::String type)	// sets the value of playerType
+void teamState::setPlayerType(std::string type)	// sets the value of playerType
 {
 	playerType = type;
 }
@@ -799,7 +799,7 @@ void teamState::updatePlayerDirections()
 	std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
     std::vector<Ogre::SceneNode>::iterator playersIT;
 
-    Ogre::String playerID = convert->toString(playerInstance[4].getPlayerID());
+    std::string playerID = convert->toString(playerInstance[4].getPlayerID());
 //    exit(0);
 //    logMsg("playerID == " +playerID);
     // checks if a player's direction has changed and rotates the model accordingly.
@@ -819,9 +819,9 @@ void teamState::updatePlayerDirections()
                 if (oldPlayerDirection != playerDirection)
                 {
                     /*
-                    Ogre::String oldPlayerDirect = Ogre::SingConverter::toString(oldPlayerDirection[i]);
-                    Ogre::String playerDirect = toString(playerDirection[i]);
-                    Ogre::String bballPlayer = toString(basketballInstance[0].getPlayer());
+                    std::string oldPlayerDirect = Ogre::SingConverter::toString(oldPlayerDirection[i]);
+                    std::string playerDirect = toString(playerDirection[i]);
+                    std::string bballPlayer = toString(basketballInstance[0].getPlayer());
                     logMsg("oldPlayerDirection = " + oldPlayerDirect);
                     logMsg("playerDirection = " + playerDirect);
                     logMsg("bball player = " + bballPlayer);

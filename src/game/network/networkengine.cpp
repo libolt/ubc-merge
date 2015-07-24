@@ -115,21 +115,21 @@ void networkEngine::setClientID(int ID)
 	clientID = ID;
 }
 
-Ogre::String networkEngine::getIPAddress()	// returns ipAddress string
+std::string networkEngine::getIPAddress()	// returns ipAddress string
 {
 	return(ipAddress);
 }
 
-void networkEngine::setIPAddress(Ogre::String IP)	// sets ipAddress string
+void networkEngine::setIPAddress(std::string IP)	// sets ipAddress string
 {
 	ipAddress = IP;
 }
 
-Ogre::String networkEngine::getReceivedData()	// returns receivedData variable
+std::string networkEngine::getReceivedData()	// returns receivedData variable
 {
 	return (receivedData);
 }
-void networkEngine::setReceivedData(Ogre::String data)	// sets receivedData variable
+void networkEngine::setReceivedData(std::string data)	// sets receivedData variable
 {
 	receivedData = data;
 }
@@ -314,7 +314,7 @@ void networkEngine::networkClient()
 			data = new char[event.packet->dataLength + 1];	// creates array the size of the packet data + 1
 			snprintf(data,event.packet->dataLength + 1, "%s", event.packet->data);	// copies contents of packet to data variable
 
-			receivedData = data;	// copies conetents of data array to receivedData Ogre::String variable
+			receivedData = data;	// copies conetents of data array to receivedData std::string variable
 			logMsg("receivedData == " +receivedData);
             // Clean up the packet now that we're done using it.
             enet_packet_destroy (event.packet);
@@ -375,7 +375,7 @@ void networkEngine::networkServer()
     conversion *convert = conversion::Instance();
     gameEngine *gameE = gameEngine::Instance();
     char *host; 
-    Ogre::String addressHost, addressPort, packetData, packetDataLength, packetPeer, packetChannelID;
+    std::string addressHost, addressPort, packetData, packetDataLength, packetPeer, packetChannelID;
     int x = 0;
     networkPlayerStateObject netPStateObj;
     std::stringstream ss;
@@ -442,7 +442,7 @@ void networkEngine::networkServer()
 				data = new char[event.packet->dataLength + 1];	// creates array the size of the packet data + 1
 				snprintf(data,event.packet->dataLength + 1, "%s", event.packet->data);	// copies contents of packet to data variable
 
-				receivedData = data;	// copies conetents of data array to receivedData Ogre::String variable
+				receivedData = data;	// copies conetents of data array to receivedData std::string variable
 	            logMsg("receivedData == " +receivedData);
                 exit(0);
                 enet_packet_destroy (event.packet);
@@ -628,7 +628,7 @@ void networkEngine::processRemoteInput() // processes input received from a remo
     
 }
 
-void networkEngine::sendPacket(Ogre::String packetData)
+void networkEngine::sendPacket(std::string packetData)
 {
     conversion *convert = conversion::Instance();
 	gameEngine *gameE = gameEngine::Instance();

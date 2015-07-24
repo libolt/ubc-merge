@@ -60,8 +60,8 @@ public:
     SDL_Event getInputEvent();   // retrieves the value of the inputEvent variable
     void setInputEvent(SDL_Event input); // sets the value of the inputEvent variable
 
-    Ogre::String getKeyPressed(); // retrieves the value of the keyPressed pressed variable
-    void setKeyPressed(Ogre::String key); // sets the value of the keyPressed variable
+    std::string getKeyPressed(); // retrieves the value of the keyPressed pressed variable
+    void setKeyPressed(std::string key); // sets the value of the keyPressed variable
 
     inputMaps getInputMap();  // retrieves the value of the inputMap variable
     void setInputMap(inputMaps map);  // sets the value of the inputMap variable
@@ -91,7 +91,7 @@ protected:
 private:
     static inputSystem *pInstance;
 
-    Ogre::String keyPressed; // stores which key was pressed
+    std::string keyPressed; // stores which key was pressed
 
     inputMaps inputMap; // stores user input
  

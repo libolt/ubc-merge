@@ -75,7 +75,7 @@ class renderEngine
 	void setViewPort(Ogre::Viewport *vp); // sets the value of viewPort
 	
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr openAPKFile(const Ogre::String& fileName);
+	Ogre::DataStreamPtr openAPKFile(const std::string &fileName);
 
     AAssetManager* getMAssetMgr();
     void setMAssetMgr(AAssetManager* asset);
@@ -155,9 +155,9 @@ class renderEngine
     SceneManager *mSceneMgr;
     RenderWindow *mWindow;
     Ogre::Viewport *viewPort;
-    Ogre::String mResourceGroup;  	// stores resource locations
+    std::string mResourceGroup;  	// stores resource locations
 	Ogre::NameValuePairList misc;	// options to pass to mWindow during creation
-	Ogre::String winHandle;			// window handle
+	std::string winHandle;			// window handle
 
     // general
     uint32_t windowWidth;  // stores the width of the window

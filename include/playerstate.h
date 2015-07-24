@@ -55,14 +55,14 @@ class playerState
         bool getNetworkControlled();  // retrieves the value of networkControlled
         void setNetworkControlled(bool controlled);  // sets the value of networkControlled
 
-        Ogre::String getFirstName(void);  // retrieves the value of firstName
-        void setFirstName(Ogre::String first);  // sets the value of firstName
+        std::string getFirstName(void);  // retrieves the value of firstName
+        void setFirstName(std::string first);  // sets the value of firstName
 
-        Ogre::String getLastName(void);  // retrieves the value of lastName
-        void setLastName(Ogre::String last);  // sets the value of lastName
+        std::string getLastName(void);  // retrieves the value of lastName
+        void setLastName(std::string last);  // sets the value of lastName
 
-        Ogre::String getPlayerName(void);  // retrieves the value of playerName
-        void setPlayerName(Ogre::String name);  // sets the value of playerName
+        std::string getPlayerName(void);  // retrieves the value of playerName
+        void setPlayerName(std::string name);  // sets the value of playerName
 
         int getAge(void);  // retrieves the value of age
         void setAge(int age); // sets the value of age
@@ -241,10 +241,10 @@ class playerState
         
         bool networkControlled;	// if true player is controlled by a network client.
 
-        Ogre::String firstName;   // stores the first name of the player
+        std::string firstName;   // stores the first name of the player
 
-        Ogre::String lastName;    // stores the last name of the player
-        Ogre::String playerName;	// string which stores the player's full name
+        std::string lastName;    // stores the last name of the player
+        std::string playerName;	// string which stores the player's full name
 
         int age;    // stores the age of the player
 

@@ -121,32 +121,32 @@ void playerState::setNetworkControlled(bool controlled)
 	networkControlled = controlled;
 }
 
-Ogre::String playerState::getFirstName(void)
+std::string playerState::getFirstName(void)
 {
     return(firstName);
 }
 
-void playerState::setFirstName(Ogre::String first)
+void playerState::setFirstName(std::string first)
 {
     firstName = first;
 }
 
-Ogre::String playerState::getLastName(void)
+std::string playerState::getLastName(void)
 {
     return(lastName);
 }
 
-void playerState::setLastName(Ogre::String last)
+void playerState::setLastName(std::string last)
 {
     lastName = last;
 }
 
-Ogre::String playerState::getPlayerName(void)
+std::string playerState::getPlayerName(void)
 {
     return(playerName);
 }
 
-void playerState::setPlayerName(Ogre::String name)
+void playerState::setPlayerName(std::string name)
 {
     playerName = name;
 }
