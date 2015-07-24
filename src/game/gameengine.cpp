@@ -18,7 +18,9 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+
 #include "gameengine.h"
+#include "conversion.h"
 #include "gamestate.h"
 #include "gui.h"
 #include "input.h"
@@ -216,13 +218,12 @@ void gameEngine::quit()
 
 void gameEngine::processInput()  // processes game input
 {
+    conversion *convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
-
     GUISystem *gui = GUISystem::Instance();
-
     inputSystem *input = inputSystem::Instance();
-
     networkEngine *network = networkEngine::Instance();
+
     networkPlayerStateObject netPStateObj;
 
     logMsg("inputProcess!");
@@ -250,9 +251,9 @@ void gameEngine::processInput()  // processes game input
             int i = teamNumber;
             std::vector<teamState> teamInstance = gameS->getTeamInstance();
             int humanControlled = teamInstance[i].getHumanControlled();
-            logMsg("teamNumber = " +Ogre::StringConverter::toString(teamNumber));
+            logMsg("teamNumber = " +convert->toString(teamNumber));
                     
-            logMsg("humanControlled = " +Ogre::StringConverter::toString(humanControlled));
+            logMsg("humanControlled = " +convert->toString(humanControlled));
             if (teamInstance[i].getPlayerInstancesCreated())
             {
                 std::vector<playerState> playerInstance = teamInstance[i].getPlayerInstance();
@@ -265,10 +266,10 @@ void gameEngine::processInput()  // processes game input
                     std::stringstream ss;
                               //  exit(0);
                     size_t x = 0;
-                    logMsg("inputQueue.size = " +Ogre::StringConverter::toString(inputQueue.size()));
+                    logMsg("inputQueue.size = " +convert->toString(inputQueue.size()));
                     while (x < inputQueue.size())
                     {
-                        logMsg("inputQueue[" +Ogre::StringConverter::toString(x) +"] = " +Ogre::StringConverter::toString(inputQueue[x]));
+                        logMsg("inputQueue[" +convert->toString(x) +"] = " +convert->toString(inputQueue[x]));
                         // switch (inputMap)
                         switch (inputQueue[x])
                         {
@@ -359,19 +360,16 @@ void gameEngine::processInput()  // processes game input
 
 void gameEngine::gameLoop()	// Main Game Loop
 {
-
-    renderEngine * render = renderEngine::Instance();
-
+    conversion *convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
-
     GUISystem *gui = GUISystem::Instance();
-
     inputSystem *input = inputSystem::Instance();
-
+    renderEngine * render = renderEngine::Instance();
     networkEngine *network = networkEngine::Instance();
+    players *player = players::Instance();
+
     networkPlayerStateObject netPStateObj;
 
-    players *player = players::Instance();
 
     float lastFPS = 0.0f;	// stores value of last Frames Per Second
 //    float changeInTime;		// stores change in time
@@ -508,7 +506,7 @@ void gameEngine::gameLoop()	// Main Game Loop
         }
 //#else
         lastFPS = render->getMWindow()->getLastFPS();
-        Ogre::String currFPS = Ogre::StringConverter::toString(lastFPS);
+        Ogre::String currFPS = convert->toString(lastFPS);
 
         logMsg("FPS = " +currFPS);
         updateChangeInTime();	// calculates the change in time.

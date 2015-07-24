@@ -21,6 +21,7 @@
 #include "Ogre.h"
 #include "playersteerplugin.h"
 #include "ai.h"
+#include "conversion.h"
 #include "courtstate.h"
 #include "gamestate.h"
 #include "logging.h"
@@ -30,6 +31,7 @@
 void playerSteerPlugin::open(void)
 {
 	AISystem *ai = AISystem::Instance();
+    conversion *convert = conversion::Instance();
 	gameState *gameS = gameState::Instance();
 
 	std::vector<courtState> courtInstance = gameS->getCourtInstance();
@@ -58,8 +60,8 @@ void playerSteerPlugin::open(void)
             {
                 playerSteer *steer = team0PlayerInstance[x].getSteer();
         //		logMsg("Alive1");
-                logMsg("x = " +Ogre::StringConverter::toString(x));
-                logMsg("player position = " +Ogre::StringConverter::toString(team0PlayerInstance[x].getNodePosition()));
+                logMsg("x = " +convert->toString(x));
+                logMsg("player position = " +convert->toString(team0PlayerInstance[x].getNodePosition()));
                 steer->setPosition(convertToOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
         //		steer.setPosition(OpenSteer::Vec3(0,0,0));
         //		logMsg("Alive2");
@@ -68,7 +70,7 @@ void playerSteerPlugin::open(void)
                 ai->selectedVehicle = steer;
                 team0PlayerInstance[x].setSteer(steer);
                 allPlayerSteers.push_back(team0PlayerInstance[x].getSteer());
-    //        logMsg("team 0 playerInstance added =  " +Ogre::StringConverter::toString(x));
+    //        logMsg("team 0 playerInstance added =  " +convert->toString(x));
             }
          ++y;
         }
@@ -100,7 +102,7 @@ void playerSteerPlugin::open(void)
 	}
 
     ai->setAllPlayerSteers(allPlayerSteers);	// stores the instances
-//    logMsg("team 0 playerInstance added =  " +Ogre::StringConverter::toString( ai->getAllPlayerSteers().size()));
+//    logMsg("team 0 playerInstance added =  " +convert->toString( ai->getAllPlayerSteers().size()));
 
 
 	// create the court bounding box based off the meshes bbox
@@ -155,6 +157,7 @@ void playerSteerPlugin::open(void)
 
 void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
 {
+    conversion *convert = conversion::Instance();
 	gameState *gameS = gameState::Instance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
@@ -164,7 +167,7 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
 
 //	exit(0);
     // update simulation of test vehicle
-//    logMsg("team 0 playerInstance size =  " +Ogre::StringConverter::toString(team0PlayerInstance.size()));
+//    logMsg("team 0 playerInstance size =  " +convert->toString(team0PlayerInstance.size()));
 
 // FIXME testing with one specific player for now
 

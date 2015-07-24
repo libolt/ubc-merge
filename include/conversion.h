@@ -29,6 +29,9 @@
 
 #include <boost/lexical_cast.hpp>
 
+#include "Ogre.h"
+#include "OgreVector3.h"
+
 //template<class T, class TL>
 class conversion  // class for conversion between data types
 {
@@ -39,7 +42,9 @@ class conversion  // class for conversion between data types
         std::string toString(int data);  // converts int data to string
         std::string toString(float data);  // converts float data to string
         std::string toString(double data);  // converts double data to string
-        
+        std::string toString(size_t data);  // converts size_t data to string
+        std::string toString(Ogre::Vector3 data);  // converts Ogre::Vector3 data to string
+
 //        template <typename T>
 
 /*        std::string toString(const T& input);  // converts data to string);

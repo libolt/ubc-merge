@@ -21,6 +21,7 @@
 #include "network.h"
 
 #include "gui.h"
+#include "conversion.h"
 #include "courtdata.h"
 #include "gameengine.h"
 #include "gamestate.h"
@@ -71,6 +72,7 @@ bool GUISystem::addCourtSelectionMenuData() // adds data to Player Start Selecti
 
 void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start Selection Menu widgets
 {
+    conversion *convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
     loader *load = loader::Instance();
 
@@ -105,12 +107,12 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
 
     for (size_t i = 0;i < playerDataInstance.size(); ++i)
     {
-        logMsg("pDTeam = " +Ogre::StringConverter::toString(playerDataInstance[i].getTeamID()));
-        logMsg("teamID == " +Ogre::StringConverter::toString(gameS->getTeamID()[1]));
+        logMsg("pDTeam = " +convert->toString(playerDataInstance[i].getTeamID()));
+        logMsg("teamID == " +convert->toString(gameS->getTeamID()[1]));
         if (playerDataInstance[i].getTeamID() == gameS->getTeamID()[0])
         {
             int overallRating = playerDataInstance[i].getOverallRating();
-            std::string playerOverallRating = Ogre::StringConverter::toString(overallRating);
+            std::string playerOverallRating = convert->toString(overallRating);
             std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName() +" " +playerDataInstance[i].getPosition(); // +"            "; // +playerOverallRating;
             std::string playerPosition = playerDataInstance[i].getPosition();
             int playerID = playerDataInstance[i].getID();
@@ -124,7 +126,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
         if (playerDataInstance[i].getTeamID() == gameS->getTeamID()[1])
         {
             int overallRating = playerDataInstance[i].getOverallRating();
-            std::string playerOverallRating = Ogre::StringConverter::toString(overallRating);
+            std::string playerOverallRating = convert->toString(overallRating);
             std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName( ) +" " +playerDataInstance[i].getPosition(); // +"            "; // +playerOverallRating;
             bool playerNameLengthReached = false;
             std::string playerPosition = playerDataInstance[i].getPosition();
@@ -145,7 +147,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
     tempID = 0;
     tempName.clear();
     tempPosition.clear();
-    logMsg("overallRating before = " +Ogre::StringConverter::toString(overallRatings[0][0]));
+    logMsg("overallRating before = " +convert->toString(overallRatings[0][0]));
     for (size_t l=0; l<overallRatingsSize && flag; ++l)
     {
         flag = 0;
@@ -174,7 +176,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
 
     }
 
-    logMsg("overallRating after = " +Ogre::StringConverter::toString(overallRatings[0][0]));
+    logMsg("overallRating after = " +convert->toString(overallRatings[0][0]));
 
     overallRatingsSize = overallRatings[1].size();
     flag = 1;
@@ -182,7 +184,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
     tempID = 0;
     tempName.clear();
     tempPosition.clear();
-    logMsg("overallRating before = " +Ogre::StringConverter::toString(overallRatings[1][0]));
+    logMsg("overallRating before = " +convert->toString(overallRatings[1][0]));
     for (size_t l=0; l<overallRatingsSize && flag; ++l)
     {
         flag = 0;
@@ -210,7 +212,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
         }
 
     }
-    logMsg("overallRating after = " +Ogre::StringConverter::toString(overallRatings[1][0]));
+    logMsg("overallRating after = " +convert->toString(overallRatings[1][0]));
 
     std::vector<int> starters; // used for initial creatio  of teamStarterID vector
 //    starters.push_back(1);
@@ -244,7 +246,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
                 playerNames[0][i] += " ";
             }
         }
-        playerNames[0][i] += " " +Ogre::StringConverter::toString(overallRatings[0][i]);
+        playerNames[0][i] += " " +convert->toString(overallRatings[0][i]);
         logMsg("playerNames[0][i] == " +playerNames[0][i]);
 
         std::string PName;
@@ -282,22 +284,22 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
 
     for (size_t i=0;i<playerIDs[0].size();++i)
     {
-        logMsg("PlayerIDs == " +Ogre::StringConverter::toString(playerIDs[0][i]));
+        logMsg("PlayerIDs == " +convert->toString(playerIDs[0][i]));
     }
 
 //    exit(0);
 
     logMsg("PG == " +team0PGSelectBox->getItemNameAt(0));
-    logMsg("PG ID == " +Ogre::StringConverter::toString(team0IDs[0][0]));
+    logMsg("PG ID == " +convert->toString(team0IDs[0][0]));
 //    exit(0);
     logMsg("SG == " +team0SGSelectBox->getItemNameAt(0));
-    logMsg("SG ID == " +Ogre::StringConverter::toString(team0IDs[1][0]));
+    logMsg("SG ID == " +convert->toString(team0IDs[1][0]));
     logMsg("SF == " +team0SFSelectBox->getItemNameAt(0));
-    logMsg("SF ID == " +Ogre::StringConverter::toString(team0IDs[2][0]));
+    logMsg("SF ID == " +convert->toString(team0IDs[2][0]));
     logMsg("PF == " +team0PFSelectBox->getItemNameAt(0));
-    logMsg("PF ID == " +Ogre::StringConverter::toString(team0IDs[3][0]));
+    logMsg("PF ID == " +convert->toString(team0IDs[3][0]));
     logMsg("C == " +team0CSelectBox->getItemNameAt(0));
-    logMsg("C ID == " +Ogre::StringConverter::toString(team0IDs[4][0]));
+    logMsg("C ID == " +convert->toString(team0IDs[4][0]));
 //    exit(0);
 
     for (size_t i = 0;i < playerNames[1].size(); ++i)
@@ -314,7 +316,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
                 playerNames[1][i] += " ";
             }
         }
-        playerNames[1][i] += " " +Ogre::StringConverter::toString(overallRatings[1][i]);
+        playerNames[1][i] += " " +convert->toString(overallRatings[1][i]);
         logMsg("playerNames[1][i] == " +playerNames[1][i]);
 
         std::string PName;
@@ -357,19 +359,19 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
     }
 
     logMsg("PG1 == " +team1PGSelectBox->getItemNameAt(0));
-    logMsg("PG1 ID == " +Ogre::StringConverter::toString(team1IDs[0][0]));
+    logMsg("PG1 ID == " +convert->toString(team1IDs[0][0]));
 
     logMsg("SG1 == " +team1SGSelectBox->getItemNameAt(0));
-    logMsg("SG1 ID == " +Ogre::StringConverter::toString(team1IDs[1][0]));
+    logMsg("SG1 ID == " +convert->toString(team1IDs[1][0]));
 
     logMsg("SF1 == " +team1SFSelectBox->getItemNameAt(0));
-    logMsg("SF1 ID == " +Ogre::StringConverter::toString(team1IDs[2][0]));
+    logMsg("SF1 ID == " +convert->toString(team1IDs[2][0]));
 
     logMsg("PF1 == " +team1PFSelectBox->getItemNameAt(0));
-    logMsg("PF1 ID == " +Ogre::StringConverter::toString(team1IDs[3][0]));
+    logMsg("PF1 ID == " +convert->toString(team1IDs[3][0]));
 
     logMsg("C1 == " +team1CSelectBox->getItemNameAt(0));
-    logMsg("C1 ID == " +Ogre::StringConverter::toString(team1IDs[4][0]));
+    logMsg("C1 ID == " +convert->toString(team1IDs[4][0]));
 
 //    exit(0);
 

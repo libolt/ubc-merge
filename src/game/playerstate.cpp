@@ -18,14 +18,16 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "Ogre.h"
+
 #include "playerstate.h"
-#include "renderengine.h"
+#include "conversion.h"
 #include "gamestate.h"
 #include "logging.h"
 #include "physicsengine.h"
+#include "renderengine.h"
 #include "steering.h"
 #include "teamstate.h"
-#include "Ogre.h"
 
 
 playerState::playerState()
@@ -84,7 +86,9 @@ playerState::~playerState()
 
 Ogre::Vector3 playerState::getNodePosition()  // retrieves the position of player node
 {
-    logMsg("node position = " +Ogre::StringConverter::toString(node->getPosition()));
+    conversion *convert = conversion::Instance();
+
+    logMsg("node position = " +convert->toString(node->getPosition()));
 	return (node->getPosition());
 }
 
@@ -717,13 +721,15 @@ void playerState::updateState()
 
 bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D model
 {
-	physicsEngine *physEngine = physicsEngine::Instance();
-	logMsg("posChange = " +Ogre::StringConverter::toString(posChange));
+    conversion *convert = conversion::Instance();
+    physicsEngine *physEngine = physicsEngine::Instance();
+
+    logMsg("posChange = " +convert->toString(posChange));
 //	cout << "posChange = " << posChange << endl;
     node->translate(posChange);
 	btVector3 change = btVector3(0,0,0);
 	change = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
-//	logMsg("playerPhysicsSetup = " +Ogre::StringConverter::toString(physEngine->getPlayerPhysicsSetup()));
+//	logMsg("playerPhysicsSetup = " +convert->toString(physEngine->getPlayerPhysicsSetup()));
 
 	physBody->translate(change); // moves physics body in unison with the model
 //	exit(0);
@@ -735,9 +741,11 @@ bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D mod
 void playerState::calculatePass()	// calculates which player to pass the ball to
 {
 //	exit(0);
+    conversion *convert = conversion::Instance();
+    gameState *gameS = gameState::Instance();
+
 	logMsg("In calculatePass function");
 
-	gameState *gameS = gameState::Instance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 	int teamWithBall = gameS->getTeamWithBall();
 	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
@@ -769,11 +777,11 @@ void playerState::calculatePass()	// calculates which player to pass the ball to
 	}
 */
 
-    logMsg("Pass to player is now = " +Ogre::StringConverter::toString(passToPlayer));
+    logMsg("Pass to player is now = " +convert->toString(passToPlayer));
 
 
 	passCalculated = true;
-//	logMsg("Player to pass to =   " +Ogre::StringConverter::toString(passToPlayer));
+//	logMsg("Player to pass to =   " +convert->toString(passToPlayer));
 
 //	exit(0);
 }

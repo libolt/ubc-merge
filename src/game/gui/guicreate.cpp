@@ -21,6 +21,7 @@
 #include "network.h"
 
 #include "gui.h"
+#include "conversion.h"
 #include "courtdata.h"
 #include "gameengine.h"
 #include "gamestate.h"
@@ -370,6 +371,7 @@ bool GUISystem::createAudioSetupGUI()   // creates GUI for audo settings screen.
 
 bool GUISystem::createGameSetupMenuGUI()    // creates GUI for game setup menu screen.
 {
+    conversion *convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
     loader *load = loader::Instance();
     renderEngine *renderE = renderEngine::Instance();
@@ -388,7 +390,7 @@ bool GUISystem::createGameSetupMenuGUI()    // creates GUI for game setup menu s
     team1SelectBox->setVisible(false);
     team1SelectBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
-    logMsg(Ogre::StringConverter::toString(teamDataInstance.size()));
+    logMsg(convert->toString(teamDataInstance.size()));
 
     for (size_t x=0;x<teamDataInstance.size(); ++x)
     {
@@ -558,6 +560,7 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
 
 bool GUISystem::createTeamSelectionMenuGUI()    // creates GUI for team selection menu screen.
 {
+    conversion *convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
     loader *load = loader::Instance();
     renderEngine *renderE = renderEngine::Instance();
@@ -576,7 +579,7 @@ bool GUISystem::createTeamSelectionMenuGUI()    // creates GUI for team selectio
     team1SelectBox->setVisible(false);
     team1SelectBox->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
 
-    logMsg(Ogre::StringConverter::toString(teamDataInstance.size()));
+    logMsg(convert->toString(teamDataInstance.size()));
 
     for (size_t x=0;x<teamDataInstance.size(); ++x)
     {

@@ -18,6 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "conversion.h"
 #include "defensestate.h"
 #include "gamestate.h"
 #include "logging.h"
@@ -43,6 +44,7 @@ void defenseState::setupState()		// sets up initial state of the object
 }
 void defenseState::updateState(int teamNumber)	// updates the state of the object
 {
+    conversion *convert = conversion::Instance();
 	gameState *gameS = gameState::Instance();
 
 	int teamWithBall = gameS->getTeamWithBall();
@@ -199,10 +201,10 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
             {
                 if (activeDNum[DNum] != humanPlayer && !playerDInstance[DNum].getDefenseSet())
                 {
-                    logMsg("playerO " +Ogre::StringConverter::toString(x) +"X Pos = " +Ogre::StringConverter::toString(playerOPos[x][0]));
-                    logMsg("playerD " +Ogre::StringConverter::toString(x) +"X Pos = " +Ogre::StringConverter::toString(playerDPos[x][0]));
-                    logMsg("playerO " +Ogre::StringConverter::toString(x) +"Z Pos = " +Ogre::StringConverter::toString(playerOPos[x][2]));
-                    logMsg("playerD " +Ogre::StringConverter::toString(x) +"Z Pos = " +Ogre::StringConverter::toString(playerDPos[x][2]));
+                    logMsg("playerO " +convert->toString(x) +"X Pos = " +convert->toString(playerOPos[x][0]));
+                    logMsg("playerD " +convert->toString(x) +"X Pos = " +convert->toString(playerDPos[x][0]));
+                    logMsg("playerO " +convert->toString(x) +"Z Pos = " +convert->toString(playerOPos[x][2]));
+                    logMsg("playerD " +convert->toString(x) +"Z Pos = " +convert->toString(playerDPos[x][2]));
                     directions playerDirection = playerOInstance[x].getDirection();
     //                exit(0);
                     switch (playerDirection)
@@ -315,10 +317,10 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
 /*        
 			    if (x != humanPlayer && !playerDInstance[x].getDefenseSet())
 			    {
-	                logMsg("playerO " +Ogre::StringConverter::toString(x) +"X Pos = " +Ogre::StringConverter::toString(playerOPos[x][0]));
-	                logMsg("playerD " +Ogre::StringConverter::toString(x) +"X Pos = " +Ogre::StringConverter::toString(playerDPos[x][0]));
-	                logMsg("playerO " +Ogre::StringConverter::toString(x) +"Z Pos = " +Ogre::StringConverter::toString(playerOPos[x][2]));
-	                logMsg("playerD " +Ogre::StringConverter::toString(x) +"Z Pos = " +Ogre::StringConverter::toString(playerDPos[x][2]));
+                    logMsg("playerO " +convert->toString(x) +"X Pos = " +convert->toString(playerOPos[x][0]));
+                    logMsg("playerD " +convert->toString(x) +"X Pos = " +convert->toString(playerDPos[x][0]));
+                    logMsg("playerO " +convert->toString(x) +"Z Pos = " +convert->toString(playerOPos[x][2]));
+                    logMsg("playerD " +convert->toString(x) +"Z Pos = " +convert->toString(playerDPos[x][2]));
 	                directions playerDirection = playerOInstance[x].getDirection();
 	                switch (playerDirection)
 	                {

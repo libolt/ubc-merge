@@ -20,11 +20,11 @@
 
 #include "playersteer.h"
 #include "ai.h"
+#include "conversion.h"
 #include "gamestate.h"
 #include "logging.h"
 #include "playerstate.h"
 #include "teamstate.h"
-
 
 playerSteer::~playerSteer()
 {
@@ -106,7 +106,7 @@ void playerSteer::reset(void)
 //    setMaxSpeed (10);         // velocity is clipped to this magnitude
     setMaxSpeed (20.0f);         // velocity is clipped to this magnitude
 
-//	logMsg("teamNumber = " +Ogre::StringConverter::toString(teamNumber));
+//	logMsg("teamNumber = " +convert->toString(teamNumber));
 
 	if (teamNumber >= 0)
 	{
@@ -155,16 +155,18 @@ void playerSteer::reset(void)
 
 void playerSteer::update (const float currentTime, float elapsedTime)
 {
-	logMsg("Updating playerSteer state");
+    AISystem *ai = AISystem::Instance();
+    gameState *gameS = gameState::Instance();
+    conversion *convert = conversion::Instance();
+
+    logMsg("Updating playerSteer state");
 
 //	exit(0);
 	counter += 1;
-//	logMsg("Counter = " +Ogre::StringConverter::toString(counter));
+//	logMsg("Counter = " +convert->toString(counter));
 
-//	logMsg("elapsedTime = " +Ogre::StringConverter::toString(elapsedTime));
+//	logMsg("elapsedTime = " +convert->toString(elapsedTime));
 
-	AISystem *ai = AISystem::Instance();
-	gameState *gameS = gameState::Instance();
 	std::vector<basketballs> basketball = gameS->getBasketballInstance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
@@ -175,11 +177,11 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 	std::vector<playerSteer*> pSteer = ai->getAllPlayerSteers();
 	std::vector<playerSteer*> team0Steers;
 	std::vector<playerSteer*> team1Steers;
-//    logMsg("Player = " +Ogre::StringConverter::toString(ID));
-//	logMsg("Node position = " +Ogre::StringConverter::toString(teamInstance[teamNumber].getPlayerInstance()[ID].getNodePosition()));
-//	logMsg("Steer position = " +Ogre::StringConverter::toString(convertToOgreVector3(position())));
-    logMsg("Team = " +Ogre::StringConverter::toString(teamNumber));
-    logMsg("ID = " +Ogre::StringConverter::toString(ID));
+//    logMsg("Player = " +convert->toString(ID));
+//	logMsg("Node position = " +convert->toString(teamInstance[teamNumber].getPlayerInstance()[ID].getNodePosition()));
+//	logMsg("Steer position = " +convert->toString(convertToOgreVector3(position())));
+    logMsg("Team = " +convert->toString(teamNumber));
+    logMsg("ID = " +convert->toString(ID));
 //    OpenSteer::Vec3 currentNodePos = convertToOpenSteerVec3(teamInstance[teamNumber].getPlayerInstance()[ID].getNodePosition());
 
 /*	if (position().x != currentNodePos.x || position().y != currentNodePos.y || position().z != currentNodePos.z)
@@ -187,7 +189,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 		exit(0);
 	}
 */
-	logMsg("teamNumber = " +Ogre::StringConverter::toString(teamNumber));
+    logMsg("teamNumber = " +convert->toString(teamNumber));
 
 //    for (int x=0;x<team0PlayerInstance.size();++x)
 //	{
@@ -225,9 +227,9 @@ void playerSteer::update (const float currentTime, float elapsedTime)
             if (team1PlayerInstance[x].getPlayerID() == team1ActivePlayerID[y] && team1PlayerInstance[x].getInitialized())
             {
                 logMsg("upDie??");
-                logMsg("team1Steers size = " +Ogre::StringConverter::toString(team1Steers.size()));
-                logMsg("team1PlayerInstance size = " +Ogre::StringConverter::toString(team1PlayerInstance.size()));
-                logMsg("x == " +Ogre::StringConverter::toString(x));
+                logMsg("team1Steers size = " +convert->toString(team1Steers.size()));
+                logMsg("team1PlayerInstance size = " +convert->toString(team1PlayerInstance.size()));
+                logMsg("x == " +convert->toString(x));
 //		playerSteerInstance.push_back(team1PlayerInstance[x].getSteer());
 		        team1Steers.push_back(team1PlayerInstance[x].getSteer());
                 logMsg("Nope!");
@@ -242,9 +244,9 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 	switch (teamNumber)
 	{
 		case 0:
-            logMsg("activeID size = " +Ogre::StringConverter::toString((team0ActivePlayerID.size())));
+            logMsg("activeID size = " +convert->toString((team0ActivePlayerID.size())));
             logMsg("do");
-//            logMsg("activeID num = " +Ogre::StringConverter::toString(team0ActivePlayerID[ID]));
+//            logMsg("activeID num = " +convert->toString(team0ActivePlayerID[ID]));
             x = 0;
             while (x < team0PlayerInstance.size())
             {
@@ -266,9 +268,9 @@ void playerSteer::update (const float currentTime, float elapsedTime)
             }
 			break;
 		case 1:
-            logMsg("activeID size = " +Ogre::StringConverter::toString((team1ActivePlayerID.size())));
-            logMsg("team 1 ID = " +Ogre::StringConverter::toString(ID));
-//            logMsg("activeID num = " +Ogre::StringConverter::toString(team1ActivePlayerID[ID]));
+            logMsg("activeID size = " +convert->toString((team1ActivePlayerID.size())));
+            logMsg("team 1 ID = " +convert->toString(ID));
+//            logMsg("activeID num = " +convert->toString(team1ActivePlayerID[ID]));
             x = 0;
             while (x < team1PlayerInstance.size())
             {
@@ -296,12 +298,12 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 	//OpenSteer::Vec3 m_home = playerSteerPos;
 	OpenSteer::Vec3 bballSteerPos = convertToOpenSteerVec3(basketball[0].getNodePosition());
     logMsg("upDie?????");
-// 	logMsg("playerSteerPos = " +Ogre::StringConverter::toString(convertToOgreVector3(playerSteerPos)));
-//	logMsg("basketballSteerPos = " +Ogre::StringConverter::toString(convertToOgreVector3(bballSteerPos)));
+// 	logMsg("playerSteerPos = " +convert->toString(convertToOgreVector3(playerSteerPos)));
+//	logMsg("basketballSteerPos = " +convert->toString(convertToOgreVector3(bballSteerPos)));
 
 
 	const float distToBall = OpenSteer::Vec3::distance (playerSteerPos, bballSteerPos);
-//	logMsg("distToBall = " +Ogre::StringConverter::toString(distToBall));
+//	logMsg("distToBall = " +convert->toString(distToBall));
     logMsg("upDie??????");
     logMsg("dee");
 /*playerSteer *allSteer;
@@ -312,8 +314,8 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 	}*/
 /*	for (int x=0;x<pSteer.size();++x)
 	{
-		logMsg(Ogre::StringConverter::toString(x));
-		logMsg(Ogre::StringConverter::toString(pSteer[x]->radius()));
+        logMsg(convert->toString(x));
+        logMsg(convert->toString(pSteer[x]->radius()));
 
 		allSteer[x] = pSteer[x];
 	}
@@ -339,7 +341,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 	OpenSteer::Vec3 collisionAvoidance = steerToAvoidNeighbors(1, steerees);
     logMsg("nope");
 	//	logMsg("Wahoo!");
-//	logMsg("collisionAvoidance = " +Ogre::StringConverter::toString(convertToOgreVector3(collisionAvoidance)));
+//	logMsg("collisionAvoidance = " +convert->toString(convertToOgreVector3(collisionAvoidance)));
 //	exit(0);
 //	if(collisionAvoidance != OpenSteer::Vec3::zero)
 	if (collisionAvoidance.x == 9999)
@@ -352,8 +354,8 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 	{
 
 		float distHomeToBall = OpenSteer::Vec3::distance (m_home, bballSteerPos);
-//		logMsg("m_home = " +Ogre::StringConverter::toString(convertToOgreVector3(m_home)));
-//		logMsg("distHomeToBall = " +Ogre::StringConverter::toString(distHomeToBall));
+//		logMsg("m_home = " +convert->toString(convertToOgreVector3(m_home)));
+//		logMsg("distHomeToBall = " +convert->toString(distHomeToBall));
 		if (teamNumber != gameS->getTeamWithBall())
 		{
 			updateDefense(currentTime, elapsedTime);
@@ -408,8 +410,8 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 			teamInstance[0].setPlayerInstance(team0PlayerInstance);
 			break;
 		case 1:
-			logMsg("ID = " +Ogre::StringConverter::toString(ID));
-			logMsg("posChange = " +Ogre::StringConverter::toString(posChange));
+            logMsg("ID = " +convert->toString(ID));
+            logMsg("posChange = " +convert->toString(posChange));
 //			exit(0);
             x = 0;
             while (x < team1PlayerInstance.size())
@@ -444,6 +446,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 
 void playerSteer::updateOffense(const float currentTime, const float elapsedTime)	// updates the offense steering sim
 {
+    conversion *convert = conversion::Instance();
 	gameState *gameS = gameState::Instance();
 
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
@@ -462,7 +465,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 		logMsg("seeking!");
 //		seekTarget = xxxsteerForSeek(startPosition);
 		seekTarget = xxxsteerForSeek(steerCoords);
-		logMsg("seekTarget = " +Ogre::StringConverter::toString(convertToOgreVector3(steerCoords)));
+        logMsg("seekTarget = " +convert->toString(convertToOgreVector3(steerCoords)));
 		applySteeringForce (seekTarget, elapsedTime);
 	}
 	else
@@ -474,7 +477,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 	}
 		
 /*
-//	logMsg(" speed = " +Ogre::StringConverter::toString(speed()));
+//	logMsg(" speed = " +convert->toString(speed()));
 
 //	if (!startPositionReached[ID])  // moves player into start position
     if (!positionReached[0])
@@ -484,19 +487,19 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 	    OpenSteer::Vec3 seekTarget;
 
 	    offenseStartPositions = teamInstance[teamNumber].getOffenseInstance()->getStartPositions();
-	    logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Start Position!");
+        logMsg("Team " +convert->toString(teamNumber) +" Player " +convert->toString(ID) +" Seeking Offense Start Position!");
 	    startPosition = convertToOpenSteerVec3(offenseStartPositions[ID]);
-	    logMsg("startPosition = " +Ogre::StringConverter::toString(offenseStartPositions[ID]));
+        logMsg("startPosition = " +convert->toString(offenseStartPositions[ID]));
 
-	    logMsg("current position = " +Ogre::StringConverter::toString(team1PlayerInstance[ID].getNodePosition()));
+        logMsg("current position = " +convert->toString(team1PlayerInstance[ID].getNodePosition()));
 	    distToPosition = OpenSteer::Vec3::distance (startPosition, position());
-	    logMsg("Distance to start Position = " +Ogre::StringConverter::toString(distToPosition));
+        logMsg("Distance to start Position = " +convert->toString(distToPosition));
 	    if (distToPosition >= 3)
 	    {
 		    logMsg("seeking!");
 //		    seekTarget = xxxsteerForSeek(startPosition);
 		    seekTarget = xxxsteerForSeek(steerCoords);
-		    logMsg("seekTarget = " +Ogre::StringConverter::toString(convertToOgreVector3(startPosition)));
+            logMsg("seekTarget = " +convert->toString(convertToOgreVector3(startPosition)));
 		    applySteeringForce (seekTarget, elapsedTime);
 	    }
 		else
@@ -520,7 +523,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 	    offenseExecutePositionReached = teamInstance[teamNumber].getOffenseInstance()->getExecutePositionReached();
 
         seekTarget = xxxsteerForSeek(steerCoords);
- //       logMsg("seekTarget = " +Ogre::StringConverter::toString(convertToOgreVector3(executePosition)));
+ //       logMsg("seekTarget = " +convert->toString(convertToOgreVector3(executePosition)));
         applySteeringForce (seekTarget, elapsedTime);
 
 
@@ -562,8 +565,8 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 			teamInstance[0].setPlayerInstance(team0PlayerInstance);
 			break;
 		case 1:
-			logMsg("ID = " +Ogre::StringConverter::toString(ID));
-			logMsg("posChange = " +Ogre::StringConverter::toString(posChange));
+            logMsg("ID = " +convert->toString(ID));
+            logMsg("posChange = " +convert->toString(posChange));
 //			exit(0);
             x = 0;
             while (x < team1PlayerInstance.size())
@@ -593,6 +596,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 
 void playerSteer::updateDefense(const float currentTime, const float elapsedTime)	// updates the defense steering sim
 {
+    conversion *convert = conversion::Instance();
 	gameState *gameS = gameState::Instance();
 
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
@@ -631,8 +635,8 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
 	switch (teamNumber)
 	{
 		case 0:
-            logMsg("activeID size = " +Ogre::StringConverter::toString((team1ActivePlayerID.size())));
-            logMsg("activeID num = " +Ogre::StringConverter::toString(team1ActivePlayerID[ID]));
+            logMsg("activeID size = " +convert->toString((team1ActivePlayerID.size())));
+            logMsg("activeID num = " +convert->toString(team1ActivePlayerID[ID]));
             x = 0;
             while (x < team1PlayerInstance.size())
             {
@@ -641,7 +645,7 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
                 {
                     if (team1PlayerInstance[x].getPlayerID() == team1ActivePlayerID[ID] && team1PlayerInstance[x].getInitialized())
                     {
-                        logMsg("team 1 player ID = " +Ogre::StringConverter::toString(team1PlayerInstance[x].getPlayerID()));
+                        logMsg("team 1 player ID = " +convert->toString(team1PlayerInstance[x].getPlayerID()));
                         logMsg("Die??");
                         playerOPos = convertToOpenSteerVec3(team1PlayerInstance[x].getNodePosition());
                         logMsg("die!");                     
@@ -652,8 +656,8 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
             }
             break;
 		case 1:
-            logMsg("activeID size = " +Ogre::StringConverter::toString((team1ActivePlayerID.size())));
-            logMsg("activeID num = " +Ogre::StringConverter::toString(team1ActivePlayerID[ID]));
+            logMsg("activeID size = " +convert->toString((team1ActivePlayerID.size())));
+            logMsg("activeID num = " +convert->toString(team1ActivePlayerID[ID]));
             x = 0;
             while (x < team0PlayerInstance.size())
             {
@@ -675,7 +679,7 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
 	}
 
 	distPlayerOPosition = OpenSteer::Vec3::distance (playerOPos, position());
-	logMsg("Distance to playerOPos = " +Ogre::StringConverter::toString(distPlayerOPosition));
+    logMsg("Distance to playerOPos = " +convert->toString(distPlayerOPosition));
 	if (distPlayerOPosition >= 3)
 	{
 		logMsg("seeking!");
@@ -683,7 +687,7 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
 		const AbstractVehicle &quarry = *team1Steers[ID];
 		seekTarget = steerForPursuit(quarry);
 
-		logMsg("seekTarget = " +Ogre::StringConverter::toString(convertToOgreVector3(playerOPos)));
+        logMsg("seekTarget = " +convert->toString(convertToOgreVector3(playerOPos)));
 		applySteeringForce (seekTarget, elapsedTime);
 	}
 
@@ -721,8 +725,8 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
 			teamInstance[0].setPlayerInstance(team0PlayerInstance);
 			break;
 		case 1:
-			logMsg("ID = " +Ogre::StringConverter::toString(ID));
-			logMsg("posChange = " +Ogre::StringConverter::toString(posChange));
+            logMsg("ID = " +convert->toString(ID));
+            logMsg("posChange = " +convert->toString(posChange));
 //			exit(0);
             x = 0;
             while (x < team1PlayerInstance.size())

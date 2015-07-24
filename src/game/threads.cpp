@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "threads.h"
+#include "conversion.h"
 #include "gameengine.h" 
 #include <cstdlib>
 
@@ -33,6 +34,8 @@ threads::threads()
 // Consumes items in work queue
 void threads::consumerThread()
 {
+    conversion *convert = conversion::Instance();
+
     while (gRunning)
     {
         if (gWorkQueueMutex.try_lock())
@@ -44,7 +47,7 @@ void threads::consumerThread()
 
             //    printf("vvv %ld\n", val);
 
-                logMsg("display = " +Ogre::StringConverter::toString(val));
+                logMsg("display = " +convert->toString(val));
             }
 
             // Hold the mutex for a little while
@@ -68,6 +71,8 @@ void threads::consumerThread()
 // Produces work items for queue
 void threads::producerThread()
 {
+    conversion *convert = conversion::Instance();
+
     long val = 0;
     while (gRunning)
     {
@@ -78,9 +83,9 @@ void threads::producerThread()
             gWorkQueue.push_back(val);
 
             //printf("^^^ %ld\n", val);
-            logMsg("add " +Ogre::StringConverter::toString(val));
+            logMsg("add " +convert->toString(val));
 
-            //    logMsg("vvv " +Ogre::StringConverter::toString(val));
+            //    logMsg("vvv " +convert->toString(val));
             //}
 
             // Hold the mutex for a little while

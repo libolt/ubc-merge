@@ -18,9 +18,11 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "playerdata.h"
-#include "logging.h"
 #include "Ogre.h"
+
+#include "playerdata.h"
+#include "conversion.h"
+#include "logging.h"
 
 using namespace std;
 
@@ -431,6 +433,8 @@ void playerData::setOverallRating(int set) // sets the value of overallRating
 
 void playerData::calculateOverallRating() // calculates the value of overallRating
 {
+    conversion *convert = conversion::Instance();
+
     overallRating = shooting + freeThrow + layup + dunk + inside + midRange +
         threePoint + ballHandling + ballSecurity + passing + pickSetting +
         offenseAwareness + defenseAwareness + offenseRebound + defenseRebound +
@@ -438,6 +442,6 @@ void playerData::calculateOverallRating() // calculates the value of overallRati
         hustle + speed + quickness + fatigue + durability + demeanor + improvability;
 
     overallRating = overallRating / 27;
-    logMsg("Overall Rating = " +Ogre::StringConverter::toString(overallRating));
+    logMsg("Overall Rating = " +convert->toString(overallRating));
 //    exit(0);
 }

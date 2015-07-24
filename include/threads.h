@@ -126,7 +126,7 @@ class threads
                 int globalVariable = thread->getGlobalVariable();
                 for (int i=0; i < 10; i++) 
                 {
-                    logMsg("Reader Api: " +Ogre::StringConverter::toString(globalVariable));
+                    logMsg("Reader Api: " +convert->toString(globalVariable));
  //       usleep(_waitTime);
                     boost::this_thread::sleep(boost::posix_time::microseconds(_waitTime));
                 }
@@ -149,14 +149,14 @@ class threads
                 Writer(int variable, int waitTime)
                 {
                     _writerVariable = variable;
-                    logMsg("Writer Variable: " +Ogre::StringConverter::toString(_writerVariable));
+                    logMsg("Writer Variable: " +convert->toString(_writerVariable));
 
                     _waitTime = waitTime;
                 }
                 void operator () () 
                 {
 
-                    logMsg("Writer Variable: " +Ogre::StringConverter::toString(_writerVariable));
+                    logMsg("Writer Variable: " +convert->toString(_writerVariable));
 
                     threads *thread = threads::Instance();
                     int globalVariable = thread->getGlobalVariable();
@@ -168,7 +168,7 @@ class threads
 
 //        usleep(_waitTime);
                         boost::this_thread::sleep(boost::posix_time::microseconds(_waitTime));
-                        logMsg("Waittime Variable: " +Ogre::StringConverter::toString(_waitTime));
+                        logMsg("Waittime Variable: " +convert->toString(_waitTime));
 
                         // Take lock and modify the global variable
                       //  boost::mutex::scoped_lock lock(_writerMutex);
@@ -182,7 +182,7 @@ class threads
 
                     }
                         
-                    logMsg("Writer Variable: " +Ogre::StringConverter::toString(_writerVariable));
+                    logMsg("Writer Variable: " +convert->toString(_writerVariable));
                     thread->setGlobalVariable(globalVariable);
 
 //                }

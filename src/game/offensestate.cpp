@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "offensestate.h"
+#include "conversion.h"
 #include "gamestate.h"
 #include "load.h"
 #include "logging.h"
@@ -206,12 +207,13 @@ void offenseState::loadPlays()	// loads offense plays from file
 
 void offenseState::setupOffense() // sets up box offense
 {
-	
+    conversion *convert = conversion::Instance();
+
 	// FIXME! Hard coded values need to be made dynamic
 	playName = "Box";
 	playTitle = "FlashHighPassLow";
 	
-	logMsg("plays.size() = " +Ogre::StringConverter::toString(plays.size()));
+    logMsg("plays.size() = " +convert->toString(plays.size()));
 	for (int x=0;x<plays.size();++x)
 	{
 		if (plays[x].getPlayName() == playName)  // sets up the offense
@@ -238,7 +240,7 @@ void offenseState::setupOffense() // sets up box offense
 		executePositionReached[x].resize(executePositions[x].size());
 		for (int y=0;y<executePositionReached[x].size(); ++y)
 		{
-			logMsg("Y = " +Ogre::StringConverter::toString(y));
+            logMsg("Y = " +convert->toString(y));
 			executePositionReached[x][y] = false;
 		}
 	}
@@ -250,7 +252,8 @@ void offenseState::setupOffense() // sets up box offense
 
 void offenseState::executeOffense() // executes box offense
 {
-	gameState *gameS = gameState::Instance();
+    conversion *convert = conversion::Instance();
+    gameState *gameS = gameState::Instance();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<playerState> playerInstance = teamInstance[gameS->getTeamWithBall()].getPlayerInstance();
 
@@ -297,7 +300,7 @@ void offenseState::executeOffense() // executes box offense
 				    numStartPositionsReached += 1;
 					pSteer->setExecute(false);
 			    }
-			    logMsg("startPositionsReached = " +Ogre::StringConverter::toString(startPositionReached[x]));
+                logMsg("startPositionsReached = " +convert->toString(startPositionReached[x]));
 			}
 	    }
 	}
@@ -320,12 +323,12 @@ void offenseState::executeOffense() // executes box offense
 						if (directiveComplete)
 						{	
 			                
-				            logMsg("Player " +Ogre::StringConverter::toString(ID) +" executePositionReached size = " +Ogre::StringConverter::toString(executePositionReached[ID].size()));
+                            logMsg("Player " +convert->toString(ID) +" executePositionReached size = " +convert->toString(executePositionReached[ID].size()));
 			                for (int x=0;x<executePositionReached[ID].size();++x)
 			                {
 				                if (executePositionReached[ID][x] == true)
 				                {
-				    	            logMsg("Player " +Ogre::StringConverter::toString(ID));
+                                    logMsg("Player " +convert->toString(ID));
 //	    		                    exit(0);
 				                }
 				                else
@@ -343,7 +346,7 @@ void offenseState::executeOffense() // executes box offense
 					                }
 					                else //if (!executePositionReached[ID][x])
 					                {
-						                logMsg("Team " +Ogre::StringConverter::toString(teamNumber) +" Player " +Ogre::StringConverter::toString(ID) +" Seeking Offense Execute Position!");
+                                        logMsg("Team " +convert->toString(teamNumber) +" Player " +convert->toString(ID) +" Seeking Offense Execute Position!");
 					  	                OpenSteer::Vec3 executePosition = pSteer->convertToOpenSteerVec3(executePositions[ID][x]);
 						               pSteer->setSteerCoords(executePosition);
 						                float distToPosition = OpenSteer::Vec3::distance (pSteer->getSteerCoords(), pSteer->position());
@@ -388,9 +391,11 @@ void offenseState::executeOffense() // executes box offense
 
 bool offenseState::checkForDirective(playerDesignations designation) // checks if a directive needs to be completed before execution
 {
+    conversion *convert = conversion::Instance();
+
 	for (int x=0;x<playerDirective.size();++x)
 	{
-		logMsg("playerDesignation = " +Ogre::StringConverter::toString(playerDirective[x].getPlayerDesignation()));
+        logMsg("playerDesignation = " +convert->toString(playerDirective[x].getPlayerDesignation()));
 		if (playerDirective[x].getPlayerDesignation() == designation)
 		{
 			//directiveTypes type =
@@ -400,7 +405,7 @@ bool offenseState::checkForDirective(playerDesignations designation) // checks i
 					switch (playerDirective[x].getWaitFor())
 					{
 						case PLAYERPOSITIONSET:
-							logMsg("playerSet = " +Ogre::StringConverter::toString(playerDirective[x].getPlayerSet()));
+                            logMsg("playerSet = " +convert->toString(playerDirective[x].getPlayerSet()));
 							switch (playerDirective[x].getPositionType())
 							{
 								case START:

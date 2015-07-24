@@ -19,18 +19,19 @@
  ***************************************************************************/
 
 //#include "boost/shared_array.hpp"
-#include "network.h"
-#include "networkplayerstateobject.h"
+#include "ai.h"
+#include "conversion.h"
 #include "gamestate.h"
 #include "gameengine.h"
 #include "load.h"
 #include "logging.h"
+#include "network.h"
+#include "networkplayerstateobject.h"
 #include "playerdata.h"
 #include "players.h"
 #include "physicsengine.h"
 #include "renderengine.h"
 #include "teams.h"
-#include "ai.h"
 
 //extern "C"
 //{
@@ -671,10 +672,12 @@ bool gameState::logic()
 //    logMsg("Updating gameState Logic");
 
     AISystem *ai = AISystem::Instance();
+    conversion *convert = conversion::Instance();
     gameEngine *gameE = gameEngine::Instance();
 	networkEngine *network = networkEngine::Instance();
     players *player = players::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();
+
     Ogre::Vector3 playerPos;
 
 //	std::vector<basketballs> basketballInstance = getBasketballInstance();
@@ -716,22 +719,22 @@ bool gameState::logic()
 
     for (int x=0; x<5;++x)
     {
-//    	logMsg("Player Position " +Ogre::StringConverter::toString(x) +" = " +Ogre::StringConverter::toString(teamInstance[1].getPlayerInstance()[x].getNodePosition()));
+//    	logMsg("Player Position " +convert->toString(x) +" = " +convert->toString(teamInstance[1].getPlayerInstance()[x].getNodePosition()));
     }
 /*    
 	if (teamWithBall >= 0)
 	{
-//		logMsg("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
-//        logMsg("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
+//		logMsg("teamWithBall is " +convert->toString(teamWithBall));
+//        logMsg("playetWithBall is " +convert->toString(teamInstance[teamWithBall].getPlayerWithBall()));
 		float currentTime = static_cast<float>(gameE->getLoopTime().getMilliseconds()/100);
         float oldTime = ai->getOldTime();
         float changeInTime = currentTime - oldTime;
    //     ai->update(currentTime, changeInTime);
-		logMsg("CHANGE == " +Ogre::StringConverter::toString(changeInTime));
+        logMsg("CHANGE == " +convert->toString(changeInTime));
 
 		if (changeInTime >= .5f)
 		{
-			logMsg("ELAPSED == " +Ogre::StringConverter::toString(changeInTime));
+            logMsg("ELAPSED == " +convert->toString(changeInTime));
 //			exit(0);
 //			ai->update(aiTimer.getTotalSimulationTime (), aiTimer.getElapsedSimulationTime ());
 			ai->update(currentTime, changeInTime);
@@ -835,6 +838,7 @@ void gameState::processNetworkEvents()	// processes events from network code
 
 void gameState::processNetworkPlayerEvents()	// processes player events from network code
 {
+    conversion *convert = conversion::Instance();
     networkEngine *network = networkEngine::Instance();
 	networkPlayerStateObject netPStateObj;
 	std::stringstream strStream;
@@ -846,8 +850,8 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 	logMsg("received Data === " +receivedData);
 	strStream << receivedData;
 	strStream >> netPStateObj;
-	logMsg("received teamID = " +Ogre::StringConverter::toString(netPStateObj.getTeamID()));
-	logMsg("received playerID = " +Ogre::StringConverter::toString(netPStateObj.getPlayerID()));
+    logMsg("received teamID = " +convert->toString(netPStateObj.getTeamID()));
+    logMsg("received playerID = " +convert->toString(netPStateObj.getPlayerID()));
 
 	// sets which team's playerInstance to use
 	if (network->getIsClient())
@@ -863,11 +867,11 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 	else
 	{
 	}
-	logMsg("playerInstance size == " +Ogre::StringConverter::toString(playerInstance.size()));
+    logMsg("playerInstance size == " +convert->toString(playerInstance.size()));
 /*	for (iterator = 0; iterator < 5; ++iterator)
 	{
 		Ogre::String searchString;	// stores search String
-		Ogre::String searchIterator = Ogre::StringConverter::toString(iterator); // converts iterator to a string
+        Ogre::String searchIterator = convert->toString(iterator); // converts iterator to a string
 		searchString = "*" +searchIterator + "*";	// creates search string
 		if (Ogre::StringUtil::match(receivedData,searchString))	// checks for a match
 		{
@@ -1002,13 +1006,15 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 
 void gameState::updateDirectionsAndMovements()
 {
+    conversion *convert = conversion::Instance();
+
 //    directions playerDirection, oldPlayerDirection;
 //   logMsg("Updating Directions and Movements");
 
     if (teamWithBall >= 0)
     {
-//		logMsg("teamWithBall is " +Ogre::StringConverter::toString(teamWithBall));
-//		logMsg("playetWithBall is " +Ogre::StringConverter::toString(teamInstance[teamWithBall].getPlayerWithBall()));
+//		logMsg("teamWithBall is " +convert->toString(teamWithBall));
+//		logMsg("playetWithBall is " +convert->toString(teamInstance[teamWithBall].getPlayerWithBall()));
 		updateBasketballMovements();	// updates the movement of basketball objec(s)
 		updateBasketballDirections(); // updates direction of basketball object(s)
     }
@@ -1021,13 +1027,15 @@ void gameState::updateDirectionsAndMovements()
 
 void gameState::updateBasketballMovements()	// updates the basketball(s) movements
 {
+    conversion *convert = conversion::Instance();
+
 //	logMsg("Updating basketball movements");
 
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
     bool shotTaken = playerInstance[playerWithBall].getShotTaken();
-//    logMsg("teamWithBall" + Ogre::StringConverter::toString(teamWithBall));
-//	logMsg("playerWithBall" + Ogre::StringConverter::toString(playerWithBall));
+//    logMsg("teamWithBall" + convert->toString(teamWithBall));
+//	logMsg("playerWithBall" + convert->toString(playerWithBall));
 
 //	exit(0);
     if (!shotTaken)
@@ -1116,6 +1124,8 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
 
 void gameState::updateBasketballDirections()	// updates basketball direction(s)
 {
+    conversion *convert = conversion::Instance();
+
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
     bool shotTaken = playerInstance[playerWithBall].getShotTaken();
@@ -1137,10 +1147,10 @@ void gameState::updateBasketballDirections()	// updates basketball direction(s)
             btVector3 change; // = btVector3(0,0,0);
             btTransform transform;
     //		basketballInstance[0].getPhysBody()->forceActivationState(ISLAND_SLEEPING);
-    //        logMsg("playerDirection = " + Ogre::StringConverter::toString(&playerDirection));
-    //        logMsg("oldPlayerDirection = " + Ogre::StringConverter::toString(&oldPlayerDirection));
+    //        logMsg("playerDirection = " + convert->toString(&playerDirection));
+    //        logMsg("oldPlayerDirection = " + convert->toString(&oldPlayerDirection));
 
-            logMsg("playerWithBall = " +Ogre::StringConverter::toString(playerWithBall));
+            logMsg("playerWithBall = " +convert->toString(playerWithBall));
             if (playerDirection != oldPlayerDirection)
             {
                 switch (playerDirection)

@@ -25,6 +25,8 @@
 #include "config.h"
 #endif
 
+#include "conversion.h"
+#include "load.h"
 #include "load.h"
 #include "logging.h"
 #include "playerdata.h"
@@ -118,7 +120,8 @@ void loader::setUserInputFiles(std::vector<std::string> set)  // sets list of us
 int loader::readFile(const char *sourceFile, char **destination)
 //int loader::readFile(const char *sourceFile, Ogre::String *destination)
 {
-	renderEngine *renderE = renderEngine::Instance();
+    conversion *convert = conversion::Instance();
+    renderEngine *renderE = renderEngine::Instance();
 	int BLOCK_SIZE = 8;
 	int MAX_BLOCKS = 1024;
 
@@ -133,7 +136,7 @@ int loader::readFile(const char *sourceFile, char **destination)
 //#endif
     // Open the file
 //    SDL_RWops *file;
-	logMsg("sourceFile = " +Ogre::StringConverter::toString(sourceFile));
+    logMsg("sourceFile = " +convert->toString(sourceFile));
 //	logMsg(SDL_AndroidGetInternalStoragePath());
 //    file = SDL_RWFromFile("teamd.xml", "rb");
 
@@ -157,9 +160,9 @@ int loader::readFile(const char *sourceFile, char **destination)
     // Read text from file
 	Ogre::String *contents = new Ogre::String;
     int n_blocks = SDL_RWread(file, (*destination), 1, fileLength);
-    logMsg("Contents = " +Ogre::StringConverter::toString((*destination)));
+    logMsg("Contents = " +convert->toString((*destination)));
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    logMsg("destination = " +Ogre::StringConverter::toString(destination));
+    logMsg("destination = " +convert->toString(destination));
 #endif
 
     // BLOCK_SIZE = 8, MAX_BLOCKS = 1024
@@ -175,10 +178,12 @@ int loader::readFile(const char *sourceFile, char **destination)
 
 SDL_RWops *loader::readBinaryFile(const char *sourceFile)  // reads in a binary file
 {
+    conversion *convert = conversion::Instance();
+
     int BLOCK_SIZE = 8;
 	int MAX_BLOCKS = 1024;
     
-    logMsg("sourceFile = " +Ogre::StringConverter::toString(sourceFile));
+    logMsg("sourceFile = " +convert->toString(sourceFile));
 
     SDL_RWops *file;
     file = SDL_RWFromFile(sourceFile, "rb");
@@ -382,7 +387,8 @@ bool loader::loadTeams()
 
 bool loader::loadTeamListFile(string fileName)
 {
-	renderEngine *renderE = renderEngine::Instance();
+    conversion *convert = conversion::Instance();
+    renderEngine *renderE = renderEngine::Instance();
     teams *team = teams::Instance();
 
     std::vector<std::string> teamName;
@@ -408,7 +414,7 @@ bool loader::loadTeamListFile(string fileName)
 	readFile(fileName.c_str(), &contents);
 //	logMsg("read contents = " +contents);
 //	exit(0);
-	fileContents = Ogre::StringConverter::toString(&contents);
+    fileContents = convert->toString(&contents);
 //#endif
 //    readFile(fileName.c_str(), &fileContents);
 	logMsg("barf");
@@ -469,7 +475,8 @@ bool loader::loadTeamListFile(string fileName)
 bool loader::loadTeamFile(string fileName)
 {
 //    teams *team = teams::Instance();
-	gameState *gameS = gameState::Instance();
+    conversion *convert = conversion::Instance();
+    gameState *gameS = gameState::Instance();
     renderEngine *renderE = renderEngine::Instance();
 	std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
     teamData teamD;
@@ -494,7 +501,7 @@ bool loader::loadTeamFile(string fileName)
 #else*/
     char *contents = NULL;
 	readFile(fileName.c_str(), &contents);
-	fileContents = Ogre::StringConverter::toString(contents);
+    fileContents = convert->toString(contents);
 //#endif
 	if (!doc.Parse(contents))
 	{
@@ -595,7 +602,8 @@ bool loader::loadPlayers()
 // loads XML file containing list of players and the files representing them
 bool loader::loadPlayerListFile( string fileName)
 {
-	renderEngine *renderE = renderEngine::Instance();
+    conversion *convert = conversion::Instance();
+    renderEngine *renderE = renderEngine::Instance();
     std::vector<std::string> playerFiles;
     players *player = players::Instance();
 
@@ -611,7 +619,7 @@ bool loader::loadPlayerListFile( string fileName)
 #else*/
     char *contents = NULL;
 	readFile(fileName.c_str(), &contents);
-	fileContents = Ogre::StringConverter::toString(contents);
+    fileContents = convert->toString(contents);
 //#endif
 
 /*    TiXmlDocument doc(fileName.c_str());
@@ -660,8 +668,10 @@ bool loader::loadPlayerListFile( string fileName)
 
 bool loader::loadPlayerFile(string fileName)
 {
-	gameState *gameS = gameState::Instance();
+    conversion *convert = conversion::Instance();
+    gameState *gameS = gameState::Instance();
 	renderEngine *renderE = renderEngine::Instance();
+
     playerData playerD;;
     std::vector<playerData> playerDataInstance = gameS->getPlayerDataInstance();
     string firstName;
@@ -719,7 +729,7 @@ bool loader::loadPlayerFile(string fileName)
     char *contents = NULL;
 	readFile(fileName.c_str(), &contents);
     logMsg("loading: "+fileName);
-	fileContents = Ogre::StringConverter::toString(contents);
+    fileContents = convert->toString(contents);
 //#endif
 	if (!doc.Parse(contents))
 	{
@@ -1137,7 +1147,9 @@ std::vector<offensePlays> loader::loadOffensePlays()	// load offense plays from 
 }
 bool loader::loadOffensePlayListFile(string fileName)	// loads the list of offense play files from plays.xml
 {
-	renderEngine *renderE = renderEngine::Instance();
+    conversion *convert = conversion::Instance();
+    renderEngine *renderE = renderEngine::Instance();
+
     std::vector<std::string> playFiles;
 
 
@@ -1153,7 +1165,7 @@ bool loader::loadOffensePlayListFile(string fileName)	// loads the list of offen
 #else*/
     char *contents = NULL;
 	readFile(fileName.c_str(), &contents);
-	fileContents = Ogre::StringConverter::toString(contents);
+    fileContents = convert->toString(contents);
 //#endif
 
 /*    TiXmlDocument doc(fileName.c_str());
@@ -1202,6 +1214,8 @@ bool loader::loadOffensePlayListFile(string fileName)	// loads the list of offen
 
 offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the offense play XML files
 {
+    conversion *convert = conversion::Instance();
+
 	offensePlays play;
 	std::string playName;
     int variation;
@@ -1244,7 +1258,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 #else*/
     char *contents = NULL;
 	readFile(fileName.c_str(), &contents);
-	fileContents = Ogre::StringConverter::toString(contents);
+    fileContents = convert->toString(contents);
 //#endif
 	if (!doc.Parse(contents))
 	{
@@ -1283,7 +1297,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
   		if (child)
     	{
             pVariation = atoi(child->GetText());
-    		logMsg("pVariation = " +Ogre::StringConverter::toString(pVariation));
+            logMsg("pVariation = " +convert->toString(pVariation));
 			variation = pVariation;
     	}
   		child = child->NextSiblingElement("Title");
@@ -1297,7 +1311,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 		for (TiXmlElement *e = child->NextSiblingElement("Player"); e != NULL; e = e->NextSiblingElement() )
 		{
 			TiXmlElement *f;
-			logMsg ("nums = " +Ogre::StringConverter::toString(numPlayers));
+            logMsg ("nums = " +convert->toString(numPlayers));
 			numPlayers += 1;
 			f = e->FirstChildElement("Name");
 			if (f)
@@ -1343,7 +1357,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 				pExecuteCoords.clear(); // clears the vector for each player
 				for (TiXmlElement *g = f->FirstChildElement("Position"); g != NULL; g = g->NextSiblingElement("Position"))
 				{
-					logMsg("numPos = " +Ogre::StringConverter::toString(numPos));
+                    logMsg("numPos = " +convert->toString(numPos));
 					numPos += 1;
 					TiXmlElement *h;
 					h = g->FirstChildElement("Type");
@@ -1357,21 +1371,21 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 					if (h)
 					{
 						pXCoord = atof(h->GetText());
-						logMsg("pXCoord = " +Ogre::StringConverter::toString(pXCoord));
+                        logMsg("pXCoord = " +convert->toString(pXCoord));
 						xCoord.push_back(pXCoord);
 					}
 					h = h->NextSiblingElement("Y");
 					if (h)
 					{
 						pYCoord = atof(h->GetText());
-						logMsg("pYCoord = " +Ogre::StringConverter::toString(pYCoord));
+                        logMsg("pYCoord = " +convert->toString(pYCoord));
 						yCoord.push_back(pYCoord);
 					}
 					h = h->NextSiblingElement("Z");
 					if (h)
 					{
 						pZCoord = atof(h->GetText());
-						logMsg("pZCoord = " +Ogre::StringConverter::toString(pZCoord));
+                        logMsg("pZCoord = " +convert->toString(pZCoord));
 						zCoord.push_back(pZCoord);
 					}
 
@@ -1386,7 +1400,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 					else
 					{
 						pExecuteCoords.push_back(pCoords);
-						logMsg("pExecuteCoords.size = " +Ogre::StringConverter::toString(pExecuteCoords.size()));
+                        logMsg("pExecuteCoords.size = " +convert->toString(pExecuteCoords.size()));
 					}
 				}
 				// checks if there are execute coords and puts them in the vector
@@ -1483,7 +1497,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 					}
 				}
 				playerDirective.push_back(pPlayerDirective);
-			    logMsg("numDirectives = " +Ogre::StringConverter::toString(numDirectives));
+                logMsg("numDirectives = " +convert->toString(numDirectives));
 
 			}
 
@@ -1532,7 +1546,8 @@ std::vector<courtData> loader::loadCourts()	// load court settings from XML file
 
 bool loader::loadCourtListFile(string fileName)	// loads the list of court files from courts.xml
 {
-	renderEngine *renderE = renderEngine::Instance();
+    conversion *convert = conversion::Instance();
+    renderEngine *renderE = renderEngine::Instance();
     std::vector<std::string> courtFile;
 
 
@@ -1548,7 +1563,7 @@ bool loader::loadCourtListFile(string fileName)	// loads the list of court files
 #else*/
     char *contents = NULL;
 	readFile(fileName.c_str(), &contents);
-	fileContents = Ogre::StringConverter::toString(contents);
+    fileContents = convert->toString(contents);
 //#endif
 
 /*    TiXmlDocument doc(fileName.c_str());
@@ -1597,6 +1612,8 @@ bool loader::loadCourtListFile(string fileName)	// loads the list of court files
 
 courtData loader::loadCourtFile(string fileName)	// loads data from the offense play XML files
 {
+    conversion *convert = conversion::Instance();
+
 	courtData court;
 	std::string name;
 	std::string modelName;
@@ -1648,7 +1665,7 @@ courtData loader::loadCourtFile(string fileName)	// loads data from the offense 
 #else*/
     char *contents = NULL;
 	readFile(fileName.c_str(), &contents);
-	fileContents = Ogre::StringConverter::toString(contents);
+    fileContents = convert->toString(contents);
 //#endif
 	if (!doc.Parse(contents))
 	{
@@ -1692,109 +1709,109 @@ courtData loader::loadCourtFile(string fileName)	// loads data from the offense 
 		if (child)
 		{
             length = atof(child->GetText());
-			logMsg("Length = " +Ogre::StringConverter::toString(length));
+            logMsg("Length = " +convert->toString(length));
 		} //      exit(0);
   		child = child->NextSiblingElement("Width");
 		if (child)
 		{
             length = atof(child->GetText());
-			logMsg("Width = " +Ogre::StringConverter::toString(width));
+            logMsg("Width = " +convert->toString(width));
 		} //      exit(0);
   		child = child->NextSiblingElement("BoundaryLength");
 		if (child)
 		{
             boundaryLength = atof(child->GetText());
-			logMsg("Boundary Length = " +Ogre::StringConverter::toString(boundaryLength));
+            logMsg("Boundary Length = " +convert->toString(boundaryLength));
 		} //      exit(0);
   		child = child->NextSiblingElement("BoundaryWidth");
 		if (child)
 		{
             boundaryWidth = atof(child->GetText());
-			logMsg("Boundary Width = " +Ogre::StringConverter::toString(boundaryWidth));
+            logMsg("Boundary Width = " +convert->toString(boundaryWidth));
 		} //      exit(0);
   		child = child->NextSiblingElement("BoundaryXPos");
 		if (child)
 		{
             boundaryXPos = atof(child->GetText());
-			logMsg("Boundary X Pos = " +Ogre::StringConverter::toString(boundaryXPos));
+            logMsg("Boundary X Pos = " +convert->toString(boundaryXPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("BoundaryZPos");
 		if (child)
 		{
             boundaryZPos = atof(child->GetText());
-			logMsg("Boundary Z Pos = " +Ogre::StringConverter::toString(boundaryZPos));
+            logMsg("Boundary Z Pos = " +convert->toString(boundaryZPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("CenterCourt");
 		if (child)
 		{
             centerCourt = atof(child->GetText());
-			logMsg("Center Court = " +Ogre::StringConverter::toString(centerCourt));
+            logMsg("Center Court = " +convert->toString(centerCourt));
 		} //      exit(0);
   		child = child->NextSiblingElement("CenterJumpRadius");
 		if (child)
 		{
             centerJumpRadius = atof(child->GetText());
-			logMsg("Center Jump Radius = " +Ogre::StringConverter::toString(centerJumpRadius));
+            logMsg("Center Jump Radius = " +convert->toString(centerJumpRadius));
 		} //      exit(0);
   		child = child->NextSiblingElement("KeyLength");
 		if (child)
 		{
             keyLength = atof(child->GetText());
-			logMsg("Key Length = " +Ogre::StringConverter::toString(keyLength));
+            logMsg("Key Length = " +convert->toString(keyLength));
 		} //      exit(0);
   		child = child->NextSiblingElement("KeyWidth");
 		if (child)
 		{
             keyWidth = atof(child->GetText());
-			logMsg("Key Width = " +Ogre::StringConverter::toString(keyWidth));
+            logMsg("Key Width = " +convert->toString(keyWidth));
 		} //      exit(0);
   		child = child->NextSiblingElement("KeyJumpRadius");
 		if (child)
 		{
             keyJumpRadius = atof(child->GetText());
-			logMsg("Key Jump RAdius = " +Ogre::StringConverter::toString(keyJumpRadius));
+            logMsg("Key Jump RAdius = " +convert->toString(keyJumpRadius));
 		} //      exit(0);
   		child = child->NextSiblingElement("ThreePointSideLength");
 		if (child)
 		{
             threePointSideLength = atof(child->GetText());
-			logMsg("Three Point Side Length = " +Ogre::StringConverter::toString(threePointSideLength));
+            logMsg("Three Point Side Length = " +convert->toString(threePointSideLength));
 		} //      exit(0);
   		child = child->NextSiblingElement("ThreePointSideZPos");
 		if (child)
 		{
             threePointSideZPos = atof(child->GetText());
-			logMsg("Three Point Side Z Pos = " +Ogre::StringConverter::toString(threePointSideZPos));
+            logMsg("Three Point Side Z Pos = " +convert->toString(threePointSideZPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("ThreePointArcRadius");
 		if (child)
 		{
             threePointArcRadius = atof(child->GetText());
-			logMsg("Three Point Arc Radius = " +Ogre::StringConverter::toString(threePointArcRadius));
+            logMsg("Three Point Arc Radius = " +convert->toString(threePointArcRadius));
 		} //      exit(0);
   		child = child->NextSiblingElement("BaselineInboundXPos");
 		if (child)
 		{
             baselineInboundXPos = atof(child->GetText());
-			logMsg("Baseline Inbound X Pos = " +Ogre::StringConverter::toString(baselineInboundXPos));
+            logMsg("Baseline Inbound X Pos = " +convert->toString(baselineInboundXPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("BaselineInboundZPos");
 		if (child)
 		{
             baselineInboundZPos = atof(child->GetText());
-			logMsg("Baseline Inbound Z Pos = " +Ogre::StringConverter::toString(baselineInboundZPos));
+            logMsg("Baseline Inbound Z Pos = " +convert->toString(baselineInboundZPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("SidelineInboundXPos");
 		if (child)
 		{
             sidelineInboundXPos = atof(child->GetText());
-			logMsg("Sideline Inbound X Pos = " +Ogre::StringConverter::toString(sidelineInboundXPos));
+            logMsg("Sideline Inbound X Pos = " +convert->toString(sidelineInboundXPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("SidelineInboundZPos");
 		if (child)
 		{
             sidelineInboundZPos = atof(child->GetText());
-			logMsg("Sideline Inbound Z Pos = " +Ogre::StringConverter::toString(sidelineInboundZPos));
+            logMsg("Sideline Inbound Z Pos = " +convert->toString(sidelineInboundZPos));
 		} //      exit(0);
 
     }
@@ -1851,6 +1868,7 @@ std::vector<userInput> loader::loadUserInputs() // load user input settings from
 
 bool loader::loadUserInputListFile(string fileName) // loads the list of offense play files from plays.xml
 {
+    conversion *convert = conversion::Instance();
     renderEngine *renderE = renderEngine::Instance();
     std::vector<std::string> userInputFile;
 
@@ -1867,7 +1885,7 @@ bool loader::loadUserInputListFile(string fileName) // loads the list of offense
 #else*/
     char *contents = NULL;
     readFile(fileName.c_str(), &contents);
-    fileContents = Ogre::StringConverter::toString(contents);
+    fileContents = convert->toString(contents);
 //#endif
 
 /*    TiXmlDocument doc(fileName.c_str());
@@ -1916,6 +1934,8 @@ bool loader::loadUserInputListFile(string fileName) // loads the list of offense
 
 userInput loader::loadUserInputFile(string fileName)    // loads data from the user input XML files
 {
+    conversion *convert = conversion::Instance();
+
     logMsg("Load UserInput File");
     userInput uInput;
     std::string inputName;
@@ -1941,7 +1961,7 @@ userInput loader::loadUserInputFile(string fileName)    // loads data from the u
     char *contents = NULL;
    
     readFile(fileName.c_str(), &contents);
-    fileContents = Ogre::StringConverter::toString(contents);
+    fileContents = convert->toString(contents);
    
     if (!doc.Parse(contents))
     {

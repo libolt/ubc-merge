@@ -65,7 +65,17 @@ std::string conversion::toString(double data)  // converts double data to string
     strData = boost::lexical_cast<std::string>(data);
     return (strData);
 }
-
+std::string conversion::toString(size_t data)  // converts size_t data to string
+{
+    std::string strData;
+    strData = boost::lexical_cast<std::string>(data);
+    return (strData);
+}
+std::string conversion::toString(Ogre::Vector3 data)  // converts Ogre::Vector3 data to string
+{
+    std::string strData;
+    return(strData);
+}
 /*
 template <typename T>
 std::string conversion::toString(const T& input)  // converts data to string);

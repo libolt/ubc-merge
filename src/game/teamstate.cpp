@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "teamstate.h"
+#include "conversion.h"
 #include "gameengine.h"
 #include "gamestate.h"
 #include "logging.h"
@@ -396,11 +397,12 @@ void teamState::updateState()	// updates the state of the object
 {
 
 //	exit(0);
-	gameEngine *gameE = gameEngine::Instance();
+    conversion *convert = conversion::Instance();
+    gameEngine *gameE = gameEngine::Instance();
 	gameState *gameS = gameState::Instance();
 	physicsEngine *physEngine = physicsEngine::Instance();
 
-//	logMsg("Updating team state " +Ogre::StringConverter::toString(teamNumber));
+//	logMsg("Updating team state " +convert->toString(teamNumber));
 	if (gameS->getBasketballModelLoaded() && playerInstancesCreated)
 	{
 		std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
@@ -427,8 +429,8 @@ void teamState::updateState()	// updates the state of the object
 		if (gameS->getTipOffComplete())
 		{
 //			exit(0);
-//			logMsg("Team with ball ==  "  +Ogre::StringConverter::toString(gameS->getTeamWithBall()));
-//			logMsg("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
+//			logMsg("Team with ball ==  "  +convert->toString(gameS->getTeamWithBall()));
+//			logMsg("Player with ball ==  "  +convert->toString(playerWithBall));
 
 			if (gameS->getTeamWithBall() == teamNumber) // checks if the team has the basketball
 			{
@@ -477,14 +479,14 @@ void teamState::updateState()	// updates the state of the object
 
 					}
 				}
-//				logMsg("Player with ball ==  "  +Ogre::StringConverter::toString(playerWithBall));
+//				logMsg("Player with ball ==  "  +convert->toString(playerWithBall));
 //			    logMsg("Player with ball's name: "  +playerInstance[playerWithBall].getPlayerName());
-//				logMsg("Player with ball's current position: "  +Ogre::StringConverter::toString(playerInstance[playerWithBall].getNode()->getPosition()));
+//				logMsg("Player with ball's current position: "  +convert->toString(playerInstance[playerWithBall].getNode()->getPosition()));
 			}
 		}
-        logMsg("Team number = " +Ogre::StringConverter::toString(teamNumber));
+        logMsg("Team number = " +convert->toString(teamNumber));
 
-        logMsg("Human player = " +Ogre::StringConverter::toString(humanPlayer));
+        logMsg("Human player = " +convert->toString(humanPlayer));
                                         
         updatePlayerStates();
 		updatePlayerMovements();	// updates movement of player objects
@@ -525,14 +527,15 @@ void teamState::updateState()	// updates the state of the object
 	}
 
 
-//   logMsg("team state updated = " +Ogre::StringConverter::toString(teamNumber));
+//   logMsg("team state updated = " +convert->toString(teamNumber));
 }
 
 bool teamState::createPlayerInstances()
 {
 //    players *player = players::Instance();
 
-	gameState *gameS = gameState::Instance();
+    conversion *convert = conversion::Instance();
+    gameState *gameS = gameState::Instance();
 
     std::vector< std::vector<int> > teamStarterID = gameS->getTeamStarterID();
 	std::vector<playerData> playerDataInstance = gameS->getPlayerDataInstance();
@@ -544,7 +547,7 @@ bool teamState::createPlayerInstances()
     logMsg("Creating players");
 
 
-    logMsg("playerDataInstance size = " +Ogre::StringConverter::toString(playerDataInstance.size()));
+    logMsg("playerDataInstance size = " +convert->toString(playerDataInstance.size()));
 //    exit(0);
 //    for (playerIT = playerDataInstance.begin(); playerIT != playerDataInstance.end(); ++playerIT)   // loops through playerID std::vector
     int id = -1; // stores id for steer
@@ -557,8 +560,8 @@ bool teamState::createPlayerInstances()
         playerState pInstance;  // creates a new instance of playerState
         playerSteer *pSteer = new playerSteer; // steer instance
 
-//    	    logMsg("Player Team ID = " +Ogre::StringConverter::toString(playerDataInstance[i].getTeamID()));
-//    	    logMsg("Team Number = " +Ogre::StringConverter::toString(teamNumber));
+//    	    logMsg("Player Team ID = " +convert->toString(playerDataInstance[i].getTeamID()));
+//    	    logMsg("Team Number = " +convert->toString(teamNumber));
 
         if (playerDataInstance[i].getTeamID() == teamNumber)	// checks if player is assigned to this team
         {
@@ -597,7 +600,7 @@ bool teamState::createPlayerInstances()
             pSteer->reset();
             pInstance.setSteer(pSteer);
             playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.
-	        logMsg("steerID = " +Ogre::StringConverter::toString(pInstance.getSteer()->getID()));
+            logMsg("steerID = " +convert->toString(pInstance.getSteer()->getID()));
             logMsg("player name = " +pInstance.getPlayerName());
         }
         else
@@ -611,12 +614,12 @@ bool teamState::createPlayerInstances()
     logMsg("before playerID");
 //        int playerID = teamStarterID[teamNumber][i];
 //        int playerID = activePlayerID[i];
-//        logMsg("ID " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(playerID));
-    logMsg("activePlayerID.size() = " +Ogre::StringConverter::toString(activePlayerID.size()));
-//    logMsg("playerID = " +Ogre::StringConverter::toString(activePlayerID[i]));
+//        logMsg("ID " +convert->toString(i) +" = " +convert->toString(playerID));
+    logMsg("activePlayerID.size() = " +convert->toString(activePlayerID.size()));
+//    logMsg("playerID = " +convert->toString(activePlayerID[i]));
     size_t x = 0;
 
-    logMsg("playerInstance.size() = " +Ogre::StringConverter::toString(playerInstance.size()));
+    logMsg("playerInstance.size() = " +convert->toString(playerInstance.size()));
 
     bool IDMatch = false;
 //            for (size_t j=0;j<playerInstance.size();++j)
@@ -627,7 +630,7 @@ bool teamState::createPlayerInstances()
         while (i<activePlayerID.size())
         {
 
-            logMsg("playerInstance[x].getPlayerID() = " +Ogre::StringConverter::toString(playerInstance[x].getPlayerID()));
+            logMsg("playerInstance[x].getPlayerID() = " +convert->toString(playerInstance[x].getPlayerID()));
             if (activePlayerID[i] == playerInstance[x].getPlayerID())
             {
 //                exit(0);
@@ -659,6 +662,7 @@ bool teamState::createPlayerInstances()
 
 void teamState::setPlayerStartPositions()	// sets the initial coordinates for the players.
 {
+    conversion *convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
 
     std::vector< std::vector<int> > teamStarterID = gameS->getTeamStarterID();
@@ -712,15 +716,15 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
         while (i<teamStarterID[teamNumber].size())
         {
             int playerID = teamStarterID[teamNumber][i];
-            logMsg("ID " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(playerID));
+            logMsg("ID " +convert->toString(i) +" = " +convert->toString(playerID));
 
             size_t x = 0;
             while (x < playerInstance.size()) //&& playerID != playerInstance[x].getPlayerID())
             {
                 if (playerID == playerInstance[x].getPlayerID())
                 {
-                    logMsg("Player ID = " +Ogre::StringConverter::toString(playerInstance[x].getPlayerID()));
-                    logMsg("X " +Ogre::StringConverter::toString(i) +" = " +Ogre::StringConverter::toString(x));
+                    logMsg("Player ID = " +convert->toString(playerInstance[x].getPlayerID()));
+                    logMsg("X " +convert->toString(i) +" = " +convert->toString(x));
                     playerInstance[x].setIsActive(true);    // sets the player active for startup which is used by other code such as physics and steering
 
                     if (playerInstance[x].getPosition() == "PG")
@@ -784,7 +788,8 @@ void teamState::updatePlayerStates()  // updates the states of active players
 
 void teamState::updatePlayerDirections()
 {
-	gameState *gameS = gameState::Instance();
+    conversion *convert = conversion::Instance();
+    gameState *gameS = gameState::Instance();
 //    playerState *player = players::Instance();
 
     directions playerDirection, oldPlayerDirection;
@@ -794,7 +799,7 @@ void teamState::updatePlayerDirections()
 	std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
     std::vector<Ogre::SceneNode>::iterator playersIT;
 
-    Ogre::String playerID = Ogre::StringConverter::toString(playerInstance[4].getPlayerID());
+    Ogre::String playerID = convert->toString(playerInstance[4].getPlayerID());
 //    exit(0);
 //    logMsg("playerID == " +playerID);
     // checks if a player's direction has changed and rotates the model accordingly.
@@ -912,7 +917,9 @@ void teamState::updatePlayerDirections()
 
 void teamState::updatePlayerMovements()	// updates player movements
 {
-	Ogre::Vector3 posChange;	// stores change in position
+    conversion *convert = conversion::Instance();
+
+    Ogre::Vector3 posChange;	// stores change in position
 	posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
 
     size_t x = 0;
@@ -920,9 +927,9 @@ void teamState::updatePlayerMovements()	// updates player movements
 //	for (size_t i = 0; i < playerInstance.size(); ++i)
     while(x<playerInstance.size())
 	{
-//		logMsg("Player " +Ogre::StringConverter::toString(i) +" position = " +Ogre::StringConverter::toString(playerInstance[i].getNodePosition()));
+//		logMsg("Player " +convert->toString(i) +" position = " +convert->toString(playerInstance[i].getNodePosition()));
 
-//        Ogre::LogManager::getSingletonPtr()->logMessage("i == " +Ogre::StringConverter::toString(i));
+//        Ogre::LogManager::getSingletonPtr()->logMessage("i == " +convert->toString(i));
 
         while (y<activePlayerID.size())
         {
@@ -997,9 +1004,10 @@ void teamState::updatePlayerMovements()	// updates player movements
 
 void teamState::executePass()		// executes the pass between players
 {
-	logMsg("In executePass function");
+    conversion *convert = conversion::Instance();
+    gameState *gameS = gameState::Instance();
 
-	gameState *gameS = gameState::Instance();
+    logMsg("In executePass function");
 
 	int passToPlayer = playerInstance[playerWithBall].getPassToPlayer();
 	std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
@@ -1011,8 +1019,8 @@ void teamState::executePass()		// executes the pass between players
 	btVector3 bballPhysCoords;
 	btTransform transform;
 //	exit(0);
-    logMsg("Basketball = " + Ogre::StringConverter::toString(bballCoords));
-    logMsg("passToPlayer = " + Ogre::StringConverter::toString(passToPlayerCoords));
+    logMsg("Basketball = " + convert->toString(bballCoords));
+    logMsg("passToPlayer = " + convert->toString(passToPlayerCoords));
 
     if (bballCoords[1] != passToPlayerCoords[1])
     {
@@ -1076,13 +1084,14 @@ void teamState::executePass()		// executes the pass between players
 
 void teamState::updatePositions()
 {
+    conversion *convert = conversion::Instance();
 
     size_t x = 0;
 	// updates the player positions on the court
 //	for (size_t x = 0; x < playerInstance.size(); ++x)
     while (x<playerInstance.size())
 	{
-//		logMsg("updatePositions X = " +Ogre::StringConverter::toString(x));
+//		logMsg("updatePositions X = " +convert->toString(x));
         size_t i = 0;
         while (i<activePlayerID.size())
         {

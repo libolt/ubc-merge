@@ -22,12 +22,14 @@
 #else
 #include "config.h"
 #endif
+
+#include "renderengine.h"
+#include "conversion.h"
 #include "gameengine.h"
 #include "gamestate.h"
 #include "gui.h"
 #include "logging.h"
 #include "physicsengine.h"
-#include "renderengine.h"
 #include "soundengine.h"
 #include "teams.h"
 
@@ -281,6 +283,8 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const Ogre::String& fileName)
 
 bool renderEngine::initSDL() // Initializes SDL Subsystem
 {
+    conversion *convert = conversion::Instance();
+
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
         fprintf(stderr,
@@ -290,7 +294,7 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 
 //        __android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", "SDL Error = %s", SDL_GetError());
-        Ogre::String msg = "SDL Error = " +Ogre::StringConverter::toString(SDL_GetError());
+        Ogre::String msg = "SDL Error = " +convert->toString(SDL_GetError());
         logMsg(msg);
 #endif
 
@@ -339,7 +343,7 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 /*    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge",
                                SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, 0);
 */
-//    winHandle =  Ogre::StringConverter::toString((unsigned long)native_window);
+//    winHandle =  convert->toString((unsigned long)native_window);
 //    sdlWindow = SDL_CreateWindowFrom(app->window);
 
 /*    sdlWindow = SDL_CreateWindow("Ultimate Basketball Challenge", SDL_WINDOWPOS_UNDEFINED,
@@ -357,13 +361,15 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 
 bool renderEngine::initOgre() // Initializes Ogre Subsystem
 {
+    conversion *convert = conversion::Instance();
+
 	//    GUISystem *gui = GUISystem::Instance();
 	//    SoundSystem *sound = SoundSystem::Instance();
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-    winHandle = Ogre::StringConverter::toString((unsigned long int)sysInfo.info.win.window);
+    winHandle = convert->toString((unsigned long int)sysInfo.info.win.window);
 #elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
-    winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.x11.window);
+    winHandle = convert->toString((unsigned long)sysInfo.info.x11.window);
 #elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
 
@@ -371,14 +377,14 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
     jmethodID method_get_native_surface = env->GetStaticMethodID(class_sdl_activity, "getNativeSurface", "()Landroid/view/Surface;");
     jobject raw_surface = env->CallStaticObjectMethod(class_sdl_activity, method_get_native_surface);
     ANativeWindow* native_window = ANativeWindow_fromSurface(env, raw_surface);
-//    winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.android.window);
-//    winHandle =  Ogre::StringConverter::toString((unsigned long)SDL_GetWindowID(sdlWindow));
-	winHandle =  Ogre::StringConverter::toString((int)native_window);
+//    winHandle = convert->toString((unsigned long)sysInfo.info.android.window);
+//    winHandle =  convert->toString((unsigned long)SDL_GetWindowID(sdlWindow));
+    winHandle =  convert->toString((int)native_window);
 	logMsg("winHandle = " +winHandle);
 //    exit(0);
 //	logMsg("winHandle2 = " +winHandle2);
 	
-//	logMsg("grabbed = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(sdlWindow)));
+//	logMsg("grabbed = " +convert->toString(SDL_GetWindowGrab(sdlWindow)));
 #else
 	// Error, both can't be defined or undefined same time
 #endif
@@ -437,7 +443,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 			break;
 		}
 		c++; // <-- oh how clever
-		logMsg(Ogre::StringConverter::toString(c++));
+        logMsg(convert->toString(c++));
 	}
 
 	//we found it, we might as well use it!
@@ -468,7 +474,7 @@ bool renderEngine::createWindow()
 
 bool renderEngine::createScene()
 {
-
+    conversion *convert = conversion::Instance();
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     logMsg("Hello");
@@ -503,8 +509,8 @@ bool renderEngine::createScene()
     uint32_t w = ANativeWindow_getWidth(native_window);
     uint32_t h = ANativeWindow_getHeight(native_window);
 
-    logMsg("Width = " +Ogre::StringConverter::toString(w));
-    logMsg("Height = " +Ogre::StringConverter::toString(h));
+    logMsg("Width = " +convert->toString(w));
+    logMsg("Height = " +convert->toString(h));
     
     windowWidth = w;
     windowHeight = h;
@@ -522,15 +528,15 @@ bool renderEngine::createScene()
 	//  AConfiguration_fromAssetManager(config, app->activity->assetManager);
 	//gAssetMgr = app->activity->assetManager;
 //	misc["currentGLContext"] = "true";
-//	misc["androidConfig"] = Ogre::StringConverter::toString((int)config);
-	//    misc["externalWindowHandle"] = Ogre::StringConverter::toString((int)app->window);
+//	misc["androidConfig"] = convert->toString((int)config);
+    //    misc["externalWindowHandle"] = convert->toString((int)app->window);
 
 //	misc["currentGLContext"]     = "true";
-//    misc["externalGLContext"]    = Ogre::StringConverter::toString((int)sdlWindow);
-//    winHandle = Ogre::StringConverter::toString((unsigned long)sysInfo.info.android.window);
+//    misc["externalGLContext"]    = convert->toString((int)sdlWindow);
+//    winHandle = convert->toString((unsigned long)sysInfo.info.android.window);
     
 	misc["externalWindowHandle"] = winHandle;
-//	misc["externalGLContext"] = Ogre::StringConverter::toString((unsigned long)SDL_GL_GetCurrentContext());
+//	misc["externalGLContext"] = convert->toString((unsigned long)SDL_GL_GetCurrentContext());
 //	exit(0);
 	logMsg("Hello??");
 	mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 0, 0, false, &misc);
@@ -538,7 +544,7 @@ bool renderEngine::createScene()
     logMsg("renderWindow created!");
 	unsigned long handle = 0;
 	mWindow->getCustomAttribute("WINDOW", &handle);
-	logMsg("mWindow handle = " +Ogre::StringConverter::toString(handle));
+    logMsg("mWindow handle = " +convert->toString(handle));
 
     logMsg("Dead");
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
@@ -550,10 +556,10 @@ bool renderEngine::createScene()
     Ogre::WindowEventUtilities::messagePump();
     w = mWindow->getViewport(0)->getActualWidth();
     h = mWindow->getViewport(0)->getActualHeight();
-    logMsg("Width = " +Ogre::StringConverter::toString(w));
-    logMsg("Height = " +Ogre::StringConverter::toString(h));
+    logMsg("Width = " +convert->toString(w));
+    logMsg("Height = " +convert->toString(h));
 //    exit(0);
-    logMsg("window ID = " +Ogre::StringConverter::toString(SDL_GetWindowID(sdlWindow)));
+    logMsg("window ID = " +convert->toString(SDL_GetWindowID(sdlWindow)));
 	SDL_ShowWindow(sdlWindow);
 	SDL_SetWindowGrab(sdlWindow,SDL_TRUE);
 	SDL_MaximizeWindow(sdlWindow);
@@ -663,7 +669,7 @@ logMsg("Alive?");
 	viewPort->setOverlaysEnabled(true);	// sets overlays true so that MyGUI can render
 
     bool overlayEnabled = viewPort->getOverlaysEnabled();
-	logMsg("overlayEnabled = " +Ogre::StringConverter::toString(overlayEnabled));
+    logMsg("overlayEnabled = " +convert->toString(overlayEnabled));
 //.0.236	exit(0);
 	mCamera->setAspectRatio((Ogre::Real)1.333333);
 

@@ -21,6 +21,7 @@
 #include "network.h"
 
 #include "gui.h"
+#include "conversion.h"
 #include "courtdata.h"
 #include "gameengine.h"
 #include "gamestate.h"
@@ -216,12 +217,14 @@ void GUISystem::showAudioMenuWidgets()  // shows all widgets tied to the Main Me
 
 void GUISystem::hideGameSetupMenuWidgets()  // hides all widgets tied to the Game Setup Menu
 {
+    conversion *convert = conversion::Instance();
+
     team0SelectBox->setVisible(false);
     team1SelectBox->setVisible(false);
     team0SelectButton->setVisible(false);
     team1SelectButton->setVisible(false);
     teamsSelectedButton->setVisible(false);
-    logMsg("previousActiveMenu = " +Ogre::StringConverter::toString(previousActiveMenu));
+    logMsg("previousActiveMenu = " +convert->toString(previousActiveMenu));
 
     if (previousActiveMenu == MAIN)
     {
@@ -411,12 +414,14 @@ void GUISystem::showPlayerStartSelectionMenuWidgets() // shows all widgets tied 
 
 void GUISystem::hideTeamSelectionMenuWidgets() // hides all widgets tied to the Team Selection Menu
 {
+    conversion *convert = conversion::Instance();
+
     team0SelectBox->setVisible(false);
     team1SelectBox->setVisible(false);
     team0SelectButton->setVisible(false);
     team1SelectButton->setVisible(false);
     teamsSelectedButton->setVisible(false);
-    logMsg("previousActiveMenu = " +Ogre::StringConverter::toString(previousActiveMenu));
+    logMsg("previousActiveMenu = " +convert->toString(previousActiveMenu));
 
 /*    if (previousActiveMenu == MAIN)
     {

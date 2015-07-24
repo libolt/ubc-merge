@@ -24,6 +24,7 @@
 #include "gamestate.h"
 #include "logging.h"
 #include "input.h"
+#include "conversion.h"
 
 #if _MSC_VER
 #define snprintf _snprintf
@@ -371,6 +372,7 @@ void networkEngine::serverSetup()
 void networkEngine::networkServer()
 {
 //	serverSetup();
+    conversion *convert = conversion::Instance();
     gameEngine *gameE = gameEngine::Instance();
     char *host; 
     Ogre::String addressHost, addressPort, packetData, packetDataLength, packetPeer, packetChannelID;
@@ -405,9 +407,9 @@ void networkEngine::networkServer()
             			event.peer -> address.port);
 */
 /*                host = event.peer->address.host;
-            	//addressHost = Ogre::StringConverter::toString(event.peer->address.host);
-            	addressHost = Ogre::StringConverter::toString(host);
-                addressPort = Ogre::StringConverter::toString(event.peer->address.port);
+                //addressHost = convert->toString(event.peer->address.host);
+                addressHost = convert->toString(host);
+                addressPort = convert->toString(event.peer->address.port);
             	logMsg("A new client connected from " + addressHost + ":" + addressPort);
             	// Store any relevant client information here. 
 
@@ -417,7 +419,7 @@ void networkEngine::networkServer()
             	peer = event.peer;	// stores the peer connection for later use.
             	serverReceivedConnection = true;	// Tells code that a client has connected
  //           	exit(0);
-//                logMsg("Peer == " +Ogre::StringConverter::toString(addressHost));     
+//                logMsg("Peer == " +convert->toString(addressHost));
                 break;
 
             case ENET_EVENT_TYPE_RECEIVE:
@@ -430,10 +432,10 @@ void networkEngine::networkServer()
                         event.channelID);
 
                 // converts and writes data to Ogre.log for packet
-                packetData = Ogre::StringConverter::toString(event.packet->data);
-                packetDataLength = Ogre::StringConverter::toString(event.packet->dataLength);
-                packetPeer = Ogre::StringConverter::toString(event.peer->data);
-                packetChannelID = Ogre::StringConverter::toString(event.channelID);
+                packetData = convert->toString(event.packet->data);
+                packetDataLength = convert->toString(event.packet->dataLength);
+                packetPeer = convert->toString(event.peer->data);
+                packetChannelID = convert->toString(event.channelID);
                 Ogre::LogManager::getSingletonPtr()->logMessage("A packet of length " +packetDataLength + " containing " +packetData + " was received from " +packetPeer + " on channel " +packetChannelID);
                 packetReceived = true;	// lets code know that a packet was received
 
@@ -628,6 +630,7 @@ void networkEngine::processRemoteInput() // processes input received from a remo
 
 void networkEngine::sendPacket(Ogre::String packetData)
 {
+    conversion *convert = conversion::Instance();
 	gameEngine *gameE = gameEngine::Instance();
 
 	if (gameE->getServerRunning())
@@ -642,7 +645,7 @@ void networkEngine::sendPacket(Ogre::String packetData)
 		{
 		}
 	}
-    std::string host = Ogre::StringConverter::toString(peer->address.host);
+    std::string host = convert->toString(peer->address.host);
     logMsg("packetData == " + packetData);
 	logMsg("Peer host == " +host);
     exit(0);

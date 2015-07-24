@@ -25,12 +25,13 @@
 
 
 #include "input.h"
+#include "conversion.h"
 #include "gameengine.h"
 #include "gamestate.h"
 #include "gui.h"
-#include "renderengine.h"
-#include "logging.h"
 #include "load.h"
+#include "logging.h"
+#include "renderengine.h"
 
 //static int32_t handleInput(struct android_app* app, AInputEvent* event);
 
@@ -207,6 +208,7 @@ inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
 bool inputSystem::processInput()	// processes all input
 {
     
+    conversion *convert = conversion::Instance();
     renderEngine *render = renderEngine::Instance();
 
     keyPressed = "";  // resets value of keyPressed
@@ -221,7 +223,7 @@ bool inputSystem::processInput()	// processes all input
 //    SDL_StopTextInput();
 */
 
-//    logMsg("sdl grab = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
+//    logMsg("sdl grab = " +convert->toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
 /*#ifndef __ANDROID__
     logMsg("input!");
     struct android_app *state = renderE->getApp();
@@ -245,7 +247,7 @@ bool inputSystem::processInput()	// processes all input
 */
 //    SDL_PumpEvents();
     int motion = SDL_EventState(SDL_FINGERMOTION, SDL_QUERY);
-	logMsg ("motion = " +Ogre::StringConverter::toString(motion));
+    logMsg ("motion = " +convert->toString(motion));
 //    exit(0);
     SDL_StartTextInput();
     while (SDL_PollEvent(&inputEvent))
@@ -253,7 +255,7 @@ bool inputSystem::processInput()	// processes all input
         
 //        exit(0);
         int numTouch = SDL_GetNumTouchDevices();
-        logMsg ("numTouch = " +Ogre::StringConverter::toString(numTouch));
+        logMsg ("numTouch = " +convert->toString(numTouch));
         // exit(0);
 
 //          Ogre::LogManager::getSingletonPtr()->logMessage("Crash??");
@@ -276,8 +278,8 @@ bool inputSystem::processInput()	// processes all input
             case SDL_FINGERDOWN:
                 logMsg("Finger Down!");
                 
-                logMsg("tfinger.x = " +Ogre::StringConverter::toString(inputEvent.tfinger.x*render->getWindowWidth()));
-                logMsg("tfinger.y = " +Ogre::StringConverter::toString(inputEvent.tfinger.y));
+                logMsg("tfinger.x = " +convert->toString(inputEvent.tfinger.x*render->getWindowWidth()));
+                logMsg("tfinger.y = " +convert->toString(inputEvent.tfinger.y));
                 
 //                exit(0);
                 // processes touch input
@@ -373,10 +375,11 @@ bool inputSystem::processInput()	// processes all input
 
 bool inputSystem::processUnbufferedKeyInput(bool textInput)
 {
-	GUISystem *gui = GUISystem::Instance();
+    conversion *convert = conversion::Instance();
+    GUISystem *gui = GUISystem::Instance();
 //	logMsg("Processing keyboard input");
 
-	logMsg("key == " +Ogre::StringConverter::toString(inputEvent.key.keysym.sym));
+    logMsg("key == " +convert->toString(inputEvent.key.keysym.sym));
     keyPressed = inputEvent.text.text;
     logMsg("key = " +keyPressed);
 
@@ -648,7 +651,8 @@ bool inputSystem::processUnbufferedKeyInput(bool textInput)
 
 bool inputSystem::processUnbufferedMouseInput()
 {
-	renderEngine *render = renderEngine::Instance();
+    conversion *convert = conversion::Instance();
+    renderEngine *render = renderEngine::Instance();
 
 	int x, y;
 	int state = -1;
@@ -667,15 +671,15 @@ bool inputSystem::processUnbufferedMouseInput()
 	SDL_Window *sdlWindow = render->getSDLWindow();
 	
     SDL_GetWindowMaximumSize(sdlWindow,&w,&h);
-	logMsg("sdlWindow width = " +Ogre::StringConverter::toString(w));
-	logMsg("sdlWindow height = " +Ogre::StringConverter::toString(h));
+    logMsg("sdlWindow width = " +convert->toString(w));
+    logMsg("sdlWindow height = " +convert->toString(h));
     //SDL_GetGlobalMouseState(&x, &y);
-	logMsg("mouse x = " +Ogre::StringConverter::toString(x));
-	logMsg("mouse y = " +Ogre::StringConverter::toString(y));
+    logMsg("mouse x = " +convert->toString(x));
+    logMsg("mouse y = " +convert->toString(y));
 
 //	state = SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(0);
     state = SDL_GetMouseState(NULL, NULL)&SDL_TOUCH_MOUSEID;
-    logMsg("Mouse state = " +Ogre::StringConverter::toString(state));
+    logMsg("Mouse state = " +convert->toString(state));
 //	std::cout << "Mouse State = " << state << std::endl;
     if (state == 1)
 	{
@@ -701,7 +705,7 @@ bool inputSystem::processUnbufferedMouseInput()
 	}
 
 
-    logMsg("Mouse x = " +Ogre::StringConverter::toString(x) + " y = " +Ogre::StringConverter::toString(y));
+    logMsg("Mouse x = " +convert->toString(x) + " y = " +convert->toString(y));
 //    Ogre::LogManager::getSingletonPtr()->logMessage("Mouse X = "  +toString(x));
 	if (mouseX != x || mouseY != y)
 	{
@@ -714,32 +718,33 @@ bool inputSystem::processUnbufferedMouseInput()
 
 bool inputSystem::processUnbufferedTouchInput() // reads in unbuffered touch input
 {
-	renderEngine *render = renderEngine::Instance();
+    conversion *convert = conversion::Instance();
+    renderEngine *render = renderEngine::Instance();
 
 	int state = -1;
 	SDL_TouchFingerEvent touchMotion;
 	//SDL_Event evt;
 
 //    SDL_SetWindowGrab(renderE->getSDLWindow(), SDL_TRUE);
-//	logMsg("sdl grab = " +Ogre::StringConverter::toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
+//	logMsg("sdl grab = " +convert->toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
 	SDL_PumpEvents();
 	int numDevs = SDL_GetNumTouchDevices();
-	logMsg("numTouchDevices = " +Ogre::StringConverter::toString(numDevs));
+    logMsg("numTouchDevices = " +convert->toString(numDevs));
 
     int evtState = 0;
     evtState = SDL_EventState(SDL_FINGERMOTION, SDL_QUERY);
-    logMsg("evtState FINGERMOTION = " +Ogre::StringConverter::toString(evtState));
+    logMsg("evtState FINGERMOTION = " +convert->toString(evtState));
     evtState = 0;
     evtState = SDL_EventState(SDL_FINGERDOWN, SDL_QUERY);
-    logMsg("evtState FINGERDOWN = " +Ogre::StringConverter::toString(evtState));
+    logMsg("evtState FINGERDOWN = " +convert->toString(evtState));
     SDL_Finger *finger = SDL_GetTouchFinger(0,0);
-	logMsg("Finger = " +Ogre::StringConverter::toString(finger));
+    logMsg("Finger = " +convert->toString(finger));
 
     evtState = 0;
     evtState = SDL_EventState(SDL_FINGERUP, SDL_QUERY);
     if (evtState > 0)
     {
-        logMsg("evtState FINGERUP = " +Ogre::StringConverter::toString(evtState));
+        logMsg("evtState FINGERUP = " +convert->toString(evtState));
     //    exit(0);
     }
     int x = inputEvent.tfinger.x*render->getWindowWidth();
