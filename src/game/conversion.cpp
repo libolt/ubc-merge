@@ -112,6 +112,151 @@ std::string conversion::toString(void *data)  // converts void * data to string
     return(strData);
 }
 
+// convert to char
+        char conversion::toChar(std::string data);  // converts from std::string to char
+        char conversion::toChar(char *data);  // converts from char * to char
+        char conversion::toChar(char **data);  // converts from char ** to char
+        char conversion::toChar(const char *data);  // converts from const char * to char
+        char conversion::toChar(int data);  // converts from int to char
+        char conversion::toChar(long data);  // converts from long to char
+        char conversion::toChar(unsigned long data);  // converts from unsigned long to char
+        char conversion::toChar(enet_uint8 *data);  // converts from enet_uint8 * to char
+        char conversion::toChar(float data);  // converts from float to char
+        char conversion::toChar(double data);  // converts from double to char
+        char conversion::toChar(size_t data);  // converts from size_t to char
+        char conversion::toChar(void *data);  // converts from void * to char
+        
+        // convert to char *
+        char *conversion::toCharPtr(std::string data);  // converts from std::string to char *
+        char *conversion::toCharPtr(char data);  // converts from char to char *
+        char *conversion::toCharPtr(char **data);  // converts from char ** to char *
+        char *conversion::toCharPtr(const char *data);  // converts from const char * to char *        
+        char *conversion::toCharPtr(int data);  // converts from int to char *
+        char *conversion::toCharPtr(long data);  // converts from long to char *
+        char *conversion::toCharPtr(unsigned long data);  // converts from unsigned long to char *
+        char *conversion::toCharPtr(enet_uint8 *data);  // converts from enet_uint8 * to char *
+        char *conversion::toCharPtr(float data);  // converts from float to char *
+        char *conversion::toCharPtr(double data);  // converts from double to char *
+        char *conversion::toCharPtr(size_t data);  // converts from size_t to char *
+        char *conversion::toCharPtr(void *data);  // converts from void * to char *
+
+        // convert to char **
+        char **conversion::toCharPtrPtr(std::string data);  // converts from std::string to char **
+        char **conversion::toCharPtrPtr(char data);  // converts from char to char **
+        char **conversion::toCharPtrPtr(char *data);  // converts from char * to char **
+        char **conversion::toCharPtrPtr(const char *data);  // converts from const char * to char **        
+        char **conversion::toCharPtrPtr(int data);  // converts from int to char **
+        char **conversion::toCharPtrPtr(long data);  // converts from long to char **
+        char **conversion::toCharPtrPtr(unsigned long data);  // converts from unsigned long to char **
+        char **conversion::toCharPtrPtr(enet_uint8 *data);  // converts from enet_uint8 * to char **
+        char **conversion::toCharPtrPtr(float data);  // converts from float to char **
+        char **conversion::toCharPtrPtr(double data);  // converts from double to char **
+        char **conversion::toCharPtrPtr(size_t data);  // converts from size_t to char **
+        char **conversion::toCharPtrPtr(void *data);  // converts from void * to char **
+
+        // convert to const char *
+        const char *conversion::toConstCharPtr(std::string data);  // converts from std::string to const char *
+        const char *conversion::toConstCharPtr(char data);  // converts from char to const char *
+        const char *conversion::toConstCharPtr(char *data);  // converts from char * to const char *
+        const char *conversion::toConstCharPtr(char **data);  // converts from char ** to const char *
+        const char *conversion::toConstCharPtr(int data);  // converts from int to const char *
+        const char *conversion::toConstCharPtr(long data);  // converts from long to const char *
+        const char *conversion::toConstCharPtr(unsigned long data);  // converts from unsigned long to const char *
+        const char *conversion::toConstCharPtr(enet_uint8 *data);  // converts from enet_uint8 * to const char *
+        const char *conversion::toConstCharPtr(float data);  // converts from float to const char *
+        const char *conversion::toConstCharPtr(double data);  // converts from double to const char *
+        const char *conversion::toConstCharPtr(size_t data);  // converts from size_t to const char *
+        const char *conversion::toConstCharPtr(void *data);  // converts from void * to const char *
+
+        // convert to int
+        int conversion::toInt(std::string data);  // converts from std::string to int
+        int conversion::toInt(char data);  // converts from char to int
+        int conversion::toInt(char *data);  // converts from char * to int
+        int conversion::toInt(char **data);  // converts from char ** to int
+        int conversion::toInt(const char *data);  // converts from const char * to int
+        int conversion::toInt(long data);  // converts from long to int
+        int conversion::toInt(unsigned long data);  // converts from unsigned long to int
+        int conversion::toInt(enet_uint8 *data);  // converts from enet_uint8 * to int
+        int conversion::toInt(float data);  // converts from float to int
+        int conversion::toInt(double data);  // converts from double to int
+        int conversion::toInt(size_t data);  // converts from size_t to int
+        int conversion::toInt(void *data);  // converts from void * to int
+        
+        // convert to float
+        float conversion::toFloat(std::string data);  // converts from std::string to float
+        float conversion::toFloat(char data);  // converts from char to float
+        float conversion::toFloat(char *data);  // converts from char * to float
+        float conversion::toFloat(char **data);  // converts from char ** to float
+        float conversion::toFloat(const char *data);  // converts from const char * to float
+        float conversion::toFloat(int data);  // converts from int to float
+        float conversion::toFloat(long data);  // converts from long to float
+        float conversion::toFloat(unsigned long data);  // converts from unsigned long to float
+        float conversion::toFloat(enet_uint8 *data);  // converts from enet_uint8 * to float
+        float conversion::toFloat(int data);  // converts from int to float
+        float conversion::toFloat(double data);  // converts from double to float
+        float conversion::toFloat(size_t data);  // converts from size_t to float
+        float conversion::toFloat(void *data);  // converts from void * to float
+        
+        // convert to double
+        double conversion::toDouble(std::string data);  // converts from std::string to double
+        double conversion::toDouble(char data);  // converts from char to double
+        double conversion::toDouble(char *data);  // converts from char * to double
+        double conversion::toDouble(char **data);  // converts from char ** to double
+        double conversion::toDouble(const char *data);  // converts from const char * to double
+        double conversion::toDouble(int data);  // converts from int to double
+        double conversion::toDouble(long data);  // converts from long to double
+        double conversion::toDouble(unsigned long data);  // converts from unsigned long to double
+        double conversion::toDouble(enet_uint8 *data);  // converts from enet_uint8 * to double
+        double conversion::toDouble(int data);  // converts from int to double
+        double conversion::toDouble(float data);  // converts from float to double
+        double conversion::toDouble(size_t data);  // converts from size_t to double
+        double conversion::toDouble(void *data);  // converts from void * to double
+        
+        // convert to enet_uint8 *
+        enet_uint8 * toEnet_uint8Ptr(std::string data);  // converts from std::string to enet_uint8 *
+        enet_uint8 * toEnet_uint8Ptr(char data);  // converts from char to enet_uint8 *
+        enet_uint8 * toEnet_uint8Ptr(char *data);  // converts from char * to enet_uint8 *
+        enet_uint8 * toEnet_uint8Ptr(char **data);  // converts from char ** to enet_uint8 *
+        enet_uint8 * toEnet_uint8Ptr(const char *data);  // converts from const char * to enet_uint8 *
+        enet_uint8 * toEnet_uint8Ptr(int data);  // converts from int to enet_uint8 *
+        enet_uint8 * toEnet_uint8Ptr(long data);  // converts from long to enet_uint8 *
+        enet_uint8 * toEnet_uint8Ptr(unsigned long data);  // converts from unsigned long to enet_uint8 *
+        enet_uint8 * toEnet_uint8Ptr(double data);  // converts from double to enet_uint8 *
+        enet_uint8 * toEnet_uint8Ptr(int data);  // converts from int to enet_uint8 *
+        enet_uint8 * toEnet_uint8Ptr(float data);  // converts from float to enet_uint8 *
+        enet_uint8 * toEnet_uint8Ptr(size_t data);  // converts from size_t to enet_uint8 *
+        enet_uint8 * toEnet_uint8Ptr(void *data);  // converts from void * to enet_uint8 *
+
+        // convert to size_t
+        size_t toSize_t(std::string data);  // converts from std::string to size_t
+        size_t toSize_t(char data);  // converts from char to size_t
+        size_t toSize_t(char *data);  // converts from char * to size_t
+        size_t toSize_t(char **data);  // converts from char ** to size_t
+        size_t toSize_t(const char *data);  // converts from const char * to size_t
+        size_t toSize_t(int data);  // converts from int to size_t
+        size_t toSize_t(long data);  // converts from long to size_t
+        size_t toSize_t(unsigned long data);  // converts from unsigned long to size_t
+        size_t toSize_t(enet_uint8 *data);  // converts from enet_uint8 * to size_t
+        size_t toSize_t(int data);  // converts from int to size_t
+        size_t toSize_t(float data);  // converts from float to size_t
+        size_t toSize_t(double data);  // converts from double to size_t
+        size_t toSize_t(void *data);  // converts from void * to size_t
+
+        // convert to void *
+        void * voidPtr(std::string data);  // converts from std::string to void *
+        void * voidPtr(char data);  // converts from char to void *
+        void * voidPtr(char *data);  // converts from char * to void *
+        void * voidPtr(char **data);  // converts from char ** to void *
+        void * voidPtr(const char *data);  // converts from const char * to void *
+        void * voidPtr(int data);  // converts from int to void *
+        void * voidPtr(long data);  // converts from long to void *
+        void * voidPtr(unsigned long data);  // converts from unsigned long to void *
+        void * voidPtr(enet_uint8 *data);  // converts from enet_uint8 * to void *
+        void * voidPtr(int data);  // converts from int to void *
+        void * voidPtr(float data);  // converts from float to void *
+        void * voidPtr(double data);  // converts from double to void *
+        void * voidPtr(size_t data);  // converts from void * to void *
+
 /*
 template <typename T>
 std::string conversion::toString(const T& input)  // converts data to string);
