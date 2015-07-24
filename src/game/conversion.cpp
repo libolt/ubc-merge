@@ -47,7 +47,37 @@ std::string conversion::toString(char *data)  // converts char * data to string
     strData = boost::lexical_cast<std::string>(data);
     return (strData);
 }
+std::string conversion::toString(char **data)  // converts char ** data to string
+{
+    std::string strData;
+    strData = boost::lexical_cast<std::string>(data);
+    return (strData);
+}
+std::string conversion::toString(const char *data)  // converts const char * data to string
+{
+    std::string strData;
+    strData = boost::lexical_cast<std::string>(data);
+    return (strData);
+}
 std::string conversion::toString(int data)  // converts int data to string
+{
+    std::string strData;
+    strData = boost::lexical_cast<std::string>(data);
+    return (strData);
+}
+std::string conversion::toString(enet_uint8 *data)  // converts enet_uint8 data to string
+{
+    std::string strData;
+    strData = boost::lexical_cast<std::string>(data);
+    return (strData);
+}
+std::string conversion::toString(long data)  // converts long data to string
+{
+    std::string strData;
+    strData = boost::lexical_cast<std::string>(data);
+    return (strData);
+}
+std::string conversion::toString(unsigned long data)  // converts unsigned long data to string
 {
     std::string strData;
     strData = boost::lexical_cast<std::string>(data);
@@ -76,6 +106,12 @@ std::string conversion::toString(Ogre::Vector3 data)  // converts Ogre::Vector3 
     std::string strData;
     return(strData);
 }
+std::string conversion::toString(void *data)  // converts void * data to string
+{
+    std::string strData;
+    return(strData);
+}
+
 /*
 template <typename T>
 std::string conversion::toString(const T& input)  // converts data to string);

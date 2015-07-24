@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2014 by Mike McLean   *
+ *   Copyright (C) 2014 bygb Mike McLean   *
  *   libolt@libolt.net   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -71,11 +71,6 @@ int main(int argc, char *argv[])
     render->initOgre(); // Initializes the Ogre Subsystem
     render->createScene(); // creates rendering scene.
 
-    int i = 9;
-    std:: string test;
-    test = convert->toString(i);
-    logMsg("test = " +test);
-    exit(0);
     gui->initMyGUI(); // Initializes MyGUI
     if (!gui->getMainMenuCreated())
     {

@@ -738,7 +738,7 @@ bool inputSystem::processUnbufferedTouchInput() // reads in unbuffered touch inp
     evtState = SDL_EventState(SDL_FINGERDOWN, SDL_QUERY);
     logMsg("evtState FINGERDOWN = " +convert->toString(evtState));
     SDL_Finger *finger = SDL_GetTouchFinger(0,0);
-    logMsg("Finger = " +convert->toString(finger));
+//    logMsg("Finger = " +convert->toString(finger));
 
     evtState = 0;
     evtState = SDL_EventState(SDL_FINGERUP, SDL_QUERY);

@@ -402,7 +402,7 @@ bool loader::loadTeamListFile(string fileName)
 #endif */
 
 //	char *fileContents = NULL;
-    Ogre::String fileContents;
+    std::string fileContents;
     TiXmlDocument doc;
     logMsg(fileName);
 	logMsg("bate");
@@ -414,7 +414,7 @@ bool loader::loadTeamListFile(string fileName)
 	readFile(fileName.c_str(), &contents);
 //	logMsg("read contents = " +contents);
 //	exit(0);
-    fileContents = convert->toString(&contents);
+    fileContents = convert->toString(contents);
 //#endif
 //    readFile(fileName.c_str(), &fileContents);
 	logMsg("barf");
