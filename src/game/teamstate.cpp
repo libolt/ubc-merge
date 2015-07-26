@@ -18,8 +18,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "teamstate.h"
 #include "conversion.h"
+#include "teamstate.h"
 #include "gameengine.h"
 #include "gamestate.h"
 #include "logging.h"

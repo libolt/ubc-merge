@@ -19,13 +19,13 @@
  ***************************************************************************/
 
 //#include "boost/shared_array.hpp"
+#include "network.h"
 #include "ai.h"
 #include "conversion.h"
 #include "gamestate.h"
 #include "gameengine.h"
 #include "load.h"
 #include "logging.h"
-#include "network.h"
 #include "networkplayerstateobject.h"
 #include "playerdata.h"
 #include "players.h"

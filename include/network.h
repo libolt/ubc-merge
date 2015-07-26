@@ -21,7 +21,11 @@
 #ifndef _NETWORK_H_
 #define _NETWORK_H_
 
+#ifndef _ENET_ISINCLUDED_
+#define _ENET_ISINCLUDED_
 #include "enet/enet.h"
+#endif _ENET_ISINCLUDED_
+
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,7 +36,7 @@
 
 #include "enums.h"
 
-using namespace std;
+//using namespace std;
 
 enum packetType { PLAYER, BALL, COURT };
 enum packetData { MOVE, SHOOT, PASS };

@@ -23,8 +23,8 @@
 #include "config.h"
 #endif
 
-#include "renderengine.h"
 #include "conversion.h"
+#include "renderengine.h"
 #include "gameengine.h"
 #include "gamestate.h"
 #include "gui.h"
@@ -49,8 +49,8 @@ renderEngine* renderEngine::Instance()
 
 renderEngine::renderEngine()
 {
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+#ifdef __ANDROID__
+//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     gStaticPluginLoader = NULL;
 	mAssetMgr = NULL;
 	mSceneMgr = NULL;

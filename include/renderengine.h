@@ -22,7 +22,8 @@
 #ifndef _RENDERENGINE_H_
 #define _RENDERENGINE_H_
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
+#ifdef __ANDROID__
+//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     #define OGRE_STATIC_GLES2
 //    #define OGRE_STATIC_ParticleFX
 //    #define OGRE_STATIC_OctreeSceneManager
@@ -43,9 +44,9 @@
     #include "Android/OgreAPKZipArchive.h"
 
 
-#elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+/*#elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE
     #include "Ogre/OgreMemoryMacros.h"
-    #include "Ogre/Ogre.h"
+    #include "Ogre/Ogre.h" */
 #else
     #include "Ogre.h"
 #endif

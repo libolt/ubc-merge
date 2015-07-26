@@ -19,13 +19,13 @@
  ***************************************************************************/
  
 // Input
+#include "conversion.h"
 
 #include "MyGUI.h"
 #include "MyGUI_OgrePlatform.h"
 
 
 #include "input.h"
-#include "conversion.h"
 #include "gameengine.h"
 #include "gamestate.h"
 #include "gui.h"

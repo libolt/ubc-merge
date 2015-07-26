@@ -18,8 +18,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "OgrePrerequisites.h"
 #include "conversion.h"
+#include "OgrePrerequisites.h"
 #include "gameengine.h"
 #include "gamestate.h"
 #include "logging.h"

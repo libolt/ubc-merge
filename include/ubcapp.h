@@ -27,6 +27,8 @@
 #include "config.h"
 #endif
 
+#include "network.h"
+
 #include "gui.h"
 #include "SDL.h"
 #include "SDL_syswm.h"
@@ -38,7 +40,6 @@
 #include "gameengine.h"
 #include "gamestate.h"
 #include "input.h"
-#include "network.h"
 #include "players.h"
 #include "playerdata.h"
 #include "playerstate.h"
