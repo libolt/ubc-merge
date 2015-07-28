@@ -229,10 +229,12 @@ void gameEngine::processInput()  // processes game input
     boost::shared_ptr<conversion> convert = conversion::Instance();
     //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
-    
-    GUISystem *gui = GUISystem::Instance();
+    //GUISystem *gui = GUISystem::Instance();
+    boost::shared_ptr<GUISystem> gui = GUISystem::Instance();
     inputSystem *input = inputSystem::Instance();
-    networkEngine *network = networkEngine::Instance();
+    //networkEngine *network = networkEngine::Instance();
+    boost::shared_ptr<networkEngine> network = networkEngine::Instance();
+
 
     networkPlayerStateObject netPStateObj;
 
@@ -374,11 +376,13 @@ void gameEngine::gameLoop()	// Main Game Loop
     boost::shared_ptr<conversion> convert = conversion::Instance();
     //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
-    
-    GUISystem *gui = GUISystem::Instance();
+    //GUISystem *gui = GUISystem::Instance();
+    boost::shared_ptr<GUISystem> gui = GUISystem::Instance();
     inputSystem *input = inputSystem::Instance();
     renderEngine * render = renderEngine::Instance();
-    networkEngine *network = networkEngine::Instance();
+    //networkEngine *network = networkEngine::Instance();
+    boost::shared_ptr<networkEngine> network = networkEngine::Instance();
+
     players *player = players::Instance();
 
     networkPlayerStateObject netPStateObj;

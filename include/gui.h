@@ -42,7 +42,8 @@ public:
 
     ~GUISystem();
 
-    static GUISystem *Instance();
+    //static GUISystem *Instance();
+    static boost::shared_ptr<GUISystem> Instance();
 
     bool getMainMenuCreated();   // retrieves the value of mainMenuCreated
     void setMainMenuCreated(bool created); // sets the value of mainMenuCreated
@@ -233,7 +234,9 @@ protected:
     
 private:
 
-    static GUISystem *pInstance;
+    //static GUISystem *pInstance;
+    static boost::shared_ptr<GUISystem> pInstance;
+    
     MyGUI::Gui *mGUI;
     MyGUI::OgrePlatform *mPlatform;
 

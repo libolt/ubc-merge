@@ -64,7 +64,8 @@ int main(int argc, char *argv[])
     boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
     //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
-    GUISystem *gui = GUISystem::Instance();
+    //GUISystem *gui = GUISystem::Instance();
+    boost::shared_ptr<GUISystem> gui = GUISystem::Instance();
 
 //    networkEngine *network = networkEngine::Instance();
 //    players *player = players::Instance();

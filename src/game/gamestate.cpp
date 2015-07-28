@@ -685,7 +685,8 @@ bool gameState::logic()
     boost::shared_ptr<conversion> convert = conversion::Instance();
     //gameEngine *gameE = gameEngine::Instance();
     boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
-	networkEngine *network = networkEngine::Instance();
+	//networkEngine *network = networkEngine::Instance();
+    boost::shared_ptr<networkEngine> network = networkEngine::Instance();
     players *player = players::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();
 
@@ -818,7 +819,9 @@ bool gameState::logic()
 
 void gameState::processNetworkEvents()	// processes events from network code
 {
-    networkEngine *network = networkEngine::Instance();
+    //networkEngine *network = networkEngine::Instance();
+    boost::shared_ptr<networkEngine> network = networkEngine::Instance();
+
 
 //	std::vector <playerState> playerInstance = gameS->getPlayerInstance();
 
@@ -851,8 +854,10 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    networkEngine *network = networkEngine::Instance();
-	networkPlayerStateObject netPStateObj;
+    //networkEngine *network = networkEngine::Instance();
+	boost::shared_ptr<networkEngine> network = networkEngine::Instance();
+
+    networkPlayerStateObject netPStateObj;
 	std::stringstream strStream;
     std::vector<playerState> playerInstance;
 	std::string receivedData = network->getReceivedData();	// stores receivedData value

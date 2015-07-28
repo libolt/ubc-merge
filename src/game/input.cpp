@@ -378,7 +378,8 @@ bool inputSystem::processUnbufferedKeyInput(bool textInput)
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    GUISystem *gui = GUISystem::Instance();
+    //GUISystem *gui = GUISystem::Instance();
+    boost::shared_ptr<GUISystem> gui = GUISystem::Instance();
 //	logMsg("Processing keyboard input");
 
     logMsg("key == " +convert->toString(inputEvent.key.keysym.sym));

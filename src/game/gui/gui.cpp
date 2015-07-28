@@ -36,12 +36,18 @@
 #include "config.h"
 #endif
 
-GUISystem* GUISystem::pInstance = 0;
-GUISystem* GUISystem::Instance()
+//GUISystem* GUISystem::pInstance = 0;
+boost::shared_ptr<GUISystem> GUISystem::pInstance = 0;
+
+//GUISystem* GUISystem::Instance()
+boost::shared_ptr<GUISystem> GUISystem::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new GUISystem; // create sole instance
+        //pInstance = new GUISystem; // create sole instance
+        
+        boost::shared_ptr<GUISystem> tInstance(new GUISystem);
+        pInstance = tInstance;
     }
     return pInstance; // address of sole instance
 }
@@ -405,7 +411,8 @@ void GUISystem::networkServerSetupMenu()  // sets up the networkServer instance
 
 void GUISystem::networkServer()  // sets up  game as a network server
 {
-    networkEngine * network = networkEngine::Instance();
+    //networkEngine * network = networkEngine::Instance();
+    boost::shared_ptr<networkEngine> network = networkEngine::Instance();
     //gameEngine * gameE = gameEngine::Instance();
     boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
     //gameState *gameS = gameState::Instance();
@@ -423,7 +430,8 @@ void GUISystem::networkServer()  // sets up  game as a network server
 }
 void GUISystem::networkClient()  // sets up game as a network client
 {
-    networkEngine * network = networkEngine::Instance();
+    //networkEngine * network = networkEngine::Instance();
+    boost::shared_ptr<networkEngine> network = networkEngine::Instance();
     //gameEngine * gameE = gameEngine::Instance();
     boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
     //gameState *gameS = gameState::Instance();

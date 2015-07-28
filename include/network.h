@@ -46,6 +46,10 @@ class networkEngine
 {
     public:
 
+    //static networkEngine *Instance();
+    static boost::shared_ptr<networkEngine> Instance();
+
+
 //    networkEngine();
     ~networkEngine();
 
@@ -106,8 +110,6 @@ class networkEngine
     
     void sendPacket(std::string packetData);	// sends a packet to the peer
 
-    static networkEngine *Instance();
-
     protected:
     networkEngine();
     networkEngine(const networkEngine&);
@@ -116,7 +118,9 @@ class networkEngine
     private:
 
     int counter;
-    static networkEngine *pInstance;
+    //static networkEngine *pInstance;
+    static boost::shared_ptr<networkEngine> pInstance;
+
 
     int clientID;	// defines the client ID number used to identify which client is communicating with the server
     std::string ipAddress; // stores IP Address used for either server or client code

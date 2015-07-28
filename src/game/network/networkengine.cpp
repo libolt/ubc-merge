@@ -49,12 +49,17 @@ networkEngine::~networkEngine()
 
 }
 
-networkEngine* networkEngine::pInstance = 0;
-networkEngine* networkEngine::Instance()
+//networkEngine* networkEngine::pInstance = 0;
+boost::shared_ptr<networkEngine> networkEngine::pInstance = 0;
+
+//networkEngine* networkEngine::Instance()
+boost::shared_ptr<networkEngine> networkEngine::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new networkEngine; // create sole instance
+        //pInstance = new networkEngine; // create sole instance
+        boost::shared_ptr<networkEngine> tInstance(new networkEngine);
+        pInstance = tInstance;
     }
     return pInstance; // address of sole instance
 }
