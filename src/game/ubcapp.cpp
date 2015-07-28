@@ -82,7 +82,8 @@ int main(int argc, char *argv[])
 		gui->createBackButtons(); // creates the back buttons.
     }
     logMsg("Initializing Input");
-    inputSystem *input = inputSystem::Instance();
+    //inputSystem *input = inputSystem::Instance();
+    boost::shared_ptr<inputSystem> input = inputSystem::Instance();
 
     gameE->gameLoop();
 

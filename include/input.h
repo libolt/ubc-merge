@@ -43,7 +43,9 @@ class inputSystem
 {
 public:
 
-    static inputSystem *Instance();
+    //static inputSystem *Instance();
+    static boost::shared_ptr<inputSystem> Instance();
+
 
     bool setup();   // sets up and initializes the  Input System
     bool destroy(); // destroys the Input system and related objects
@@ -77,7 +79,7 @@ protected:
     inputSystem(const inputSystem&);
     inputSystem& operator= (const inputSystem&);
 
-    ~inputSystem();
+    //~inputSystem();
     // SDL Input
     SDL_Event inputEvent;
     SDL_Event events[EVENT_BUF_SIZE];
@@ -89,7 +91,9 @@ protected:
     int mouseRightClick; // stores state of Right mouse button;
 
 private:
-    static inputSystem *pInstance;
+    //static inputSystem *pInstance;
+    static boost::shared_ptr<inputSystem> pInstance;
+
 
     std::string keyPressed; // stores which key was pressed
 

@@ -509,7 +509,8 @@ void physicsEngine::updateState()
     boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
 	//gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
-    inputSystem *input = inputSystem::Instance();
+    //inputSystem *input = inputSystem::Instance();
+    boost::shared_ptr<inputSystem> input = inputSystem::Instance();
 //    teamState *teamS = teamState::Instance();
 
     int teamWithBall = gameS->getTeamWithBall();

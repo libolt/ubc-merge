@@ -474,7 +474,8 @@ void networkEngine::networkServer()
 
 void networkEngine::processLocalInput()  // processes local input for sending to remote system
 {
-    inputSystem *input = inputSystem::Instance();
+    //inputSystem *input = inputSystem::Instance();
+    boost::shared_ptr<inputSystem> input = inputSystem::Instance();
     //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     

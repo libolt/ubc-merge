@@ -218,7 +218,9 @@ bool gameEngine::startGame()
 
 void gameEngine::quit()
 {
-    inputSystem *input = inputSystem::Instance();
+    //inputSystem *input = inputSystem::Instance();
+    boost::shared_ptr<inputSystem> input = inputSystem::Instance();
+
     input->destroy();
 
 }
@@ -231,7 +233,8 @@ void gameEngine::processInput()  // processes game input
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     //GUISystem *gui = GUISystem::Instance();
     boost::shared_ptr<GUISystem> gui = GUISystem::Instance();
-    inputSystem *input = inputSystem::Instance();
+    //inputSystem *input = inputSystem::Instance();
+    boost::shared_ptr<inputSystem> input = inputSystem::Instance();
     //networkEngine *network = networkEngine::Instance();
     boost::shared_ptr<networkEngine> network = networkEngine::Instance();
 
@@ -378,7 +381,8 @@ void gameEngine::gameLoop()	// Main Game Loop
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     //GUISystem *gui = GUISystem::Instance();
     boost::shared_ptr<GUISystem> gui = GUISystem::Instance();
-    inputSystem *input = inputSystem::Instance();
+    //inputSystem *input = inputSystem::Instance();
+    boost::shared_ptr<inputSystem> input = inputSystem::Instance();
     renderEngine * render = renderEngine::Instance();
     //networkEngine *network = networkEngine::Instance();
     boost::shared_ptr<networkEngine> network = networkEngine::Instance();

@@ -36,13 +36,17 @@
 //static int32_t handleInput(struct android_app* app, AInputEvent* event);
 
 
-inputSystem* inputSystem::pInstance = 0;
+//inputSystem* inputSystem::pInstance = 0;
+boost::shared_ptr<inputSystem> inputSystem::pInstance = 0;
 
-inputSystem* inputSystem::Instance()
+//inputSystem* inputSystem::Instance()
+boost::shared_ptr<inputSystem> inputSystem::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new inputSystem; // create sole instance
+        //pInstance = new inputSystem; // create sole instance
+        boost::shared_ptr<inputSystem> tInstance(new inputSystem);
+        pInstance = tInstance;
     }
     return pInstance; // address of sole instance
 }
@@ -57,10 +61,10 @@ inputSystem::inputSystem()
     setup();
 }
 
-inputSystem::~inputSystem()
+/*inputSystem::~inputSystem()
 {
 }
-
+*/
 SDL_Event inputSystem::getInputEvent()
 {
 	return (inputEvent);
