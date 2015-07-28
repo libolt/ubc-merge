@@ -46,12 +46,14 @@ void basketballSteer::setID(int id) // sets the value of ID
 // reset state
 void basketballSteer::reset(void)
 {
+    // gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    
     steering::reset (); // reset the vehicle
     setSpeed (0.0f);         // speed along Forward direction.
     setMaxForce (3000.7f);      // steering force is clipped to this magnitude
     setMaxSpeed (10);         // velocity is clipped to this magnitude
-
-	gameState *gameS = gameState::Instance();
+    
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 	std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
 

@@ -23,7 +23,7 @@
 
 #include "OgreTimer.h"
 #include "OgreVector3.h"
-
+#include <boost/shared_ptr.hpp>
 
 #include "players.h"
 #include "threads.h"
@@ -33,9 +33,10 @@ class gameEngine : public players
 
 public:
     ~gameEngine();
-
-    static gameEngine *Instance();
-
+    
+    //static gameEngine *Instance();
+    static boost::shared_ptr<gameEngine> Instance();
+    
     bool getMenuActive();					// retrieves menuActive variable
     void setMenuActive(bool active);		// sets menuActive variable
 
@@ -87,6 +88,10 @@ protected:
     gameEngine& operator= (const gameEngine&);
 
 private:
+
+    //static gameEngine *pInstance;
+    static boost::shared_ptr<gameEngine> pInstance;
+
     int x;
     int y;
     int i;
@@ -99,7 +104,7 @@ private:
     unsigned long changeInTime; // stores the difference between current reading of the timer and the previous reading.
 
 	
-    static gameEngine *pInstance;
+    
 
     // Flags
     bool userInputLoaded; // if set then user input configuration has been loaded from file

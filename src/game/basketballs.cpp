@@ -328,7 +328,8 @@ Ogre::Vector3 basketballs::calculatePositionChange()
 {
 
 	//   UBC *ubc = UBC::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
     Ogre::Vector3 changeInPosition;	// stores the calculated change in position
     Ogre::Vector3 pos = node->getPosition();	// stores the basketball nodes position

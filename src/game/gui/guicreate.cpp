@@ -373,7 +373,8 @@ bool GUISystem::createGameSetupMenuGUI()    // creates GUI for game setup menu s
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
     loader *load = loader::Instance();
     renderEngine *renderE = renderEngine::Instance();
     Ogre::Viewport *viewPort = renderE->getViewPort();
@@ -563,7 +564,8 @@ bool GUISystem::createTeamSelectionMenuGUI()    // creates GUI for team selectio
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
     loader *load = loader::Instance();
     renderEngine *renderE = renderEngine::Instance();
     Ogre::Viewport *viewPort = renderE->getViewPort();

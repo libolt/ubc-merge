@@ -32,7 +32,7 @@ boost::shared_ptr<AISystem> AISystem::Instance()
     {
         //pInstance = new AISystem; // create sole instance
         boost::shared_ptr<AISystem> tInstance(new AISystem);
-        return tInstance; // address of sole instance
+        pInstance = tInstance;
     }
     return pInstance; // returns the value of pInstance
 }

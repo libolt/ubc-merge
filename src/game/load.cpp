@@ -481,7 +481,8 @@ bool loader::loadTeamFile(string fileName)
 //    teams *team = teams::Instance();
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
     renderEngine *renderE = renderEngine::Instance();
 	std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
     teamData teamD;
@@ -676,8 +677,9 @@ bool loader::loadPlayerFile(string fileName)
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
-	renderEngine *renderE = renderEngine::Instance();
+    //gameState *gameS = gameState::Instance();
+	boost::shared_ptr<gameState> gameS = gameState::Instance();
+    renderEngine *renderE = renderEngine::Instance();
 
     playerData playerD;;
     std::vector<playerData> playerDataInstance = gameS->getPlayerDataInstance();

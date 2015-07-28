@@ -31,14 +31,20 @@
 #include "soundengine.h"
 
 
-gameEngine* gameEngine::pInstance = 0;
-gameEngine* gameEngine::Instance()
+//gameEngine* gameEngine::pInstance = 0;
+boost::shared_ptr<gameEngine> gameEngine::pInstance = 0;
+
+//gameEngine* gameEngine::Instance()
+boost::shared_ptr<gameEngine> gameEngine::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new gameEngine; // create sole instance
+        //pInstance = new AISystem; // create sole instance
+        boost::shared_ptr<gameEngine> tInstance(new gameEngine);
+        pInstance = tInstance;
+        //return tInstance; // address of sole instance
     }
-    return pInstance; // address of sole instance
+    return pInstance; // returns the value of pInstance
 }
 
 
@@ -198,8 +204,9 @@ void gameEngine::setMovePlayer(bool player)
 bool gameEngine::startGame()
 {
 //    gameState *gameS = gameState::Instance();
-    gameState *gameS = gameState::Instance();
-
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //    Ogre::LogManager::getSingletonPtr()->logMessage("startGame()");
 	logMsg("startGame()");
@@ -220,7 +227,9 @@ void gameEngine::processInput()  // processes game input
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    
     GUISystem *gui = GUISystem::Instance();
     inputSystem *input = inputSystem::Instance();
     networkEngine *network = networkEngine::Instance();
@@ -363,7 +372,9 @@ void gameEngine::gameLoop()	// Main Game Loop
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    
     GUISystem *gui = GUISystem::Instance();
     inputSystem *input = inputSystem::Instance();
     renderEngine * render = renderEngine::Instance();

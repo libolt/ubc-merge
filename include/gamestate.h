@@ -38,7 +38,9 @@ class gameState
 {
 public:
 
-    static gameState *Instance();
+    //static gameState *Instance();
+    static boost::shared_ptr<gameState> Instance();
+
     ~gameState();
 
     gameTypes getGameType(); // retrieves the value of gameType
@@ -156,7 +158,8 @@ protected:
     gameState &operator = (const gameState&);
 
 private:
-    static gameState *pInstance;
+    //static gameState *pInstance;
+    static boost::shared_ptr<gameState> pInstance;
 
     gameTypes gameType;	// Indicates whether a single or multi player game is being played.
     bool gameSetupComplete; // indicates whether initial game setup is complete.

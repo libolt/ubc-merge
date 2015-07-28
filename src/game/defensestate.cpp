@@ -46,8 +46,8 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
 {
     //conversion *convert = conversion::Instance();
 	boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
-
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 	int teamWithBall = gameS->getTeamWithBall();
 
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();

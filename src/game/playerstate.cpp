@@ -692,7 +692,8 @@ bool playerState::loadModel()   // loads the player's 3D model from the file spe
 
 void playerState::updateState()
 {
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();
 	Ogre::Vector3 playerPos;
  //   exit(0);
@@ -746,8 +747,9 @@ void playerState::calculatePass()	// calculates which player to pass the ball to
 //	exit(0);
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
-
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    
 	logMsg("In calculatePass function");
 
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();

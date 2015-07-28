@@ -38,7 +38,8 @@
 
 bool GUISystem::addCourtSelectionMenuData() // adds data to Player Start Selection Menu widgets
 {
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
     
     std::vector<courtData> courtDataInstance;
     std::vector<std::string> courtName;
@@ -74,7 +75,9 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    
     loader *load = loader::Instance();
 
     load->loadPlayers();

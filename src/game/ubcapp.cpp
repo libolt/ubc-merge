@@ -60,8 +60,10 @@ int main(int argc, char *argv[])
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     renderEngine *render = renderEngine::Instance();
-    gameEngine *gameE = gameEngine::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameEngine *gameE = gameEngine::Instance();
+    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
     GUISystem *gui = GUISystem::Instance();
 
 //    networkEngine *network = networkEngine::Instance();

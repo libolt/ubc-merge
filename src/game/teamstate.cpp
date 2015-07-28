@@ -399,9 +399,11 @@ void teamState::updateState()	// updates the state of the object
 //	exit(0);
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameEngine *gameE = gameEngine::Instance();
-	gameState *gameS = gameState::Instance();
-	physicsEngine *physEngine = physicsEngine::Instance();
+    //gameEngine *gameE = gameEngine::Instance();
+    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
+	//gameState *gameS = gameState::Instance();
+	boost::shared_ptr<gameState> gameS = gameState::Instance();
+    physicsEngine *physEngine = physicsEngine::Instance();
 
 //	logMsg("Updating team state " +convert->toString(teamNumber));
 	if (gameS->getBasketballModelLoaded() && playerInstancesCreated)
@@ -537,7 +539,8 @@ bool teamState::createPlayerInstances()
 
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
     std::vector< std::vector<int> > teamStarterID = gameS->getTeamStarterID();
 	std::vector<playerData> playerDataInstance = gameS->getPlayerDataInstance();
@@ -666,7 +669,8 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
     std::vector< std::vector<int> > teamStarterID = gameS->getTeamStarterID();
 
@@ -793,7 +797,9 @@ void teamState::updatePlayerDirections()
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    
 //    playerState *player = players::Instance();
 
     directions playerDirection, oldPlayerDirection;
@@ -1011,7 +1017,8 @@ void teamState::executePass()		// executes the pass between players
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
     logMsg("In executePass function");
 

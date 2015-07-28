@@ -252,7 +252,8 @@ bool physicsEngine::setupPlayerPhysics()
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
     players *player = players::Instance();
 
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
@@ -367,7 +368,8 @@ return true;
 bool physicsEngine::setupCourtPhysics()
 {
 //    courtState *courtS = courtState::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
     std::vector<courtState> courtInstance = gameS->getCourtInstance();
     btRigidBody *courtBody;
@@ -409,7 +411,8 @@ bool physicsEngine::setupCourtPhysics()
 bool physicsEngine::setupHoopPhysics()
 {
 //    courtState *courtS = courtState::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
     std::vector<hoopState> hoopInstance = gameS->getHoopInstance();
     btRigidBody *hoopBody;
@@ -456,7 +459,8 @@ bool physicsEngine::setupHoopPhysics()
 bool physicsEngine::setupBasketballPhysics()
 {
 //    basketballs *bball = basketballs::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
     std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
     btRigidBody *bballBody;
@@ -501,8 +505,10 @@ void physicsEngine::updateState()
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameEngine *gameE = gameEngine::Instance();
-	gameState *gameS = gameState::Instance();
+    //gameEngine *gameE = gameEngine::Instance();
+    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
+	//gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
     inputSystem *input = inputSystem::Instance();
 //    teamState *teamS = teamState::Instance();
 
@@ -652,7 +658,9 @@ void physicsEngine::updateState()
 
 void physicsEngine::stepWorld()	// steps the world of the physics simulation
 {
-	gameEngine *gameE = gameEngine::Instance();
+	//gameEngine *gameE = gameEngine::Instance();
+    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
 
 	btScalar currentTime;
 	btScalar fixedTimeStep;
@@ -663,7 +671,8 @@ void physicsEngine::stepWorld()	// steps the world of the physics simulation
 	//    unsigned long loopChangeInTime;	// stores change in time.
 
 	currentTime = gameE->getLoopTime().getMilliseconds();
-
+    logMsg("Current time = " +convert->toString(gameE->getLoopTime().getMilliseconds()));
+    
 	//    if (currentTime - oldTime >= 1000 && currentTime - oldTime <= 1200)
 	{
 		changeInTime = (currentTime - oldTime) / 1000;
@@ -676,7 +685,7 @@ void physicsEngine::stepWorld()	// steps the world of the physics simulation
 	String currTime = StringConverter::toString(currentTime);
 
 //	logMsg("Current Time = " + currTime);
-//	logMsg("Change In Time = " + CIT);
+	logMsg("Change In Time = " + CIT);
 
 	world->stepSimulation(changeInTime, 1, fixedTimeStep);
 //	logMsg("World->Step ");
@@ -688,7 +697,8 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
 	int ballTippedToTeam = gameS->getBallTippedToTeam();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
@@ -873,7 +883,8 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
 //    std::vector<playerState> pInstance = gameS->getPlayerInstance();
     std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
@@ -971,7 +982,8 @@ void physicsEngine::passCollisionCheck()	// checks whether the ball has collided
 //	exit(0);
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
 	int teamWithBall = gameS->getTeamWithBall();
 	std::vector<teamState>	teamInstance = gameS->getTeamInstance();
@@ -1005,7 +1017,8 @@ bool physicsEngine::playerJump(int teamNumber, int playerID)  // calculates and 
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
     std::vector<courtState> courtInstance = gameS->getCourtInstance();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
@@ -1097,7 +1110,8 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
     std::vector<courtState> courtInstance = gameS->getCourtInstance();
     std::vector<hoopState> hoopInstance = gameS->getHoopInstance();

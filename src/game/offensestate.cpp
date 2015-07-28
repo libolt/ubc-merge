@@ -178,7 +178,8 @@ void offenseState::setupState()		// sets up initial state of the object
 
 void offenseState::updateState(int teamNumber)	// updates the state of the object
 {
-	gameState *gameS = gameState::Instance();
+	//gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<playerState> playerInstance = teamInstance[teamNumber].getPlayerInstance();
 
@@ -255,7 +256,9 @@ void offenseState::executeOffense() // executes box offense
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<playerState> playerInstance = teamInstance[gameS->getTeamWithBall()].getPlayerInstance();
 

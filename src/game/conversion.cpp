@@ -29,10 +29,9 @@ boost::shared_ptr<conversion> conversion::Instance()
     {
 //        pInstance = new conversion; // create sole instance
         boost::shared_ptr<conversion> tInstance(new conversion);
-//        pInstance = pInstance(new conversion);
-        return tInstance; // address of sole instance
+        pInstance = tInstance;
     }
-    return pInstance;
+    return pInstance; // returns the value of pInstance
 }
 
 // inputSystem constructor

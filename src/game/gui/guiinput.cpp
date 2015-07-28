@@ -515,7 +515,9 @@ void GUISystem::processAudioMenuKeyPress(std::string keyPressed) // processes au
 
 void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processes game setup menu key input
 {
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    
     std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
     logMsg("processGameSetupMenuKeyPress");
     if (keyPressed == "a" && !gameSetupMenuAwaySelected)
@@ -621,7 +623,8 @@ void GUISystem::processGameSetupMenuKeyPress(std::string keyPressed) // processe
 
 void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed)   // process player start selection menu key input
 {
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
     loader *load = loader::Instance();
 
     checkTeamInstancesCreated();
@@ -640,7 +643,9 @@ void GUISystem::processPlayerStartSelectionMenuKeyPress(std::string keyPressed) 
 
 void GUISystem::processTeamSelectionMenuKeyPress(std::string keyPressed)   // process team selection menu key input
 {
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    
     std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
     logMsg("processGameSetupMenuKeyPress");
     if (keyPressed == "a" && !gameSetupMenuAwaySelected)
@@ -749,7 +754,8 @@ void GUISystem::processTeamSelectionMenuKeyPress(std::string keyPressed)   // pr
 
 void GUISystem::processCourtSelectionMenuKeyPress(std::string keyPressed)   // process court selection menu key input
 {
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
     if (keyPressed == "b")
     {

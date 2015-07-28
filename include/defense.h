@@ -27,6 +27,9 @@ class defenses
 {
 public:
 
+    //static defenses *Instance();
+    static boost::shared_ptr<defenses> Instance();
+    
     int getTeamOnDefense();					// returns teamOnDefense variable
     void setTeamOnDefense(int team);		// sets teamOnDefense variable
 
@@ -56,17 +59,15 @@ public:
     bool executeManToManDefense();	// executes man to man defense routines
     bool executeZoneDefense();	// executes zone defense routines
 
-
-
-    static defenses *Instance();
 protected:
     defenses();
     defenses(const defenses&);
     defenses& operator= (const defenses&);
     ~defenses();
 private:
-    static defenses *pInstance;
-
+    //static defenses *pInstance;
+    static boost::shared_ptr<defenses> pInstance;
+    
     defenseTypes defenseType;	// stores type of defense being played
 
     int teamOnDefense;

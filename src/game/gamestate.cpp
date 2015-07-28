@@ -35,13 +35,18 @@
 
 //extern "C"
 //{
-gameState *gameState::pInstance = 0;
+//gameState *gameState::pInstance = 0;
+boost::shared_ptr<gameState> gameState::pInstance = 0;
 
-gameState *gameState::Instance()
+//gameState *gameState::Instance()
+boost::shared_ptr<gameState> gameState::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new gameState; // t sole instance
+        //pInstance = new gameState; // t sole instance
+        
+        boost::shared_ptr<gameState> tInstance(new gameState);
+        pInstance = tInstance;
     }
     return pInstance; // address of sole instance
 }
@@ -331,7 +336,9 @@ bool gameState::assignPlayers()
 {
     logMsg("assigning players");
     exit(0);
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    
     players *player = players::Instance();
     teams *team = teams::Instance();
 
@@ -676,7 +683,8 @@ bool gameState::logic()
     boost::shared_ptr<AISystem> ai = AISystem::Instance();
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameEngine *gameE = gameEngine::Instance();
+    //gameEngine *gameE = gameEngine::Instance();
+    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
 	networkEngine *network = networkEngine::Instance();
     players *player = players::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();

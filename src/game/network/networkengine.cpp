@@ -212,7 +212,8 @@ int networkEngine::initialize()
 
 void networkEngine::clientConnect()
 {
-    gameEngine *gameE = gameEngine::Instance();
+    //gameEngine *gameE = gameEngine::Instance();
+    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
 
     if (!clientEstablishedConnection)
     {
@@ -339,7 +340,8 @@ void networkEngine::networkClient()
 
 void networkEngine::serverSetup()
 {
-    gameEngine *gameE = gameEngine::Instance();
+    //gameEngine *gameE = gameEngine::Instance();
+    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
     
 /* Bind the server to the default localhost.     */
 /* A specific host address can be specified by   */
@@ -374,7 +376,9 @@ void networkEngine::networkServer()
 //	serverSetup();
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameEngine *gameE = gameEngine::Instance();
+    //gameEngine *gameE = gameEngine::Instance();
+    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
+    
     char *host; 
     std::string addressHost, addressPort, packetData, packetDataLength, packetPeer, packetChannelID;
     int x = 0;
@@ -466,7 +470,9 @@ void networkEngine::networkServer()
 void networkEngine::processLocalInput()  // processes local input for sending to remote system
 {
     inputSystem *input = inputSystem::Instance();
-    gameState *gameS = gameState::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    
     inputWorkQueues inputQueue;
     networkPlayerStateObject netPStateObj;
 
@@ -633,7 +639,8 @@ void networkEngine::sendPacket(std::string packetData)
 {
     //conversion *convert = conversion::Instance();
 	boost::shared_ptr<conversion> convert = conversion::Instance();
-    gameEngine *gameE = gameEngine::Instance();
+    //gameEngine *gameE = gameEngine::Instance();
+    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
 
 	if (gameE->getServerRunning())
 	{
