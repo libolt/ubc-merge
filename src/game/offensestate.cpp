@@ -207,8 +207,9 @@ void offenseState::loadPlays()	// loads offense plays from file
 
 void offenseState::setupOffense() // sets up box offense
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
 	// FIXME! Hard coded values need to be made dynamic
 	playName = "Box";
 	playTitle = "FlashHighPassLow";
@@ -252,7 +253,8 @@ void offenseState::setupOffense() // sets up box offense
 
 void offenseState::executeOffense() // executes box offense
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<playerState> playerInstance = teamInstance[gameS->getTeamWithBall()].getPlayerInstance();
@@ -391,8 +393,9 @@ void offenseState::executeOffense() // executes box offense
 
 bool offenseState::checkForDirective(playerDesignations designation) // checks if a directive needs to be completed before execution
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
 	for (int x=0;x<playerDirective.size();++x)
 	{
         logMsg("playerDesignation = " +convert->toString(playerDirective[x].getPlayerDesignation()));

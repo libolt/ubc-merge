@@ -72,7 +72,8 @@ bool GUISystem::addCourtSelectionMenuData() // adds data to Player Start Selecti
 
 void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start Selection Menu widgets
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
     loader *load = loader::Instance();
 

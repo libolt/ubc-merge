@@ -120,7 +120,8 @@ void loader::setUserInputFiles(std::vector<std::string> set)  // sets list of us
 int loader::readFile(const char *sourceFile, char **destination)
 //int loader::readFile(const char *sourceFile, std::string *destination)
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     renderEngine *renderE = renderEngine::Instance();
 	int BLOCK_SIZE = 8;
 	int MAX_BLOCKS = 1024;
@@ -178,8 +179,9 @@ int loader::readFile(const char *sourceFile, char **destination)
 
 SDL_RWops *loader::readBinaryFile(const char *sourceFile)  // reads in a binary file
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
     int BLOCK_SIZE = 8;
 	int MAX_BLOCKS = 1024;
     
@@ -387,7 +389,9 @@ bool loader::loadTeams()
 
 bool loader::loadTeamListFile(string fileName)
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
     renderEngine *renderE = renderEngine::Instance();
     teams *team = teams::Instance();
 
@@ -475,7 +479,8 @@ bool loader::loadTeamListFile(string fileName)
 bool loader::loadTeamFile(string fileName)
 {
 //    teams *team = teams::Instance();
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
     renderEngine *renderE = renderEngine::Instance();
 	std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
@@ -602,7 +607,8 @@ bool loader::loadPlayers()
 // loads XML file containing list of players and the files representing them
 bool loader::loadPlayerListFile( string fileName)
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     renderEngine *renderE = renderEngine::Instance();
     std::vector<std::string> playerFiles;
     players *player = players::Instance();
@@ -668,7 +674,8 @@ bool loader::loadPlayerListFile( string fileName)
 
 bool loader::loadPlayerFile(string fileName)
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
 	renderEngine *renderE = renderEngine::Instance();
 
@@ -1147,7 +1154,8 @@ std::vector<offensePlays> loader::loadOffensePlays()	// load offense plays from 
 }
 bool loader::loadOffensePlayListFile(string fileName)	// loads the list of offense play files from plays.xml
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     renderEngine *renderE = renderEngine::Instance();
 
     std::vector<std::string> playFiles;
@@ -1214,8 +1222,9 @@ bool loader::loadOffensePlayListFile(string fileName)	// loads the list of offen
 
 offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the offense play XML files
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
 	offensePlays play;
 	std::string playName;
     int variation;
@@ -1546,7 +1555,9 @@ std::vector<courtData> loader::loadCourts()	// load court settings from XML file
 
 bool loader::loadCourtListFile(string fileName)	// loads the list of court files from courts.xml
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
     renderEngine *renderE = renderEngine::Instance();
     std::vector<std::string> courtFile;
 
@@ -1612,8 +1623,9 @@ bool loader::loadCourtListFile(string fileName)	// loads the list of court files
 
 courtData loader::loadCourtFile(string fileName)	// loads data from the offense play XML files
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
 	courtData court;
 	std::string name;
 	std::string modelName;
@@ -1868,7 +1880,9 @@ std::vector<userInput> loader::loadUserInputs() // load user input settings from
 
 bool loader::loadUserInputListFile(string fileName) // loads the list of offense play files from plays.xml
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
     renderEngine *renderE = renderEngine::Instance();
     std::vector<std::string> userInputFile;
 
@@ -1934,8 +1948,9 @@ bool loader::loadUserInputListFile(string fileName) // loads the list of offense
 
 userInput loader::loadUserInputFile(string fileName)    // loads data from the user input XML files
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
     logMsg("Load UserInput File");
     userInput uInput;
     std::string inputName;

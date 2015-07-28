@@ -435,7 +435,8 @@ void GUISystem::networkClient()  // sets up game as a network client
 
 void GUISystem::courtSelected()  // processes court selection
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
     
     logMsg("Selected Court #" +convert->toString(courtSelectBox->getIndexSelected()));
@@ -455,7 +456,8 @@ void GUISystem::teamsSelected()  // processes team selection
 
 void GUISystem::playerStartSelected()  // process player start selection
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
 
     std::vector <teamState>  teamInstance = gameS->getTeamInstance();

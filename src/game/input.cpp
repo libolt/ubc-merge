@@ -208,7 +208,8 @@ inputMaps inputSystem::keyMap()  // maps value of keyPressed string to inputMap
 bool inputSystem::processInput()	// processes all input
 {
     
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     renderEngine *render = renderEngine::Instance();
 
     keyPressed = "";  // resets value of keyPressed
@@ -375,7 +376,8 @@ bool inputSystem::processInput()	// processes all input
 
 bool inputSystem::processUnbufferedKeyInput(bool textInput)
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     GUISystem *gui = GUISystem::Instance();
 //	logMsg("Processing keyboard input");
 
@@ -651,7 +653,8 @@ bool inputSystem::processUnbufferedKeyInput(bool textInput)
 
 bool inputSystem::processUnbufferedMouseInput()
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     renderEngine *render = renderEngine::Instance();
 
 	int x, y;
@@ -718,7 +721,8 @@ bool inputSystem::processUnbufferedMouseInput()
 
 bool inputSystem::processUnbufferedTouchInput() // reads in unbuffered touch input
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     renderEngine *render = renderEngine::Instance();
 
 	int state = -1;

@@ -218,7 +218,8 @@ void gameEngine::quit()
 
 void gameEngine::processInput()  // processes game input
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
     GUISystem *gui = GUISystem::Instance();
     inputSystem *input = inputSystem::Instance();
@@ -360,7 +361,8 @@ void gameEngine::processInput()  // processes game input
 
 void gameEngine::gameLoop()	// Main Game Loop
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
     GUISystem *gui = GUISystem::Instance();
     inputSystem *input = inputSystem::Instance();

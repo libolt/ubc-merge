@@ -217,7 +217,8 @@ void GUISystem::showAudioMenuWidgets()  // shows all widgets tied to the Main Me
 
 void GUISystem::hideGameSetupMenuWidgets()  // hides all widgets tied to the Game Setup Menu
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
 
     team0SelectBox->setVisible(false);
     team1SelectBox->setVisible(false);
@@ -414,7 +415,8 @@ void GUISystem::showPlayerStartSelectionMenuWidgets() // shows all widgets tied 
 
 void GUISystem::hideTeamSelectionMenuWidgets() // hides all widgets tied to the Team Selection Menu
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
 
     team0SelectBox->setVisible(false);
     team1SelectBox->setVisible(false);

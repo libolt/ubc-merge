@@ -22,6 +22,7 @@
 #define _GAMESTATE_H_
 
 #include <vector>
+#include <boost/shared_ptr.hpp>
 
 #include "basketballs.h"
 #include "courtdata.h"

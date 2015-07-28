@@ -372,7 +372,8 @@ void networkEngine::serverSetup()
 void networkEngine::networkServer()
 {
 //	serverSetup();
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameEngine *gameE = gameEngine::Instance();
     char *host; 
     std::string addressHost, addressPort, packetData, packetDataLength, packetPeer, packetChannelID;
@@ -630,8 +631,9 @@ void networkEngine::processRemoteInput() // processes input received from a remo
 
 void networkEngine::sendPacket(std::string packetData)
 {
-    conversion *convert = conversion::Instance();
-	gameEngine *gameE = gameEngine::Instance();
+    //conversion *convert = conversion::Instance();
+	boost::shared_ptr<conversion> convert = conversion::Instance();
+    gameEngine *gameE = gameEngine::Instance();
 
 	if (gameE->getServerRunning())
 	{

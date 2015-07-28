@@ -20,13 +20,16 @@
 
 #include "conversion.h"
 
-conversion* conversion::pInstance = 0;
-
-conversion* conversion::Instance()
+//conversion* conversion::pInstance = 0;
+boost::shared_ptr<conversion> conversion::pInstance = 0;
+//conversion* conversion::Instance()
+boost::shared_ptr<conversion> conversion::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new conversion; // create sole instance
+//        pInstance = new conversion; // create sole instance
+        boost::shared_ptr<conversion> tInstance(new conversion);
+//        pInstance = pInstance(new conversion);
     }
     return pInstance; // address of sole instance
 }
@@ -37,9 +40,9 @@ conversion::conversion()
     
 }
 
-conversion::~conversion()
+/*conversion::~conversion()
 {
-}
+}*/
 
 // conversion to std::string
 std::string conversion::toString(char *data)  // converts char * data to string

@@ -283,8 +283,9 @@ Ogre::DataStreamPtr renderEngine::openAPKFile(const std::string& fileName)
 
 bool renderEngine::initSDL() // Initializes SDL Subsystem
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
         fprintf(stderr,
@@ -361,8 +362,9 @@ bool renderEngine::initSDL() // Initializes SDL Subsystem
 
 bool renderEngine::initOgre() // Initializes Ogre Subsystem
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
 	//    GUISystem *gui = GUISystem::Instance();
 	//    SoundSystem *sound = SoundSystem::Instance();
 
@@ -474,8 +476,8 @@ bool renderEngine::createWindow()
 
 bool renderEngine::createScene()
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
     logMsg("Hello");
 	config = AConfiguration_new();

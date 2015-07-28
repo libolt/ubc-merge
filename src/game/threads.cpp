@@ -34,8 +34,9 @@ threads::threads()
 // Consumes items in work queue
 void threads::consumerThread()
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
     while (gRunning)
     {
         if (gWorkQueueMutex.try_lock())
@@ -71,8 +72,9 @@ void threads::consumerThread()
 // Produces work items for queue
 void threads::producerThread()
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
     long val = 0;
     while (gRunning)
     {

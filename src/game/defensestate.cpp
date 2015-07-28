@@ -44,8 +44,9 @@ void defenseState::setupState()		// sets up initial state of the object
 }
 void defenseState::updateState(int teamNumber)	// updates the state of the object
 {
-    conversion *convert = conversion::Instance();
-	gameState *gameS = gameState::Instance();
+    //conversion *convert = conversion::Instance();
+	boost::shared_ptr<conversion> convert = conversion::Instance();
+    gameState *gameS = gameState::Instance();
 
 	int teamWithBall = gameS->getTeamWithBall();
 

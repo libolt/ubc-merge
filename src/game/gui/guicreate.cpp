@@ -371,7 +371,8 @@ bool GUISystem::createAudioSetupGUI()   // creates GUI for audo settings screen.
 
 bool GUISystem::createGameSetupMenuGUI()    // creates GUI for game setup menu screen.
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
     loader *load = loader::Instance();
     renderEngine *renderE = renderEngine::Instance();
@@ -560,7 +561,8 @@ bool GUISystem::createPlayerStartSelectionMenuGUI()  // creates GUI for player s
 
 bool GUISystem::createTeamSelectionMenuGUI()    // creates GUI for team selection menu screen.
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
     loader *load = loader::Instance();
     renderEngine *renderE = renderEngine::Instance();

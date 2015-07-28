@@ -158,7 +158,8 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 {
     AISystem *ai = AISystem::Instance();
     gameState *gameS = gameState::Instance();
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
 
     logMsg("Updating playerSteer state");
 
@@ -447,8 +448,10 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 
 void playerSteer::updateOffense(const float currentTime, const float elapsedTime)	// updates the offense steering sim
 {
-    conversion *convert = conversion::Instance();
-	gameState *gameS = gameState::Instance();
+    //conversion *convert = conversion::Instance();
+	boost::shared_ptr<conversion> convert = conversion::Instance();
+    
+    gameState *gameS = gameState::Instance();
 
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
@@ -597,8 +600,10 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 
 void playerSteer::updateDefense(const float currentTime, const float elapsedTime)	// updates the defense steering sim
 {
-    conversion *convert = conversion::Instance();
-	gameState *gameS = gameState::Instance();
+    //conversion *convert = conversion::Instance();
+	boost::shared_ptr<conversion> convert = conversion::Instance();
+    
+    gameState *gameS = gameState::Instance();
 
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 

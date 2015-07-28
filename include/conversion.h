@@ -30,6 +30,7 @@
 #include <limits>
 
 #include <boost/lexical_cast.hpp>
+#include <boost/shared_ptr.hpp>
 
 #include "Ogre.h"
 #include "OgreVector3.h"
@@ -39,8 +40,8 @@
 class conversion  // class for conversion between data types
 {
     public:
-        static conversion *Instance();
-
+//        static conversion *Instance();
+        static boost::shared_ptr<conversion> Instance();
         // convert to string
         std::string toString(char *data);  // converts char * data to string
 //        std::string toString(char **data);  // converts char ** data to string
@@ -272,12 +273,12 @@ template<> inline std::string toString<long double>(const long double& x)
     conversion(const conversion&);
     conversion& operator= (const conversion&);
 
-    ~conversion();
+//    ~conversion();
 
     private:
     
-    static conversion *pInstance;
-
+//    static conversion *pInstance;
+    static boost::shared_ptr<conversion> pInstance;
 /*    
     T toString(const T& x, TL y)
 {

@@ -250,7 +250,8 @@ void physicsEngine::setupState(void)
 
 bool physicsEngine::setupPlayerPhysics()
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
     players *player = players::Instance();
 
@@ -498,7 +499,8 @@ bool physicsEngine::setupBasketballPhysics()
 
 void physicsEngine::updateState()
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameEngine *gameE = gameEngine::Instance();
 	gameState *gameS = gameState::Instance();
     inputSystem *input = inputSystem::Instance();
@@ -684,7 +686,8 @@ void physicsEngine::stepWorld()	// steps the world of the physics simulation
 
 void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's center has made contact with the ball
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
 
 	int ballTippedToTeam = gameS->getBallTippedToTeam();
@@ -868,7 +871,8 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
 
 void physicsEngine::ballDribbling()	// simulates basketball dribble
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
 
 //    std::vector<playerState> pInstance = gameS->getPlayerInstance();
@@ -965,7 +969,8 @@ void physicsEngine::ballDribbling()	// simulates basketball dribble
 void physicsEngine::passCollisionCheck()	// checks whether the ball has collided with the player being passed to
 {
 //	exit(0);
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
 
 	int teamWithBall = gameS->getTeamWithBall();
@@ -998,7 +1003,8 @@ void physicsEngine::passCollisionCheck()	// checks whether the ball has collided
 
 bool physicsEngine::playerJump(int teamNumber, int playerID)  // calculates and executes player jumping in the air
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
 
     std::vector<courtState> courtInstance = gameS->getCourtInstance();
@@ -1089,7 +1095,8 @@ bool physicsEngine::playerJump(int teamNumber, int playerID)  // calculates and 
 
 bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates and executes basketball being shot
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
 
     std::vector<courtState> courtInstance = gameS->getCourtInstance();

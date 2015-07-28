@@ -31,8 +31,9 @@
 void playerSteerPlugin::open(void)
 {
 	AISystem *ai = AISystem::Instance();
-    conversion *convert = conversion::Instance();
-	gameState *gameS = gameState::Instance();
+    //conversion *convert = conversion::Instance();
+	boost::shared_ptr<conversion> convert = conversion::Instance();
+    gameState *gameS = gameState::Instance();
 
 	std::vector<courtState> courtInstance = gameS->getCourtInstance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
@@ -157,8 +158,9 @@ void playerSteerPlugin::open(void)
 
 void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
 {
-    conversion *convert = conversion::Instance();
-	gameState *gameS = gameState::Instance();
+    //conversion *convert = conversion::Instance();
+	boost::shared_ptr<conversion> convert = conversion::Instance();
+    gameState *gameS = gameState::Instance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
 	std::vector<playerState> team1PlayerInstance = teamInstance[1].getPlayerInstance();

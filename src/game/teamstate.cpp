@@ -397,7 +397,8 @@ void teamState::updateState()	// updates the state of the object
 {
 
 //	exit(0);
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameEngine *gameE = gameEngine::Instance();
 	gameState *gameS = gameState::Instance();
 	physicsEngine *physEngine = physicsEngine::Instance();
@@ -534,7 +535,8 @@ bool teamState::createPlayerInstances()
 {
 //    players *player = players::Instance();
 
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
 
     std::vector< std::vector<int> > teamStarterID = gameS->getTeamStarterID();
@@ -662,7 +664,8 @@ bool teamState::createPlayerInstances()
 
 void teamState::setPlayerStartPositions()	// sets the initial coordinates for the players.
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
 
     std::vector< std::vector<int> > teamStarterID = gameS->getTeamStarterID();
@@ -788,7 +791,8 @@ void teamState::updatePlayerStates()  // updates the states of active players
 
 void teamState::updatePlayerDirections()
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
 //    playerState *player = players::Instance();
 
@@ -917,8 +921,9 @@ void teamState::updatePlayerDirections()
 
 void teamState::updatePlayerMovements()	// updates player movements
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
     Ogre::Vector3 posChange;	// stores change in position
 	posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
 
@@ -1004,7 +1009,8 @@ void teamState::updatePlayerMovements()	// updates player movements
 
 void teamState::executePass()		// executes the pass between players
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
 
     logMsg("In executePass function");
@@ -1084,8 +1090,9 @@ void teamState::executePass()		// executes the pass between players
 
 void teamState::updatePositions()
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
     size_t x = 0;
 	// updates the player positions on the court
 //	for (size_t x = 0; x < playerInstance.size(); ++x)

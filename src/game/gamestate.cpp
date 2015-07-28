@@ -672,7 +672,8 @@ bool gameState::logic()
 //    logMsg("Updating gameState Logic");
 
     AISystem *ai = AISystem::Instance();
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameEngine *gameE = gameEngine::Instance();
 	networkEngine *network = networkEngine::Instance();
     players *player = players::Instance();
@@ -838,7 +839,8 @@ void gameState::processNetworkEvents()	// processes events from network code
 
 void gameState::processNetworkPlayerEvents()	// processes player events from network code
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     networkEngine *network = networkEngine::Instance();
 	networkPlayerStateObject netPStateObj;
 	std::stringstream strStream;
@@ -1006,8 +1008,8 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 
 void gameState::updateDirectionsAndMovements()
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
 //    directions playerDirection, oldPlayerDirection;
 //   logMsg("Updating Directions and Movements");
 
@@ -1027,8 +1029,8 @@ void gameState::updateDirectionsAndMovements()
 
 void gameState::updateBasketballMovements()	// updates the basketball(s) movements
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
 //	logMsg("Updating basketball movements");
 
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
@@ -1124,8 +1126,9 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
 
 void gameState::updateBasketballDirections()	// updates basketball direction(s)
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
     bool shotTaken = playerInstance[playerWithBall].getShotTaken();

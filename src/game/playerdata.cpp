@@ -433,8 +433,9 @@ void playerData::setOverallRating(int set) // sets the value of overallRating
 
 void playerData::calculateOverallRating() // calculates the value of overallRating
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
     overallRating = shooting + freeThrow + layup + dunk + inside + midRange +
         threePoint + ballHandling + ballSecurity + passing + pickSetting +
         offenseAwareness + defenseAwareness + offenseRebound + defenseRebound +

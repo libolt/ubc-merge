@@ -87,8 +87,9 @@ playerState::~playerState()
 
 Ogre::Vector3 playerState::getNodePosition()  // retrieves the position of player node
 {
-    conversion *convert = conversion::Instance();
-
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    
     logMsg("node position = " +convert->toString(node->getPosition()));
 	return (node->getPosition());
 }
@@ -722,7 +723,8 @@ void playerState::updateState()
 
 bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D model
 {
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     physicsEngine *physEngine = physicsEngine::Instance();
 
     logMsg("posChange = " +convert->toString(posChange));
@@ -742,7 +744,8 @@ bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D mod
 void playerState::calculatePass()	// calculates which player to pass the ball to
 {
 //	exit(0);
-    conversion *convert = conversion::Instance();
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();
 
 	logMsg("In calculatePass function");
