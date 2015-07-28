@@ -30,7 +30,8 @@
 
 void playerSteerPlugin::open(void)
 {
-	AISystem *ai = AISystem::Instance();
+	//AISystem *ai = AISystem::Instance();
+    boost::shared_ptr<AISystem> ai = AISystem::Instance();
     //conversion *convert = conversion::Instance();
 	boost::shared_ptr<conversion> convert = conversion::Instance();
     gameState *gameS = gameState::Instance();

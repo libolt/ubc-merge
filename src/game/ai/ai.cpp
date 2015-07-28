@@ -21,15 +21,20 @@
 #include "ai.h"
 #include "logging.h"
 #include <ctime>
-AISystem* AISystem::pInstance = 0;
 
-AISystem* AISystem::Instance()
+//AISystem* AISystem::pInstance = 0;
+boost::shared_ptr<AISystem> AISystem::pInstance = 0;
+
+//AISystem* AISystem::Instance()
+boost::shared_ptr<AISystem> AISystem::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new AISystem; // create sole instance
+        //pInstance = new AISystem; // create sole instance
+        boost::shared_ptr<AISystem> tInstance(new AISystem);
+        return tInstance; // address of sole instance
     }
-    return pInstance; // address of sole instance
+    return pInstance; // returns the value of pInstance
 }
 
 AISystem::AISystem()

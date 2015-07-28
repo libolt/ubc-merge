@@ -23,6 +23,7 @@
 
 #include "steering.h"
 #include "OpenSteer/Clock.h"
+#include <boost/shared_ptr.hpp>
 
 #include "playersteerplugin.h"
 
@@ -30,6 +31,8 @@ class AISystem
 {
 public:
 
+    //static AISystem *Instance();
+    static boost::shared_ptr<AISystem> Instance();
 	~AISystem();
 
 	OpenSteer::AbstractVehicle* getSelectedVehicle(); // retrieves the value of selectedVehicle
@@ -80,14 +83,15 @@ public:
 
 	playerSteerPlugin playerSteerPluginInstance;
 
-    static AISystem *Instance();
+    
 protected:
     AISystem();
     AISystem(const AISystem&);
     AISystem& operator= (const AISystem&);
 private:
-    static AISystem *pInstance;
-
+    //static AISystem *pInstance;
+    static boost::shared_ptr<AISystem> pInstance;
+    
 	// currently selected plug-in (user can choose or cycle through them)
     OpenSteer::PlugIn* selectedPlugIn;
 

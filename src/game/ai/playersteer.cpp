@@ -156,7 +156,8 @@ void playerSteer::reset(void)
 
 void playerSteer::update (const float currentTime, float elapsedTime)
 {
-    AISystem *ai = AISystem::Instance();
+    //AISystem *ai = AISystem::Instance();
+    boost::shared_ptr<AISystem> ai = AISystem::Instance();
     gameState *gameS = gameState::Instance();
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
