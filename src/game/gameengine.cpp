@@ -383,7 +383,9 @@ void gameEngine::gameLoop()	// Main Game Loop
     boost::shared_ptr<GUISystem> gui = GUISystem::Instance();
     //inputSystem *input = inputSystem::Instance();
     boost::shared_ptr<inputSystem> input = inputSystem::Instance();
-    renderEngine * render = renderEngine::Instance();
+//    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
+
     //networkEngine *network = networkEngine::Instance();
     boost::shared_ptr<networkEngine> network = networkEngine::Instance();
 

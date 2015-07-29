@@ -226,7 +226,7 @@ void GUISystem::setPreviousActiveMenu(activeMenus menu) // sets the value of pre
 // Initializes MyGUI
 bool GUISystem::initMyGUI()
 {
-    renderEngine *render = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
     Ogre::RenderWindow *mWindow = render->getMWindow();
     Ogre::SceneManager *mSceneMgr = render->getMSceneMgr();
 

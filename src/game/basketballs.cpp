@@ -306,7 +306,7 @@ void basketballs::setPosChange(Ogre::Vector3 change)	// sets the value of posCha
 // loads the 3D model
 bool basketballs::loadModel()
 {
-    renderEngine *render = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
     model = render->getMSceneMgr()->createEntity("basketball", modelName);	// loads the basketball model
 

@@ -27,12 +27,15 @@
 #include "BtOgreGP.h"
 #include "BtOgreExtras.h"
 #include "BulletDynamics/Dynamics/btRigidBody.h"
+#include <boost/shared_ptr.hpp>
 
 class physicsEngine
 {
 public:
+    //static physicsEngine *Instance();
+    static boost::shared_ptr<physicsEngine> Instance();
+
     ~physicsEngine();	// destructor
-    static physicsEngine *Instance();
 
     bool getPlayerPhysicsSetup();	// retrieves the value of the playerPhysicsSetup variable
     void setPlayerPhysicsSetup(bool setup);	// sets the value of the playerPhysicsSetup variable
@@ -78,7 +81,10 @@ protected:
 
 private:
 
-    static physicsEngine *pInstance;
+    //static physicsEngine *pInstance;
+    static boost::shared_ptr<physicsEngine> pInstance;
+
+
     btDynamicsWorld *world;
     BtOgre::DebugDrawer *debugDraw;
 //    btAxisSweep3 *broadPhase;

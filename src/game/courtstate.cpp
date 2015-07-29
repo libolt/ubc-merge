@@ -74,7 +74,7 @@ void courtState::setPhysBody(btRigidBody *body)	// sets physBody variable
 // loads the 3D Model and attaches it to the node as well as sets coordinates
 bool courtState::loadModel()
 {
-    renderEngine *render = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
     model = render->getMSceneMgr()->createEntity("courtModel", modelName);	// loads the Court model
 

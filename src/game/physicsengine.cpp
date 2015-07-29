@@ -29,12 +29,19 @@
 #include "renderengine.h"
 
 
-physicsEngine* physicsEngine::pInstance = 0;
-physicsEngine* physicsEngine::Instance()
+//physicsEngine* physicsEngine::pInstance = 0;
+boost::shared_ptr<physicsEngine> physicsEngine::pInstance = 0;
+
+
+//physicsEngine* physicsEngine::Instance()
+boost::shared_ptr<physicsEngine> physicsEngine::Instance()
+
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new physicsEngine; // create sole instance
+        //pInstance = new physicsEngine; // create sole instance
+        boost::shared_ptr<physicsEngine> tInstance(new physicsEngine);
+        pInstance = tInstance;
     }
     return pInstance; // address of sole instance
 }
@@ -183,7 +190,7 @@ void physicsEngine::setPassCollision(bool collision)	// sets the value of passCo
 void physicsEngine::setupState(void)
 {
 
-    renderEngine *render = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
     // Debug drawing!
     debugDraw = new BtOgre::DebugDrawer(render->getMSceneMgr()->getRootSceneNode(), world);

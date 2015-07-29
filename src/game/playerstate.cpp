@@ -667,7 +667,7 @@ void playerState::setInitialized(bool set) // sets the value of initialized
 bool playerState::loadModel()   // loads the player's 3D model from the file specified in modelName
 {
 
-    renderEngine *render = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 //    playerName += firstName;    // adds the first name to playerName string
 //    playerName += lastName;     // adds the last name to the playerName string
 
@@ -694,7 +694,7 @@ void playerState::updateState()
 {
     //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
-    physicsEngine *physEngine = physicsEngine::Instance();
+    boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
 	Ogre::Vector3 playerPos;
  //   exit(0);
 //    if (shotTaken && !shotComplete)	// checks if a player takes a shot
@@ -726,7 +726,7 @@ bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D mod
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    physicsEngine *physEngine = physicsEngine::Instance();
+    boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
 
     logMsg("posChange = " +convert->toString(posChange));
 //	cout << "posChange = " << posChange << endl;

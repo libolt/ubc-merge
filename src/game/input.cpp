@@ -116,7 +116,7 @@ void inputSystem::setUInput(std::vector<userInput> set)  // sets the value of uI
 bool inputSystem::setup()   // sets up and initializes the OIS Input System
 {
 //    UBC *ubc = UBC::Instance();
-//    renderEngine * render = renderEngine::Instance();
+//    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 //              mDebugOverlay = OverlayManager::getSingleton().getByName("Core/DebugOverlay");
 
     loader *load = loader::Instance();
@@ -214,7 +214,7 @@ bool inputSystem::processInput()	// processes all input
     
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    renderEngine *render = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
     keyPressed = "";  // resets value of keyPressed
 //	Ogre::LogManager::getSingletonPtr()->logMessage("Processing input");
@@ -228,10 +228,10 @@ bool inputSystem::processInput()	// processes all input
 //    SDL_StopTextInput();
 */
 
-//    logMsg("sdl grab = " +convert->toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
+//    logMsg("sdl grab = " +convert->toString(SDL_GetWindowGrab(render->getSDLWindow())));
 /*#ifndef __ANDROID__
     logMsg("input!");
-    struct android_app *state = renderE->getApp();
+    struct android_app *state = render->getApp();
 //	state->onInputEvent = &handleInput;
     logMsg("input??");
 	AInputEvent* event;
@@ -660,7 +660,7 @@ bool inputSystem::processUnbufferedMouseInput()
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    renderEngine *render = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
 	int x, y;
 	int state = -1;
@@ -728,14 +728,14 @@ bool inputSystem::processUnbufferedTouchInput() // reads in unbuffered touch inp
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    renderEngine *render = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
 	int state = -1;
 	SDL_TouchFingerEvent touchMotion;
 	//SDL_Event evt;
 
-//    SDL_SetWindowGrab(renderE->getSDLWindow(), SDL_TRUE);
-//	logMsg("sdl grab = " +convert->toString(SDL_GetWindowGrab(renderE->getSDLWindow())));
+//    SDL_SetWindowGrab(render->getSDLWindow(), SDL_TRUE);
+//	logMsg("sdl grab = " +convert->toString(SDL_GetWindowGrab(render->getSDLWindow())));
 	SDL_PumpEvents();
 	int numDevs = SDL_GetNumTouchDevices();
     logMsg("numTouchDevices = " +convert->toString(numDevs));

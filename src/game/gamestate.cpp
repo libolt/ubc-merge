@@ -466,7 +466,7 @@ bool gameState::createHoopInstances()
 
 bool gameState::setupEnvironment()
 {
-    renderEngine *render = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 /*
     // Set ambient light
     render->getMSceneMgr()->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
@@ -562,10 +562,10 @@ bool gameState::setupState()
 	//AISystem *ai = AISystem::Instance();
     boost::shared_ptr<AISystem> ai = AISystem::Instance();
     players *player = players::Instance();
-    renderEngine *render = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
     teams *team = teams::Instance();
     loader *load = loader::Instance();
-    physicsEngine *physEngine = physicsEngine::Instance();
+    boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
 
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 //	exit(0);
@@ -688,7 +688,8 @@ bool gameState::logic()
 	//networkEngine *network = networkEngine::Instance();
     boost::shared_ptr<networkEngine> network = networkEngine::Instance();
     players *player = players::Instance();
-    physicsEngine *physEngine = physicsEngine::Instance();
+//    boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
+    boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
 
     Ogre::Vector3 playerPos;
 

@@ -371,7 +371,7 @@ void teamState::setupState()	// sets up the state of the object
     if (!stateSet)
     {
         logMsg("Setting state");
-//	    physicsEngine *physEngine = physicsEngine::Instance();
+//	    boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
 /*        if (!playerInstancesCreated)	// checks if playerInstances have been created
         {
     	    if (createPlayerInstances()) // creates the player instances based on playerIDS
@@ -403,7 +403,7 @@ void teamState::updateState()	// updates the state of the object
     boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
 	//gameState *gameS = gameState::Instance();
 	boost::shared_ptr<gameState> gameS = gameState::Instance();
-    physicsEngine *physEngine = physicsEngine::Instance();
+    boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
 
 //	logMsg("Updating team state " +convert->toString(teamNumber));
 	if (gameS->getBasketballModelLoaded() && playerInstancesCreated)

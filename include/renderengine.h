@@ -54,11 +54,15 @@
 #include "SDL.h"
 #include "SDL_syswm.h"
 #include "SDL_test_common.h"
+#include <boost/shared_ptr.hpp>
 
 using namespace Ogre;
 class renderEngine
 {
 	public:
+
+    //static renderEngine *Instance();
+    static boost::shared_ptr<renderEngine> Instance();
 
     Root *getMRoot();
     void setMRoot(Root *root);
@@ -120,7 +124,6 @@ class renderEngine
     
     ~renderEngine();
 
-    static renderEngine *Instance();
 
     bool initSDL();
     bool initOgre();
@@ -181,7 +184,8 @@ class renderEngine
 
     private:
 
-    static renderEngine *pInstance;
+//    static renderEngine *pInstance;
+    static boost::shared_ptr<renderEngine> pInstance;
 
 };
 

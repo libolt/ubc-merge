@@ -122,12 +122,12 @@ int loader::readFile(const char *sourceFile, char **destination)
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    renderEngine *renderE = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 	int BLOCK_SIZE = 8;
 	int MAX_BLOCKS = 1024;
 
 ///#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-//	Ogre::DataStreamPtr fileData = renderE->openAPKFile("teamd.xml");
+//	Ogre::DataStreamPtr fileData = render->openAPKFile("teamd.xml");
 //	destination = new std::string;
 ///	destination = (char**)fileData->getAsString().c_str();
 //#else
@@ -392,7 +392,7 @@ bool loader::loadTeamListFile(string fileName)
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     
-    renderEngine *renderE = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
     teams *team = teams::Instance();
 
     std::vector<std::string> teamName;
@@ -411,7 +411,7 @@ bool loader::loadTeamListFile(string fileName)
     logMsg(fileName);
 	logMsg("bate");
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
 	fileContents = fileData->getAsString();
 #else*/
     char *contents = NULL;
@@ -483,7 +483,7 @@ bool loader::loadTeamFile(string fileName)
     boost::shared_ptr<conversion> convert = conversion::Instance();
     //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
-    renderEngine *renderE = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 	std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
     teamData teamD;
 
@@ -502,7 +502,7 @@ bool loader::loadTeamFile(string fileName)
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
 	fileContents = fileData->getAsString();
 #else*/
     char *contents = NULL;
@@ -610,7 +610,7 @@ bool loader::loadPlayerListFile( string fileName)
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    renderEngine *renderE = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
     std::vector<std::string> playerFiles;
     players *player = players::Instance();
 
@@ -621,7 +621,7 @@ bool loader::loadPlayerListFile( string fileName)
 //	readFile(fileName.c_str(), &fileContents);
     logMsg(fileName);
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
 	fileContents = fileData->getAsString();
 #else*/
     char *contents = NULL;
@@ -679,7 +679,7 @@ bool loader::loadPlayerFile(string fileName)
     boost::shared_ptr<conversion> convert = conversion::Instance();
     //gameState *gameS = gameState::Instance();
 	boost::shared_ptr<gameState> gameS = gameState::Instance();
-    renderEngine *renderE = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
     playerData playerD;;
     std::vector<playerData> playerDataInstance = gameS->getPlayerDataInstance();
@@ -732,7 +732,7 @@ bool loader::loadPlayerFile(string fileName)
 //	readFile(fileName.c_str(), &fileContents);
 
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
 	fileContents = fileData->getAsString();
 #else*/
     char *contents = NULL;
@@ -1158,7 +1158,7 @@ bool loader::loadOffensePlayListFile(string fileName)	// loads the list of offen
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    renderEngine *renderE = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
     std::vector<std::string> playFiles;
 
@@ -1170,7 +1170,7 @@ bool loader::loadOffensePlayListFile(string fileName)	// loads the list of offen
 //	readFile(fileName.c_str(), &fileContents);
     logMsg(fileName);
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
 	fileContents = fileData->getAsString();
 #else*/
     char *contents = NULL;
@@ -1264,7 +1264,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 //	readFile(fileName.c_str(), &fileContents);
 
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
 	fileContents = fileData->getAsString();
 #else*/
     char *contents = NULL;
@@ -1560,7 +1560,7 @@ bool loader::loadCourtListFile(string fileName)	// loads the list of court files
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     
-    renderEngine *renderE = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
     std::vector<std::string> courtFile;
 
 
@@ -1571,7 +1571,7 @@ bool loader::loadCourtListFile(string fileName)	// loads the list of court files
 //	readFile(fileName.c_str(), &fileContents);
     logMsg(fileName);
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
 	fileContents = fileData->getAsString();
 #else*/
     char *contents = NULL;
@@ -1674,7 +1674,7 @@ courtData loader::loadCourtFile(string fileName)	// loads data from the offense 
 //	readFile(fileName.c_str(), &fileContents);
 
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
 	fileContents = fileData->getAsString();
 #else*/
     char *contents = NULL;
@@ -1885,7 +1885,7 @@ bool loader::loadUserInputListFile(string fileName) // loads the list of offense
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     
-    renderEngine *renderE = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
     std::vector<std::string> userInputFile;
 
 
@@ -1896,7 +1896,7 @@ bool loader::loadUserInputListFile(string fileName) // loads the list of offense
 //  readFile(fileName.c_str(), &fileContents);
     logMsg(fileName);
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    Ogre::DataStreamPtr fileData = renderE->openAPKFile(fileName);
+    Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
     fileContents = fileData->getAsString();
 #else*/
     char *contents = NULL;

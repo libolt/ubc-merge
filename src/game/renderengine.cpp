@@ -36,12 +36,19 @@
 #ifndef OGRE_PLUGIN_DIR
 #define OGRE_PLUGIN_DIR
 #endif
-renderEngine* renderEngine::pInstance = 0;
-renderEngine* renderEngine::Instance()
+//renderEngine* renderEngine::pInstance = 0;
+boost::shared_ptr<renderEngine> renderEngine::pInstance = 0;
+
+
+//renderEngine* renderEngine::Instance()
+boost::shared_ptr<renderEngine> renderEngine::Instance()
+
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new renderEngine; // create sole instance
+//        pInstance = new renderEngine; // create sole instance
+        boost::shared_ptr<renderEngine> tInstance(new renderEngine);
+        pInstance = tInstance;
     }
     return pInstance; // address of sole instance
 }
@@ -369,7 +376,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	//    SoundSystem *sound = SoundSystem::Instance();
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-    winHandle = convert->toString((unsigned long int)sysInfo.info.win.window);
+    winHandle = convert->toString((unsigned long /*int*/)sysInfo.info.win.window);
 #elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
     winHandle = convert->toString((unsigned long)sysInfo.info.x11.window);
 #elif OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
@@ -460,7 +467,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 
 void renderEngine::createSceneManager()
 {
-    renderEngine *render = renderEngine::Instance();
+    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
     // Create the SceneManager, in this case a generic one
     render->setMSceneMgr(render->getMRoot()->createSceneManager(ST_EXTERIOR_CLOSE));
@@ -700,7 +707,7 @@ logMsg("Alive?");
 //    teams *team = teams::Instance();
 //    players *player = players::Instance();
 //    basketballs *basketball = basketballs::Instance();
-//    renderEngine *render = renderEngine::Instance();
+//    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
 
     // basketball

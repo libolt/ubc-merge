@@ -46,14 +46,14 @@ logging::~logging()
  
 void logging::logMessage(std::string msg)
 {
-	renderEngine *renderE = renderEngine::Instance();
+	boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
 #ifdef __ANDROID__
 
     __android_log_print(ANDROID_LOG_DEBUG, "com.libolt.ubc", msg.c_str());
 #else
 
-    if (renderE->getMRoot()->isInitialised())
+    if (render->getMRoot()->isInitialised())
     {
 		Ogre::LogManager::getSingletonPtr()->logMessage(msg);
 	}

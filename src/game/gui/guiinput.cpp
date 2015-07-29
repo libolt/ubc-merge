@@ -39,7 +39,7 @@ void GUISystem::startSingleGameButtonClicked(MyGUI::Widget *_sender)    // handl
 {
     
     startSinglePlayerGame();
-//    renderEngine * render = renderEngine::Instance();
+//    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
 //  createNetworkSetupGUI();    // creates the GUI for the Network Setup Screen
 
@@ -50,7 +50,7 @@ void GUISystem::startMultiGameButtonClicked(MyGUI::Widget *_sender) // handles s
 {
     
     startMultiPlayerGame();
-//    renderEngine * render = renderEngine::Instance();
+//    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
 //    render->createScene();    // creates rendering scene.
 }
