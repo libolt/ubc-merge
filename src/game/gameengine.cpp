@@ -388,8 +388,10 @@ void gameEngine::gameLoop()	// Main Game Loop
 
     //networkEngine *network = networkEngine::Instance();
     boost::shared_ptr<networkEngine> network = networkEngine::Instance();
+    //    soundEngine *sound = soundEngine::Instance();
+        boost::shared_ptr<soundEngine> sound = soundEngine::Instance();
 
-    players *player = players::Instance();
+//    players *player = players::Instance();
 
     networkPlayerStateObject netPStateObj;
 
@@ -400,7 +402,6 @@ void gameEngine::gameLoop()	// Main Game Loop
 //    unsigned long oldTime = 0;	// stores old time
     Ogre::Timer loopTime;	// loop timer
     logMsg("Sound Test!");
-    SoundEngine *sound = SoundEngine::Instance();
 
 	logMsg("main: startup");
 

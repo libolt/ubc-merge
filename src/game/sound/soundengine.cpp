@@ -23,17 +23,23 @@
 #include "conversion.h"
 #include "load.h"
 
-SoundEngine* SoundEngine::pInstance = 0;
-SoundEngine* SoundEngine::Instance()
+//soundEngine* soundEngine::pInstance = 0;
+boost::shared_ptr<soundEngine> soundEngine::pInstance = 0;
+
+//soundEngine* soundEngine::Instance()
+boost::shared_ptr<soundEngine> soundEngine::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new SoundEngine; // create sole instance
+//        pInstance = new soundEngine; // create sole instance
+        boost::shared_ptr<soundEngine> tInstance(new soundEngine);
+        pInstance = tInstance;
+
     }
     return pInstance; // address of sole instance
 }
 
-SoundEngine::SoundEngine()
+soundEngine::soundEngine()
 {
 //    g_PlayingAudio[16];
     still_playing = AL_TRUE;
@@ -42,12 +48,12 @@ SoundEngine::SoundEngine()
         
 }
 
-SoundEngine::~SoundEngine()
+soundEngine::~soundEngine()
 {
     
 }
 
-void SoundEngine::Internal_SoundFinished_CallbackIntercept(ALint which_channel, ALuint al_source, ALmixer_Data* almixer_data, ALboolean finished_naturally, void* user_data)
+void soundEngine::Internal_SoundFinished_CallbackIntercept(ALint which_channel, ALuint al_source, ALmixer_Data* almixer_data, ALboolean finished_naturally, void* user_data)
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
@@ -55,17 +61,17 @@ void SoundEngine::Internal_SoundFinished_CallbackIntercept(ALint which_channel, 
     g_PlayingAudio[which_channel] = AL_FALSE;
 }
 
-bool SoundEngine::getSetupComplete()  // retrieves the value of setupComplete
+bool soundEngine::getSetupComplete()  // retrieves the value of setupComplete
 {
     logMsg("returning setupComplete!");
     return (setupComplete);
 }
-void SoundEngine::setSetupComplete(bool set)  // sets the value of setupComplete
+void soundEngine::setSetupComplete(bool set)  // sets the value of setupComplete
 {
     setupComplete = set;
 }
 
-bool SoundEngine::loadSound(std::string sound)  // loads sounds from media file
+bool soundEngine::loadSound(std::string sound)  // loads sounds from media file
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
@@ -99,7 +105,7 @@ bool SoundEngine::loadSound(std::string sound)  // loads sounds from media file
 //    exit(0);
     return (true);}
 
-bool SoundEngine::setup()
+bool soundEngine::setup()
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();

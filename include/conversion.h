@@ -42,6 +42,7 @@ class conversion  // class for conversion between data types
     public:
 //        static conversion *Instance();
         static boost::shared_ptr<conversion> Instance();
+
         // convert to string
         std::string toString(char *data);  // converts char * data to string
 //        std::string toString(char **data);  // converts char ** data to string

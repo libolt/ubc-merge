@@ -39,6 +39,7 @@
 #include "SDL.h"
 #include "SDL_thread.h"
 #include "SDL_timer.h"
+#include <boost/shared_ptr.hpp>
 
 #include "logging.h"
 
@@ -57,14 +58,15 @@
 
 
 
-class SoundEngine
+class soundEngine
 {
     public:
-        SoundEngine();
-        ~SoundEngine();
+        soundEngine();
+        ~soundEngine();
 
-        static SoundEngine *Instance();
-        
+        //static soundEngine *Instance();
+        static boost::shared_ptr<soundEngine> Instance();
+
         void Internal_SoundFinished_CallbackIntercept(ALint which_channel, ALuint al_source, ALmixer_Data* almixer_data, ALboolean finished_naturally, void* user_data);
 
         bool getSetupComplete();  // retrieves the value of setupComplete
@@ -74,8 +76,8 @@ class SoundEngine
         bool setup();   // sets up the sound system
     protected:
 
-//        SoundEngine(const SoundEngine&);
-//        SoundEngine& operator= (const SoundEngine&);
+//        soundEngine(const soundEngine&);
+//        soundEngine& operator= (const soundEngine&);
         
         ALCdevice * deviceAL;
         ALCcontext * contextAL;
@@ -89,13 +91,14 @@ class SoundEngine
         SDL_cond *fakeCond;
 
     private:
-        
+        //static soundEngine *pInstance;
+        static boost::shared_ptr<soundEngine> pInstance;
+
         ALboolean g_PlayingAudio[MAX_SOURCES];
         ALboolean still_playing;
 
         ALmixer_Data *audio_data;
         
-        static SoundEngine *pInstance;
         bool setupComplete;  // determines if setup has completed
  };
 
