@@ -678,14 +678,14 @@ void physicsEngine::stepWorld()	// steps the world of the physics simulation
 
 	//    unsigned long loopChangeInTime;	// stores change in time.
 
-	currentTime = gameE->getLoopTime().getMilliseconds();
-    logMsg("Current time = " +convert->toString(gameE->getLoopTime().getMilliseconds()));
+	currentTime = gameE->getTimer().getLoopTimeMill().count();
+    logMsg("Current time = " +convert->toString(currentTime));
     
 	//    if (currentTime - oldTime >= 1000 && currentTime - oldTime <= 1200)
-	{
+	//{
 		changeInTime = (currentTime - oldTime) / 1000;
 		oldTime = currentTime;
-	}
+	//}
 	fixedTimeStep = btScalar(1.) / btScalar(60.);
 	//    loopChangeInTime = gameE->getChangeInTime();
 

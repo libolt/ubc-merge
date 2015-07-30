@@ -24,9 +24,11 @@
 #include "OgreTimer.h"
 #include "OgreVector3.h"
 #include <boost/shared_ptr.hpp>
+#include <boost/chrono/system_clocks.hpp>
 
 #include "players.h"
 #include "threads.h"
+#include "timing.h"
 
 class gameEngine : public players
 {
@@ -36,6 +38,9 @@ public:
     
     //static gameEngine *Instance();
     static boost::shared_ptr<gameEngine> Instance();
+    
+    timing getTimer();  // retrieves the value of timer
+    void setTimer(timing time);  // sets the value of timer
     
     bool getMenuActive();					// retrieves menuActive variable
     void setMenuActive(bool active);		// sets menuActive variable
@@ -61,17 +66,21 @@ public:
     bool getMovePlayer();					// retrieves movePlayer variable
     void setMovePlayer(bool player);		    // sets movePlayer variable
 
-    Ogre::Timer getLoopTime();				// retrieves loopTime variable
-    void setLoopTIme(Ogre::Timer time);		// sets loopTime variable
+/*    boost::chrono::system_clock::time_point getStartLoopTime();  // retrieves the value of startLoopTime
+    void setStartLoopTime(boost::chrono::system_clock::time_point time);  // sets the of startLoopTime
+    
+    boost::chrono::system_clock::time_point getLoopTime();  // retrieves the vslue of loopTime
+    void setLoopTIme(boost::chrono::system_clock::time_point time);		// sets the value of loopTime
 
-    unsigned long getOldTime();				// retrieves oldTime variable
-    void setOldTime(unsigned long time);	// sets oldTime variable
+    boost::chrono::milliseconds getOldTime();				// retrieves oldTime variable
+    void setOldTime(boost::chrono::milliseconds time);	// sets oldTime variable
 
-    unsigned long getChangeInTime();			// retrieves changeInTime variable
+    boost::chrono::milliseconds getChangeInTime();			// retrieves changeInTime variable
     void setChangeInTime(unsigned long change);	// sets changeInTime variable
 
     void updateChangeInTime();					// updates the game timer variables
-   
+*/
+
     // starts a game
     bool startGame();
 
@@ -99,11 +108,13 @@ private:
     Ogre::Vector3 courtTranslateVector;
 
     // time variables
-    Ogre::Timer loopTime;	// loop Timer
-    unsigned long oldTime;	// stores the last reading of the timer.
+    //Ogre::Timer loopTime;	// loop Timer
+/*    boost::chrono::system_clock::time_point startLoopTime; // start loop Timer
+    boost::chrono::system_clock::time_point loopTime; // loop Timer
+    boost::chrono::milliseconds oldTime;	// stores the last reading of the timer.
     unsigned long changeInTime; // stores the difference between current reading of the timer and the previous reading.
-
-	
+*/
+	timing timer;
     
 
     // Flags

@@ -63,9 +63,9 @@ gameEngine::gameEngine()
     y = 0;
     i = 0;
     j = 0;
-    loopTime.reset();
-    oldTime = 0;
-    changeInTime = 0;
+    //loopTime.reset();
+//    oldTime = 0;
+//    changeInTime = 0;
 
     userInputLoaded = false;
     menuActive = false;
@@ -83,6 +83,15 @@ gameEngine::~gameEngine()
 {
 }
 
+timing gameEngine::getTimer()  // retrieves the value of timer
+{
+    return (timer);
+}
+void gameEngine::setTimer(timing time)  // sets the value of timer
+{
+    timer = time;
+}
+
 // gets and sets menuActive
 bool gameEngine::getMenuActive()
 {
@@ -94,14 +103,22 @@ void gameEngine::setMenuActive(bool active)
     menuActive = active;
 }
 
-Ogre::Timer gameEngine::getLoopTime()
+/*boost::chrono::system_clock::time_point gameEngine::getStartLoopTime()  // retrieves the value of startLoopTime
+{
+    return (startLoopTime);
+}
+void gameEngine::setStartLoopTime(boost::chrono::system_clock::time_point time)  // sets the of startLoopTime
+{
+    startLoopTime = time;
+}
+
+boost::chrono::system_clock::time_point gameEngine::getLoopTime()
 {
 
     return(loopTime);
 
 }
-
-void gameEngine::setLoopTIme(Ogre::Timer time)
+void gameEngine::setLoopTIme(boost::chrono::system_clock::time_point time)
 {
     loopTime = time;
 }
@@ -128,10 +145,13 @@ void gameEngine::setChangeInTime(unsigned long change)
 
 void gameEngine::updateChangeInTime()
 {
-    unsigned long newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
-
+    //unsigned long newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
+    boost::chrono::nanoseconds newT = boost::chrono::system_clock::now();
+    boost::chrono::milliseconds milliSecs = boost::chrono::duration_cast<boost::chrono::milliseconds>(newT);
+    unsigned long newTime = milliSecs.count();
     changeInTime = newTime - oldTime;	// calculates change between new and old time
 }
+*/
 
 bool gameEngine::getQuitGame()
 {
@@ -389,7 +409,7 @@ void gameEngine::gameLoop()	// Main Game Loop
     //networkEngine *network = networkEngine::Instance();
     boost::shared_ptr<networkEngine> network = networkEngine::Instance();
     //    soundEngine *sound = soundEngine::Instance();
-        boost::shared_ptr<soundEngine> sound = soundEngine::Instance();
+    boost::shared_ptr<soundEngine> sound = soundEngine::Instance();
 
 //    players *player = players::Instance();
 
@@ -400,7 +420,9 @@ void gameEngine::gameLoop()	// Main Game Loop
 //    float changeInTime;		// stores change in time
 //    int newTime;	// stores new time
 //    unsigned long oldTime = 0;	// stores old time
-    Ogre::Timer loopTime;	// loop timer
+    // Ogre::Timer loopTime;	// loop timer
+//    startLoopTime = boost::chrono::system_clock::now();
+    unsigned long changeInTime = 0;
     logMsg("Sound Test!");
 
 	logMsg("main: startup");
@@ -533,7 +555,7 @@ void gameEngine::gameLoop()	// Main Game Loop
         std::string currFPS = convert->toString(lastFPS);
 
         logMsg("FPS = " +currFPS);
-        updateChangeInTime();	// calculates the change in time.
+        //updateChangeInTime();	// calculates the change in time.
 
 //	        logMsg("changeInTime = " +toString(changeInTime));
         // updates game logic every 100 milliseconds
@@ -561,7 +583,12 @@ void gameEngine::gameLoop()	// Main Game Loop
         
         logMsg("serverRunning = " +serverRunning);
         logMsg("clientRunning = " +clientRunning);
-        if (changeInTime >= 100)
+        
+        boost::chrono::microseconds changeInTimeMicro = timer.calcChangeInTimeMicro();
+        boost::chrono::milliseconds changeInTimeMill = timer.calcChangeInTimeMill();
+        changeInTime = changeInTimeMill.count();
+        logMsg ("loopchange = " +convert->toString(changeInTime));
+        if (changeInTime >= 10)
         {
 //	        	exit(0);
             if (serverRunning)
@@ -581,8 +608,11 @@ void gameEngine::gameLoop()	// Main Game Loop
                 logMsg("gameS->logic()");
                 gameS->logic();
             }
-
-                oldTime = loopTime.getMilliseconds();
+            
+            //boost::chrono::system_clock::time_point newT = boost::chrono::system_clock::now();
+            //boost::chrono::milliseconds milliSecs = boost::chrono::duration_cast<boost::chrono::milliseconds>(newT);
+            //oldTime = milliSecs.count();
+            timer.setPreviousTime(boost::chrono::system_clock::now());
 
         }
     
