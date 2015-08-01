@@ -1266,8 +1266,10 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                 if ( shotSet)
                 {
                     forceToApply.setX(30);
-                    basketballInstance[0].getPhysBody()->applyForce(forceToApply,btVector3(1,1,1));
-                    basketballInstance[0].getPhysBody()->setGravity(btVector3(92.8,0,0));
+                    //basketballInstance[0].getPhysBody()->applyForce(forceToApply,btVector3(1,1,1));
+                    basketballInstance[0].getPhysBody()->applyForce(btVector3(33.0,3.0,0.0),btVector3(1,1,1));
+                  //basketballInstance[0].getPhysBody()-> setAngularVelocity(btVector3(3.0,5.0,0));
+                    basketballInstance[0].getPhysBody()->setGravity(btVector3(-9.8,0,0));
                     basketballInstance[0].getPhysBody()->applyGravity();
                     logMsg("bballForce");
                 }
