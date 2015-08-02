@@ -24,7 +24,7 @@
 #ifndef _ENET_ISINCLUDED_
 #define _ENET_ISINCLUDED_
 #include "enet/enet.h"
-#endif _ENET_ISINCLUDED_
+#endif 
 
 #include <iostream>
 #include <stdio.h>
