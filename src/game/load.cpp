@@ -57,6 +57,7 @@ loader::loader()
 
 
 //loader* loader::pInstance = 0;
+boost::shared_ptr<loader> loader::pInstance;
 
 //loader* loader::Instance()
 boost::shared_ptr<loader> loader::Instance()

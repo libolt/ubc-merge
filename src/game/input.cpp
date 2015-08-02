@@ -37,7 +37,7 @@
 
 
 //inputSystem* inputSystem::pInstance = 0;
-//boost::shared_ptr<inputSystem> inputSystem::pInstance = 0;
+boost::shared_ptr<inputSystem> inputSystem::pInstance;
 
 //inputSystem* inputSystem::Instance()
 boost::shared_ptr<inputSystem> inputSystem::Instance()

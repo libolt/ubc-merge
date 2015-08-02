@@ -21,7 +21,8 @@
 #include "conversion.h"
 
 //conversion* conversion::pInstance = 0;
-//boost::shared_ptr<conversion> conversion::pInstance = 0;
+boost::shared_ptr<conversion> conversion::pInstance;
+
 //conversion* conversion::Instance()
 boost::shared_ptr<conversion> conversion::Instance()
 {

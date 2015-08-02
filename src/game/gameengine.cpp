@@ -32,7 +32,7 @@
 
 
 //gameEngine* gameEngine::pInstance = 0;
-//boost::shared_ptr<gameEngine> gameEngine::pInstance = 0;
+boost::shared_ptr<gameEngine> gameEngine::pInstance;
 
 //gameEngine* gameEngine::Instance()
 boost::shared_ptr<gameEngine> gameEngine::Instance()

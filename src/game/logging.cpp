@@ -27,6 +27,7 @@
 #include "renderengine.h"
  
 //logging* logging::pInstance = 0;
+boost::shared_ptr<logging> logging::pInstance;
 
 //logging* logging::Instance()
 boost::shared_ptr<logging> logging::Instance()

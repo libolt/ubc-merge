@@ -23,7 +23,7 @@
 #include <ctime>
 
 //AISystem* AISystem::pInstance = 0;
-//boost::shared_ptr<AISystem> AISystem::pInstance = 0;
+boost::shared_ptr<AISystem> AISystem::pInstance;
 
 //AISystem* AISystem::Instance()
 boost::shared_ptr<AISystem> AISystem::Instance()

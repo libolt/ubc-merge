@@ -36,7 +36,7 @@
 //extern "C"
 //{
 //gameState *gameState::pInstance = 0;
-//boost::shared_ptr<gameState> gameState::pInstance = 0;
+boost::shared_ptr<gameState> gameState::pInstance;
 
 //gameState *gameState::Instance()
 boost::shared_ptr<gameState> gameState::Instance()

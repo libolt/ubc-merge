@@ -24,7 +24,7 @@
 #include "load.h"
 
 //soundEngine* soundEngine::pInstance = 0;
-//boost::shared_ptr<soundEngine> soundEngine::pInstance = 0;
+boost::shared_ptr<soundEngine> soundEngine::pInstance;
 
 //soundEngine* soundEngine::Instance()
 boost::shared_ptr<soundEngine> soundEngine::Instance()

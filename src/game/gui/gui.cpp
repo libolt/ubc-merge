@@ -37,7 +37,7 @@
 #endif
 
 //GUISystem* GUISystem::pInstance = 0;
-//boost::shared_ptr<GUISystem> GUISystem::pInstance = 0;
+boost::shared_ptr<GUISystem> GUISystem::pInstance;
 
 //GUISystem* GUISystem::Instance()
 boost::shared_ptr<GUISystem> GUISystem::Instance()

@@ -50,7 +50,7 @@ networkEngine::~networkEngine()
 }
 
 //networkEngine* networkEngine::pInstance = 0;
-//boost::shared_ptr<networkEngine> networkEngine::pInstance = 0;
+boost::shared_ptr<networkEngine> networkEngine::pInstance;
 
 //networkEngine* networkEngine::Instance()
 boost::shared_ptr<networkEngine> networkEngine::Instance()
