@@ -1157,6 +1157,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                 if (teamInstance[teamNumber].getPlayerWithBallDribbling())
                 {
                     teamInstance[teamNumber].setPlayerWithBallDribbling(false);
+                    exit(0);
                     gameS->setTeamInstance(teamInstance);
                 }       
 
@@ -1272,6 +1273,8 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     basketballInstance[0].getPhysBody()->setGravity(btVector3(-9.8,0,0));
                     basketballInstance[0].getPhysBody()->applyGravity();
                     logMsg("bballForce");
+                    logMsg("player dribbling == " +convert->toString(teamInstance[teamNumber].getPlayerWithBallDribbling()));
+
                 }
             }
 

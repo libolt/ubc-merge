@@ -29,7 +29,7 @@ INCLUDE (FindOpenSteer)
 INCLUDE (FindOpenAL)
 #INCLUDE (FindOggVorbis)
 Include (FindALMixer)
-find_package(Boost COMPONENTS date_time program_options filesystem system thread REQUIRED)
+find_package(Boost COMPONENTS chrono date_time program_options filesystem system thread REQUIRED)
 find_package(Threads REQUIRED)
 
 SET (UBC_DEPENDENCIES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dependencies)
