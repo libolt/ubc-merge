@@ -30,7 +30,7 @@
 
 
 //physicsEngine* physicsEngine::pInstance = 0;
-boost::shared_ptr<physicsEngine> physicsEngine::pInstance = 0;
+//boost::shared_ptr<physicsEngine> physicsEngine::pInstance = NULL;
 
 
 //physicsEngine* physicsEngine::Instance()

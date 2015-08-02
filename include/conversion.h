@@ -46,14 +46,14 @@ class conversion  // class for conversion between data types
         // convert to string
         std::string toString(char *data);  // converts char * data to string
 //        std::string toString(char **data);  // converts char ** data to string
-        std::string toString(const char *data);  // converts const char * data to string
+        //std::string toString(const char *data);  // converts const char * data to string
         std::string toString(int data);  // converts int data to string
         std::string toString(long data);  // converts long data to string
-        std::string toString(unsigned long data);  // converts unsigned long data to string
+        std::string toString(unsigned int data); // converts unsigned int data to string
+	std::string toString(unsigned long data);  // converts unsigned long data to string
         std::string toString(enet_uint8 *data);  // converts const enet_uint8 * data to string
         std::string toString(float data);  // converts float data to string
         std::string toString(double data);  // converts double data to string
-        std::string toString(size_t data);  // converts size_t data to string
         std::string toString(void *data);  // converts void * data to string
         std::string toString(Ogre::Vector3 data);  // converts Ogre::Vector3 data to string
 
@@ -61,14 +61,14 @@ class conversion  // class for conversion between data types
         char toChar(std::string data);  // converts from std::string to char
         char toChar(char *data);  // converts from char * to char
 //        char toChar(char **data);  // converts from char ** to char
-        char toChar(const char *data);  // converts from const char * to char
+        //char toChar(const char *data);  // converts from const char * to char
         char toChar(int data);  // converts from int to char
         char toChar(long data);  // converts from long to char
-        char toChar(unsigned long data);  // converts from unsigned long to char
+        char toChar(unsigned int data);  // converts from unsigned int to char
+	char toChar(unsigned long data);  // converts from unsigned long to char
         char toChar(enet_uint8 *data);  // converts from enet_uint8 * to char
         char toChar(float data);  // converts from float to char
         char toChar(double data);  // converts from double to char
-        char toChar(size_t data);  // converts from size_t to char
         char toChar(void *data);  // converts from void * to char
         
         // convert to char *
@@ -119,13 +119,14 @@ class conversion  // class for conversion between data types
         int toInt(char data);  // converts from char to int
         int toInt(char *data);  // converts from char * to int
 //        int toInt(char **data);  // converts from char ** to int
-        int toInt(const char *data);  // converts from const char * to int
+        //int toInt(const char *data);  // converts from const char * to int
         int toInt(long data);  // converts from long to int
+	int toInt(unsigned int data);  // converts from unsigned int to int
         int toInt(unsigned long data);  // converts from unsigned long to int
         int toInt(enet_uint8 *data);  // converts from enet_uint8 * to int
         int toInt(float data);  // converts from float to int
         int toInt(double data);  // converts from double to int
-        int toInt(size_t data);  // converts from size_t to int
+        //int toInt(size_t data);  // converts from size_t to int
         int toInt(void *data);  // converts from void * to int
         
         // convert to long
@@ -133,15 +134,18 @@ class conversion  // class for conversion between data types
         long toLong(char data);  // converts from char to long
         long toLong(char *data);  // converts from char * to long
 //        long toLong(char **data);  // converts from char ** to long
-        long toLong(const char *data);  // converts from const char * to long
+        //long toLong(const char *data);  // converts from const char * to long
         long toLong(int data);  // converts from int to long
+	long toLong(unsigned int data);  // converts from unsigned int to long
         long toLong(unsigned long data);  // converts from unsigned long to long
         long toLong(enet_uint8 *data);  // converts from enet_uint8 * to long
         long toLong(float data);  // converts from float to long
         long toLong(double data);  // converts from double to long
-        long toLong(size_t data);  // converts from size_t to long
+        //long toLong(size_t data);  // converts from size_t to long
         long toLong(void *data);  // converts from void * to long
 
+	// converts to unsigned int
+	
         // convert to unsigned long
         unsigned long toUnsignedLong(std::string data);  // converts from std::string to unsigned long
         unsigned long toUnsignedLong(char data);  // converts from char to unsigned long
@@ -150,10 +154,11 @@ class conversion  // class for conversion between data types
         unsigned long toUnsignedLong(const char *data);  // converts from const char * to unsigned long
         unsigned long toUnsignedLong(long data);  // converts from long to unsigned long
         unsigned long toUnsignedLong(int data);  // converts from int to unsigned long
-        unsigned long toUnsignedLong(enet_uint8 *data);  // converts from enet_uint8 * to unsigned long
+        unsigned long toUnsignedLong(unsigned int data);  // converts from unsigned int to unsigned lon
+	unsigned long toUnsignedLong(enet_uint8 *data);  // converts from enet_uint8 * to unsigned long
         unsigned long toUnsignedLong(float data);  // converts from float to unsigned long
         unsigned long toUnsignedLong(double data);  // converts from double to unsigned long
-        unsigned long toUnsignedLong(size_t data);  // converts from size_t to unsigned long
+        //unsigned long toUnsignedLong(size_t data);  // converts from size_t to unsigned long
         unsigned long toUnsignedLong(void *data);  // converts from void * to unsigned long
 
         // convert to float
@@ -161,13 +166,14 @@ class conversion  // class for conversion between data types
         float toFloat(char data);  // converts from char to float
         float toFloat(char *data);  // converts from char * to float
 //        float toFloat(char **data);  // converts from char ** to float
-        float toFloat(const char *data);  // converts from const char * to float
+        //float toFloat(const char *data);  // converts from const char * to float
         float toFloat(int data);  // converts from int to float
         float toFloat(long data);  // converts from long to float
+	float toFloat(unsigned int data);  // converts from unsigned int to float
         float toFloat(unsigned long data);  // converts from unsigned long to float
         float toFloat(enet_uint8 *data);  // converts from enet_uint8 * to float
         float toFloat(double data);  // converts from double to float
-        float toFloat(size_t data);  // converts from size_t to float
+        //float toFloat(size_t data);  // converts from size_t to float
         float toFloat(void *data);  // converts from void * to float
         
         // convert to double
@@ -175,13 +181,14 @@ class conversion  // class for conversion between data types
         double toDouble(char data);  // converts from char to double
         double toDouble(char *data);  // converts from char * to double
 //        double toDouble(char **data);  // converts from char ** to double
-        double toDouble(const char *data);  // converts from const char * to double
+        //double toDouble(const char *data);  // converts from const char * to double
         double toDouble(int data);  // converts from int to double
         double toDouble(long data);  // converts from long to double
+	double toDouble(unsigned int data);  // converts from unsigned int to double
         double toDouble(unsigned long data);  // converts from unsigned long to double
         double toDouble(enet_uint8 *data);  // converts from enet_uint8 * to double
         double toDouble(float data);  // converts from float to double
-        double toDouble(size_t data);  // converts from size_t to double
+        //double toDouble(size_t data);  // converts from size_t to double
         double toDouble(void *data);  // converts from void * to double
         
         // convert to enet_uint8 *
@@ -199,11 +206,11 @@ class conversion  // class for conversion between data types
         enet_uint8 * toEnet_uint8Ptr(void *data);  // converts from void * to enet_uint8 *
 */
         // convert to size_t
-        size_t toSize_t(std::string data);  // converts from std::string to size_t
+/*        size_t toSize_t(std::string data);  // converts from std::string to size_t
         size_t toSize_t(char data);  // converts from char to size_t
         size_t toSize_t(char *data);  // converts from char * to size_t
 //        size_t toSize_t(char **data);  // converts from char ** to size_t
-        size_t toSize_t(const char *data);  // converts from const char * to size_t
+        //size_t toSize_t(const char *data);  // converts from const char * to size_t
         size_t toSize_t(int data);  // converts from int to size_t
         size_t toSize_t(long data);  // converts from long to size_t
         size_t toSize_t(unsigned long data);  // converts from unsigned long to size_t
@@ -211,7 +218,7 @@ class conversion  // class for conversion between data types
         size_t toSize_t(float data);  // converts from float to size_t
         size_t toSize_t(double data);  // converts from double to size_t
         size_t toSize_t(void *data);  // converts from void * to size_t
-
+*/
 
         // convert to void *
 /*        void * voidPtr(std::string data);  // converts from std::string to void *

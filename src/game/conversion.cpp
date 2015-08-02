@@ -57,12 +57,12 @@ std::string conversion::toString(char *data)  // converts char * data to string
     strData = boost::lexical_cast<std::string>(data);
     return (strData);
 }*/
-std::string conversion::toString(const char *data)  // converts const char * data to string
+/*std::string conversion::toString(const char *data)  // converts const char * data to string
 {
     std::string strData;
 //    strData = boost::lexical_cast<std::string>(data);
     return (strData);
-}
+}*/
 std::string conversion::toString(int data)  // converts int data to string
 {
     std::string strData;
@@ -135,12 +135,12 @@ char conversion::toChar(char *data)  // converts from char * to char
     charData = boost::lexical_cast<char>(data);
     return (charData);
 }*/
-char conversion::toChar(const char *data)  // converts from const char * to char
+/*char conversion::toChar(const char *data)  // converts from const char * to char
 {
     char charData;
 //    charData = boost::lexical_cast<char>(data);
     return (charData);
-}
+}*/
 char conversion::toChar(int data)  // converts from int to char
 {
     char charData;
@@ -438,12 +438,12 @@ int conversion::toInt(char *data)  // converts from char * to int
     intData = boost::lexical_cast<int>(data);
     return (intData);
 }*/
-int conversion::toInt(const char *data)  // converts from const char * to int
+/*int conversion::toInt(const char *data)  // converts from const char * to int
 {
     int intData;
 //    intData = boost::lexical_cast<int>(data);
     return (intData);
-}
+}*/
 int conversion::toInt(long data)  // converts from long to int
 {
     int intData;
@@ -512,12 +512,12 @@ long toLong(char *data)  // converts from char * to long
     longData = boost::lexical_cast<long>(data);
     return (longData);
 }*/
-long toLong(const char *data)  // converts from const char * to long
+/*long toLong(const char *data)  // converts from const char * to long
 {
     long longData;
 //    longData = boost::lexical_cast<long>(data);
     return (longData);
-}
+}*/
 long toLong(int data)  // converts from int to long
 {
     long longData;
@@ -586,12 +586,12 @@ unsigned long toUnsignedLong(char *data)  // converts from char * to unsigned lo
     unsignedLongData = boost::lexical_cast<unsigned long>(data);
     return (unsignedLongData);
 }*/
-unsigned long toUnsignedLong(const char *data)  // converts from const char * to unsigned long
+/*unsigned long toUnsignedLong(const char *data)  // converts from const char * to unsigned long
 {
     unsigned long unsignedLongData;
 //    unsignedLongData = boost::lexical_cast<unsigned long>(data);
     return (unsignedLongData);
-}
+}*/
 unsigned long toUnsignedLong(long data)  // converts from long to unsigned long
 {
     unsigned long unsignedLongData;
@@ -660,12 +660,12 @@ float conversion::toFloat(char *data)  // converts from char * to float
     floatData = boost::lexical_cast<float>(data);
     return (floatData);
 }*/
-float conversion::toFloat(const char *data)  // converts from const char * to float
+/*float conversion::toFloat(const char *data)  // converts from const char * to float
 {
     float floatData;
 //    floatData = boost::lexical_cast<float>(data);
     return (floatData);
-}
+}*/
 float conversion::toFloat(int data)  // converts from int to float
 {
     float floatData;
@@ -734,12 +734,12 @@ double conversion::toDouble(char *data)  // converts from char * to double
     doubleData = boost::lexical_cast<double>(data);
     return (doubleData);
 }*/
-double conversion::toDouble(const char *data)  // converts from const char * to double
+/*double conversion::toDouble(const char *data)  // converts from const char * to double
 {
     double doubleData;
 //    doubleData = boost::lexical_cast<double>(data);
     return (doubleData);
-}
+}*/
 double conversion::toDouble(int data)  // converts from int to double
 {
     double doubleData;
@@ -882,12 +882,12 @@ size_t conversion::toSize_t(char *data)  // converts from char * to size_t
     size_tData = boost::lexical_cast<size_t>(data);
     return (size_tData);
 }*/
-size_t conversion::toSize_t(const char *data)  // converts from const char * to size_t
+/*size_t conversion::toSize_t(const char *data)  // converts from const char * to size_t
 {
     size_t size_tData;
 //    size_tData = boost::lexical_cast<size_t>(data);
     return (size_tData);
-}
+}*/
 size_t conversion::toSize_t(int data)  // converts from int to size_t
 {
     size_t size_tData;
