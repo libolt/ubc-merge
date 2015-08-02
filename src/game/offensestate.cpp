@@ -200,7 +200,7 @@ void offenseState::updateState(int teamNumber)	// updates the state of the objec
 void offenseState::loadPlays()	// loads offense plays from file
 {
 
-	loader *load = loader::Instance();
+    boost::shared_ptr<loader> load = loader::Instance();
 	plays = load->loadOffensePlays();
 }
 

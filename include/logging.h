@@ -22,28 +22,31 @@
 #define _LOGGING_H_
  
 #include <string>
-#include "OgreStringConverter.h"
  
 class logging
 {
 public:
+
 	~logging();
-	
+//    static logging *Instance();
+    static boost::shared_ptr<logging> Instance();
+
 	void logMessage(std::string msg);
-    static logging *Instance();
 protected:
     logging();
+
     logging(const logging&);
     logging& operator= (const logging&);
 private:
-    static logging *pInstance;
+//    static logging *pInstance;
+    static boost::shared_ptr<logging> pInstance;
 
 	 
- };
+};
  
- #ifndef logMsg
- #define logMsg logging::Instance()->logMessage
- #endif
+#ifndef logMsg
+#define logMsg logging::Instance()->logMessage
+#endif
  
  
- #endif
+#endif

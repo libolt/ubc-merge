@@ -21,7 +21,7 @@
 #include "conversion.h"
 
 //conversion* conversion::pInstance = 0;
-boost::shared_ptr<conversion> conversion::pInstance = 0;
+//boost::shared_ptr<conversion> conversion::pInstance = 0;
 //conversion* conversion::Instance()
 boost::shared_ptr<conversion> conversion::Instance()
 {
@@ -57,12 +57,12 @@ std::string conversion::toString(char *data)  // converts char * data to string
     strData = boost::lexical_cast<std::string>(data);
     return (strData);
 }*/
-/*std::string conversion::toString(const char *data)  // converts const char * data to string
+std::string conversion::toString(const char *data)  // converts const char * data to string
 {
     std::string strData;
 //    strData = boost::lexical_cast<std::string>(data);
     return (strData);
-}*/
+}
 std::string conversion::toString(int data)  // converts int data to string
 {
     std::string strData;
@@ -81,6 +81,13 @@ std::string conversion::toString(long data)  // converts long data to string
     strData = boost::lexical_cast<std::string>(data);
     return (strData);
 }
+std::string conversion::toString(unsigned int data)  // converts unsigned int data to string
+{
+    std::string strData;
+    strData = boost::lexical_cast<std::string>(data);
+    return (strData);
+}
+
 std::string conversion::toString(unsigned long data)  // converts unsigned long data to string
 {
     std::string strData;
@@ -99,12 +106,12 @@ std::string conversion::toString(double data)  // converts double data to string
     strData = boost::lexical_cast<std::string>(data);
     return (strData);
 }
-std::string conversion::toString(size_t data)  // converts size_t data to string
+/*std::string conversion::toString(size_t data)  // converts size_t data to string
 {
     std::string strData;
     strData = boost::lexical_cast<std::string>(data);
     return (strData);
-}
+}*/
 std::string conversion::toString(Ogre::Vector3 data)  // converts Ogre::Vector3 data to string
 {
     std::string strData;
@@ -153,6 +160,12 @@ char conversion::toChar(long data)  // converts from long to char
     charData = boost::lexical_cast<char>(data);
     return (charData);
 }
+char conversion::toChar(unsigned int data)  // converts from unsigned int to char
+{
+    char charData;
+    charData = boost::lexical_cast<char>(data);
+    return (charData);
+}
 char conversion::toChar(unsigned long data)  // converts from unsigned long to char
 {
     char charData;
@@ -177,12 +190,12 @@ char conversion::toChar(double data)  // converts from double to char
     charData = boost::lexical_cast<char>(data);
     return (charData);
 }
-char conversion::toChar(size_t data)  // converts from size_t to char
+/*char conversion::toChar(size_t data)  // converts from size_t to char
 {
     char charData;
     charData = boost::lexical_cast<char>(data);
     return (charData);
-}
+}*/
 char conversion::toChar(void *data)  // converts from void * to char
 {
     char charData;
@@ -450,6 +463,12 @@ int conversion::toInt(long data)  // converts from long to int
     intData = boost::lexical_cast<int>(data);
     return (intData);
 }
+int conversion::toInt(unsigned int data)  // converts from unsigned int to int
+{
+    int intData;
+    intData = boost::lexical_cast<int>(data);
+    return (intData);
+}
 int conversion::toInt(unsigned long data)  // converts from unsigned long to int
 {
     int intData;
@@ -474,12 +493,12 @@ int conversion::toInt(double data)  // converts from double to int
     intData = boost::lexical_cast<int>(data);
     return (intData);
 }
-int conversion::toInt(size_t data)  // converts from size_t to int
+/*int conversion::toInt(size_t data)  // converts from size_t to int
 {
     int intData;
     intData = boost::lexical_cast<int>(data);
     return (intData);
-}
+}*/
 int conversion::toInt(void *data)  // converts from void * to int
 {
     int intData;
@@ -524,6 +543,12 @@ long toLong(int data)  // converts from int to long
     longData = boost::lexical_cast<long>(data);
     return (longData);
 }
+long toLong(unsigned int data)  // converts from unsigned int to long
+{
+    long longData;
+    longData = boost::lexical_cast<long>(data);
+    return (longData);
+}
 long toLong(unsigned long data)  // converts from unsigned long to long
 {
     long longData;
@@ -548,17 +573,98 @@ long toLong(double data)  // converts from double to long
     longData = boost::lexical_cast<long>(data);
     return (longData);
 }
-long toLong(size_t data)  // converts from size_t to long
+/*long toLong(size_t data)  // converts from size_t to long
 {
     long longData;
     longData = boost::lexical_cast<long>(data);
     return (longData);
-}
+}*/
 long toLong(void *data)  // converts from void * to long
 {
     long longData;
     longData = boost::lexical_cast<long>(data);
     return (longData);
+}
+
+// convert to unsigned int
+unsigned int toUnsignedInt(std::string data)  // converts from std::string to unsigned int
+{
+    unsigned int unsignedIntData;
+    unsignedIntData = boost::lexical_cast<unsigned int>(data);
+    return (unsignedIntData);
+}
+unsigned int toUnsignedInt(char data)  // converts from char to unsigned int
+{
+    unsigned int unsignedIntData;
+    unsignedIntData = boost::lexical_cast<unsigned long>(data);
+    return (unsignedIntData);
+}
+unsigned long toUnsignedInt(char *data)  // converts from char * to unsigned int
+{
+    unsigned int unsignedIntData;
+    unsignedIntData = boost::lexical_cast<unsigned long>(data);
+    return (unsignedIntData);
+}
+/*unsigned int toUnsignedInt(char **data)  // converts from char ** to unsigned int
+{
+    unsigned int unsignedIntData;
+    unsignedIntData = boost::lexical_cast<unsigned long>(data);
+    return (unsignedIntData);
+}*/
+/*unsigned int toUnsignedInt(const char *data)  // converts from const char * to unsigned int
+{
+    unsigned int unsignedIntData;
+//    unsignedIntData = boost::lexical_cast<unsigned long>(data);
+    return (unsignedIntData);
+}*/
+unsigned int toUnsignedInt(long data)  // converts from long to unsigned int
+{
+    unsigned int unsignedIntData;
+    unsignedIntData = boost::lexical_cast<unsigned long>(data);
+    return (unsignedIntData);
+}
+unsigned int toUnsignedInt(int data)  // converts from int to unsigned int
+{
+    unsigned int unsignedIntData;
+    unsignedIntData = boost::lexical_cast<unsigned long>(data);
+    return (unsignedIntData);
+}
+unsigned int toUnsignedInt(unsigned int data)  // converts from unsigned int to unsigned int
+{
+    unsigned int unsignedIntData;
+    unsignedIntData = boost::lexical_cast<unsigned long>(data);
+    return (unsignedIntData);
+}
+
+unsigned int toUnsignedInt(enet_uint8 *data)  // converts from enet_uint8 * to unsigned int
+{
+    unsigned int unsignedIntData;
+    unsignedIntData = boost::lexical_cast<unsigned long>(data);
+    return (unsignedIntData);
+}
+unsigned int toUnsignedInt(float data)  // converts from float to unsigned int
+{
+    unsigned int unsignedIntData;
+    unsignedIntData = boost::lexical_cast<unsigned long>(data);
+    return (unsignedIntData);
+}
+unsigned int toUnsignedInt(double data)  // converts from double to unsigned int
+{
+    unsigned int unsignedIntData;
+    unsignedIntData = boost::lexical_cast<unsigned long>(data);
+    return (unsignedIntData);
+}
+/*unsigned int toUnsignedInt(size_t data)  // converts from size_t to unsigned int
+{
+    unsigned int unsignedIntData;
+    unsignedIntData = boost::lexical_cast<unsigned long>(data);
+    return (unsignedIntData);
+}*/
+unsigned int toUnsignedInt(void *data)  // converts from void * to unsigned int
+{
+    unsigned int unsignedIntData;
+    unsignedIntData = boost::lexical_cast<unsigned long>(data);
+    return (unsignedIntData);
 }
 
 // convert to unsigned long
@@ -604,6 +710,13 @@ unsigned long toUnsignedLong(int data)  // converts from int to unsigned long
     unsignedLongData = boost::lexical_cast<unsigned long>(data);
     return (unsignedLongData);
 }
+unsigned long toUnsignedLong(unsigned int data)  // converts from unsigned int to unsigned long
+{
+    unsigned long unsignedLongData;
+    unsignedLongData = boost::lexical_cast<unsigned long>(data);
+    return (unsignedLongData);
+}
+
 unsigned long toUnsignedLong(enet_uint8 *data)  // converts from enet_uint8 * to unsigned long
 {
     unsigned long unsignedLongData;
@@ -622,12 +735,12 @@ unsigned long toUnsignedLong(double data)  // converts from double to unsigned l
     unsignedLongData = boost::lexical_cast<unsigned long>(data);
     return (unsignedLongData);
 }
-unsigned long toUnsignedLong(size_t data)  // converts from size_t to unsigned long
+/*unsigned long toUnsignedLong(size_t data)  // converts from size_t to unsigned long
 {
     unsigned long unsignedLongData;
     unsignedLongData = boost::lexical_cast<unsigned long>(data);
     return (unsignedLongData);
-}
+}*/
 unsigned long toUnsignedLong(void *data)  // converts from void * to unsigned long
 {
     unsigned long unsignedLongData;
@@ -678,6 +791,12 @@ float conversion::toFloat(long data)  // converts from long to float
     floatData = boost::lexical_cast<float>(data);
     return (floatData);
 }
+float conversion::toFloat(unsigned int data)  // converts from unsigned int to float
+{
+    float floatData;
+    floatData = boost::lexical_cast<float>(data);
+    return (floatData);
+}
 float conversion::toFloat(unsigned long data)  // converts from unsigned long to float
 {
     float floatData;
@@ -696,12 +815,12 @@ float conversion::toFloat(double data)  // converts from double to float
     floatData = boost::lexical_cast<float>(data);
     return (floatData);
 }
-float conversion::toFloat(size_t data)  // converts from size_t to float
+/*float conversion::toFloat(size_t data)  // converts from size_t to float
 {
     float floatData;
     floatData = boost::lexical_cast<float>(data);
     return (floatData);
-}
+}*/
 float conversion::toFloat(void *data)  // converts from void * to float
 {
     float floatData;
@@ -752,6 +871,12 @@ double conversion::toDouble(long data)  // converts from long to double
     doubleData = boost::lexical_cast<double>(data);
     return (doubleData);
 }
+double conversion::toDouble(unsigned int data)  // converts from unsigned int to double
+{
+    double doubleData;
+    doubleData = boost::lexical_cast<double>(data);
+    return (doubleData);
+}
 double conversion::toDouble(unsigned long data)  // converts from unsigned long to double
 {
     double doubleData;
@@ -770,12 +895,12 @@ double conversion::toDouble(float data)  // converts from float to double
     doubleData = boost::lexical_cast<double>(data);
     return (doubleData);
 }
-double conversion::toDouble(size_t data)  // converts from size_t to double
+/*double conversion::toDouble(size_t data)  // converts from size_t to double
 {
     double doubleData;
     doubleData = boost::lexical_cast<double>(data);
     return (doubleData);
-}
+}*/
 double conversion::toDouble(void *data)  // converts from void * to double
 {
     double doubleData;
@@ -858,7 +983,8 @@ enet_uint8 * conversion::toEnet_uint8Ptr(void *data)  // converts from void * to
 }*/
 
 // convert to size_t
-size_t conversion::toSize_t(std::string data)  // converts from std::string to size_t
+
+/*size_t conversion::toSize_t(std::string data)  // converts from std::string to size_t
 {
     size_t size_tData;
     size_tData = boost::lexical_cast<size_t>(data);
@@ -876,18 +1002,18 @@ size_t conversion::toSize_t(char *data)  // converts from char * to size_t
     size_tData = boost::lexical_cast<size_t>(data);
     return (size_tData);
 }
-/*size_t conversion::toSize_t(char **data)  // converts from char ** to size_t
+size_t conversion::toSize_t(char **data)  // converts from char ** to size_t
 {
     size_t size_tData;
     size_tData = boost::lexical_cast<size_t>(data);
     return (size_tData);
-}*/
-/*size_t conversion::toSize_t(const char *data)  // converts from const char * to size_t
+}
+size_t conversion::toSize_t(const char *data)  // converts from const char * to size_t
 {
     size_t size_tData;
 //    size_tData = boost::lexical_cast<size_t>(data);
     return (size_tData);
-}*/
+}
 size_t conversion::toSize_t(int data)  // converts from int to size_t
 {
     size_t size_tData;
@@ -930,6 +1056,7 @@ size_t conversion::toSize_t(void *data)  // converts from void * to size_t
     size_tData = boost::lexical_cast<size_t>(data);
     return (size_tData);
 }
+*/
 
 // convert to void *
 /*void * conversion::voidPtr(std::string data)  // converts from std::string to void *

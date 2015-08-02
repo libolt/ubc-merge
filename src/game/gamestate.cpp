@@ -36,7 +36,7 @@
 //extern "C"
 //{
 //gameState *gameState::pInstance = 0;
-boost::shared_ptr<gameState> gameState::pInstance = 0;
+//boost::shared_ptr<gameState> gameState::pInstance = 0;
 
 //gameState *gameState::Instance()
 boost::shared_ptr<gameState> gameState::Instance()
@@ -420,8 +420,9 @@ bool gameState::createTeamInstances()
 
 bool gameState::createCourtDataInstances()  // creates instances of court data
 {
-    loader *load = loader::Instance();
-    
+    //boost::shared_ptr<loader> load = loader::Instance();
+    boost::shared_ptr<loader> load = loader::Instance();
+
     courtDataInstance = load->loadCourts();
     return (true);
 }
@@ -564,7 +565,7 @@ bool gameState::setupState()
     players *player = players::Instance();
     boost::shared_ptr<renderEngine> render = renderEngine::Instance();
     teams *team = teams::Instance();
-    loader *load = loader::Instance();
+    boost::shared_ptr<loader> load = loader::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
 
 //#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID

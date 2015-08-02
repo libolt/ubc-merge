@@ -37,7 +37,7 @@
 
 
 //inputSystem* inputSystem::pInstance = 0;
-boost::shared_ptr<inputSystem> inputSystem::pInstance = 0;
+//boost::shared_ptr<inputSystem> inputSystem::pInstance = 0;
 
 //inputSystem* inputSystem::Instance()
 boost::shared_ptr<inputSystem> inputSystem::Instance()
@@ -119,7 +119,7 @@ bool inputSystem::setup()   // sets up and initializes the OIS Input System
 //    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 //              mDebugOverlay = OverlayManager::getSingleton().getByName("Core/DebugOverlay");
 
-    loader *load = loader::Instance();
+    boost::shared_ptr<loader> load = loader::Instance();
 
     uInput = load->loadUserInputs();    // loads user defined input from file.
     

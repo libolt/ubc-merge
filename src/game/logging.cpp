@@ -18,18 +18,25 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
- #include "logging.h"
- 
- #include "Ogre.h"
- #include "renderengine.h"
- 
-logging* logging::pInstance = 0;
+#include <boost/shared_ptr.hpp>
 
-logging* logging::Instance()
+#include "logging.h"
+#include "conversion.h"
+
+#include "Ogre.h"
+#include "renderengine.h"
+ 
+//logging* logging::pInstance = 0;
+
+//logging* logging::Instance()
+boost::shared_ptr<logging> logging::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new logging; // create sole instance
+//        pInstance = new logging; // create sole instance
+        boost::shared_ptr<logging> tInstance(new logging);
+        pInstance = tInstance;
+
     }
     return pInstance; // address of sole instance
 }

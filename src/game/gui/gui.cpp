@@ -37,7 +37,7 @@
 #endif
 
 //GUISystem* GUISystem::pInstance = 0;
-boost::shared_ptr<GUISystem> GUISystem::pInstance = 0;
+//boost::shared_ptr<GUISystem> GUISystem::pInstance = 0;
 
 //GUISystem* GUISystem::Instance()
 boost::shared_ptr<GUISystem> GUISystem::Instance()
@@ -352,7 +352,7 @@ void GUISystem::courtSelectionMenu() // displays court selection menu
     //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     
-    loader *load = loader::Instance();
+    boost::shared_ptr<loader> load = loader::Instance();
 
     if (!courtSelectionMenuCreated)
     {

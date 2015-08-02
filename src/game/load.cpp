@@ -56,12 +56,17 @@ loader::loader()
 }
 
 
-loader* loader::pInstance = 0;
-loader* loader::Instance()
+//loader* loader::pInstance = 0;
+
+//loader* loader::Instance()
+boost::shared_ptr<loader> loader::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        pInstance = new loader; // create sole instance
+//        pInstance = new loader; // create sole instance
+        boost::shared_ptr<loader> tInstance(new loader);
+        pInstance = tInstance;
+
     }
     return pInstance; // address of sole instance
 }

@@ -24,7 +24,7 @@
 #include "load.h"
 
 //soundEngine* soundEngine::pInstance = 0;
-boost::shared_ptr<soundEngine> soundEngine::pInstance = 0;
+//boost::shared_ptr<soundEngine> soundEngine::pInstance = 0;
 
 //soundEngine* soundEngine::Instance()
 boost::shared_ptr<soundEngine> soundEngine::Instance()
@@ -75,7 +75,7 @@ bool soundEngine::loadSound(std::string sound)  // loads sounds from media file
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    loader *load = loader::Instance();
+    boost::shared_ptr<loader> load = loader::Instance();
 
     ALmixer_Data *sample;
 //    if(!(sample=ALmixer_LoadAll( "roar.wav", AL_FALSE) ))

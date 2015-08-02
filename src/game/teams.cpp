@@ -94,6 +94,7 @@ void teams::setTotalTeams(int teams)
 
 void teams::assignPlayers()  // assigns players to the team based on matching Inits
 {
+    exit(0);
     players *playerG = players::Instance();
     std::vector<playerData> player = playerG->getPlayer();
 

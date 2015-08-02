@@ -24,6 +24,7 @@
 
 #include <string>
 #include <vector>
+#include <boost/shared_ptr.hpp>
 
 #include "Ogre.h"
 #include "SDL.h"
@@ -40,11 +41,12 @@ using namespace std;
 class loader
 {
 public:
+    //static loader *Instance();
+    static boost::shared_ptr<loader> Instance();
 
 	std::vector<std::string> pathSplit(const std::string paths);
     string findFile(string fileName);
 //	string * pathArray;
-    static loader *Instance();
 
     std::vector<std::string> getPlayerFiles();    // returns list of player xml files
     void setPlayerFiles(std::vector<std::string> files);     // sets list of player xml files
@@ -101,7 +103,9 @@ protected:
     loader& operator= (const loader&);
 
 private:
-    static loader *pInstance;
+//    static loader *pInstance;
+    static boost::shared_ptr<loader> pInstance;
+
 //	static string *pathArray;
     std::vector<std::string> playerFiles; // stores list of player xml files
     std::vector<std::string> teamFiles;	// stores list of team xml files

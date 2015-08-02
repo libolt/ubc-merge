@@ -37,7 +37,7 @@
 #define OGRE_PLUGIN_DIR
 #endif
 //renderEngine* renderEngine::pInstance = 0;
-boost::shared_ptr<renderEngine> renderEngine::pInstance = 0;
+//boost::shared_ptr<renderEngine> renderEngine::pInstance = 0;
 
 
 //renderEngine* renderEngine::Instance()
