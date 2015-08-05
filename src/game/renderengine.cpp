@@ -548,7 +548,7 @@ bool renderEngine::createScene()
 //	misc["externalGLContext"] = convert->toString((unsigned long)SDL_GL_GetCurrentContext());
 //	exit(0);
 	logMsg("Hello??");
-	mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 0, 0, false, &misc);
+	mWindow = mRoot->createRenderWindow("Ultimate Basketball Challenge", 1280, 1024, false, &misc);
 //	exit(0);
     logMsg("renderWindow created!");
 	unsigned long handle = 0;
