@@ -1157,7 +1157,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                 if (teamInstance[teamNumber].getPlayerWithBallDribbling())
                 {
                     teamInstance[teamNumber].setPlayerWithBallDribbling(false);
-                    exit(0);
+                   // exit(0);
                     gameS->setTeamInstance(teamInstance);
                 }       
 
@@ -1169,27 +1169,27 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                         if (playerInstance[x].getDirection() == RIGHT)
                         {
                             basketballPos.setX(playerPos.getX() + 3);
-                            basketballPos.setY(playerPos.getY() + 3);
+                            basketballPos.setY(playerPos.getY() + 5);
                             basketballPos.setZ(playerPos.getZ());
                         }
                         else if (playerInstance[x].getDirection() == LEFT)
                         {
                             basketballPos.setX(playerPos.getX() - 3);
-                            basketballPos.setY(playerPos.getY() + 3);
+                            basketballPos.setY(playerPos.getY() + 5);
                             basketballPos.setZ(playerPos.getZ());
 
                         }
                         else if (playerInstance[x].getDirection() == UP)
                         {
                             basketballPos.setX(playerPos.getX() - 3);
-                            basketballPos.setY(playerPos.getY() + 3);
+                            basketballPos.setY(playerPos.getY() + 5);
                             basketballPos.setZ(playerPos.getZ() + 3);
 
                         }
                         else if (playerInstance[x].getDirection() == DOWN)
                         {
                             basketballPos.setX(playerPos.getX() - 3);
-                            basketballPos.setY(playerPos.getY() + 3);
+                            basketballPos.setY(playerPos.getY() + 5);
                             basketballPos.setZ(playerPos.getZ() - 3);
 
                         }
@@ -1206,11 +1206,11 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     {
                         if (hoopPos.getX() < 0)
                         {
-                            endShotPos.setX(hoopPos.getX() + 25);
+                            endShotPos.setX(hoopPos.getX() - 35);
                         }
                         else
                         {
-                            endShotPos.setX(hoopPos.getX() - 25);
+                            endShotPos.setX(hoopPos.getX() - 15);
                         }
 
                         endShotPos.setY(hoopPos.getY() + 5);
@@ -1266,9 +1266,423 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
             {
                 if ( shotSet)
                 {
+                    float hoopBasketballDistanceX = 0;
+                    float midXPoint = 0;
+                    float yForce = 0;
+                    float maxYForce = 10;
+                    btTransform basketballTransform = basketballInstance[0].getPhysBody()->getWorldTransform();
+                    btVector3 basketballPos = basketballTransform.getOrigin();
+                    midXPoint = (beginShotPos.getX() - endShotPos.getX())/2;
+                    hoopBasketballDistanceX = endShotPos.getX() - basketballPos.getX();
+                   // if (hoopBasketballDistanceX > 0)
+                    if (midXPoint > 0)
+                    {
+                        //yForce = ((maxYForce / 50) *(100 - hoopBasketballDistanceX))*3.5;
+                        yForce = ((maxYForce / 50) *(100 - midXPoint))*8.5;
+                     
+                        /*float x = hoopBasketballDistanceX;
+                        if (x > 0 && x <= 1.0)
+                        {
+                            yForce = hoopBasketballDistanceX*6.875;
+                        }
+                        else if (x > 1.0 && x <= 2.25)
+                        {
+                            yForce = hoopBasketballDistanceX*6.750;
+                        }
+                        else if (x > 2.25 && x <= 3.50)
+                        {
+                            yForce = hoopBasketballDistanceX*6.500;
+                        }
+                        else if (x > 3.50 && x <= 4.75)
+                        {
+                            yForce = hoopBasketballDistanceX*6.250;
+                        }
+                        else if (x > 4.75 && x <= 6.00)
+                        {
+                            yForce = hoopBasketballDistanceX*6.125;
+                        }
+                        else if (x > 6.00 && x <= 7.25)
+                        {
+                            yForce = hoopBasketballDistanceX*6.000;
+                        }
+                        else if (x > 7.25 && x <= 8.50)
+                        {
+                            yForce = hoopBasketballDistanceX*5.875;
+                        }
+                        else if (x > 8.50 && x <= 8.75)
+                        {
+                            yForce = hoopBasketballDistanceX*5.750;
+                        }
+                        else if (x > 8.75 && x <= 10.00)
+                        {
+                            yForce = hoopBasketballDistanceX*5.500;
+                        }
+                        else if (x > 10.00 && x <= 11.25)
+                        {
+                            yForce = hoopBasketballDistanceX*5.375;
+                        }
+                        else if (x > 11.25 && x <= 12.50)
+                        {
+                            yForce = hoopBasketballDistanceX*5.250;
+                        }
+                        else if (x > 12.50 && x <= 13.75)
+                        {
+                            yForce = hoopBasketballDistanceX*5.125;
+                        }
+                        else if (x > 13.75 && x < 15.00)
+                        {
+                            yForce = hoopBasketballDistanceX*5.000;
+                        }
+                        else if (x > 15.00 && x <= 16.25)
+                        {
+                            yForce = hoopBasketballDistanceX*4.875;
+                        }
+                        else if (x > 16.25 && x <= 17.50)
+                        {
+                            yForce = hoopBasketballDistanceX*4.750;
+                        }
+                        else if (x > 17.50 && x <= 18.75)
+                        {
+                            yForce = hoopBasketballDistanceX*4.500;
+                        }
+                        else if (x > 18.75 && x <= 20.00)
+                        {
+                            yForce = hoopBasketballDistanceX*4.250;
+                        }
+                        else if (x > 20.00 && x <= 21.25)
+                        {
+                            yForce = hoopBasketballDistanceX*4.125;
+                        }
+                        else if (x > 21.25 && x <= 22.50)
+                        {
+                            yForce = hoopBasketballDistanceX*4.000;
+                        }
+                        else if (x > 22.50 && x <= 23.75)
+                        {
+                            yForce = hoopBasketballDistanceX*3.875;
+                        }
+                        else if (x > 23.75 && x <= 25.00)
+                        {
+                            yForce = hoopBasketballDistanceX*3.750;
+                        }
+                        else if (x > 25.00 && x <= 26.25)
+                        {
+                            yForce = hoopBasketballDistanceX*3.625;
+                        }
+                        else if (x > 26.25 && x <= 27.50)
+                        {
+                            yForce = hoopBasketballDistanceX*3.500;
+                        }
+                        else if (x > 27.50 && x <= 28.75)
+                        {
+                            yForce = hoopBasketballDistanceX*3.250;
+                        }
+                        else if (x > 28.75 && x < 30)
+                        {
+                            yForce = hoopBasketballDistanceX*3.125;
+                        }
+                        else if (x > 30 && x <= 31.25)
+                        {
+                            yForce = hoopBasketballDistanceX*3.0;
+                        }
+                        else if (x > 31.25 && x <= 32.50)
+                        {
+                            yForce = hoopBasketballDistanceX*2.875;
+                        }
+                        else if (x > 32.50 && x <= 33.75)
+                        {
+                            yForce = hoopBasketballDistanceX*2.750;
+                        }
+                        else if (x > 33.75 && x <= 35.00)
+                        {
+                            yForce = hoopBasketballDistanceX*2.625;
+                        }
+                        else if (x > 35.00 && x <= 36.25)
+                        {
+                            yForce = hoopBasketballDistanceX*2.500;
+                        }
+                        else if (x > 36.25 && x <= 37.50)
+                        {
+                            yForce = hoopBasketballDistanceX*2.375;
+                        }
+                        else if (x > 37.50 && x <= 38.75)
+                        {
+                            yForce = hoopBasketballDistanceX*2.250;
+                        }
+                        else if (x > 38.75 && x <= 40.00)
+                        {
+                            yForce = hoopBasketballDistanceX*2.125;
+                        }
+                        else if (x > 40.00 && x <= 41.25)
+                        {
+                            yForce = hoopBasketballDistanceX*2.0;
+                        }
+                        else if (x > 41.25 && x <= 42.50)
+                        {
+                            yForce = hoopBasketballDistanceX*1.875;
+                        }
+                        else if (x > 42.50 && x <= 43.75)
+                        {
+                            yForce = hoopBasketballDistanceX*1.750;
+                        }
+                        else if (x > 43.75 && x < 45.00)
+                        {
+                            yForce = hoopBasketballDistanceX*1.625;
+                        }
+                        else if (x > 45.00 && x <= 46.25)
+                        {
+                            yForce = hoopBasketballDistanceX*1.500;
+                        }
+                        else if (x > 46.25 && x <= 47.50)
+                        {
+                            yForce = hoopBasketballDistanceX*1.375;
+                        }
+                        else if (x > 47.50 && x <= 48.75)
+                        {
+                            yForce = hoopBasketballDistanceX*1.250;
+                        }
+                        else if (x > 48.75 && x <= 50)
+                        {
+                            yForce = hoopBasketballDistanceX*1.125;
+                        }
+                        else if (x > 50 && x <= 51.25)
+                        {
+                            yForce = hoopBasketballDistanceX*1.000;
+                        }
+                        else if (x > 51.25 && x <= 52.50)
+                        {
+                            yForce = hoopBasketballDistanceX*0.875;
+                        }
+                        else if (x > 52.50 && x <= 53.75)
+                        {
+                            yForce = hoopBasketballDistanceX*0.750;
+                        }
+                        else if (x > 53.75 && x <= 55.00)
+                        {
+                            yForce = hoopBasketballDistanceX*0.625;
+                        }
+                        else if (x > 55.00 && x <= 56.25)
+                        {
+                            yForce = hoopBasketballDistanceX*0.500;
+                        }
+                        else if (x > 56.25 && x <= 57.50)
+                        {
+                            yForce = hoopBasketballDistanceX*0.375;
+                        }
+                        else if (x > 57.50 && x <= 58.75)
+                        {
+                            yForce = hoopBasketballDistanceX*0.250;
+                        }
+                        else if (x > 58.75 && x < 60)
+                        {
+                            yForce = hoopBasketballDistanceX*0.125;
+                        }
+                        else if (x > 60.0 && x <= 61.25)
+                        {
+                            yForce = hoopBasketballDistanceX*6.750;
+                        }
+                        else if (x > 61.25 && x <= 62.50)
+                        {
+                            yForce = hoopBasketballDistanceX*6.500;
+                        }
+                        else if (x > 62.50 && x <= 63.75)
+                        {
+                            yForce = hoopBasketballDistanceX*6.250;
+                        }
+                        else if (x > 63.75 && x <= 65.00)
+                        {
+                            yForce = hoopBasketballDistanceX*6.125;
+                        }
+                        else if (x > 65.00 && x <= 66.25)
+                        {
+                            yForce = hoopBasketballDistanceX*6.000;
+                        }
+                        else if (x > 66.25 && x <= 67.50)
+                        {
+                            yForce = hoopBasketballDistanceX*5.875;
+                        }
+                        else if (x > 67.50 && x <= 68.75)
+                        {
+                            yForce = hoopBasketballDistanceX*5.750;
+                        }
+                        else if (x > 68.75 && x <= 70.00)
+                        {
+                            yForce = hoopBasketballDistanceX*5.500;
+                        }
+                        else if (x > 70.00 && x <= 71.25)
+                        {
+                            yForce = hoopBasketballDistanceX*5.375;
+                        }
+                        else if (x > 71.25 && x <= 72.50)
+                        {
+                            yForce = hoopBasketballDistanceX*5.250;
+                        }
+                        else if (x > 72.50 && x <= 73.75)
+                        {
+                            yForce = hoopBasketballDistanceX*5.125;
+                        }
+                        else if (x > 73.75 && x < 75.00)
+                        {
+                            yForce = hoopBasketballDistanceX*5.000;
+                        }
+                        else if (x > 75.00 && x <= 76.25)
+                        {
+                            yForce = hoopBasketballDistanceX*4.875;
+                        }
+                        else if (x > 76.25 && x <= 77.50)
+                        {
+                            yForce = hoopBasketballDistanceX*4.750;
+                        }
+                        else if (x > 77.50 && x <= 78.75)
+                        {
+                            yForce = hoopBasketballDistanceX*4.500;
+                        }
+                        else if (x > 78.75 && x <= 80.00)
+                        {
+                            yForce = hoopBasketballDistanceX*4.250;
+                        }
+                        else if (x > 80.00 && x <= 81.25)
+                        {
+                            yForce = hoopBasketballDistanceX*4.125;
+                        }
+                        else if (x > 81.25 && x <= 82.50)
+                        {
+                            yForce = hoopBasketballDistanceX*4.000;
+                        }
+                        else if (x > 82.50 && x <= 83.75)
+                        {
+                            yForce = hoopBasketballDistanceX*3.875;
+                        }
+                        else if (x > 83.75 && x <= 85.00)
+                        {
+                            yForce = hoopBasketballDistanceX*3.750;
+                        }
+                        else if (x > 85.00 && x <= 86.25)
+                        {
+                            yForce = hoopBasketballDistanceX*3.625;
+                        }
+                        else if (x > 86.25 && x <= 87.50)
+                        {
+                            yForce = hoopBasketballDistanceX*3.500;
+                        }
+                        else if (x > 87.50 && x <= 88.75)
+                        {
+                            yForce = hoopBasketballDistanceX*3.250;
+                        }
+                        else if (x > 88.75 && x < 90)
+                        {
+                            yForce = hoopBasketballDistanceX*3.125;
+                        }
+                        else if (x > 90 && x <= 91.25)
+                        {
+                            yForce = hoopBasketballDistanceX*3.0;
+                        }
+                        else if (x > 91.25 && x <= 92.50)
+                        {
+                            yForce = hoopBasketballDistanceX*2.875;
+                        }
+                        else if (x > 92.50 && x <= 93.75)
+                        {
+                            yForce = hoopBasketballDistanceX*2.750;
+                        }
+                        else if (x > 93.75 && x <= 95.00)
+                        {
+                            yForce = hoopBasketballDistanceX*2.625;
+                        }
+                        else if (x > 95.00 && x <= 96.25)
+                        {
+                            yForce = hoopBasketballDistanceX*2.500;
+                        }
+                        else if (x > 96.25 && x <= 97.50)
+                        {
+                            yForce = hoopBasketballDistanceX*1.577;
+                        }
+                        else if (x > 97.50 && x <= 98.75)
+                        {
+                            yForce = hoopBasketballDistanceX*1.494;
+                        }
+                        else if (x > 98.75 && x <= 100.00)
+                        {
+                            yForce = hoopBasketballDistanceX*1.411;
+                        }
+                        else if (x > 100.00 && x <= 101.25)
+                        {
+                            yForce = hoopBasketballDistanceX*1.328;
+                        }
+                        else if (x > 101.25 && x <= 102.50)
+                        {
+                            yForce = hoopBasketballDistanceX*1.245;
+                        }
+                        else if (x > 102.50 && x <= 103.75)
+                        {
+                            yForce = hoopBasketballDistanceX*1.162;
+                        }
+                        else if (x > 103.75 && x < 105.00)
+                        {
+                            yForce = hoopBasketballDistanceX*1.079;
+                        }
+                        else if (x > 105.00 && x <= 106.25)
+                        {
+                            yForce = hoopBasketballDistanceX*0.996;
+                        }
+                        else if (x > 106.25 && x <= 107.50)
+                        {
+                            yForce = hoopBasketballDistanceX*0.913;
+                        }
+                        else if (x > 107.50 && x <= 108.75)
+                        {
+                            yForce = hoopBasketballDistanceX*0.830;
+                        }
+                        else if (x > 108.75 && x <= 110)
+                        {
+                            yForce = hoopBasketballDistanceX*0.747;
+                        }
+                        else if (x > 110 && x <= 111.25)
+                        {
+                            yForce = hoopBasketballDistanceX*0.664;
+                        }
+                        else if (x > 111.25 && x <= 112.50)
+                        {
+                            yForce = hoopBasketballDistanceX*0.581;
+                        }
+                        else if (x > 112.50 && x <= 113.75)
+                        {
+                            yForce = hoopBasketballDistanceX*0.498;
+                        }
+                        else if (x > 113.75 && x <= 115.00)
+                        {
+                            yForce = hoopBasketballDistanceX*0.415;
+                        }
+                        else if (x > 115.00 && x <= 116.25)
+                        {
+                            yForce = hoopBasketballDistanceX*0.332;
+                        }
+                        else if (x > 116.25 && x <= 117.50)
+                        {
+                            yForce = hoopBasketballDistanceX*0.249;
+                        }
+                        else if (x > 117.50 && x <= 118.75)
+                        {
+                            yForce = hoopBasketballDistanceX*0.166;
+                        }
+                        else if (x > 118.75 && x < 120)
+                        {
+                            yForce = hoopBasketballDistanceX*0.083;
+                        }
+                        */
+                    }
+                    else
+                    {
+                        yForce = -20;
+                    }
+                    logMsg("hoopBasketballDistanceX = " +convert->toString(hoopBasketballDistanceX));
+                    logMsg("beginShotDistance.getX() = " +convert->toString(beginShotDistance.getX()));
+                    logMsg("yDistanceForce = " +convert->toString(yForce));
+
+                    
                     forceToApply.setX(30);
                     //basketballInstance[0].getPhysBody()->applyForce(forceToApply,btVector3(1,1,1));
-                    basketballInstance[0].getPhysBody()->applyForce(btVector3(33.0,3.0,0.0),btVector3(1,1,1));
+                    basketballInstance[0].getPhysBody()->applyForce(btVector3(beginShotDistance.getX()*2.5,yForce,0.0),btVector3(1,1,1));
                   //basketballInstance[0].getPhysBody()-> setAngularVelocity(btVector3(3.0,5.0,0));
                     basketballInstance[0].getPhysBody()->setGravity(btVector3(-9.8,0,0));
                     basketballInstance[0].getPhysBody()->applyGravity();
