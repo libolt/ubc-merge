@@ -1268,17 +1268,19 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                 {
                     float hoopBasketballDistanceX = 0;
                     float midXPoint = 0;
+                    float basketballMidXDistance = 0;
                     float yForce = 0;
                     float maxYForce = 10;
                     btTransform basketballTransform = basketballInstance[0].getPhysBody()->getWorldTransform();
                     btVector3 basketballPos = basketballTransform.getOrigin();
-                    midXPoint = (beginShotPos.getX() - endShotPos.getX())/2;
+                    midXPoint = (endShotPos.getX() - beginShotPos.getX())/2 -20;
                     hoopBasketballDistanceX = endShotPos.getX() - basketballPos.getX();
+                    basketballMidXDistance = midXPoint - basketballPos.getX();
                    // if (hoopBasketballDistanceX > 0)
-                    if (midXPoint > 0)
+                    if (basketballMidXDistance > 0)
                     {
                         //yForce = ((maxYForce / 50) *(100 - hoopBasketballDistanceX))*3.5;
-                        yForce = ((maxYForce / 50) *(100 - midXPoint))*8.5;
+                        yForce = ((maxYForce / 50) *(100 - midXPoint))*5.5;
                      
                         /*float x = hoopBasketballDistanceX;
                         if (x > 0 && x <= 1.0)
@@ -1673,11 +1675,15 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     }
                     else
                     {
-                        yForce = -20;
+                    //    exit(0);
+                      //  yForce = -20;
                     }
                     logMsg("hoopBasketballDistanceX = " +convert->toString(hoopBasketballDistanceX));
                     logMsg("beginShotDistance.getX() = " +convert->toString(beginShotDistance.getX()));
                     logMsg("yDistanceForce = " +convert->toString(yForce));
+                    logMsg("midXPointDistance = " +convert->toString(midXPoint));
+                    logMsg("basketballMidXDistance = " +convert->toString(basketballMidXDistance));
+
 
                     
                     forceToApply.setX(30);
