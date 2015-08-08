@@ -155,6 +155,7 @@ private:
     bool midShotPosReached;
     bool midShotXPosReached;
     bool endShotPosSet;
+    bool shotCalcComplete;
 };
 
     // Collision Callback

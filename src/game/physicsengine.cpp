@@ -1134,6 +1134,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
     size_t x = 0;
     while (x<playerInstance.size())
     {
+        
         if (playerInstance[x].getPlayerID() == playerID)
         {
             shotSet = playerInstance[x].getShotSet();
@@ -1274,7 +1275,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     float endXPoint = 0;
                     float basketballMidXDistance = 0;
                     float yForce = 0;
-                    float maxYForce = 10;
+                    float maxYForce = 100;
                     btVector3 hoopDimMin;
                     btVector3 hoopDimMax;
                     float hoopXMin = 0;
@@ -1297,11 +1298,12 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     {
                         //yForce = ((maxYForce / 50) *(100 - hoopBasketballDistanceX))*3.5;
                         yForce = ((maxYForce / 50) *(midXPoint))*(hoopBasketballDistanceX/1.0);
-                     
+                        //yForce = (beginShotDistance.getX())/2.0;
                        
                     }
                     else
                     {
+                        yForce = 25;
                     //    exit(0);
                       //  yForce = -20;
                     }
@@ -1318,7 +1320,10 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     
                     forceToApply.setX(30);
                     //basketballInstance[0].getPhysBody()->applyForce(forceToApply,btVector3(1,1,1));
-                    basketballInstance[0].getPhysBody()->applyForce(btVector3(beginShotDistance.getX()*2.5,yForce,0.0),btVector3(1,1,1));
+                  //  basketballInstance[0].getPhysBody()->applyForce(btVector3(beginShotDistance.getX()*2.5,yForce,0.0),btVector3(1,1,1));
+                 
+                    basketballInstance[0].getPhysBody()->applyForce(btVector3(65.0,yForce,0.0),btVector3(1,1,1));
+                   
                   //basketballInstance[0].getPhysBody()-> setAngularVelocity(btVector3(3.0,5.0,0));
                     basketballInstance[0].getPhysBody()->setGravity(btVector3(-9.8,0,0));
                     basketballInstance[0].getPhysBody()->applyGravity();
