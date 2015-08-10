@@ -477,7 +477,7 @@ bool physicsEngine::setupBasketballPhysics()
     basketballShape = converter.createSphere();
 
 
-    btScalar mass = 0.05f;
+    btScalar mass = 0.62f;
     btVector3 inertia, inertia2;
     inertia = btVector3(0,0,0);
     basketballShape->calculateLocalInertia(mass, inertia);
@@ -1211,7 +1211,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                         }
                         else
                         {
-                            endShotPos.setX(hoopPos.getX() - 5);
+                            endShotPos.setX(hoopPos.getX());
                             float hoopPosX = hoopPos.getX();
                             logMsg("hoopPosX = " +convert->toString(hoopPosX));
                         }
@@ -1274,7 +1274,9 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     float midXPoint = 0;
                     float endXPoint = 0;
                     float basketballMidXDistance = 0;
+                    float force = 0;
                     float yForce = 0;
+                    float maxForce = 0;
                     float maxYForce = 100;
                     btVector3 hoopDimMin;
                     btVector3 hoopDimMax;
@@ -1293,17 +1295,22 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     endXPoint = endShotPos.getX();
                     hoopBasketballDistanceX = endShotPos.getX() - basketballPos.getX();
                     basketballMidXDistance = midXPoint - basketballPos.getX();
-                   // if (hoopBasketballDistanceX > 0)
+                    // if (hoopBasketballDistanceX > 0)
+                    maxForce = beginShotDistance.getX()*10;
                     if (basketballMidXDistance > 0)
                     {
                         //yForce = ((maxYForce / 50) *(100 - hoopBasketballDistanceX))*3.5;
-                        yForce = ((maxYForce / 50) *(midXPoint))*(hoopBasketballDistanceX/1.0);
+                        //yForce = ((maxYForce / 50) *(midXPoint))*(hoopBasketballDistanceX/1.0);
                         //yForce = (beginShotDistance.getX())/2.0;
-                       
+                        force = hoopBasketballDistanceX*(100 - hoopBasketballDistanceX);
+                        yForce = force/2;
                     }
                     else
                     {
-                        yForce = 25;
+                        
+                        force = hoopBasketballDistanceX*(100 - hoopBasketballDistanceX);
+                        //yForce = force/1.5;
+                        yForce = 10;
                     //    exit(0);
                       //  yForce = -20;
                     }
@@ -1315,15 +1322,16 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     logMsg("endXPointDistance = " +convert->toString(endXPoint));
                     logMsg("basketballMidXDistance = " +convert->toString(basketballMidXDistance));
                     logMsg("vecX = " +convert->toString(vecX));
+                    logMsg("forceDistance = " +convert->toString(force));
 
 
                     
                     forceToApply.setX(30);
                     //basketballInstance[0].getPhysBody()->applyForce(forceToApply,btVector3(1,1,1));
                   //  basketballInstance[0].getPhysBody()->applyForce(btVector3(beginShotDistance.getX()*2.5,yForce,0.0),btVector3(1,1,1));
-                 
-                    basketballInstance[0].getPhysBody()->applyForce(btVector3(65.0,yForce,0.0),btVector3(1,1,1));
                    
+                    basketballInstance[0].getPhysBody()->applyForce(btVector3(force,yForce,0.0),btVector3(1,1,1));
+                    
                   //basketballInstance[0].getPhysBody()-> setAngularVelocity(btVector3(3.0,5.0,0));
                     basketballInstance[0].getPhysBody()->setGravity(btVector3(-9.8,0,0));
                     basketballInstance[0].getPhysBody()->applyGravity();
