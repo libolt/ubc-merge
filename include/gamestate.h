@@ -89,7 +89,7 @@ public:
     void setBasketballModelLoaded(bool loaded);	// sets the value of basketballModelLoaded
 
     std::vector<teamData> getTeamDataInstance();	// retrieves the value of teamDataInstance
-    void setTeamDataInstances(std::vector<teamData> instance);	// sets the value of teamDataInstance;
+    void setTeamDataInstance(std::vector<teamData> instance);	// sets the value of teamDataInstance;
 
     std::vector<playerData> getPlayerDataInstance();	// retrieves the value of playerDataInstance
     void setPlayerDataInstances(std::vector<playerData> instance);	// sets the value of playerDataInstance;

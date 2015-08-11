@@ -73,9 +73,9 @@ public:
 //    int readFile(const char *sourceFile, std:string *destination);
 
     // Teams
-    bool loadTeams();   // loads team data from XML files
+    std::vector<teamData> loadTeams();   // loads team data from XML files
     bool loadTeamListFile(string fileName); // loads list of team files from teams.xml
-    bool loadTeamFile(string fileName); // loads data from the team XML files
+    teamData loadTeamFile(string fileName); // loads data from the team XML files
 
     // Players
     bool loadPlayers(); // loads player data from XML files

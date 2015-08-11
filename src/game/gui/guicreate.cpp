@@ -379,10 +379,11 @@ bool GUISystem::createGameSetupMenuGUI()    // creates GUI for game setup menu s
     boost::shared_ptr<renderEngine> render = renderEngine::Instance();
     Ogre::Viewport *viewPort = render->getViewPort();
 
-    load->loadTeams();
+    MyGUI::LayoutManager::getInstance().loadLayout("GameSetupMenu.layout");
+/*    load->loadTeams();
     std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
 
-    MyGUI::LayoutManager::getInstance().loadLayout("GameSetupMenu.layout");
+   
 
     team0SelectBox = mGUI->findWidget<MyGUI::ListBox>("team0SelectBox"); // loads team 0 ListBox
     team0SelectBox->setVisible(false);
@@ -418,7 +419,7 @@ bool GUISystem::createGameSetupMenuGUI()    // creates GUI for game setup menu s
     teamsSelectedButton->setVisible(false);
     teamsSelectedButton->eventMouseButtonClick += MyGUI::newDelegate(this, &GUISystem::teamsSelectedButtonClicked);
     teamsSelectedButton->setSize((0.4 *viewPort->getActualWidth() ), (0.04 *viewPort->getActualHeight()) );
-
+*/
     gameSetupMenuCreated = true;
 
     return (true);
@@ -570,8 +571,11 @@ bool GUISystem::createTeamSelectionMenuGUI()    // creates GUI for team selectio
     boost::shared_ptr<renderEngine> render = renderEngine::Instance();
     Ogre::Viewport *viewPort = render->getViewPort();
 
-    load->loadTeams();
-    std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
+    //load->loadTeams();
+    std::vector<teamData> teamDataInstance; // = gameS->getTeamDataInstance();
+
+    teamDataInstance = load->loadTeams();
+    gameS->setTeamDataInstance(teamDataInstance);
 
     MyGUI::LayoutManager::getInstance().loadLayout("TeamSelectionMenu.layout");
 

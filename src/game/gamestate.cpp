@@ -123,7 +123,7 @@ std::vector<teamData> gameState::getTeamDataInstance()		// retrieves the value o
 {
 	return (teamDataInstance);
 }
-void gameState::setTeamDataInstances(std::vector<teamData> instance)	// sets the value of teamDataInstance
+void gameState::setTeamDataInstance(std::vector<teamData> instance)	// sets the value of teamDataInstance
 {
 	teamDataInstance = instance;
 }
