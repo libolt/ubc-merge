@@ -471,7 +471,7 @@ bool loader::loadTeamListFile(string fileName)
     {
 //		string pText=pElem->GetText();
         files.push_back(pElem->GetText());
-        logMsg("teamFile = " +pElem->GetText());
+        logMsg("teamFile = " +convert->toString(pElem->GetText()));
     }
 
 /*    std::vector<std::string>::iterator it;
