@@ -471,7 +471,7 @@ bool loader::loadTeamListFile(string fileName)
     {
 //		string pText=pElem->GetText();
         files.push_back(pElem->GetText());
-        logMsg(pElem->GetText());
+        logMsg("teamFile = " +pElem->GetText());
     }
 
 /*    std::vector<std::string>::iterator it;
@@ -510,7 +510,8 @@ bool loader::loadTeamFile(string fileName)
 //    if (!doc.LoadFile()) return(false);
 //	const char *fileContents = NULL;
 	std::string fileContents;
-	TiXmlDocument doc;
+	//TiXmlDocument doc;
+    tinyxml2::XMLDocument doc;
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
@@ -527,51 +528,62 @@ bool loader::loadTeamFile(string fileName)
 		exit(0);
 	}
 
-    TiXmlHandle hDoc(&doc);
-
-    TiXmlElement* pElem;
-
-    TiXmlHandle hRoot(0);
-
-    pElem=hDoc.FirstChildElement().Element();
-
+    //TiXmlHandle hDoc(&doc);
+    tinyxml2::XMLHandle hDoc(&doc);
+    
+    //TiXmlElement* pElem;
+    tinyxml2::XMLElement *pElem;
+    
+    //TiXmlHandle hRoot(0);
+    tinyxml2::XMLHandle hRoot(0);
+    
+    //pElem=hDoc.FirstChildElement().Element();
+    pElem=hDoc.FirstChildElement().ToElement();
+    
     // should always have a valid root but handle gracefully if it does
     if (!pElem) return(false);
 
     // save this for later
-    hRoot=TiXmlHandle(pElem);
-
-    pElem=hRoot.FirstChild("ID").Element();
+    //hRoot=TiXmlHandle(pElem);
+    hRoot = tinyxml2::XMLHandle(pElem);
+    
+    //pElem=hRoot.FirstChild("ID").Element();
+    pElem=hRoot.FirstChild().ToElement();
     if (pElem)
     {
         ID = atoi(pElem->GetText());
     }
 
-    pElem=hRoot.FirstChild("City").Element();
+    //pElem=hRoot.FirstChild("City").Element();
+    pElem=hRoot.NextSibling().ToElement();
     if (pElem)
     {
         City = pElem->GetText();
     }
 
-    pElem=hRoot.FirstChild("Name").Element();
+    //pElem=hRoot.FirstChild("Name").Element();
+    pElem=hRoot.NextSibling().ToElement();
     if (pElem)
     {
         Name = pElem->GetText();
     }
 
-    pElem=hRoot.FirstChild("Coach").Element();
+    //pElem=hRoot.FirstChild("Coach").Element();
+    pElem=hRoot.NextSibling().ToElement();
     if (pElem)
     {
         Coach = pElem->GetText();
     }
 
-    pElem=hRoot.FirstChild("Initials").Element();
+    //pElem=hRoot.FirstChild("Initials").Element();
+    pElem=hRoot.NextSibling().ToElement();
     if (pElem)
     {
         Initials = pElem->GetText();
     }
 
-    pElem=hRoot.FirstChild("Logo").Element();
+    //pElem=hRoot.FirstChild("Logo").Element();
+    pElem=hRoot.NextSibling().ToElement();
     if (pElem)
     {
         Logo = pElem->GetText();
