@@ -413,7 +413,8 @@ bool loader::loadTeamListFile(string fileName)
 
 //	char *fileContents = NULL;
     std::string fileContents;
-    TiXmlDocument doc;
+    //TiXmlDocument doc;
+    tinyxml2::XMLDocument doc;
     logMsg(fileName);
 	logMsg("bate");
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
@@ -447,20 +448,25 @@ bool loader::loadTeamListFile(string fileName)
 //		exit(0);
 	}
 
-	TiXmlHandle hDoc(&doc);
-    TiXmlElement* pElem;
-    TiXmlHandle hRoot(0);
+	//TiXmlHandle hDoc(&doc);
+    tinyxml2::XMLHandle hDoc(&doc);
+    //TiXmlElement* pElem;
+    tinyxml2::XMLElement *pElem;
+    //TiXmlHandle hRoot(0);
+    tinyxml2::XMLHandle hRoot(0);
 
-    pElem=hDoc.FirstChildElement().Element();
+    pElem=hDoc.FirstChildElement().ToElement();
 
     // should always have a valid root but handle gracefully if it does
     if (!pElem) return(false);
 
     // save this for later
-    hRoot=TiXmlHandle(pElem);
-
-    pElem=hRoot.FirstChild("TeamFile").Element();
-
+    //hRoot=TiXmlHandle(pElem);
+    hRoot = tinyxml2::XMLHandle(pElem);
+    
+    //pElem=hRoot.FirstChild("TeamFile").Element();
+    pElem=hRoot.FirstChild().ToElement();
+    
     for( pElem; pElem; pElem=pElem->NextSiblingElement())
     {
 //		string pText=pElem->GetText();

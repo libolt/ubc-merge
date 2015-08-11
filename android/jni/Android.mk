@@ -185,6 +185,11 @@ UBC_DEPENDS_INC_PATH := $(UBC_DEPENDS_PATH)/include
    include $(PREBUILT_STATIC_LIBRARY)
 
    include $(CLEAR_VARS)
+   LOCAL_MODULE := TinyXML2-Prebuilt
+   LOCAL_SRC_FILES := $(UBC_DEPENDS_LIB_PATH)/libtinyxml2.so
+   include $(PREBUILT_SHARED_LIBRARY)
+   
+   include $(CLEAR_VARS)
    LOCAL_MODULE := ZLib-Prebuilt
    LOCAL_SRC_FILES := $(UBC_DEPENDS_LIB_PATH)/libzlib.a
    include $(PREBUILT_STATIC_LIBRARY)
@@ -197,7 +202,7 @@ UBC_DEPENDS_INC_PATH := $(UBC_DEPENDS_PATH)/include
 #LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_SHARED_LIBRARIES  := ALMixer-Prebuilt OpeanAL-Prebuilt OGG-Prebuilt Vorbis-Prebuilt  SDL2-Prebuilt 
+LOCAL_SHARED_LIBRARIES  := ALMixer-Prebuilt OpeanAL-Prebuilt OGG-Prebuilt Vorbis-Prebuilt  SDL2-Prebuilt TinyXML2-Prebuilt
 LOCAL_STATIC_LIBRARIES  := Boost-System-Prebuilt MyGUIOgrePlatform-Prebuilt MyGUIEngine-Prebuilt TinyXML-Prebuilt  BtOgre-Prebuilt BulletDynamics-Prebuilt BulletCollision-Prebuilt BulletSoftbody-Prebuilt BulletLinearMath-Prebuilt OgreRTShaderSystem-Prebuilt OgreRenderSystem_GLES2-Prebuilt OgreMain-Prebuilt OgreParticleFXPlugin-Prebuilt OpenSteer-Prebuilt Boost-Thread-Prebuilt Boost-Chrono-Prebuilt FreeImage-Prebuilt ZZipLib-Prebuilt FreeType-Prebuilt ENet-Prebuilt
  # BtOgre-Prebuilt  BulletCollision-Prebuilt BulletDynamics-Prebuilt BulletSoftbody-Prebuilt BulletLinearMath-Prebuilt Boost-Atomic-Prebuilt Boost-Chrono-Prebuilt Boost-System-Prebuilt Boost-Thread-Prebuilt 
 #LOCAL_SHARED_LIBRARIES  += OgreMain-Prebuilt OgreOverlay-Prebuilt OgreProperty-Prebuilt OgreRTShaderSystem-Prebuilt OgreRenderSystem_GLES2-Prebuilt
