@@ -441,7 +441,7 @@ void playerData::calculateOverallRating() // calculates the value of overallRati
         offenseAwareness + defenseAwareness + offenseRebound + defenseRebound +
         blocking + stealing + interiorDefense + midRangeDefense + perimeterDefense +
         hustle + speed + quickness + fatigue + durability + demeanor + improvability;
-
+    logMsg("Overall first = " +convert->toString(overallRating));
     overallRating = overallRating / 27;
     logMsg("Overall Rating = " +convert->toString(overallRating));
 //    exit(0);

@@ -567,7 +567,7 @@ teamData loader::loadTeamFile(string fileName)
     pElem=hRoot.FirstChild().ToElement();
     if (pElem)
     {
-        ID = atoi(pElem->GetText());
+        ID = convert->toInt(pElem->GetText());
         logMsg("ID == " +convert->toString(ID));
     }
 
@@ -884,7 +884,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        age = atoi(pElem->GetText());
+        age = convert->toInt(pElem->GetText());
         logMsg("Age = " +convert->toString(age));
     }
 
@@ -892,7 +892,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        height = atoi(pElem->GetText());
+        height = convert->toInt(pElem->GetText());
         logMsg("Height = " +convert->toString(height));
     }
 
@@ -900,7 +900,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        weight = atoi(pElem->GetText());
+        weight = convert->toInt(pElem->GetText());
         logMsg("Weight = " +convert->toString(weight));
     }
 
@@ -924,7 +924,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        shooting = atoi(pElem->GetText());
+        shooting = convert->toInt(pElem->GetText());
         logMsg("shooting = " +convert->toString(shooting));
     }
 
@@ -932,7 +932,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        freeThrow = atoi(pElem->GetText());
+        freeThrow = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -940,7 +940,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        layup = atoi(pElem->GetText());
+        layup = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -948,7 +948,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        dunk = atoi(pElem->GetText());
+        dunk = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -956,7 +956,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        inside = atoi(pElem->GetText());
+        inside = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -964,7 +964,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        midRange = atoi(pElem->GetText());
+        midRange = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -972,7 +972,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        threePoint = atoi(pElem->GetText());
+        threePoint = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -980,7 +980,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        ballHandling = atoi(pElem->GetText());
+        ballHandling = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -988,7 +988,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        ballSecurity = atoi(pElem->GetText());
+        ballSecurity = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -996,7 +996,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        passing = atoi(pElem->GetText());
+        passing = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1004,7 +1004,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        pickSetting = atoi(pElem->GetText());
+        pickSetting = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1012,7 +1012,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        offenseAwareness = atoi(pElem->GetText());
+        offenseAwareness = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1020,7 +1020,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        defenseAwareness = atoi(pElem->GetText());
+        defenseAwareness = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1028,7 +1028,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        offenseRebound = atoi(pElem->GetText());
+        offenseRebound = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1036,7 +1036,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        defenseRebound = atoi(pElem->GetText());
+        defenseRebound = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1044,7 +1044,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        blocking = atoi(pElem->GetText());
+        blocking = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1052,7 +1052,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        stealing = atoi(pElem->GetText());
+        stealing = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1060,7 +1060,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        interiorDefense = atoi(pElem->GetText());
+        interiorDefense = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1068,7 +1068,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        midRangeDefense = atoi(pElem->GetText());
+        midRangeDefense = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1076,7 +1076,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        perimeterDefense = atoi(pElem->GetText());
+        perimeterDefense = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1084,7 +1084,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        hustle = atoi(pElem->GetText());
+        hustle = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1092,7 +1092,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        speed = atoi(pElem->GetText());
+        speed = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1100,7 +1100,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        quickness = atoi(pElem->GetText());
+        quickness = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1108,7 +1108,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        fatigue = atoi(pElem->GetText());
+        fatigue = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1116,7 +1116,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        durability = atoi(pElem->GetText());
+        durability = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1124,7 +1124,7 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        demeanor = atoi(pElem->GetText());
+        demeanor = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
@@ -1132,21 +1132,21 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        improvability = atoi(pElem->GetText());
+        improvability = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 /*
 	pElem=hRoot.FirstChild("TeamInitials").ToElement();
     if (pElem)
     {
-        teamInitials = atoi(pElem->GetText());
+        teamInitials = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 
 	pElem=hRoot.FirstChild("TeamInitials").ToElement();
     if (pElem)
     {
-        teamInitials = atoi(pElem->GetText());
+        teamInitials = convert->toInt(pElem->GetText());
 //        cout << "Team Initials = " << teamInitials << endl;
     }
 */
@@ -1366,8 +1366,8 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     
-	offensePlays play;
-	std::string playName;
+    offensePlays play;
+    std::string playName;
     int variation;
     std::string title;
     std::vector<playerDesignations> playerDesignation;
@@ -1377,10 +1377,10 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     std::vector<float> zCoord;
     std::vector<Ogre::Vector3> startCoords;
     std::vector< std::vector<Ogre::Vector3> > executeCoords;
-	std::vector<offensePlays::playerDirectives> playerDirective;
+    std::vector<offensePlays::playerDirectives> playerDirective;
 
-	// stores values read from XML files
-	std::string pPlayName;
+    // stores values read from XML files
+    std::string pPlayName;
     int pVariation;
     std::string pTitle;
     std::string pPlayerDesignation;
@@ -1389,7 +1389,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     float pYCoord;
     float pZCoord;
     Ogre::Vector3 pCoords;
-	std::vector<Ogre::Vector3> pExecuteCoords;
+    std::vector<Ogre::Vector3> pExecuteCoords;
     offensePlays::playerDirectives pPlayerDirective;
     playerDesignations pPlayerDirectiveDesignation;
 
@@ -1397,8 +1397,9 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 //    if (!doc.LoadFile()) return(false);
 
 //	char *fileContents = NULL;
-	std::string fileContents;
-	TiXmlDocument doc;
+    std::string fileContents;
+	//TiXmlDocument doc;
+    tinyxml2::XMLDocument doc;
 	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
 
@@ -1407,263 +1408,298 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
 	fileContents = fileData->getAsString();
 #else*/
     char *contents = NULL;
-	readFile(fileName.c_str(), &contents);
+    readFile(fileName.c_str(), &contents);
     fileContents = convert->toString(contents);
 //#endif
-	if (!doc.Parse(contents))
-	{
-		logMsg("Unable to parse offense play file");
-	//	exit(0);
-	}
 
-    TiXmlHandle hDoc(&doc);
-    TiXmlElement *rootElement;
-    TiXmlElement* pElem;
-    TiXmlElement *child;
-    TiXmlNode *rootNode;
-    TiXmlNode *childNode;
-    TiXmlHandle hRoot(0);
+    doc.Parse(contents);
+    if (doc.Error())
+    {
+        logMsg("Unable to parse teams.xml file");
+        logMsg("Error ID = " +convert->toString(doc.ErrorID()));
+        logMsg(convert->toString(doc.GetErrorStr1()));
+        logMsg(convert->toString(doc.GetErrorStr2()));
+        exit(0);
+    }
+
+    //TiXmlHandle hDoc(&doc);
+    tinyxml2::XMLHandle hDoc(&doc);
+
+    //TiXmlElement *rootElement;
+    tinyxml2::XMLElement *rootElement;
+
+    //TiXmlElement* pElem;
+    tinyxml2::XMLElement *pElem;
+
+    //TiXmlElement *child;
+    tinyxml2::XMLElement *child;
+
+    //TiXmlNode *rootNode;
+    tinyxml2::XMLNode *rootNode;
+
+    //TiXmlNode *childNode;
+    tinyxml2::XMLNode *childNode;
+
+    //TiXmlHandle hRoot(0);
+    tinyxml2::XMLHandle hRoot(0);
 
 //    pElem=hDoc.FirstChildElement().Element();
-    rootElement = doc.FirstChildElement("Play");
-    // should always have a valid root but handle gracefully if it does
+//    rootElement = doc.FirstChildElement("Play");
+    rootElement=hDoc.FirstChildElement().ToElement();
+
+// should always have a valid root but handle gracefully if it does
     if (!rootElement)
     {
     	logMsg("Unable to load offense play element");
-    	//exit(0);
+    	exit(0);
     }
 
-    child = rootElement->FirstChild()->ToElement();
+    //child = rootElement->FirstChild()->ToElement();
+    child = rootElement->FirstChildElement()->ToElement();
     if (child)
     {
-    	string cKey = child->Value();
-    	if (cKey == "PlayName")
-    	{
-    		pPlayName = child->GetText();
-    		logMsg("pPlayName = " +playName);
-			playName = pPlayName;
-    	}
-    	child = child->NextSiblingElement("Variation");
-  		if (child)
-    	{
-            pVariation = atoi(child->GetText());
+        string cKey = child->Value();
+        if (cKey == "PlayName")
+        {
+            pPlayName = child->GetText();
+            logMsg("pPlayName = " +playName);
+            playName = pPlayName;
+        }
+    	//child = child->NextSiblingElement("Variation");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
+            pVariation = convert->toInt(child->GetText());
             logMsg("pVariation = " +convert->toString(pVariation));
-			variation = pVariation;
-    	}
-  		child = child->NextSiblingElement("Title");
-		if (child)
-		{
-			pTitle = child->GetText();
-			logMsg("pTitle = " +pTitle);
-			title = pTitle;
-		}
-		int numPlayers = 0;
-		for (TiXmlElement *e = child->NextSiblingElement("Player"); e != NULL; e = e->NextSiblingElement() )
-		{
-			TiXmlElement *f;
+            variation = pVariation;
+        } 
+        //child = child->NextSiblingElement("Title");
+        child = child->NextSiblingElement()->ToElement(); 
+	if (child)
+        {
+            pTitle = child->GetText();
+            logMsg("pTitle = " +pTitle);
+            title = pTitle;
+        }
+        int numPlayers = 0;
+        //for (TiXmlElement *e = child->NextSiblingElement("Player"); e != NULL; e = e->NextSiblingElement() )
+        for (tinyxml2::XMLElement *e = child->NextSiblingElement(); e != NULL; e = e->NextSiblingElement())
+	{
+            //TiXmlElement *f;
+	    tinyxml2::XMLElement *f;
+
             logMsg ("nums = " +convert->toString(numPlayers));
-			numPlayers += 1;
-			f = e->FirstChildElement("Name");
-			if (f)
-			{
-				pPlayerDesignation = f->GetText();
-				logMsg("name = " +pPlayerDesignation);
-//				playerName.push_back(pPlayerName);
+            numPlayers += 1;
+            //f = e->FirstChildElement("Name");
+            f = e->FirstChildElement()->ToElement();
+	    if (f)
+            {
+                pPlayerDesignation = f->GetText();
+                logMsg("name = " +pPlayerDesignation);
+//                playerName.push_back(pPlayerName);
 
-				if (pPlayerDesignation == "PG")
-				{
-					playerDesignation.push_back(PG);
-					pPlayerDirectiveDesignation = PG;
-				}
-				else if (pPlayerDesignation == "SG")
-				{
-					playerDesignation.push_back(SG);
-					pPlayerDirectiveDesignation = SG;
-				}
-				else if (pPlayerDesignation == "SF")
-				{
-					playerDesignation.push_back(SF);
-					pPlayerDirectiveDesignation = SF;
-				}
-				else if (pPlayerDesignation == "PF")
-				{
-					playerDesignation.push_back(PF);
-					pPlayerDirectiveDesignation = PF;
-				}
-				else if (pPlayerDesignation == "C")
-				{
-					playerDesignation.push_back(C);
-					pPlayerDirectiveDesignation = C;
-				}
-				else
-				{
+                if (pPlayerDesignation == "PG")
+                {
+                    playerDesignation.push_back(PG);
+                    pPlayerDirectiveDesignation = PG;
+                }
+                else if (pPlayerDesignation == "SG")
+                {
+                    playerDesignation.push_back(SG);
+                    pPlayerDirectiveDesignation = SG;
+                }
+                else if (pPlayerDesignation == "SF")
+                {
+                    playerDesignation.push_back(SF);
+                    pPlayerDirectiveDesignation = SF;
+                }
+                else if (pPlayerDesignation == "PF")
+                {
+                    playerDesignation.push_back(PF);
+                    pPlayerDirectiveDesignation = PF;
+                }
+                else if (pPlayerDesignation == "C")
+                {
+                    playerDesignation.push_back(C);
+                    pPlayerDirectiveDesignation = C;
+                }
+                else
+               {
 
-				}
-			}
-			f = f->NextSiblingElement("Positions");
-			if (f)
-			{
-				int numPos = 0;
-				pExecuteCoords.clear(); // clears the vector for each player
-				for (TiXmlElement *g = f->FirstChildElement("Position"); g != NULL; g = g->NextSiblingElement("Position"))
-				{
+                }
+            }
+            //f = f->NextSiblingElement("Positions");
+            f = f->NextSiblingElement()->ToElement();
+	    if (f)
+            {
+                int numPos = 0;
+                pExecuteCoords.clear(); // clears the vector for each player
+                //for (TiXmlElement *g = f->FirstChildElement("Position"); g != NULL; g = g->NextSiblingElement("Position"))
+		for (tinyxml2::XMLElement *g = f->FirstChildElement(); g != NULL; g = g->NextSiblingElement())
+
+                {
                     logMsg("numPos = " +convert->toString(numPos));
-					numPos += 1;
-					TiXmlElement *h;
-					h = g->FirstChildElement("Type");
-					if (h)
-					{
-						pType = h->GetText();
-						logMsg("pType = " +pType);
-						type.push_back(pType);
-					}
-					h = h->NextSiblingElement("X");
-					if (h)
-					{
-						pXCoord = atof(h->GetText());
-                        logMsg("pXCoord = " +convert->toString(pXCoord));
-						xCoord.push_back(pXCoord);
-					}
-					h = h->NextSiblingElement("Y");
-					if (h)
-					{
-						pYCoord = atof(h->GetText());
-                        logMsg("pYCoord = " +convert->toString(pYCoord));
-						yCoord.push_back(pYCoord);
-					}
-					h = h->NextSiblingElement("Z");
-					if (h)
-					{
-						pZCoord = atof(h->GetText());
-                        logMsg("pZCoord = " +convert->toString(pZCoord));
-						zCoord.push_back(pZCoord);
-					}
+                    numPos += 1;
+                    //TiXmlElement *h;
+		    tinyxml2::XMLElement *h;
 
-					pCoords.x = pXCoord;
-					pCoords.y = pYCoord;
-					pCoords.z = pZCoord;
+                    //h = g->FirstChildElement("Type");
+                    h = g->FirstChildElement()->ToElement();
+		    if (h)
+                    {
+                        pType = h->GetText();
+                        logMsg("pType = " +pType);
+                        type.push_back(pType);
+                    }
+                    //h = h->NextSiblingElement("X");
+                    h = h->NextSiblingElement()->ToElement();
+		    if (h)
+                    {
+                        pXCoord = convert->toFloat(h->GetText());
+                        logMsg("pXCoord = " +convert->toString(pXCoord));
+                        xCoord.push_back(pXCoord);
+                    }
+                    //h = h->NextSiblingElement("Y");
+                    h = h->NextSiblingElement()->ToElement();
+		    if (h)
+                    {
+                        pYCoord = convert->toFloat(h->GetText());
+                        logMsg("pYCoord = " +convert->toString(pYCoord));
+                        yCoord.push_back(pYCoord);
+                    }
+                    //h = h->NextSiblingElement("Z");
+                    h = h->NextSiblingElement()->ToElement();
+		    if (h)
+                    {
+                        pZCoord = convert->toFloat(h->GetText());
+                        logMsg("pZCoord = " +convert->toString(pZCoord));
+                        zCoord.push_back(pZCoord);
+                    }
+
+                    pCoords.x = pXCoord;
+                    pCoords.y = pYCoord;
+                    pCoords.z = pZCoord;
 
                     if (pType == "Start")
-					{
-				         startCoords.push_back(pCoords);
-					}
-					else
-					{
-						pExecuteCoords.push_back(pCoords);
+                    {
+                        startCoords.push_back(pCoords);
+                    }
+                    else
+                    {
+                        pExecuteCoords.push_back(pCoords);
                         logMsg("pExecuteCoords.size = " +convert->toString(pExecuteCoords.size()));
-					}
-				}
-				// checks if there are execute coords and puts them in the vector
-				if (pExecuteCoords.size() > 0)
-				{
-					executeCoords.push_back(pExecuteCoords);
-				}
-			}
-			f = f->NextSiblingElement("Directives");
-			if (f)
-			{
-				int numDirectives = 0;
-                for (TiXmlElement *g = f->FirstChildElement("Directive"); g != NULL; g = g->NextSiblingElement("Directive"))
-				{
-	                numDirectives += 1;
-				    TiXmlElement *h;
+                    }
+                }
+                // checks if there are execute coords and puts them in the vector
+                if (pExecuteCoords.size() > 0)
+                {
+                    executeCoords.push_back(pExecuteCoords);
+                }
+            }
+            //f = f->NextSiblingElement("Directives");
+            f = f->NextSiblingElement()->ToElement();
+	    if (f)
+            {
+                int numDirectives = 0;
+                //for (TiXmlElement *g = f->FirstChildElement("Directive"); g != NULL; g = g->NextSiblingElement("Directive"))
+                for (tinyxml2::XMLElement *g = f->FirstChildElement(); g != NULL; g = g->NextSiblingElement())
+		{
+                    numDirectives += 1;
+                    //TiXmlElement *h;
+                    tinyxml2::XMLElement *h;
+                    pPlayerDirective.setPlayerDesignation(pPlayerDirectiveDesignation);
+                    //h = g->FirstChildElement("Type");
+                    h = g->FirstChildElement()->ToElement();
+                    if (h)
+                    {
+                        string hKey = h->GetText();
+                        logMsg("hKey = " +hKey);
+                        if (hKey == "Wait")
+                        {
+                            pPlayerDirective.setType(WAIT);
+                            //h = h->NextSiblingElement("WaitFor");
+                            h = h->NextSiblingElement()->ToElement();
+			    if (h)
+                            {
+                                logMsg("WaitFor");
+                                hKey = h->GetText();
+                                if (hKey == "PlayerPositionSet")
+                                {
+                                    pPlayerDirective.setWaitFor(PLAYERPOSITIONSET);
+                                    logMsg("PlayerPositionSet");
 
-					pPlayerDirective.setPlayerDesignation(pPlayerDirectiveDesignation);
-				    h = g->FirstChildElement("Type");
-
+                                    //h = h->NextSiblingElement("PlayerSet");
+                                    h = h->NextSiblingElement()->ToElement();
 				    if (h)
-				    {
+                                    {
+                                        hKey = h->GetText();
+                                        logMsg("PlayerSet = " +hKey);
 
-						string hKey = h->GetText();
-						logMsg("hKey = " +hKey);
-						if (hKey == "Wait")
-						{
-			                pPlayerDirective.setType(WAIT);
-							h = h->NextSiblingElement("WaitFor");
-							if (h)
-							{
-								logMsg("WaitFor");
-								hKey = h->GetText();
-								if (hKey == "PlayerPositionSet")
-								{
-									pPlayerDirective.setWaitFor(PLAYERPOSITIONSET);
-									logMsg("PlayerPositionSet");
+                                        if (hKey == "PG")
+                                        {
+                                            pPlayerDirective.setPlayerSet(PG);
+                                        }
+                                        if (hKey == "SG")
+                                        {
+                                            pPlayerDirective.setPlayerSet(SG);
+                                        }
+                                        if (hKey == "SF")
+                                        {
+                                            pPlayerDirective.setPlayerSet(SF);
+                                        }
+                                        if (hKey == "PF")
+                                        {
+                                            pPlayerDirective.setPlayerSet(PF);
+                                        }
+                                        if (hKey == "C")
+                                        {
+                                            pPlayerDirective.setPlayerSet(C);
+                                        }
+                                    }
+                                    //h = h->NextSiblingElement("PositionType");
+                                    h = h->NextSiblingElement()->ToElement();
+				    if (h)
+                                    {
+                                        logMsg("PositionType");
+                                        hKey = h->GetText();
+                                        if (hKey == "Start")
+                                        {
+                                            logMsg("Start");
+                                            pPlayerDirective.setPositionType(START);
+                                        }
+                                        else if (hKey == "Execute")
+                                        {
+                                            logMsg("Execute");
+                                            pPlayerDirective.setPositionType(EXECUTE);
 
-									h = h->NextSiblingElement("PlayerSet");
-									if (h)
-									{
-										hKey = h->GetText();
-										logMsg("PlayerSet = " +hKey);
-
-										if (hKey == "PG")
-										{
-											pPlayerDirective.setPlayerSet(PG);
-										}
-										if (hKey == "SG")
-										{
-											pPlayerDirective.setPlayerSet(SG);
-										}
-										if (hKey == "SF")
-										{
-											pPlayerDirective.setPlayerSet(SF);
-										}
-										if (hKey == "PF")
-										{
-											pPlayerDirective.setPlayerSet(PF);
-										}
-										if (hKey == "C")
-										{
-											pPlayerDirective.setPlayerSet(C);
-										}
-									}
-									h = h->NextSiblingElement("PositionType");
-									if (h)
-									{
-										logMsg("PositionType");
-										hKey = h->GetText();
-										if (hKey == "Start")
-										{
-											logMsg("Start");
-											pPlayerDirective.setPositionType(START);
-										}
-										else if (hKey == "Execute")
-										{
-											logMsg("Execute");
-											pPlayerDirective.setPositionType(EXECUTE);
-
-											h = h->NextSiblingElement("Position");
-											if (h)
-											{
-												logMsg("Position");
-												hKey = h->GetText();
-                                                pPlayerDirective.setPosition(atoi(hKey.c_str()));
-											}
-										}
-									}
-
-								}
-						    }
+                                            h = h->NextSiblingElement("Position");
+                                            if (h)
+                                            {
+                                                logMsg("Position");
+                                                hKey = h->GetText();
+                                                pPlayerDirective.setPosition(convert->toInt(hKey.c_str()));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
-					}
-				}
-				playerDirective.push_back(pPlayerDirective);
+                    }
+                }
+                playerDirective.push_back(pPlayerDirective);
                 logMsg("numDirectives = " +convert->toString(numDirectives));
-
-			}
-
-		}
- //      exit(0);
-
+            }
+        }
     }
 
 
     play.setPlayName(playName);
     play.setVariation(variation);
     play.setTitle(title);
-	play.setPlayerDesignation(playerDesignation);
-	play.setStartPositions(startCoords);
-	play.setExecutePositions(executeCoords);
-	play.setPlayerDirective(playerDirective);
+    play.setPlayerDesignation(playerDesignation);
+    play.setStartPositions(startCoords);
+    play.setExecutePositions(executeCoords);
+    play.setPlayerDirective(playerDirective);
 
 	return (play);
 }
@@ -1863,109 +1899,109 @@ courtData loader::loadCourtFile(string fileName)	// loads data from the offense 
   		child = child->NextSiblingElement("Length");
 		if (child)
 		{
-            length = atof(child->GetText());
+            length = convert->toFloat(child->GetText());
             logMsg("Length = " +convert->toString(length));
 		} //      exit(0);
   		child = child->NextSiblingElement("Width");
 		if (child)
 		{
-            length = atof(child->GetText());
+            length = convert->toFloat(child->GetText());
             logMsg("Width = " +convert->toString(width));
 		} //      exit(0);
   		child = child->NextSiblingElement("BoundaryLength");
 		if (child)
 		{
-            boundaryLength = atof(child->GetText());
+            boundaryLength = convert->toFloat(child->GetText());
             logMsg("Boundary Length = " +convert->toString(boundaryLength));
 		} //      exit(0);
   		child = child->NextSiblingElement("BoundaryWidth");
 		if (child)
 		{
-            boundaryWidth = atof(child->GetText());
+            boundaryWidth = convert->toFloat(child->GetText());
             logMsg("Boundary Width = " +convert->toString(boundaryWidth));
 		} //      exit(0);
   		child = child->NextSiblingElement("BoundaryXPos");
 		if (child)
 		{
-            boundaryXPos = atof(child->GetText());
+            boundaryXPos = convert->toFloat(child->GetText());
             logMsg("Boundary X Pos = " +convert->toString(boundaryXPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("BoundaryZPos");
 		if (child)
 		{
-            boundaryZPos = atof(child->GetText());
+            boundaryZPos = convert->toFloat(child->GetText());
             logMsg("Boundary Z Pos = " +convert->toString(boundaryZPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("CenterCourt");
 		if (child)
 		{
-            centerCourt = atof(child->GetText());
+            centerCourt = convert->toFloat(child->GetText());
             logMsg("Center Court = " +convert->toString(centerCourt));
 		} //      exit(0);
   		child = child->NextSiblingElement("CenterJumpRadius");
 		if (child)
 		{
-            centerJumpRadius = atof(child->GetText());
+            centerJumpRadius = convert->toFloat(child->GetText());
             logMsg("Center Jump Radius = " +convert->toString(centerJumpRadius));
 		} //      exit(0);
   		child = child->NextSiblingElement("KeyLength");
 		if (child)
 		{
-            keyLength = atof(child->GetText());
+            keyLength = convert->toFloat(child->GetText());
             logMsg("Key Length = " +convert->toString(keyLength));
 		} //      exit(0);
   		child = child->NextSiblingElement("KeyWidth");
 		if (child)
 		{
-            keyWidth = atof(child->GetText());
+            keyWidth = convert->toFloat(child->GetText());
             logMsg("Key Width = " +convert->toString(keyWidth));
 		} //      exit(0);
   		child = child->NextSiblingElement("KeyJumpRadius");
 		if (child)
 		{
-            keyJumpRadius = atof(child->GetText());
+            keyJumpRadius = convert->toFloat(child->GetText());
             logMsg("Key Jump RAdius = " +convert->toString(keyJumpRadius));
 		} //      exit(0);
   		child = child->NextSiblingElement("ThreePointSideLength");
 		if (child)
 		{
-            threePointSideLength = atof(child->GetText());
+            threePointSideLength = convert->toFloat(child->GetText());
             logMsg("Three Point Side Length = " +convert->toString(threePointSideLength));
 		} //      exit(0);
   		child = child->NextSiblingElement("ThreePointSideZPos");
 		if (child)
 		{
-            threePointSideZPos = atof(child->GetText());
+            threePointSideZPos = convert->toFloat(child->GetText());
             logMsg("Three Point Side Z Pos = " +convert->toString(threePointSideZPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("ThreePointArcRadius");
 		if (child)
 		{
-            threePointArcRadius = atof(child->GetText());
+            threePointArcRadius = convert->toFloat(child->GetText());
             logMsg("Three Point Arc Radius = " +convert->toString(threePointArcRadius));
 		} //      exit(0);
   		child = child->NextSiblingElement("BaselineInboundXPos");
 		if (child)
 		{
-            baselineInboundXPos = atof(child->GetText());
+            baselineInboundXPos = convert->toFloat(child->GetText());
             logMsg("Baseline Inbound X Pos = " +convert->toString(baselineInboundXPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("BaselineInboundZPos");
 		if (child)
 		{
-            baselineInboundZPos = atof(child->GetText());
+            baselineInboundZPos = convert->toFloat(child->GetText());
             logMsg("Baseline Inbound Z Pos = " +convert->toString(baselineInboundZPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("SidelineInboundXPos");
 		if (child)
 		{
-            sidelineInboundXPos = atof(child->GetText());
+            sidelineInboundXPos = convert->toFloat(child->GetText());
             logMsg("Sideline Inbound X Pos = " +convert->toString(sidelineInboundXPos));
 		} //      exit(0);
   		child = child->NextSiblingElement("SidelineInboundZPos");
 		if (child)
 		{
-            sidelineInboundZPos = atof(child->GetText());
+            sidelineInboundZPos = convert->toFloat(child->GetText());
             logMsg("Sideline Inbound Z Pos = " +convert->toString(sidelineInboundZPos));
 		} //      exit(0);
 
