@@ -378,6 +378,7 @@ std::vector<teamData> loader::loadTeams()     // load court settings from XML fi
 //    std::vector<std::string> playerFiles = load->getPlayerFiles();
 
     logMsg("teamFiles.size() = " +convert->toString(teamFiles.size()));
+
 //    exit(0);
     std::vector<std::string>::iterator it;
     for (it = teamFiles.begin(); it != teamFiles.end(); ++it)
@@ -389,6 +390,7 @@ std::vector<teamData> loader::loadTeams()     // load court settings from XML fi
 #else
         teams.push_back(loadTeamFile(findFile("teams/" + *it)));
 #endif
+//        exit(0);
     }
 
         return (teams);
@@ -434,10 +436,15 @@ bool loader::loadTeamListFile(string fileName)
 	logMsg("fileContents == " +fileContents);
 //	exit(0);
 //	if (!doc.Parse(fileData->getAsString().c_str()))
-    if (!doc.Parse(contents))
+    static const char* xml = "<element/>";
+    doc.Parse(contents);
+    if (doc.Error())
     {
         logMsg("Unable to parse teams.xml file");
-        //exit(0);
+        logMsg("Error ID = " +convert->toString(doc.ErrorID()));
+        logMsg(convert->toString(doc.GetErrorStr1()));
+        logMsg(convert->toString(doc.GetErrorStr2()));
+        exit(0);
     }
 	//TiXmlHandle hDoc(&doc);
     tinyxml2::XMLHandle hDoc(&doc);
@@ -447,13 +454,12 @@ bool loader::loadTeamListFile(string fileName)
     tinyxml2::XMLHandle hRoot(0);
     //tinyxml2::XMLText *textNode = doc.FirstChildElement("Teams")->FirstChildElement("TeamFile")->ToText();
     //logMsg("first element = " +convert->toString(textNode->Value()));
-
     pElem=hDoc.FirstChildElement().ToElement();
     // should always have a valid root but handle gracefully if it does
     if (!pElem)
     {
         logMsg("Unable to find a valid teamListFile root!");
-	exit(0);
+        exit(0);
     } 
 
     // save this for later
@@ -519,12 +525,21 @@ teamData loader::loadTeamFile(string fileName)
 	readFile(fileName.c_str(), &contents);
     fileContents = convert->toString(contents);
 //#endif
-	if (!doc.Parse(contents))
+/*	if (!doc.Parse(contents))
 	{
 	    logMsg("Unable to parse team file");
 		//exit(0);
 	}
-
+*/
+    doc.Parse(contents);
+    if (doc.Error())
+    {
+        logMsg("Unable to parse teams.xml file");
+        logMsg("Error ID = " +convert->toString(doc.ErrorID()));
+        logMsg(convert->toString(doc.GetErrorStr1()));
+        logMsg(convert->toString(doc.GetErrorStr2()));
+        exit(0);
+    }
     //TiXmlHandle hDoc(&doc);
     tinyxml2::XMLHandle hDoc(&doc);
     
@@ -541,7 +556,7 @@ teamData loader::loadTeamFile(string fileName)
     if (!pElem)
     {
         logMsg("Unable to find valid root. Exiting!");
-	//exit(0);
+        exit(0);
     } 
 
     // save this for later
@@ -553,41 +568,47 @@ teamData loader::loadTeamFile(string fileName)
     if (pElem)
     {
         ID = atoi(pElem->GetText());
+        logMsg("ID == " +convert->toString(ID));
     }
 
     //pElem=hRoot.FirstChild("City").Element();
-    pElem=hRoot.NextSibling().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         City = pElem->GetText();
+        logMsg("City == " +City);
     }
 
     //pElem=hRoot.FirstChild("Name").Element();
-    pElem=hRoot.NextSibling().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         Name = pElem->GetText();
+        logMsg("Name == " +Name);
     }
 
     //pElem=hRoot.FirstChild("Coach").Element();
-    pElem=hRoot.NextSibling().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         Coach = pElem->GetText();
+        logMsg("Coach == " +Coach);
     }
 
     //pElem=hRoot.FirstChild("Initials").Element();
-    pElem=hRoot.NextSibling().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         Initials = pElem->GetText();
+        logMsg("Initials == " +Initials);
     }
 
     //pElem=hRoot.FirstChild("Logo").Element();
-    pElem=hRoot.NextSibling().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         Logo = pElem->GetText();
+        logMsg("Logo == " +Logo);
     }
 //    Ogre::LogManager::getSingletonPtr()->logMessage("team name = " +Name);
 //    Ogre::LogManager::getSingletonPtr()->logMessage("team city = " +City);
@@ -607,8 +628,9 @@ teamData loader::loadTeamFile(string fileName)
     return (teamD);
 }
 
-bool loader::loadPlayers()
+std::vector<playerData> loader::loadPlayers()
 {
+    std::vector<playerData> players;
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	string playerList = "data/players/players.xml";
 #else
@@ -622,12 +644,12 @@ bool loader::loadPlayers()
     {
 		logMsg("playerFile = " +*it);
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-		loadPlayerFile("data/players/" + *it);
+        players.push_back(loadPlayerFile("data/players/" + *it));
 #else
-        loadPlayerFile(findFile("players/" + *it));
+        players.push_back(loadPlayerFile(findFile("players/" + *it)));
 #endif
     }
-    return true;
+    return (players);
 }
 
 // loads XML file containing list of players and the files representing them
@@ -659,12 +681,21 @@ bool loader::loadPlayerListFile( string fileName)
     if (!doc.LoadFile()) return(false);
 */
 
-	if (!doc.Parse(contents))
+/*	if (!doc.Parse(contents))
 	{
 		logMsg("Unable to parse players.xml file");
-		exit(0);
+//		exit(0);
 	}
-
+*/
+    doc.Parse(contents);
+    if (doc.Error())
+    {
+        logMsg("Unable to parse teams.xml file");
+        logMsg("Error ID = " +convert->toString(doc.ErrorID()));
+        logMsg(convert->toString(doc.GetErrorStr1()));
+        logMsg(convert->toString(doc.GetErrorStr2()));
+        exit(0);
+    }
     //TiXmlHandle hDoc(&doc);
     tinyxml2::XMLHandle hDoc(&doc);
 
@@ -689,6 +720,7 @@ bool loader::loadPlayerListFile( string fileName)
         string pKey=pElem->Value();
 //		cout << pKey << endl;
         string pText=pElem->GetText();
+        logMsg("pText == " +pText);
 //		cout << pText << endl;
         playerFiles.push_back(pText);
 
@@ -706,7 +738,7 @@ bool loader::loadPlayerListFile( string fileName)
     return true;
 }
 
-bool loader::loadPlayerFile(string fileName)
+playerData loader::loadPlayerFile(string fileName)
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
@@ -773,113 +805,131 @@ bool loader::loadPlayerFile(string fileName)
 	readFile(fileName.c_str(), &contents);
     logMsg("loading: "+fileName);
     fileContents = convert->toString(contents);
+    logMsg("fileContents = " +fileContents);
 //#endif
-	if (!doc.Parse(contents))
+/*	if (!doc.Parse(contents))
 	{
 		logMsg("Unable to parse player file");
-		exit(0);
+//		exit(0);
 	}
-
+*/
+    doc.Parse(contents);
+    if (doc.Error())
+    {
+        logMsg("Unable to parse teams.xml file");
+        logMsg("Error ID = " +convert->toString(doc.ErrorID()));
+        logMsg(convert->toString(doc.GetErrorStr1()));
+        logMsg(convert->toString(doc.GetErrorStr2()));
+        exit(0);
+    }
     //TiXmlHandle hDoc(&doc);
     tinyxml2::XMLHandle hDoc(&doc);
     
     //TiXmlElement* pElem;
     tinyxml2::XMLElement *pElem;
+    tinyxml2::XMLElement *rootElement;
+    tinyxml2::XMLElement *childElement;
 
     //TiXmlHandle hRoot(0);
     tinyxml2::XMLHandle hRoot(0);
 
+
+    //pElem=hRoot.FirstChild("ID").Element();
     pElem=hDoc.FirstChildElement().ToElement();
     // should always have a valid root but handle gracefully if it does
-    if (!pElem) return(false);
+    if (!pElem)
+    {
+        logMsg("Unable to find a valid player file root!");
+        exit(0);
+    }
 
-    // save this for later
-    //hRoot=TiXmlHandle(pElem);
     hRoot = tinyxml2::XMLHandle(pElem);
 
-    //pElem=hRoot.FirstChild("Name").FirstChild().ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
-    for( pElem; pElem; pElem=pElem->NextSiblingElement())
+    pElem=hRoot.FirstChild().ToElement();
+    if(pElem)
     {
-        string pKey=pElem->Value();
+        ID = convert->toInt(pElem->GetText());
+        logMsg("PlayerID == " +convert->toString(ID));
+    }
+
+    //pElem=hRoot.FirstChild("Name").FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
+    if (pElem)
+    {
+        teamID = convert->toInt(pElem->GetText());
+        logMsg("teamID == " +convert->toString(teamID));
+    }
+    logMsg("pElem.Name() = " +convert->toString(pElem->GetText()));
+    pElem=pElem->NextSiblingElement()->ToElement();
+    if(pElem)
+    {
+        childElement=pElem->FirstChildElement()->ToElement();
+        string pKey=childElement->Value();
         if (pKey == "First")
         {
-            firstName = pElem->GetText();
-//            cout << "first name = " << firstName << endl;
+            firstName = childElement->GetText();
+            logMsg("First Name: " +firstName);
         }
+        childElement=childElement->NextSiblingElement()->ToElement();
+        pKey=childElement->Value();
         if (pKey == "Last")
         {
-            lastName = pElem->GetText();
-//            cout << "last name = " << lastName << endl;
+            lastName = childElement->GetText();
+            logMsg("Last Name: " +lastName);
         }
+
     }
 
     //pElem=hRoot.FirstChild("Age").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         age = atoi(pElem->GetText());
-//        cout << "Age = " << age << endl;
+        logMsg("Age = " +convert->toString(age));
     }
 
     //pElem=hRoot.FirstChild("Height").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         height = atoi(pElem->GetText());
-//        cout << "Height = " << height << endl;
+        logMsg("Height = " +convert->toString(height));
     }
 
     //pElem=hRoot.FirstChild("Weight").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         weight = atoi(pElem->GetText());
-//        cout << "weight = " << weight << endl;
+        logMsg("Weight = " +convert->toString(weight));
     }
 
     //pElem=hRoot.FirstChild("Model").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         model = pElem->GetText();
-//        cout << "model = " << model << endl;
+        logMsg("Model = " +model);
     }
 
     //pElem=hRoot.FirstChild("Position").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         position = pElem->GetText();
-//        cout << "Position = " << position << endl;
-    }
-
-    //pElem=hRoot.FirstChild("ID").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
-    if (pElem)
-    {
-        ID = atoi(pElem->GetText());
-//        cout << "ID = " << ID << endl;
-    }
-
-    //pElem=hRoot.FirstChild("TeamID").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
-    if (pElem)
-    {
-        teamID = atoi(pElem->GetText());
-//        cout << "ID = " << ID << endl;
+        logMsg("position = " +position);
     }
 
 	//pElem=hRoot.FirstChild("Shooting").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         shooting = atoi(pElem->GetText());
-//        cout << "Team Initials = " << teamInitials << endl;
+        logMsg("shooting = " +convert->toString(shooting));
     }
 
 	//pElem=hRoot.FirstChild("FreeThrow").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         freeThrow = atoi(pElem->GetText());
@@ -887,7 +937,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("Layup").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         layup = atoi(pElem->GetText());
@@ -895,7 +945,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("Dunk").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         dunk = atoi(pElem->GetText());
@@ -903,7 +953,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("Inside").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         inside = atoi(pElem->GetText());
@@ -911,7 +961,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("Midrange").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         midRange = atoi(pElem->GetText());
@@ -919,7 +969,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("ThreePoint").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         threePoint = atoi(pElem->GetText());
@@ -927,7 +977,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("BallHandling").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         ballHandling = atoi(pElem->GetText());
@@ -935,7 +985,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("BallSecurity").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         ballSecurity = atoi(pElem->GetText());
@@ -943,7 +993,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("Passing").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         passing = atoi(pElem->GetText());
@@ -951,7 +1001,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("PickSetting").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         pickSetting = atoi(pElem->GetText());
@@ -959,7 +1009,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("offenseAwareness").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         offenseAwareness = atoi(pElem->GetText());
@@ -967,7 +1017,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("DefenseAwareness").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         defenseAwareness = atoi(pElem->GetText());
@@ -975,7 +1025,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("OffenseRebound").Element();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         offenseRebound = atoi(pElem->GetText());
@@ -983,7 +1033,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("DefenseRebound").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         defenseRebound = atoi(pElem->GetText());
@@ -991,7 +1041,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("Blocking").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         blocking = atoi(pElem->GetText());
@@ -999,7 +1049,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("Stealing").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         stealing = atoi(pElem->GetText());
@@ -1007,7 +1057,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("InteriorDefense").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         interiorDefense = atoi(pElem->GetText());
@@ -1015,7 +1065,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("MidrangeDefense").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         midRangeDefense = atoi(pElem->GetText());
@@ -1023,7 +1073,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("PerimeterDefense").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         perimeterDefense = atoi(pElem->GetText());
@@ -1031,7 +1081,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("Hustle").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         hustle = atoi(pElem->GetText());
@@ -1039,7 +1089,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("Speed").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         speed = atoi(pElem->GetText());
@@ -1047,7 +1097,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("Quickness").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         quickness = atoi(pElem->GetText());
@@ -1055,7 +1105,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("Fatigue").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         fatigue = atoi(pElem->GetText());
@@ -1063,7 +1113,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("Durability").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         durability = atoi(pElem->GetText());
@@ -1071,7 +1121,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("Demeanor").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         demeanor = atoi(pElem->GetText());
@@ -1079,7 +1129,7 @@ bool loader::loadPlayerFile(string fileName)
     }
 
 	//pElem=hRoot.FirstChild("Improvability").ToElement();
-    pElem=hRoot.FirstChild().FirstChild().ToElement();
+    pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
         improvability = atoi(pElem->GetText());
@@ -1140,10 +1190,10 @@ bool loader::loadPlayerFile(string fileName)
     playerD.calculateOverallRating();
     playerDataInstance.push_back(playerD);
 
-    gameS->setPlayerDataInstances(playerDataInstance);
+    //gameS->setPlayerDataInstances(playerDataInstance);
     //	vector<players::playerData> playerN = playerG->getPlayer();
 
-    return true;
+    return (playerD);
 }
 bool loader::loadUserFile(string fileName)
 {

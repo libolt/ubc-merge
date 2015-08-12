@@ -12,7 +12,7 @@
 	<Model>Player.mesh</Model>
 	<Position>C</Position>
 	<Shooting>45</Shooting>
-	<Freethrow></Freethrow>
+	<Freethrow>70</Freethrow>
 	<Layup>70</Layup>
 	<Dunk>70</Dunk>
 	<Inside>55</Inside>

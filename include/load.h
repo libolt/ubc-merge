@@ -78,9 +78,9 @@ public:
     teamData loadTeamFile(string fileName); // loads data from the team XML files
 
     // Players
-    bool loadPlayers(); // loads player data from XML files
+    std::vector<playerData> loadPlayers(); // loads player data from XML files
     bool loadPlayerListFile(string fileName);   // loads list of player files from players.xml
-    bool loadPlayerFile(string fileName);   // loads data from the player XML files
+    playerData loadPlayerFile(string fileName);   // loads data from the player XML files
     bool loadUserFile(string fileName); // loads user file data from XML file(s)
 
     //Offense
