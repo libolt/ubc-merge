@@ -307,6 +307,7 @@ string loader::findFile(string fileName)
     return ("");
 }
 
+/*
 bool loader::loadXMLFile(string fileName)
 {
     TiXmlDocument doc(fileName.c_str());
@@ -364,6 +365,7 @@ bool loader::loadXMLFile(string fileName)
     }
     return false;
 }
+*/
 
 std::vector<teamData> loader::loadTeams()     // load court settings from XML files
 {
@@ -434,8 +436,6 @@ bool loader::loadTeamListFile(string fileName)
 //    readFile(fileName.c_str(), &fileContents);
 	logMsg("barf");
 	logMsg("fileContents == " +fileContents);
-//	exit(0);
-//	if (!doc.Parse(fileData->getAsString().c_str()))
     static const char* xml = "<element/>";
     doc.Parse(contents);
     if (doc.Error())
@@ -512,29 +512,16 @@ teamData loader::loadTeamFile(string fileName)
 //    TiXmlDocument doc(fileName.c_str());
 //    if (!doc.LoadFile()) return(false);
 //	const char *fileContents = NULL;
-	std::string fileContents;
+    std::string fileContents;
 	//TiXmlDocument doc;
     tinyxml2::XMLDocument doc;
-	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
-//	readFile(fileName.c_str(), &fileContents);
-/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
-	fileContents = fileData->getAsString();
-#else*/
     char *contents = NULL;
-	readFile(fileName.c_str(), &contents);
+    readFile(fileName.c_str(), &contents);
     fileContents = convert->toString(contents);
-//#endif
-/*	if (!doc.Parse(contents))
-	{
-	    logMsg("Unable to parse team file");
-		//exit(0);
-	}
-*/
     doc.Parse(contents);
     if (doc.Error())
     {
-        logMsg("Unable to parse teams.xml file");
+        logMsg("Unable to parse team file");
         logMsg("Error ID = " +convert->toString(doc.ErrorID()));
         logMsg(convert->toString(doc.GetErrorStr1()));
         logMsg(convert->toString(doc.GetErrorStr2()));
@@ -661,32 +648,13 @@ bool loader::loadPlayerListFile( string fileName)
     std::vector<std::string> playerFiles;
     players *player = players::Instance();
 
-//	char *fileContents = NULL;
-	std::string fileContents;
-	//TiXmlDocument doc;
-	tinyxml2::XMLDocument doc;
-	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
-//	readFile(fileName.c_str(), &fileContents);
+    std::string fileContents;
+    tinyxml2::XMLDocument doc;
     logMsg(fileName);
-/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
-	fileContents = fileData->getAsString();
-#else*/
     char *contents = NULL;
-	readFile(fileName.c_str(), &contents);
+    readFile(fileName.c_str(), &contents);
     fileContents = convert->toString(contents);
-//#endif
 
-/*    TiXmlDocument doc(fileName.c_str());
-    if (!doc.LoadFile()) return(false);
-*/
-
-/*	if (!doc.Parse(contents))
-	{
-		logMsg("Unable to parse players.xml file");
-//		exit(0);
-	}
-*/
     doc.Parse(contents);
     if (doc.Error())
     {
@@ -787,36 +755,19 @@ playerData loader::loadPlayerFile(string fileName)
 
     playerData player;
 
-//    TiXmlDocument doc(fileName.c_str());
-//    if (!doc.LoadFile()) return(false);
+    std::string fileContents;
+    tinyxml2::XMLDocument doc;
 
-//	char *fileContents = NULL;
-	std::string fileContents;
-	//TiXmlDocument doc;
-	tinyxml2::XMLDocument doc;
-	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
-//	readFile(fileName.c_str(), &fileContents);
-
-/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
-	fileContents = fileData->getAsString();
-#else*/
     char *contents = NULL;
-	readFile(fileName.c_str(), &contents);
+    readFile(fileName.c_str(), &contents);
     logMsg("loading: "+fileName);
     fileContents = convert->toString(contents);
     logMsg("fileContents = " +fileContents);
-//#endif
-/*	if (!doc.Parse(contents))
-	{
-		logMsg("Unable to parse player file");
-//		exit(0);
-	}
-*/
+    
     doc.Parse(contents);
     if (doc.Error())
     {
-        logMsg("Unable to parse teams.xml file");
+        logMsg("Unable to parse player file");
         logMsg("Error ID = " +convert->toString(doc.ErrorID()));
         logMsg(convert->toString(doc.GetErrorStr1()));
         logMsg(convert->toString(doc.GetErrorStr2()));
@@ -1230,25 +1181,12 @@ bool loader::loadOffensePlayListFile(string fileName)	// loads the list of offen
     std::vector<std::string> playFiles;
 
 
-//	char *fileContents = NULL;
-	std::string fileContents;
-    //TiXmlDocument doc;
+    std::string fileContents;
     tinyxml2::XMLDocument doc;
-    //    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
-//	readFile(fileName.c_str(), &fileContents);
     logMsg(fileName);
-/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
-	fileContents = fileData->getAsString();
-#else*/
     char *contents = NULL;
-	readFile(fileName.c_str(), &contents);
+    readFile(fileName.c_str(), &contents);
     fileContents = convert->toString(contents);
-//#endif
-
-/*    TiXmlDocument doc(fileName.c_str());
-    if (!doc.LoadFile()) return(false);
-*/
 
     doc.Parse(contents);
     if (doc.Error())
@@ -1292,13 +1230,6 @@ bool loader::loadOffensePlayListFile(string fileName)	// loads the list of offen
 
     }
 
-/*    std::vector<std::string>::iterator it;
-    for (it = playerFiles.begin(); it != playerFiles.end(); ++it)
-    {
-        cout << *it << endl;
-    }
-    */
-
     setOffensePlayFiles(playFiles);
 
 	return true;
@@ -1336,29 +1267,16 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     offensePlays::playerDirectives pPlayerDirective;
     playerDesignations pPlayerDirectiveDesignation;
 
-//    TiXmlDocument doc(fileName.c_str());
-//    if (!doc.LoadFile()) return(false);
-
-//	char *fileContents = NULL;
     std::string fileContents;
-	//TiXmlDocument doc;
     tinyxml2::XMLDocument doc;
-	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
-//	readFile(fileName.c_str(), &fileContents);
-
-/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
-	fileContents = fileData->getAsString();
-#else*/
     char *contents = NULL;
     readFile(fileName.c_str(), &contents);
     fileContents = convert->toString(contents);
-//#endif
 
     doc.Parse(contents);
     if (doc.Error())
     {
-        logMsg("Unable to parse teams.xml file");
+        logMsg("Unable to parse offense play file");
         logMsg("Error ID = " +convert->toString(doc.ErrorID()));
         logMsg(convert->toString(doc.GetErrorStr1()));
         logMsg(convert->toString(doc.GetErrorStr2()));
@@ -1682,45 +1600,47 @@ bool loader::loadCourtListFile(string fileName)	// loads the list of court files
     std::vector<std::string> courtFile;
 
 
-//	char *fileContents = NULL;
-	std::string fileContents;
-	TiXmlDocument doc;
-	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
-//	readFile(fileName.c_str(), &fileContents);
+    std::string fileContents;
+    tinyxml2::XMLDocument doc;
+
     logMsg(fileName);
-/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
-	fileContents = fileData->getAsString();
-#else*/
     char *contents = NULL;
     readFile(fileName.c_str(), &contents);
     fileContents = convert->toString(contents);
     logMsg("fileContents = " +fileContents);
-    //exit(0);
-//#endif
 
-/*    TiXmlDocument doc(fileName.c_str());
-    if (!doc.LoadFile()) return(false);
-*/
+    doc.Parse(contents);
+    if (doc.Error())
+    {
+        logMsg("Unable to parse courts.xml file");
+        logMsg("Error ID = " +convert->toString(doc.ErrorID()));
+        logMsg(convert->toString(doc.GetErrorStr1()));
+        logMsg(convert->toString(doc.GetErrorStr2()));
+        exit(0);
+    }
 
-	if (!doc.Parse(contents))
-	{
-		logMsg("Unable to parse courts.xml file");
-		//exit(0);
-	}
+    //TiXmlHandle hDoc(&doc);
+    tinyxml2::XMLHandle hDoc(&doc);
+    //TiXmlElement* pElem;
+    tinyxml2::XMLElement *pElem;
+    //TiXmlHandle hRoot(0);
+    tinyxml2::XMLHandle hRoot(0);
 
-    TiXmlHandle hDoc(&doc);
-    TiXmlElement* pElem;
-    TiXmlHandle hRoot(0);
-
-    pElem=hDoc.FirstChildElement().Element();
+    //pElem=hDoc.FirstChildElement().Element();
+    pElem=hDoc.FirstChildElement().ToElement();
     // should always have a valid root but handle gracefully if it does
-    if (!pElem) return(false);
+    if (!pElem)
+    {
+        logMsg("Unable to find a vlid court list root!");
+    } 
 
     // save this for later
-    hRoot=TiXmlHandle(pElem);
+    //hRoot=TiXmlHandle(pElem);
+    hRoot=tinyxml2::XMLHandle(pElem);
 
-    pElem=hRoot.FirstChild("CourtFile").Element();
+    //pElem=hRoot.FirstChild("CourtFile").Element();
+    pElem=hRoot.FirstChild().ToElement();
+    //for( pElem; pElem; pElem=pElem->NextSiblingElement())
     for( pElem; pElem; pElem=pElem->NextSiblingElement())
     {
         string pKey=pElem->Value();
@@ -1769,184 +1689,189 @@ courtData loader::loadCourtFile(string fileName)	// loads data from the offense 
     float baselineInboundZPos = 0;
     float sidelineInboundXPos = 0;
     float sidelineInboundZPos = 0;
-/*
-	// stores values read from XML files
-	std::string pPlayName;
-    int pVariation;
-    std::string pTitle;
-    std::string pPlayerDesignation;
-    std::string pType;
-    //float pXCoord;
-    float pYCoord;
-    float pZCoord;
-    Ogre::Vector3 pCoords;
-	std::vector<Ogre::Vector3> pExecuteCoords;
-    offensePlays::playerDirectives pPlayerDirective;
-    playerDesignations pPlayerDirectiveDesignation;
-*/
-//    TiXmlDocument doc(fileName.c_str());
-//    if (!doc.LoadFile()) return(false);
 
-//	char *fileContents = NULL;
-	std::string fileContents;
-	TiXmlDocument doc;
-	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
-//	readFile(fileName.c_str(), &fileContents);
+    std::string fileContents;
+    //TiXmlDocument doc;
+    tinyxml2::XMLDocument doc;
 
-/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-	Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
-	fileContents = fileData->getAsString();
-#else*/
     char *contents = NULL;
-	readFile(fileName.c_str(), &contents);
+    readFile(fileName.c_str(), &contents);
     fileContents = convert->toString(contents);
-//#endif
-	if (!doc.Parse(contents))
-	{
-		logMsg("Unable to parse court file");
-		//exit(0);
-	}
+    
+    doc.Parse(contents);
+    if (doc.Error())
+    {
+        logMsg("Unable to parse court xml file");
+        logMsg("Error ID = " +convert->toString(doc.ErrorID()));
+        logMsg(convert->toString(doc.GetErrorStr1()));
+        logMsg(convert->toString(doc.GetErrorStr2()));
+        exit(0);
+    }
 
-    TiXmlHandle hDoc(&doc);
-    TiXmlElement *rootElement;
+    //TiXmlHandle hDoc(&doc);
+    tinyxml2::XMLHandle hDoc(&doc);
+    //TiXmlElement *rootElement;
+    tinyxml2::XMLElement *rootElement;
+
 //    TiXmlElement* pElem;
-    TiXmlElement *child;
+    //TiXmlElement *child;
+    tinyxml2::XMLElement *child;
 //    TiXmlNode *rootNode;
 //    TiXmlNode *childNode;
-    TiXmlHandle hRoot(0);
+    //TiXmlHandle hRoot(0);
+    tinyxml2::XMLHandle hRoot(0);
 
 //    pElem=hDoc.FirstChildElement().Element();
-    rootElement = doc.FirstChildElement("Court");
+    rootElement = doc.FirstChildElement()->ToElement();
     // should always have a valid root but handle gracefully if it does
     if (!rootElement)
     {
-    	logMsg("Unable to load court element");
-    	//exit(0);
+        logMsg("Unable to load court element");
+        //exit(0);
     }
 
     child = rootElement->FirstChild()->ToElement();
     if (child)
     {
-    	string cKey = child->Value();
-    	if (cKey == "Name")
-    	{
-    		name = child->GetText();
-    		logMsg("name = " +name);
-    	}
-    	child = child->NextSiblingElement("Model");
-  		if (child)
-    	{
-  			modelName = child->GetText();
-    		logMsg("modelName = " +modelName);
-    	}
-  		child = child->NextSiblingElement("Length");
-		if (child)
-		{
+        string cKey = child->Value();
+        if (cKey == "Name")
+        {
+            name = child->GetText();
+            logMsg("name = " +name);
+        }
+    	//child = child->NextSiblingElement("Model");
+        child = child->NextSiblingElement()->ToElement();
+        if (child)
+        {
+            modelName = child->GetText();
+            logMsg("modelName = " +modelName);
+        }
+        //child = child->NextSiblingElement("Length");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             length = convert->toFloat(child->GetText());
             logMsg("Length = " +convert->toString(length));
-		} //      exit(0);
-  		child = child->NextSiblingElement("Width");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("Width");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             length = convert->toFloat(child->GetText());
             logMsg("Width = " +convert->toString(width));
-		} //      exit(0);
-  		child = child->NextSiblingElement("BoundaryLength");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("BoundaryLength");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             boundaryLength = convert->toFloat(child->GetText());
             logMsg("Boundary Length = " +convert->toString(boundaryLength));
-		} //      exit(0);
-  		child = child->NextSiblingElement("BoundaryWidth");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("BoundaryWidth");
+        child = child->NextSiblingElement()->ToElement();
+       	if (child)
+        {
             boundaryWidth = convert->toFloat(child->GetText());
             logMsg("Boundary Width = " +convert->toString(boundaryWidth));
-		} //      exit(0);
-  		child = child->NextSiblingElement("BoundaryXPos");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("BoundaryXPos");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             boundaryXPos = convert->toFloat(child->GetText());
             logMsg("Boundary X Pos = " +convert->toString(boundaryXPos));
-		} //      exit(0);
-  		child = child->NextSiblingElement("BoundaryZPos");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("BoundaryZPos");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             boundaryZPos = convert->toFloat(child->GetText());
             logMsg("Boundary Z Pos = " +convert->toString(boundaryZPos));
-		} //      exit(0);
-  		child = child->NextSiblingElement("CenterCourt");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("CenterCourt");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             centerCourt = convert->toFloat(child->GetText());
             logMsg("Center Court = " +convert->toString(centerCourt));
-		} //      exit(0);
-  		child = child->NextSiblingElement("CenterJumpRadius");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("CenterJumpRadius");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             centerJumpRadius = convert->toFloat(child->GetText());
             logMsg("Center Jump Radius = " +convert->toString(centerJumpRadius));
-		} //      exit(0);
-  		child = child->NextSiblingElement("KeyLength");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("KeyLength");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             keyLength = convert->toFloat(child->GetText());
             logMsg("Key Length = " +convert->toString(keyLength));
-		} //      exit(0);
-  		child = child->NextSiblingElement("KeyWidth");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("KeyWidth");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             keyWidth = convert->toFloat(child->GetText());
             logMsg("Key Width = " +convert->toString(keyWidth));
-		} //      exit(0);
-  		child = child->NextSiblingElement("KeyJumpRadius");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("KeyJumpRadius");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             keyJumpRadius = convert->toFloat(child->GetText());
             logMsg("Key Jump RAdius = " +convert->toString(keyJumpRadius));
-		} //      exit(0);
-  		child = child->NextSiblingElement("ThreePointSideLength");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("ThreePointSideLength");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             threePointSideLength = convert->toFloat(child->GetText());
             logMsg("Three Point Side Length = " +convert->toString(threePointSideLength));
-		} //      exit(0);
-  		child = child->NextSiblingElement("ThreePointSideZPos");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("ThreePointSideZPos");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             threePointSideZPos = convert->toFloat(child->GetText());
             logMsg("Three Point Side Z Pos = " +convert->toString(threePointSideZPos));
-		} //      exit(0);
-  		child = child->NextSiblingElement("ThreePointArcRadius");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("ThreePointArcRadius");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             threePointArcRadius = convert->toFloat(child->GetText());
             logMsg("Three Point Arc Radius = " +convert->toString(threePointArcRadius));
-		} //      exit(0);
-  		child = child->NextSiblingElement("BaselineInboundXPos");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("BaselineInboundXPos");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             baselineInboundXPos = convert->toFloat(child->GetText());
             logMsg("Baseline Inbound X Pos = " +convert->toString(baselineInboundXPos));
-		} //      exit(0);
-  		child = child->NextSiblingElement("BaselineInboundZPos");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("BaselineInboundZPos");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             baselineInboundZPos = convert->toFloat(child->GetText());
             logMsg("Baseline Inbound Z Pos = " +convert->toString(baselineInboundZPos));
-		} //      exit(0);
-  		child = child->NextSiblingElement("SidelineInboundXPos");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("SidelineInboundXPos");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             sidelineInboundXPos = convert->toFloat(child->GetText());
             logMsg("Sideline Inbound X Pos = " +convert->toString(sidelineInboundXPos));
-		} //      exit(0);
-  		child = child->NextSiblingElement("SidelineInboundZPos");
-		if (child)
-		{
+        } //      exit(0);
+        //child = child->NextSiblingElement("SidelineInboundZPos");
+        child = child->NextSiblingElement()->ToElement();
+	if (child)
+        {
             sidelineInboundZPos = convert->toFloat(child->GetText());
             logMsg("Sideline Inbound Z Pos = " +convert->toString(sidelineInboundZPos));
-		} //      exit(0);
+        } //      exit(0);
 
     }
 
@@ -2009,62 +1934,59 @@ bool loader::loadUserInputListFile(string fileName) // loads the list of offense
     std::vector<std::string> userInputFile;
 
 
-//  char *fileContents = NULL;
     std::string fileContents;
-    TiXmlDocument doc;
-    //    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
-//  readFile(fileName.c_str(), &fileContents);
+    //TiXmlDocument doc;
+    tinyxml2::XMLDocument doc;
+
     logMsg(fileName);
-/*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-    Ogre::DataStreamPtr fileData = render->openAPKFile(fileName);
-    fileContents = fileData->getAsString();
-#else*/
     char *contents = NULL;
     readFile(fileName.c_str(), &contents);
     fileContents = convert->toString(contents);
-//#endif
 
-/*    TiXmlDocument doc(fileName.c_str());
-    if (!doc.LoadFile()) return(false);
-*/
-
-    if (!doc.Parse(contents))
+    doc.Parse(contents);
+    if (doc.Error())
     {
         logMsg("Unable to parse inputlist.xml file");
-//        exit(0);
+        logMsg("Error ID = " +convert->toString(doc.ErrorID()));
+        logMsg(convert->toString(doc.GetErrorStr1()));
+        logMsg(convert->toString(doc.GetErrorStr2()));
+        exit(0);
     }
 
-    TiXmlHandle hDoc(&doc);
-    TiXmlElement* pElem;
-    TiXmlHandle hRoot(0);
+    //TiXmlHandle hDoc(&doc);
+    tinyxml2::XMLHandle hDoc(&doc);
+    //TiXmlElement* pElem;
+    tinyxml2::XMLElement *pElem;
+    //TiXmlHandle hRoot(0);
+    tinyxml2::XMLHandle hRoot(0);
 
-    pElem=hDoc.FirstChildElement().Element();
+    //pElem=hDoc.FirstChildElement().Element();
+    pElem=hDoc.FirstChildElement().ToElement();
+    
     // should always have a valid root but handle gracefully if it does
-    if (!pElem) return(false);
+    //if (!pElem) return(false);
+    if (!pElem)
+    {
+        logMsg("Unable to find avalid root for user input list file!");
+    } 
 
     // save this for later
-    hRoot=TiXmlHandle(pElem);
+    //hRoot=TiXmlHandle(pElem);
+    hRoot=tinyxml2::XMLHandle(pElem);
 
-    pElem=hRoot.FirstChild("UserInputFile").Element();
+    //pElem=hRoot.FirstChild("UserInputFile").Element();
+    pElem=hRoot.FirstChild().ToElement();
+    //for( pElem; pElem; pElem=pElem->NextSiblingElement())
+//    for( pElem; pElem; pElem=pElem->NextSiblingElement()->ToElement())
     for( pElem; pElem; pElem=pElem->NextSiblingElement())
     {
         string pKey=pElem->Value();
-//      cout << pKey << endl;
-        string pText=pElem->GetText();
-//      cout << pText << endl;
+        logMsg("pKey == " +pKey);
+	string pText=pElem->GetText();
+	logMsg("pText == " +pText);
         userInputFile.push_back(pText);
-
     }
-
-/*    std::vector<std::string>::iterator it;
-    for (it = playerFiles.begin(); it != playerFiles.end(); ++it)
-    {
-        cout << *it << endl;
-    }
-    */
-
     setUserInputFiles(userInputFile);
-
     return true;
 }
 
@@ -2093,29 +2015,41 @@ userInput loader::loadUserInputFile(string fileName)    // loads data from the u
     
 //  char *fileContents = NULL;
     std::string fileContents;
-    TiXmlDocument doc;
-
+    //TiXmlDocument doc;
+    tinyxml2::XMLDocument doc;
     char *contents = NULL;
    
     readFile(fileName.c_str(), &contents);
     fileContents = convert->toString(contents);
-   
-    if (!doc.Parse(contents))
+
+    doc.Parse(contents);
+    if (doc.Error())
     {
         logMsg("Unable to parse user input file");
+        logMsg("Error ID = " +convert->toString(doc.ErrorID()));
+        logMsg(convert->toString(doc.GetErrorStr1()));
+        logMsg(convert->toString(doc.GetErrorStr2()));
         exit(0);
-    }
-//    exit(0);
-    TiXmlHandle hDoc(&doc);
-    TiXmlElement *rootElement;
+    }   
+    //TiXmlHandle hDoc(&doc);
+    tinyxml2::XMLHandle hDoc(&doc);
+
+    //TiXmlElement *rootElement;
+    tinyxml2::XMLElement *rootElement;
 //    TiXmlElement* pElem;
-    TiXmlElement *child;
-    TiXmlElement *nextChild;
+    //TiXmlElement *child;
+    tinyxml2::XMLElement *child;
+
+    //TiXmlElement *nextChild;
+    tinyxml2::XMLElement *nextChild;
 //    TiXmlNode *rootNode;
 //    TiXmlNode *childNode;
-    TiXmlHandle hRoot(0);
+//    TiXmlHandle hRoot(0);
+    tinyxml2::XMLHandle hRoot(0);
 
-    rootElement = doc.FirstChildElement("UserInput");
+    //rootElement = doc.FirstChildElement("UserInput");
+    //rootElement = doc.FirstChildElement().ToElement();
+    rootElement=hDoc.FirstChildElement().ToElement();   
     // should always have a valid root but handle gracefully if it does
     if (!rootElement)
     {
@@ -2136,14 +2070,16 @@ userInput loader::loadUserInputFile(string fileName)    // loads data from the u
         bool inputTag = false;
         while (!inputTag)
         {
-            child = child->NextSiblingElement("Input");
+            //child = child->NextSiblingElement("Input");
+            child = child->NextSiblingElement()->ToElement();
             if (child)
             {
-                nextChild = child->FirstChildElement("Type");
-
+                //nextChild = child->FirstChildElement("Type");
+                nextChild = child->FirstChildElement()->ToElement();
                 inputTag = true;
+                //for( nextChild; nextChild; nextChild=nextChild->NextSiblingElement())
                 for( nextChild; nextChild; nextChild=nextChild->NextSiblingElement())
-                {
+		{
                     
                     string pKey=nextChild->Value();
                     logMsg("pKey = " +pKey);

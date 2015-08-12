@@ -29,7 +29,6 @@
 #include "Ogre.h"
 #include "SDL.h"
 
-#include "tinyxml.h"
 #include "tinyxml2.h"
 
 #include "courtdata.h"
