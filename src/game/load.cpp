@@ -1289,8 +1289,9 @@ bool loader::loadOffensePlayListFile(string fileName)	// loads the list of offen
 
 //	char *fileContents = NULL;
 	std::string fileContents;
-	TiXmlDocument doc;
-	//    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
+    //TiXmlDocument doc;
+    tinyxml2::XMLDocument doc;
+    //    Ogre::LogManager::getSingletonPtr()->logMessage("file = " +file);
 //	readFile(fileName.c_str(), &fileContents);
     logMsg(fileName);
 /*#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
@@ -1306,24 +1307,38 @@ bool loader::loadOffensePlayListFile(string fileName)	// loads the list of offen
     if (!doc.LoadFile()) return(false);
 */
 
-	if (!doc.Parse(contents))
-	{
-		logMsg("Unable to parse plays.xml file");
-		exit(0);
-	}
+    doc.Parse(contents);
+    if (doc.Error())
+    {
+        logMsg("Unable to parse teams.xml file");
+        logMsg("Error ID = " +convert->toString(doc.ErrorID()));
+        logMsg(convert->toString(doc.GetErrorStr1()));
+        logMsg(convert->toString(doc.GetErrorStr2()));
+        exit(0);
+    }
 
-    TiXmlHandle hDoc(&doc);
-    TiXmlElement* pElem;
-    TiXmlHandle hRoot(0);
+    //TiXmlHandle hDoc(&doc);
+    tinyxml2::XMLHandle hDoc(&doc);
 
-    pElem=hDoc.FirstChildElement().Element();
+    //TiXmlElement* pElem;
+    tinyxml2::XMLElement *pElem;
+
+    //TiXmlHandle hRoot(0);
+    tinyxml2::XMLHandle hRoot(0);
+
+    //pElem=hDoc.FirstChildElement().Element();
+    pElem=hDoc.FirstChildElement().ToElement();
     // should always have a valid root but handle gracefully if it does
-    if (!pElem) return(false);
-
+//    if (!pElem) return(false);
+    if (!pElem)
+    {
+        logMsg("Unable to find a valid offense play list file root!");
+        exit(0);
+    }
     // save this for later
-    hRoot=TiXmlHandle(pElem);
-
-    pElem=hRoot.FirstChild("PlayFile").Element();
+//    hRoot=TiXmlHandle(pElem);
+    hRoot = tinyxml2::XMLHandle(pElem);
+    pElem=hRoot.FirstChildElement().ToElement();
     for( pElem; pElem; pElem=pElem->NextSiblingElement())
     {
         string pKey=pElem->Value();
