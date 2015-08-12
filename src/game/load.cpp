@@ -1195,63 +1195,6 @@ playerData loader::loadPlayerFile(string fileName)
 
     return (playerD);
 }
-bool loader::loadUserFile(string fileName)
-{
-    TiXmlDocument doc(fileName.c_str());
-    if (!doc.LoadFile()) return(false);
-
-    TiXmlHandle hDoc(&doc);
-    TiXmlElement* pElem;
-    TiXmlHandle hRoot(0);
-
-    string m_name, m_messages, WindowSettings;
-    // block: name
-    {
-        pElem=hDoc.FirstChildElement().Element();
-    	// should always have a valid root but handle gracefully if it does
-        if (!pElem) return(false);
-        m_name=pElem->Value();
-//        cout << m_name << endl;
-//		exit(0);
-        // save this for later
-        hRoot=TiXmlHandle(pElem);
-    }
-
-    // block: string table
-    {
-        m_messages.clear(); // trash existing table
-
-        pElem=hRoot.FirstChild( "Name" ).FirstChild().Element();
-        for( pElem; pElem; pElem=pElem->NextSiblingElement())
-        {
-            string pKey=pElem->Value();
-//            cout << pKey << endl;
-            string pText=pElem->GetText();
-//            cout << pText << endl;
-            if (pKey.length() > 0 && pText.length() > 0)
-            {
-//				m_messages[pKey]=pText;
-            }
-        }
-    }
-
-
-    // block: connection
-    {
-        pElem=hRoot.FirstChild("Age").Element();
-        if (pElem)
-        {
-            string pKey=pElem->Value();
-//            cout << pKey << endl;
-            string pText=pElem->GetText();
-//            cout << pText << endl;
-//			exit(0);
-//			m_connection.ip=pElem->Attribute("ip");
-//			pElem->QueryDoubleAttribute("timeout",&m_connection.timeout);
-        }
-    }
-    return true;
-}
 
 //Offense
 std::vector<offensePlays> loader::loadOffensePlays()	// load offense plays from XML files

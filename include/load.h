@@ -81,7 +81,6 @@ public:
     std::vector<playerData> loadPlayers(); // loads player data from XML files
     bool loadPlayerListFile(string fileName);   // loads list of player files from players.xml
     playerData loadPlayerFile(string fileName);   // loads data from the player XML files
-    bool loadUserFile(string fileName); // loads user file data from XML file(s)
 
     //Offense
     std::vector<offensePlays> loadOffensePlays();	// load offense plays from XML files
