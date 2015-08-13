@@ -32,6 +32,7 @@
 #include "physicsengine.h"
 #include "renderengine.h"
 #include "teams.h"
+#include "timing.h"
 
 //extern "C"
 //{
@@ -691,7 +692,7 @@ bool gameState::logic()
     players *player = players::Instance();
 //    boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
-
+    timing timer = gameE->getTimer();
     Ogre::Vector3 playerPos;
 
 //	std::vector<basketballs> basketballInstance = getBasketballInstance();
@@ -735,12 +736,13 @@ bool gameState::logic()
     {
 //    	logMsg("Player Position " +convert->toString(x) +" = " +convert->toString(teamInstance[1].getPlayerInstance()[x].getNodePosition()));
     }
-/*    
+
 	if (teamWithBall >= 0)
 	{
 //		logMsg("teamWithBall is " +convert->toString(teamWithBall));
 //        logMsg("playetWithBall is " +convert->toString(teamInstance[teamWithBall].getPlayerWithBall()));
-		float currentTime = static_cast<float>(gameE->getLoopTime().getMilliseconds()/100);
+//		float currentTime = static_cast<float>(gameE->getLoopTime().getMilliseconds()/100);
+        long currentTime = timer.getLoopTimeMill().count();
         float oldTime = ai->getOldTime();
         float changeInTime = currentTime - oldTime;
    //     ai->update(currentTime, changeInTime);
@@ -756,7 +758,7 @@ bool gameState::logic()
 		}
 
     }
-*/
+
     logMsg("Physics");
     physEngine->updateState();	// updates the state of the physics simulation
 //    exit(0);
