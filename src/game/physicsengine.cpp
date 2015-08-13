@@ -1303,7 +1303,8 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                         //yForce = ((maxYForce / 50) *(midXPoint))*(hoopBasketballDistanceX/1.0);
                         //yForce = (beginShotDistance.getX())/2.0;
                         force = hoopBasketballDistanceX*(100 - hoopBasketballDistanceX);
-                        yForce = force/1.5;
+                        //yForce = force/1.5;
+                        yForce = force*(hoopBasketballDistanceX/beginXPoint);
                     }
                     else
                     {
