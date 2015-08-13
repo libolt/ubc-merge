@@ -1218,6 +1218,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
 
                         endShotPos.setY(hoopPos.getY() + 5);
                         endShotPos.setZ(hoopPos.getZ() - 2);
+			endShotPos.setX(hoopPos.getX() - 5);
                         endShotPosSet = true;
                         logMsg("endShotPosSet");
                     }
@@ -1279,8 +1280,8 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
                     float yForce = 0;
                     float zForce = 0;
                     float maxForce = 0;
-                    float maxYForce = 1650;
-                    float maxZForce = 1600;
+                    float maxYForce = 1750;
+                    float maxZForce = 1700;
                     btVector3 hoopDimMin;
                     btVector3 hoopDimMax;
                     float hoopXMin = 0;
