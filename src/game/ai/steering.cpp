@@ -281,24 +281,5 @@ steering::predictFuturePosition (const float predictionTime) const
 }
 
 
-OpenSteer::Vec3 steering::convertToOpenSteerVec3(Ogre::Vector3 vect)  // converts from Ogre::Vector3 to OpenSteer::Vec3
-{
 
-	OpenSteer::Vec3 vec3;
-	
-	vec3.x = vect[0];
-	vec3.y = vect[1];
-	vec3.z = vect[2];
-
-	return (vec3);
-}
-Ogre::Vector3 steering::convertToOgreVector3(OpenSteer::Vec3 vect) // converts from OpenSteer::Vec3 to Ogre::Vector3
-{
-	Ogre::Vector3 vector3;
-	vector3[0] = vect.x;
-	vector3[1] = vect.y;
-	vector3[2] = vect.z;
-
-	return (vector3);
-}
 

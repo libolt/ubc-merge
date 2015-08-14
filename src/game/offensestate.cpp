@@ -216,7 +216,7 @@ void offenseState::setupOffense() // sets up box offense
 	playTitle = "FlashHighPassLow";
 	
     logMsg("plays.size() = " +convert->toString(plays.size()));
-    for (int x=0;x<plays.size();++x)
+    for (size_t x=0;x<plays.size();++x)
 	{
 		if (plays[x].getPlayName() == playName)  // sets up the offense
 		{
@@ -246,7 +246,13 @@ void offenseState::setupOffense() // sets up box offense
 			executePositionReached[x][y] = false;
 		}
 	}
-	
+    size_t z = 0;
+    while (z < startPositions.size())
+    {
+        float posZ = startPositions[z].z;
+        logMsg("Start Position Z for player[" +convert->toString(z) +"] " +convert->toString(startPositions[z].z));
+        ++z;
+    }
 	
 	offenseSetup = true;
 
@@ -284,7 +290,7 @@ void offenseState::executeOffense() // executes box offense
                 if (!startPositionReached[x])  // checks if each player has reached the start position
                 {
                     std::vector<Ogre::Vector3> steerCoords = plays[0].getStartPositions();
-                    OpenSteer::Vec3 coords = pSteer->convertToOpenSteerVec3(startPositions[x]);
+                    OpenSteer::Vec3 coords = convert->toOpenSteerVec3(startPositions[x]);
                     pSteer->setSteerCoords(coords);
                     pSteer->setExecute(true);
                 }
@@ -350,7 +356,7 @@ void offenseState::executeOffense() // executes box offense
                                     else //if (!executePositionReached[ID][x])
 					                {
                                         logMsg("Team " +convert->toString(teamNumber) +" Player " +convert->toString(ID) +" Seeking Offense Execute Position!");
-                                        OpenSteer::Vec3 executePosition = pSteer->convertToOpenSteerVec3(executePositions[ID][x]);
+                                        OpenSteer::Vec3 executePosition = convert->toOpenSteerVec3(executePositions[ID][x]);
                                         pSteer->setSteerCoords(executePosition);
                                         float distToPosition = OpenSteer::Vec3::distance (pSteer->getSteerCoords(), pSteer->position());
                                         pSteer->setDistToPosition(distToPosition);

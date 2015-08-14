@@ -737,27 +737,31 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
                     {
                         playerInstance[x].getNode()->setPosition(startingPos[0]);
                         playerInstance[x].setDirection(playerDirection);
+                        playerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[0]));
                     }
                     else if (playerInstance[x].getPosition() == "SG")
                     {
                         playerInstance[x].getNode()->setPosition(startingPos[1]);
                         playerInstance[x].setDirection(playerDirection);
+                        playerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[1]));
                     }
                     else if (playerInstance[x].getPosition() == "SF")
                     {
                         playerInstance[x].getNode()->setPosition(startingPos[2]);
                         playerInstance[x].setDirection(playerDirection);
+                        playerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[2]));
                     }
                     else if (playerInstance[x].getPosition() == "PF")
                     {
                         playerInstance[x].getNode()->setPosition(startingPos[3]);
                         playerInstance[x].setDirection(playerDirection);
-
+                        playerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[3]));
                     }
                     else if (playerInstance[x].getPosition() == "C")
                     {
                         playerInstance[x].getNode()->setPosition(startingPos[4]);
                         playerInstance[x].setDirection(playerDirection);
+                        playerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[4]));
                     }
                     else
                     {

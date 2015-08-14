@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "basketballsteer.h"
+#include "conversion.h"
 #include "gamestate.h"
 #include "playerstate.h"
 #include "teamstate.h"
@@ -48,7 +49,8 @@ void basketballSteer::reset(void)
 {
     // gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
-    
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+
     steering::reset (); // reset the vehicle
     setSpeed (0.0f);         // speed along Forward direction.
     setMaxForce (3000.7f);      // steering force is clipped to this magnitude
@@ -57,7 +59,7 @@ void basketballSteer::reset(void)
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 	std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
 
-	OpenSteer::Vec3 basketballSteerPos = convertToOpenSteerVec3(basketballInstance[0].getNodePosition());
+    OpenSteer::Vec3 basketballSteerPos = convert->toOpenSteerVec3(basketballInstance[0].getNodePosition());
     // Place me on my part of the field, looking at oponnents goal
 //    setPosition(b_ImTeamA ? OpenSteer::frandom01()*20 : -OpenSteer::frandom01()*20, 0, (OpenSteer::frandom01()-0.5f)*20);
 
@@ -88,9 +90,9 @@ void basketballSteer::update (const float /*currentTime*/, float elapsedTime)
 	// if I hit the ball, kick it.
 Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerInstane size = " +toString(playerSteerInstance.size()));
 
-	OpenSteer::Vec3 playerSteerPos = convertToOpenSteerVec3(playerInstance[ID].getNodePosition());
+    OpenSteer::Vec3 playerSteerPos = toOpenSteerVec3(playerInstance[ID].getNodePosition());
 	OpenSteer::Vec3 m_home = playerSteerPos;
-	OpenSteer::Vec3 bballSteerPos = convertToOpenSteerVec3(basketball[0].getNodePosition());
+    OpenSteer::Vec3 bballSteerPos = toOpenSteerVec3(basketball[0].getNodePosition());
 
 	const float distToBall = OpenSteer::Vec3::distance (playerSteerPos, bballSteerPos);
 //            const float sumOfRadii = radius() + m_Ball->radius();

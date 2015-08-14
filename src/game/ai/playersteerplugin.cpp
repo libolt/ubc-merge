@@ -65,7 +65,7 @@ void playerSteerPlugin::open(void)
         //		logMsg("Alive1");
                 logMsg("x = " +convert->toString(x));
                 logMsg("player position = " +convert->toString(team0PlayerInstance[x].getNodePosition()));
-                steer->setPosition(convertToOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
+                steer->setPosition(convert->toOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
         //		steer.setPosition(OpenSteer::Vec3(0,0,0));
         //		logMsg("Alive2");
 
@@ -94,7 +94,7 @@ void playerSteerPlugin::open(void)
             if (team1PlayerInstance[x].getPlayerID() == team0ActivePlayerID[y])
             {
                 playerSteer *steer = team1PlayerInstance[x].getSteer();
-                steer->setPosition(convertToOpenSteerVec3(team1PlayerInstance[x].getNodePosition()));
+                steer->setPosition(convert->toOpenSteerVec3(team1PlayerInstance[x].getNodePosition()));
         //		steer->setID(x);
                 team1PlayerInstance[x].setSteer(steer);
                 allPlayerSteers.push_back(team1PlayerInstance[x].getSteer());
@@ -113,8 +113,8 @@ void playerSteerPlugin::open(void)
 	Ogre::Vector3 cboxMin = cbox.getMinimum();
 	Ogre::Vector3 cboxMax = cbox.getMaximum();
 
-	OpenSteer::Vec3 courtBoxMin = convertToOpenSteerVec3(cboxMin);
-	OpenSteer::Vec3 courtBoxMax = convertToOpenSteerVec3(cboxMax);
+    OpenSteer::Vec3 courtBoxMin = convert->toOpenSteerVec3(cboxMin);
+    OpenSteer::Vec3 courtBoxMax = convert->toOpenSteerVec3(cboxMax);
 
     courtBBox = new steering::AABBox( OpenSteer::Vec3(0,0,0), OpenSteer::Vec3(0,0,0));
 	courtBBox->setMin(courtBoxMin);

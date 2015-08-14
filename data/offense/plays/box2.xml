@@ -36,7 +36,7 @@
 		              <Type>Start</Type>
 		              <X>3.0</X>
 		              <Y>-23.5</Y>
-	               <Z>375.0</Z>
+	               <Z>35.0</Z>
             </Position>
             <Position>
                 <Type>Execute</Type>
@@ -68,13 +68,13 @@
 		              <Type>Start</Type>
 		              <X>4.0</X>
 		              <Y>-23.5</Y>
-	               <Z>385.0</Z>
+                              <Z>375.0</Z>
             </Position>
             <Position>
                 <Type>Execute</Type>
                 <X>14.0</X>
                 <Y>-23.5</Y>
-                <Z>385.0</Z>
+                <Z>375.0</Z>
             </Position>
         </Positions>
         <Directives>
@@ -119,13 +119,13 @@
 	               <Type>Start</Type>
 	               <X>3.0</X>
 	               <Y>-23.5</Y>
-	               <Z>378.0</Z>
+	               <Z>388.0</Z>
 	           </Position>
 	           <Position>
 	               <Type>Execute</Type>
 	               <X>13.0</X>
 	               <Y>-23.5</Y>
-	               <Z>378.0</Z>
+	               <Z>388.0</Z>
 	           </Position>
 	       </Positions>
         <Directives>

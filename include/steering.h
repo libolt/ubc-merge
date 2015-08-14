@@ -113,9 +113,6 @@ public:
 		resetSmoothedAcceleration ();
 	}
 
-	OpenSteer::Vec3 convertToOpenSteerVec3(Ogre::Vector3 vect);  // converts from Ogre::Vector3 to OpenSteer::Vec3
-	Ogre::Vector3 convertToOgreVector3(OpenSteer::Vec3 vect); // converts from OpenSteer::Vec3 to Ogre::Vector3
-
 	// get/set mass
 	float mass (void) const {return _mass;}
 	float setMass (float m) {return _mass = m;}

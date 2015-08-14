@@ -1133,6 +1133,26 @@ void * conversion::voidPtr(size_t data)  // converts from void * to void *
     return (voidPtrData);
 }*/
 
+OpenSteer::Vec3 conversion::toOpenSteerVec3(Ogre::Vector3 vect)  // converts from Ogre::Vector3 to OpenSteer::Vec3
+{
+
+    OpenSteer::Vec3 vec3;
+
+    vec3.x = vect[0];
+    vec3.y = vect[1];
+    vec3.z = vect[2];
+
+    return (vec3);
+}
+Ogre::Vector3 conversion::toOgreVector3(OpenSteer::Vec3 vect) // converts from OpenSteer::Vec3 to Ogre::Vector3
+{
+    Ogre::Vector3 vector3;
+    vector3[0] = vect.x;
+    vector3[1] = vect.y;
+    vector3[2] = vect.z;
+
+    return (vector3);
+}
 /*
 template <typename T>
 std::string conversion::toString(const T& input)  // converts data to string);

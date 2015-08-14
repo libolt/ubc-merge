@@ -91,8 +91,8 @@ class playerSteer : public steering
 	void updateOffense(const float currentTime, const float elapsedTime);	// updates the offense steering sim
 	void updateDefense(const float currentTime, const float elapsedTime);	// updates the defense steering sim
 
-
 	private:
+
 	int counter;
     std::vector<playerSteer*>	m_others;
     std::vector<playerSteer*>	m_AllPlayers;

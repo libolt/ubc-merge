@@ -35,6 +35,7 @@
 #include "Ogre.h"
 #include "OgreVector3.h"
 
+#include "steering.h"
 
 //template<class T, class TL>
 class conversion  // class for conversion between data types
@@ -249,46 +250,10 @@ class conversion  // class for conversion between data types
 */
 //        template <typename T>
 
-/*        std::string toString(const T& input);  // converts data to string);
-        template<typename T> inline std::string conversion::toString(const T& x);
-        template<> inline std::string conversion::toString<bool>(const bool& x);
-        template<> inline std::string conversion::toString<double>(const double& x);
-        template<> inline std::string conversion::toString<float>(const float& x);
-        template<> inline std::string conversion::toString<long double>(const long double& x);
 
 
-TL string toString<bool>(const bool& x, TL)
-{
-  std::ostringstream out;
-  out << std::boolalpha << x;
-  return out.str();
-}
-template<> inline std::string toString<double>(const double& x)
-{
-  const int sigdigits = std::numeric_limits<double>::digits10;
-  // or perhaps std::numeric_limits<double>::max_digits10 if that is available on your compiler
-  std::ostringstream out;
-  out << std::setprecision(sigdigits) << x;
-  return out.str();
-}
-template<> inline std::string toString<float>(const float& x)
-{
-  const int sigdigits = std::numeric_limits<float>::digits10;
-  // or perhaps std::numeric_limits<float>::max_digits10 if that is available on your compiler
-  std::ostringstream out;
-  out << std::setprecision(sigdigits) << x;
-  return out.str();
-}
-template<> inline std::string toString<long double>(const long double& x)
-{
-  const int sigdigits = std::numeric_limits<long double>::digits10;
-  // or perhaps std::numeric_limits<long_double>::max_digits10 if that is available on your compiler
-  std::ostringstream out;
-  out << std::setprecision(sigdigits) << x;
-  return out.str();
-}
-*/
-
+        OpenSteer::Vec3 toOpenSteerVec3(Ogre::Vector3 vect);  // converts from Ogre::Vector3 to OpenSteer::Vec3
+        Ogre::Vector3 toOgreVector3(OpenSteer::Vec3 vect); // converts from OpenSteer::Vec3 to Ogre::Vector3
     protected:
     conversion();
     conversion(const conversion&);
