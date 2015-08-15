@@ -746,7 +746,7 @@ void physicsEngine::tipOffCollisionCheck()	// checks whether team 1 or team 2's 
             logMsg("ballTippedToPlayer =======>" + convert->toString(gameS->getBallTippedToPlayer()));
 //			exit(0);
 
-			teamInstance[ballTippedToTeam].setPlayerWithBall(gameS->getBallTippedToPlayer());
+            teamInstance[ballTippedToTeam].setPlayerWithBall(playerInstance[gameS->getBallTippedToPlayer()].getPlayerID());
 			teamInstance[ballTippedToTeam].setHumanPlayer(gameS->getBallTippedToPlayer());
 			teamInstance[ballTippedToTeam].setPlayerWithBallDribbling(true);
             int activeDefensivePlayer = -1;

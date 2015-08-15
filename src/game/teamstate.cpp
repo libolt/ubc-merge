@@ -436,10 +436,12 @@ void teamState::updateState()	// updates the state of the object
 
 			if (gameS->getTeamWithBall() == teamNumber) // checks if the team has the basketball
 			{
+                logMsg("playerWithBall == " +convert->toString(playerWithBall));
+                //exit(0);
 				if (!playerInstance[playerWithBall].getPassBall())	// checks if the player with ball is passing it.
 				{
 	//				exit(0);
-				}
+                }
 				else if (playerInstance[playerWithBall].getPassBall())
 				{
 					logMsg("Calculating Pass");
