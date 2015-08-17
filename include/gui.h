@@ -27,6 +27,15 @@
 #else
 #endif
 
+#undef None
+#undef Button1
+#undef Button2
+#undef Button3
+#undef Button4
+#undef Button5
+#undef Button6
+#undef Button7
+
 #include "MyGUI.h"
 #include "MyGUI_OgrePlatform.h"
 //#include "MyGUI_OgreRenderManager.h"

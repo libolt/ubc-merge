@@ -746,8 +746,13 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
 //          exit(0);
 
             teamInstance[ballTippedToTeam].setPlayerWithBall(playerInstance[gameS->getBallTippedToPlayer()].getPlayerID());
+<<<<<<< HEAD
             teamInstance[ballTippedToTeam].setHumanPlayer(gameS->getBallTippedToPlayer());
             teamInstance[ballTippedToTeam].setPlayerWithBallDribbling(true);
+=======
+			teamInstance[ballTippedToTeam].setHumanPlayer(gameS->getBallTippedToPlayer());
+			teamInstance[ballTippedToTeam].setPlayerWithBallDribbling(true);
+>>>>>>> branch 'master' of https://libolt@github.com/libolt/ubc.git
             int activeDefensivePlayer = -1;
             switch (ballTippedToTeam)
             {
