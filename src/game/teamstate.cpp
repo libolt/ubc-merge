@@ -678,12 +678,16 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 
     std::vector<Ogre::Vector3> startingPos;
     directions playerDirection; // stores the direction players face at start
+
+//    std::vector<courtState> courtInstance = gameS->getCourtInstance();
+//    Ogre::Vector3 courtPos = courtInstance[0].getNode()->getPosition();
+    exit(0);
+    float yOffset = 0.0; //courtPos.y;
+    float y = 0.0;
     // set initial player coordinates for the tipoff
 
 	if (teamNumber == 0)	// assigns the positions and directions for team 1 players
 	{
-		float y = 0.0f;
-        float yOffset = gameE->getYOffset();
 		// assign positions
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
         y = -0.0f;
@@ -691,7 +695,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
         y = -23.5f;
 #endif
 
-        yOffset = y;
+//        yOffset = y;
         gameE->setYOffset(yOffset);
         
         startingPos.push_back(Ogre::Vector3(14.4f,yOffset,352.0f));
@@ -712,11 +716,11 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
         y = -23.5f;
 #endif
 
-        startingPos.push_back(Ogre::Vector3(-13.8f,y,352.0f));
-        startingPos.push_back(Ogre::Vector3(-0.8f,y,347.6f));
-        startingPos.push_back(Ogre::Vector3(-0.8f,y,360.8f));
-        startingPos.push_back(Ogre::Vector3(4.4f,y,348.8f));
-        startingPos.push_back(Ogre::Vector3(-0.4f,y,352.0f));
+        startingPos.push_back(Ogre::Vector3(-13.8f,yOffset,352.0f));
+        startingPos.push_back(Ogre::Vector3(-0.8f,yOffset,347.6f));
+        startingPos.push_back(Ogre::Vector3(-0.8f,yOffset,360.8f));
+        startingPos.push_back(Ogre::Vector3(4.4f,yOffset,348.8f));
+        startingPos.push_back(Ogre::Vector3(-0.4f,yOffset,352.0f));
 
         playerDirection = LEFT;
     }

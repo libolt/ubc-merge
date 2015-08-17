@@ -569,23 +569,16 @@ bool gameState::setupState()
     boost::shared_ptr<loader> load = loader::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
 
-//#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-//	exit(0);
     logMsg("Setting up state!");
- //   load->loadTeams();  // loads teams from XML files
-//#else
 
-//    moved to GUI code
-//    load->loadPlayers();    // loads players from XML files
-/*
-    team->assignPlayers();  // assigns players to teams
-    team->assignStarters(); // assigns starting players to teams
+    if (!courtModelLoaded)
+    {
+        if (createCourtInstances())  // creates the court instances
+        {
+            courtModelLoaded = true;
+        }
+    }
 
-    assignTeams();    // assigns teams playing
-
-    assignPlayers();  // assigns players currently playing
-*/
-//    exit(0);
     if (!teamInstancesCreated)	// checks if teamInstances have been created
     {
     	if(createTeamInstances())	// creates the team instances
@@ -596,27 +589,12 @@ bool gameState::setupState()
     	}
     }
 
-/*    if (!playerInstancesCreated)	// checks if playerInstances have been created
-    {
-    	if (createPlayerInstances()) // creates the player instances based on playerIDS
-		{
-    		playerInstancesCreated = true;
-		}
-    } */
     if (!basketballModelLoaded)	// checks if court model has been loaded
     {
     	if (createBasketballInstances()) // creates the basketball instances
     	{
     		basketballModelLoaded = true;
     	}
-    }
-
-    if (!courtModelLoaded)
-    {
-        if (createCourtInstances())  // creates the court instances
-        {
-        	courtModelLoaded = true;
-        }
     }
 
     if (!hoopModelLoaded)
