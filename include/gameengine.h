@@ -66,20 +66,8 @@ public:
     bool getMovePlayer();					// retrieves movePlayer variable
     void setMovePlayer(bool player);		    // sets movePlayer variable
 
-/*    boost::chrono::system_clock::time_point getStartLoopTime();  // retrieves the value of startLoopTime
-    void setStartLoopTime(boost::chrono::system_clock::time_point time);  // sets the of startLoopTime
-    
-    boost::chrono::system_clock::time_point getLoopTime();  // retrieves the vslue of loopTime
-    void setLoopTIme(boost::chrono::system_clock::time_point time);		// sets the value of loopTime
-
-    boost::chrono::milliseconds getOldTime();				// retrieves oldTime variable
-    void setOldTime(boost::chrono::milliseconds time);	// sets oldTime variable
-
-    boost::chrono::milliseconds getChangeInTime();			// retrieves changeInTime variable
-    void setChangeInTime(unsigned long change);	// sets changeInTime variable
-
-    void updateChangeInTime();					// updates the game timer variables
-*/
+    float getYOffset(); // returns the value of yOffset
+    void setYOffset(float set); // sets the value of yOffset
 
     // starts a game
     bool startGame();
@@ -105,6 +93,9 @@ private:
     int y;
     int i;
     int j;
+    
+    float yOffset; // stores the y offset for objects on the screen
+    
     Ogre::Vector3 courtTranslateVector;
 
     // time variables

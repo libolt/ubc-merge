@@ -670,6 +670,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
     boost::shared_ptr<conversion> convert = conversion::Instance();
     //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
+    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
 
     std::vector< std::vector<int> > teamStarterID = gameS->getTeamStarterID();
 
@@ -680,6 +681,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 	if (teamNumber == 0)	// assigns the positions and directions for team 1 players
 	{
 		float y = 0.0f;
+        float yOffset = gameE->getYOffset();
 		// assign positions
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
         y = -0.0f;
@@ -687,12 +689,15 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
         y = -23.5f;
 #endif
 
-        startingPos.push_back(Ogre::Vector3(14.4f,y,352.0f));
-        startingPos.push_back(Ogre::Vector3(2.0f,y,347.6f));
-        startingPos.push_back(Ogre::Vector3(2.0f,y,360.0f));
-        startingPos.push_back(Ogre::Vector3(5.2f,y,351.6f));
-        startingPos.push_back(Ogre::Vector3(1.6f,y,352.0f));
-    
+        yOffset = y;
+        gameE->setYOffset(yOffset);
+        
+        startingPos.push_back(Ogre::Vector3(14.4f,yOffset,352.0f));
+        startingPos.push_back(Ogre::Vector3(2.0f,yOffset,347.6f));
+        startingPos.push_back(Ogre::Vector3(2.0f,yOffset,360.0f));
+        startingPos.push_back(Ogre::Vector3(5.2f,yOffset,351.6f));
+        startingPos.push_back(Ogre::Vector3(1.6f,yOffset,352.0f));
+        
         playerDirection = RIGHT;
     }
     else if (teamNumber == 1) // assigns the positions and directions for team 2 players
@@ -700,7 +705,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
         float y = 0.0f;
         // assign positions
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-        y = -1.5f;
+        y = -0.0f;
 #else
         y = -23.5f;
 #endif

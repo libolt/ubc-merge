@@ -63,9 +63,8 @@ gameEngine::gameEngine()
     y = 0;
     i = 0;
     j = 0;
-    //loopTime.reset();
-//    oldTime = 0;
-//    changeInTime = 0;
+  
+    yOffset = 0.0;
 
     userInputLoaded = false;
     menuActive = false;
@@ -102,56 +101,6 @@ void gameEngine::setMenuActive(bool active)
 {
     menuActive = active;
 }
-
-/*boost::chrono::system_clock::time_point gameEngine::getStartLoopTime()  // retrieves the value of startLoopTime
-{
-    return (startLoopTime);
-}
-void gameEngine::setStartLoopTime(boost::chrono::system_clock::time_point time)  // sets the of startLoopTime
-{
-    startLoopTime = time;
-}
-
-boost::chrono::system_clock::time_point gameEngine::getLoopTime()
-{
-
-    return(loopTime);
-
-}
-void gameEngine::setLoopTIme(boost::chrono::system_clock::time_point time)
-{
-    loopTime = time;
-}
-
-unsigned long gameEngine::getOldTime()
-{
-    return(oldTime);
-}
-
-void gameEngine::setOldTime(unsigned long time)
-{
-    oldTime = time;
-}
-
-unsigned long gameEngine::getChangeInTime()
-{
-	return (changeInTime);
-}
-
-void gameEngine::setChangeInTime(unsigned long change)
-{
-	changeInTime = change;
-}
-
-void gameEngine::updateChangeInTime()
-{
-    //unsigned long newTime = loopTime.getMilliseconds();   // gets the elapsed time since the last reset of the timer
-    boost::chrono::nanoseconds newT = boost::chrono::system_clock::now();
-    boost::chrono::milliseconds milliSecs = boost::chrono::duration_cast<boost::chrono::milliseconds>(newT);
-    unsigned long newTime = milliSecs.count();
-    changeInTime = newTime - oldTime;	// calculates change between new and old time
-}
-*/
 
 bool gameEngine::getQuitGame()
 {
@@ -220,6 +169,14 @@ void gameEngine::setMovePlayer(bool player)
 	movePlayer = player;
 }
 
+float gameEngine::getYOffset() // returns the value of yOffset
+{
+    return (yOffset);
+}
+void gameEngine::setYOffset(float set) // sets the value of yOffset
+{
+    yOffset = set;
+}
 
 bool gameEngine::startGame()
 {

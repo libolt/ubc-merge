@@ -21,6 +21,7 @@
 #include "conversion.h"
 #include "offensestate.h"
 #include "gamestate.h"
+#include "gameengine.h";
 #include "load.h"
 #include "logging.h"
 #include "playerstate.h"
@@ -210,6 +211,7 @@ void offenseState::setupOffense() // sets up box offense
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
+    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
     
 	// FIXME! Hard coded values need to be made dynamic
 	playName = "Box";
@@ -236,11 +238,11 @@ void offenseState::setupOffense() // sets up box offense
 	}
 
     executePositionReached.resize(5);
-	for (int x=0; x<executePositions.size(); ++x)
+	for (size_t x=0; x<executePositions.size(); ++x)
 	{
 
 		executePositionReached[x].resize(executePositions[x].size());
-		for (int y=0;y<executePositionReached[x].size(); ++y)
+		for (size_t y=0;y<executePositionReached[x].size(); ++y)
 		{
             logMsg("Y = " +convert->toString(y));
 			executePositionReached[x][y] = false;
@@ -254,7 +256,23 @@ void offenseState::setupOffense() // sets up box offense
         ++z;
     }
 	
-	offenseSetup = true;
+    // checks for a Y Offset so that players dont fall through the court
+  
+        float yOffset = gameE->getYOffset();
+        for (size_t y=0;y < startPositions.size(); ++y)
+        {
+            startPositions[y].y = yOffset;
+        }
+        for (size_t x=0;x<executePositions.size();++x)
+        {
+            for (size_t y=0;y<executePositions[x].size();++y)
+            {
+                executePositions[x][y].y = yOffset;
+                //exit(0);
+            }
+        }
+        
+    offenseSetup = true;
 
 }
 
