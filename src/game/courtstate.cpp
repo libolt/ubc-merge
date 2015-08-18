@@ -70,6 +70,14 @@ void courtState::setPhysBody(btRigidBody *body)	// sets physBody variable
 
 }
 
+Ogre::Vector3 courtState::getNodePosition()  // returns the value of nodePosition
+{
+    return (nodePosition);
+}
+void courtState::setNodePosition(Ogre::Vector3 set)  // sets the value of nodePosition
+{
+    nodePosition = set;
+}
 
 // loads the 3D Model and attaches it to the node as well as sets coordinates
 bool courtState::loadModel()

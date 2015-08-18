@@ -679,9 +679,9 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
     std::vector<Ogre::Vector3> startingPos;
     directions playerDirection; // stores the direction players face at start
 
-//    std::vector<courtState> courtInstance = gameS->getCourtInstance();
-//    Ogre::Vector3 courtPos = courtInstance[0].getNode()->getPosition();
-    exit(0);
+    std::vector<courtState> courtInstance = gameS->getCourtInstance();
+    Ogre::Vector3 courtPos = courtInstance[0].getNode()->getPosition();
+//    exit(0);
     float yOffset = 0.0; //courtPos.y;
     float y = 0.0;
     // set initial player coordinates for the tipoff

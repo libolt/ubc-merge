@@ -49,6 +49,9 @@ class courtState
     btRigidBody *getPhysBody();	// retrieves physBody variable
     void setPhysBody(btRigidBody *body);	// sets physBody variable
 
+    Ogre::Vector3 getNodePosition();  // returns the value of nodePosition
+    void setNodePosition(Ogre::Vector3 set);  // sets the value of nodePosition
+    
     // loads the 3D Model and attaches it to the node as well as sets coordinates
     bool loadModel();
 
@@ -60,6 +63,7 @@ class courtState
 
     Ogre::SceneNode *node;  // stores the node the 3D Model is attached to
 
+    Ogre::Vector3 nodePosition;  // stores the position of the node
     // stores the physics object that represents the player
     btRigidBody *physBody;
 

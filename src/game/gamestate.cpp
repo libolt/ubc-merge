@@ -494,10 +494,12 @@ void gameState::setCourtStartPositions()  // sets the initial coordinates for th
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 	courtInstance[0].getNode()->setPosition(0.0f,-6.5f,360.0f);
+    courtInstance[0].setNodePosition(Ogre::Vector3(0.0f,-6.5f,360.0f));
     logMsg("courtPosition");
 //exit(0);
 #else
 	courtInstance[0].getNode()->setPosition(0.0f,-27.5f,360.0f);
+    courtInstance[0].setNodePosition(0.0f,-27.5f,360.0f);
 #endif
 }
 
@@ -568,6 +570,7 @@ bool gameState::setupState()
     teams *team = teams::Instance();
     boost::shared_ptr<loader> load = loader::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
 
     logMsg("Setting up state!");
 
@@ -577,16 +580,6 @@ bool gameState::setupState()
         {
             courtModelLoaded = true;
         }
-    }
-
-    if (!teamInstancesCreated)	// checks if teamInstances have been created
-    {
-    	if(createTeamInstances())	// creates the team instances
-    	{
-            logMsg("TIC!");
-            teamInstancesCreated = true;
-            assignHoopToTeams();  // assigns proper hoop to the teams that were created.
-    	}
     }
 
     if (!basketballModelLoaded)	// checks if court model has been loaded
@@ -608,6 +601,18 @@ bool gameState::setupState()
     setBasketballStartPositions();	// sets starting positions for all basketballs that are instantiated
     setCourtStartPositions();	// sets starting positions for all courts that are instantiated
     setHoopStartPositions();	// sets starting positions for all hoops that are instantiated
+
+    logMsg("court y == " +convert->toString(courtInstance[0].getNode()->getPosition().y));
+    exit(0);
+    if (!teamInstancesCreated)  // checks if teamInstances have been created
+    {
+        if(createTeamInstances())   // creates the team instances
+        {
+            logMsg("TIC!");
+            teamInstancesCreated = true;
+            assignHoopToTeams();  // assigns proper hoop to the teams that were created.
+        }
+    }
 
 //    basketballInstance[0].getNode()->setPosition(1.4f,5.0f,366.0f);
 
