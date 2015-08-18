@@ -562,7 +562,7 @@ void physicsEngine::updateState()
                         //                  exit(0);
                         //      basketballInstance[0].getPhysBody()->forceActivationState(ACTIVE_TAG);
                         //      basketballInstance[0].getPhysBody()->applyForce(btVector3(1.20f, -1.60f, 0.0f),btVector3(0.0f,0.0f,0.0f));
-                        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(-20, -1, 0));
+                        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(20, -1, 0));
                         //                  exit(0);
                         //      gameS->setBallTipForceApplied(true);
 
@@ -574,7 +574,7 @@ void physicsEngine::updateState()
                 {
                     if (gameS->getBallTippedToPlayer() == 0)
                     {
-                        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(20, -1, 0));
+                        basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(-20, -1, 0));
 
                     }
                 }
@@ -725,7 +725,10 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
 //      logMsg("basketballInstance size = " +convert->toString(basketballInstance.size()));
 //      logMsg("playerInstance size = " + convert->toString(playerInstance.size()));
 
-        logMsg("")
+        logMsg("basketballInstance z pos = " +convert->toString(basketballInstance[0].getNode()->getPosition().z));
+        logMsg("basketballInstance x pos = " +convert->toString(basketballInstance[0].getNode()->getPosition().x));
+        logMsg("team " +convert->toString(ballTippedToTeam) +" playerInstance z pos = " +convert->toString(playerInstance[gameS->getBallTippedToPlayer()].getNode()->getPosition().z));
+        logMsg("team " +convert->toString(ballTippedToTeam) +" playerInstance x pos = " +convert->toString(playerInstance[gameS->getBallTippedToPlayer()].getNode()->getPosition().x));
         world->contactPairTest(basketballInstance[0].getPhysBody(), playerInstance[gameS->getBallTippedToPlayer()].getPhysBody(), tipOffResult);
 //      exit(0);
         if (!tipOffResult.m_connected)
@@ -738,6 +741,7 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
             //          basketballInstance[0].getPhysBody()->applyForce(btVector3(-1.0f, 0.50f, 0.0f),btVector3(0.0f,0.0f,0.0f));
             //          basketballInstance[0].getPhysBody()->forceActivationState(ISLAND_SLEEPING);
             basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(0, 0, 0));
+           // exit(0);
             gameS->setTipOffComplete(true);
             gameS->setBallTipped(false);
             gameS->setTeamWithBall(ballTippedToTeam);
@@ -751,7 +755,7 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
             teamInstance[ballTippedToTeam].setPlayerWithBallDribbling(true);
             logMsg("gameS->getBallTippedToPlayer() = " +convert->toString(gameS->getBallTippedToPlayer()));
             logMsg("playerWithBall == " +convert->toString(teamInstance[ballTippedToTeam].getPlayerWithBall()));
-            exit(0);
+            //exit(0);
             int activeDefensivePlayer = -1;
             switch (ballTippedToTeam)
             {
@@ -1375,7 +1379,8 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
     logMsg("playerdribble = " +convert->toString(teamInstance[teamNumber].getPlayerWithBallDribbling()));
     teamInstance[teamNumber].setPlayerInstance(playerInstance);
     gameS->setTeamInstance(teamInstance);
-    gameS->getTeamInstance()[teamNumber].getPlayerInstance()[playerID].getPhysBody()->setLinearVelocity(btVector3(15,-15,0));
+   // gameS->getTeamInstance()[teamNumber].getPlayerInstance()[playerID].getPhysBody()->setLinearVelocity(btVector3(15,-15,0));
+    exit(0);
     gameS->setBasketballInstance(basketballInstance);
     return (true);
 }
