@@ -211,10 +211,10 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
 
                 logMsg("team1steer.getHumanPlayer() ==" +convert->toString(teamInstance[1].getHumanPlayer()));
                 logMsg("player1SteerID == " +convert->toString(team1PlayerInstance[x].getPlayerID()));
-                teamInstance[1].setHumanPlayer(1);
+                //teamInstance[1].setHumanPlayer(team1PlayerInstance[x].getPlayerID());
                 if (x != teamInstance[1].getHumanPlayer())
                 {
-                    team1PlayerInstance[x].getSteer()->update(currentTime, elapsedTime);
+                    team1PlayerInstance[1].getSteer()->update(currentTime, elapsedTime);
                 }
             }
             ++y;

@@ -292,6 +292,16 @@ void gameState::setCourtInstanceCreated(bool created) // sets the value of the c
     courtInstanceCreated = created;
 }
 
+bool gameState::getCourtModelLoaded()  // retrieves the value of courtModelLoaded
+{
+    return (courtModelLoaded);
+}
+
+void gameState::setCourdModelLoaded(bool set)  // sets the value of courtModelLoaded
+{
+    courtModelLoaded = true;
+}
+
 bool gameState::getTeamInstancesCreated()	// gets the value of teamInstancesCreated
 {
 	return (teamInstancesCreated);
@@ -499,7 +509,7 @@ void gameState::setCourtStartPositions()  // sets the initial coordinates for th
 //exit(0);
 #else
 	courtInstance[0].getNode()->setPosition(0.0f,-27.5f,360.0f);
-    courtInstance[0].setNodePosition(0.0f,-27.5f,360.0f);
+    courtInstance[0].setNodePosition(Ogre::Vector3(0.0f,-27.5f,360.0f));
 #endif
 }
 
@@ -579,6 +589,7 @@ bool gameState::setupState()
         if (createCourtInstances())  // creates the court instances
         {
             courtModelLoaded = true;
+            courtInstanceCreated = true;
         }
     }
 
@@ -603,7 +614,7 @@ bool gameState::setupState()
     setHoopStartPositions();	// sets starting positions for all hoops that are instantiated
 
     logMsg("court y == " +convert->toString(courtInstance[0].getNode()->getPosition().y));
-    exit(0);
+//    exit(0);
     if (!teamInstancesCreated)  // checks if teamInstances have been created
     {
         if(createTeamInstances())   // creates the team instances
@@ -731,7 +742,7 @@ bool gameState::logic()
    //     ai->update(currentTime, changeInTime);
         logMsg("CHANGE == " +convert->toString(changeInTime));
 
-		if (changeInTime >= .5f)
+        if (changeInTime >= .5f)
 		{
             logMsg("ELAPSED == " +convert->toString(changeInTime));
 //			exit(0);

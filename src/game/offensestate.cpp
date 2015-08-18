@@ -297,7 +297,7 @@ void offenseState::executeOffense() // executes box offense
         {
             if ( x != playerWithBall)
             {
-                pSteer = playerInstanc.e[x].getSteer();
+                pSteer = playerInstance[x].getSteer();
                 std::vector<bool> positionReached = pSteer->getPositionReached();
                 if (positionReached.size() != 1)
                 {

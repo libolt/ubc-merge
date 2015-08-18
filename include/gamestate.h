@@ -82,6 +82,9 @@ public:
     bool getCourtInstanceCreated(); // retrieves the value of courtInstanceCreated
     void setCourtInstanceCreated(bool created); // sets the value of courtInstanceCreated
 
+    bool getCourtModelLoaded();  // retrieves the value of courtModelLoaded
+    void setCourdModelLoaded(bool set);  // sets the value of courtModelLoaded
+
     bool getTeamInstancesCreated();	// retrieves the value of teamInstancesCreated
     void setTeamInstancesCreated(bool created);	// sets the value of teamInstancesCreated
 
