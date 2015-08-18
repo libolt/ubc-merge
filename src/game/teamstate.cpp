@@ -692,7 +692,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 
     Ogre::Vector3 courtPos = courtInstance[0].getNodePosition();
 //    exit(0);
-    float yOffset = courtPos.y + 1.0;
+    float yOffset = courtPos.y + 15.0;
     float y = 0.0;
     logMsg("courtpos.y == " +convert->toString(courtPos.y));
     logMsg("yOffset == " +convert->toString(yOffset));
