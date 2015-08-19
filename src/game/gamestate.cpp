@@ -73,6 +73,7 @@ gameState::gameState()
     ballTippedToTeam = -1;
     ballTippedToPlayer = -1;
     ballTipForceApplied = false;
+    playerHasBasketball = false;
     bballBounce = -1;
     currentQuarter = FIRST;
     gameTimeLeft = 0.0f;
@@ -244,6 +245,15 @@ bool gameState::getBallTipForceApplied()	// retrieves the value of ballTipForceA
 void gameState::setBallTipForceApplied(bool tip)	// sets the value of ballTipForceApplied
 {
 	ballTipForceApplied = tip;
+}
+
+bool gameState::getPlayerHasBasketball()  // retrieves the value of playerHasBasketball
+{
+    return (playerHasBasketball);
+}
+void gameState::setPlayerHasBasketball(bool set)  // setd the value of playerHasBasketball
+{
+    playerHasBasketball = set;
 }
 
 bool gameState::getGameStarted(void)  // retrieves the value of gameStarted
@@ -1026,7 +1036,7 @@ void gameState::updateDirectionsAndMovements()
 //    directions playerDirection, oldPlayerDirection;
 //   logMsg("Updating Directions and Movements");
 
-    if (teamWithBall >= 0)
+    if (teamWithBall >= 0 && playerHasBasketball)
     {
 //		logMsg("teamWithBall is " +convert->toString(teamWithBall));
 //		logMsg("playetWithBall is " +convert->toString(teamInstance[teamWithBall].getPlayerWithBall()));
@@ -1045,13 +1055,14 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
 //	logMsg("Updating basketball movements");
-
+    logMsg("test");
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
     std::vector<int> activePlayerID = teamInstance[teamWithBall].getActivePlayerID();
-    
+    logMsg("playerInstance.size() == " +convert->toString(playerInstance.size()));
     size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBall();
     size_t playerWithBall = -1;
     size_t x = 0;
+    logMsg("playerWithBallID == " +convert->toString(playerWithBallID));
     while (x < playerInstance.size())
     {
         size_t y = 0;
@@ -1059,7 +1070,10 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
         {
             if (activePlayerID[y] == playerInstance[x].getPlayerID())
             {
-                playerWithBall = x;
+                if (activePlayerID[y] == playerWithBallID)
+                {
+                    playerWithBall = y;
+                }
             }
             ++y;
         }

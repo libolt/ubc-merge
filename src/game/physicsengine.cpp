@@ -729,11 +729,23 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
         logMsg("basketballInstance x pos = " +convert->toString(basketballInstance[0].getNode()->getPosition().x));
         logMsg("team == " +convert->toString(ballTippedToTeam));
         logMsg("player == " +convert->toString(gameS->getBallTippedToPlayer()));
-        logMsg("team " +convert->toString(ballTippedToTeam) +" playerInstance z pos = " +convert->toString(playerInstance[gameS->getBallTippedToPlayer()].getNode()->getPosition().z));
-        logMsg("team " +convert->toString(ballTippedToTeam) +" playerInstance x pos = " +convert->toString(playerInstance[gameS->getBallTippedToPlayer()].getNode()->getPosition().x));
+        size_t ballTippedToPlayerID = gameS->getBallTippedToPlayer();
+        size_t ballTippedToPlayer = -1;
+        std::vector<int> activePlayerID = teamInstance[ballTippedToTeam].getActivePlayerID();
+        size_t x = 0;
+        while (x < activePlayerID.size())
+        {
+            if (activePlayerID[x] == ballTippedToPlayerID)
+            {
+                ballTippedToPlayer = x;
+            }
+            ++x;
+        }
+        logMsg("team " +convert->toString(ballTippedToTeam) +" playerInstance z pos = " +convert->toString(playerInstance[ballTippedToPlayer].getNode()->getPosition().z));
+        logMsg("team " +convert->toString(ballTippedToTeam) +" playerInstance x pos = " +convert->toString(playerInstance[ballTippedToPlayer].getNode()->getPosition().x));
         
         
-        size_t playerWithBallID = gameS->getBallTippedToPlayer();  // teamInstance[ballTippedToTeam].getPlayerWithBall();
+        /*size_t playerWithBallID = gameS->getBallTippedToPlayer();  // teamInstance[ballTippedToTeam].getPlayerWithBall();
         std::vector<int> activePlayerID = teamInstance[ballTippedToTeam].getActivePlayerID();
         size_t ballTippedToPlayer = -1;
         size_t x = 0;
@@ -753,10 +765,11 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
             }
             ++x;
         }
+        */
         logMsg("gameS->getBallTippedToPlayer() == " +convert->toString(gameS->getBallTippedToPlayer()));
         logMsg("ballTippedToPlayer == " +convert->toString(ballTippedToPlayer));
         world->contactPairTest(basketballInstance[0].getPhysBody(), playerInstance[ballTippedToPlayer].getPhysBody(), tipOffResult);
-      exit(0);
+//      exit(0);
         if (!tipOffResult.m_connected)
         {
         }
@@ -771,12 +784,14 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
             gameS->setTipOffComplete(true);
             gameS->setBallTipped(false);
             gameS->setTeamWithBall(ballTippedToTeam);
+            
             logMsg("ballTippedToTeam ======>" + convert->toString(ballTippedToTeam));
 
             logMsg("ballTippedToPlayer =======>" + convert->toString(gameS->getBallTippedToPlayer()));
 //          exit(0);
 
-            teamInstance[ballTippedToTeam].setPlayerWithBall(playerInstance[gameS->getBallTippedToPlayer()].getPlayerID());
+           // teamInstance[ballTippedToTeam].setPlayerWithBall(playerInstance[gameS->getBallTippedToPlayer()].getPlayerID());
+            //teamInstance[ballTippedToTeam].setPlayerWithBall(0);
             teamInstance[ballTippedToTeam].setHumanPlayer(gameS->getBallTippedToPlayer());
             teamInstance[ballTippedToTeam].setPlayerWithBallDribbling(true);
             logMsg("gameS->getBallTippedToPlayer() = " +convert->toString(gameS->getBallTippedToPlayer()));
@@ -886,7 +901,7 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
                 else if (tipOffResult.m_connected)
                 {
 //                  exit(0);
-                    Ogre::LogManager::getSingletonPtr()->logMessage("Ball Tipped");
+                    logMsg("Ball Tipped");
                     gameS->setBallTipped(true);
                     gameS->setBallTippedToTeam(x);
                     logMsg("Tipped X = " +convert->toString(x));
@@ -1269,7 +1284,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
 
                         endShotPos.setY(hoopPos.getY() + 5);
                         endShotPos.setZ(hoopPos.getZ() - 2);
-            endShotPos.setX(hoopPos.getX() - 5);
+                        endShotPos.setX(hoopPos.getX() - 5);
                         endShotPosSet = true;
                         logMsg("endShotPosSet");
                     }

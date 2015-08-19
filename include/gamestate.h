@@ -64,6 +64,9 @@ public:
     bool getBallTipForceApplied();	// retrieves the value of ballTipForceApplied
     void setBallTipForceApplied(bool tip);	// sets the value of ballTipForceApplied
 
+    bool getPlayerHasBasketball();  // retrieves the value of playerHasBasketball
+    void setPlayerHasBasketball(bool set);  // setd the value of playerHasBasketball
+    
     bool getGameStarted(void);	// retrieves the gameStarted value
     void setGameStarted(bool started);	// sets gameStarted value
 
@@ -206,12 +209,14 @@ private:
     bool tipOffComplete;	// Determines whether or not game Tip Off has completed
     bool ballTipped;	//	stores whether or not the ball has been tipped
     bool ballTipForceApplied;	// stores whether or not force has been applied to tipped ball
+    bool playerHasBasketball;  // stores whether or not a player has control of the basketball
     int ballTippedToTeam;	//  stores which team the ball has been tipped to
     int ballTippedToPlayer;	// stores which player the ball has been tipped to
 
     int teamWithBall; // stores which team has control of the basketball, valid values are 0 or 1
 
     int bballBounce;	// stores which direction the ball is bouncing;
+
 };
 
 
