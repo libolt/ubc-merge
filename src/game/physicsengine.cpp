@@ -751,6 +751,7 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
             }
             ++x;
         }
+        logMsg("gameS->getBallTippedToPlayer() == " +convert->toString(gameS->getBallTippedToPlayer()));
         logMsg("ballTippedToPlayer == " +convert->toString(ballTippedToPlayer));
         world->contactPairTest(basketballInstance[0].getPhysBody(), playerInstance[ballTippedToPlayer].getPhysBody(), tipOffResult);
       exit(0);
