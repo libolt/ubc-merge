@@ -742,7 +742,7 @@ bool gameState::logic()
    //     ai->update(currentTime, changeInTime);
         logMsg("CHANGE == " +convert->toString(changeInTime));
 
-/*        if (changeInTime >= .5f)
+        if (changeInTime >= .5f)
 		{
             logMsg("ELAPSED == " +convert->toString(changeInTime));
 //			exit(0);
@@ -750,7 +750,7 @@ bool gameState::logic()
 			ai->update(currentTime, changeInTime);
 			ai->setOldTime(currentTime);
 		}
-*/
+
     }
 
     logMsg("Physics");
@@ -1047,11 +1047,15 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
 //	logMsg("Updating basketball movements");
 
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
-	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
+	std::vector<int> playerID = teamInstance[teamWithBall].getPlayerID();
+    std::vector<int> activePlayerID = teamInstance[teamWithBall].getActivePlayerID();
+    
+    int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
     bool shotTaken = playerInstance[playerWithBall].getShotTaken();
 //    logMsg("teamWithBall" + convert->toString(teamWithBall));
-//	logMsg("playerWithBall" + convert->toString(playerWithBall));
+	logMsg("bballplayerWithBall" + convert->toString(playerWithBall));
 
+    
 //	exit(0);
     if (!shotTaken)
     {

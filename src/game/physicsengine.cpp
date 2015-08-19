@@ -1380,7 +1380,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
     teamInstance[teamNumber].setPlayerInstance(playerInstance);
     gameS->setTeamInstance(teamInstance);
    // gameS->getTeamInstance()[teamNumber].getPlayerInstance()[playerID].getPhysBody()->setLinearVelocity(btVector3(15,-15,0));
-    exit(0);
+  //  exit(0);
     gameS->setBasketballInstance(basketballInstance);
     return (true);
 }
