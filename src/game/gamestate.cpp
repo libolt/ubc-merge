@@ -1047,16 +1047,32 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
 //	logMsg("Updating basketball movements");
 
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
-	std::vector<int> playerID = teamInstance[teamWithBall].getPlayerID();
     std::vector<int> activePlayerID = teamInstance[teamWithBall].getActivePlayerID();
     
-    int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
+    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBall();
+    size_t playerWithBall = -1;
+    size_t x = 0;
+    while (x < playerInstance.size())
+    {
+        size_t y = 0;
+        while (y < activePlayerID.size())
+        {
+            if (activePlayerID[y] == playerInstance[x].getPlayerID())
+            {
+                playerWithBall = x;
+            }
+            ++y;
+        }
+        ++x;
+    }
+    logMsg("bballplayerWithBall" + convert->toString(playerWithBall));
+//    exit(0);
     bool shotTaken = playerInstance[playerWithBall].getShotTaken();
 //    logMsg("teamWithBall" + convert->toString(teamWithBall));
-	logMsg("bballplayerWithBall" + convert->toString(playerWithBall));
+	
 
     
-//	exit(0);
+	
     if (!shotTaken)
     {
         directions playerDirection = playerInstance[playerWithBall].getDirection();
@@ -1064,14 +1080,14 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
 
         if (playerWithBall >= 0 && tipOffComplete == true)	// verifies that the playerWithBall variable is set to a valid number
         {
-    //		exit(0);
+    		
             Ogre::Vector3 playerPos= playerInstance[playerWithBall].getNode()->getPosition();	// stores the current position of player with ball
 
             Ogre::Vector3 bballPos = playerPos;
             Ogre::Vector3 bballCurrentPos = basketballInstance[0].getNode()->getPosition();	// stores the current position of the basketball(s)
             btVector3 change; // = btVector3(0,0,0);
             btTransform transform;
-
+//            exit(0);
 
 
             if (playerInstance[playerWithBall].getMovement())
@@ -1138,6 +1154,7 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
     {
         logMsg("shotTaken!");
     }
+//    exit(0);
 }
 
 
@@ -1147,7 +1164,25 @@ void gameState::updateBasketballDirections()	// updates basketball direction(s)
     boost::shared_ptr<conversion> convert = conversion::Instance();
     
 	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
-	int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
+	std::vector<int> activePlayerID = teamInstance[teamWithBall].getActivePlayerID();
+    
+    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBall();
+    size_t playerWithBall = -1;
+    size_t x = 0;
+    while (x < playerInstance.size())
+    {
+        size_t y = 0;
+        while (y < activePlayerID.size())
+        {
+            if (activePlayerID[y] == playerInstance[x].getPlayerID())
+            {
+                playerWithBall = x;
+            }
+            ++y;
+        }
+        ++x;
+    }
+    
     bool shotTaken = playerInstance[playerWithBall].getShotTaken();
 
     if (!shotTaken)

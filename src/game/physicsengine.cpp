@@ -557,7 +557,7 @@ void physicsEngine::updateState()
             {
                 if (gameS->getBallTippedToTeam() == 0)
                 {
-                    if (gameS->getBallTippedToPlayer() == 0)
+                    if (gameS->getBallTippedToPlayer() >= 0)
                     {
                         //                  exit(0);
                         //      basketballInstance[0].getPhysBody()->forceActivationState(ACTIVE_TAG);
@@ -572,7 +572,7 @@ void physicsEngine::updateState()
                 //          exit(0);
                 else if (gameS->getBallTippedToTeam() == 1)
                 {
-                    if (gameS->getBallTippedToPlayer() == 0)
+                    if (gameS->getBallTippedToPlayer() >= 0)
                     {
                         basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(-20, -1, 0));
 
@@ -707,7 +707,7 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
     //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
 
-    int ballTippedToTeam = gameS->getBallTippedToTeam();
+    size_t ballTippedToTeam = gameS->getBallTippedToTeam();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
 
 //    std::vector<playerState> teamOnePlayerInstance = teamInstance[0].getPlayerInstance();
@@ -729,8 +729,31 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
         logMsg("basketballInstance x pos = " +convert->toString(basketballInstance[0].getNode()->getPosition().x));
         logMsg("team " +convert->toString(ballTippedToTeam) +" playerInstance z pos = " +convert->toString(playerInstance[gameS->getBallTippedToPlayer()].getNode()->getPosition().z));
         logMsg("team " +convert->toString(ballTippedToTeam) +" playerInstance x pos = " +convert->toString(playerInstance[gameS->getBallTippedToPlayer()].getNode()->getPosition().x));
-        world->contactPairTest(basketballInstance[0].getPhysBody(), playerInstance[gameS->getBallTippedToPlayer()].getPhysBody(), tipOffResult);
-//      exit(0);
+        
+        
+        size_t playerWithBallID = gameS->getBallTippedToPlayer();  // teamInstance[ballTippedToTeam].getPlayerWithBall();
+        std::vector<int> activePlayerID = teamInstance[ballTippedToTeam].getActivePlayerID();
+        size_t ballTippedToPlayer = -1;
+        size_t x = 0;
+        while (x < playerInstance.size())
+        {
+            size_t y = 0;
+            while (y < activePlayerID.size())
+            {
+                if (activePlayerID[y] == playerInstance[x].getPlayerID())
+                {
+                    if (playerInstance[x].getPlayerID() == gameS->getBallTippedToPlayer())
+                    {
+                        ballTippedToPlayer = x;
+                    }
+                }
+                ++y;
+            }
+            ++x;
+        }
+        logMsg("ballTippedToPlayer == " +convert->toString(ballTippedToPlayer));
+        world->contactPairTest(basketballInstance[0].getPhysBody(), playerInstance[ballTippedToPlayer].getPhysBody(), tipOffResult);
+      exit(0);
         if (!tipOffResult.m_connected)
         {
         }
@@ -789,6 +812,7 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
     else if (!gameS->getBallTipped())
     {
         logMsg("Crash here???");
+//        exit(0);
         for (unsigned int x=0;x<teamInstance.size();++x)
         {
             if (teamInstance[x].getPlayerInstancesCreated())
@@ -864,13 +888,18 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
                     i = 0;
                     while (i < playerInstance.size()) // loops until the playerInstance is found that is currently playing center
                     {
-                        if (activeID[0] == playerInstance[i].getPlayerID())
-                        {
-                            gameS->setBallTippedToPlayer(i);
-                            logMsg("gameS->setBallTippedToPlayer(i) == " +convert->toString(gameS->getBallTippedToPlayer()));
+                        size_t j = 0;
+                        while(j < activeID.size())
+                        { 
+                            if (activeID[j] == playerInstance[i].getPlayerID())
+                            {
+                                gameS->setBallTippedToPlayer(0);
+                                logMsg("gameS->setBallTippedToPlayer(i) == " +convert->toString(gameS->getBallTippedToPlayer()));
                             //exit(0);
+                            }
+                            ++j;
                         }
-                        i++;
+                        ++i;
                     }
                     gameS->setBallTipForceApplied(true);
 //                  tipOffResult.m_connected = false;
