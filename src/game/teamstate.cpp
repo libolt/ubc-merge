@@ -52,6 +52,7 @@ teamState::teamState()
 
 	playerInstancesCreated = false;
     playerWithBall = -1;
+    playerWithBallID = -1;
     playerWithBallDribbling = false;
 
     humanControlled = false;
@@ -294,6 +295,15 @@ void teamState::setPlayerInstancesCreated(bool created)	// sets the value of pla
 	playerInstancesCreated = created;
 }
 
+int teamState::getPlayerWithBallID()    // retrieves the value of the playerWithBallID
+{
+    return (playerWithBallID);
+}
+void teamState::setPlayerWithBallID(int ball)   // sets the value of the playerWithBallID
+{
+    playerWithBallID = ball;
+}
+
 int teamState::getPlayerWithBall(void) 	// retrives the value of playerWithBall
 {
 	return (playerWithBall);
@@ -436,7 +446,7 @@ void teamState::updateState()	// updates the state of the object
 
 			if (gameS->getTeamWithBall() == teamNumber) // checks if the team has the basketball
 			{
-                logMsg("playerWithBall == " +convert->toString(activePlayerID[playerWithBall]));
+                logMsg("tipoffcomplete playerWithBall == " +convert->toString(activePlayerID[playerWithBall]));
                 //exit(0);
 				if (!playerInstance[playerWithBall].getPassBall())	// checks if the player with ball is passing it.
 				{

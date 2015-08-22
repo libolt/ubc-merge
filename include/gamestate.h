@@ -55,11 +55,11 @@ public:
     bool getBallTipped();	// retrieves the value of the ballTipped
     void setBallTipped(bool tipped);	// sets the value of the ballTipped
 
-    int getBallTippedToTeam();	// retrieves the value of the ballTippedToPlayer
-    void setBallTippedToTeam(int team);	// sets the value of the ballTippedToPlayer
+    int getBallTippedToTeam();	// retrieves the value of the ballTippedToTeam
+    void setBallTippedToTeam(int team);	// sets the value of the ballTippedToTeam
 
-    int getBallTippedToPlayer();	// retrieves the value of the ballTippedToPlayer
-    void setBallTippedToPlayer(int player);	// sets the value of the ballTippedToPlayer
+    int getBallTippedToPlayerID();	// retrieves the value of the ballTippedToPlayerID
+    void setBallTippedToPlayerID(int player);	// sets the value of the ballTippedToPlayerID
 
     bool getBallTipForceApplied();	// retrieves the value of ballTipForceApplied
     void setBallTipForceApplied(bool tip);	// sets the value of ballTipForceApplied
@@ -211,7 +211,7 @@ private:
     bool ballTipForceApplied;	// stores whether or not force has been applied to tipped ball
     bool playerHasBasketball;  // stores whether or not a player has control of the basketball
     int ballTippedToTeam;	//  stores which team the ball has been tipped to
-    int ballTippedToPlayer;	// stores which player the ball has been tipped to
+    int ballTippedToPlayerID;	// stores which player ID the ball has been tipped to
 
     int teamWithBall; // stores which team has control of the basketball, valid values are 0 or 1
 

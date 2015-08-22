@@ -70,8 +70,8 @@ class playerSteer : public steering
 	int getID(); // retrieves the value of ID
 	void setID(int id); // sets the value of ID
 
-	playerDesignations getDesignation();  // retrieves the value of designation
-	void setDesignation(playerDesignations set);  // sets the value of designation
+	playerPositions getPlayerPosition();  // retrieves the value of playerPosition
+	void setPlayerPosition(playerPositions set);  // sets the value of playerPosition
 	
 	float getDistToPosition(); // retrieves the value of distToPosition
 	void setDistToPosition(float dist); // sets value of distToPosition
@@ -101,7 +101,7 @@ class playerSteer : public steering
     int teamNumber;  // stores which team the player belongs to
     int		m_MyID;
 	int ID; // Stores which player on the team the instance associates with
-	playerDesignations designation;  // stores which position the player is playing
+	playerPositions playerPosition;  // stores which position the player is playing
 	float distToPosition; // stores the distance player is from target position
 	
 	bool execute;  // stores whether or not to execute steering code

@@ -33,16 +33,16 @@ public:
 	{
 	public:
 
-	    playerDesignations getPlayerDesignation();  // retrieves the value of playerDesignation
-		void setPlayerDesignation(playerDesignations designation);  // sets the value of playerDesignation
+	    playerPositions getPlayerPosition();  // retrieves the value of playerPosition
+		void setPlayerPosition(playerPositions set);  // sets the value of playerPosition
 	    directiveTypes getType();  // retrieves the value of type
 		void setType(directiveTypes Type);  // sets the value of type
 
 		offenseWaitFor getWaitFor();  // retrieves the value of waitFor
 		void setWaitFor(offenseWaitFor wait);  // sets the value of waitFor
 
-		playerDesignations getPlayerSet();  // retrieves the value of playerSet
-		void setPlayerSet(playerDesignations set);  // sets the value of playerSet
+		playerPositions getPlayerSet();  // retrieves the value of playerSet
+		void setPlayerSet(playerPositions set);  // sets the value of playerSet
 
 		positionTypes getPositionType();  // retrieves the value of positionType
 		void setPositionType(positionTypes Type);  // sets the value of positionType
@@ -51,10 +51,10 @@ public:
 		void setPosition(int pos);  // sets the value of position
 
 	private:
-	    playerDesignations playerDesignation;
+	    playerPositions playerPosition;
 		directiveTypes type;
         offenseWaitFor waitFor;
-		playerDesignations playerSet;
+		playerPositions playerSet;
 		positionTypes positionType;
 		int position;
 	};
@@ -68,8 +68,8 @@ public:
 	std::string getTitle();	// returns the value of title
 	void setTitle(std::string Title);	// sets the value of title
 
-	std::vector<playerDesignations> getPlayerDesignation();	// returns the value of playerName
-	void setPlayerDesignation(std::vector<playerDesignations> designation);	// sets the value of playerName
+	std::vector<playerPositions> getPlayerPosition();	// returns the value of playerPosition
+	void setPlayerPosition(std::vector<playerPositions> position);	// sets the value of playerPosition
 
     std::vector<Ogre::Vector3> getStartPositions();	// retrieves the value of the startPositions variable
     void setStartPositions(std::vector<Ogre::Vector3> positions);	// sets the value startPositions variable
@@ -90,7 +90,7 @@ private:
 	std::string playName;
 	int variation;
 	std::string title;
-	std::vector<playerDesignations> playerDesignation;
+	std::vector<playerPositions> playerPosition;
     std::vector<Ogre::Vector3> startPositions;		// stores the positions for players get to in order to execute offense
     std::vector< std::vector<Ogre::Vector3> > executePositions;    // stores the positions where players move when executing offense
 	std::vector<playerDirectives> playerDirective;

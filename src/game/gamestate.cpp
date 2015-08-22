@@ -71,7 +71,7 @@ gameState::gameState()
     tipOffComplete = false;
     ballTipped = false;
     ballTippedToTeam = -1;
-    ballTippedToPlayer = -1;
+    ballTippedToPlayerID = -1;
     ballTipForceApplied = false;
     playerHasBasketball = false;
     bballBounce = -1;
@@ -221,21 +221,21 @@ void gameState::setBallTipped(bool tipped)	// sets the value of ballTipped
 	ballTipped = tipped;
 }
 
-int gameState::getBallTippedToTeam()	// retrieves the value of ballTippedToPlayer
+int gameState::getBallTippedToTeam()	// retrieves the value of ballTippedToTeam
 {
 	return (ballTippedToTeam);
 }
-void gameState::setBallTippedToTeam(int team)	// sets the value of ballTippedToPlayer
+void gameState::setBallTippedToTeam(int team)	// sets the value of ballTippedToTeam
 {
 	ballTippedToTeam = team;
 }
-int gameState::getBallTippedToPlayer()	// retrieves the value of ballTippedToPlayer
+int gameState::getBallTippedToPlayerID()	// retrieves the value of ballTippedToPlayerID
 {
-	return (ballTippedToPlayer);
+	return (ballTippedToPlayerID);
 }
-void gameState::setBallTippedToPlayer(int player)	// sets the value of ballTippedToPlayer
+void gameState::setBallTippedToPlayerID(int player)	// sets the value of ballTippedToPlayerID
 {
-	ballTippedToPlayer = player;
+	ballTippedToPlayerID = player;
 }
 
 bool gameState::getBallTipForceApplied()	// retrieves the value of ballTipForceApplied
@@ -1063,6 +1063,7 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
     size_t playerWithBall = -1;
     size_t x = 0;
     logMsg("playerWithBallID == " +convert->toString(playerWithBallID));
+    exit(0);
     while (x < playerInstance.size())
     {
         size_t y = 0;
@@ -1080,7 +1081,7 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
         ++x;
     }
     logMsg("bballplayerWithBall" + convert->toString(playerWithBall));
-//    exit(0);
+    exit(0);
     bool shotTaken = playerInstance[playerWithBall].getShotTaken();
 //    logMsg("teamWithBall" + convert->toString(teamWithBall));
 	
@@ -1168,7 +1169,7 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
     {
         logMsg("shotTaken!");
     }
-//    exit(0);
+    exit(0);
 }
 
 

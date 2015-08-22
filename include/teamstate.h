@@ -115,6 +115,9 @@ public:
     bool getPlayerInstancesCreated();	// retrieves the value of the playerInstancesCreated
     void setPlayerInstancesCreated(bool created);	// sets the value of the playerInstancesCreated
 
+    int getPlayerWithBallID();    // retrieves the value of the playerWithBallID
+    void setPlayerWithBallID(int ball);   // sets the value of the playerWithBallID
+
     int getPlayerWithBall();	// retrieves the value of the playerWithBall
     void setPlayerWithBall(int ball);	// sets the value of the playerWithBall
 
@@ -189,6 +192,7 @@ private:
     std::vector <playerState> playerInstance;    // creates instance of the playerState class
     std::vector <std::string> playerModelsLoaded; // creates a vector of strings that holds the models which are loaded
     bool playerInstancesCreated;	// stores whether player instances have been created
+    int playerWithBallID; // stores the ID of the player that has the ball
     int playerWithBall;	// stores which player has control of the basketball, valid values are 0 - 4
     bool playerWithBallDribbling;	// stores whether the player with the ball is dribbling
 

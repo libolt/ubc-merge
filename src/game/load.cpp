@@ -1244,7 +1244,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     std::string playName;
     int variation;
     std::string title;
-    std::vector<playerDesignations> playerDesignation;
+    std::vector<playerPositions> playerPosition;
     std::vector<std::string> type;
     std::vector<float> xCoord;
     std::vector<float> yCoord;
@@ -1257,7 +1257,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     std::string pPlayName;
     int pVariation;
     std::string pTitle;
-    std::string pPlayerDesignation;
+    std::string pPlayerPosition;
     std::string pType;
     float pXCoord;
     float pYCoord;
@@ -1265,7 +1265,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     Ogre::Vector3 pCoords;
     std::vector<Ogre::Vector3> pExecuteCoords;
     offensePlays::playerDirectives pPlayerDirective;
-    playerDesignations pPlayerDirectiveDesignation;
+    playerPositions pPlayerDirectivePosition;
 
     std::string fileContents;
     tinyxml2::XMLDocument doc;
@@ -1355,37 +1355,37 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
             f = e->FirstChildElement()->ToElement();
 	    if (f)
             {
-                pPlayerDesignation = f->GetText();
-                logMsg("name = " +pPlayerDesignation);
+                pPlayerPosition = f->GetText();
+                logMsg("name = " +pPlayerPosition);
 //                playerName.push_back(pPlayerName);
 
-                if (pPlayerDesignation == "PG")
+                if (pPlayerPosition == "PG")
                 {
-                    playerDesignation.push_back(PG);
-                    pPlayerDirectiveDesignation = PG;
+                    playerPosition.push_back(PG);
+                    pPlayerDirectivePosition = PG;
                 }
-                else if (pPlayerDesignation == "SG")
+                else if (pPlayerPosition == "SG")
                 {
-                    playerDesignation.push_back(SG);
-                    pPlayerDirectiveDesignation = SG;
+                    playerPosition.push_back(SG);
+                    pPlayerDirectivePosition = SG;
                 }
-                else if (pPlayerDesignation == "SF")
+                else if (pPlayerPosition == "SF")
                 {
-                    playerDesignation.push_back(SF);
-                    pPlayerDirectiveDesignation = SF;
+                    playerPosition.push_back(SF);
+                    pPlayerDirectivePosition = SF;
                 }
-                else if (pPlayerDesignation == "PF")
+                else if (pPlayerPosition == "PF")
                 {
-                    playerDesignation.push_back(PF);
-                    pPlayerDirectiveDesignation = PF;
+                    playerPosition.push_back(PF);
+                    pPlayerDirectivePosition = PF;
                 }
-                else if (pPlayerDesignation == "C")
+                else if (pPlayerPosition == "C")
                 {
-                    playerDesignation.push_back(C);
-                    pPlayerDirectiveDesignation = C;
+                    playerPosition.push_back(C);
+                    pPlayerDirectivePosition = C;
                 }
                 else
-               {
+                {
 
                 }
             }
@@ -1468,7 +1468,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
                     numDirectives += 1;
                     //TiXmlElement *h;
                     tinyxml2::XMLElement *h;
-                    pPlayerDirective.setPlayerDesignation(pPlayerDirectiveDesignation);
+                    pPlayerDirective.setPlayerPosition(pPlayerDirectivePosition);
                     //h = g->FirstChildElement("Type");
                     h = g->FirstChildElement()->ToElement();
                     if (h)
@@ -1557,7 +1557,7 @@ offensePlays loader::loadOffensePlayFile(string fileName)	// loads data from the
     play.setPlayName(playName);
     play.setVariation(variation);
     play.setTitle(title);
-    play.setPlayerDesignation(playerDesignation);
+    play.setPlayerPosition(playerPosition);
     play.setStartPositions(startCoords);
     play.setExecutePositions(executeCoords);
     play.setPlayerDirective(playerDirective);

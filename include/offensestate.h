@@ -73,7 +73,7 @@ public:
 
 	void setupOffense(); // sets up box offense
 	void executeOffense(); // executes box offense
-    bool checkForDirective(playerDesignations designation); // checks if a directive needs to be completed before execution
+    bool checkForDirective(playerPositions playerPosition); // checks if a directive needs to be completed before execution
 
 private:
 

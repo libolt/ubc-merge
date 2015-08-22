@@ -47,13 +47,13 @@ void offensePlays::setTitle(std::string Title)	// sets the value of title
 	title = Title;
 }
 
-std::vector<playerDesignations> offensePlays::getPlayerDesignation()	// returns the value of playerName
+std::vector<playerPositions> offensePlays::getPlayerPosition()	// returns the value of playerPosition
 {
-	return (playerDesignation);
+	return (playerPosition);
 }
-void offensePlays::setPlayerDesignation(std::vector<playerDesignations> designation)	// sets the value of playerName
+void offensePlays::setPlayerPosition(std::vector<playerPositions> position)	// sets the value of playerPosition
 {
-	playerDesignation = designation;
+	playerPosition = position;
 }
 
 std::vector<Ogre::Vector3> offensePlays::getStartPositions()	// retrieves startPositions variable
@@ -103,13 +103,13 @@ void offensePlays::setPlayerDirective(std::vector<offensePlays::playerDirectives
 	playerDirective = directive;
 }
 
-playerDesignations offensePlays::playerDirectives::getPlayerDesignation()  // retrieves the value of playerDesignation
+playerPositions offensePlays::playerDirectives::getPlayerPosition()  // retrieves the value of playerPosition
 {
-	return (playerDesignation);
+	return (playerPosition);
 }
-void offensePlays::playerDirectives::setPlayerDesignation(playerDesignations designation)  // sets the value of playerDesignation
+void offensePlays::playerDirectives::setPlayerPosition(playerPositions position)  // sets the value of playerPosition
 {
-	playerDesignation = designation;
+	playerPosition = position;
 }
 
 directiveTypes offensePlays::playerDirectives::getType()  // retrieves the value of type
@@ -130,11 +130,11 @@ void offensePlays::playerDirectives::setWaitFor(offenseWaitFor wait)  // sets th
 	waitFor = wait;
 }
 		
-playerDesignations offensePlays::playerDirectives::getPlayerSet()  // retrieves the value of playerSet
+playerPositions offensePlays::playerDirectives::getPlayerSet()  // retrieves the value of playerSet
 {
 	return (playerSet);
 }
-void offensePlays::playerDirectives::setPlayerSet(playerDesignations set)  // sets the value of playerSet
+void offensePlays::playerDirectives::setPlayerSet(playerPositions set)  // sets the value of playerSet
 {
 	playerSet = set;
 }

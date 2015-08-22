@@ -348,7 +348,7 @@ void offenseState::executeOffense() // executes box offense
                     if (ID != playerWithBall)
                     {
                         pSteer = playerInstance[ID].getSteer();
-                        bool directiveComplete = checkForDirective(pSteer->getDesignation());  // checks if player must follow directive before executing
+                        bool directiveComplete = checkForDirective(pSteer->getPlayerPosition());  // checks if player must follow directive before executing
                         if (directiveComplete)
                         {
                             logMsg("Player " +convert->toString(ID) +" executePositionReached size = " +convert->toString(executePositionReached[ID].size()));
@@ -415,15 +415,15 @@ void offenseState::executeOffense() // executes box offense
     }
 }
 
-bool offenseState::checkForDirective(playerDesignations designation) // checks if a directive needs to be completed before execution
+bool offenseState::checkForDirective(playerPositions playerPosition) // checks if a directive needs to be completed before execution
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     
 	for (int x=0;x<playerDirective.size();++x)
 	{
-        logMsg("playerDesignation = " +convert->toString(playerDirective[x].getPlayerDesignation()));
-		if (playerDirective[x].getPlayerDesignation() == designation)
+        logMsg("playerPosition = " +convert->toString(playerDirective[x].getPlayerPosition()));
+		if (playerDirective[x].getPlayerPosition() == playerPosition)
 		{
 			//directiveTypes type =
 			switch (playerDirective[x].getType())
