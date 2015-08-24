@@ -72,6 +72,7 @@ gameState::gameState()
     ballTipped = false;
     ballTippedToTeam = -1;
     ballTippedToPlayerID = -1;
+    ballTippedToPosition = NONE;
     ballTipForceApplied = false;
     playerHasBasketball = false;
     bballBounce = -1;
@@ -236,6 +237,15 @@ int gameState::getBallTippedToPlayerID()	// retrieves the value of ballTippedToP
 void gameState::setBallTippedToPlayerID(int player)	// sets the value of ballTippedToPlayerID
 {
 	ballTippedToPlayerID = player;
+}
+
+playerPositions gameState::getBallTippedToPosition() // retrieves the value of ballTippedToPosition
+{
+    return (ballTippedToPosition);
+}
+void gameState::setBallTippedToPosition(playerPositions set)  // sets the value of ballTippedToPosition
+{
+    ballTippedToPosition = set;
 }
 
 bool gameState::getBallTipForceApplied()	// retrieves the value of ballTipForceApplied
