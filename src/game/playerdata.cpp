@@ -38,6 +38,8 @@ playerData::playerData()
     weight = 0;
     ID = 0;
     teamID = -1;
+    primaryPosition = NONE;
+    secondaryPosition = NONE;
     shooting = 0;
     freeThrow = 0;
     layup = 0;
@@ -144,6 +146,25 @@ void playerData::setTeamID(int id)	// sets the value for the teamID variable
 {
 	teamID = id;
 }
+playerPositions playerData::getPrimaryPosition(void)
+{
+    return(primaryPosition);
+}
+
+void playerData::setPrimaryPosition(playerPositions set)
+{
+    primaryPosition = set;
+}
+
+playerPositions playerData::getSecondaryPosition()  // retrieves the value of secondaryPosition
+{
+    return (secondaryPosition);
+}
+void playerData::setSecondaryPosition(playerPositions set)  // sets the value of secondaryPosition
+{
+    secondaryPosition = set;
+}
+
 bool playerData::getActive(void)
 {
     return(active);

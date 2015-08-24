@@ -23,6 +23,8 @@
 
 #include <string>
 
+#include "enums.h"
+
 using namespace std;
 
 class playerData
@@ -53,6 +55,12 @@ class playerData
 
         int getTeamID(void);	// retrieves the value of teamID
         void setTeamID(int id);	// sets the value of teamID
+
+        playerPositions getPrimaryPosition();  // retrieves the value of primaryPosition
+        void setPrimaryPosition(playerPositions set);  // sets the value of primaryPosition
+
+        playerPositions getSecondaryPosition();  // retrieves the value of secondaryPosition
+        void setSecondaryPosition(playerPositions set);  // sets the value of secondaryPosition
 
         bool getActive(void);	// retrieves the value of active
         void setActive(bool active);	// sets the value of active
@@ -161,6 +169,8 @@ class playerData
         int weight; // stores the weight of the player in pounds.
         int ID; // stores the unique ID of the player.
         int teamID;	// stores the unique ID of the team the player plays for.
+        playerPositions primaryPosition; // stores the primary position of the player
+        playerPositions secondaryPosition; // stores the secondary position of the player
         int shooting; // stores the overall shooting proficiency
         int freeThrow; // storee freethrow shooting proficiency
         int layup; // storee layup shooting proficiencu

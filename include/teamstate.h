@@ -110,7 +110,10 @@ public:
     void setDefense(bool set);	// sets the value of defense
 
     std::vector <playerState> getPlayerInstance();  // retrieves the value of playerInstance
-    void setPlayerInstance(std::vector<playerState> pInstance); // sets the value of  playreInstance
+    void setPlayerInstance(std::vector<playerState> pInstance); // sets the value of  playerInstance
+
+    std::vector <playerState> getActivePlayerInstance();  // retrieves the value of activePlayerInstance
+    void setActivePlayerInstance(std::vector<playerState> pInstance); // sets the value of activePlayerInstance
 
     bool getPlayerInstancesCreated();	// retrieves the value of the playerInstancesCreated
     void setPlayerInstancesCreated(bool created);	// sets the value of the playerInstancesCreated
@@ -189,7 +192,9 @@ private:
     bool offense;	// if set then the team is on offense
     bool defense;	// if set then the team is on defense
 
-    std::vector <playerState> playerInstance;    // creates instance of the playerState class
+    std::vector <playerState> playerInstance;    // stores instance of the playerState class containing all team players
+    std::vector <playerState> activePlayerInstance;    // stores instance of the playerState class containing the active players
+
     std::vector <std::string> playerModelsLoaded; // creates a vector of strings that holds the models which are loaded
     bool playerInstancesCreated;	// stores whether player instances have been created
     int playerWithBallID; // stores the ID of the player that has the ball

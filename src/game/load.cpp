@@ -719,7 +719,8 @@ playerData loader::loadPlayerFile(string fileName)
     string firstName;
     string lastName;
     string model;
-    string position;
+    playerPositions primaryPosition;
+    playerPositions secondaryPosition;
     int ID = 0;
     int teamID = 0;
     int age = 0;
@@ -867,10 +868,72 @@ playerData loader::loadPlayerFile(string fileName)
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
     {
-        position = pElem->GetText();
-        logMsg("position = " +position);
+        std::string position = pElem->GetText();
+        if (position == "PG")
+        {
+            primaryPosition = PG;
+        }
+        else if (position == "SG")
+        {
+            primaryPosition = SG;
+        }
+        else if (position == "SF")
+        {
+            primaryPosition = SF;
+        }
+        else if (position == "PF")
+        {
+            primaryPosition = PF;
+        }
+        else if (position == "C")
+        {
+            primaryPosition = C;
+        }
+        else if (position == "NONE")
+        {
+            primaryPosition = NONE;
+        }
+        else
+        {
+            primaryPosition = NONE;
+        }
+        logMsg("primaryPosition = " +position);
     }
 
+    pElem=pElem->NextSiblingElement()->ToElement();
+    if (pElem)
+    {
+        std::string position = pElem->GetText();
+        if (position == "PG")
+        {
+            secondaryPosition = PG;
+        }
+        else if (position == "SG")
+        {
+            secondaryPosition = SG;
+        }
+        else if (position == "SF")
+        {
+            secondaryPosition = SF;
+        }
+        else if (position == "PF")
+        {
+            secondaryPosition = PF;
+        }
+        else if (position == "C")
+        {
+            secondaryPosition = C;
+        }
+        else if (position == "NONE")
+        {
+            secondaryPosition = NONE;
+        }
+        else
+        {
+            secondaryPosition = NONE;
+        }
+        logMsg("secondaryPosition = " +position);
+    }
 	//pElem=hRoot.FirstChild("Shooting").ToElement();
     pElem=pElem->NextSiblingElement()->ToElement();
     if (pElem)
@@ -1110,7 +1173,8 @@ playerData loader::loadPlayerFile(string fileName)
 	playerD.setTeamID(teamID);
     playerD.setModel(model);
 //    playerD.setTeamInits(teamInitials);
-    playerD.setPosition(position);
+    playerD.setPrimaryPosition(primaryPosition);
+    playerD.setSecondaryPosition(secondaryPosition);
     playerD.setShooting(shooting);
     playerD.setFreeThrow(freeThrow);
     playerD.setLayup(layup);

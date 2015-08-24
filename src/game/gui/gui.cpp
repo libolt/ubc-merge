@@ -578,13 +578,13 @@ void GUISystem::playerStartSelected()  // process player start selection
 
     gameS->setTeamStarterID(teamStarterID); // sets the selected starters for both teams in gameState class
 
-    std::vector<int> activeID;
+    std::vector<int> activePlayerID;
 
     for (size_t x=0;x<5;++x)
     {
-        activeID.push_back(teamStarterID[0][x]);
+        activePlayerID.push_back(teamStarterID[0][x]);
     }
-    teamInstance[0].setActivePlayerID(activeID);
+    teamInstance[0].setActivePlayerID(activePlayerID);
     if (!teamInstance[0].getPlayerInstancesCreated())    // checks if playerInstances have been created
     {
         if (teamInstance[0].createPlayerInstances()) // creates the player instances based on playerIDS
@@ -594,6 +594,26 @@ void GUISystem::playerStartSelected()  // process player start selection
 //          exit(0);
         }
     }
+    else
+    {
+        std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
+        std::vector<playerState> activePlayerInstance;
+        size_t y = 0;
+        while (y < playerInstance.size())
+        {
+            size_t z = 0;
+            while (z < activePlayerID.size())
+            {
+                if (playerInstance[y].getPlayerID() == activePlayerID[z];
+                {
+                    activePlayerInstance.push_back(playerInstance[y]);
+                }
+                ++z
+            }
+            ++y;
+        }
+    }
+    teamInstance[0].setActivePlayerInstance(activePlayerInstance);
     teamInstance[0].setPlayerStartPositions();
     logMsg("Team 0 player start positions set");
     size_t i = 0;
@@ -625,6 +645,28 @@ void GUISystem::playerStartSelected()  // process player start selection
 //          exit(0);
         }
     }
+    else
+    {
+        std::vector<playerState> playerInstance = teamInstance[1].getPlayerInstance();
+        std::vector<playerState> activePlayerInstance;
+        size_t y = 0;
+        while (y < playerInstance.size())
+        {
+            size_t z = 0;
+            while (z < activePlayerID.size())
+            {
+                if (playerInstance[y].getPlayerID() == activePlayerID[z];
+                {
+                    activePlayerInstance.push_back(playerInstance[y]);
+                }
+                ++z
+            }
+            ++y;
+        }
+    }
+    teamInstance[1].setActivePlayerInstance(activePlayerInstance);
+    teamInstance[1].setPlayerStartPositions();
+    logMsg("Team 1 player start positions set");
     playerInstance = teamInstance[1].getPlayerInstance();
     while (i<playerInstance.size())
     {
@@ -635,8 +677,6 @@ void GUISystem::playerStartSelected()  // process player start selection
         }
         i++;
     }
-    teamInstance[1].setPlayerStartPositions();
-    logMsg("Team 1 player start positions set");
 
 //        exit(0);
 /*

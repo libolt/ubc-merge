@@ -42,7 +42,9 @@ playerState::playerState()
     playerYCoord = 0;
     offDef = 0;
     defending = -1;
-    position = -1;
+    primaryPosition = NONE;
+    secondaryPosition = NONE;
+    activePosition = NONE;
     userControlled = false;
     user = -1;
     points = 0;
@@ -183,14 +185,32 @@ void playerState::setWeight(int playerWeight)
     weight = playerWeight;
 }
 
-string playerState::getPosition(void)
+playerPositions playerState::getPrimaryPosition(void)
 {
-    return(position);
+    return(primaryPosition);
 }
 
-void playerState::setPosition(string set)
+void playerState::setPrimaryPosition(playerPositions set)
 {
-    position = set;
+    primaryPosition = set;
+}
+
+playerPositions playerState::getSecondaryPosition()  // retrieves the value of secondaryPosition
+{
+    return (secondaryPosition);
+}
+void playerState::setSecondaryPosition(playerPositions set)  // sets the value of secondaryPosition
+{
+    secondaryPosition = set;
+}
+
+playerPositions getActivePosition()  // retrieves the value of activePosition
+{
+    return (activePosition);
+}
+void setActivePosition(playerPositions set)  // sets the value of activePosition
+{
+    activePosition = set;
 }
 
 bool playerState::getIsActive() // retrieves the value of isActive

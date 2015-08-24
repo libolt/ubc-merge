@@ -123,7 +123,36 @@ std::string conversion::toString(void *data)  // converts void * data to string
     std::string strData;
     return(strData);
 }
-
+std::string conversion::toString(playerPositions data) // converts playerPositions data to string
+{
+    std::string strData;
+    switch (data)
+    {
+        case NONE:
+            strData = "NONE";
+        break;
+        case PG:
+            strData = "PG";
+        break;
+        case SG:
+            strData = "SG";
+        break;
+        case SF:
+            strData = "SF";
+        break;
+        case PF:
+            strData = "PF";
+        break;
+        case C:
+            strData = "C";
+        break;
+        default:
+            strData = "";
+        break;
+    }
+    
+    return(strData);
+}
 // convert to char
 char conversion::toChar(std::string data)  // converts from std::string to char
 {

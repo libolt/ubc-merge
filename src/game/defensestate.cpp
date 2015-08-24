@@ -128,23 +128,23 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
             {
                 if (activeDID[i] == playerDInstance[x].getPlayerID())
                 {
-                    if (playerDInstance[x].getPosition() == "PG")
+                    if (playerDInstance[x].getActivePosition() == PG)
                     {
                         activeDNum[0] = x;
                     }
-                    else if (playerDInstance[x].getPosition() == "SG")
+                    else if (playerDInstance[x].getActivePosition() == SG)
                     {
                         activeDNum[1] = x;
                     }
-                    else if (playerDInstance[x].getPosition() == "SF")
+                    else if (playerDInstance[x].getActivePosition() == SF)
                     {
                         activeDNum[2] = x;
                     }
-                    else if (playerDInstance[x].getPosition() == "PF")
+                    else if (playerDInstance[x].getActivePosition() == PF)
                     {
                         activeDNum[3] = x;
                     }
-                    else if (playerDInstance[x].getPosition() == "C")
+                    else if (playerDInstance[x].getActivePosition() == C)
                     {
                         activeDNum[4] = x;
                     }
@@ -165,23 +165,23 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
             {
                 if (activeOID[i] == playerOInstance[x].getPlayerID())
                 {
-                    if (playerOInstance[x].getPosition() == "PG")
+                    if (playerOInstance[x].getActivePosition() == PG)
                     {
                         activeONum[0] = x;
                     }
-                    else if (playerOInstance[x].getPosition() == "SG")
+                    else if (playerOInstance[x].getActivePosition() == SG)
                     {
                         activeONum[1] = x;
                     }
-                    else if (playerOInstance[x].getPosition() == "SF")
+                    else if (playerOInstance[x].getActivePosition() == SF)
                     {
                         activeONum[2] = x;
                     }
-                    else if (playerOInstance[x].getPosition() == "PF")
+                    else if (playerOInstance[x].getActivePosition() == PF)
                     {
                         activeONum[3] = x;
                     }
-                    else if (playerOInstance[x].getPosition() == "C")
+                    else if (playerOInstance[x].getActivePosition() == C)
                     {
                         activeONum[4] = x;
                     }

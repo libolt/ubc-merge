@@ -73,8 +73,14 @@ class playerState
         int getWeight(void);  // retrieves the value of weight
         void setWeight(int weight);  // sets the value of weight
 
-        std::string getPosition();  // retrieves the value of position
-        void setPosition(std::string set);  // sets the value of position
+        playerPositions getPrimaryPosition();  // retrieves the value of primaryPosition
+        void setPrimaryPosition(playerPositions set);  // sets the value of primaryPosition
+
+        playerPositions getSecondaryPosition();  // retrieves the value of secondaryPosition
+        void setSecondaryPosition(playerPositions set);  // sets the value of secondaryPosition
+
+        playerPositions getActivePosition();  // retrieves the value of activePosition
+        void setActivePosition(playerPositions set);  // sets the value of activePosition
 
         bool getIsActive(); // retrieves the value of isActive
         void setIsActive(bool set); // sets the value of isActive
@@ -254,8 +260,11 @@ class playerState
 
         int ID; // stores the unique ID of the player.
 
-        std::string position;    // stores which position the player plays
+        playerPositions primaryPosition; // stores the primary position of the player
+        
+        playerPositions secondaryPosition; // stores the secondary position of the player
 
+        playerPositions activePosition; // stores the active position of the player
 
         bool isActive;  // stores whether or not the player is on the court.
 

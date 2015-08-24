@@ -276,14 +276,22 @@ void teamState::setDefense(bool set)	// sets the value of defense
 	defense = set;
 }
 
-std::vector <playerState> teamState::getPlayerInstance()  // retrieves the value of  playerInstance
+std::vector <playerState> teamState::getPlayerInstance()  // retrieves the value of playerInstance
 {
     return (playerInstance);
 }
-
 void teamState::setPlayerInstance(std::vector<playerState> pInstance)  // sets the value of playerInstance
 {
     playerInstance = pInstance;
+}
+
+std::vector <playerState> teamState::getActivePlayerInstance()  // retrieves the value of activePlayerInstance
+{
+    return (activePlayerInstance);
+}
+void teamState::setActivePlayerInstance(std::vector<playerState> pInstance) // sets the value of activePlayerInstance
+{
+    activePlayerInstance = pInstance;
 }
 
 bool teamState::getPlayerInstancesCreated()	// retrieves the value of playerInstancesCreated
