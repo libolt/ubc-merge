@@ -872,7 +872,7 @@ void teamState::updatePlayerDirections()
     size_t x = 0;
     size_t y = 0;
 //    for (size_t i = 0; i < playerInstance.size(); ++i)
-    while (x<playerInstance.size())
+    while (x<activePlayerInstance.size())
     {
 /*        while (y>activePlayerID.size())
         {
@@ -992,7 +992,7 @@ void teamState::updatePlayerMovements()	// updates player movements
     size_t x = 0;
     size_t y = 0;
 //	for (size_t i = 0; i < playerInstance.size(); ++i)
-    while(x<playerInstance.size())
+    while(x<activePlayerInstance.size())
 	{
 //		logMsg("Player " +convert->toString(i) +" position = " +convert->toString(playerInstance[i].getNodePosition()));
 
