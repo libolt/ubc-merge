@@ -10,7 +10,8 @@
     <Height>80</Height>
     <Weight>235</Weight>
     <Model>Player.mesh</Model>
-    <Position>PG</Position>
+    <PrimaryPosition>PG</PrimaryPosition>
+    <SecondaryPosition>NONE</SecondaryPosition>
     <Shooting>86</Shooting>
     <Freethrow>85</Freethrow>
     <Layup>82</Layup>
