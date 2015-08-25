@@ -877,7 +877,7 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 
     networkPlayerStateObject netPStateObj;
 	std::stringstream strStream;
-    std::vector<playerState> playerInstance;
+    std::vector<playerState> activePlayerInstance;
 	std::string receivedData = network->getReceivedData();	// stores receivedData value
 	int playerNumber = -1; // stores which player the data is for
 	int iterator;	// iterator for match loop
@@ -892,17 +892,17 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
 	if (network->getIsClient())
 	{
 	    logMsg("is client");
-		playerInstance = teamInstance[1].getPlayerInstance();
+        activePlayerInstance = teamInstance[1].getActivePlayerInstance();
 	}
 	else if (network->getIsServer())
 	{
 	    logMsg("is server");
-		playerInstance = teamInstance[0].getPlayerInstance();
+        activePlayerInstance = teamInstance[0].getActivePlayerInstance();
 	}
 	else
 	{
 	}
-    logMsg("playerInstance size == " +convert->toString(playerInstance.size()));
+    logMsg("activePlayerInstance size == " +convert->toString(activePlayerInstance.size()));
 /*	for (iterator = 0; iterator < 5; ++iterator)
 	{
 		std::string searchString;	// stores search String
@@ -916,56 +916,56 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
     logMsg("alive????");
 */
     playerNumber = netPStateObj.getPlayerID();
-    if (playerInstance.size() > 0)
+    if (activePlayerInstance.size() > 0)
     {
         if (netPStateObj.getMovement())
         {
             switch (netPStateObj.getDirection())
             {
                 case 0: // move player up
-                    playerInstance[playerNumber].setMovement(true);
-                    playerInstance[playerNumber].setDirection(UP);
+                    activePlayerInstance[playerNumber].setMovement(true);
+                    activePlayerInstance[playerNumber].setDirection(UP);
 
                     break;
                 case 1: // move player down
-                    playerInstance[playerNumber].setMovement(true);
-                    playerInstance[playerNumber].setDirection(DOWN);
+                    activePlayerInstance[playerNumber].setMovement(true);
+                    activePlayerInstance[playerNumber].setDirection(DOWN);
                     break;
                 case 2: // move player left
-                    playerInstance[playerNumber].setMovement(true);
-                    playerInstance[playerNumber].setDirection(LEFT);
+                    activePlayerInstance[playerNumber].setMovement(true);
+                    activePlayerInstance[playerNumber].setDirection(LEFT);
                     break;
                 case 3: // move player right
-                    playerInstance[playerNumber].setMovement(true);
-                    playerInstance[playerNumber].setDirection(RIGHT);
+                    activePlayerInstance[playerNumber].setMovement(true);
+                    activePlayerInstance[playerNumber].setDirection(RIGHT);
                     break;
                 case 4: // move player up and left
-                    playerInstance[playerNumber].setMovement(true);
-                    playerInstance[playerNumber].setDirection(UPLEFT);
+                    activePlayerInstance[playerNumber].setMovement(true);
+                    activePlayerInstance[playerNumber].setDirection(UPLEFT);
                     break;
                 case 5: // move player up aned right
-                    playerInstance[playerNumber].setMovement(true);
-                    playerInstance[playerNumber].setDirection(UPRIGHT);
+                    activePlayerInstance[playerNumber].setMovement(true);
+                    activePlayerInstance[playerNumber].setDirection(UPRIGHT);
                     break;
                 case 6: // move player down and left
-                    playerInstance[playerNumber].setMovement(true);
-                    playerInstance[playerNumber].setDirection(DOWNLEFT);
+                    activePlayerInstance[playerNumber].setMovement(true);
+                    activePlayerInstance[playerNumber].setDirection(DOWNLEFT);
                     break;
                 case 7: // move player down and right
-                    playerInstance[playerNumber].setMovement(true);
-                    playerInstance[playerNumber].setDirection(DOWNRIGHT);
+                    activePlayerInstance[playerNumber].setMovement(true);
+                    activePlayerInstance[playerNumber].setDirection(DOWNRIGHT);
                     break;
                 default:
-                	playerInstance[playerNumber].setMovement(false);
+                    activePlayerInstance[playerNumber].setMovement(false);
                     break;
             }
             if (network->getIsClient())
             {
-                teamInstance[1].setPlayerInstance(playerInstance);
+                teamInstance[1].setActivePlayerInstance(activePlayerInstance);
             }
             else if (network->getIsServer())
             {
-                teamInstance[0].setPlayerInstance(playerInstance);
+                teamInstance[0].setActivePlayerInstance(activePlayerInstance);
             }
         }
         else if (netPStateObj.getShootBlock())
@@ -1066,28 +1066,20 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
     boost::shared_ptr<conversion> convert = conversion::Instance();
 //	logMsg("Updating basketball movements");
     logMsg("test");
-	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
+    std::vector<playerState> activePlayerInstance = teamInstance[teamWithBall].getActivePlayerInstance();
     std::vector<int> activePlayerID = teamInstance[teamWithBall].getActivePlayerID();
-    logMsg("playerInstance.size() == " +convert->toString(playerInstance.size()));
+    logMsg("activePlayerInstance.size() == " +convert->toString(activePlayerInstance.size()));
     size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBall();
     size_t playerWithBall = -1;
     size_t x = 0;
     logMsg("playerWithBallID == " +convert->toString(playerWithBallID));
     exit(0);
-    while (x < playerInstance.size())
+    while (x < activePlayerInstance.size())
     {
-        size_t y = 0;
-        while (y < activePlayerID.size())
-        {
-            if (activePlayerID[y] == playerInstance[x].getPlayerID())
-            {
-                if (activePlayerID[y] == playerWithBallID)
+                if (activePlayerInstance[x].getPlayerID() == playerWithBallID)
                 {
-                    playerWithBall = y;
+                    playerWithBall = x;
                 }
-            }
-            ++y;
-        }
         ++x;
     }
     logMsg("bballplayerWithBall" + convert->toString(playerWithBall));

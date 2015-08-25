@@ -117,7 +117,7 @@ void playerSteer::reset(void)
         boost::shared_ptr<gameState> gameS = gameState::Instance();
         
 	    std::vector<teamState> teamInstance = gameS->getTeamInstance();
-	    std::vector<playerState> playerInstance = teamInstance[teamNumber].getPlayerInstance();
+        std::vector<playerState> activePlayerInstance = teamInstance[teamNumber].getActivePlayerInstance();
 	    OpenSteer::Vec3 playerSteerPos;
         std::vector< std::vector<int> > teamStarterID = gameS->getTeamStarterID();
         if(ID < 9 && ID >= 0)
