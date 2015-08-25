@@ -204,11 +204,11 @@ void playerState::setSecondaryPosition(playerPositions set)  // sets the value o
     secondaryPosition = set;
 }
 
-playerPositions getActivePosition()  // retrieves the value of activePosition
+playerPositions playerState::getActivePosition()  // retrieves the value of activePosition
 {
     return (activePosition);
 }
-void setActivePosition(playerPositions set)  // sets the value of activePosition
+void playerState::setActivePosition(playerPositions set)  // sets the value of activePosition
 {
     activePosition = set;
 }
@@ -494,11 +494,11 @@ void playerState::setPhysBody(btRigidBody *body)  	// sets physBody
 	physBody = body;
 }
 
-playerSteer *playerState::getSteer() // retrieves the steering instance
+boost::shared_ptr<playerSteer> playerState::getSteer() // retrieves the steering instance
 {
 	return (steer);
 }
-void playerState::setSteer(playerSteer *instance) // sets the steering instance
+void playerState::setSteer(boost::shared_ptr<playerSteer> instance) // sets the steering instance
 {
 	steer = instance;
 }

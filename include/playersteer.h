@@ -31,8 +31,8 @@ class playerSteer : public steering
 //	playerSteer(std::vector<playerSteer*> others, std::vector<playerSteer*> allplayers, /*Ball* ball,*/ bool isTeamA, int id);
 	playerSteer()
     {
-	    std::vector<playerSteer*> others;
-	    std::vector<playerSteer*> allplayers;
+        std::vector<boost::shared_ptr<playerSteer> > others;
+        std::vector<boost::shared_ptr<playerSteer> > allplayers;
 //	    bool isTeamA;
         int id = 0;
 	    m_others = others;
@@ -70,7 +70,7 @@ class playerSteer : public steering
 	int getID(); // retrieves the value of ID
 	void setID(int id); // sets the value of ID
 
-	playerPositions getPlayerPosition();  // retrieves the value of playerPosition
+    playerPositions getPlayerPosition();  // retrieves the value of playerPosition
 	void setPlayerPosition(playerPositions set);  // sets the value of playerPosition
 	
 	float getDistToPosition(); // retrieves the value of distToPosition
@@ -94,8 +94,8 @@ class playerSteer : public steering
 	private:
 
 	int counter;
-    std::vector<playerSteer*>	m_others;
-    std::vector<playerSteer*>	m_AllPlayers;
+    std::vector<boost::shared_ptr<playerSteer> >	m_others;
+    std::vector<boost::shared_ptr<playerSteer> >	m_AllPlayers;
     OpenSteer::Vec3 m_home;
     //Ball*	m_Ball;
     int teamNumber;  // stores which team the player belongs to

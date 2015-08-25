@@ -48,20 +48,20 @@ AISystem::~AISystem()
 
 }
 
-OpenSteer::AbstractVehicle* AISystem::getSelectedVehicle() // retrieves the value of selectedVehicle
+boost::shared_ptr<OpenSteer::AbstractVehicle> AISystem::getSelectedVehicle() // retrieves the value of selectedVehicle
 {
 	return (selectedVehicle);
 }
-void AISystem::setSelectedVehicle(OpenSteer::AbstractVehicle* vehicle)  // sets the value of selectedVehicle
+void AISystem::setSelectedVehicle(boost::shared_ptr<OpenSteer::AbstractVehicle> vehicle)  // sets the value of selectedVehicle
 {
 	selectedVehicle = vehicle;
 }
 
-std::vector<playerSteer*> AISystem::getAllPlayerSteers()	// retrieves the value of allPlayerSteers
+std::vector<boost::shared_ptr<playerSteer> > AISystem::getAllPlayerSteers()	// retrieves the value of allPlayerSteers
 {
 	return (allPlayerSteers);
 }
-void AISystem::setAllPlayerSteers( std::vector<playerSteer*> steers)	// sets the value of allPlayerSteers
+void AISystem::setAllPlayerSteers( std::vector<boost::shared_ptr<playerSteer> > steers)	// sets the value of allPlayerSteers
 {
     allPlayerSteers = steers;
 }
@@ -228,8 +228,8 @@ void AISystem::selectNextVehicle (void)
         const OpenSteer::AVIterator s = std::find (first, last, selectedVehicle);
 
         // normally select the next vehicle in container
-        selectedVehicle = *(s+1);
-
+        //selectedVehicle = *(s+1);
+        selectedVehicle = (s+1);
         // if we are at the end of the container, select the first vehicle
         if (s == last-1) selectedVehicle = *first;
 

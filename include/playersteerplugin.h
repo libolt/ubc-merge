@@ -53,13 +53,14 @@ class playerSteerPlugin : public OpenSteer::PlugIn, steering
 
     unsigned int	m_PlayerCountA;
     unsigned int	m_PlayerCountB;
-    std::vector<playerSteer*> TeamA;
-    std::vector<playerSteer*> TeamB;
-    std::vector<playerSteer*> m_AllPlayers;
+    std::vector<boost::shared_ptr<playerSteer> > TeamA;
+    std::vector<boost::shared_ptr<playerSteer> > TeamB;
+    std::vector<boost::shared_ptr<playerSteer> > m_AllPlayers;
 
 //        Ball	*m_Ball;
-    steering::AABBox	*courtBBox;
-/*        AABBox	*m_TeamAGoal;
+    //steering::AABBox	*courtBBox;
+    boost::shared_ptr<steering::AABBox> courtBBox;
+    /*        AABBox	*m_TeamAGoal;
         AABBox	*m_TeamBGoal;
 */
     int junk;

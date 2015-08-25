@@ -44,7 +44,7 @@ void playerSteerPlugin::open(void)
     std::vector<int> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
     std::vector<int> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
 
-	std::vector<playerSteer *> allPlayerSteers = ai->getAllPlayerSteers();
+    std::vector<boost::shared_ptr<playerSteer> > allPlayerSteers = ai->getAllPlayerSteers();
 
 	logMsg("Opening playerSteer plugin");
 
@@ -61,7 +61,7 @@ void playerSteerPlugin::open(void)
 //            if (team0PlayerInstance[x].getIsActive())
             if (team0PlayerInstance[x].getPlayerID() == team0ActivePlayerID[y])
             {
-                playerSteer *steer = team0PlayerInstance[x].getSteer();
+                boost::shared_ptr<playerSteer> steer = team0PlayerInstance[x].getSteer();
         //		logMsg("Alive1");
                 logMsg("x = " +convert->toString(x));
                 logMsg("player position = " +convert->toString(team0PlayerInstance[x].getNodePosition()));
@@ -93,7 +93,7 @@ void playerSteerPlugin::open(void)
 //        if (team1PlayerInstance[x].getIsActive())
             if (team1PlayerInstance[x].getPlayerID() == team0ActivePlayerID[y])
             {
-                playerSteer *steer = team1PlayerInstance[x].getSteer();
+                boost::shared_ptr<playerSteer> steer = team1PlayerInstance[x].getSteer();
                 steer->setPosition(convert->toOpenSteerVec3(team1PlayerInstance[x].getNodePosition()));
         //		steer->setID(x);
                 team1PlayerInstance[x].setSteer(steer);
@@ -116,8 +116,11 @@ void playerSteerPlugin::open(void)
     OpenSteer::Vec3 courtBoxMin = convert->toOpenSteerVec3(cboxMin);
     OpenSteer::Vec3 courtBoxMax = convert->toOpenSteerVec3(cboxMax);
 
-    courtBBox = new steering::AABBox( OpenSteer::Vec3(0,0,0), OpenSteer::Vec3(0,0,0));
-	courtBBox->setMin(courtBoxMin);
+    //courtBBox = new steering::AABBox( OpenSteer::Vec3(0,0,0), OpenSteer::Vec3(0,0,0));
+    courtBBox(new steering::AABBox);
+    //boost::shared_ptr<steering::AABBox> courtBBox(new steering::AABBox( OpenSteer::Vec3(0,0,0), OpenSteer::Vec3(0,0,0));
+
+    courtBBox->setMin(courtBoxMin);
 
  /*           // Red goal
             m_TeamAGoal = new AABBox(Vec3(-21,0,-7), Vec3(-19,0,7));
@@ -281,10 +284,11 @@ void playerSteerPlugin::redraw (const float currentTime, const float elapsedTime
 void playerSteerPlugin::close (void)
 {
     for(unsigned int i=0; i < m_PlayerCountA ; i++)
-        delete TeamA[i];
+//        delete TeamA[i];
+
     TeamA.clear ();
     for(unsigned int i=0; i < m_PlayerCountB ; i++)
-        delete TeamB[i];
+//        delete TeamB[i];
     TeamB.clear ();
         m_AllPlayers.clear();
 }

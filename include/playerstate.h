@@ -26,6 +26,7 @@
 
 #include <vector>
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 // physics
 #include "BtOgrePG.h"
@@ -166,8 +167,8 @@ class playerState
         btRigidBody *getPhysBody();	// retrieves the value of physBody
         void setPhysBody(btRigidBody *body);  // sets the value of physBody
 
-        playerSteer *getSteer(); // retrieves the steering instance
-		void setSteer(playerSteer *instance); // sets the steering instance
+        boost::shared_ptr<playerSteer> getSteer(); // retrieves the steering instance
+        void setSteer(boost::shared_ptr<playerSteer> instance); // sets the steering instance
 
         bool getMovement();	// retrieves the value of movement
         void setMovement(bool move);	// sets the value of movement
@@ -377,7 +378,7 @@ class playerState
         btRigidBody *physBody;
 
         // stores the steering objerct taht represents the player
-        playerSteer *steer;
+        boost::shared_ptr<playerSteer> steer;
 
         // temporary hack
         bool initialized;

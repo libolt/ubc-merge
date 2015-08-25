@@ -35,11 +35,11 @@ public:
     static boost::shared_ptr<AISystem> Instance();
 	~AISystem();
 
-	OpenSteer::AbstractVehicle* getSelectedVehicle(); // retrieves the value of selectedVehicle
-	void setSelectedVehicle(OpenSteer::AbstractVehicle* vehicle);  // sets the value of selectedVehicle
+    boost::shared_ptr<OpenSteer::AbstractVehicle> getSelectedVehicle(); // retrieves the value of selectedVehicle
+    void setSelectedVehicle(boost::shared_ptr<OpenSteer::AbstractVehicle> vehicle);  // sets the value of selectedVehicle
 
-	std::vector<playerSteer*> getAllPlayerSteers();	// retrieves the value of allPlayerSteers
-	void setAllPlayerSteers(const std::vector<playerSteer*> steers);	// sets the value of allPlayerSteers
+    std::vector<boost::shared_ptr<playerSteer> > getAllPlayerSteers();	// retrieves the value of allPlayerSteers
+    void setAllPlayerSteers(const std::vector<boost::shared_ptr<playerSteer> > steers);	// sets the value of allPlayerSteers
 
 	float getOldTime(); // returns the value of oldTime
 	void setOldTime(float time); // sets the value of oldTime
@@ -79,7 +79,7 @@ public:
 	const OpenSteer::AVGroup& allVehiclesOfSelectedPlugIn(void);
 
 	// currently selected vehicle
-	OpenSteer::AbstractVehicle* selectedVehicle;
+    boost::shared_ptr<OpenSteer::AbstractVehicle> selectedVehicle;
 
 	playerSteerPlugin playerSteerPluginInstance;
 
@@ -95,7 +95,8 @@ private:
 	// currently selected plug-in (user can choose or cycle through them)
     OpenSteer::PlugIn* selectedPlugIn;
 
-	std::vector<playerSteer*> allPlayerSteers;
+    //std::vector<playerSteer*> allPlayerSteers;
+    std::vector<boost::shared_ptr<playerSteer> > allPlayerSteers;
 
 	// TIMER
 	OpenSteer::Clock aiTimer;

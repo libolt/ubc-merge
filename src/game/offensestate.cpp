@@ -290,7 +290,7 @@ void offenseState::executeOffense() // executes box offense
 
     int teamNumber = gameS->getTeamWithBall();
     int playerWithBall = teamInstance[teamNumber].getPlayerWithBall();
-    playerSteer *pSteer;
+    boost::shared_ptr<playerSteer> pSteer;
 
     if (!allStartPositionsReached)	// checks if all players have reached their start positions for the offense being run
     {

@@ -941,7 +941,7 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
                     if (teamInstance[x].getTeamNumber() == gameS->getBallTippedToTeam())
                     {
                         std::vector<int> activePlayerID = teamInstance[x].getActivePlayerID();
-                        std::vector<int> activePlayerInstance = teamInstance[x].getActivelayerInstance();
+                        std::vector<playerState> activePlayerInstance = teamInstance[x].getActivePlayerInstance();
                         
                         gameS->setBallTippedToPosition(PG);
                         
