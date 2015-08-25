@@ -582,7 +582,7 @@ bool teamState::createPlayerInstances()
     {
 
         playerState pInstance;  // creates a new instance of playerState
-        boost::shared_ptr<playerSteer> pSteer(new playerSteer); // steer instance
+        playerSteer *pSteer = new playerSteer; // steer instance
 
 //    	    logMsg("Player Team ID = " +convert->toString(playerDataInstance[i].getTeamID()));
 //    	    logMsg("Team Number = " +convert->toString(teamNumber));
@@ -603,23 +603,23 @@ bool teamState::createPlayerInstances()
             pSteer->setID(id);
 /*            if (pInstance.getPosition() == "PG")
             {
-                pSteer->setDesignation(PG);
+                pSteer->setPlayerposition(PG);
             }
             else if (pInstance.getPosition() == "SG")
             {
-                pSteer->setDesignation(SG);
+                pSteer->setPlayerposition(SG);
             }
             else if (pInstance.getPosition() == "SF")
             {
-                pSteer->setDesignation(SF);
+                pSteer->setPlayerposition(SF);
             }
             else if (pInstance.getPosition() == "PF")
             {
-                pSteer->setDesignation(PF);
+                pSteer->setPlayerposition(PF);
             }
             else if (pInstance.getPosition() == "C")
             {
-                pSteer->setDesignation(C);
+                pSteer->setPlayerposition(C);
             }
 */
             pSteer->reset();

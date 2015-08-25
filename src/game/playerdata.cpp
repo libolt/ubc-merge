@@ -138,20 +138,20 @@ void playerData::setID(int playerID)
     ID = playerID;
 }
 
-int playerData::getTeamID(void)	// retrieves the value for the teamID variable
+int playerData::getTeamID(void)	// retrieves the value of teamID
 {
 	return (teamID);
 }
-void playerData::setTeamID(int id)	// sets the value for the teamID variable
+void playerData::setTeamID(int id)	// sets the value of teamID
 {
 	teamID = id;
 }
-playerPositions playerData::getPrimaryPosition(void)
+playerPositions playerData::getPrimaryPosition(void)  // retrieves the value of primaryPosition
 {
     return(primaryPosition);
 }
 
-void playerData::setPrimaryPosition(playerPositions set)
+void playerData::setPrimaryPosition(playerPositions set)  // sets the value of primaryPosition
 {
     primaryPosition = set;
 }
@@ -165,42 +165,23 @@ void playerData::setSecondaryPosition(playerPositions set)  // sets the value of
     secondaryPosition = set;
 }
 
-bool playerData::getActive(void)
+bool playerData::getActive(void)  // retrieves the value of active
 {
     return(active);
 }
 
-void playerData::setActive(bool playerActive)
+void playerData::setActive(bool playerActive)  // sets the value of active
 {
     active = playerActive;
 }
 
-string playerData::getModel()
+string playerData::getModel()  // retrieves the value of model
 {
     return (model);
 }
-void playerData::setModel(string Model)
+void playerData::setModel(string Model)  // sets the value of model
 {
     model = Model;
-}
-
-string playerData::getTeamInits(void)
-{
-    return (teamInits);
-}
-
-void playerData::setTeamInits(string inits)
-{
-    teamInits = inits;
-}
-
-string playerData::getPosition()   // gets the vlaue of position
-{
-    return (position);
-}
-void playerData::setPosition(string Position) // sets the value of position
-{
-    position = Position;
 }
 
 int playerData::getShooting() // retrieves the value of shooting

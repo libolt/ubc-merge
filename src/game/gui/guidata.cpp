@@ -118,8 +118,8 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
         {
             int overallRating = playerDataInstance[i].getOverallRating();
             std::string playerOverallRating = convert->toString(overallRating);
-            std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName() +" " +playerDataInstance[i].getPosition(); // +"            "; // +playerOverallRating;
-            std::string playerPosition = playerDataInstance[i].getPosition();
+            std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName() +" " +convert->toString(playerDataInstance[i].getPrimaryPosition()); // +"            "; // +playerOverallRating;
+            std::string playerPosition = convert->toString(playerDataInstance[i].getPrimaryPosition());
             int playerID = playerDataInstance[i].getID();
 
             playerNames[0].push_back(playerName);
@@ -132,9 +132,9 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
         {
             int overallRating = playerDataInstance[i].getOverallRating();
             std::string playerOverallRating = convert->toString(overallRating);
-            std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName( ) +" " +playerDataInstance[i].getPosition(); // +"            "; // +playerOverallRating;
+            std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName( ) +" " +convert->toString(playerDataInstance[i].getPrimaryPosition()); // +"            "; // +playerOverallRating;
             bool playerNameLengthReached = false;
-            std::string playerPosition = playerDataInstance[i].getPosition();
+            std::string playerPosition = convert->toString(playerDataInstance[i].getPrimaryPosition());
             int playerID = playerDataInstance[i].getID();
 
             playerNames[1].push_back(playerName);

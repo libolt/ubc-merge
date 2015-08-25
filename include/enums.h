@@ -31,7 +31,7 @@
 	// GUI
     enum activeMenus { MAIN, NETWORK, NETWORKCLIENT, NETWORKSERVER, OPTIONS, DISPLAY, INPUTMENU, AUDIO, GAMESETUP, PLAYERSTART, TEAMSELECT, COURTSELECT }; // stores which menu is set to active
 	// offense / defense
-	enum playerPositions { NONE, PG, SG, SF, PF, C }; // defines designations for each player position
+	enum playerPositions { NONE, PG, SG, SF, PF, C }; // defines the name for each player position
 	enum directiveTypes { WAIT, FREELANCE}; // defines the type of directive a player has
     enum offenseWaitFor { PLAYERPOSITIONSET, TIME }; // defines what an offensive player is waiting for
     enum positionTypes { START, EXECUTE};

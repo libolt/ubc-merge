@@ -494,11 +494,11 @@ void playerState::setPhysBody(btRigidBody *body)  	// sets physBody
 	physBody = body;
 }
 
-boost::shared_ptr<playerSteer> playerState::getSteer() // retrieves the steering instance
+playerSteer *playerState::getSteer() // retrieves the steering instance
 {
 	return (steer);
 }
-void playerState::setSteer(boost::shared_ptr<playerSteer> instance) // sets the steering instance
+void playerState::setSteer(playerSteer *instance) // sets the steering instance
 {
 	steer = instance;
 }

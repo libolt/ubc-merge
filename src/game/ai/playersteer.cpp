@@ -51,13 +51,13 @@ void playerSteer::setID(int id) // sets the value of ID
 	ID = id;
 }
 
-playerPositions playerSteer::getPlayerPosition()  // retrieves the value of playerPosition
+playerPositions playerSteer::getPlayerPosition()  // retrieves the value of position
 {
-	return (playerPosition);
+    return (playerPosition);
 }
-void playerSteer::setPlayerPosition(playerPositions set)  // sets the value of playerPosition
+void playerSteer::setPlayerPosition(playerPositions set)  // sets the value of position
 {
-	playerPosition = set;
+    playerPosition = set;
 }
 
 float playerSteer::getDistToPosition() // retrieves the value of distToPosition
@@ -188,9 +188,9 @@ void playerSteer::update (const float currentTime, float elapsedTime)
     std::vector<int> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
     std::vector<int> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
 //	std::vector<playerSteer*> playerSteerInstance;
-    std::vector<boost::shared_ptr<playerSteer> > pSteer = ai->getAllPlayerSteers();
-    std::vector<boost::shared_ptr<playerSteer> > team0Steers;
-    std::vector<boost::shared_ptr<playerSteer> > team1Steers;
+	std::vector<playerSteer*> pSteer = ai->getAllPlayerSteers();
+	std::vector<playerSteer*> team0Steers;
+	std::vector<playerSteer*> team1Steers;
 //    logMsg("Player = " +convert->toString(ID));
 //	logMsg("Node position = " +convert->toString(teamInstance[teamNumber].getPlayerInstance()[ID].getNodePosition()));
 //	logMsg("Steer position = " +convert->toString(toOgreVector3(position())));
@@ -392,7 +392,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 
 	// updates player's position
     Ogre::Vector3 posChange = convert->toOgreVector3(position());
-//    Ogre::Vector3 *offenseStartPositions;
+    Ogre::Vector3 *offenseStartPositions;
     OpenSteer::Vec3 startPosition;
     OpenSteer::Vec3 seekTarget;
 //			float distPlayerStartPosition;
@@ -552,7 +552,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 
 	// updates player's position
     Ogre::Vector3 posChange = convert->toOgreVector3(position());
-//    Ogre::Vector3 *offenseStartPositions;
+    Ogre::Vector3 *offenseStartPositions;
 	OpenSteer::Vec3 startPosition;
 //			OpenSteer::Vec3 seekTarget;
 	float distPlayerStartPosition;
@@ -626,8 +626,8 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
     std::vector<int> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
     std::vector<int> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
 
-    std::vector<boost::shared_ptr<playerSteer> > team0Steers;
-    std::vector<boost::shared_ptr<playerSteer> > team1Steers;
+	std::vector<playerSteer*> team0Steers;
+	std::vector<playerSteer*> team1Steers;
 
     for (size_t x=0;x<team0PlayerInstance.size();++x)
 	{
@@ -717,7 +717,7 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
 
 	// updates player's position
     Ogre::Vector3 posChange = convert->toOgreVector3(position());
-//    Ogre::Vector3 *offenseStartPositions;
+    Ogre::Vector3 *offenseStartPositions;
     OpenSteer::Vec3 startPosition;
 //			OpenSteer::Vec3 seekTarget;
     float distPlayerStartPosition;

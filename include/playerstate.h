@@ -167,8 +167,8 @@ class playerState
         btRigidBody *getPhysBody();	// retrieves the value of physBody
         void setPhysBody(btRigidBody *body);  // sets the value of physBody
 
-        boost::shared_ptr<playerSteer> getSteer(); // retrieves the steering instance
-        void setSteer(boost::shared_ptr<playerSteer> instance); // sets the steering instance
+        playerSteer *getSteer(); // retrieves the steering instance
+        void setSteer(playerSteer *instance); // sets the steering instance
 
         bool getMovement();	// retrieves the value of movement
         void setMovement(bool move);	// sets the value of movement
@@ -378,7 +378,7 @@ class playerState
         btRigidBody *physBody;
 
         // stores the steering objerct taht represents the player
-        boost::shared_ptr<playerSteer> steer;
+        playerSteer *steer;
 
         // temporary hack
         bool initialized;

@@ -107,13 +107,13 @@ void teams::assignPlayers()  // assigns players to the team based on matching In
         std::vector<int> roster = teamIT->getRoster();   // retrieves the current teams roster IDs
 
         std::vector<playerData>::iterator playerIT;
-        for (playerIT = player.begin(); playerIT < player.end(); ++playerIT)    // iterators through the list of players
+        /*for (playerIT = player.begin(); playerIT < player.end(); ++playerIT)    // iterators through the list of players
         {
             if (teamIT->getInits() == playerIT->getTeamInits()) // compares team initais to those that are assigned to the player
             {
                 roster.push_back(playerIT->getID());    // adds player ID to roster if initials match
             }
-        }
+        }*/
         teamIT->setRoster(roster);  // sets the updated team roster
         teamIT->setPlayerNum(teamIT->getRoster().size());   // sets the number of players on the roster
     }
@@ -136,35 +136,35 @@ void teams::assignStarters(void)    // assigns teams starting players
         {
             if (starters[0] < 0)    // checks if starting point guard is set
             {
-                if (player[*rosterIT].getPosition() == "PG")    // checks if current roster player is a point guard
+                if (player[*rosterIT].getPrimaryPosition() == PG)    // checks if current roster player is a point guard
                 {
                     starters[0] = *rosterIT;    // sets starting point guard
                 }
             }
             if (starters[1] < 0)    // checks if starting shooting guard is set
             {
-                if (player[*rosterIT].getPosition() == "SG")    // checks if current roster player is a shooting guard
+                if (player[*rosterIT].getPrimaryPosition() == SG)    // checks if current roster player is a shooting guard
                 {
                     starters[1] = *rosterIT;    // sets starting shooting guard
                 }
             }
             if (starters[2] <0) // checks if starting small forward is set
             {
-                if (player[*rosterIT].getPosition() == "SF")    // checks if current roster player is a small forward
+                if (player[*rosterIT].getPrimaryPosition() == SF)    // checks if current roster player is a small forward
                 {
                     starters[2] = *rosterIT;    // set starting small forward
                 }
             }
             if (starters[3] < 0)    // checks if power forward is set
             {
-                if (player[*rosterIT].getPosition() == "PF")    // checks if current roster player is a power forward
+                if (player[*rosterIT].getPrimaryPosition() == PF)    // checks if current roster player is a power forward
                 {
                     starters[3] = *rosterIT;    // sets starting power forwrad
                 }
             }
             if (starters[4] < 0)    // checks if starting center is set
             {
-                if (player[*rosterIT].getPosition() == "C") // checks if current roser player  is a center
+                if (player[*rosterIT].getPrimaryPosition() == C) // checks if current roser player  is a center
                 {
                     starters[4] = *rosterIT;    // sets starting center
                 }

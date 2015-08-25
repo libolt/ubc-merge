@@ -31,8 +31,8 @@ class playerSteer : public steering
 //	playerSteer(std::vector<playerSteer*> others, std::vector<playerSteer*> allplayers, /*Ball* ball,*/ bool isTeamA, int id);
 	playerSteer()
     {
-        std::vector<boost::shared_ptr<playerSteer> > others;
-        std::vector<boost::shared_ptr<playerSteer> > allplayers;
+	    std::vector<playerSteer*> others;
+	    std::vector<playerSteer*> allplayers;
 //	    bool isTeamA;
         int id = 0;
 	    m_others = others;
@@ -71,7 +71,7 @@ class playerSteer : public steering
 	void setID(int id); // sets the value of ID
 
     playerPositions getPlayerPosition();  // retrieves the value of playerPosition
-	void setPlayerPosition(playerPositions set);  // sets the value of playerPosition
+    void setPlayerPosition(playerPositions set);  // sets the value of playerPosition
 	
 	float getDistToPosition(); // retrieves the value of distToPosition
 	void setDistToPosition(float dist); // sets value of distToPosition
@@ -94,21 +94,21 @@ class playerSteer : public steering
 	private:
 
 	int counter;
-    std::vector<boost::shared_ptr<playerSteer> >	m_others;
-    std::vector<boost::shared_ptr<playerSteer> >	m_AllPlayers;
+    std::vector<playerSteer*>	m_others;
+    std::vector<playerSteer*>	m_AllPlayers;
     OpenSteer::Vec3 m_home;
     //Ball*	m_Ball;
     int teamNumber;  // stores which team the player belongs to
     int		m_MyID;
-	int ID; // Stores which player on the team the instance associates with
-	playerPositions playerPosition;  // stores which position the player is playing
-	float distToPosition; // stores the distance player is from target position
+    int ID; // Stores which player on the team the instance associates with
+    playerPositions playerPosition;  // stores which position the player is playing
+    float distToPosition; // stores the distance player is from target position
 	
-	bool execute;  // stores whether or not to execute steering code
+    bool execute;  // stores whether or not to execute steering code
 	
-	OpenSteer::Vec3 steerCoords;
+    OpenSteer::Vec3 steerCoords;
 	
-	std::vector<bool> positionReached;
+    std::vector<bool> positionReached;
 };
 
 #endif

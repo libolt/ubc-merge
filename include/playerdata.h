@@ -65,12 +65,6 @@ class playerData
         bool getActive(void);	// retrieves the value of active
         void setActive(bool active);	// sets the value of active
 
-        string getTeamInits(void);  // retrieves the value of teamInits
-        void setTeamInits(string inits);    // sets the value teamInits
-
-        string getPosition();   // retrieves the value of position
-        void setPosition(string Position); // sets the value of position
-
         string getModel();  // retrieves the value of model
         void setModel(string Model);    // sets the value of model
 
@@ -202,10 +196,6 @@ class playerData
         
         // if player is playing this is true
         bool active;
-
-        string position;    // stores which position the player plays
-
-        string teamInits;   // stores the initials of the team the player plays for
 
         string model;   // stores the name of the 3D model to load for the player
         
