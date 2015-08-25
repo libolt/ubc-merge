@@ -175,7 +175,11 @@ void AISystem::updateSelectedPlugIn (const float currentTime,
     if (selectedVehicle == NULL)
     {
         const OpenSteer::AVGroup& vehicles = allVehiclesOfSelectedPlugIn();
-        if (vehicles.size() > 0) selectedVehicle = vehicles.front();
+        if (vehicles.size() > 0)
+        {
+            //selectedVehicle = vehicles.front();
+            selectedVehicle(vehicles.front());
+        }
     }
 
     // invoke selected PlugIn's Update method
@@ -228,8 +232,8 @@ void AISystem::selectNextVehicle (void)
         const OpenSteer::AVIterator s = std::find (first, last, selectedVehicle);
 
         // normally select the next vehicle in container
-        //selectedVehicle = *(s+1);
-        selectedVehicle = (s+1);
+        selectedVehicle = *(s+1);
+        //selectedVehicle = (s+1);
         // if we are at the end of the container, select the first vehicle
         if (s == last-1) selectedVehicle = *first;
 

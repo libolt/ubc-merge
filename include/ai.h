@@ -79,8 +79,8 @@ public:
 	const OpenSteer::AVGroup& allVehiclesOfSelectedPlugIn(void);
 
 	// currently selected vehicle
+    //OpenSteer::AbstractVehicle *selectedVehicle;
     boost::shared_ptr<OpenSteer::AbstractVehicle> selectedVehicle;
-
 	playerSteerPlugin playerSteerPluginInstance;
 
     
