@@ -183,7 +183,7 @@ void offenseState::updateState(int teamNumber)	// updates the state of the objec
 	//gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
-    std::vector<playerState> playerInstance = teamInstance[teamNumber].getPlayerInstance();
+    std::vector<playerState> activePlayerInstance = teamInstance[teamNumber].getActivePlayerInstance();
 
     if (!offenseSetup)
     {
@@ -194,7 +194,7 @@ void offenseState::updateState(int teamNumber)	// updates the state of the objec
         
 		executeOffense();
 	}
-	teamInstance[teamNumber].setPlayerInstance(playerInstance);
+    teamInstance[teamNumber].setActivePlayerInstance(activePlayerInstance);
     gameS->setTeamInstance(teamInstance);
 
 }
@@ -286,7 +286,7 @@ void offenseState::executeOffense() // executes box offense
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
-    std::vector<playerState> playerInstance = teamInstance[gameS->getTeamWithBall()].getPlayerInstance();
+    std::vector<playerState> activePlayerInstance = teamInstance[gameS->getTeamWithBall()].getActivePlayerInstance();
 
     int teamNumber = gameS->getTeamWithBall();
     int playerWithBall = teamInstance[teamNumber].getPlayerWithBall();
@@ -298,7 +298,7 @@ void offenseState::executeOffense() // executes box offense
         {
             if ( x != playerWithBall)
             {
-                pSteer = playerInstance[x].getSteer();
+                pSteer = activePlayerInstance[x].getSteer();
                 std::vector<bool> positionReached = pSteer->getPositionReached();
                 if (positionReached.size() != 1)
                 {
@@ -347,7 +347,7 @@ void offenseState::executeOffense() // executes box offense
                 {
                     if (ID != playerWithBall)
                     {
-                        pSteer = playerInstance[ID].getSteer();
+                        pSteer = activePlayerInstance[ID].getSteer();
                         bool directiveComplete = checkForDirective(pSteer->getPlayerPosition());  // checks if player must follow directive before executing
                         if (directiveComplete)
                         {
@@ -406,9 +406,9 @@ void offenseState::executeOffense() // executes box offense
         {
             for (int x=0;x<5;++x)
             {
-                pSteer = playerInstance[x].getSteer();
+                pSteer = activePlayerInstance[x].getSteer();
                 pSteer->setExecute(false);
-                playerInstance[x].setSteer(pSteer);
+                activePlayerInstance[x].setSteer(pSteer);
             }
         }
 //          exit(0);

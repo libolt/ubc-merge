@@ -51,8 +51,8 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
 	int teamWithBall = gameS->getTeamWithBall();
 
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
-    std::vector<playerState> playerDInstance = teamInstance[teamNumber].getPlayerInstance();
-    std::vector<playerState> playerOInstance = teamInstance[teamWithBall].getPlayerInstance(); 
+    std::vector<playerState> playerDInstance = teamInstance[teamNumber].getActivePlayerInstance();
+    std::vector<playerState> playerOInstance = teamInstance[teamWithBall].getActivePlayerInstance();
     std::vector<int> activeDID = teamInstance[teamNumber].getActivePlayerID();
     std::vector<int> activeOID = teamInstance[teamWithBall].getActivePlayerID();
     std::vector<Ogre::Vector3> playerOPos;  // stores positions of offensive players
@@ -75,7 +75,7 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
 			playerDPos.push_back(playerDInstance[x].getNode()->getPosition());
 		}
         */
-//        playerInstance = teamInstance[1].getPlayerInstance();
+//        activePlayerInstance = teamInstance[1].getPlayerInstance();
         size_t x = 0;
         while (x<playerOInstance.size())
         {
@@ -466,7 +466,7 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
 //		}
 	}
 
-    teamInstance[teamNumber].setPlayerInstance(playerDInstance);
+    teamInstance[teamNumber].setActivePlayerInstance(playerDInstance);
     gameS->setTeamInstance(teamInstance);
 
 }

@@ -81,16 +81,16 @@ void basketballSteer::update (const float /*currentTime*/, float elapsedTime)
 	gameState *gameS = gameState::Instance();
 	std::vector<basketballs> basketball = gameS->getBasketballInstance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
-	const std::vector<playerState> playerInstance = teamInstance[0].getPlayerInstance();
+    const std::vector<playerState> activePlayerInstance = teamInstance[0].getActivePlayerInstance();
 	const std::vector<playerSteer> playerSteerInstance;
-    for (int x=0;x<playerInstance.size();++x)
+    for (int x=0;x<activePlayerInstance.size();++x)
 	{
-		playerSteerInstance.push_back(playerInstance[x].getSteer());
+        playerSteerInstance.push_back(activePlayerInstance[x].getSteer());
 	}
 	// if I hit the ball, kick it.
 Ogre::LogManager::getSingletonPtr()->logMessage("playerSteerInstane size = " +toString(playerSteerInstance.size()));
 
-    OpenSteer::Vec3 playerSteerPos = toOpenSteerVec3(playerInstance[ID].getNodePosition());
+    OpenSteer::Vec3 playerSteerPos = toOpenSteerVec3(activePlayerInstance[ID].getNodePosition());
 	OpenSteer::Vec3 m_home = playerSteerPos;
     OpenSteer::Vec3 bballSteerPos = toOpenSteerVec3(basketball[0].getNodePosition());
 

@@ -404,7 +404,7 @@ void teamState::setupState()	// sets up the state of the object
         logMsg("Player start positions set");
 //    playerWithBall = 3; // FIXME! Temporarily ahrd code player controlling ball
 //    humanPlayer = 3;	// sets the human controlled player to the center for tip off
-/*    player->mAnimationState2 =  playerInstance[5].getModel()->getAnimationState("Walk");
+/*    player->mAnimationState2 =  activePlayerInstance[5].getModel()->getAnimationState("Walk");
     player->mAnimationState2->setLoop(true);
     player->mAnimationState2->setEnabled(true);
 */
@@ -456,11 +456,11 @@ void teamState::updateState()	// updates the state of the object
 			{
                 logMsg("tipoffcomplete playerWithBall == " +convert->toString(activePlayerID[playerWithBall]));
                 //exit(0);
-				if (!playerInstance[playerWithBall].getPassBall())	// checks if the player with ball is passing it.
+                if (!activePlayerInstance[playerWithBall].getPassBall())	// checks if the player with ball is passing it.
 				{
 	//				exit(0);
                 }
-				else if (playerInstance[playerWithBall].getPassBall())
+                else if (activePlayerInstance[playerWithBall].getPassBall())
 				{
 					logMsg("Calculating Pass");
 	//				exit(0);
@@ -469,24 +469,24 @@ void teamState::updateState()	// updates the state of the object
 	//					exit(0);
 						Ogre::Vector3 bballPos;
 						Ogre::Vector3 playerPos;
-						playerInstance[playerWithBall].calculatePass();
+                        activePlayerInstance[playerWithBall].calculatePass();
 
 						//sets the basketball Height;
 						bballPos = basketballInstance[0].getNode()->getPosition();
-						playerPos = playerInstance[playerWithBall].getNode()->getPosition();
+                        playerPos = activePlayerInstance[playerWithBall].getNode()->getPosition();
 						bballPos[1] = playerPos[1];
 						basketballInstance[0].getNode()->setPosition(bballPos);
 
 					}
-					else if (playerInstance[playerWithBall].getPassCalculated())
+                    else if (activePlayerInstance[playerWithBall].getPassCalculated())
 					{
 //						exit(0);
 						executePass();
 						if (physEngine->getPassCollision())	// checks if ball has collided with player being passed to.
 						{
 //							exit(0);
-							playerInstance[playerWithBall].setPassBall(false);	// player is no longer passing the ball
-							playerWithBall = playerInstance[playerWithBall].getPassToPlayer(); // playerWithBall has changed
+                            activePlayerInstance[playerWithBall].setPassBall(false);	// player is no longer passing the ball
+                            playerWithBall = activePlayerInstance[playerWithBall].getPassToPlayer(); // playerWithBall has changed
 
 							if (humanControlled)
 							{
@@ -502,8 +502,8 @@ void teamState::updateState()	// updates the state of the object
 					}
 				}
 //				logMsg("Player with ball ==  "  +convert->toString(playerWithBall));
-//			    logMsg("Player with ball's name: "  +playerInstance[playerWithBall].getPlayerName());
-//				logMsg("Player with ball's current position: "  +convert->toString(playerInstance[playerWithBall].getNode()->getPosition()));
+//			    logMsg("Player with ball's name: "  +activePlayerInstance[playerWithBall].getPlayerName());
+//				logMsg("Player with ball's current position: "  +convert->toString(activePlayerInstance[playerWithBall].getNode()->getPosition()));
 			}
 		}
         logMsg("Team number = " +convert->toString(teamNumber));
@@ -824,6 +824,15 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 //	    exit(0);
 	}
 
+}
+
+void teamState::setPlayerStartActivePositions() // sets the position the players will play at the start of the game
+{
+    activePlayerInstance[0].setActivePosition(PG);
+    activePlayerInstance[1].setActivePosition(SG);
+    activePlayerInstance[2].setActivePosition(SF);
+    activePlayerInstance[3].setActivePosition(PF);
+    activePlayerInstance[4].setActivePosition(C);
 }
 
 void teamState::updatePlayerStates()  // updates the states of active players
