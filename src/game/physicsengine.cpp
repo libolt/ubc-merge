@@ -934,8 +934,7 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
                         {
                             if (activePlayerInstance[y].getActivePosition() == gameS->getBallTippedToPosition())
                             {
-                                logMsg("Woo!");
-                                exit(0);
+                            //    gameS->set
                             }
                             ++y;
                         }

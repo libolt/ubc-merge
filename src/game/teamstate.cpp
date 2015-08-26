@@ -644,7 +644,7 @@ bool teamState::createPlayerInstances()
 //    logMsg("playerID = " +convert->toString(activePlayerID[i]));
     size_t x = 0;
 
-    logMsg("playerInstance.size() = " +convert->toString(playerInstance.size()));
+    logMsg("activePlayerInstance.size() = " +convert->toString(playerInstance.size()));
 
     bool IDMatch = false;
 //            for (size_t j=0;j<playerInstance.size();++j)
@@ -828,11 +828,17 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 
 void teamState::setPlayerStartActivePositions() // sets the position the players will play at the start of the game
 {
-    activePlayerInstance[0].setActivePosition(PG);
-    activePlayerInstance[1].setActivePosition(SG);
-    activePlayerInstance[2].setActivePosition(SF);
-    activePlayerInstance[3].setActivePosition(PF);
-    activePlayerInstance[4].setActivePosition(C);
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+
+    logMsg("activePlayerInstance.size() =" +convert->toString(activePlayerInstance.size()));
+    if (activePlayerInstance.size() > 0) // checks that activePlayerInstance has data before executing
+    {
+        activePlayerInstance[0].setActivePosition(PG);
+        activePlayerInstance[1].setActivePosition(SG);
+        activePlayerInstance[2].setActivePosition(SF);
+        activePlayerInstance[3].setActivePosition(PF);
+        activePlayerInstance[4].setActivePosition(C);
+    }
 }
 
 void teamState::updatePlayerStates()  // updates the states of active players
