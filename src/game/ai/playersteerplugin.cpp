@@ -39,8 +39,8 @@ void playerSteerPlugin::open(void)
 
 	std::vector<courtState> courtInstance = gameS->getCourtInstance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
-	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
-	std::vector<playerState> team1PlayerInstance = teamInstance[1].getPlayerInstance();
+    std::vector<playerState> team0PlayerInstance = teamInstance[0].getActivePlayerInstance();
+    std::vector<playerState> team1PlayerInstance = teamInstance[1].getActivePlayerInstance();
     std::vector<int> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
     std::vector<int> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
 
@@ -73,7 +73,7 @@ void playerSteerPlugin::open(void)
                 ai->selectedVehicle = steer;
                 team0PlayerInstance[x].setSteer(steer);
                 allPlayerSteers.push_back(team0PlayerInstance[x].getSteer());
-    //        logMsg("team 0 playerInstance added =  " +convert->toString(x));
+    //        logMsg("team 0 activePlayerInstance added =  " +convert->toString(x));
             }
          ++y;
         }
@@ -105,7 +105,7 @@ void playerSteerPlugin::open(void)
 	}
 
     ai->setAllPlayerSteers(allPlayerSteers);	// stores the instances
-//    logMsg("team 0 playerInstance added =  " +convert->toString( ai->getAllPlayerSteers().size()));
+//    logMsg("team 0 activePlayerInstance added =  " +convert->toString( ai->getAllPlayerSteers().size()));
 
 
 	// create the court bounding box based off the meshes bbox
@@ -166,14 +166,14 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
-	std::vector<playerState> team0PlayerInstance = teamInstance[0].getPlayerInstance();
-	std::vector<playerState> team1PlayerInstance = teamInstance[1].getPlayerInstance();
+    std::vector<playerState> team0PlayerInstance = teamInstance[0].getActivePlayerInstance();
+    std::vector<playerState> team1PlayerInstance = teamInstance[1].getActivePlayerInstance();
     std::vector<int> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
     std::vector<int> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
 
 //	exit(0);
     // update simulation of test vehicle
-//    logMsg("team 0 playerInstance size =  " +convert->toString(team0PlayerInstance.size()));
+//    logMsg("team 0 activePlayerInstance size =  " +convert->toString(team0PlayerInstance.size()));
 
 // FIXME testing with one specific player for now
 

@@ -149,6 +149,7 @@ public:
     bool createPlayerInstances();
 
     void setPlayerStartPositions();	// sets the initial coordinates for the players.
+    void setPlayerStartActivePositions(); // sets the position the players will play at the start of the game
 
     void updatePlayerStates();  // updates the states of active players
     void updatePlayerDirections();  // updates the direction players are facing

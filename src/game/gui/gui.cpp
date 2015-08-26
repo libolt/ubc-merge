@@ -615,6 +615,7 @@ void GUISystem::playerStartSelected()  // process player start selection
     }
     teamInstance[0].setActivePlayerInstance(activePlayerInstance);
     teamInstance[0].setPlayerStartPositions();
+    teamInstance[0].setPlayerStartActivePositions();
     logMsg("Team 0 player start positions set");
     size_t i = 0;
     std::vector<playerState> playerInstance;
@@ -666,6 +667,7 @@ void GUISystem::playerStartSelected()  // process player start selection
     }
     teamInstance[1].setActivePlayerInstance(activePlayerInstance);
     teamInstance[1].setPlayerStartPositions();
+    teamInstance[1].setPlayerStartActivePositions();
     logMsg("Team 1 player start positions set");
     playerInstance = teamInstance[1].getPlayerInstance();
     while (i<playerInstance.size())

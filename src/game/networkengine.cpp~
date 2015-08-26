@@ -24,7 +24,6 @@
 #include "gamestate.h"
 #include "logging.h"
 #include "input.h"
-#include "conversion.h"
 
 #if _MSC_VER
 #define snprintf _snprintf
@@ -49,17 +48,12 @@ networkEngine::~networkEngine()
 
 }
 
-//networkEngine* networkEngine::pInstance = 0;
-boost::shared_ptr<networkEngine> networkEngine::pInstance;
-
-//networkEngine* networkEngine::Instance()
-boost::shared_ptr<networkEngine> networkEngine::Instance()
+networkEngine* networkEngine::pInstance = 0;
+networkEngine* networkEngine::Instance()
 {
     if (pInstance == 0)  // is it the first call?
     {
-        //pInstance = new networkEngine; // create sole instance
-        boost::shared_ptr<networkEngine> tInstance(new networkEngine);
-        pInstance = tInstance;
+        pInstance = new networkEngine; // create sole instance
     }
     return pInstance; // address of sole instance
 }
@@ -120,21 +114,21 @@ void networkEngine::setClientID(int ID)
 	clientID = ID;
 }
 
-std::string networkEngine::getIPAddress()	// returns ipAddress string
+Ogre::String networkEngine::getIPAddress()	// returns ipAddress string
 {
 	return(ipAddress);
 }
 
-void networkEngine::setIPAddress(std::string IP)	// sets ipAddress string
+void networkEngine::setIPAddress(Ogre::String IP)	// sets ipAddress string
 {
 	ipAddress = IP;
 }
 
-std::string networkEngine::getReceivedData()	// returns receivedData variable
+Ogre::String networkEngine::getReceivedData()	// returns receivedData variable
 {
 	return (receivedData);
 }
-void networkEngine::setReceivedData(std::string data)	// sets receivedData variable
+void networkEngine::setReceivedData(Ogre::String data)	// sets receivedData variable
 {
 	receivedData = data;
 }
@@ -217,8 +211,7 @@ int networkEngine::initialize()
 
 void networkEngine::clientConnect()
 {
-    //gameEngine *gameE = gameEngine::Instance();
-    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
+    gameEngine *gameE = gameEngine::Instance();
 
     if (!clientEstablishedConnection)
     {
@@ -320,7 +313,7 @@ void networkEngine::networkClient()
 			data = new char[event.packet->dataLength + 1];	// creates array the size of the packet data + 1
 			snprintf(data,event.packet->dataLength + 1, "%s", event.packet->data);	// copies contents of packet to data variable
 
-			receivedData = data;	// copies conetents of data array to receivedData std::string variable
+			receivedData = data;	// copies conetents of data array to receivedData Ogre::String variable
 			logMsg("receivedData == " +receivedData);
             // Clean up the packet now that we're done using it.
             enet_packet_destroy (event.packet);
@@ -345,8 +338,7 @@ void networkEngine::networkClient()
 
 void networkEngine::serverSetup()
 {
-    //gameEngine *gameE = gameEngine::Instance();
-    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
+    gameEngine *gameE = gameEngine::Instance();
     
 /* Bind the server to the default localhost.     */
 /* A specific host address can be specified by   */
@@ -379,13 +371,9 @@ void networkEngine::serverSetup()
 void networkEngine::networkServer()
 {
 //	serverSetup();
-    //conversion *convert = conversion::Instance();
-    boost::shared_ptr<conversion> convert = conversion::Instance();
-    //gameEngine *gameE = gameEngine::Instance();
-    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
-    
+    gameEngine *gameE = gameEngine::Instance();
     char *host; 
-    std::string addressHost, addressPort, packetData, packetDataLength, packetPeer, packetChannelID;
+    Ogre::String addressHost, addressPort, packetData, packetDataLength, packetPeer, packetChannelID;
     int x = 0;
     networkPlayerStateObject netPStateObj;
     std::stringstream ss;
@@ -416,20 +404,18 @@ void networkEngine::networkServer()
             			event.peer -> address.host,
             			event.peer -> address.port);
 */
-/*                host = event.peer->address.host;
-                //addressHost = convert->toString(event.peer->address.host);
-                addressHost = convert->toString(host);
-                addressPort = convert->toString(event.peer->address.port);
+                host = event.peer->address.host;
+            	//addressHost = Ogre::StringConverter::toString(event.peer->address.host);
+            	addressHost = Ogre::StringConverter::toString(host);
+                addressPort = Ogre::StringConverter::toString(event.peer->address.port);
             	logMsg("A new client connected from " + addressHost + ":" + addressPort);
-            	// Store any relevant client information here. 
-
+            	/* Store any relevant client information here. */
 //                event.peer->data = "Client information";
             	exit(0);
-*/
             	peer = event.peer;	// stores the peer connection for later use.
             	serverReceivedConnection = true;	// Tells code that a client has connected
  //           	exit(0);
-//                logMsg("Peer == " +convert->toString(addressHost));
+//                logMsg("Peer == " +Ogre::StringConverter::toString(addressHost));     
                 break;
 
             case ENET_EVENT_TYPE_RECEIVE:
@@ -442,17 +428,17 @@ void networkEngine::networkServer()
                         event.channelID);
 
                 // converts and writes data to Ogre.log for packet
-                packetData = convert->toString(event.packet->data);
-                packetDataLength = convert->toString(event.packet->dataLength);
-                packetPeer = convert->toString(event.peer->data);
-                packetChannelID = convert->toString(event.channelID);
+                packetData = Ogre::StringConverter::toString(event.packet->data);
+                packetDataLength = Ogre::StringConverter::toString(event.packet->dataLength);
+                packetPeer = Ogre::StringConverter::toString(event.peer->data);
+                packetChannelID = Ogre::StringConverter::toString(event.channelID);
                 Ogre::LogManager::getSingletonPtr()->logMessage("A packet of length " +packetDataLength + " containing " +packetData + " was received from " +packetPeer + " on channel " +packetChannelID);
                 packetReceived = true;	// lets code know that a packet was received
 
 				data = new char[event.packet->dataLength + 1];	// creates array the size of the packet data + 1
 				snprintf(data,event.packet->dataLength + 1, "%s", event.packet->data);	// copies contents of packet to data variable
 
-				receivedData = data;	// copies conetents of data array to receivedData std::string variable
+				receivedData = data;	// copies conetents of data array to receivedData Ogre::String variable
 	            logMsg("receivedData == " +receivedData);
                 exit(0);
                 enet_packet_destroy (event.packet);
@@ -474,11 +460,8 @@ void networkEngine::networkServer()
 
 void networkEngine::processLocalInput()  // processes local input for sending to remote system
 {
-    //inputSystem *input = inputSystem::Instance();
-    boost::shared_ptr<inputSystem> input = inputSystem::Instance();
-    //gameState *gameS = gameState::Instance();
-    boost::shared_ptr<gameState> gameS = gameState::Instance();
-    
+    inputSystem *input = inputSystem::Instance();
+    gameState *gameS = gameState::Instance();
     inputWorkQueues inputQueue;
     networkPlayerStateObject netPStateObj;
 
@@ -641,12 +624,9 @@ void networkEngine::processRemoteInput() // processes input received from a remo
     
 }
 
-void networkEngine::sendPacket(std::string packetData)
+void networkEngine::sendPacket(Ogre::String packetData)
 {
-    //conversion *convert = conversion::Instance();
-	boost::shared_ptr<conversion> convert = conversion::Instance();
-    //gameEngine *gameE = gameEngine::Instance();
-    boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
+	gameEngine *gameE = gameEngine::Instance();
 
 	if (gameE->getServerRunning())
 	{
@@ -660,7 +640,7 @@ void networkEngine::sendPacket(std::string packetData)
 		{
 		}
 	}
-    std::string host = convert->toString(peer->address.host);
+    std::string host = Ogre::StringConverter::toString(peer->address.host);
     logMsg("packetData == " + packetData);
 	logMsg("Peer host == " +host);
     exit(0);

@@ -888,7 +888,7 @@ void gameState::processNetworkPlayerEvents()	// processes player events from net
     logMsg("received teamID = " +convert->toString(netPStateObj.getTeamID()));
     logMsg("received playerID = " +convert->toString(netPStateObj.getPlayerID()));
 
-	// sets which team's activePlayerInstance to use
+    // sets which team's activePlayerInstance to use
 	if (network->getIsClient())
 	{
 	    logMsg("is client");
@@ -1076,10 +1076,10 @@ void gameState::updateBasketballMovements()	// updates the basketball(s) movemen
     exit(0);
     while (x < activePlayerInstance.size())
     {
-        if (activePlayerInstance[x].getPlayerID() == playerWithBallID)
-        {
-            playerWithBall = x;
-        }
+                if (activePlayerInstance[x].getPlayerID() == playerWithBallID)
+                {
+                    playerWithBall = x;
+                }
         ++x;
     }
     logMsg("bballplayerWithBall" + convert->toString(playerWithBall));
@@ -1180,33 +1180,38 @@ void gameState::updateBasketballDirections()	// updates basketball direction(s)
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     
-	std::vector<playerState> activePlayerInstance = teamInstance[teamWithBall].getActivePlayerInstance();
+	std::vector<playerState> playerInstance = teamInstance[teamWithBall].getPlayerInstance();
 	std::vector<int> activePlayerID = teamInstance[teamWithBall].getActivePlayerID();
     
-    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBallID();
+    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBall();
     size_t playerWithBall = -1;
     size_t x = 0;
-    while (x < activePlayerInstance.size())
+    while (x < playerInstance.size())
     {
-        if (activePlayerInstance[x].getPlayerID() == playerWithBallID)
+        size_t y = 0;
+        while (y < activePlayerID.size())
         {
-            playerWithBall = x;
+            if (activePlayerID[y] == playerInstance[x].getPlayerID())
+            {
+                playerWithBall = x;
+            }
+            ++y;
         }
         ++x;
     }
     
-    bool shotTaken = activePlayerInstance[playerWithBall].getShotTaken();
+    bool shotTaken = playerInstance[playerWithBall].getShotTaken();
 
     if (!shotTaken)
     {
 
         Ogre::Vector3 posChange;
-        directions playerDirection = activePlayerInstance[playerWithBall].getDirection();
-        directions oldPlayerDirection = activePlayerInstance[playerWithBall].getOldDirection();
+        directions playerDirection = playerInstance[playerWithBall].getDirection();
+        directions oldPlayerDirection = playerInstance[playerWithBall].getOldDirection();
 
         if (playerWithBall >= 0 && tipOffComplete == true)	// verifies that the playerWithBall variable is set to a valid number
         {
-            Ogre::Vector3 playerPos= activePlayerInstance[playerWithBall].getNode()->getPosition();
+            Ogre::Vector3 playerPos= playerInstance[playerWithBall].getNode()->getPosition();
             Ogre::Vector3 bballCurrentPos = basketballInstance[0].getNode()->getPosition();	// stores the current position of the basketball(s)
 
             Ogre::Vector3 bballPos = playerPos;
@@ -1271,7 +1276,7 @@ void gameState::updateBasketballDirections()	// updates basketball direction(s)
             }
         }
         oldPlayerDirection = playerDirection;
-        activePlayerInstance[playerWithBall].setOldDirection(oldPlayerDirection);  // copies contents of oldPlayerDirection to the oldDirection variable
+        playerInstance[playerWithBall].setOldDirection(oldPlayerDirection);  // copies contents of oldPlayerDirection to the oldDirection variable
     }
     else
     {
