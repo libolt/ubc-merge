@@ -184,16 +184,9 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
 //    for(unsigned int i=0;i<team0PlayerInstance.size();i++)
     while (x<team0PlayerInstance.size())
     {
-        while (y<team0ActivePlayerID.size())
+        if (x != teamInstance[0].getHumanPlayer())
         {
-            if (team0PlayerInstance[x].getPlayerID() == team0ActivePlayerID[y])
-            {
-                if (x != teamInstance[0].getHumanPlayer())
-                {
-                    team0PlayerInstance[x].getSteer()->update(currentTime, elapsedTime);
-                }
-            }
-            ++y;
+            team0PlayerInstance[4].getSteer()->update(currentTime, elapsedTime);
         }
         ++x;
     }
@@ -202,22 +195,12 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
 //    for(unsigned int i=0;i<team1PlayerInstance.size();i++)
     while (x<team1PlayerInstance.size())
     {
-        y = 0;
-        while (y<team1ActivePlayerID.size())
+        logMsg("team1steer.getHumanPlayer() ==" +convert->toString(teamInstance[1].getHumanPlayer()));
+        logMsg("player1SteerID == " +convert->toString(team1PlayerInstance[x].getPlayerID()));
+        teamInstance[1].setHumanPlayer(1);
+        if (x != teamInstance[1].getHumanPlayer())
         {
-            logMsg("team1ActiveID ==" +convert->toString(team1ActivePlayerID[y]));
-            if (team1PlayerInstance[x].getPlayerID() == team1ActivePlayerID[y])
-            {
-
-                logMsg("team1steer.getHumanPlayer() ==" +convert->toString(teamInstance[1].getHumanPlayer()));
-                logMsg("player1SteerID == " +convert->toString(team1PlayerInstance[x].getPlayerID()));
-                teamInstance[1].setHumanPlayer(1);
-                if (x != teamInstance[1].getHumanPlayer())
-                {
-                    team1PlayerInstance[x].getSteer()->update(currentTime, elapsedTime);
-                }
-            }
-            ++y;
+            team1PlayerInstance[x].getSteer()->update(currentTime, elapsedTime);
         }
         ++x;
     }

@@ -853,7 +853,6 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
                     logMsg("activeID[4] = " +convert->toString(activeID[4]));
 */
                     if (activePlayerInstance[i].getActivePosition())
-//                    if (activePlayerInstance[i].getIsActive() && activePlayerInstance[i].getPosition() == "C")
                     {
                         centerID = i;
                         logMsg("centerID = " +convert->toString(centerID));
