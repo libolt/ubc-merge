@@ -212,11 +212,13 @@ void playerSteer::update (const float currentTime, float elapsedTime)
    
     while (x < team0PlayerInstance.size())
     {
-        y = 0;
+/*        y = 0;
         while (y < team0ActivePlayerID.size())
         {
-            if (team0PlayerInstance[x].getPlayerID() == team0ActivePlayerID[y] && team0PlayerInstance[x].getInitialized())
+*/
+            if (team0PlayerInstance[x].getInitialized())
             {
+
                 logMsg("upDie?");
 //		playerSteerInstance.push_back(team0PlayerInstance[0].getSteer());
 
@@ -224,8 +226,9 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 		        team0Steers.push_back(team0PlayerInstance[x].getSteer());
 //		playerSteerInstance.push_back(team0PlayerInstance[2].getSteer());
             }
-            ++y;
+/*            ++y;
         }
+*/
         ++x;
     }
 
@@ -235,11 +238,13 @@ void playerSteer::update (const float currentTime, float elapsedTime)
     x = 0;
     while (x < team1PlayerInstance.size())
     {
-        y = 0;
+/*        y = 0;
         while (y < team1ActivePlayerID.size())
         {
-            if (team1PlayerInstance[x].getPlayerID() == team1ActivePlayerID[y] && team1PlayerInstance[x].getInitialized())
+*/
+            if (team1PlayerInstance[x].getInitialized())
             {
+
                 logMsg("upDie??");
                 logMsg("team1Steers size = " +convert->toString(team1Steers.size()));
                 logMsg("team1PlayerInstance size = " +convert->toString(team1PlayerInstance.size()));
@@ -249,8 +254,9 @@ void playerSteer::update (const float currentTime, float elapsedTime)
                 logMsg("Nope!");
                 
             }
-            ++y;
+/*            ++y;
         }
+*/
         ++x;
     }
 	
@@ -264,20 +270,22 @@ void playerSteer::update (const float currentTime, float elapsedTime)
             x = 0;
             while (x < team0PlayerInstance.size())
             {
-                y = 0;
+/*                y = 0;
                 while (y < team0ActivePlayerID.size())
                 {
                     if (team0ActivePlayerID[y] == ID)
                     {
-                        if (team0PlayerInstance[x].getPlayerID() == team0ActivePlayerID[y] && team0PlayerInstance[x].getInitialized())
+*/
+                        if (team0PlayerInstance[x].getInitialized())
                         {
                             logMsg("upDie???");
                             playerSteerPos = convert->toOpenSteerVec3(team0PlayerInstance[x].getNodePosition());
                             logMsg("nope!");
                         }
-                        }
+/*                    }
                     ++y;
                 }
+*/        
                 ++x;
             }
 			break;
@@ -288,20 +296,22 @@ void playerSteer::update (const float currentTime, float elapsedTime)
             x = 0;
             while (x < team1PlayerInstance.size())
             {
-                y = 0;
+/*                y = 0;
                 while (y < team1ActivePlayerID.size())
                 {
                     if (team1ActivePlayerID[y] == ID)
                     {
+*/
                         logMsg("TEEE");
                         if (team1PlayerInstance[x].getPlayerID() == team1ActivePlayerID[y] && team1PlayerInstance[x].getInitialized())
                         {
                             logMsg("upDie????");
                             playerSteerPos = convert->toOpenSteerVec3(team1PlayerInstance[x].getNodePosition());
                         }
-                    }
+/*                    }
                     ++y;
                 }
+*/
                 ++x;
             }
             break;
@@ -372,14 +382,14 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 //		logMsg("distHomeToBall = " +convert->toString(distHomeToBall));
 		if (teamNumber != gameS->getTeamWithBall())
 		{
-			updateDefense(currentTime, elapsedTime);
+			//updateDefense(currentTime, elapsedTime);
 		}
 		else
 		{
 			if (execute)
 			{
 //				exit(0);
-			    updateOffense(currentTime, elapsedTime);
+			   // updateOffense(currentTime, elapsedTime);
 			}
 		}
 
@@ -402,12 +412,13 @@ void playerSteer::update (const float currentTime, float elapsedTime)
             x = 0;
             while (x < team0PlayerInstance.size())
             {
-                y = 0;
+/*                y = 0;
                 while (y < team0ActivePlayerID.size())
                 {
                     if (team0ActivePlayerID[y] == ID)
                     {
-                        if (team0PlayerInstance[x].getPlayerID() == team0ActivePlayerID[y] && team0PlayerInstance[x].getInitialized())
+*/
+                        if (team0PlayerInstance[x].getInitialized())
                         {
                             logMsg("upDie????????");
                             team0PlayerInstance[x].getNode()->setPosition(posChange);
@@ -416,9 +427,10 @@ void playerSteer::update (const float currentTime, float elapsedTime)
                             team0PlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
                             logMsg("nope");
                         }
-                    }
+/*                    }
                     ++y;
                 }
+*/
                 ++x;
             }
             teamInstance[0].setActivePlayerInstance(team0PlayerInstance);
@@ -430,12 +442,13 @@ void playerSteer::update (const float currentTime, float elapsedTime)
             x = 0;
             while (x < team1PlayerInstance.size())
             {
-                y = 0;
+/*                y = 0;
                 while (y < team1ActivePlayerID.size())
                 {
                     if (team1ActivePlayerID[y] == ID)
                     {
-                        if (team1PlayerInstance[x].getPlayerID() == team1ActivePlayerID[y] && team1PlayerInstance[x].getInitialized())
+*/
+                        if (team1PlayerInstance[x].getInitialized())
                         {
                             logMsg("upDie?????????");
                             logMsg("bloop");
@@ -445,9 +458,10 @@ void playerSteer::update (const float currentTime, float elapsedTime)
                             team1PlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
                             logMsg("nope");
                         }
-                    }
+/*                    }
                     ++y;
                 }
+*/
                 ++x;
             }
             teamInstance[1].setActivePlayerInstance(team1PlayerInstance);
@@ -484,6 +498,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 		seekTarget = xxxsteerForSeek(steerCoords);
         logMsg("seekTarget = " +convert->toString(convert->toOgreVector3(steerCoords)));
 		applySteeringForce (seekTarget, elapsedTime);
+        
 	}
 	else
 	{
@@ -565,18 +580,20 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
             x = 0;
             while (x < team0PlayerInstance.size())
             {
-                y = 0;
+/*                y = 0;
                 while (y < team0ActivePlayerID.size())
                 {
-                    if (team0PlayerInstance[x].getPlayerID() == team0ActivePlayerID[ID] && team0PlayerInstance[x].getInitialized())
+*/
+                    if (team0PlayerInstance[x].getInitialized())
                     {
 			            team0PlayerInstance[x].getNode()->setPosition(posChange);
 			            physBodyChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
 			            physBodyTransform.setOrigin(physBodyChange);
 			            team0PlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
                     }
-                    ++y;
+/*                    ++y;
                 }
+*/
                 ++x;
             }
             teamInstance[0].setActivePlayerInstance(team0PlayerInstance);
@@ -588,10 +605,11 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
             x = 0;
             while (x < team1PlayerInstance.size())
             {
-                y = 0;
+/*                y = 0;
                 while (y < team1ActivePlayerID.size())
                 {
-                    if (team1PlayerInstance[x].getPlayerID() == team1ActivePlayerID[ID] && team1PlayerInstance[x].getInitialized())
+*/
+                    if (team1PlayerInstance[x].getInitialized())
                     {
                        
 			            team1PlayerInstance[x].getNode()->setPosition(posChange);
@@ -599,8 +617,9 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 			            physBodyTransform.setOrigin(physBodyChange);
 			            team1PlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
                     }
-                    ++y;
+/*                    ++y;
                 }
+*/
                 ++x;
             }
             teamInstance[1].setActivePlayerInstance(team1PlayerInstance);
@@ -660,18 +679,20 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
             x = 0;
             while (x < team1PlayerInstance.size())
             {
-                y = 0;
+/*                y = 0;
                 while (y < team1ActivePlayerID.size())
                 {
-                    if (team1PlayerInstance[x].getPlayerID() == team1ActivePlayerID[ID] && team1PlayerInstance[x].getInitialized())
+*/
+                    if (team1PlayerInstance[x].getInitialized())
                     {
                         logMsg("team 1 player ID = " +convert->toString(team1PlayerInstance[x].getPlayerID()));
                         logMsg("Die??");
                         playerOPos = convert->toOpenSteerVec3(team1PlayerInstance[x].getNodePosition());
                         logMsg("die!");                     
                     }
-                    ++y;
+/*                    ++y;
                 }
+*/
                 ++x;
             }
             break;
@@ -681,16 +702,18 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
             x = 0;
             while (x < team0PlayerInstance.size())
             {
-                y = 0;
+/*                y = 0;
                 while (y < team0ActivePlayerID.size())
                 {
-                    if (team0PlayerInstance[x].getPlayerID() == team0ActivePlayerID[ID] && team0PlayerInstance[x].getInitialized())
+*/
+                    if (team0PlayerInstance[x].getInitialized())
                     {
                         logMsg("Die???");
                         playerOPos = convert->toOpenSteerVec3(team0PlayerInstance[x].getNodePosition());
                     }
-                    ++y;
+/*                    ++y;
                 }
+*/
                 ++x;
             }
             break;
@@ -702,11 +725,13 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
     logMsg("Distance to playerOPos = " +convert->toString(distPlayerOPosition));
 	if (distPlayerOPosition >= 3)
 	{
+        logMsg("ID == " +convert->toString(ID));
 		logMsg("seeking!");
 //				seekTarget = xxxsteerForSeek(playerOPos);
 		const AbstractVehicle &quarry = *team1Steers[ID];
+        logMsg("Alive after seek");
 		seekTarget = steerForPursuit(quarry);
-
+        logMsg("Alive still after seek");
         logMsg("seekTarget = " +convert->toString(convert->toOgreVector3(playerOPos)));
 		applySteeringForce (seekTarget, elapsedTime);
 	}
@@ -727,10 +752,11 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
             x = 0;
             while (x < team0PlayerInstance.size())
             {
-                y = 0;
+/*                y = 0;
                 while (y < team0ActivePlayerID.size())
                 {
-                    if (team0PlayerInstance[x].getPlayerID() == team0ActivePlayerID[ID] && team0PlayerInstance[x].getInitialized())
+*/
+                    if (team0PlayerInstance[x].getInitialized())
                     {
                         logMsg("Die????");
                         team0PlayerInstance[x].getNode()->setPosition(posChange);
@@ -738,8 +764,9 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
                         physBodyTransform.setOrigin(physBodyChange);
                         team0PlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);                        
                     }
-                    ++y;
+/*                    ++y;
                 }
+*/
                 ++x;
             }
             teamInstance[0].setActivePlayerInstance(team0PlayerInstance);
@@ -751,10 +778,11 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
             x = 0;
             while (x < team1PlayerInstance.size())
             {
-                y = 0;
+/*                y = 0;
                 while (y < team1ActivePlayerID.size())
                 {
-                    if (team1PlayerInstance[x].getPlayerID() == team1ActivePlayerID[ID] && team1PlayerInstance[x].getInitialized())
+*/
+                    if (team1PlayerInstance[x].getInitialized())
                     {
                         logMsg("Die?????");
                         team1PlayerInstance[x].getNode()->setPosition(posChange);
@@ -762,8 +790,9 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
                         physBodyTransform.setOrigin(physBodyChange);
                         team1PlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
                     }
-                    ++y;
+/*                    ++y;
                 }
+*/
                 ++x;
             }
             teamInstance[1].setActivePlayerInstance(team1PlayerInstance);

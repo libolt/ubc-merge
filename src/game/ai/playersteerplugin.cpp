@@ -56,11 +56,12 @@ void playerSteerPlugin::open(void)
 	{
 //		logMsg("Alive0");
 	    logMsg("team 0 steer!");
-        while (y<team0ActivePlayerID.size())
+/*        while (y<team0ActivePlayerID.size())
         {
 //            if (team0PlayerInstance[x].getIsActive())
             if (team0PlayerInstance[x].getPlayerID() == team0ActivePlayerID[y])
             {
+*/
                 playerSteer *steer = team0PlayerInstance[x].getSteer();
         //		logMsg("Alive1");
                 logMsg("x = " +convert->toString(x));
@@ -74,9 +75,10 @@ void playerSteerPlugin::open(void)
                 team0PlayerInstance[x].setSteer(steer);
                 allPlayerSteers.push_back(team0PlayerInstance[x].getSteer());
     //        logMsg("team 0 activePlayerInstance added =  " +convert->toString(x));
-            }
+/*            }
          ++y;
         }
+*/
         ++x;
 	}
 //	exit(0);
@@ -87,20 +89,22 @@ void playerSteerPlugin::open(void)
 //	for (size_t x=0;x<team1PlayerInstance.size();++x)
 	while (x<team1PlayerInstance.size())
 	{
-        y = 0;
+/*        y = 0;
         while (y<team1ActivePlayerID.size())
         {
 //        if (team1PlayerInstance[x].getIsActive())
             if (team1PlayerInstance[x].getPlayerID() == team0ActivePlayerID[y])
             {
+*/
                 playerSteer *steer = team1PlayerInstance[x].getSteer();
                 steer->setPosition(convert->toOpenSteerVec3(team1PlayerInstance[x].getNodePosition()));
         //		steer->setID(x);
                 team1PlayerInstance[x].setSteer(steer);
                 allPlayerSteers.push_back(team1PlayerInstance[x].getSteer());
-            }
+/*            }
             ++y;
         }
+*/
         ++x;
 	}
 

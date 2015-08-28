@@ -600,7 +600,7 @@ bool teamState::createPlayerInstances()
             pInstance.setSecondaryPosition(playerDataInstance[i].getSecondaryPosition());    // copies the secondary position from the playerData std::vector to the pInstance class
             pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
             pSteer->setTeamNumber(teamNumber);
-            pSteer->setID(id);
+            //pSteer->setID(id);
 /*            if (pInstance.getPosition() == "PG")
             {
                 pSteer->setPlayerposition(PG);
@@ -838,6 +838,15 @@ void teamState::setPlayerStartActivePositions() // sets the position the players
         activePlayerInstance[2].setActivePosition(SF);
         activePlayerInstance[3].setActivePosition(PF);
         activePlayerInstance[4].setActivePosition(C);
+    }
+    // set steer IDs
+    size_t x = 0;
+    while (x < activePlayerInstance.size())
+    {
+        playerSteer *pSteer = activePlayerInstance[x].getSteer();
+        pSteer->setID(x);
+        activePlayerInstance[x].setSteer(pSteer);
+        ++x;
     }
 }
 
