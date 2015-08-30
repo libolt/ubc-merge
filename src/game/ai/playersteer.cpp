@@ -135,7 +135,7 @@ void playerSteer::reset(void)
             {
                 logMsg("teamStarterSteerID = " +convert->toString(teamStarterID[teamNumber][x]));
             }
-                playerSteerPos.x = 0.0;
+                playerSteerPos.x = -30.0;
                 playerSteerPos.y = 0.0;
                 playerSteerPos.z = 0.0;
 /*	        }
