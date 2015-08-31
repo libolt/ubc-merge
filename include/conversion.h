@@ -58,6 +58,7 @@ class conversion  // class for conversion between data types
         std::string toString(double data);  // converts double data to string
         std::string toString(void *data);  // converts void * data to string
         std::string toString(Ogre::Vector3 data);  // converts Ogre::Vector3 data to string
+        std::string toString(OpenSteer::Vec3 data);  // converts OpenSteer::Vec3 data to string
         std::string toString(playerPositions data); // converts playerPositions data to string
         
         // convert to char

@@ -789,7 +789,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
                 activePlayerInstance[x].getNode()->setPosition(startingPos[1]);
                 activePlayerInstance[x].setDirection(playerDirection);
                 activePlayerInstance[x].getSteer()->setPlayerPosition(SG);
-                activePlayerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[1]));
+                activePlayerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[1]-5));
             }
             else if (activePlayerInstance[x].getActivePosition() == SF)
             {
@@ -823,7 +823,15 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 */
 //	    exit(0);
 	}
-
+    size_t x = 0;
+    while (x < activePlayerInstance.size())
+    {
+        
+        logMsg("PlayerSteerNode Position == " +convert->toString(activePlayerInstance[x].getNode()->getPosition()));
+        logMsg("PlayerSteer Position == " +convert->toString(activePlayerInstance[x].getSteer()->position()));
+        ++x;
+    }
+//    exit(0);
 }
 
 void teamState::setPlayerStartActivePositions() // sets the position the players will play at the start of the game
@@ -843,30 +851,31 @@ void teamState::setPlayerStartActivePositions() // sets the position the players
     size_t x = 0;
     while (x < activePlayerInstance.size())
     {
-        playerSteer *pSteer = activePlayerInstance[x].getSteer();
-        pSteer->setID(x);
-        activePlayerInstance[x].setSteer(pSteer);
+        //playerSteer *pSteer = activePlayerInstance[x].getSteer();
+       // pSteer->setID(x);
+        activePlayerInstance[x].getSteer()->setID(x);
         ++x;
     }
+    
 }
 
 void teamState::updatePlayerStates()  // updates the states of active players
 {
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+
     size_t x = 0;
-    size_t y = 0;
     
     while (x<activePlayerInstance.size())
     {
-/*        while (y<activePlayerID.size())
-        {
-            if (playerInstance[x].getPlayerID() == activePlayerID[y])
-            {
-*/
         activePlayerInstance[x].updateState();
-/*            }
-            ++y;
-        }
-*/
+        ++x;
+    }
+    
+    x = 0;
+    while (x < activePlayerInstance.size())
+    {
+        logMsg("PlayerSteerNode Position == " +convert->toString(activePlayerInstance[x].getNode()->getPosition()));
+        logMsg("PlayerSteer Position == " +convert->toString(activePlayerInstance[x].getSteer()->position()));
         ++x;
     }
 }
