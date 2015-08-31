@@ -183,8 +183,8 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 
 	std::vector<basketballs> basketball = gameS->getBasketballInstance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
-    std::vector<playerState> team0PlayerInstance = teamInstance[0].getActivePlayerInstance();
-    std::vector<playerState> team1PlayerInstance = teamInstance[1].getActivePlayerInstance();
+    std::vector<playerState> team0ActivePlayerInstance = teamInstance[0].getActivePlayerInstance();
+    std::vector<playerState> team1ActivePlayerInstance = teamInstance[1].getActivePlayerInstance();
     std::vector<int> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
     std::vector<int> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
 //	std::vector<playerSteer*> playerSteerInstance;
@@ -205,26 +205,26 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 */
     logMsg("teamNumber = " +convert->toString(teamNumber));
 
-//    for (int x=0;x<team0PlayerInstance.size();++x)
+//    for (int x=0;x<team0ActivePlayerInstance.size();++x)
 //	{
     size_t x = 0;
     size_t y = 0;
    
-    while (x < team0PlayerInstance.size())
+    while (x < team0ActivePlayerInstance.size())
     {
 /*        y = 0;
         while (y < team0ActivePlayerID.size())
         {
 */
-            if (team0PlayerInstance[x].getInitialized())
+            if (team0ActivePlayerInstance[x].getInitialized())
             {
 
                 logMsg("upDie?");
-//		playerSteerInstance.push_back(team0PlayerInstance[0].getSteer());
+//		playerSteerInstance.push_back(team0ActivePlayerInstance[0].getSteer());
 
-//		playerSteerInstance.push_back(team0PlayerInstance[x].getSteer());
-		        team0Steers.push_back(team0PlayerInstance[x].getSteer());
-//		playerSteerInstance.push_back(team0PlayerInstance[2].getSteer());
+//		playerSteerInstance.push_back(team0ActivePlayerInstance[x].getSteer());
+                team0Steers.push_back(team0ActivePlayerInstance[x].getSteer());
+//		playerSteerInstance.push_back(team0ActivePlayerInstance[2].getSteer());
             }
 /*            ++y;
         }
@@ -233,24 +233,24 @@ void playerSteer::update (const float currentTime, float elapsedTime)
     }
 
 
-//    for (int x=0;x<team1PlayerInstance.size();++x)
+//    for (int x=0;x<team1ActivePlayerInstance.size();++x)
 //	{
     x = 0;
-    while (x < team1PlayerInstance.size())
+    while (x < team1ActivePlayerInstance.size())
     {
 /*        y = 0;
         while (y < team1ActivePlayerID.size())
         {
 */
-            if (team1PlayerInstance[x].getInitialized())
+            if (team1ActivePlayerInstance[x].getInitialized())
             {
 
                 logMsg("upDie??");
                 logMsg("team1Steers size = " +convert->toString(team1Steers.size()));
-                logMsg("team1PlayerInstance size = " +convert->toString(team1PlayerInstance.size()));
+                logMsg("team1ActivePlayerInstance size = " +convert->toString(team1ActivePlayerInstance.size()));
                 logMsg("x == " +convert->toString(x));
-//		playerSteerInstance.push_back(team1PlayerInstance[x].getSteer());
-		        team1Steers.push_back(team1PlayerInstance[x].getSteer());
+//		playerSteerInstance.push_back(team1ActivePlayerInstance[x].getSteer());
+                team1Steers.push_back(team1ActivePlayerInstance[x].getSteer());
                 logMsg("Nope!");
                 
             }
@@ -268,7 +268,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
             logMsg("do");
 //            logMsg("activeID num = " +convert->toString(team0ActivePlayerID[ID]));
             x = 0;
-            while (x < team0PlayerInstance.size())
+            while (x < team0ActivePlayerInstance.size())
             {
 /*                y = 0;
                 while (y < team0ActivePlayerID.size())
@@ -276,10 +276,10 @@ void playerSteer::update (const float currentTime, float elapsedTime)
                     if (team0ActivePlayerID[y] == ID)
                     {
 */
-                        if (team0PlayerInstance[x].getInitialized())
+                        if (team0ActivePlayerInstance[x].getInitialized())
                         {
                             logMsg("upDie???");
-                            playerSteerPos = convert->toOpenSteerVec3(team0PlayerInstance[x].getNodePosition());
+                            playerSteerPos = convert->toOpenSteerVec3(team0ActivePlayerInstance[x].getNodePosition());
                             logMsg("nope!");
                         }
 /*                    }
@@ -294,7 +294,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
             logMsg("team 1 ID = " +convert->toString(ID));
 //            logMsg("activeID num = " +convert->toString(team1ActivePlayerID[ID]));
             x = 0;
-            while (x < team1PlayerInstance.size())
+            while (x < team1ActivePlayerInstance.size())
             {
 /*                y = 0;
                 while (y < team1ActivePlayerID.size())
@@ -303,10 +303,10 @@ void playerSteer::update (const float currentTime, float elapsedTime)
                     {
 */
                         logMsg("TEEE");
-                        if (team1PlayerInstance[x].getPlayerID() == team1ActivePlayerID[y] && team1PlayerInstance[x].getInitialized())
+                        if (team1ActivePlayerInstance[x].getPlayerID() == team1ActivePlayerID[y] && team1ActivePlayerInstance[x].getInitialized())
                         {
                             logMsg("upDie????");
-                            playerSteerPos = convert->toOpenSteerVec3(team1PlayerInstance[x].getNodePosition());
+                            playerSteerPos = convert->toOpenSteerVec3(team1ActivePlayerInstance[x].getNodePosition());
                         }
 /*                    }
                     ++y;
@@ -382,14 +382,14 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 //		logMsg("distHomeToBall = " +convert->toString(distHomeToBall));
 		if (teamNumber != gameS->getTeamWithBall())
 		{
-			//updateDefense(currentTime, elapsedTime);
+            updateDefense(currentTime, elapsedTime);
 		}
 		else
 		{
 			if (execute)
 			{
 //				exit(0);
-			   // updateOffense(currentTime, elapsedTime);
+                updateOffense(currentTime, elapsedTime);
 			}
 		}
 
@@ -410,7 +410,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 	{
 	    case 0:
             x = 0;
-            while (x < team0PlayerInstance.size())
+            while (x < team0ActivePlayerInstance.size())
             {
 /*                y = 0;
                 while (y < team0ActivePlayerID.size())
@@ -418,13 +418,13 @@ void playerSteer::update (const float currentTime, float elapsedTime)
                     if (team0ActivePlayerID[y] == ID)
                     {
 */
-                        if (team0PlayerInstance[x].getInitialized())
+                        if (team0ActivePlayerInstance[x].getInitialized())
                         {
                             logMsg("upDie????????");
-                            team0PlayerInstance[x].getNode()->setPosition(posChange);
+                            team0ActivePlayerInstance[x].getNode()->setPosition(posChange);
                             physBodyChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
                             physBodyTransform.setOrigin(physBodyChange);
-                            team0PlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
+                            team0ActivePlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
                             logMsg("nope");
                         }
 /*                    }
@@ -433,14 +433,14 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 */
                 ++x;
             }
-            teamInstance[0].setActivePlayerInstance(team0PlayerInstance);
+            teamInstance[0].setActivePlayerInstance(team0ActivePlayerInstance);
 			break;
 		case 1:
             logMsg("ID = " +convert->toString(ID));
             logMsg("posChange = " +convert->toString(posChange));
 //			exit(0);
             x = 0;
-            while (x < team1PlayerInstance.size())
+            while (x < team1ActivePlayerInstance.size())
             {
 /*                y = 0;
                 while (y < team1ActivePlayerID.size())
@@ -448,14 +448,14 @@ void playerSteer::update (const float currentTime, float elapsedTime)
                     if (team1ActivePlayerID[y] == ID)
                     {
 */
-                        if (team1PlayerInstance[x].getInitialized())
+                        if (team1ActivePlayerInstance[x].getInitialized())
                         {
                             logMsg("upDie?????????");
                             logMsg("bloop");
-                            team1PlayerInstance[x].getNode()->setPosition(posChange);
+                            team1ActivePlayerInstance[x].getNode()->setPosition(posChange);
                             physBodyChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
                             physBodyTransform.setOrigin(physBodyChange);
-                            team1PlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
+                            team1ActivePlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
                             logMsg("nope");
                         }
 /*                    }
@@ -464,7 +464,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 */
                 ++x;
             }
-            teamInstance[1].setActivePlayerInstance(team1PlayerInstance);
+            teamInstance[1].setActivePlayerInstance(team1ActivePlayerInstance);
 			break;
 		default:
 		    break;
@@ -481,8 +481,8 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
     boost::shared_ptr<gameState> gameS = gameState::Instance();
 
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
-    std::vector<playerState> team0PlayerInstance = teamInstance[0].getActivePlayerInstance();
-    std::vector<playerState> team1PlayerInstance = teamInstance[1].getActivePlayerInstance();
+    std::vector<playerState> team0ActivePlayerInstance = teamInstance[0].getActivePlayerInstance();
+    std::vector<playerState> team1ActivePlayerInstance = teamInstance[1].getActivePlayerInstance();
     std::vector<int> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
     std::vector<int> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
 
@@ -523,7 +523,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
         startPosition = toOpenSteerVec3(offenseStartPositions[ID]);
         logMsg("startPosition = " +convert->toString(offenseStartPositions[ID]));
 
-        logMsg("current position = " +convert->toString(team1PlayerInstance[ID].getNodePosition()));
+        logMsg("current position = " +convert->toString(team1ActivePlayerInstance[ID].getNodePosition()));
 	    distToPosition = OpenSteer::Vec3::distance (startPosition, position());
         logMsg("Distance to start Position = " +convert->toString(distToPosition));
 	    if (distToPosition >= 3)
@@ -578,51 +578,51 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 	{
 	    case 0:
             x = 0;
-            while (x < team0PlayerInstance.size())
+            while (x < team0ActivePlayerInstance.size())
             {
 /*                y = 0;
                 while (y < team0ActivePlayerID.size())
                 {
 */
-                    if (team0PlayerInstance[x].getInitialized())
+                    if (team0ActivePlayerInstance[x].getInitialized())
                     {
-			            team0PlayerInstance[x].getNode()->setPosition(posChange);
+                        team0ActivePlayerInstance[x].getNode()->setPosition(posChange);
 			            physBodyChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
 			            physBodyTransform.setOrigin(physBodyChange);
-			            team0PlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
+                        team0ActivePlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
                     }
 /*                    ++y;
                 }
 */
                 ++x;
             }
-            teamInstance[0].setActivePlayerInstance(team0PlayerInstance);
+            teamInstance[0].setActivePlayerInstance(team0ActivePlayerInstance);
 			break;
 		case 1:
             logMsg("ID = " +convert->toString(ID));
             logMsg("posChange = " +convert->toString(posChange));
 //			exit(0);
             x = 0;
-            while (x < team1PlayerInstance.size())
+            while (x < team1ActivePlayerInstance.size())
             {
 /*                y = 0;
                 while (y < team1ActivePlayerID.size())
                 {
 */
-                    if (team1PlayerInstance[x].getInitialized())
+                    if (team1ActivePlayerInstance[x].getInitialized())
                     {
                        
-			            team1PlayerInstance[x].getNode()->setPosition(posChange);
+                        team1ActivePlayerInstance[x].getNode()->setPosition(posChange);
 			            physBodyChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
 			            physBodyTransform.setOrigin(physBodyChange);
-			            team1PlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
+                        team1ActivePlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
                     }
 /*                    ++y;
                 }
 */
                 ++x;
             }
-            teamInstance[1].setActivePlayerInstance(team1PlayerInstance);
+            teamInstance[1].setActivePlayerInstance(team1ActivePlayerInstance);
 			break;
 		default:
 		    break;
@@ -640,28 +640,28 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
 
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 
-    std::vector<playerState> team0PlayerInstance = teamInstance[0].getActivePlayerInstance();
-    std::vector<playerState> team1PlayerInstance = teamInstance[1].getActivePlayerInstance();
+    std::vector<playerState> team0ActivePlayerInstance = teamInstance[0].getActivePlayerInstance();
+    std::vector<playerState> team1ActivePlayerInstance = teamInstance[1].getActivePlayerInstance();
     std::vector<int> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
     std::vector<int> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
 
 	std::vector<playerSteer*> team0Steers;
 	std::vector<playerSteer*> team1Steers;
 
-    for (size_t x=0;x<team0PlayerInstance.size();++x)
+    for (size_t x=0;x<team0ActivePlayerInstance.size();++x)
 	{
-//		playerSteerInstance.push_back(team0PlayerInstance[0].getSteer());
+//		playerSteerInstance.push_back(team0ActivePlayerInstance[0].getSteer());
 
-//		playerSteerInstance.push_back(team0PlayerInstance[x].getSteer());
-		team0Steers.push_back(team0PlayerInstance[x].getSteer());
-//		playerSteerInstance.push_back(team0PlayerInstance[2].getSteer());
+//		playerSteerInstance.push_back(team0ActivePlayerInstance[x].getSteer());
+        team0Steers.push_back(team0ActivePlayerInstance[x].getSteer());
+//		playerSteerInstance.push_back(team0ActivePlayerInstance[2].getSteer());
 
 	}
 
-    for (size_t x=0;x<team1PlayerInstance.size();++x)
+    for (size_t x=0;x<team1ActivePlayerInstance.size();++x)
 	{
-//		playerSteerInstance.push_back(team1PlayerInstance[x].getSteer());
-		team1Steers.push_back(team1PlayerInstance[x].getSteer());
+//		playerSteerInstance.push_back(team1ActivePlayerInstance[x].getSteer());
+        team1Steers.push_back(team1ActivePlayerInstance[x].getSteer());
 
 	}
 
@@ -677,17 +677,17 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
             logMsg("activeID size = " +convert->toString((team1ActivePlayerID.size())));
             logMsg("activeID num = " +convert->toString(team1ActivePlayerID[ID]));
             x = 0;
-            while (x < team1PlayerInstance.size())
+            while (x < team1ActivePlayerInstance.size())
             {
 /*                y = 0;
                 while (y < team1ActivePlayerID.size())
                 {
 */
-                    if (team1PlayerInstance[x].getInitialized())
+                    if (team1ActivePlayerInstance[x].getInitialized())
                     {
-                        logMsg("team 1 player ID = " +convert->toString(team1PlayerInstance[x].getPlayerID()));
+                        logMsg("team 1 player ID = " +convert->toString(team1ActivePlayerInstance[x].getPlayerID()));
                         logMsg("Die??");
-                        playerOPos = convert->toOpenSteerVec3(team1PlayerInstance[x].getNodePosition());
+                        playerOPos = convert->toOpenSteerVec3(team1ActivePlayerInstance[x].getNodePosition());
                         logMsg("die!");                     
                     }
 /*                    ++y;
@@ -700,16 +700,16 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
             logMsg("activeID size = " +convert->toString((team1ActivePlayerID.size())));
             logMsg("activeID num = " +convert->toString(team1ActivePlayerID[ID]));
             x = 0;
-            while (x < team0PlayerInstance.size())
+            while (x < team0ActivePlayerInstance.size())
             {
 /*                y = 0;
                 while (y < team0ActivePlayerID.size())
                 {
 */
-                    if (team0PlayerInstance[x].getInitialized())
+                    if (team0ActivePlayerInstance[x].getInitialized())
                     {
                         logMsg("Die???");
-                        playerOPos = convert->toOpenSteerVec3(team0PlayerInstance[x].getNodePosition());
+                        playerOPos = convert->toOpenSteerVec3(team0ActivePlayerInstance[x].getNodePosition());
                     }
 /*                    ++y;
                 }
@@ -750,52 +750,52 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
 	{
 	    case 0:
             x = 0;
-            while (x < team0PlayerInstance.size())
+            while (x < team0ActivePlayerInstance.size())
             {
 /*                y = 0;
                 while (y < team0ActivePlayerID.size())
                 {
 */
-                    if (team0PlayerInstance[x].getInitialized())
+                    if (team0ActivePlayerInstance[x].getInitialized())
                     {
                         logMsg("Die????");
-                        team0PlayerInstance[x].getNode()->setPosition(posChange);
+                        team0ActivePlayerInstance[x].getNode()->setPosition(posChange);
                         physBodyChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
                         physBodyTransform.setOrigin(physBodyChange);
-                        team0PlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);                        
+                        team0ActivePlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
                     }
 /*                    ++y;
                 }
 */
                 ++x;
             }
-            teamInstance[0].setActivePlayerInstance(team0PlayerInstance);
+            teamInstance[0].setActivePlayerInstance(team0ActivePlayerInstance);
 			break;
 		case 1:
             logMsg("ID = " +convert->toString(ID));
             logMsg("posChange = " +convert->toString(posChange));
 //			exit(0);
             x = 0;
-            while (x < team1PlayerInstance.size())
+            while (x < team1ActivePlayerInstance.size())
             {
 /*                y = 0;
                 while (y < team1ActivePlayerID.size())
                 {
 */
-                    if (team1PlayerInstance[x].getInitialized())
+                    if (team1ActivePlayerInstance[x].getInitialized())
                     {
                         logMsg("Die?????");
-                        team1PlayerInstance[x].getNode()->setPosition(posChange);
+                        team1ActivePlayerInstance[x].getNode()->setPosition(posChange);
                         physBodyChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
                         physBodyTransform.setOrigin(physBodyChange);
-                        team1PlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
+                        team1ActivePlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
                     }
 /*                    ++y;
                 }
 */
                 ++x;
             }
-            teamInstance[1].setActivePlayerInstance(team1PlayerInstance);
+            teamInstance[1].setActivePlayerInstance(team1ActivePlayerInstance);
 			break;
 		default:
 		    break;

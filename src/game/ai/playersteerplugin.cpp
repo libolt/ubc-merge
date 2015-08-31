@@ -39,8 +39,8 @@ void playerSteerPlugin::open(void)
 
 	std::vector<courtState> courtInstance = gameS->getCourtInstance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
-    std::vector<playerState> team0PlayerInstance = teamInstance[0].getActivePlayerInstance();
-    std::vector<playerState> team1PlayerInstance = teamInstance[1].getActivePlayerInstance();
+    std::vector<playerState> team0ActivePlayerInstance = teamInstance[0].getActivePlayerInstance();
+    std::vector<playerState> team1ActivePlayerInstance = teamInstance[1].getActivePlayerInstance();
     std::vector<int> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
     std::vector<int> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
 
@@ -49,31 +49,31 @@ void playerSteerPlugin::open(void)
 	logMsg("Opening playerSteer plugin");
 
 	// builds team 0 steering instances
-//	for (size_t x=0;x<team0PlayerInstance.size();++x)
+//	for (size_t x=0;x<team0ActivePlayerInstance.size();++x)
 	size_t x = 0;
     size_t y = 0;
-	while (x<team0PlayerInstance.size())
+	while (x<team0ActivePlayerInstance.size())
 	{
 //		logMsg("Alive0");
 	    logMsg("team 0 steer!");
 /*        while (y<team0ActivePlayerID.size())
         {
-//            if (team0PlayerInstance[x].getIsActive())
-            if (team0PlayerInstance[x].getPlayerID() == team0ActivePlayerID[y])
+//            if (team0ActivePlayerInstance[x].getIsActive())
+            if (team0ActivePlayerInstance[x].getPlayerID() == team0ActivePlayerID[y])
             {
 */
-                playerSteer *steer = team0PlayerInstance[x].getSteer();
+                playerSteer *steer = team0ActivePlayerInstance[x].getSteer();
         //		logMsg("Alive1");
                 logMsg("x = " +convert->toString(x));
-                logMsg("player position = " +convert->toString(team0PlayerInstance[x].getNodePosition()));
-                steer->setPosition(convert->toOpenSteerVec3(team0PlayerInstance[x].getNodePosition()));
+                logMsg("player position = " +convert->toString(team0ActivePlayerInstance[x].getNodePosition()));
+                steer->setPosition(convert->toOpenSteerVec3(team0ActivePlayerInstance[x].getNodePosition()));
         //		steer.setPosition(OpenSteer::Vec3(0,0,0));
         //		logMsg("Alive2");
 
         //		steer->setID(x);
                 ai->selectedVehicle = steer;
-                team0PlayerInstance[x].setSteer(steer);
-                allPlayerSteers.push_back(team0PlayerInstance[x].getSteer());
+                team0ActivePlayerInstance[x].setSteer(steer);
+                allPlayerSteers.push_back(team0ActivePlayerInstance[x].getSteer());
     //        logMsg("team 0 activePlayerInstance added =  " +convert->toString(x));
 /*            }
          ++y;
@@ -86,21 +86,21 @@ void playerSteerPlugin::open(void)
 
 	logMsg("team 1 steer!");
 	x = 0;
-//	for (size_t x=0;x<team1PlayerInstance.size();++x)
-	while (x<team1PlayerInstance.size())
+//	for (size_t x=0;x<team1ActivePlayerInstance.size();++x)
+	while (x<team1ActivePlayerInstance.size())
 	{
 /*        y = 0;
         while (y<team1ActivePlayerID.size())
         {
-//        if (team1PlayerInstance[x].getIsActive())
-            if (team1PlayerInstance[x].getPlayerID() == team0ActivePlayerID[y])
+//        if (team1ActivePlayerInstance[x].getIsActive())
+            if (team1ActivePlayerInstance[x].getPlayerID() == team0ActivePlayerID[y])
             {
 */
-                playerSteer *steer = team1PlayerInstance[x].getSteer();
-                steer->setPosition(convert->toOpenSteerVec3(team1PlayerInstance[x].getNodePosition()));
+                playerSteer *steer = team1ActivePlayerInstance[x].getSteer();
+                steer->setPosition(convert->toOpenSteerVec3(team1ActivePlayerInstance[x].getNodePosition()));
         //		steer->setID(x);
-                team1PlayerInstance[x].setSteer(steer);
-                allPlayerSteers.push_back(team1PlayerInstance[x].getSteer());
+                team1ActivePlayerInstance[x].setSteer(steer);
+                allPlayerSteers.push_back(team1ActivePlayerInstance[x].getSteer());
 /*            }
             ++y;
         }
@@ -170,41 +170,41 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
-    std::vector<playerState> team0PlayerInstance = teamInstance[0].getActivePlayerInstance();
-    std::vector<playerState> team1PlayerInstance = teamInstance[1].getActivePlayerInstance();
+    std::vector<playerState> team0ActivePlayerInstance = teamInstance[0].getActivePlayerInstance();
+    std::vector<playerState> team1ActivePlayerInstance = teamInstance[1].getActivePlayerInstance();
     std::vector<int> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
     std::vector<int> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
 
 //	exit(0);
     // update simulation of test vehicle
-//    logMsg("team 0 activePlayerInstance size =  " +convert->toString(team0PlayerInstance.size()));
+//    logMsg("team 0 activePlayerInstance size =  " +convert->toString(team0ActivePlayerInstance.size()));
 
 // FIXME testing with one specific player for now
 
-//    team1PlayerInstance[3].getSteer()->update(currentTime, elapsedTime);
+//    team1ActivePlayerInstance[3].getSteer()->update(currentTime, elapsedTime);
 
     size_t x = 0;
     size_t y = 0;
-//    for(unsigned int i=0;i<team0PlayerInstance.size();i++)
-    while (x<team0PlayerInstance.size())
+//    for(unsigned int i=0;i<team0ActivePlayerInstance.size();i++)
+    while (x<team0ActivePlayerInstance.size())
     {
         if (x != teamInstance[0].getHumanPlayer())
         {
-            team0PlayerInstance[4].getSteer()->update(currentTime, elapsedTime);
+            team0ActivePlayerInstance[4].getSteer()->update(currentTime, elapsedTime);
         }
         ++x;
     }
 
     x = 0;
-//    for(unsigned int i=0;i<team1PlayerInstance.size();i++)
-    while (x<team1PlayerInstance.size())
+//    for(unsigned int i=0;i<team1ActivePlayerInstance.size();i++)
+    while (x<team1ActivePlayerInstance.size())
     {
         logMsg("team1steer.getHumanPlayer() ==" +convert->toString(teamInstance[1].getHumanPlayer()));
-        logMsg("player1SteerID == " +convert->toString(team1PlayerInstance[x].getPlayerID()));
+        logMsg("player1SteerID == " +convert->toString(team1ActivePlayerInstance[x].getPlayerID()));
         teamInstance[1].setHumanPlayer(1);
         if (x != teamInstance[1].getHumanPlayer())
         {
-            team1PlayerInstance[x].getSteer()->update(currentTime, elapsedTime);
+            team1ActivePlayerInstance[x].getSteer()->update(currentTime, elapsedTime);
         }
         ++x;
     }

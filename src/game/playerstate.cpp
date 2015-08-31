@@ -92,7 +92,7 @@ Ogre::Vector3 playerState::getNodePosition()  // retrieves the position of playe
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     
-    logMsg("node position = " +convert->toString(node->getPosition()));
+    logMsg("Player ID " +convert->toString(playerID) +" node position = " +convert->toString(node->getPosition()));
 	return (node->getPosition());
 }
 

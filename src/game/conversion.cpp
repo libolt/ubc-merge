@@ -116,6 +116,13 @@ std::string conversion::toString(double data)  // converts double data to string
 std::string conversion::toString(Ogre::Vector3 data)  // converts Ogre::Vector3 data to string
 {
     std::string strData;
+    strData = "OgreVector3(" +boost::lexical_cast<std::string>(data.x) +"," +boost::lexical_cast<std::string>(data.y) +"," + boost::lexical_cast<std::string>(data.z) +")";
+    return(strData);
+}
+std::string conversion::toString(Ogre::Vector3 data)  // converts Ogre::Vector3 data to string
+{
+    std::string strData;
+    strData = "OgreVector3(" +boost::lexical_cast<std::string>(data.x) +"," +boost::lexical_cast<std::string>(data.y) +"," + boost::lexical_cast<std::string>(data.z) +")";
     return(strData);
 }
 std::string conversion::toString(void *data)  // converts void * data to string
