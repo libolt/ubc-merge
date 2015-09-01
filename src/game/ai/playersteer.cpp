@@ -351,7 +351,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 			if (execute)
 			{
 //				exit(0);
-                //updateOffense(currentTime, elapsedTime);
+                updateOffense(currentTime, elapsedTime);
 			}
 		}
 
