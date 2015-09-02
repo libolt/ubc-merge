@@ -788,11 +788,11 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
 //          exit(0);
 
            // teamInstance[ballTippedToTeam].setPlayerWithBall(activePlayerInstance[gameS->getBallTippedToPlayer()].getPlayerID());
-            //teamInstance[ballTippedToTeam].setPlayerWithBall(0);
+            teamInstance[ballTippedToTeam].setPlayerWithBall(gameS->getBallTippedToPlayerID());
             teamInstance[ballTippedToTeam].setHumanPlayer(gameS->getBallTippedToPlayerID());
             teamInstance[ballTippedToTeam].setPlayerWithBallDribbling(true);
             logMsg("gameS->getBallTippedToPlayer() = " +convert->toString(gameS->getBallTippedToPlayerID()));
-            logMsg("playerWithBall == " +convert->toString(teamInstance[ballTippedToTeam].getPlayerWithBall()));
+            logMsg("playerWithBallTipped == " +convert->toString(teamInstance[ballTippedToTeam].getPlayerWithBall()));
             //exit(0);
             int activeDefensivePlayer = -1;
             switch (ballTippedToTeam)
@@ -934,10 +934,11 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
                             if (activePlayerInstance[y].getActivePosition() == gameS->getBallTippedToPosition())
                             {
                             //    gameS->set
+                                gameS->setBallTippedToPlayerID(activePlayerInstance[y].getPlayerID());
+
                             }
                             ++y;
                         }
-                        gameS->setBallTippedToPlayerID(activeID[0]);
                         
                         logMsg("activeID[0] == " +convert->toString(activeID[0]));
                         logMsg("gameS->setBallTippedToPlayer(i) == " +convert->toString(gameS->getBallTippedToPosition()));

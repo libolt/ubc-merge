@@ -22,7 +22,7 @@
 #include "conversion.h"
 #include "offensestate.h"
 #include "gamestate.h"
-#include "gameengine.h";
+#include "gameengine.h"
 #include "load.h"
 #include "logging.h"
 #include "playerstate.h"
@@ -294,10 +294,14 @@ void offenseState::executeOffense() // executes box offense
 
     if (!allStartPositionsReached)	// checks if all players have reached their start positions for the offense being run
     {
-        for (int x=0;x<5;++x)
+        logMsg("teamWithBallExecute == " +convert->toString(teamNumber));
+        logMsg("playerWithBallExecute == " +convert->toString(playerWithBall));
+        size_t x = 0;
+        while (x < activePlayerInstance.size())
         {
-            if ( x != playerWithBall)
+            if ( activePlayerInstance[x].getPlayerID() != playerWithBall)
             {
+                logMsg("activeSteerInstanceID == " +convert->toString(activePlayerInstance[x].getPlayerID()));
                 pSteer = activePlayerInstance[x].getSteer();
                 std::vector<bool> positionReached = pSteer->getPositionReached();
                 if (positionReached.size() != 1)
@@ -332,6 +336,7 @@ void offenseState::executeOffense() // executes box offense
                 }
                 logMsg("startPositionsReached = " +convert->toString(startPositionReached[x]));
             }
+            ++x;
         }
     }
 	else

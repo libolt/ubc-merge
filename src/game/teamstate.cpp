@@ -454,26 +454,38 @@ void teamState::updateState()	// updates the state of the object
 
 			if (gameS->getTeamWithBall() == teamNumber) // checks if the team has the basketball
 			{
-                logMsg("tipoffcomplete playerWithBall == " +convert->toString(activePlayerID[playerWithBall]));
-                //exit(0);
-                if (!activePlayerInstance[playerWithBall].getPassBall())	// checks if the player with ball is passing it.
+                logMsg("tipoffcomplete playerWithBall == " +convert->toString(playerWithBall));
+
+                size_t x = 0;
+                size_t instanceWithBall = -1;
+                while (x < activePlayerInstance.size())
+                {
+                    if (activePlayerInstance[x].getPlayerID() == playerWithBall)
+                    {
+                        instanceWithBall = x;
+                        break;
+                    }
+
+                    ++x;
+                }
+                if (!activePlayerInstance[instanceWithBall].getPassBall())	// checks if the player with ball is passing it.
 				{
 	//				exit(0);
                 }
-                else if (activePlayerInstance[playerWithBall].getPassBall())
+                else if (activePlayerInstance[instanceWithBall].getPassBall())
 				{
 					logMsg("Calculating Pass");
 	//				exit(0);
-					if (!playerInstance[playerWithBall].getPassCalculated())
+                    if (!playerInstance[instanceWithBall].getPassCalculated())
 					{
 	//					exit(0);
 						Ogre::Vector3 bballPos;
 						Ogre::Vector3 playerPos;
-                        activePlayerInstance[playerWithBall].calculatePass();
+                        activePlayerInstance[instanceWithBall].calculatePass();
 
 						//sets the basketball Height;
 						bballPos = basketballInstance[0].getNode()->getPosition();
-                        playerPos = activePlayerInstance[playerWithBall].getNode()->getPosition();
+                        playerPos = activePlayerInstance[instanceWithBall].getNode()->getPosition();
 						bballPos[1] = playerPos[1];
 						basketballInstance[0].getNode()->setPosition(bballPos);
 
@@ -485,12 +497,12 @@ void teamState::updateState()	// updates the state of the object
 						if (physEngine->getPassCollision())	// checks if ball has collided with player being passed to.
 						{
 //							exit(0);
-                            activePlayerInstance[playerWithBall].setPassBall(false);	// player is no longer passing the ball
-                            playerWithBall = activePlayerInstance[playerWithBall].getPassToPlayer(); // playerWithBall has changed
+                            activePlayerInstance[instanceWithBall].setPassBall(false);	// player is no longer passing the ball
+                            playerWithBall = activePlayerInstance[instanceWithBall].getPassToPlayer(); // playerWithBall has changed
 
 							if (humanControlled)
 							{
-								humanPlayer = playerWithBall;
+                                humanPlayer = instanceWithBall;
 							}
 							physEngine->setPassCollision(false);	// resets the pass collision state
 
@@ -537,7 +549,7 @@ void teamState::updateState()	// updates the state of the object
 	{
 	    if (gameS->getTeamWithBall() == teamNumber)
 	    {
-	        offenseInstance->updateState(teamNumber);	// updates the state of the offenseInstance object
+          //  offenseInstance->updateState(teamNumber);	// updates the state of the offenseInstance object
 	    }
 	    else
 	    {
