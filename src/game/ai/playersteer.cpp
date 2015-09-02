@@ -377,10 +377,12 @@ void playerSteer::update (const float currentTime, float elapsedTime)
                 if (team0ActivePlayerInstance[x].getInitialized())
                 {
                     logMsg("upDie????????");
-                    team0ActivePlayerInstance[x].getNode()->setPosition(posChange);
+                   // team0ActivePlayerInstance[x].getNode()->setPosition(posChange);
+                    team0ActivePlayerInstance[ID].getNode()->setPosition(posChange);
                     physBodyChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
                     physBodyTransform.setOrigin(physBodyChange);
-                    team0ActivePlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
+                   // team0ActivePlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
+                    team0ActivePlayerInstance[ID].getPhysBody()->setWorldTransform(physBodyTransform);
                     logMsg("nope");
                 }
                 ++x;
@@ -398,10 +400,12 @@ void playerSteer::update (const float currentTime, float elapsedTime)
                 {
                     logMsg("upDie?????????");
                     logMsg("bloop");
-                    team1ActivePlayerInstance[x].getNode()->setPosition(posChange);
+                  //  team1ActivePlayerInstance[x].getNode()->setPosition(posChange);
+                    team1ActivePlayerInstance[ID].getNode()->setPosition(posChange);
                     physBodyChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
                     physBodyTransform.setOrigin(physBodyChange);
-                    team1ActivePlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
+                  //  team1ActivePlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
+                    team1ActivePlayerInstance[ID].getPhysBody()->setWorldTransform(physBodyTransform);
                     logMsg("nope");
                 }
                 ++x;

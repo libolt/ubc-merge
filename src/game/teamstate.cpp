@@ -549,7 +549,7 @@ void teamState::updateState()	// updates the state of the object
 	{
 	    if (gameS->getTeamWithBall() == teamNumber)
 	    {
-          //  offenseInstance->updateState(teamNumber);	// updates the state of the offenseInstance object
+            offenseInstance->updateState(teamNumber);	// updates the state of the offenseInstance object
 	    }
 	    else
 	    {
@@ -1205,21 +1205,10 @@ void teamState::updatePositions()
     
     size_t x = 0;
 	// updates the player positions on the court
-//	for (size_t x = 0; x < playerInstance.size(); ++x)
     while (x<activePlayerInstance.size())
 	{
 //		logMsg("updatePositions X = " +convert->toString(x));
-/*        size_t i = 0;
-        while (i<activePlayerID.size())
-        {
-            if (activePlayerID[i] == playerInstance[x].getPlayerID())
-            {
-*/
         activePlayerInstance[x].updatePosition();
-/*            }
-            i++;
-        }
-*/
         x++;
     }
 
