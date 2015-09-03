@@ -87,7 +87,7 @@ playerState::~playerState()
 
 
 
-Ogre::Vector3 playerState::getNodePosition()  // retrieves the position of player node
+/*Ogre::Vector3 playerState::getNodePosition()  // retrieves the position of player node
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
@@ -95,7 +95,7 @@ Ogre::Vector3 playerState::getNodePosition()  // retrieves the position of playe
     logMsg("Player ID " +convert->toString(playerID) +" node position = " +convert->toString(node->getPosition()));
 	return (node->getPosition());
 }
-
+*/
 int playerState::getPlayerID(void)
 {
     return(playerID);
@@ -743,11 +743,29 @@ void playerState::updateState()
 
 }
 
-bool playerState::updatePosition()  // updates the XYZ coordinates of the 3D model
+bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3D model
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
+
+    switch (courtPositionChangedType)
+    {
+        case STEERCHANGE:
+            logMsg("Updating court position based on steering");
+        break;
+
+        case INPUTCHANGE:
+            logMsg("Updating court position based on input");
+        break;
+
+        case PHYSICSCHANGE:
+            logMsg("Updating court position based on physics");
+        break;
+
+        default:
+        break;
+    }
 
     logMsg("posChange = " +convert->toString(posChange));
 //	cout << "posChange = " << posChange << endl;

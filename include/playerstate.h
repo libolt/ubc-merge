@@ -45,7 +45,7 @@ class playerState
         playerState();
         ~playerState();
 
-        Ogre::Vector3 getNodePosition();  // retrieves the position of player node
+//        Ogre::Vector3 getNodePosition();  // retrieves the position of player node
 
         int getPlayerID();  // retrieves the value of playerID
         void setPlayerID(int id);  // sets the value of playerID
@@ -240,7 +240,7 @@ class playerState
 
         bool loadModel();   // loads the 3D model from file specified in modelName
 
-        bool updatePosition();  // updates the X, Y and Z coordinates of the 3D model
+        bool updateCourtPosition();  // updates the X, Y and Z coordinates of the 3D model
 
         void calculatePass();	// calculates which player to pass the ball to
 

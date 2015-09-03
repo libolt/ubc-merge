@@ -65,8 +65,8 @@ void playerSteerPlugin::open(void)
                 playerSteer *steer = team0ActivePlayerInstance[x].getSteer();
         //		logMsg("Alive1");
                 logMsg("x = " +convert->toString(x));
-                logMsg("player position = " +convert->toString(team0ActivePlayerInstance[x].getNodePosition()));
-                steer->setPosition(convert->toOpenSteerVec3(team0ActivePlayerInstance[x].getNodePosition()));
+                logMsg("player position = " +convert->toString(team0ActivePlayerInstance[x].getCourtPosition()));
+                steer->setPosition(convert->toOpenSteerVec3(team0ActivePlayerInstance[x].getCourtPosition()));
         //		steer.setPosition(OpenSteer::Vec3(0,0,0));
         //		logMsg("Alive2");
 
@@ -97,7 +97,7 @@ void playerSteerPlugin::open(void)
             {
 */
                 playerSteer *steer = team1ActivePlayerInstance[x].getSteer();
-                steer->setPosition(convert->toOpenSteerVec3(team1ActivePlayerInstance[x].getNodePosition()));
+                steer->setPosition(convert->toOpenSteerVec3(team1ActivePlayerInstance[x].getCourtPosition()));
         //		steer->setID(x);
                 team1ActivePlayerInstance[x].setSteer(steer);
                 allPlayerSteers.push_back(team1ActivePlayerInstance[x].getSteer());

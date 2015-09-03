@@ -1208,7 +1208,7 @@ void teamState::updatePositions()
     while (x<activePlayerInstance.size())
 	{
 //		logMsg("updatePositions X = " +convert->toString(x));
-        activePlayerInstance[x].updatePosition();
+        activePlayerInstance[x].updateCourtPosition();
         x++;
     }
 

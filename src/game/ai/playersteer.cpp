@@ -251,7 +251,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
                 if (team0ActivePlayerInstance[x].getInitialized())
                 {
                     logMsg("upDie???");
-                    playerSteerPos = convert->toOpenSteerVec3(team0ActivePlayerInstance[x].getNodePosition());
+                    playerSteerPos = convert->toOpenSteerVec3(team0ActivePlayerInstance[x].getCourtPosition());
                     logMsg("nope!");
                 }
                 ++x;
@@ -268,7 +268,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
                 if (team1ActivePlayerInstance[x].getInitialized())
                 {
                     logMsg("upDie????");
-                    playerSteerPos = convert->toOpenSteerVec3(team1ActivePlayerInstance[x].getNodePosition());
+                    playerSteerPos = convert->toOpenSteerVec3(team1ActivePlayerInstance[x].getCourtPosition());
                 }
                 ++x;
             }
@@ -610,7 +610,7 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
                 {
                     logMsg("team 1 player ID = " +convert->toString(team1ActivePlayerInstance[x].getPlayerID()));
                     logMsg("Die??");
-                    playerOPos = convert->toOpenSteerVec3(team1ActivePlayerInstance[x].getNodePosition());
+                    playerOPos = convert->toOpenSteerVec3(team1ActivePlayerInstance[x].getCourtPosition());
                     logMsg("die!");                     
                 }
                 ++x;
@@ -625,7 +625,7 @@ void playerSteer::updateDefense(const float currentTime, const float elapsedTime
                 if (team0ActivePlayerInstance[x].getInitialized())
                 {
                     logMsg("Die???");
-                    playerOPos = convert->toOpenSteerVec3(team0ActivePlayerInstance[x].getNodePosition());
+                    playerOPos = convert->toOpenSteerVec3(team0ActivePlayerInstance[x].getCourtPosition());
                 }
                 ++x;
             }
