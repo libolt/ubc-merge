@@ -354,24 +354,44 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 //		exit(0);
 	}
 
-	// moves the player model and physics body
-	btVector3 physBodyChange; // = btVector3(0,0,0);
-	btTransform physBodyTransform;
+    checkCourtPosition(); // checks if steering position matches court position
+	
+    logMsg("Alive!");
+}
 
-	// updates player's position
+void playerSteer::checkCourtPosition()  // checks if the player's position has changed
+{
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+
+    std::vector<teamState> teamInstance = gameS->getTeamInstance();
+    std::vector<playerState> team0ActivePlayerInstance = teamInstance[0].getActivePlayerInstance();
+    std::vector<playerState> team1ActivePlayerInstance = teamInstance[1].getActivePlayerInstance();
+
+    // moves the player model and physics body
+    btVector3 physBodyChange; // = btVector3(0,0,0);
+    btTransform physBodyTransform;
+
+    // updates player's position
     Ogre::Vector3 posChange = convert->toOgreVector3(position());
     Ogre::Vector3 *offenseStartPositions;
     OpenSteer::Vec3 startPosition;
     OpenSteer::Vec3 seekTarget;
-//			float distPlayerStartPosition;
+//          float distPlayerStartPosition;
+    size_t x = 0;
     switch (teamNumber)
-	{
-	    case 0:
+    {
+        case 0:
             x = 0;
-            while (x < team0ActivePlayerInstance.size())
-            {
+//            while (x < team0ActivePlayerInstance.size())
+//            {
+            
                 if (team0ActivePlayerInstance[x].getInitialized())
                 {
+                    team0ActivePlayerInstance[ID].setCourtPositionChanged(true);
+                    team0ActivePlayerInstance[ID].setCourtPositionChangedType(STEERCHANGE);
+                    team0ActivePlayerInstance[ID].setNewCourtPosition(convert->toOgreVector3(position()));
+                    
                     logMsg("upDie????????");
                    // team0ActivePlayerInstance[x].getNode()->setPosition(posChange);
                     team0ActivePlayerInstance[ID].getNode()->setPosition(posChange);
@@ -381,17 +401,17 @@ void playerSteer::update (const float currentTime, float elapsedTime)
                     team0ActivePlayerInstance[ID].getPhysBody()->setWorldTransform(physBodyTransform);
                     logMsg("nope");
                 }
-                ++x;
-            }
+//                ++x;
+//            }
             teamInstance[0].setActivePlayerInstance(team0ActivePlayerInstance);
-			break;
-		case 1:
+            break;
+        case 1:
             logMsg("ID = " +convert->toString(ID));
             logMsg("posChange = " +convert->toString(posChange));
-//			exit(0);
+//          exit(0);
             x = 0;
-            while (x < team1ActivePlayerInstance.size())
-            {
+//            while (x < team1ActivePlayerInstance.size())
+//            {
                 if (team1ActivePlayerInstance[x].getInitialized())
                 {
                     logMsg("upDie?????????");
@@ -404,14 +424,13 @@ void playerSteer::update (const float currentTime, float elapsedTime)
                     team1ActivePlayerInstance[ID].getPhysBody()->setWorldTransform(physBodyTransform);
                     logMsg("nope");
                 }
-                ++x;
-            }
+//                ++x;
+//            }
             teamInstance[1].setActivePlayerInstance(team1ActivePlayerInstance);
-			break;
-		default:
-		    break;
+            break;
+        default:
+            break;
 	}
-    logMsg("Alive!");
 }
 
 void playerSteer::updateOffense(const float currentTime, const float elapsedTime)	// updates the offense steering sim

@@ -657,6 +657,15 @@ void playerState::setCourtPosition(Ogre::Vector3 set)  // sets the value of cour
     courtPosition = set;
 }
 
+Ogre::Vector3 playerState::getNewCourtPosition() // retrieves the value of newCourtPosition
+{
+    return (newCourtPosition);
+}
+void playerState::setNewCourtPosition(Ogre::Vector3 set)  // sets the value of newCourtPosition
+{
+    newCourtPosition = set;
+}
+
 bool playerState::getCourtPositionChanged()  // retrieves the value of courtPositionChanged
 {
     return (courtPositionChanged);
@@ -748,11 +757,17 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
-
+    btVector3 physChange;
+    
     switch (courtPositionChangedType)
     {
         case STEERCHANGE:
             logMsg("Updating court position based on steering");
+            node->translate(newCourtPosition);
+            physChange = btVector3(0,0,0);
+            physChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
+            physBody->translate(physChange); // moves physics body in unison with the model
+
         break;
 
         case INPUTCHANGE:

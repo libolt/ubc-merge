@@ -88,6 +88,7 @@ class playerSteer : public steering
 	void reset(void); // resets the state
 	void update (const float currentTime, const float elapsedTime); // update steering sim every frame
 
+    void checkCourtPosition();  // checks if the player's position has changed
 	void updateOffense(const float currentTime, const float elapsedTime);	// updates the offense steering sim
 	void updateDefense(const float currentTime, const float elapsedTime);	// updates the defense steering sim
 

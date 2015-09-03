@@ -224,6 +224,9 @@ class playerState
         Ogre::Vector3 getCourtPosition(); // retrieves the value of courtPosition
         void setCourtPosition(Ogre::Vector3 set);  // sets the value of courtPosition
 
+        Ogre::Vector3 getNewCourtPosition(); // retrieves the value of newCourtPosition
+        void setNewCourtPosition(Ogre::Vector3 set);  // sets the value of newCourtPosition
+
         bool getCourtPositionChanged();  // retrieves the value of courtPositionChanged
         void setCourtPositionChanged(bool set);  // sets the value of courtPositionChanged
 
@@ -387,6 +390,9 @@ class playerState
         // stores the position of the player on the court in an Ogre::Vector3
         Ogre::Vector3 courtPosition;
 
+        // stores the upfated position of the player on the court in an Ogre::Vector3
+        Ogre::Vector3 newCourtPosition;
+        
         // if the court position has changed then this flag is set
         bool courtPositionChanged;
 
