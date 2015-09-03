@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2014 by Mike McLean   *
+ *   Copyright (C) 1999 - 2015 by Mike McLean   *
  *   libolt@libolt.net   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -88,12 +88,6 @@ class playerState
 
         bool getModelLoaded();  // retrieves the value of modelLoaded
         void setModelLoaded(bool set); // sets the value of modelLoaded
-
-        int getPlayerXCoord();  // retrieves the value of playerXCoord
-        void setPlayerXCoord(int XCoord);  // sets the value of playerXCoord
-
-        int getPlayerYCoord();  // retrieves the value of playerYCoord
-        void setPlayerYCoord(int YCoord);  // sets the value of playerYCoord
 
         int getOffDef();  // retrieves the value of offDef
         void setOffDef(int set);  // sets the value of offDef
@@ -271,8 +265,6 @@ class playerState
 
         bool modelLoaded; // stores whether or not the player's model has been loaded from disk
 
-        int playerXCoord;
-        int playerYCoord;
 
         // determines whether player is on offense or defense
         int offDef;

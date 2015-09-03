@@ -38,8 +38,6 @@ playerState::playerState()
     isActive = false;
     modelLoaded = false;
     networkControlled = false;
-    playerXCoord = 0;
-    playerYCoord = 0;
     offDef = 0;
     defending = -1;
     primaryPosition = NONE;
@@ -229,32 +227,6 @@ bool playerState::getModelLoaded()  // retrieves the value of modelLoaded
 void playerState::setModelLoaded(bool set) // sets the value of modelLoaded
 {
     modelLoaded = set;
-}
-
-// gets and sets player X and Y positions
-
-int playerState::getPlayerXCoord(void)
-{
-//	cout << "dee" << endl;
-
-//	cout << "playerXCoord = " << playerXCoord << endl;
-//	cout << "dah" << endl;
-    return(playerXCoord);
-}
-
-void playerState::setPlayerXCoord(int XCoord)
-{
-    playerXCoord = XCoord;
-}
-
-int playerState::getPlayerYCoord(void)
-{
-    return (playerYCoord);
-}
-
-void playerState::setPlayerYCoord(int YCoord)
-{
-    playerYCoord = YCoord;
 }
 
 int playerState::getOffDef(void)

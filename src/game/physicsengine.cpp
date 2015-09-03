@@ -596,16 +596,27 @@ void physicsEngine::updateState()
 
             activePlayerInstance = teamInstance[teamWithBall].getActivePlayerInstance();
             playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
-//          logMsg("Player with ball =====" +convert->toString(playerWithBall));
-//          exit(0);
-            if (!activePlayerInstance[playerWithBall].getPassBall())
+            logMsg("Player with ball =====" +convert->toString(playerWithBall));
+            size_t x = 0;
+            size_t playerWithBallInstance = -1;
+            while (x < activePlayerInstance.size())
+            {
+                if (activePlayerInstance[x].getPlayerID() == playerWithBall)
+                {
+                    playerWithBallInstance = x;
+                    break;
+                }
+                ++x;
+            }
+
+            if (!activePlayerInstance[playerWithBallInstance].getPassBall())
             {
                 teamInstance[teamWithBall].setPlayerWithBallDribbling(true);
     //          basketballInstance[0].getPhysBody()->forceActivationState(ACTIVE_TAG);
     //          basketballInstance[0].getPhysBody()->applyForce(btVector3(-0.0f, -31.0f, 0.0f),btVector3(0.0f,0.0f,0.0f));
     //          basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,-10,0));
             }
-            else if (activePlayerInstance[playerWithBall].getPassBall() && activePlayerInstance[playerWithBall].getPassCalculated())
+            else if (activePlayerInstance[playerWithBallInstance].getPassBall() && activePlayerInstance[playerWithBallInstance].getPassCalculated())
             {
                 passCollisionCheck();
             }
@@ -626,7 +637,7 @@ void physicsEngine::updateState()
 
     //exit(0);
 
-        for (unsigned int x=0;x<teamInstance.size();++x)    // saves changes made to the activePlayerInstance objects
+/*        for (unsigned int x=0;x<teamInstance.size();++x)    // saves changes made to the activePlayerInstance objects
         {
 //          teamInstance[x].setActivePlayerInstance(activePlayerInstance);
             std::string X = convert->toString(x);
@@ -634,6 +645,7 @@ void physicsEngine::updateState()
 //          logMsg("Team " +X +" PlayerInstance Size = " +size);
 
         }
+*/
         gameS->setTeamInstance(teamInstance);
     }
 

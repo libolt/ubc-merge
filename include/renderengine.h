@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2014 by Mike McLean   *
+ *   Copyright (C) 1999 - 2015 by Mike McLean   *
  *   libolt@libolt.net   *
  *         ?
  *

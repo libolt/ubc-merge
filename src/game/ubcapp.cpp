@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2014 bygb Mike McLean   *
+ *   Copyright (C) 1999 - 2015 bygb Mike McLean   *
  *   libolt@libolt.net   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *

@@ -41,6 +41,9 @@
 	// Physics bit masks
 	#define BIT(x) (1<<(x))
 
+    // Player
+    enum positionChangedTypes { OPENSTEER, OGRE, BULLET }; // Defines the type of position change that occured
+
     // Data Types
     //enum dataTypes { CHAR, INT, FLOAT, DOUBLE, OGREVEC3, OPENSTEERVEC3, BULLETVEC3 };  // Defines type of data being passed to function
     
