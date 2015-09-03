@@ -757,14 +757,13 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
-    btVector3 physChange;
+    btVector3 physChange = btVector3(0,0,0);
     
     switch (courtPositionChangedType)
     {
         case STEERCHANGE:
             logMsg("Updating court position based on steering");
             node->translate(newCourtPosition);
-            physChange = btVector3(0,0,0);
             physChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
             physBody->translate(physChange); // moves physics body in unison with the model
 
