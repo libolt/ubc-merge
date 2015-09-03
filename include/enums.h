@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2014 by Mike McLean   *
+ *   Copyright (C) 1999 - 2015 by Mike McLean   *
  *   libolt@libolt.net   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -42,7 +42,7 @@
 	#define BIT(x) (1<<(x))
 
     // Player
-    enum positionChangedTypes { OPENSTEER, OGRE, BULLET }; // Defines the type of position change that occured
+    enum positionChangedTypes { STEERCHANGE, INPUTCHANGE, PHYSICSCHANGE }; // Defines the type of position change that occured
 
     // Data Types
     //enum dataTypes { CHAR, INT, FLOAT, DOUBLE, OGREVEC3, OPENSTEERVEC3, BULLETVEC3 };  // Defines type of data being passed to function

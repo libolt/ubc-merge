@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2014 by Mike McLean   *
+ *   Copyright (C) 1999 - 2015 by Mike McLean   *
  *   libolt@libolt.net   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -76,6 +76,8 @@ playerState::playerState()
     initialized = false;
     jumpSet = false;
     jumpComplete = false;
+    courtPosition = Ogre::Vector3(0.0f,0.0f,0.0f);
+    courtPositionChanged = false;
 }
 
 playerState::~playerState()
@@ -644,6 +646,33 @@ bool playerState::getDefenseSet(void) // retrieves the value of defenseState
 void playerState::setDefenseSet(bool set)  // sets the value of defenseState
 {
 	defenseSet = set;
+}
+
+Ogre::Vector3 playerState::getCourtPosition() // retrieves the value of courtPosition
+{
+    return (courtPosition);
+}
+void playerState::setCourtPosition(Ogre::Vector3 set)  // sets the value of courtPosition
+{
+    courtPosition = set;
+}
+
+bool playerState::getCourtPositionChanged()  // retrieves the value of courtPositionChanged
+{
+    return (courtPositionChanged);
+}
+void playerState::setCourtPositionChanged(bool set)  // sets the value of courtPositionChanged
+{
+    courtPositionChanged = set;
+}
+
+positionChangedTypes playerState::getCourtPositionChangedType()  // retrieves the value of courtPositionChangedType
+{
+    return (courtPositionChangedType);
+}
+void playerState::setCourtPositionChangedType(positionChangedTypes set)  // sets the value of courtPositionChangedType
+{
+    courtPositionChangedType = set;
 }
 
 bool playerState::getInitialized(void) // retreives the value of initialized

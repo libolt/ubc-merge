@@ -221,8 +221,20 @@ class playerState
 		bool getDefenseSet(void); // retrieves the value of defenseState
 		void setDefenseSet(bool set);  // sets the value of defenseState
 
+        Ogre::Vector3 getCourtPosition(); // retrieves the value of courtPosition
+        void setCourtPosition(Ogre::Vector3 set);  // sets the value of courtPosition
+
+        bool getCourtPositionChanged();  // retrieves the value of courtPositionChanged
+        void setCourtPositionChanged(bool set);  // sets the value of courtPositionChanged
+
+        positionChangedTypes getCourtPositionChangedType();  // retrieves the value of courtPositionChangedType
+        void setCourtPositionChangedType(positionChangedTypes set);  // sets the value of courtPositionChangedType
+
         bool getInitialized(void); // retreives the value of initialized
         void setInitialized(bool set); // sets the value of initialized
+
+
+
 
         void updateState();	// updates the state of the object
 
@@ -371,6 +383,15 @@ class playerState
 
         // stores the steering objerct taht represents the player
         playerSteer *steer;
+
+        // stores the position of the player on the court in an Ogre::Vector3
+        Ogre::Vector3 courtPosition;
+
+        // if the court position has changed then this flag is set
+        bool courtPositionChanged;
+
+        // stores what subsystem changed the
+        positionChangedTypes courtPositionChangedType;
 
         // temporary hack
         bool initialized;
