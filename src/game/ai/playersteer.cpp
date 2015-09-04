@@ -414,6 +414,10 @@ void playerSteer::checkCourtPosition()  // checks if the player's position has c
 //            {
                 if (team1ActivePlayerInstance[x].getInitialized())
                 {
+                    team1ActivePlayerInstance[ID].setCourtPositionChanged(true);
+                    team1ActivePlayerInstance[ID].setCourtPositionChangedType(STEERCHANGE);
+                    team1ActivePlayerInstance[ID].setNewCourtPosition(convert->toOgreVector3(position()));
+
                     logMsg("upDie?????????");
                     logMsg("bloop");
                   //  team1ActivePlayerInstance[x].getNode()->setPosition(posChange);
@@ -431,6 +435,7 @@ void playerSteer::checkCourtPosition()  // checks if the player's position has c
         default:
             break;
 	}
+    gameS->setTeamInstance(teamInstance);
 }
 
 void playerSteer::updateOffense(const float currentTime, const float elapsedTime)	// updates the offense steering sim

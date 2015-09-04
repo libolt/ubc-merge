@@ -759,28 +759,32 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
     btVector3 physChange = btVector3(0,0,0);
     
-    switch (courtPositionChangedType)
+    if (courtPositionChanged)
     {
-        case STEERCHANGE:
-            logMsg("Updating court position based on steering");
-            node->translate(newCourtPosition);
-            physChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
-            physBody->translate(physChange); // moves physics body in unison with the model
+        switch (courtPositionChangedType)
+        {
+            case STEERCHANGE:
+                logMsg("Updating court position based on steering");
+                node->translate(newCourtPosition);
+                physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
+                physBody->translate(physChange); // moves physics body in unison with the model
 
-        break;
+            break;
 
-        case INPUTCHANGE:
-            logMsg("Updating court position based on input");
-        break;
+            case INPUTCHANGE:
+                logMsg("Updating court position based on input");
+            break;
 
-        case PHYSICSCHANGE:
-            logMsg("Updating court position based on physics");
-        break;
+            case PHYSICSCHANGE:
+                logMsg("Updating court position based on physics");
+            break;
 
-        default:
-        break;
+            default:
+            break;
+        }
+        courtPositionChanged = false;
+        exit(0);
     }
-
     logMsg("posChange = " +convert->toString(posChange));
 //	cout << "posChange = " << posChange << endl;
     node->translate(posChange);
