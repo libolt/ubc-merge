@@ -29,7 +29,7 @@
 #include "renderengine.h"
 #include "steering.h"
 #include "teamstate.h"
-
+#include "comparison.h"
 
 playerState::playerState()
 {
@@ -757,6 +757,7 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
+    comparison compare;
     btVector3 physChange = btVector3(0,0,0);
     Ogre::Vector3 changePos = Ogre::Vector3(0,0,0);
     
@@ -776,7 +777,7 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
             
             case STEERCHANGE:
                 logMsg("Updating player court position based on steering");
-                changePos = compareOgreVector3(courtPosition, newCourtPosition);
+                changePos = compare.OgreVector3ToOgreVector3(courtPosition, newCourtPosition);
                 logMsg("change playerCourtPosition = " +convert->toString(changePos));
                 node->translate(newCourtPosition);
                 physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
