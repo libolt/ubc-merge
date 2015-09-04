@@ -758,21 +758,37 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
     btVector3 physChange = btVector3(0,0,0);
+    Ogre::Vector3 changePos = Ogre::Vector3(0,0,0);
     
+    logMsg("updatePosChange == " +convert->toString(posChange));
     if (courtPositionChanged)
     {
         switch (courtPositionChangedType)
         {
-            case STEERCHANGE:
-                logMsg("Updating court position based on steering");
+            case STARTCHANGE:
+                logMsg("Updating player court position based on start position");
+                
                 node->translate(newCourtPosition);
                 physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
                 physBody->translate(physChange); // moves physics body in unison with the model
-
+                steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
             break;
+            
+            case STEERCHANGE:
+                logMsg("Updating player court position based on steering");
+                changePos = compareOgreVector3(courtPosition, newCourtPosition);
+                logMsg("change playerCourtPosition = " +convert->toString(changePos));
+                node->translate(newCourtPosition);
+                physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
+                physBody->translate(physChange); // moves physics body in unison with the model
+            break;   
 
             case INPUTCHANGE:
                 logMsg("Updating court position based on input");
+                node->translate(newCourtPosition);
+                physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
+                physBody->translate(physChange); // moves physics body in unison with the model
+                steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
             break;
 
             case PHYSICSCHANGE:
@@ -782,10 +798,12 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
             default:
             break;
         }
+        courtPosition = node->getPosition();
         courtPositionChanged = false;
-        exit(0);
+        
     }
-    logMsg("posChange = " +convert->toString(posChange));
+    
+/*    logMsg("posChange = " +convert->toString(posChange));
 //	cout << "posChange = " << posChange << endl;
     node->translate(posChange);
 	btVector3 change = btVector3(0,0,0);
@@ -796,6 +814,7 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
 //	exit(0);
 //	physBody->translate(btVector3(0,0,0));
 //	logMsg("player position updated.");
+*/
 	return true;
 }
 

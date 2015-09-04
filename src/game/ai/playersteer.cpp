@@ -340,7 +340,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 //		logMsg("distHomeToBall = " +convert->toString(distHomeToBall));
 		if (teamNumber != gameS->getTeamWithBall())
 		{
-           // updateDefense(currentTime, elapsedTime);
+            updateDefense(currentTime, elapsedTime);
 		}
 		else
 		{
@@ -388,10 +388,14 @@ void playerSteer::checkCourtPosition()  // checks if the player's position has c
             
                 if (team0ActivePlayerInstance[x].getInitialized())
                 {
+                    Ogre::Vector3 newCourtPosition = convert->toOgreVector3(position());
+                    logMsg("Current playerCourtPos = " +convert->toString(team0ActivePlayerInstance[ID].getCourtPosition()));
+                    logMsg("New playerCourtPos = " +convert->toString(newCourtPosition));
+
                     team0ActivePlayerInstance[ID].setCourtPositionChanged(true);
                     team0ActivePlayerInstance[ID].setCourtPositionChangedType(STEERCHANGE);
-                    team0ActivePlayerInstance[ID].setNewCourtPosition(convert->toOgreVector3(position()));
-                    
+                    team0ActivePlayerInstance[ID].setNewCourtPosition(newCourtPosition);
+/*                    
                     logMsg("upDie????????");
                    // team0ActivePlayerInstance[x].getNode()->setPosition(posChange);
                     team0ActivePlayerInstance[ID].getNode()->setPosition(posChange);
@@ -400,6 +404,7 @@ void playerSteer::checkCourtPosition()  // checks if the player's position has c
                    // team0ActivePlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
                     team0ActivePlayerInstance[ID].getPhysBody()->setWorldTransform(physBodyTransform);
                     logMsg("nope");
+*/
                 }
 //                ++x;
 //            }
@@ -418,7 +423,7 @@ void playerSteer::checkCourtPosition()  // checks if the player's position has c
                     team1ActivePlayerInstance[ID].setCourtPositionChangedType(STEERCHANGE);
                     team1ActivePlayerInstance[ID].setNewCourtPosition(convert->toOgreVector3(position()));
 
-                    logMsg("upDie?????????");
+/*                    logMsg("upDie?????????");
                     logMsg("bloop");
                   //  team1ActivePlayerInstance[x].getNode()->setPosition(posChange);
                     team1ActivePlayerInstance[ID].getNode()->setPosition(posChange);
@@ -427,6 +432,7 @@ void playerSteer::checkCourtPosition()  // checks if the player's position has c
                   //  team1ActivePlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
                     team1ActivePlayerInstance[ID].getPhysBody()->setWorldTransform(physBodyTransform);
                     logMsg("nope");
+*/
                 }
 //                ++x;
 //            }

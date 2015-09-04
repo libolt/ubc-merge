@@ -791,38 +791,58 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 */
             if (activePlayerInstance[x].getActivePosition() == PG)
             {
-                activePlayerInstance[x].getNode()->setPosition(startingPos[0]);
+                //activePlayerInstance[x].getNode()->setPosition(startingPos[0]);
+                activePlayerInstance[x].setCourtPositionChanged(true);
+                activePlayerInstance[x].setCourtPositionChangedType(STARTCHANGE);
+                activePlayerInstance[x].setNewCourtPosition(startingPos[0]);
+                
                 activePlayerInstance[x].setDirection(playerDirection);
                 activePlayerInstance[x].getSteer()->setPlayerPosition(PG);
-                activePlayerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[0]));
+                //activePlayerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[0]));
             }
             else if (activePlayerInstance[x].getActivePosition() == SG)
             {
-                activePlayerInstance[x].getNode()->setPosition(startingPos[1]);
+                //activePlayerInstance[x].getNode()->setPosition(startingPos[1]);
+                activePlayerInstance[x].setCourtPositionChanged(true);
+                activePlayerInstance[x].setCourtPositionChangedType(STARTCHANGE);
+                activePlayerInstance[x].setNewCourtPosition(startingPos[1]);
+
                 activePlayerInstance[x].setDirection(playerDirection);
                 activePlayerInstance[x].getSteer()->setPlayerPosition(SG);
-                activePlayerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[1]-5));
+                //activePlayerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[1]-5));
             }
             else if (activePlayerInstance[x].getActivePosition() == SF)
             {
-                activePlayerInstance[x].getNode()->setPosition(startingPos[2]);
+                //activePlayerInstance[x].getNode()->setPosition(startingPos[2]);
+                activePlayerInstance[x].setCourtPositionChanged(true);
+                activePlayerInstance[x].setCourtPositionChangedType(STARTCHANGE);
+                activePlayerInstance[x].setNewCourtPosition(startingPos[2]);
+
                 activePlayerInstance[x].setDirection(playerDirection);
                 activePlayerInstance[x].getSteer()->setPlayerPosition(SF);
-                activePlayerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[2]));
+                //activePlayerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[2]));
             }
             else if (activePlayerInstance[x].getActivePosition() == PF)
             {
-                activePlayerInstance[x].getNode()->setPosition(startingPos[3]);
+                //activePlayerInstance[x].getNode()->setPosition(startingPos[3]);
+                activePlayerInstance[x].setCourtPositionChanged(true);
+                activePlayerInstance[x].setCourtPositionChangedType(STARTCHANGE);
+                activePlayerInstance[x].setNewCourtPosition(startingPos[3]);
+
                 activePlayerInstance[x].setDirection(playerDirection);
                 activePlayerInstance[x].getSteer()->setPlayerPosition(PF);
-                activePlayerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[3]));
+                //activePlayerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[3]));
             }
             else if (activePlayerInstance[x].getActivePosition() == C)
             {
-                activePlayerInstance[x].getNode()->setPosition(startingPos[4]);
+               // activePlayerInstance[x].getNode()->setPosition(startingPos[4]);
+                activePlayerInstance[x].setCourtPositionChanged(true);
+                activePlayerInstance[x].setCourtPositionChangedType(STARTCHANGE);
+                activePlayerInstance[x].setNewCourtPosition(startingPos[4]);
+
                 activePlayerInstance[x].setDirection(playerDirection);
                 activePlayerInstance[x].getSteer()->setPlayerPosition(C);
-                activePlayerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[4]));
+               // activePlayerInstance[x].getSteer()->setPosition(convert->toOpenSteerVec3(startingPos[4]));
             }
             else
             {
@@ -1039,15 +1059,6 @@ void teamState::updatePlayerMovements()	// updates player movements
 //	for (size_t i = 0; i < playerInstance.size(); ++i)
     while(x<activePlayerInstance.size())
 	{
-//		logMsg("Player " +convert->toString(i) +" position = " +convert->toString(playerInstance[i].getNodePosition()));
-
-//        Ogre::LogManager::getSingletonPtr()->logMessage("i == " +convert->toString(i));
-
-/*        while (y<activePlayerID.size())
-        {
-            if (playerInstance[x].getPlayerID() == activePlayerID[y])
-            {
-*/
         if (activePlayerInstance[x].getMovement())	// if true sets coordinate change accordingly
         {
 //                    exit(0);
@@ -1096,18 +1107,7 @@ void teamState::updatePlayerMovements()	// updates player movements
         }
 
         activePlayerInstance[x].setPosChange(posChange);	// sets the posChange for current playerInstance
-/*		if (i != playerWithBall)	// only updates movement flag if player doesn't have ball
-        {
-        playerInstance[i].setMovement(false);
-        }
-        else
-        {
-        }	*/
         activePlayerInstance[x].setMovement(false);
-/*            }
-            ++y;
-        }
-*/
         ++x;
 	}
 
