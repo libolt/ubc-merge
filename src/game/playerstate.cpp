@@ -777,10 +777,11 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
             
             case STEERCHANGE:
                 logMsg("Updating player court position based on steering");
+                logMsg("Team " +convert->toString(teamNumber) + " Player " +convert->toString(playerID));
                 changePos = compare.OgreVector3ToOgreVector3(courtPosition, newCourtPosition);
                 logMsg("change playerCourtPosition = " +convert->toString(changePos));
-                node->translate(newCourtPosition);
-                physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
+                node->translate(changePos);
+                physChange = BtOgre::Convert::toBullet(changePos); // converts from Ogre::Vector3 to btVector3
                 physBody->translate(physChange); // moves physics body in unison with the model
             break;   
 
