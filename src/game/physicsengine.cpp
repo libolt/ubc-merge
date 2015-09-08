@@ -596,7 +596,7 @@ void physicsEngine::updateState()
                         logMsg("Team " +convert->toString(z) +" player " +convert->toString(y) +" pActivePhys == " +convert->toString(physPos));
                         logMsg("Team " +convert->toString(z) +" player " +convert->toString(y) +" pActiveCourt == " +convert->toString(courtPos));
                         logMsg("Team " +convert->toString(z) +" player " +convert->toString(y) +" pActiveSteer == " +convert->toString(steerPos));
-                        if (activePlayerInstance[z][y].setCourtPositionChangedType() == NOCHANGE)
+                        if (activePlayerInstance[z][y].getCourtPositionChangedType() == NOCHANGE)
                         {
                             if (!compare.OgreVector3ToBTVector3(courtPos, physPos))
                             {
