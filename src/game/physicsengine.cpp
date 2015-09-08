@@ -586,10 +586,10 @@ void physicsEngine::updateState()
                     size_t y = 0;
                     while (y < activePlayerInstance[z].size())
                     {
-                        
+                        activePlayerInstance[z].getPhysBody()->
                         ++y;
                     }
-                    ++z
+                    ++z;
                 }
     //          exit(0);
                 if (teamInstance[teamWithBall].getPlayerWithBallDribbling()) // checks if the player with ball is dribbling and updates accordingly
