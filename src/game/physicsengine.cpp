@@ -511,8 +511,15 @@ void physicsEngine::updateState()
 //    if (teamWithBall >=0)
 //    {
         std::vector<teamState> teamInstance = gameS->getTeamInstance();
-        std::vector<playerState> activePlayerInstance;
+        std::vector <std::vector<playerState> > activePlayerInstance;
         std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
+
+        size_t z = 0;
+        while (z < teamInstance.size())
+        {
+            activePlayerInstance.push_back(teamInstance[z].getActivePlayerInstance());
+            ++z;
+        }
 //      exit(0);
 //      std::vector<playerState> activePlayerInstance = teamInstance[teamWithBall].getPlayerInstance();
 //      exit(0);
@@ -573,6 +580,17 @@ void physicsEngine::updateState()
         {
             if (teamWithBall >= 0)
             {
+                z = 0;
+                while (z < teamInstance.size())
+                {
+                    size_t y = 0;
+                    while (y < activePlayerInstance[z].size())
+                    {
+                        
+                        ++y;
+                    }
+                    ++z
+                }
     //          exit(0);
                 if (teamInstance[teamWithBall].getPlayerWithBallDribbling()) // checks if the player with ball is dribbling and updates accordingly
                 {
@@ -594,14 +612,14 @@ void physicsEngine::updateState()
                 }
 //              logMsg("A Team Has Ball");
 
-            activePlayerInstance = teamInstance[teamWithBall].getActivePlayerInstance();
+           // activePlayerInstance = teamInstance[teamWithBall].getActivePlayerInstance();
             playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
             logMsg("Player with ball =====" +convert->toString(playerWithBall));
             size_t x = 0;
             size_t playerWithBallInstance = -1;
-            while (x < activePlayerInstance.size())
+            while (x < activePlayerInstance[teamWithBall].size())
             {
-                if (activePlayerInstance[x].getPlayerID() == playerWithBall)
+                if (activePlayerInstance[teamWithBall][x].getPlayerID() == playerWithBall)
                 {
                     playerWithBallInstance = x;
                     break;
@@ -609,14 +627,14 @@ void physicsEngine::updateState()
                 ++x;
             }
 
-            if (!activePlayerInstance[playerWithBallInstance].getPassBall())
+            if (!activePlayerInstance[teamWithBall][playerWithBallInstance].getPassBall())
             {
                 teamInstance[teamWithBall].setPlayerWithBallDribbling(true);
     //          basketballInstance[0].getPhysBody()->forceActivationState(ACTIVE_TAG);
     //          basketballInstance[0].getPhysBody()->applyForce(btVector3(-0.0f, -31.0f, 0.0f),btVector3(0.0f,0.0f,0.0f));
     //          basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(0,-10,0));
             }
-            else if (activePlayerInstance[playerWithBallInstance].getPassBall() && activePlayerInstance[playerWithBallInstance].getPassCalculated())
+            else if (activePlayerInstance[teamWithBall][playerWithBallInstance].getPassBall() && activePlayerInstance[teamWithBall][playerWithBallInstance].getPassCalculated())
             {
                 passCollisionCheck();
             }
