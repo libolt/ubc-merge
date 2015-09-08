@@ -27,6 +27,7 @@
 #include "playerstate.h"
 #include "physicsengine.h"
 #include "renderengine.h"
+#include "comparison.h"
 
 
 //physicsEngine* physicsEngine::pInstance = 0;
@@ -504,6 +505,8 @@ void physicsEngine::updateState()
     boost::shared_ptr<inputSystem> input = inputSystem::Instance();
 //    teamState *teamS = teamState::Instance();
 
+    comparison compare;
+    
     int teamWithBall = gameS->getTeamWithBall();
     int playerWithBall;
 //  logMsg("Updating Physics Engine State");
@@ -586,7 +589,22 @@ void physicsEngine::updateState()
                     size_t y = 0;
                     while (y < activePlayerInstance[z].size())
                     {
-                        activePlayerInstance[z].getPhysBody()->
+                        btTransform transform = activePlayerInstance[z][y].getPhysBody()->getWorldTransform();
+                        btVector3 physPos = transform.getOrigin();
+                        Ogre::Vector3 courtPos = activePlayerInstance[z][y].getCourtPosition();
+                        OpenSteer::Vec3 steerPos = activePlayerInstance[z][y].getSteer()->position();
+                        logMsg("Team " +convert->toString(z) +" player " +convert->toString(y) +" pActivePhys == " +convert->toString(physPos));
+                        logMsg("Team " +convert->toString(z) +" player " +convert->toString(y) +" pActiveCourt == " +convert->toString(courtPos));
+                        logMsg("Team " +convert->toString(z) +" player " +convert->toString(y) +" pActiveSteer == " +convert->toString(steerPos));
+                        if (activePlayerInstance[z][y].setCourtPositionChangedType() == NOCHANGE)
+                        {
+                            if (!compare.OgreVector3ToBTVector3(courtPos, physPos))
+                            {
+                                activePlayerInstance[z][y].setCourtPositionChanged(true);
+                                activePlayerInstance[z][y].setCourtPositionChangedType(PHYSICSCHANGE);
+                                exit(0);
+                            }
+                        }
                         ++y;
                     }
                     ++z;

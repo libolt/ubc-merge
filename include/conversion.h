@@ -34,6 +34,7 @@
 
 #include "Ogre.h"
 #include "OgreVector3.h"
+#include "bullet/LinearMath/btVector3.h"
 
 #include "steering.h"
 #include "enums.h"
@@ -59,8 +60,9 @@ class conversion  // class for conversion between data types
         std::string toString(void *data);  // converts void * data to string
         std::string toString(Ogre::Vector3 data);  // converts Ogre::Vector3 data to string
         std::string toString(OpenSteer::Vec3 data);  // converts OpenSteer::Vec3 data to string
+        std::string toString(btVector3 data); // converts btVector3 data to string
         std::string toString(playerPositions data); // converts playerPositions data to string
-        
+  
         // convert to char
         char toChar(std::string data);  // converts from std::string to char
         char toChar(char *data);  // converts from char * to char
