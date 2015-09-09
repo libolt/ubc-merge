@@ -803,7 +803,8 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
         }
         courtPosition = node->getPosition();
         courtPositionChanged = false;
-        
+        courtPositionChangedType = NOCHANGE;
+
     }
     
 /*    logMsg("posChange = " +convert->toString(posChange));

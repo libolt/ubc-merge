@@ -22,7 +22,7 @@
 #define _COMPARISON_H_
 
 #include "OgreVector3.h"
-
+#include "LinearMath/btVector3.h"
 class comparison
 {
     public:

@@ -34,7 +34,7 @@
 
 #include "Ogre.h"
 #include "OgreVector3.h"
-#include "bullet/LinearMath/btVector3.h"
+#include "LinearMath/btVector3.h"
 
 #include "steering.h"
 #include "enums.h"

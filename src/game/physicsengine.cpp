@@ -602,7 +602,7 @@ void physicsEngine::updateState()
                             {
                                 activePlayerInstance[z][y].setCourtPositionChanged(true);
                                 activePlayerInstance[z][y].setCourtPositionChangedType(PHYSICSCHANGE);
-                                exit(0);
+                                //exit(0);
                             }
                         }
                         ++y;
