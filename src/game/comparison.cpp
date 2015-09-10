@@ -27,7 +27,7 @@ comparison::comparison()
     
 }
 
-bool comparison::OgreVector3ToOgreVector3(Ogre::Vector3 currentValue, Ogre::Vector3 newValue)  // compares two Ogre::Vector3 objects and returns true if the same,false if diffeeent
+bool comparison::OgreVector3ToOgreVector3(const Ogre::Vector3 &currentValue, const Ogre::Vector3 &newValue)  // compares two Ogre::Vector3 objects and returns true if the same,false if diffeeent
 {
     if (currentValue.x != newValue.x || currentValue.y != newValue.y || currentValue.z != newValue.z)
     {
@@ -40,7 +40,7 @@ bool comparison::OgreVector3ToOgreVector3(Ogre::Vector3 currentValue, Ogre::Vect
     return (true);
 }
 
-Ogre::Vector3 comparison::OgreVector3ToOgreVector3Result(Ogre::Vector3 currentValue,Ogre::Vector3 newValue)  // compares two Ogre::Vector3 objects and returns their differences
+Ogre::Vector3 comparison::OgreVector3ToOgreVector3Result(const Ogre::Vector3 &currentValue, const Ogre::Vector3 &newValue)  // compares two Ogre::Vector3 objects and returns their differences
 {
     boost::shared_ptr<conversion> convert = conversion::Instance();
 
@@ -242,7 +242,7 @@ Ogre::Vector3 comparison::OgreVector3ToOgreVector3Result(Ogre::Vector3 currentVa
     return (change);
 }
 
-bool comparison::OgreVector3ToOpenSteerVec3(Ogre::Vector3 currentValue, OpenSteer::Vec3 newValue)  // compares an Ogre::Vector3 object to an OpenSteer::Vec3 and returns true if the same,false if different
+bool comparison::OgreVector3ToOpenSteerVec3(const Ogre::Vector3 &currentValue, const OpenSteer::Vec3 &newValue)  // compares an Ogre::Vector3 object to an OpenSteer::Vec3 and returns true if the same,false if different
 {
     if (currentValue.x != newValue.x || currentValue.y != newValue.y || currentValue.z != newValue.z)
     {
@@ -254,7 +254,7 @@ bool comparison::OgreVector3ToOpenSteerVec3(Ogre::Vector3 currentValue, OpenStee
     }
     return (true);
 }
-Ogre::Vector3 comparison::OgreVector3ToOpenSteerVec3Result(Ogre::Vector3 currentValue, OpenSteer::Vec3 newValue)  // compares an Ogre::Vector3 object to an OpenSteer::Vec3 and returns their differences in Ogre::Vector3 format
+Ogre::Vector3 comparison::OgreVector3ToOpenSteerVec3Result(const Ogre::Vector3 &currentValue, const OpenSteer::Vec3 &newValue)  // compares an Ogre::Vector3 object to an OpenSteer::Vec3 and returns their differences in Ogre::Vector3 format
 {
     boost::shared_ptr<conversion> convert = conversion::Instance();
 
@@ -456,7 +456,7 @@ Ogre::Vector3 comparison::OgreVector3ToOpenSteerVec3Result(Ogre::Vector3 current
     return (change);
 }
 
-bool comparison::OgreVector3ToBTVector3(Ogre::Vector3 currentValue, btVector3 newValue)  // compares an Ogre::Vector3 object to an btVector3 and returns true if the same,false if different
+bool comparison::OgreVector3ToBTVector3(const Ogre::Vector3 &currentValue, const btVector3 &newValue)  // compares an Ogre::Vector3 object to an btVector3 and returns true if the same,false if different
 {
     if (currentValue.x != newValue.getX() || currentValue.y != newValue.getY() || currentValue.z != newValue.getZ())
     {
@@ -468,7 +468,7 @@ bool comparison::OgreVector3ToBTVector3(Ogre::Vector3 currentValue, btVector3 ne
     }
     return (true);
 }
-Ogre::Vector3 comparison::OgreVector3ToBTVector3Result(Ogre::Vector3 currentValue, btVector3 newValue)  // compares an Ogre::Vector3 object to an btVector3 and returns their differences in Ogre::Vector3 format
+Ogre::Vector3 comparison::OgreVector3ToBTVector3Result(const Ogre::Vector3 &currentValue, const btVector3 &newValue)  // compares an Ogre::Vector3 object to an btVector3 and returns their differences in Ogre::Vector3 format
 {
     boost::shared_ptr<conversion> convert = conversion::Instance();
 
