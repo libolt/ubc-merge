@@ -764,15 +764,18 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
     logMsg("updatePosChange == " +convert->toString(posChange));
     if (courtPositionChanged)
     {
+        
         switch (courtPositionChangedType)
         {
             case STARTCHANGE:
                 logMsg("Updating player court position based on start position");
                 
-                node->translate(newCourtPosition);
-                physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
-                physBody->translate(physChange); // moves physics body in unison with the model
-                steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
+             //   node->translate(newCourtPosition);
+             //   physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
+            //    physBody->translate(physChange); // moves physics body in unison with the model
+             //   steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
+                courtPositionChanged = false;
+                //courtPositionChangedType = NOCHANGE;
             break;
             
             case STEERCHANGE:
@@ -783,6 +786,7 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
                 node->translate(changePos);
                 physChange = BtOgre::Convert::toBullet(changePos); // converts from Ogre::Vector3 to btVector3
                 physBody->translate(physChange); // moves physics body in unison with the model
+                exit(0);
             break;   
 
             case INPUTCHANGE:
@@ -791,20 +795,19 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
                 physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
                 physBody->translate(physChange); // moves physics body in unison with the model
                 steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
+                exit(0);
             break;
 
             case PHYSICSCHANGE:
                 logMsg("Updating court position based on physics");
-                //exit(0);
+                exit(0);
             break;
 
             default:
             break;
         }
         courtPosition = node->getPosition();
-        courtPositionChanged = false;
-        courtPositionChangedType = NOCHANGE;
-
+        
     }
     
 /*    logMsg("posChange = " +convert->toString(posChange));

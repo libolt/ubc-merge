@@ -435,7 +435,13 @@ void playerSteer::checkCourtPosition()  // checks if the player's position has c
         Ogre::Vector3 newCourtPosition = convert->toOgreVector3(position());
         activePlayerInstance[teamNumber][ID].setCourtPositionChanged(true);
         activePlayerInstance[teamNumber][ID].setCourtPositionChangedType(STEERCHANGE);
-        activePlayerInstance[teamNumber][ID].setNewCourtPosition(newCourtPosition);
+        activePlayerInstance[teamNumber][ID].setNewCourtPosition(newCourtPosition); 
+    }
+    
+    while (z < teamInstance.size())
+    {
+        teamInstance[z].setActivePlayerInstance(activePlayerInstance[z]);
+        ++z;
     }
 /*                    
             }
