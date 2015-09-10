@@ -131,7 +131,7 @@ std::string conversion::toString(const btVector3 &data) // converts btVector3 da
     strData = "btVector3(" +boost::lexical_cast<std::string>(data.getX()) +"," +boost::lexical_cast<std::string>(data.getY()) +"," + boost::lexical_cast<std::string>(data.getZ()) +")";
     return(strData);
 }
-std::string conversion::toString(const void *data)  // converts void * data to string
+std::string conversion::toString(void *data)  // converts void * data to string
 {
     std::string strData;
     return(strData);
@@ -240,7 +240,7 @@ char conversion::toChar(const double &data)  // converts from double to char
     charData = boost::lexical_cast<char>(data);
     return (charData);
 }*/
-char conversion::toChar(const void  *data)  // converts from void * to char
+char conversion::toChar(void  *data)  // converts from void * to char
 {
     char charData;
     charData = boost::lexical_cast<char>(data);
@@ -543,7 +543,7 @@ int conversion::toInt(const double &data)  // converts from double to int
     intData = boost::lexical_cast<int>(data);
     return (intData);
 }*/
-int conversion::toInt(const void  *data)  // converts from void * to int
+int conversion::toInt(void  *data)  // converts from void * to int
 {
     int intData;
     intData = boost::lexical_cast<int>(data);
@@ -623,7 +623,7 @@ long toLong(const double &data)  // converts from double to long
     longData = boost::lexical_cast<long>(data);
     return (longData);
 }*/
-long toLong(const void  *data)  // converts from void * to long
+long toLong(void  *data)  // converts from void * to long
 {
     long longData;
     longData = boost::lexical_cast<long>(data);
@@ -704,7 +704,7 @@ unsigned int toUnsignedInt(const double &data)  // converts from double to unsig
     unsignedIntData = boost::lexical_cast<unsigned long>(data);
     return (unsignedIntData);
 }*/
-unsigned int toUnsignedInt(const void  *data)  // converts from void * to unsigned int
+unsigned int toUnsignedInt(void  *data)  // converts from void * to unsigned int
 {
     unsigned int unsignedIntData;
     unsignedIntData = boost::lexical_cast<unsigned long>(data);
@@ -785,7 +785,7 @@ unsigned long toUnsignedLong(const double &data)  // converts from double to uns
     unsignedLongData = boost::lexical_cast<unsigned long>(data);
     return (unsignedLongData);
 }*/
-unsigned long toUnsignedLong(const void  *data)  // converts from void * to unsigned long
+unsigned long toUnsignedLong(void  *data)  // converts from void * to unsigned long
 {
     unsigned long unsignedLongData;
     unsignedLongData = boost::lexical_cast<unsigned long>(data);
@@ -865,7 +865,7 @@ float conversion::toFloat(const double &data)  // converts from double to float
     floatData = boost::lexical_cast<float>(data);
     return (floatData);
 }*/
-float conversion::toFloat(const void  *data)  // converts from void * to float
+float conversion::toFloat(void  *data)  // converts from void * to float
 {
     float floatData;
     floatData = boost::lexical_cast<float>(data);
@@ -945,7 +945,7 @@ double conversion::toDouble(const float &data)  // converts from float to double
     doubleData = boost::lexical_cast<double>(data);
     return (doubleData);
 }*/
-double conversion::toDouble(const void  *data)  // converts from void * to double
+double conversion::toDouble(void  *data)  // converts from void * to double
 {
     double doubleData;
     doubleData = boost::lexical_cast<double>(data);
