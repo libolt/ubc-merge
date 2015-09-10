@@ -39,11 +39,13 @@ void playerSteerPlugin::open(void)
 
 	std::vector<courtState> courtInstance = gameS->getCourtInstance();
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
-    std::vector<playerState> team0ActivePlayerInstance = teamInstance[0].getActivePlayerInstance();
+    /*std::vector<playerState> team0ActivePlayerInstance = teamInstance[0].getActivePlayerInstance();
     std::vector<playerState> team1ActivePlayerInstance = teamInstance[1].getActivePlayerInstance();
     std::vector<int> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
     std::vector<int> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
-
+*/
+    std::vector<std::vector<playerState> > activePlayerInstance;
+    
 	std::vector<playerSteer *> allPlayerSteers = ai->getAllPlayerSteers();
 
 	logMsg("Opening playerSteer plugin");
@@ -51,17 +53,34 @@ void playerSteerPlugin::open(void)
 	// builds team 0 steering instances
 //	for (size_t x=0;x<team0ActivePlayerInstance.size();++x)
 	size_t x = 0;
-    size_t y = 0;
-	while (x<team0ActivePlayerInstance.size())
+    while (x < teamInstance.size())
+    {
+        activePlayerInstance.push_back(teamInstance[x].getActivePlayerInstance());
+        size_t y = 0;
+        while (y < activePlayerInstance[x].size())
+        {
+            playerSteer *steer = activePlayerInstance[x][y].getSteer();
+        //      logMsg("Alive1");
+            logMsg("y = " +convert->toString(y));
+            logMsg("player position = " +convert->toString(activePlayerInstance[x][y].getCourtPosition()));
+            steer->setPosition(convert->toOpenSteerVec3(activePlayerInstance[x][y].getCourtPosition()));
+        //      steer.setPosition(OpenSteer::Vec3(0,0,0));
+        //      logMsg("Alive2");
+
+        //      steer->setID(x);
+            ai->selectedVehicle = steer;
+            activePlayerInstance[x][y].setSteer(steer);
+            allPlayerSteers.push_back(activePlayerInstance[x][y].getSteer());
+            ++y;
+        }
+        ++x;
+    }
+
+/*	while (x<team0ActivePlayerInstance.size())
 	{
 //		logMsg("Alive0");
 	    logMsg("team 0 steer!");
-/*        while (y<team0ActivePlayerID.size())
-        {
-//            if (team0ActivePlayerInstance[x].getIsActive())
-            if (team0ActivePlayerInstance[x].getPlayerID() == team0ActivePlayerID[y])
-            {
-*/
+
                 playerSteer *steer = team0ActivePlayerInstance[x].getSteer();
         //		logMsg("Alive1");
                 logMsg("x = " +convert->toString(x));
@@ -75,10 +94,7 @@ void playerSteerPlugin::open(void)
                 team0ActivePlayerInstance[x].setSteer(steer);
                 allPlayerSteers.push_back(team0ActivePlayerInstance[x].getSteer());
     //        logMsg("team 0 activePlayerInstance added =  " +convert->toString(x));
-/*            }
-         ++y;
-        }
-*/
+
         ++x;
 	}
 //	exit(0);
@@ -89,25 +105,15 @@ void playerSteerPlugin::open(void)
 //	for (size_t x=0;x<team1ActivePlayerInstance.size();++x)
 	while (x<team1ActivePlayerInstance.size())
 	{
-/*        y = 0;
-        while (y<team1ActivePlayerID.size())
-        {
-//        if (team1ActivePlayerInstance[x].getIsActive())
-            if (team1ActivePlayerInstance[x].getPlayerID() == team0ActivePlayerID[y])
-            {
-*/
                 playerSteer *steer = team1ActivePlayerInstance[x].getSteer();
                 steer->setPosition(convert->toOpenSteerVec3(team1ActivePlayerInstance[x].getCourtPosition()));
         //		steer->setID(x);
                 team1ActivePlayerInstance[x].setSteer(steer);
                 allPlayerSteers.push_back(team1ActivePlayerInstance[x].getSteer());
-/*            }
-            ++y;
-        }
-*/
+
         ++x;
 	}
-
+*/
     ai->setAllPlayerSteers(allPlayerSteers);	// stores the instances
 //    logMsg("team 0 activePlayerInstance added =  " +convert->toString( ai->getAllPlayerSteers().size()));
 
@@ -170,11 +176,12 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
-    std::vector<playerState> team0ActivePlayerInstance = teamInstance[0].getActivePlayerInstance();
-    std::vector<playerState> team1ActivePlayerInstance = teamInstance[1].getActivePlayerInstance();
-    std::vector<int> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
-    std::vector<int> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
+//    std::vector<playerState> team0ActivePlayerInstance = teamInstance[0].getActivePlayerInstance();
+//    std::vector<playerState> team1ActivePlayerInstance = teamInstance[1].getActivePlayerInstance();
+//    std::vector<int> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
+//    std::vector<int> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
 
+    std::vector<std::vector<playerState> > activePlayerInstance;
 //	exit(0);
     // update simulation of test vehicle
 //    logMsg("team 0 activePlayerInstance size =  " +convert->toString(team0ActivePlayerInstance.size()));
@@ -184,8 +191,24 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
 //    team1ActivePlayerInstance[3].getSteer()->update(currentTime, elapsedTime);
 
     size_t x = 0;
-    size_t y = 0;
+    while (x < teamInstance.size())
+    {
+        activePlayerInstance.push_back(teamInstance[x].getActivePlayerInstance());
+        size_t y = 0;
+        while (y < activePlayerInstance[x].size())
+        {
+            if (y != teamInstance[x].getHumanPlayer())
+            {
+                activePlayerInstance[x][y].getSteer()->update(currentTime, elapsedTime);
+            }
+            ++y;
+        }
+        ++x;
+    }
+    
+/*
 //    for(unsigned int i=0;i<team0ActivePlayerInstance.size();i++)
+    x = 0;
     while (x<team0ActivePlayerInstance.size())
     {
         if (x != teamInstance[0].getHumanPlayer())
@@ -207,7 +230,7 @@ void playerSteerPlugin::update(const float currentTime, const float elapsedTime)
             team1ActivePlayerInstance[x].getSteer()->update(currentTime, elapsedTime);
         }
         ++x;
-    }
+    }*/
 
 /*            m_Ball->update(currentTime, elapsedTime);
 
