@@ -401,10 +401,7 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	// Error, both can't be defined or undefined same time
 #endif
     FreeImage_Initialise();
-    Ogre::DDSCodec::startup();
-    Ogre::FreeImageCodec::startup();FreeImage_Initialise();
-    Ogre::DDSCodec::startup();
-    Ogre::FreeImageCodec::startup();
+    
 	//std::cout << "winHandle = " << winHandle << std::endl;
 	mRoot = new Ogre::Root("", "", "Ogre.log");
 	const std::string pluginDir = OGRE_PLUGIN_DIR;
@@ -467,6 +464,10 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 	mWindow = mRoot->initialise(false, "Ultimate Basketball Challenge");
 #endif
 
+    Ogre::DDSCodec::startup();
+    Ogre::FreeImageCodec::startup();FreeImage_Initialise();
+    Ogre::DDSCodec::startup();
+    Ogre::FreeImageCodec::startup();
     logMsg("OGRE initialized successfully!");
 
 	return true;
