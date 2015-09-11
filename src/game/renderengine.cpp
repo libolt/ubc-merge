@@ -23,6 +23,9 @@
 #include "config.h"
 #endif
 
+#include "FreeImage.h"
+#include "OgreDDSCodec.h"
+#include "OgreFreeImageCodec.h"
 #include "conversion.h"
 #include "renderengine.h"
 #include "gameengine.h"
@@ -397,7 +400,11 @@ bool renderEngine::initOgre() // Initializes Ogre Subsystem
 #else
 	// Error, both can't be defined or undefined same time
 #endif
-
+    FreeImage_Initialise();
+    Ogre::DDSCodec::startup();
+    Ogre::FreeImageCodec::startup();FreeImage_Initialise();
+    Ogre::DDSCodec::startup();
+    Ogre::FreeImageCodec::startup();
 	//std::cout << "winHandle = " << winHandle << std::endl;
 	mRoot = new Ogre::Root("", "", "Ogre.log");
 	const std::string pluginDir = OGRE_PLUGIN_DIR;
