@@ -720,8 +720,8 @@ void physicsEngine::stepWorld() // steps the world of the physics simulation
     fixedTimeStep = btScalar(1.) / btScalar(60.);
     //    loopChangeInTime = gameE->getChangeInTime();
 
-    String CIT = StringConverter::toString(changeInTime);
-    String currTime = StringConverter::toString(currentTime);
+    std::string CIT = convert->toString(changeInTime);
+    std::string currTime = convert->toString(currentTime);
 
 //  logMsg("Current Time = " + currTime);
     logMsg("Change In Time = " + CIT);

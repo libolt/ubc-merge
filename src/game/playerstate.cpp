@@ -714,7 +714,7 @@ bool playerState::loadModel()   // loads the player's 3D model from the file spe
     // sets the size of playerNode
     node->setScale(0.28f,0.28f,0.28f);
     // sets the direction of playerNode
-    node->yaw ( Degree (-270));
+    node->yaw (Ogre::Degree(-270));
 
     initialized = true;
     return true;

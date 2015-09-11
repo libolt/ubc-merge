@@ -56,7 +56,6 @@
 #include "SDL_test_common.h"
 #include <boost/shared_ptr.hpp>
 
-using namespace Ogre;
 class renderEngine
 {
 	public:
@@ -64,17 +63,17 @@ class renderEngine
     //static renderEngine *Instance();
     static boost::shared_ptr<renderEngine> Instance();
 
-    Root *getMRoot();
-    void setMRoot(Root *root);
+    Ogre::Root *getMRoot();
+    void setMRoot(Ogre::Root *root);
 
-    Camera *getMCamera();
-    void setMCamera(Camera *camera);
+    Ogre::Camera *getMCamera();
+    void setMCamera(Ogre::Camera *camera);
 
-    SceneManager *getMSceneMgr();
-    void setMSceneMgr(SceneManager *sceneMgr);
+    Ogre::SceneManager *getMSceneMgr();
+    void setMSceneMgr(Ogre::SceneManager *sceneMgr);
 
-    RenderWindow *getMWindow();
-    void setMWindow(RenderWindow *window);
+    Ogre::RenderWindow *getMWindow();
+    void setMWindow(Ogre::RenderWindow *window);
 
 	Ogre::Viewport *getViewPort(); // retrieves the value of viewPort
 	void setViewPort(Ogre::Viewport *vp); // sets the value of viewPort
@@ -92,26 +91,26 @@ class renderEngine
     Ogre::Vector3 getMTranslateVector();
     void setMTranslateVector(Ogre::Vector3 vector);
 
-    Radian getMRotX();
-    void setMRotX(Radian rotX);
+    Ogre::Radian getMRotX();
+    void setMRotX(Ogre::Radian rotX);
 
-    Radian getMRotY();
-    void setMRotY(Radian rotY);
+    Ogre::Radian getMRotY();
+    void setMRotY(Ogre::Radian rotY);
 
-    Real getMMoveSpeed();
-    void setMMoveSpeed(Real speed);
+    Ogre::Real getMMoveSpeed();
+    void setMMoveSpeed(Ogre::Real speed);
 
-    Degree getMRotateSpeed();
-    void setMRotateSpeed(Degree speed);
+    Ogre::Degree getMRotateSpeed();
+    void setMRotateSpeed(Ogre::Degree speed);
 
     float getMMoveScale();
     void setMMoveScale(float scale);
 
-    Degree getMRotScale();
-    void setMRotScale(Degree scale);
+    Ogre::Degree getMRotScale();
+    void setMRotScale(Ogre::Degree scale);
 
-    String getMResourceGroup();
-    void setMResourceGroup(String resource);
+    std::string getMResourceGroup();
+    void setMResourceGroup(std::string resource);
 
 	SDL_Window *getSDLWindow();
 	void setSDLWindow(SDL_Window *window);
@@ -154,10 +153,10 @@ class renderEngine
     SDLTest_CommonState *state;
 
     // Ogre code
-    Root *mRoot;
-    Camera *mCamera;
-    SceneManager *mSceneMgr;
-    RenderWindow *mWindow;
+    Ogre::Root *mRoot;
+    Ogre::Camera *mCamera;
+    Ogre::SceneManager *mSceneMgr;
+    Ogre::RenderWindow *mWindow;
     Ogre::Viewport *viewPort;
     std::string mResourceGroup;  	// stores resource locations
 	Ogre::NameValuePairList misc;	// options to pass to mWindow during creation
@@ -173,14 +172,14 @@ class renderEngine
 #endif
     //	InputReader* mInputDevice;
     Ogre::Vector3 mTranslateVector;
-    Radian mRotX, mRotY;
-    Real mMoveSpeed;
-    Degree mRotateSpeed;
+    Ogre::Radian mRotX, mRotY;
+    Ogre::Real mMoveSpeed;
+    Ogre::Degree mRotateSpeed;
     float mMoveScale;
-    Degree mRotScale;
+    Ogre::Degree mRotScale;
 
 
-    Real mTimeUntilNextToggle ;
+    Ogre::Real mTimeUntilNextToggle ;
 
     private:
 

@@ -23,9 +23,7 @@
 #include "config.h"
 #endif
 
-#include "FreeImage.h"
-#include "OgreDDSCodec.h"
-#include "OgreFreeImageCodec.h"
+
 #include "conversion.h"
 #include "renderengine.h"
 #include "gameengine.h"
@@ -35,6 +33,11 @@
 #include "physicsengine.h"
 #include "soundengine.h"
 #include "teams.h"
+
+#define FREEIMAGE_LIB
+#include "FreeImage.h"
+#include "OgreDDSCodec.h"
+#include "OgreFreeImageCodec.h"
 
 #ifndef OGRE_PLUGIN_DIR
 #define OGRE_PLUGIN_DIR
@@ -84,38 +87,38 @@ bool renderEngine::frameEnded()
 {
 	return true;
 }
-Root *renderEngine::getMRoot()
+Ogre::Root *renderEngine::getMRoot()
 {
 	return (mRoot);
 }
-void renderEngine::setMRoot(Root *root)
+void renderEngine::setMRoot(Ogre::Root *root)
 {
 	mRoot = root;
 }
 
-Camera *renderEngine::getMCamera()
+Ogre::Camera *renderEngine::getMCamera()
 {
 	return (mCamera);
 }
-void renderEngine::setMCamera(Camera *camera)
+void renderEngine::setMCamera(Ogre::Camera *camera)
 {
 	mCamera = camera;
 }
 
-SceneManager *renderEngine::getMSceneMgr()
+Ogre::SceneManager *renderEngine::getMSceneMgr()
 {
 	return (mSceneMgr);
 }
-void renderEngine::setMSceneMgr(SceneManager *sceneMgr)
+void renderEngine::setMSceneMgr(Ogre::SceneManager *sceneMgr)
 {
 	mSceneMgr = sceneMgr;
 }
 
-RenderWindow *renderEngine::getMWindow()
+Ogre::RenderWindow *renderEngine::getMWindow()
 {
 	return (mWindow);
 }
-void renderEngine::setMWindow(RenderWindow *window)
+void renderEngine::setMWindow(Ogre::RenderWindow *window)
 {
 	mWindow = window;
 }
@@ -149,47 +152,47 @@ void renderEngine::setApp(android_app *ap)
 }
 #endif
 
-Vector3 renderEngine::getMTranslateVector()
+Ogre::Vector3 renderEngine::getMTranslateVector()
 {
 	return (mTranslateVector);
 }
-void renderEngine::setMTranslateVector(Vector3 vector)
+void renderEngine::setMTranslateVector(Ogre::Vector3 vector)
 {
 	mTranslateVector = vector;
 }
 
-Radian renderEngine::getMRotX()
+Ogre::Radian renderEngine::getMRotX()
 {
 	return (mRotX);
 }
-void renderEngine::setMRotX(Radian rotX)
+void renderEngine::setMRotX(Ogre::Radian rotX)
 {
 	mRotX = rotX;
 }
 
-Radian renderEngine::getMRotY()
+Ogre::Radian renderEngine::getMRotY()
 {
 	return (mRotY);
 }
-void renderEngine::setMRotY(Radian rotY)
+void renderEngine::setMRotY(Ogre::Radian rotY)
 {
 	mRotY = rotY;
 }
 
-Real renderEngine::getMMoveSpeed()
+Ogre::Real renderEngine::getMMoveSpeed()
 {
 	return (mMoveSpeed);
 }
-void renderEngine::setMMoveSpeed(Real speed)
+void renderEngine::setMMoveSpeed(Ogre::Real speed)
 {
 	mMoveSpeed = speed;
 }
 
-Degree renderEngine::getMRotateSpeed()
+Ogre::Degree renderEngine::getMRotateSpeed()
 {
 	return (mRotateSpeed);
 }
-void renderEngine::setMRotateSpeed(Degree speed)
+void renderEngine::setMRotateSpeed(Ogre::Degree speed)
 {
 	mRotateSpeed = speed;
 }
@@ -203,21 +206,21 @@ void renderEngine::setMMoveScale(float scale)
 	mMoveScale = scale;
 }
 
-Degree renderEngine::getMRotScale()
+Ogre::Degree renderEngine::getMRotScale()
 {
 	return (mRotScale);
 }
-void renderEngine::setMRotScale(Degree scale)
+void renderEngine::setMRotScale(Ogre::Degree scale)
 {
 	mRotScale = scale;
 }
 
-String renderEngine::getMResourceGroup()
+std::string renderEngine::getMResourceGroup()
 {
 	return (mResourceGroup);
 }
 
-void renderEngine::setMResourceGroup(String resource)
+void renderEngine::setMResourceGroup(std::string resource)
 {
 	mResourceGroup = resource;
 }
@@ -478,7 +481,7 @@ void renderEngine::createSceneManager()
     boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
     // Create the SceneManager, in this case a generic one
-    render->setMSceneMgr(render->getMRoot()->createSceneManager(ST_EXTERIOR_CLOSE));
+    render->setMSceneMgr(render->getMRoot()->createSceneManager(Ogre::ST_EXTERIOR_CLOSE));
 
 }
 
@@ -691,10 +694,10 @@ logMsg("Alive?");
 	mCamera->setAspectRatio((Ogre::Real)1.333333);
 
     // Set ambient light
-    mSceneMgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
 
     // Create a light
-    Light* l = mSceneMgr->createLight("MainLight");
+    Ogre::Light* l = mSceneMgr->createLight("MainLight");
     l->setPosition(20,80,56);
 
 	//	    Ogre::LogManager::getSingletonPtr()->logMessage("winHandle = " +winHandle);
