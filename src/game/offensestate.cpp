@@ -443,7 +443,7 @@ bool offenseState::checkForDirective(playerPositions playerPosition) // checks i
 								case START:
 									if (!startPositionReached[playerDirective[x].getPlayerSet()])
 									{
-										exit(0);
+										//exit(0);
 									}
 									break;
 								case EXECUTE:

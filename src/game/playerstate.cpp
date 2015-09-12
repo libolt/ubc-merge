@@ -770,12 +770,12 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
             case STARTCHANGE:
                 logMsg("Updating player court position based on start position");
                 
-             //   node->translate(newCourtPosition);
-             //   physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
-            //    physBody->translate(physChange); // moves physics body in unison with the model
-             //   steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
-                courtPositionChanged = false;
-                //courtPositionChangedType = NOCHANGE;
+                node->translate(newCourtPosition);
+                physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
+                physBody->translate(physChange); // moves physics body in unison with the model
+                steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
+                //courtPositionChanged = false;
+                courtPositionChangedType = NOCHANGE;
             break;
             
             case STEERCHANGE:

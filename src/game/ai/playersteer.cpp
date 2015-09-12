@@ -26,7 +26,7 @@
 #include "logging.h"
 #include "playerstate.h"
 #include "teamstate.h"
-
+#include "comparison.h"
 playerSteer::~playerSteer()
 {
 
@@ -410,6 +410,7 @@ void playerSteer::checkCourtPosition()  // checks if the player's position has c
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
 
+    comparison compare;
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     //std::vector<playerState> team0ActivePlayerInstance = teamInstance[0].getActivePlayerInstance();
     //std::vector<playerState> team1ActivePlayerInstance = teamInstance[1].getActivePlayerInstance();
@@ -433,9 +434,14 @@ void playerSteer::checkCourtPosition()  // checks if the player's position has c
     if (activePlayerInstance[teamNumber][ID].getInitialized())
     {
         Ogre::Vector3 newCourtPosition = convert->toOgreVector3(position());
-        activePlayerInstance[teamNumber][ID].setCourtPositionChanged(true);
-        activePlayerInstance[teamNumber][ID].setCourtPositionChangedType(STEERCHANGE);
-        activePlayerInstance[teamNumber][ID].setNewCourtPosition(newCourtPosition); 
+        Ogre::Vector3 currentCourtPosition = activePlayerInstance[teamNumber][ID].getCourtPosition();
+        if (!compare.OgreVector3ToOgreVector3(currentCourtPosition,newCourtPosition))
+        {
+            activePlayerInstance[teamNumber][ID].setCourtPositionChanged(true);
+            activePlayerInstance[teamNumber][ID].setCourtPositionChangedType(STEERCHANGE);
+            activePlayerInstance[teamNumber][ID].setNewCourtPosition(newCourtPosition); 
+            //exit(0);
+        }
     }
     
     while (z < teamInstance.size())
