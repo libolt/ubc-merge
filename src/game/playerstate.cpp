@@ -78,6 +78,8 @@ playerState::playerState()
     jumpComplete = false;
     courtPosition = Ogre::Vector3(0.0f,0.0f,0.0f);
     courtPositionChanged = false;
+    // hack
+    posChangeAmount = 0;
 }
 
 playerState::~playerState()
@@ -774,7 +776,7 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
                 physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
                 physBody->translate(physChange); // moves physics body in unison with the model
                 steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
-                //courtPositionChanged = false;
+                courtPositionChanged = false;
                 courtPositionChangedType = NOCHANGE;
             break;
             
@@ -786,7 +788,9 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
                 node->translate(changePos);
                 physChange = BtOgre::Convert::toBullet(changePos); // converts from Ogre::Vector3 to btVector3
                 physBody->translate(physChange); // moves physics body in unison with the model
-                exit(0);
+                //exit(0);
+                courtPositionChanged = false;
+                courtPositionChangedType = NOCHANGE;
             break;   
 
             case INPUTCHANGE:
@@ -807,6 +811,8 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
             break;
         }
         courtPosition = node->getPosition();
+        ++posChangeAmount;
+        logMsg("player ID " +convert->toString(playerID) +"change amount = " +convert->toString(posChangeAmount));
         
     }
     

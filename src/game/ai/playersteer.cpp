@@ -431,96 +431,43 @@ void playerSteer::checkCourtPosition()  // checks if the player's position has c
         activePlayerInstance.push_back(teamInstance[z].getActivePlayerInstance());
         ++z;
     }
-    if (activePlayerInstance[teamNumber][ID].getInitialized())
+    int humanPlayer = teamInstance[teamNumber].getHumanPlayer();
+    logMsg("steer Human Player = " +convert->toString(humanPlayer));
+    if (activePlayerInstance[teamNumber][ID].getPlayerID() != humanPlayer)  // makes sure to not steer human player
     {
-        Ogre::Vector3 newCourtPosition = convert->toOgreVector3(position());
-        Ogre::Vector3 currentCourtPosition = activePlayerInstance[teamNumber][ID].getCourtPosition();
-        if (!compare.OgreVector3ToOgreVector3(currentCourtPosition,newCourtPosition))
+        if (activePlayerInstance[teamNumber][ID].getInitialized())
         {
-            activePlayerInstance[teamNumber][ID].setCourtPositionChanged(true);
-            activePlayerInstance[teamNumber][ID].setCourtPositionChangedType(STEERCHANGE);
-            activePlayerInstance[teamNumber][ID].setNewCourtPosition(newCourtPosition); 
+            Ogre::Vector3 newCourtPosition = convert->toOgreVector3(position());
+            Ogre::Vector3 currentCourtPosition = activePlayerInstance[teamNumber][ID].getCourtPosition();
+            if (!compare.OgreVector3ToOgreVector3(currentCourtPosition,newCourtPosition))
+            {
+                activePlayerInstance[teamNumber][ID].setCourtPositionChanged(true);
+                activePlayerInstance[teamNumber][ID].setCourtPositionChangedType(STEERCHANGE);
+                activePlayerInstance[teamNumber][ID].setNewCourtPosition(newCourtPosition); 
+                logMsg("SteerChange!");
             //exit(0);
-        }
-    }
-    
-    while (z < teamInstance.size())
-    {
-        teamInstance[z].setActivePlayerInstance(activePlayerInstance[z]);
-        ++z;
-    }
-/*                    
             }
-            ++x;
         }
-        ++z;
     }
-//          float distPlayerStartPosition;
-    size_t x = 0;
-    switch (teamNumber)
+    else
     {
-        case 0:
-            x = 0;
-//            while (x < team0ActivePlayerInstance.size())
-//            {
-            
-                if (team0ActivePlayerInstance[x].getInitialized())
-                {
-                    Ogre::Vector3 newCourtPosition = convert->toOgreVector3(position());
-                    logMsg("Current playerCourtPos = " +convert->toString(team0ActivePlayerInstance[ID].getCourtPosition()));
-                    logMsg("New playerCourtPos = " +convert->toString(newCourtPosition));
+        
+    }
+    teamInstance[teamNumber].setActivePlayerInstance(activePlayerInstance[teamNumber]);
 
-                    team0ActivePlayerInstance[ID].setCourtPositionChanged(true);
-                    team0ActivePlayerInstance[ID].setCourtPositionChangedType(STEERCHANGE);
-                    team0ActivePlayerInstance[ID].setNewCourtPosition(newCourtPosition);
-                    
-                    logMsg("upDie????????");
-                   // team0ActivePlayerInstance[x].getNode()->setPosition(posChange);
-                    team0ActivePlayerInstance[ID].getNode()->setPosition(posChange);
-                    physBodyChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
-                    physBodyTransform.setOrigin(physBodyChange);
-                   // team0ActivePlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
-                    team0ActivePlayerInstance[ID].getPhysBody()->setWorldTransform(physBodyTransform);
-                    logMsg("nope");
-
-                }
-//                ++x;
-//            }
-            teamInstance[0].setActivePlayerInstance(team0ActivePlayerInstance);
-            break;
-        case 1:
-            logMsg("ID = " +convert->toString(ID));
-            logMsg("posChange = " +convert->toString(posChange));
-//          exit(0);
-            x = 0;
-//            while (x < team1ActivePlayerInstance.size())
-//            {
-                if (team1ActivePlayerInstance[x].getInitialized())
-                {
-                    team1ActivePlayerInstance[ID].setCourtPositionChanged(true);
-                    team1ActivePlayerInstance[ID].setCourtPositionChangedType(STEERCHANGE);
-                    team1ActivePlayerInstance[ID].setNewCourtPosition(convert->toOgreVector3(position()));
-
-                   logMsg("upDie?????????");
-                    logMsg("bloop");
-                  //  team1ActivePlayerInstance[x].getNode()->setPosition(posChange);
-                    team1ActivePlayerInstance[ID].getNode()->setPosition(posChange);
-                    physBodyChange = BtOgre::Convert::toBullet(posChange); // converts from Ogre::Vector3 to btVector3
-                    physBodyTransform.setOrigin(physBodyChange);
-                  //  team1ActivePlayerInstance[x].getPhysBody()->setWorldTransform(physBodyTransform);
-                    team1ActivePlayerInstance[ID].getPhysBody()->setWorldTransform(physBodyTransform);
-                    logMsg("nope");
-
-                }
-//                ++x;
-//            }
-            teamInstance[1].setActivePlayerInstance(team1ActivePlayerInstance);
-            break;
-        default:
-            break;
-	}
-*/
     gameS->setTeamInstance(teamInstance);
+    std::vector<teamState> teamI = gameS->getTeamInstance();
+    std::vector<std::vector<playerState> > activePlayerI;
+    size_t w = 0;
+    while (w < teamInstance.size())
+    {
+        activePlayerI.push_back(teamInstance[w].getActivePlayerInstance());
+        ++w;
+    }
+    if (activePlayerI[teamNumber][ID].getCourtPositionChangedType() == STEERCHANGE)
+    {
+        logMsg("SteerChanged!!");
+    }
 }
 
 void playerSteer::updateOffense(const float currentTime, const float elapsedTime)	// updates the offense steering sim

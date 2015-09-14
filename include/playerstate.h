@@ -401,6 +401,9 @@ class playerState
 
         // temporary hack
         bool initialized;
+        
+        // tempory hack to count the number of times player position changes
+        int posChangeAmount;
 };
 
 
