@@ -799,7 +799,9 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
                 physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
                 physBody->translate(physChange); // moves physics body in unison with the model
                 steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
-                exit(0);
+                courtPositionChanged = false;
+                courtPositionChangedType = NOCHANGE;
+                //exit(0);
             break;
 
             case PHYSICSCHANGE:

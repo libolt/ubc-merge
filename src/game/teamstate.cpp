@@ -1106,8 +1106,13 @@ void teamState::updatePlayerMovements()	// updates player movements
             posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
         }
 
-        activePlayerInstance[x].setPosChange(posChange);	// sets the posChange for current playerInstance
-        activePlayerInstance[x].setMovement(false);
+        if (posChange.x != 0 || posChange.y != 0 || posChange.z != 0)
+        {
+            activePlayerInstance[x].setNewCourtPosition(posChange);	// sets the newCourtPosition for current playerInstance
+            activePlayerInstance[x].setCourtPositionChanged(true);
+            activePlayerInstance[x].setCourtPositionChangedType(INPUTCHANGE);
+            activePlayerInstance[x].setMovement(false);
+        }       
         ++x;
 	}
 
