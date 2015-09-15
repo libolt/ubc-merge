@@ -37,38 +37,39 @@ public:
 
     ~physicsEngine();	// destructor
 
-    bool getPlayerPhysicsSetup();	// retrieves the value of the playerPhysicsSetup variable
-    void setPlayerPhysicsSetup(bool setup);	// sets the value of the playerPhysicsSetup variable
+    bool getPlayerPhysicsSetup();  // retrieves the value of the playerPhysicsSetup variable
+    void setPlayerPhysicsSetup(bool setup);	 // sets the value of the playerPhysicsSetup variable
 
-    bool getBasketballlPhysicsSetup();	// retrieves the value of the playerPhysicsSetup variable
-    void setBasketballPhysicsSetup(bool setup);	// sets the value of the playerPhysicsSetup variable
+    bool getBasketballlPhysicsSetup();  // retrieves the value of the playerPhysicsSetup variable
+    void setBasketballPhysicsSetup(bool setup);	 // sets the value of the playerPhysicsSetup variable
 
-    bool getCourtPhysicsSetup();	// retrieves the value of the courtPhysicsSetup variable
-    void setCourtPhysicsSetup(bool setup);	// sets the value of the courtPhysicsSetup variable
+    bool getCourtPhysicsSetup();  // retrieves the value of the courtPhysicsSetup variable
+    void setCourtPhysicsSetup(bool setup);  // sets the value of the courtPhysicsSetup variable
 
-    bool getHoopPhysicsSetup();	// retrieves the value of the hoopPhysicsSetup variable
-    void setHoopPhysicsSetup(bool setup);	// sets the value of the hoopPhysicsSetup variable
+    bool getHoopPhysicsSetup();	 // retrieves the value of the hoopPhysicsSetup variable
+    void setHoopPhysicsSetup(bool setup);  // sets the value of the hoopPhysicsSetup variable
 
-    bool getPairCollided();	// retrieves value of thepairCollided variable
-    void setPairCollided(bool collided);	// sets value of thepairCollided variable
+    bool getPairCollided();	 // retrieves value of thepairCollided variable
+    void setPairCollided(bool collided);  // sets value of thepairCollided variable
 
-    bool getPassCollision();	// retrieves the value of the passCollision variable
-    void setPassCollision(bool collision);	// sets the value of the passCollision variable
+    bool getPassCollision();  // retrieves the value of the passCollision variable
+    void setPassCollision(bool collision);  // sets the value of the passCollision variable
 
     void setupState();  // sets up state of physics engine.
 
     // sets up object physics
-    bool setupBasketballPhysics(); // sets up basketball physics
-    bool setupCourtPhysics();   // sets up court physics
-    bool setupHoopPhysics();   // sets up hoop physics
-    bool setupPlayerPhysics(); // setsup up player physics
+    bool setupBasketballPhysics();  // sets up basketball physics
+    bool setupCourtPhysics();  // sets up court physics
+    bool setupHoopPhysics();  // sets up hoop physics
+    bool setupPlayerPhysics();  // setsup up player physics
 
-    void updateState(); // updates the state of the physics engine.
-    void stepWorld();	// steps the physics simulation
+    void updateState();  // updates the state of the physics engine.
+    void updatePositions();  // updates thr position of objects
+    void stepWorld();  // steps the physics simulation
 
-    void tipOffCollisionCheck();	// checks whether team 1 or team 2's center made contact with ball
-    void ballDribbling();	// simulates basketball dribble
-    void passCollisionCheck();	// checks whether the ball has collided with the player being passed to
+    void tipOffCollisionCheck();  // checks whether team 1 or team 2's center made contact with ball
+    void ballDribbling();  // simulates basketball dribble
+    void passCollisionCheck();  // checks whether the ball has collided with the player being passed to
 
     
     bool playerJump(int teamNumber, int playerID);  // calculates and executes player jumping in the air
@@ -85,26 +86,19 @@ private:
     static boost::shared_ptr<physicsEngine> pInstance;
 
 
-    btDynamicsWorld *world;
-    BtOgre::DebugDrawer *debugDraw;
+    btDynamicsWorld *world;  // stores the physics world
+    BtOgre::DebugDrawer *debugDraw;  // used to draw debug shapes for objects
 //    btAxisSweep3 *broadPhase;
-    btBroadphaseInterface *broadPhase;
+    btBroadphaseInterface *broadPhase;  
     btDefaultCollisionConfiguration *collisionConfig;
 	btCollisionDispatcher *dispatcher;
 	btSequentialImpulseConstraintSolver *solver;
 	btContactSolverInfo contactInfo;
 
-    // players
-//	std::vector<btRigidBody *> playerBody;
-//	std::vector<btCollisionShape *> playerShape;
-//    std::vector<BtOgre::RigidBodyState *> playerBodyState;
-//    std::vector<btDefaultMotionState *> playerBodyState;
-    // court
-//	btRigidBody *courtBody;
-//	btBvhTriangleMeshShape *courtShape;
-	btCollisionShape *courtShape;
+
+	btCollisionShape *courtShape;  // stores the shape of the court object
 //	btDefaultMotionState *courtBodyState;
-	BtOgre::RigidBodyState *courtBodyState;
+	BtOgre::RigidBodyState *courtBodyState; // stores state of the court object
 	
 	// hoop
 //	btCollisionShape *hoopShape;
@@ -113,49 +107,48 @@ private:
     // basketball
 //    btRigidBody *basketballBody;
  //   btBvhTriangleMeshShape *basketballShape;
-    btCollisionShape *basketballShape;
-    BtOgre::RigidBodyState *basketballBodyState;
-
+    btCollisionShape *basketballShape;  // stores the shape of the basketball shape
+    BtOgre::RigidBodyState *basketballBodyState;  // stores the state of the basketball
 
     // timer variables
-    btScalar changeInTime;
-    btScalar oldTime;
+    btScalar changeInTime;  // stores the change in time between loops
+    btScalar oldTime;  // stores the previous loops time
 
-    bool playerPhysicsSetup;
-    bool basketballPhysicsSetup;
-    bool courtPhysicsSetup;
-	bool hoopPhysicsSetup;
-    bool pairCollided;
+    bool playerPhysicsSetup;  // determines whether all players' physics bodies have been setup
+    bool basketballPhysicsSetup; // determines whether all basketballs' physics bodies have been setup
+    bool courtPhysicsSetup;  // determines whether the court's physics body has been setup
+	bool hoopPhysicsSetup;  // determines whether all hoop' physics bodies have been setup
+    bool pairCollided;  // determines if a pair of objects have collided
 
     bool passCollision;	// stores whether a ball has collided with player during a pass
     // contact result callback
 
     // collisions
     int courtCollidesWith;	// determines what the court collides with
-    int hoopCollidesWith;   // determines what the hoop collides with
+    int hoopCollidesWith;  // determines what the hoop collides with
     int bballCollidesWith;	// determines what the basketball collides with
     int team1CollidesWith;	// determines what team1 collides with
     int team2CollidesWith;  // | COL_BBALL | COL_TEAM1;	// determiens what team2 collides with
 
 
     // shooting variables
-    btVector3 beginShotPos;
-    btVector3 beginShotDistance;
-    btVector3 beginShotForce;
-    btVector3 midShotPos;
-    btVector3 endShotPos;
-    btVector3 forceToApply;
-    float maxShotHeight;
-    bool shotSet;
-    bool shotComplete;
-    bool maxShotHeightReached;
-    bool forceToApplyXSet;
-    bool beginShotPosSet;
-    bool midShotPosSet;
-    bool midShotPosReached;
-    bool midShotXPosReached;
-    bool endShotPosSet;
-    bool shotCalcComplete;
+    btVector3 beginShotPos;  // stores position of ball at the beginning of a shot
+    btVector3 beginShotDistance;  // stores the distance between ball and hoop at a shot's beginning
+    btVector3 beginShotForce;  // stores force applied to ball at beginning of shot
+    btVector3 midShotPos;  // stores mid way position of ball during shot
+    btVector3 endShotPos;  // stores end position of the ball during shot
+    btVector3 forceToApply; // stores force to apply to ball during shot
+    float maxShotHeight;  // stores maximum height of shot
+    bool shotSet;  // determines whether a shot has been setup
+    bool shotComplete;  // determines whethee a shot has been completed
+    bool maxShotHeightReached;  // determines whether the maximum height has been reached
+    bool forceToApplyXSet;  // determines if the force to apply to ball's x position has been set
+    bool beginShotPosSet;  // determines if beginning shot position has been set
+    bool midShotPosSet;  // determines if mid way position of shot has been set
+    bool midShotPosReached;  // deetermines if mid way position of shot has been reached
+    bool midShotXPosReached;  // determines if mid way X position of shot has been reached
+    bool endShotPosSet;  // determines if end position of shot has been set
+    bool shotCalcComplete;  // determines if shot has been calculated
 };
 
     // Collision Callback

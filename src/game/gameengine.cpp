@@ -573,8 +573,8 @@ void gameEngine::gameLoop()	// Main Game Loop
 //            logMsg("changeInTime = " +toString(changeInTime));
             if (renderScene)
             {
-                logMsg("gameS->logic()");
-                gameS->logic();
+                logMsg("gameS->updateState()");
+                gameS->updateState();  // updates the state of the game instance
             }
             
             //boost::chrono::system_clock::time_point newT = boost::chrono::system_clock::now();

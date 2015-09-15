@@ -695,6 +695,11 @@ void physicsEngine::updateState()
 
 }
 
+void physicsEngine::updatePositions()  // updates thr position of objects
+{
+    
+}
+
 void physicsEngine::stepWorld() // steps the world of the physics simulation
 {
     //gameEngine *gameE = gameEngine::Instance();
@@ -726,6 +731,7 @@ void physicsEngine::stepWorld() // steps the world of the physics simulation
 //  logMsg("Current Time = " + currTime);
     logMsg("Change In Time = " + CIT);
 
+    updatePositions();  // updates the positions of objects
     world->stepSimulation(changeInTime, 1, fixedTimeStep);
 //  logMsg("World->Step ");
     debugDraw->step();
