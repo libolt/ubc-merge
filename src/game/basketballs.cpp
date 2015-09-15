@@ -68,7 +68,9 @@ basketballs* basketballs::Instance()
     team = 0;
     player = 0;
 
-    posChange = Ogre::Vector3(0,0,0);
+    courtPositoin = Ogre::Vector3(0,0,0);
+    newCourtPositoin = Ogre::Vector3(0,0,0);
+    courtPositionChanged = false;
 
 }
 
@@ -286,21 +288,48 @@ void basketballs::setNode(Ogre::SceneNode *Node)
 
 btRigidBody *basketballs::getPhysBody()	// retrieves physBody variable
 {
-	return (physBody);
+    return (physBody);
 }
 
 void basketballs::setPhysBody(btRigidBody *body)	// sets physBody variable
 {
-	physBody = body;
+    physBody = body;
 }
 
-Ogre::Vector3 basketballs::getPosChange()	// retrieves the value of posChange
+Ogre::Vector3 basketballs::getCourtPosition()	// retrieves the value of courtPosition
 {
-	return (posChange);
+    return (courtPosition);
 }
-void basketballs::setPosChange(Ogre::Vector3 change)	// sets the value of posChange
+void basketballs::setCourtPosition(Ogre::Vector3 set)	// sets the value of courtPosition
 {
-	posChange = change;
+    courtPosition = set;
+}
+
+Ogre::Vector3 basketballs::getNewCourtPosition()	// retrieves the value of newCourtPosition
+{
+    return (newCourtPosition);
+}
+void basketballs::setNewCourtPosition(Ogre::Vector3 set)	// sets the value of newCourtPosition
+{
+    newCourtPosition = set;
+}
+
+bool basketballs::getCourtPositionChanged()  // retrieves the value of courtPositionChanged
+{
+    return (courtPosition);
+}
+void basketballs::setCourtPositionChanged(bool set)  // sets the value of courtPositionChanged
+{
+    courtPosition = set;
+}
+
+positionChangedTypes basketballs::getCourtPositionChangedType()   // retrieves the value of courtPositionChangedType
+{
+    return (courtPositionChangedType);
+}
+void basketballs::setPositionChangedType(positionChangedTypes set)   // sets the value of courtPositionChangedType
+{
+    courtPositionChangedType = set;
 }
 
 // loads the 3D model

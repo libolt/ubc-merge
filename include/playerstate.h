@@ -396,7 +396,7 @@ class playerState
         // if the court position has changed then this flag is set
         bool courtPositionChanged;
 
-        // stores what subsystem changed the
+        // stores what subsystem changed the position of the player
         positionChangedTypes courtPositionChangedType;
 
         // temporary hack

@@ -127,8 +127,17 @@ public:
     btRigidBody *getPhysBody();	// retrieves physBody variable
     void setPhysBody(btRigidBody *body);	// sets physBody variable
 
-    Ogre::Vector3 getPosChange();	// retrieves the value of posChange
-    void setPosChange(Ogre::Vector3 change);	// sets the value of posChange
+    Ogre::Vector3 getCourtPosition();	// retrieves the value of courtPosition
+    void setCourtPosition(Ogre::Vector3 set);	// sets the value of courtPosition
+
+    Ogre::Vector3 getNewCourtPosition();  // retrieves the value of newCourtPosition
+    void setNewCourtPosition(Ogre::Vector3 set);  // sets the value of newCourtPosition
+
+    bool getCourtPositionChanged();  // retrieves the value of courtPositionChanged
+    void setCourtPositionChanged(bool set);  // sets the value of courtPositionChanged
+
+    positionChangedTypes getCourtPositionChangedType();  // retrieves the value of courtPositionChangedType
+    void setPositionChangedType(positionChangedTypes set);  // sets the value of courtPositionChangedType
 
     bool loadModel();   // loads the 3D model from file specified in modelName
 
@@ -160,7 +169,7 @@ private:
     // stores the physics object that represents the player
     btRigidBody *physBody;
 
-    Ogre::Vector3 posChange;
+    //Ogre::Vector3 posChange;
 
     float maxHeight;
     bool maxHeightReached;
@@ -195,6 +204,18 @@ private:
     bool tipOff	;	// defines whether or not tip off is executing
     bool dribblingStart;	// defines whether or not to start the dribbling animation
     bool dribbling;	// defines whether or not the ball is being dribbled
+
+    // stores the position of the player on the court in an Ogre::Vector3
+    Ogre::Vector3 courtPosition;
+
+    // stores the upfated position of the player on the court in an Ogre::Vector3
+    Ogre::Vector3 newCourtPosition;
+
+    // if the court position has changed then this flag is set
+    bool courtPositionChanged;
+
+    // stores what subsystem changed the position of the baskteball
+    positionChangedTypes courtPositionChangedType;
 };
 
 #endif
