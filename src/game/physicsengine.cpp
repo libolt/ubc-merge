@@ -1264,6 +1264,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
     //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
 
+    comparison compare;
     std::vector<courtState> courtInstance = gameS->getCourtInstance();
     std::vector<hoopState> hoopInstance = gameS->getHoopInstance();
     std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
@@ -1516,10 +1517,18 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
         {
             btTransform transform = activePlayerInstance[x].getPhysBody()->getWorldTransform();
             btVector3 physPos = transform.getOrigin();
-            Ogre::Vector3 physicsCourtPosition = convert->toOgreVector3(physPos);
+            
             Ogre::Vector3 courtPosition = activePlayerInstance[x].getCourtPosition();
-            logMsg("physics position = " +convert->toString(physicsCourtPosition));
+            Ogre::Vector3 newCourtPosition;
+            logMsg("comparing court position");
+            if (!compare.OgreVector3ToBTVector3(courtPosition,physPos))
+            {
+                newCourtPosition = compare.OgreVector3ToBTVector3Result(courtPosition,physPos);
+            }
+            
             logMsg("court position = " +convert->toString(courtPosition));
+            logMsg("new court position = " +convert->toString(newCourtPosition));
+            //exit(0);
             activePlayerInstance[x].setCourtPositionChanged(true);
             activePlayerInstance[x].setCourtPositionChangedType(PHYSICSCHANGE);
         }

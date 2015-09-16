@@ -48,124 +48,128 @@ Ogre::Vector3 comparison::OgreVector3ToOgreVector3Result(const Ogre::Vector3 &cu
 
     logMsg("currentValue.x == " +convert->toString(currentValue.x));
     logMsg("newValue.x == " +convert->toString(newValue.x));
-    if (currentValue.x > 0)
+    
+    if (convert->toString(newValue.x) != "nan" && convert->toString(newValue.y) != "nan" && convert->toString(newValue.z) != "nan")
     {
-        if (newValue.x >= 0)
+    
+        if (currentValue.x > 0)
         {
-            if (newValue.x > currentValue.x)
+            if (newValue.x >= 0)
             {
-                change.x = newValue.x - currentValue.x;
-            }
-            else if (newValue.x < currentValue.x)
-            {
-                change.x = (currentValue.x - newValue.x)*(-1);
-            }
-            else
-            {
+                if (newValue.x > currentValue.x)
+                {
+                    change.x = newValue.x - currentValue.x;
+                }
+                else if (newValue.x < currentValue.x)
+                {
+                    change.x = (currentValue.x - newValue.x)*(-1);
+                }
+                else
+                {
                 
+                }
+            }
+            else if (newValue.x < 0)
+            {
+                change.x = currentValue.x + newValue.x;
             }
         }
-        else if (newValue.x < 0)
+        else if (currentValue.x < 0)
         {
-            change.x = currentValue.x + newValue.x;
+            if (newValue.x >= 0)
+            {
+                change.x = currentValue.x + newValue.x;
+            }
+            else if (newValue.x < 0)
+            {
+                if (newValue.x < currentValue.x)
+                {
+                    change.x = newValue.x - currentValue.x;
+                }
+                else if (newValue.x > currentValue.x)
+                {
+                    change.x = (currentValue.x - newValue.x)*(-1);
+                }
+            }
+            else
+            {
+            
+            }
         }
-    }
-    else if (currentValue.x < 0)
-    {
-        if (newValue.x >= 0)
+        else if (currentValue.x == 0)
         {
-            change = currentValue.x + newValue.x;
-        }
-        else if (newValue.x < 0)
-        {
-            if (newValue.x < currentValue.x)
+            if (newValue.x >= 0)
             {
                 change.x = newValue.x - currentValue.x;
             }
-            else if (newValue.x > currentValue.x)
+            else if (newValue.x < 0)
             {
-                change.x = (currentValue.x - newValue.x)*(-1);
+                change.x = currentValue.x - newValue.x;
             }
         }
         else
         {
-            
-        }
-    }
-    else if (currentValue.x == 0)
-    {
-        if (newValue.x >= 0)
-        {
-            change = newValue.x - currentValue.x;
-        }
-        else if (newValue.x < 0)
-        {
-            change = currentValue.x - newValue.x;
-        }
-    }
-    else
-    {
         
-    }
+        }
 
-    logMsg("changeValue.x == " +convert->toString(change.x));
+        logMsg("changeValue.x == " +convert->toString(change.x));
 
-    logMsg("currentValue.y == " +convert->toString(currentValue.y));
-    logMsg("newValue.y == " +convert->toString(newValue.y));
-    if (currentValue.y > 0)
-    {
-        if (newValue.y >= 0)
+        logMsg("currentValue.y == " +convert->toString(currentValue.y));
+        logMsg("newValue.y == " +convert->toString(newValue.y));
+        if (currentValue.y > 0)
         {
-            if (newValue.y > currentValue.y)
+            if (newValue.y >= 0)
             {
-                change.y = newValue.y - currentValue.y;
+                if (newValue.y > currentValue.y)
+                {
+                    change.y = newValue.y - currentValue.y;
+                }
+                else if (newValue.y < currentValue.y)
+                {
+                    change.y = (currentValue.y - newValue.y)*(-1);
+                }
+                else
+                {
+
+                }
             }
-            else if (newValue.y < currentValue.y)
+            else if (newValue.y < 0)
             {
-                change.y = (currentValue.y - newValue.y)*(-1);
+                change.y = currentValue.y + newValue.y;
+            }
+        }
+        else if (currentValue.y < 0)
+        {
+            if (newValue.y >= 0)
+            {
+                change.y = currentValue.y + newValue.y;
+            }
+            else if (newValue.y < 0)
+            {
+                if (newValue.y < currentValue.y)
+                {
+                    change.y = newValue.y - currentValue.y;
+                }
+                else if (newValue.y > currentValue.y)
+                {
+                    change.y = (currentValue.y - newValue.y)*(-1);
+                }
             }
             else
             {
 
             }
         }
-        else if (newValue.y < 0)
+        else if (currentValue.y == 0)
         {
-            change.y = currentValue.y + newValue.y;
-        }
-    }
-    else if (currentValue.y < 0)
-    {
-        if (newValue.y >= 0)
-        {
-            change = currentValue.y + newValue.y;
-        }
-        else if (newValue.y < 0)
-        {
-            if (newValue.y < currentValue.y)
+            if (newValue.y >= 0)
             {
                 change.y = newValue.y - currentValue.y;
             }
-            else if (newValue.y > currentValue.y)
+            else if (newValue.y < 0)
             {
-                change.y = (currentValue.y - newValue.y)*(-1);
+                change.y = currentValue.y - newValue.y;
             }
-        }
-        else
-        {
-
-        }
-    }
-    else if (currentValue.y == 0)
-    {
-        if (newValue.y >= 0)
-        {
-            change = newValue.y - currentValue.y;
-        }
-        else if (newValue.y < 0)
-        {
-            change = currentValue.y - newValue.y;
-        }
     }
     else
     {
@@ -203,7 +207,7 @@ Ogre::Vector3 comparison::OgreVector3ToOgreVector3Result(const Ogre::Vector3 &cu
     {
         if (newValue.z >= 0)
         {
-            change = currentValue.z + newValue.z;
+            change.z = currentValue.z + newValue.z;
         }
         else if (newValue.z < 0)
         {
@@ -225,11 +229,11 @@ Ogre::Vector3 comparison::OgreVector3ToOgreVector3Result(const Ogre::Vector3 &cu
     {
         if (newValue.z >= 0)
         {
-            change = newValue.z - currentValue.z;
+            change.z = newValue.z - currentValue.z;
         }
         else if (newValue.z < 0)
         {
-            change = currentValue.z - newValue.z;
+            change.z = currentValue.z - newValue.z;
         }
     }
     else
@@ -238,7 +242,13 @@ Ogre::Vector3 comparison::OgreVector3ToOgreVector3Result(const Ogre::Vector3 &cu
     }
 
     logMsg("changeValue.z == " +convert->toString(change.z));
-
+    }
+    else 
+    {
+        change.x = 0;
+        change.y = 0;
+        change.z = 0;
+    }
     return (change);
 }
 
@@ -262,6 +272,13 @@ Ogre::Vector3 comparison::OgreVector3ToOpenSteerVec3Result(const Ogre::Vector3 &
 
     logMsg("currentValue.x == " +convert->toString(currentValue.x));
     logMsg("newValue.x == " +convert->toString(newValue.x));
+    
+    if (convert->toString(newValue.x) == "nan" || convert->toString(newValue.y) == "nan" || convert->toString(newValue.z) == "nan")
+    {
+        logMsg("NAN!!!");
+       /// exit(0);
+    }
+    
     if (currentValue.x > 0)
     {
         if (newValue.x >= 0)
@@ -288,7 +305,7 @@ Ogre::Vector3 comparison::OgreVector3ToOpenSteerVec3Result(const Ogre::Vector3 &
     {
         if (newValue.x >= 0)
         {
-            change = currentValue.x + newValue.x;
+            change.x = currentValue.x + newValue.x;
         }
         else if (newValue.x < 0)
         {
@@ -310,11 +327,11 @@ Ogre::Vector3 comparison::OgreVector3ToOpenSteerVec3Result(const Ogre::Vector3 &
     {
         if (newValue.x >= 0)
         {
-            change = newValue.x - currentValue.x;
+            change.x = newValue.x - currentValue.x;
         }
         else if (newValue.x < 0)
         {
-            change = currentValue.x - newValue.x;
+            change.x = currentValue.x - newValue.x;
         }
     }
     else
@@ -352,7 +369,7 @@ Ogre::Vector3 comparison::OgreVector3ToOpenSteerVec3Result(const Ogre::Vector3 &
     {
         if (newValue.y >= 0)
         {
-            change = currentValue.y + newValue.y;
+            change.y = currentValue.y + newValue.y;
         }
         else if (newValue.y < 0)
         {
@@ -374,11 +391,11 @@ Ogre::Vector3 comparison::OgreVector3ToOpenSteerVec3Result(const Ogre::Vector3 &
     {
         if (newValue.y >= 0)
         {
-            change = newValue.y - currentValue.y;
+            change.y = newValue.y - currentValue.y;
         }
         else if (newValue.y < 0)
         {
-            change = currentValue.y - newValue.y;
+            change.y = currentValue.y - newValue.y;
         }
     }
     else
@@ -417,7 +434,7 @@ Ogre::Vector3 comparison::OgreVector3ToOpenSteerVec3Result(const Ogre::Vector3 &
     {
         if (newValue.z >= 0)
         {
-            change = currentValue.z + newValue.z;
+            change.z = currentValue.z + newValue.z;
         }
         else if (newValue.z < 0)
         {
@@ -439,11 +456,11 @@ Ogre::Vector3 comparison::OgreVector3ToOpenSteerVec3Result(const Ogre::Vector3 &
     {
         if (newValue.z >= 0)
         {
-            change = newValue.z - currentValue.z;
+            change.z = newValue.z - currentValue.z;
         }
         else if (newValue.z < 0)
         {
-            change = currentValue.z - newValue.z;
+            change.z = currentValue.z - newValue.z;
         }
     }
     else
@@ -476,6 +493,12 @@ Ogre::Vector3 comparison::OgreVector3ToBTVector3Result(const Ogre::Vector3 &curr
 
     logMsg("currentValue.x == " +convert->toString(currentValue.x));
     logMsg("newValue.getX() == " +convert->toString(newValue.getX()));
+    
+    if (convert->toString(newValue.getX()) == "nan" || convert->toString(newValue.getY()) == "nan" || convert->toString(newValue.getZ()) == "nan")
+    {
+        logMsg("NAN!!!");
+        //exit(0);
+    }
     if (currentValue.x > 0)
     {
         if (newValue.getX() >= 0)
@@ -502,7 +525,7 @@ Ogre::Vector3 comparison::OgreVector3ToBTVector3Result(const Ogre::Vector3 &curr
     {
         if (newValue.getX() >= 0)
         {
-            change = currentValue.x + newValue.getX();
+            change.x = currentValue.x + newValue.getX();
         }
         else if (newValue.getX() < 0)
         {
@@ -524,11 +547,11 @@ Ogre::Vector3 comparison::OgreVector3ToBTVector3Result(const Ogre::Vector3 &curr
     {
         if (newValue.getX() >= 0)
         {
-            change = newValue.getX() - currentValue.x;
+            change.x = newValue.getX() - currentValue.x;
         }
         else if (newValue.getX() < 0)
         {
-            change = currentValue.x - newValue.getX();
+            change.x = currentValue.x - newValue.getX();
         }
     }
     else
@@ -566,7 +589,7 @@ Ogre::Vector3 comparison::OgreVector3ToBTVector3Result(const Ogre::Vector3 &curr
     {
         if (newValue.getY() >= 0)
         {
-            change = currentValue.y + newValue.getY();
+            change.y = currentValue.y + newValue.getY();
         }
         else if (newValue.getY() < 0)
         {
@@ -588,11 +611,11 @@ Ogre::Vector3 comparison::OgreVector3ToBTVector3Result(const Ogre::Vector3 &curr
     {
         if (newValue.getY() >= 0)
         {
-            change = newValue.getY() - currentValue.y;
+            change.y = newValue.getY() - currentValue.y;
         }
         else if (newValue.getY() < 0)
         {
-            change = currentValue.y - newValue.getY();
+            change.y = currentValue.y - newValue.getY();
         }
     }
     else
@@ -631,7 +654,7 @@ Ogre::Vector3 comparison::OgreVector3ToBTVector3Result(const Ogre::Vector3 &curr
     {
         if (newValue.getZ() >= 0)
         {
-            change = currentValue.z + newValue.getZ();
+            change.z = currentValue.z + newValue.getZ();
         }
         else if (newValue.getZ() < 0)
         {
@@ -653,11 +676,11 @@ Ogre::Vector3 comparison::OgreVector3ToBTVector3Result(const Ogre::Vector3 &curr
     {
         if (newValue.getZ() >= 0)
         {
-            change = newValue.getZ() - currentValue.z;
+            change.z = newValue.getZ() - currentValue.z;
         }
         else if (newValue.getZ() < 0)
         {
-            change = currentValue.z - newValue.getZ();
+            change.z = currentValue.z - newValue.getZ();
         }
     }
     else

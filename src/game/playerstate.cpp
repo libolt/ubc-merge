@@ -770,7 +770,7 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
         switch (courtPositionChangedType)
         {
             case STARTCHANGE:
-                logMsg("Updating player court position based on start position");
+                //logMsg("Updating player court position based on start position");
                 
                 node->translate(newCourtPosition);
                 physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
@@ -781,10 +781,10 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
             break;
             
             case STEERCHANGE:
-                logMsg("Updating player court position based on steering");
-                logMsg("Team " +convert->toString(teamNumber) + " Player " +convert->toString(playerID));
+                //logMsg("Updating player court position based on steering");
+                //logMsg("Team " +convert->toString(teamNumber) + " Player " +convert->toString(playerID));
                 changePos = compare.OgreVector3ToOgreVector3Result(courtPosition, newCourtPosition);
-                logMsg("change playerCourtPosition = " +convert->toString(changePos));
+                //logMsg("change playerCourtPosition = " +convert->toString(changePos));
                 node->translate(changePos);
                 physChange = BtOgre::Convert::toBullet(changePos); // converts from Ogre::Vector3 to btVector3
                 physBody->translate(physChange); // moves physics body in unison with the model
@@ -794,7 +794,7 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
             break;   
 
             case INPUTCHANGE:
-                logMsg("Updating court position based on input");
+                //logMsg("Updating court position based on input");
                 node->translate(newCourtPosition);
                 physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
                 physBody->translate(physChange); // moves physics body in unison with the model
