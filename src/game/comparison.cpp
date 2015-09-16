@@ -170,78 +170,78 @@ Ogre::Vector3 comparison::OgreVector3ToOgreVector3Result(const Ogre::Vector3 &cu
             {
                 change.y = currentValue.y - newValue.y;
             }
-    }
-    else
-    {
-
-    }
-
-
-    logMsg("changeValue.y == " +convert->toString(change.y));
-
-    logMsg("currentValue.z == " +convert->toString(currentValue.z));
-    logMsg("newValue.z == " +convert->toString(newValue.z));
-    if (currentValue.z > 0)
-    {
-        if (newValue.z >= 0)
+        }
+        else
         {
-            if (newValue.z > currentValue.z)
+
+        }
+
+
+        logMsg("changeValue.y == " +convert->toString(change.y));
+
+        logMsg("currentValue.z == " +convert->toString(currentValue.z));
+        logMsg("newValue.z == " +convert->toString(newValue.z));
+        if (currentValue.z > 0)
+        {
+            if (newValue.z >= 0)
             {
-                change.z = newValue.z - currentValue.z;
+                if (newValue.z > currentValue.z)
+                {
+                    change.z = newValue.z - currentValue.z;
+                }
+                else if (newValue.z < currentValue.z)
+                {
+                    change.z = (currentValue.z - newValue.z)*(-1);
+                }
+                else
+                {
+
+                }
             }
-            else if (newValue.z < currentValue.z)
+            else if (newValue.z < 0)
             {
-                change.z = (currentValue.z - newValue.z)*(-1);
+                change.z = currentValue.z + newValue.z;
+            }
+        }
+        else if (currentValue.z < 0)
+        {
+            if (newValue.z >= 0)
+            {
+                change.z = currentValue.z + newValue.z;
+            }
+            else if (newValue.z < 0)
+            {
+                if (newValue.z < currentValue.z)
+                {
+                    change.z = newValue.z - currentValue.z;
+                }
+                else if (newValue.z > currentValue.z)
+                {
+                    change.z = (currentValue.z - newValue.z)*(-1);
+                }
             }
             else
             {
 
             }
         }
-        else if (newValue.z < 0)
+        else if (currentValue.z == 0)
         {
-            change.z = currentValue.z + newValue.z;
-        }
-    }
-    else if (currentValue.z < 0)
-    {
-        if (newValue.z >= 0)
-        {
-            change.z = currentValue.z + newValue.z;
-        }
-        else if (newValue.z < 0)
-        {
-            if (newValue.z < currentValue.z)
+            if (newValue.z >= 0)
             {
                 change.z = newValue.z - currentValue.z;
             }
-            else if (newValue.z > currentValue.z)
+            else if (newValue.z < 0)
             {
-                change.z = (currentValue.z - newValue.z)*(-1);
+                change.z = currentValue.z - newValue.z;
             }
         }
         else
         {
 
         }
-    }
-    else if (currentValue.z == 0)
-    {
-        if (newValue.z >= 0)
-        {
-            change.z = newValue.z - currentValue.z;
-        }
-        else if (newValue.z < 0)
-        {
-            change.z = currentValue.z - newValue.z;
-        }
-    }
-    else
-    {
 
-    }
-
-    logMsg("changeValue.z == " +convert->toString(change.z));
+        logMsg("changeValue.z == " +convert->toString(change.z));
     }
     else 
     {
@@ -273,203 +273,205 @@ Ogre::Vector3 comparison::OgreVector3ToOpenSteerVec3Result(const Ogre::Vector3 &
     logMsg("currentValue.x == " +convert->toString(currentValue.x));
     logMsg("newValue.x == " +convert->toString(newValue.x));
     
-    if (convert->toString(newValue.x) == "nan" || convert->toString(newValue.y) == "nan" || convert->toString(newValue.z) == "nan")
+    if (convert->toString(newValue.x) != "nan" && convert->toString(newValue.y) != "nan" && convert->toString(newValue.z) != "nan")
     {
-        logMsg("NAN!!!");
-       /// exit(0);
-    }
-    
-    if (currentValue.x > 0)
-    {
-        if (newValue.x >= 0)
+        if (currentValue.x > 0)
         {
-            if (newValue.x > currentValue.x)
+            if (newValue.x >= 0)
+            {
+                if (newValue.x > currentValue.x)
+                {
+                    change.x = newValue.x - currentValue.x;
+                }
+                else if (newValue.x < currentValue.x)
+                {
+                    change.x = (currentValue.x - newValue.x)*(-1);
+                }
+                else
+                {
+
+                }
+            }
+            else if (newValue.x < 0)
+            {
+                change.x = currentValue.x + newValue.x;
+            }
+        }
+        else if (currentValue.x < 0)
+        {
+            if (newValue.x >= 0)
+            {
+                change.x = currentValue.x + newValue.x;
+            }
+            else if (newValue.x < 0)
+            {
+                if (newValue.x < currentValue.x)
+                {
+                    change.x = newValue.x - currentValue.x;
+                }
+                else if (newValue.x > currentValue.x)
+                {
+                    change.x = (currentValue.x - newValue.x)*(-1);
+                }
+            }
+            else
+            {
+
+            }
+        }
+        else if (currentValue.x == 0)
+        {
+            if (newValue.x >= 0)
             {
                 change.x = newValue.x - currentValue.x;
             }
-            else if (newValue.x < currentValue.x)
+            else if (newValue.x < 0)
             {
-                change.x = (currentValue.x - newValue.x)*(-1);
-            }
-            else
-            {
-                
-            }
-        }
-        else if (newValue.x < 0)
-        {
-            change.x = currentValue.x + newValue.x;
-        }
-    }
-    else if (currentValue.x < 0)
-    {
-        if (newValue.x >= 0)
-        {
-            change.x = currentValue.x + newValue.x;
-        }
-        else if (newValue.x < 0)
-        {
-            if (newValue.x < currentValue.x)
-            {
-                change.x = newValue.x - currentValue.x;
-            }
-            else if (newValue.x > currentValue.x)
-            {
-                change.x = (currentValue.x - newValue.x)*(-1);
+                change.x = currentValue.x - newValue.x;
             }
         }
         else
         {
-            
-        }
-    }
-    else if (currentValue.x == 0)
-    {
-        if (newValue.x >= 0)
-        {
-            change.x = newValue.x - currentValue.x;
-        }
-        else if (newValue.x < 0)
-        {
-            change.x = currentValue.x - newValue.x;
-        }
-    }
-    else
-    {
-        
-    }
 
-    logMsg("changeValue.x == " +convert->toString(change.x));
+        }
 
-    logMsg("currentValue.y == " +convert->toString(currentValue.y));
-    logMsg("newValue.y == " +convert->toString(newValue.y));
-    if (currentValue.y > 0)
-    {
-        if (newValue.y >= 0)
+        logMsg("changeValue.x == " +convert->toString(change.x));
+
+        logMsg("currentValue.y == " +convert->toString(currentValue.y));
+        logMsg("newValue.y == " +convert->toString(newValue.y));
+        if (currentValue.y > 0)
         {
-            if (newValue.y > currentValue.y)
+            if (newValue.y >= 0)
+            {
+                if (newValue.y > currentValue.y)
+                {
+                    change.y = newValue.y - currentValue.y;
+                }
+                else if (newValue.y < currentValue.y)
+                {
+                    change.y = (currentValue.y - newValue.y)*(-1);
+                }
+                else
+                {
+
+                }
+            }
+            else if (newValue.y < 0)
+            {
+                change.y = currentValue.y + newValue.y;
+            }
+        }
+        else if (currentValue.y < 0)
+        {
+            if (newValue.y >= 0)
+            {
+                change.y = currentValue.y + newValue.y;
+            }
+            else if (newValue.y < 0)
+            {
+                if (newValue.y < currentValue.y)
+                {
+                    change.y = newValue.y - currentValue.y;
+                }
+                else if (newValue.y > currentValue.y)
+                {
+                    change.y = (currentValue.y - newValue.y)*(-1);
+                }
+            }
+            else
+            {
+
+            }
+        }
+        else if (currentValue.y == 0)
+        {
+            if (newValue.y >= 0)
             {
                 change.y = newValue.y - currentValue.y;
             }
-            else if (newValue.y < currentValue.y)
+            else if (newValue.y < 0)
             {
-                change.y = (currentValue.y - newValue.y)*(-1);
-            }
-            else
-            {
-
-            }
-        }
-        else if (newValue.y < 0)
-        {
-            change.y = currentValue.y + newValue.y;
-        }
-    }
-    else if (currentValue.y < 0)
-    {
-        if (newValue.y >= 0)
-        {
-            change.y = currentValue.y + newValue.y;
-        }
-        else if (newValue.y < 0)
-        {
-            if (newValue.y < currentValue.y)
-            {
-                change.y = newValue.y - currentValue.y;
-            }
-            else if (newValue.y > currentValue.y)
-            {
-                change.y = (currentValue.y - newValue.y)*(-1);
+                change.y = currentValue.y - newValue.y;
             }
         }
         else
         {
 
         }
-    }
-    else if (currentValue.y == 0)
-    {
-        if (newValue.y >= 0)
+
+
+        logMsg("changeValue.y == " +convert->toString(change.y));
+
+        logMsg("currentValue.z == " +convert->toString(currentValue.z));
+        logMsg("newValue.z == " +convert->toString(newValue.z));
+        if (currentValue.z > 0)
         {
-            change.y = newValue.y - currentValue.y;
-        }
-        else if (newValue.y < 0)
-        {
-            change.y = currentValue.y - newValue.y;
-        }
-    }
-    else
-    {
-
-    }
-
-
-    logMsg("changeValue.y == " +convert->toString(change.y));
-
-    logMsg("currentValue.z == " +convert->toString(currentValue.z));
-    logMsg("newValue.z == " +convert->toString(newValue.z));
-    if (currentValue.z > 0)
-    {
-        if (newValue.z >= 0)
-        {
-            if (newValue.z > currentValue.z)
+            if (newValue.z >= 0)
             {
-                change.z = newValue.z - currentValue.z;
+                if (newValue.z > currentValue.z)
+                {
+                    change.z = newValue.z - currentValue.z;
+                }
+                else if (newValue.z < currentValue.z)
+                {
+                    change.z = (currentValue.z - newValue.z)*(-1);
+                }
+                else
+                {
+
+                }
             }
-            else if (newValue.z < currentValue.z)
+            else if (newValue.z < 0)
             {
-                change.z = (currentValue.z - newValue.z)*(-1);
+                change.z = currentValue.z + newValue.z;
+            }
+        }
+        else if (currentValue.z < 0)
+        {
+            if (newValue.z >= 0)
+            {
+                change.z = currentValue.z + newValue.z;
+            }
+            else if (newValue.z < 0)
+            {
+                if (newValue.z < currentValue.z)
+                {
+                    change.z = newValue.z - currentValue.z;
+                }
+                else if (newValue.z > currentValue.z)
+                {
+                    change.z = (currentValue.z - newValue.z)*(-1);
+                }
             }
             else
             {
 
             }
         }
-        else if (newValue.z < 0)
+        else if (currentValue.z == 0)
         {
-            change.z = currentValue.z + newValue.z;
-        }
-    }
-    else if (currentValue.z < 0)
-    {
-        if (newValue.z >= 0)
-        {
-            change.z = currentValue.z + newValue.z;
-        }
-        else if (newValue.z < 0)
-        {
-            if (newValue.z < currentValue.z)
+            if (newValue.z >= 0)
             {
                 change.z = newValue.z - currentValue.z;
             }
-            else if (newValue.z > currentValue.z)
+            else if (newValue.z < 0)
             {
-                change.z = (currentValue.z - newValue.z)*(-1);
+                change.z = currentValue.z - newValue.z;
             }
         }
         else
         {
 
         }
-    }
-    else if (currentValue.z == 0)
-    {
-        if (newValue.z >= 0)
-        {
-            change.z = newValue.z - currentValue.z;
-        }
-        else if (newValue.z < 0)
-        {
-            change.z = currentValue.z - newValue.z;
-        }
+
+        logMsg("changeValue.z == " +convert->toString(change.z));
     }
     else
     {
-
+        change.x = 0;
+        change.y = 0;
+        change.z = 0;
     }
-
-    logMsg("changeValue.z == " +convert->toString(change.z));
-
     return (change);
 }
 
@@ -494,201 +496,205 @@ Ogre::Vector3 comparison::OgreVector3ToBTVector3Result(const Ogre::Vector3 &curr
     logMsg("currentValue.x == " +convert->toString(currentValue.x));
     logMsg("newValue.getX() == " +convert->toString(newValue.getX()));
     
-    if (convert->toString(newValue.getX()) == "nan" || convert->toString(newValue.getY()) == "nan" || convert->toString(newValue.getZ()) == "nan")
+    if (convert->toString(newValue.getX()) != "nan" && convert->toString(newValue.getY()) != "nan" && convert->toString(newValue.getZ()) != "nan")
     {
-        logMsg("NAN!!!");
-        //exit(0);
-    }
-    if (currentValue.x > 0)
-    {
-        if (newValue.getX() >= 0)
+
+        if (currentValue.x > 0)
         {
-            if (newValue.getX() > currentValue.x)
+            if (newValue.getX() >= 0)
+            {
+                if (newValue.getX() > currentValue.x)
+                {
+                    change.x = newValue.getX() - currentValue.x;
+                }
+                else if (newValue.getX() < currentValue.x)
+                {
+                    change.x = (currentValue.x - newValue.getX())*(-1);
+                }
+                else
+                {
+
+                }
+            }
+            else if (newValue.getX() < 0)
+            {
+                change.x = currentValue.x + newValue.getX();
+            }
+        }
+        else if (currentValue.x < 0)
+        {
+            if (newValue.getX() >= 0)
+            {
+                change.x = currentValue.x + newValue.getX();
+            }
+            else if (newValue.getX() < 0)
+            {
+                if (newValue.getX() < currentValue.x)
+                {
+                    change.x = newValue.getX() - currentValue.x;
+                }
+                else if (newValue.getX() > currentValue.x)
+                {
+                    change.x = (currentValue.x - newValue.getX())*(-1);
+                }
+            }
+            else
+            {
+
+            }
+        }
+        else if (currentValue.x == 0)
+        {
+            if (newValue.getX() >= 0)
             {
                 change.x = newValue.getX() - currentValue.x;
             }
-            else if (newValue.getX() < currentValue.x)
+            else if (newValue.getX() < 0)
             {
-                change.x = (currentValue.x - newValue.getX())*(-1);
-            }
-            else
-            {
-                
-            }
-        }
-        else if (newValue.getX() < 0)
-        {
-            change.x = currentValue.x + newValue.getX();
-        }
-    }
-    else if (currentValue.x < 0)
-    {
-        if (newValue.getX() >= 0)
-        {
-            change.x = currentValue.x + newValue.getX();
-        }
-        else if (newValue.getX() < 0)
-        {
-            if (newValue.getX() < currentValue.x)
-            {
-                change.x = newValue.getX() - currentValue.x;
-            }
-            else if (newValue.getX() > currentValue.x)
-            {
-                change.x = (currentValue.x - newValue.getX())*(-1);
+                change.x = currentValue.x - newValue.getX();
             }
         }
         else
         {
-            
-        }
-    }
-    else if (currentValue.x == 0)
-    {
-        if (newValue.getX() >= 0)
-        {
-            change.x = newValue.getX() - currentValue.x;
-        }
-        else if (newValue.getX() < 0)
-        {
-            change.x = currentValue.x - newValue.getX();
-        }
-    }
-    else
-    {
-        
-    }
 
-    logMsg("changeValue.x == " +convert->toString(change.x));
+        }
 
-    logMsg("currentValue.y == " +convert->toString(currentValue.y));
-    logMsg("newValue.getY() == " +convert->toString(newValue.getY()));
-    if (currentValue.y > 0)
-    {
-        if (newValue.getY() >= 0)
+        logMsg("changeValue.x == " +convert->toString(change.x));
+
+        logMsg("currentValue.y == " +convert->toString(currentValue.y));
+        logMsg("newValue.getY() == " +convert->toString(newValue.getY()));
+        if (currentValue.y > 0)
         {
-            if (newValue.getY() > currentValue.y)
+            if (newValue.getY() >= 0)
+            {
+                if (newValue.getY() > currentValue.y)
+                {
+                    change.y = newValue.getY() - currentValue.y;
+                }
+                else if (newValue.getY() < currentValue.y)
+                {
+                    change.y = (currentValue.y - newValue.getY())*(-1);
+                }
+                else
+                {
+
+                }
+            }
+            else if (newValue.getY() < 0)
+            {
+                change.y = currentValue.y + newValue.getY();
+            }
+        }
+        else if (currentValue.y < 0)
+        {
+            if (newValue.getY() >= 0)
+            {
+                change.y = currentValue.y + newValue.getY();
+            }
+            else if (newValue.getY() < 0)
+            {
+                if (newValue.getY() < currentValue.y)
+                {
+                    change.y = newValue.getY() - currentValue.y;
+                }
+                else if (newValue.getY() > currentValue.y)
+                {
+                    change.y = (currentValue.y - newValue.getY())*(-1);
+                }
+            }
+            else
+            {
+
+            }
+        }
+        else if (currentValue.y == 0)
+        {
+            if (newValue.getY() >= 0)
             {
                 change.y = newValue.getY() - currentValue.y;
             }
-            else if (newValue.getY() < currentValue.y)
+            else if (newValue.getY() < 0)
             {
-                change.y = (currentValue.y - newValue.getY())*(-1);
-            }
-            else
-            {
-
-            }
-        }
-        else if (newValue.getY() < 0)
-        {
-            change.y = currentValue.y + newValue.getY();
-        }
-    }
-    else if (currentValue.y < 0)
-    {
-        if (newValue.getY() >= 0)
-        {
-            change.y = currentValue.y + newValue.getY();
-        }
-        else if (newValue.getY() < 0)
-        {
-            if (newValue.getY() < currentValue.y)
-            {
-                change.y = newValue.getY() - currentValue.y;
-            }
-            else if (newValue.getY() > currentValue.y)
-            {
-                change.y = (currentValue.y - newValue.getY())*(-1);
+                change.y = currentValue.y - newValue.getY();
             }
         }
         else
         {
 
         }
-    }
-    else if (currentValue.y == 0)
-    {
-        if (newValue.getY() >= 0)
+
+
+        logMsg("changeValue.y == " +convert->toString(change.y));
+
+        logMsg("currentValue.z == " +convert->toString(currentValue.z));
+        logMsg("newValue.getZ() == " +convert->toString(newValue.getZ()));
+        if (currentValue.z > 0)
         {
-            change.y = newValue.getY() - currentValue.y;
-        }
-        else if (newValue.getY() < 0)
-        {
-            change.y = currentValue.y - newValue.getY();
-        }
-    }
-    else
-    {
-
-    }
-
-
-    logMsg("changeValue.y == " +convert->toString(change.y));
-
-    logMsg("currentValue.z == " +convert->toString(currentValue.z));
-    logMsg("newValue.getZ() == " +convert->toString(newValue.getZ()));
-    if (currentValue.z > 0)
-    {
-        if (newValue.getZ() >= 0)
-        {
-            if (newValue.getZ() > currentValue.z)
+            if (newValue.getZ() >= 0)
             {
-                change.z = newValue.getZ() - currentValue.z;
+                if (newValue.getZ() > currentValue.z)
+                {
+                    change.z = newValue.getZ() - currentValue.z;
+                }
+                else if (newValue.getZ() < currentValue.z)
+                {
+                    change.z = (currentValue.z - newValue.getZ())*(-1);
+                }
+                else
+                {
+
+                }
             }
-            else if (newValue.getZ() < currentValue.z)
+            else if (newValue.getZ() < 0)
             {
-                change.z = (currentValue.z - newValue.getZ())*(-1);
+                change.z = currentValue.z + newValue.getZ();
+            }
+        }
+        else if (currentValue.z < 0)
+        {
+            if (newValue.getZ() >= 0)
+            {
+                change.z = currentValue.z + newValue.getZ();
+            }
+            else if (newValue.getZ() < 0)
+            {
+                if (newValue.getZ() < currentValue.z)
+                {
+                    change.z = newValue.getZ() - currentValue.z;
+                }
+                else if (newValue.getZ() > currentValue.z)
+                {
+                    change.z = (currentValue.z - newValue.getZ())*(-1);
+                }
             }
             else
             {
 
             }
         }
-        else if (newValue.getZ() < 0)
+        else if (currentValue.z == 0)
         {
-            change.z = currentValue.z + newValue.getZ();
-        }
-    }
-    else if (currentValue.z < 0)
-    {
-        if (newValue.getZ() >= 0)
-        {
-            change.z = currentValue.z + newValue.getZ();
-        }
-        else if (newValue.getZ() < 0)
-        {
-            if (newValue.getZ() < currentValue.z)
+            if (newValue.getZ() >= 0)
             {
                 change.z = newValue.getZ() - currentValue.z;
             }
-            else if (newValue.getZ() > currentValue.z)
+            else if (newValue.getZ() < 0)
             {
-                change.z = (currentValue.z - newValue.getZ())*(-1);
+                change.z = currentValue.z - newValue.getZ();
             }
         }
         else
         {
 
         }
-    }
-    else if (currentValue.z == 0)
-    {
-        if (newValue.getZ() >= 0)
-        {
-            change.z = newValue.getZ() - currentValue.z;
-        }
-        else if (newValue.getZ() < 0)
-        {
-            change.z = currentValue.z - newValue.getZ();
-        }
+
+        logMsg("changeValue.z == " +convert->toString(change.z));
     }
     else
     {
-
+        change.x = 0;
+        change.y = 0;
+        change.z = 0;
     }
-
-    logMsg("changeValue.z == " +convert->toString(change.z));
-
     return (change);
 }
