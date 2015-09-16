@@ -895,11 +895,11 @@ void playerState::shotLogic(Ogre::Vector3 playerPos)
     if (getShotTaken())
     {
 
-        basketballInstance[0].setDribbling(false);
-//    		basketballInstance[0].getNode()->setParent(mSceneMgr->getRootSceneNode());
-        Ogre::Vector3 pos = basketballInstance[0].getNode()->getPosition();
-        basketballInstance[0].setMaxHeight(pos[1] + 10.0f);
-        basketballInstance[0].setMinHeight(pos[1] - 10.0f);
+        basketballInstance[activeBBallInstance].setDribbling(false);
+//    		basketballInstance[activeBBallInstance].getNode()->setParent(mSceneMgr->getRootSceneNode());
+        Ogre::Vector3 pos = basketballInstance[activeBBallInstance].getNode()->getPosition();
+        basketballInstance[activeBBallInstance].setMaxHeight(pos[1] + 10.0f);
+        basketballInstance[activeBBallInstance].setMinHeight(pos[1] - 10.0f);
         Ogre::Vector3 velocity;
         Ogre::Vector3 startCoords;
         startCoords[0] = playerPos[0] + 1.0f;
@@ -908,23 +908,23 @@ void playerState::shotLogic(Ogre::Vector3 playerPos)
         velocity[0] = 0.90f;
         velocity[1] = 0.80f;
         velocity[2] = 0.0f;
-        basketballInstance[0].setVelocity(velocity);
-        basketballInstance[0].setStartCoords(startCoords);
-        basketballInstance[0].getNode()->setPosition(startCoords);
+        basketballInstance[activeBBallInstance].setVelocity(velocity);
+        basketballInstance[activeBBallInstance].setStartCoords(startCoords);
+        basketballInstance[activeBBallInstance].getNode()->setPosition(startCoords);
         setShotTaken(false);
         setShotComplete(false);
-        basketballInstance[0].setMaxHeightReached(false);
-        basketballInstance[0].setMinHeightReached(false);
-    //		basketballInstance[0].setPlayer(-1);
+        basketballInstance[activeBBallInstance].setMaxHeightReached(false);
+        basketballInstance[activeBBallInstance].setMinHeightReached(false);
+    //		basketballInstance[activeBBallInstance].setPlayer(-1);
     }
 
     if (getShotComplete())
     {
 
-        basketballInstance[0].setPlayer(5);
-        basketballInstance[0].setDribblingStart(true);
-        playerPos = pInstance[basketballInstance[0].getPlayer()].getNode()->getPosition();
-        basketballInstance[0].getNode()->setPosition(playerPos[0] +2.0f, playerPos[1] + 4.0f, playerPos[2] - 1.0f);
+        basketballInstance[activeBBallInstance].setPlayer(5);
+        basketballInstance[activeBBallInstance].setDribblingStart(true);
+        playerPos = pInstance[basketballInstance[activeBBallInstance].getPlayer()].getNode()->getPosition();
+        basketballInstance[activeBBallInstance].getNode()->setPosition(playerPos[0] +2.0f, playerPos[1] + 4.0f, playerPos[2] - 1.0f);
         setShotComplete(false);
     }
 */

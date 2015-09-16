@@ -58,8 +58,8 @@ void basketballSteer::reset(void)
     
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
 	std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
-
-    OpenSteer::Vec3 basketballSteerPos = convert->toOpenSteerVec3(basketballInstance[0].getNodePosition());
+    int activeBBallInstance = gameS->getActiveBBallInstance();
+    OpenSteer::Vec3 basketballSteerPos = convert->toOpenSteerVec3(basketballInstance[activeBBallInstance].getNodePosition());
     // Place me on my part of the field, looking at oponnents goal
 //    setPosition(b_ImTeamA ? OpenSteer::frandom01()*20 : -OpenSteer::frandom01()*20, 0, (OpenSteer::frandom01()-0.5f)*20);
 

@@ -106,6 +106,9 @@ public:
     std::vector<courtData> getCourtDataInstance();  // retrieves the value of courtDataInstance
     void setCourtDataInstance(std::vector<courtData> instance);  // sets the value of courtDataInstance
 
+    int getActiveBBallInstance();  // retrieves the value of activeBBallInstance
+    void setActiveBBallInstance(int set);  // sets the value of activeBBallInstance
+
     std::vector<int> getTeamID(void);  // retrieves the value of teamID
     void setTeamID(std::vector<int> ID);  // sets the value of teamID
 
@@ -193,6 +196,8 @@ private:
     std::vector <hoopState> hoopInstance;  // creates instance of the hoop class
 
     std::vector <teamState>  teamInstance;  // creates instance of the teamState class
+
+    int activeBBallInstance;  // stores which instance of the baskteball class is active
 
     bool basketballModelLoaded;  // stores whether basketball model has been loaded
     bool courtModelLoaded;  // stores whether court model has been loaded

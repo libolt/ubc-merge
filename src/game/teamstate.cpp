@@ -423,6 +423,8 @@ void teamState::updateState()	// updates the state of the object
 	boost::shared_ptr<gameState> gameS = gameState::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
 
+    int activeBBallInstance = gameS->getActiveBBallInstance();
+
 //	logMsg("Updating team state " +convert->toString(teamNumber));
 	if (gameS->getBasketballModelLoaded() && playerInstancesCreated)
 	{
@@ -484,10 +486,10 @@ void teamState::updateState()	// updates the state of the object
                         activePlayerInstance[instanceWithBall].calculatePass();
 
 						//sets the basketball Height;
-						bballPos = basketballInstance[0].getNode()->getPosition();
+						bballPos = basketballInstance[activeBBallInstance].getNode()->getPosition();
                         playerPos = activePlayerInstance[instanceWithBall].getNode()->getPosition();
 						bballPos[1] = playerPos[1];
-						basketballInstance[0].getNode()->setPosition(bballPos);
+						basketballInstance[activeBBallInstance].getNode()->setPosition(bballPos);
 
 					}
                     else if (activePlayerInstance[playerWithBall].getPassCalculated())
@@ -951,12 +953,12 @@ void teamState::updatePlayerDirections()
             /*
             std::string oldPlayerDirect = Ogre::SingConverter::toString(oldPlayerDirection[i]);
             std::string playerDirect = toString(playerDirection[i]);
-            std::string bballPlayer = toString(basketballInstance[0].getPlayer());
+            std::string bballPlayer = toString(basketballInstance[activeBBallInstance].getPlayer());
             logMsg("oldPlayerDirection = " + oldPlayerDirect);
             logMsg("playerDirection = " + playerDirect);
             logMsg("bball player = " + bballPlayer);
-            playerInstance[basketballInstance[0].getPlayer()] = playerInstance[i];
-//            playerNodes.at(basketballInstance[0].getPlayer()) = playerNodes.at(i);  // sets the current player node
+            playerInstance[basketballInstance[activeBBallInstance].getPlayer()] = playerInstance[i];
+//            playerNodes.at(basketballInstance[activeBBallInstance].getPlayer()) = playerNodes.at(i);  // sets the current player node
             */
             switch (oldPlayerDirection)
             {
@@ -1130,12 +1132,14 @@ void teamState::executePass()		// executes the pass between players
 
     logMsg("In executePass function");
 
+    int activeBBallInstance = gameS->getActiveBBallInstance();
+
     int passToPlayer = activePlayerInstance[playerWithBall].getPassToPlayer();
 	std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
     Ogre::Vector3 playerWithBallCoords = activePlayerInstance[playerWithBall].getNode()->getPosition();
     Ogre::Vector3 passToPlayerCoords = activePlayerInstance[passToPlayer].getNode()->getPosition();
 //	exit(0);
-	Ogre::Vector3 bballCoords = basketballInstance[0].getNode()->getPosition();
+	Ogre::Vector3 bballCoords = basketballInstance[activeBBallInstance].getNode()->getPosition();
 	btVector3 bballPosChange;
 	btVector3 bballPhysCoords;
 	btTransform transform;
@@ -1146,10 +1150,10 @@ void teamState::executePass()		// executes the pass between players
     if (bballCoords[1] != passToPlayerCoords[1])
     {
     	bballCoords[1] = passToPlayerCoords[1];
-    	basketballInstance[0].getNode()->setPosition(bballCoords);
+    	basketballInstance[activeBBallInstance].getNode()->setPosition(bballCoords);
 		bballPhysCoords = BtOgre::Convert::toBullet(bballCoords); // converts from Ogre::Vector3 to btVector3
 		transform.setOrigin(bballPhysCoords);
-		basketballInstance[0].getPhysBody()->setWorldTransform(transform);
+		basketballInstance[activeBBallInstance].getPhysBody()->setWorldTransform(transform);
 
 
     }
@@ -1157,13 +1161,13 @@ void teamState::executePass()		// executes the pass between players
 	{
 		if (bballCoords[2] < passToPlayerCoords[2])
 		{
-//	    	basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(15,0,15));
+//	    	basketballInstance[activeBBallInstance].getPhysBody()->setLinearVelocity(btVector3(15,0,15));
 			bballPosChange[0] = 15;
 			bballPosChange[2] = 15;
 		}
 		else if (bballCoords[2] > passToPlayerCoords[2])
 		{
-//	    	basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(15,0,-15));
+//	    	basketballInstance[activeBBallInstance].getPhysBody()->setLinearVelocity(btVector3(15,0,-15));
 			bballPosChange[0] = 15;
 			bballPosChange[2] = -15;
 
@@ -1176,14 +1180,14 @@ void teamState::executePass()		// executes the pass between players
 	{
 		if (bballCoords[2] < passToPlayerCoords[2])
 		{
-//	    	basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(-15,0,15));
+//	    	basketballInstance[activeBBallInstance].getPhysBody()->setLinearVelocity(btVector3(-15,0,15));
 			bballPosChange[0] = -15;
 			bballPosChange[2] = 15;
 
 		}
 		else if (bballCoords[2] > passToPlayerCoords[2])
 		{
-//	    	basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(-15,0,-15));
+//	    	basketballInstance[activeBBallInstance].getPhysBody()->setLinearVelocity(btVector3(-15,0,-15));
 			bballPosChange[0] = -15;
 			bballPosChange[2] = -15;
 
@@ -1196,7 +1200,7 @@ void teamState::executePass()		// executes the pass between players
 	{
 	}
 
-	basketballInstance[0].getPhysBody()->setLinearVelocity(btVector3(bballPosChange));
+	basketballInstance[activeBBallInstance].getPhysBody()->setLinearVelocity(btVector3(bballPosChange));
 
 
 	gameS->setBasketballInstance(basketballInstance);		// saves changes to the basketballInstance object
