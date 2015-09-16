@@ -688,19 +688,73 @@ void physicsEngine::updateState()
 */
         gameS->setTeamInstance(teamInstance);
     }
-
-//    else
-//    {
-//    }
-
-    // FIX FOR SDL!!
-    //Shows debug if F3 key down.
-    //    debugDraw->setDebugMode(input->getMKeyboard()->isKeyDown(OIS::KC_F3));
+    updatePositions();  // updates the positions of game objects
 
 }
 
 void physicsEngine::updatePositions()  // updates thr position of objects
 {
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    //gameEngine *gameE = gameEngine::Instance();
+    //boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
+    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    //inputSystem *input = inputSystem::Instance();
+    //boost::shared_ptr<inputSystem> input = inputSystem::Instance();
+//    teamState *teamS = teamState::Instance();
+
+    comparison compare;
+    
+    int activeBBallInstance = gameS->getActiveBBallInstance();
+
+    int teamWithBall = gameS->getTeamWithBall();
+    int playerWithBall;
+
+    std::vector<teamState> teamInstance = gameS->getTeamInstance();
+    std::vector <std::vector<playerState> > activePlayerInstance;
+    std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
+
+    // checks to see if player positions need updated
+    size_t z = 0;
+    while (z < teamInstance.size())
+    {
+        activePlayerInstance.push_back(teamInstance[z].getActivePlayerInstance());
+        size_t y = 0;
+        while (y < activePlayerInstance[z].size())
+        {
+            int humanInstance = -1;
+            if (teamInstance[z].getHumanControlled())
+            {
+                logMsg("phys update human == " +convert->toString(teamInstance[z].getHumanPlayer()));
+                humanInstance = teamInstance[z].getHumanPlayer();
+                
+            }
+            if (y != humanInstance && !activePlayerInstance[z][y].getCourtPositionChanged())
+            {
+                btTransform transform = activePlayerInstance[z][y].getPhysBody()->getWorldTransform();
+                btVector3 physPos = transform.getOrigin();
+            
+                Ogre::Vector3 courtPosition = activePlayerInstance[z][y].getCourtPosition();
+                Ogre::Vector3 newCourtPosition;
+                logMsg("comparing court position");
+                if (!compare.OgreVector3ToBTVector3(courtPosition,physPos))
+                {
+                    newCourtPosition = compare.OgreVector3ToBTVector3Result(courtPosition,physPos);
+                }
+            
+                logMsg("court position = " +convert->toString(courtPosition));
+                logMsg("new court position = " +convert->toString(newCourtPosition));
+                
+                activePlayerInstance[z][y].setCourtPositionChanged(true);
+                activePlayerInstance[z][y].setCourtPositionChangedType(PHYSICSCHANGE);
+                activePlayerInstance[z][y].setNewCourtPosition(newCourtPosition);
+            }
+            ++y;
+        }
+        teamInstance[z].setActivePlayerInstance(activePlayerInstance[z]);
+    ++z;
+    }
+    gameS->setTeamInstance(teamInstance);
     
 }
 
@@ -735,7 +789,6 @@ void physicsEngine::stepWorld() // steps the world of the physics simulation
 //  logMsg("Current Time = " + currTime);
     logMsg("Change In Time = " + CIT);
 
-    updatePositions();  // updates the positions of objects
     world->stepSimulation(changeInTime, 1, fixedTimeStep);
 //  logMsg("World->Step ");
     debugDraw->step();
@@ -1513,25 +1566,7 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
            activePlayerInstance[x].setShotSet(shotSet);
            activePlayerInstance[x].setShotComplete(shotComplete);
         }
-        if (!activePlayerInstance[x].getCourtPositionChanged())
-        {
-            btTransform transform = activePlayerInstance[x].getPhysBody()->getWorldTransform();
-            btVector3 physPos = transform.getOrigin();
-            
-            Ogre::Vector3 courtPosition = activePlayerInstance[x].getCourtPosition();
-            Ogre::Vector3 newCourtPosition;
-            logMsg("comparing court position");
-            if (!compare.OgreVector3ToBTVector3(courtPosition,physPos))
-            {
-                newCourtPosition = compare.OgreVector3ToBTVector3Result(courtPosition,physPos);
-            }
-            
-            logMsg("court position = " +convert->toString(courtPosition));
-            logMsg("new court position = " +convert->toString(newCourtPosition));
-            //exit(0);
-            activePlayerInstance[x].setCourtPositionChanged(true);
-            activePlayerInstance[x].setCourtPositionChangedType(PHYSICSCHANGE);
-        }
+        
         ++x;
     }
     logMsg("playerdribble = " +convert->toString(teamInstance[teamNumber].getPlayerWithBallDribbling()));

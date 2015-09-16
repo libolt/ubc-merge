@@ -806,7 +806,11 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
 
             case PHYSICSCHANGE:
                 logMsg("Updating court position based on physics");
-                //exit(0);
+                node->translate(newCourtPosition);
+                steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
+                courtPositionChanged = false;
+                courtPositionChangedType = NOCHANGE;
+                exit(0);
             break;
 
             default:
