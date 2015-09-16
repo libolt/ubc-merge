@@ -1512,6 +1512,17 @@ bool physicsEngine::shootBasketball(int teamNumber, int playerID)  // calculates
            activePlayerInstance[x].setShotSet(shotSet);
            activePlayerInstance[x].setShotComplete(shotComplete);
         }
+        if (!activePlayerInstance[x].getCourtPositionChanged())
+        {
+            btTransform transform = activePlayerInstance[x].getPhysBody()->getWorldTransform();
+            btVector3 physPos = transform.getOrigin();
+            Ogre::Vector3 physicsCourtPosition = convert->toOgreVector3(physPos);
+            Ogre::Vector3 courtPosition = activePlayerInstance[x].getCourtPosition();
+            logMsg("physics position = " +convert->toString(physicsCourtPosition));
+            logMsg("court position = " +convert->toString(courtPosition));
+            activePlayerInstance[x].setCourtPositionChanged(true);
+            activePlayerInstance[x].setCourtPositionChangedType(PHYSICSCHANGE);
+        }
         ++x;
     }
     logMsg("playerdribble = " +convert->toString(teamInstance[teamNumber].getPlayerWithBallDribbling()));

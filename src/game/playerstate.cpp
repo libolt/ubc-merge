@@ -806,7 +806,7 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
 
             case PHYSICSCHANGE:
                 logMsg("Updating court position based on physics");
-                exit(0);
+                //exit(0);
             break;
 
             default:

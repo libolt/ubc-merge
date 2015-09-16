@@ -1196,6 +1196,16 @@ Ogre::Vector3 conversion::toOgreVector3(OpenSteer::Vec3 vect) // converts from O
 
     return (vector3);
 }
+
+Ogre::Vector3 conversion::toOgreVector3(btVector3 vect) // converts from btVector3 to Ogre::Vector3
+{
+    Ogre::Vector3 vector3;
+    vector3[0] = vect.getX();
+    vector3[1] = vect.getY();
+    vector3[2] = vect.getZ();
+
+    return (vector3);
+}
 /*
 template <typename T>
 std::string conversion::toString(const T& input)  // converts data to string);
