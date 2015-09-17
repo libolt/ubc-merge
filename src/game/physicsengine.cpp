@@ -600,7 +600,7 @@ void physicsEngine::updateState()
                         logMsg("Team " +convert->toString(z) +" player " +convert->toString(y) +" pActivePhys == " +convert->toString(physPos));
                         logMsg("Team " +convert->toString(z) +" player " +convert->toString(y) +" pActiveCourt == " +convert->toString(courtPos));
                         logMsg("Team " +convert->toString(z) +" player " +convert->toString(y) +" pActiveSteer == " +convert->toString(steerPos));
-                        if (activePlayerInstance[z][y].getCourtPositionChangedType() == NOCHANGE)
+                        /*if (activePlayerInstance[z][y].getCourtPositionChangedType() == NOCHANGE)
                         {
                             if (!compare.OgreVector3ToBTVector3(courtPos, physPos))
                             {
@@ -608,7 +608,7 @@ void physicsEngine::updateState()
                                 activePlayerInstance[z][y].setCourtPositionChangedType(PHYSICSCHANGE);
                                 //exit(0);
                             }
-                        }
+                        }*/
                         ++y;
                     }
                     ++z;
@@ -744,10 +744,13 @@ void physicsEngine::updatePositions()  // updates thr position of objects
             
                 logMsg("court position = " +convert->toString(courtPosition));
                 logMsg("new court position = " +convert->toString(newCourtPosition));
-                
-                activePlayerInstance[z][y].setCourtPositionChanged(true);
-                activePlayerInstance[z][y].setCourtPositionChangedType(PHYSICSCHANGE);
-                activePlayerInstance[z][y].setNewCourtPosition(newCourtPosition);
+                if (newCourtPosition.x != 0 && newCourtPosition.y != 0 && newCourtPosition.z != 0)
+                {
+                    activePlayerInstance[z][y].setCourtPositionChanged(true);
+                    activePlayerInstance[z][y].setCourtPositionChangedType(PHYSICSCHANGE);
+                    activePlayerInstance[z][y].setNewCourtPosition(newCourtPosition);
+
+                }
             }
             ++y;
         }

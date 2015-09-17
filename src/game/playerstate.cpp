@@ -764,6 +764,7 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
     Ogre::Vector3 changePos = Ogre::Vector3(0,0,0);
     
     logMsg("updatePosChange == " +convert->toString(posChange));
+    logMsg("newCourtPosition == " +convert->toString(newCourtPosition));
     if (courtPositionChanged)
     {
         
@@ -807,10 +808,14 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
             case PHYSICSCHANGE:
                 logMsg("Updating court position based on physics");
                 node->translate(newCourtPosition);
+                logMsg("node position updated");
                 steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
+                logMsg("steer position updated");
                 courtPositionChanged = false;
+                logMsg("courtPositionChanged set to false");
                 courtPositionChangedType = NOCHANGE;
-                exit(0);
+                logMsg("courtPositionChangedType = NOCHANGE");
+                //exit(0);
             break;
 
             default:
