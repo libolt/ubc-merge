@@ -63,6 +63,7 @@ playerState::playerState()
     freeThrowsMade = 0;
     posChange = Ogre::Vector3(0.0f,0.0f,0.0f);
     movement = false;
+    startPosReached = false;
     shootBlock = false;
     passSteal = false;
     passBall = false;
@@ -515,6 +516,15 @@ void playerState::setPosChange(Ogre::Vector3 change)  // sets the value of posCh
     posChange = change;
 }
 
+bool playerState::getStartPosReached()  // retrieves the value of startPosReached
+{
+    return (startPosReached);
+}
+void playerState::setStartPosReached(bool set)  // sets the value of startPosReached
+{
+    startPosReached = set;
+}
+
 bool playerState::getShootBlock()  // retrieves the value of shootBlock
 {
     return (shootBlock);
@@ -779,6 +789,8 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
                 steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
                 courtPositionChanged = false;
                 courtPositionChangedType = NOCHANGE;
+                startPosReached = true;
+                courtPosition = node->getPosition();
             break;
             
             case STEERCHANGE:
@@ -790,8 +802,10 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
                 physChange = BtOgre::Convert::toBullet(changePos); // converts from Ogre::Vector3 to btVector3
                 physBody->translate(physChange); // moves physics body in unison with the model
                 //exit(0);
+                
                 courtPositionChanged = false;
                 courtPositionChangedType = NOCHANGE;
+                courtPosition = node->getPosition();
             break;   
 
             case INPUTCHANGE:
@@ -803,25 +817,29 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
                 courtPositionChanged = false;
                 courtPositionChangedType = NOCHANGE;
                 //exit(0);
+                courtPosition = node->getPosition();
             break;
 
             case PHYSICSCHANGE:
+                /*  I have disabled this code until I can fix the conflict with the steering code
                 logMsg("Updating court position based on physics");
+                logMsg("courtPosition = " +convert->toString(courtPosition));
+                logMsg("newCourtPosition = " +convert->toString(newCourtPosition));
                 node->translate(newCourtPosition);
                 logMsg("node position updated");
                 steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
                 logMsg("steer position updated");
+                */
                 courtPositionChanged = false;
-                logMsg("courtPositionChanged set to false");
                 courtPositionChangedType = NOCHANGE;
-                logMsg("courtPositionChangedType = NOCHANGE");
-                //exit(0);
+                //courtPosition = node->getPosition();
+                // exit(0);
             break;
 
             default:
             break;
         }
-        courtPosition = node->getPosition();
+        
         ++posChangeAmount;
         logMsg("player ID " +convert->toString(playerID) +"change amount = " +convert->toString(posChangeAmount));
         

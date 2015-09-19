@@ -176,6 +176,9 @@ class playerState
         Ogre::Vector3 getPosChange();	// retrieves the value of posChange
         void setPosChange(Ogre::Vector3 change);	// sets the value of posChange
 
+        bool getStartPosReached();  // retrieves the value of startPosReached
+        void setStartPosReached(bool set);  // sets the value of startPosReached
+        
         bool getShootBlock();  // retrieves the value of shootBlock
         void setShootBlock(bool set);   // sets the value of shootBlock
 
@@ -351,6 +354,7 @@ class playerState
         // stores value of players' position changes during logic updates
         Ogre::Vector3 posChange;
 
+        bool startPosReached;  // stores whether a player is in the starting position for tipoff
         // variables for offense and defense;
         bool shootBlock;  // stores whether or not a player attempts to shoot or block a shot
         bool passSteal;  // stores whether a player attempts to pass or steal the ball

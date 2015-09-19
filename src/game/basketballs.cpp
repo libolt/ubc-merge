@@ -265,7 +265,7 @@ positionChangedTypes basketballs::getCourtPositionChangedType()  // retrieves th
 {
     return (courtPositionChangedType);
 }
-void basketballs::setPositionChangedType(positionChangedTypes set)  // sets the value of courtPositionChangedType
+void basketballs::setCourtPositionChangedType(positionChangedTypes set)  // sets the value of courtPositionChangedType
 {
     courtPositionChangedType = set;
 }
@@ -362,6 +362,10 @@ void basketballs::updatePosition() // updates the position of the basketball
 
             case PHYSICSCHANGE:
                 logMsg("Updating basketball court position based on physics");
+                exit(0);
+            break;
+            case PLAYERMOVECHANGE:
+                logMsg("Updating basketball court position based on player movement");
                 exit(0);
             break;
 

@@ -986,7 +986,7 @@ void gameState::updateDirectionsAndMovements()
 //    directions playerDirection, oldPlayerDirection;
 //   logMsg("Updating Directions and Movements");
 
-    if (teamWithBall >= 0 && playerHasBasketball)
+    if (teamWithBall >= 0) // && playerHasBasketball)
     {
 //		logMsg("teamWithBall is " +convert->toString(teamWithBall));
 //		logMsg("playetWithBall is " +convert->toString(teamInstance[teamWithBall].getPlayerWithBall()));
@@ -1013,7 +1013,7 @@ void gameState::updateBasketballMovements()  // updates the basketball(s) moveme
     size_t playerWithBall = -1;
     size_t x = 0;
     logMsg("playerWithBallID == " +convert->toString(playerWithBallID));
-    exit(0);
+//    exit(0);
     while (x < activePlayerInstance.size())
     {
                 if (activePlayerInstance[x].getPlayerID() == playerWithBallID)
@@ -1023,7 +1023,7 @@ void gameState::updateBasketballMovements()  // updates the basketball(s) moveme
         ++x;
     }
     logMsg("bballplayerWithBall" + convert->toString(playerWithBall));
-    exit(0);
+//    exit(0);
     bool shotTaken = activePlayerInstance[playerWithBall].getShotTaken();
 //    logMsg("teamWithBall" + convert->toString(teamWithBall));
 	
@@ -1049,20 +1049,27 @@ void gameState::updateBasketballMovements()  // updates the basketball(s) moveme
 
             if (activePlayerInstance[playerWithBall].getMovement())
             {
-                if (playerDirection == oldPlayerDirection)
-                {
+                
+               // if (playerDirection == oldPlayerDirection)
+               // {
+                    
                     switch (playerDirection)
                     {
                         case UP:
+                            
                             bballPos[0] += 2;
                             bballPos[1] = bballCurrentPos[1]; // maintains the current height of the basketball on the court as the player and ball moves
                             bballPos[2] -= 2;
                 //				basketballInstance[activeBBallInstance].setPosChange(bballPosChange);	// sets the posChange for current basketballInstance
-                            basketballInstance[activeBBallInstance].getNode()->setPosition(bballPos);
+                            /*basketballInstance[activeBBallInstance].getNode()->setPosition(bballPos);
                             change = BtOgre::Convert::toBullet(bballPos); // converts from Ogre::Vector3 to btVector3
                             transform.setOrigin(change);
                 //				basketballInstance[activeBBallInstance].getPhysBody()->translate(change);
                             basketballInstance[activeBBallInstance].getPhysBody()->setWorldTransform(transform);
+                            */
+                            basketballInstance[activeBBallInstance].setNewCourtPosition(bballPos);
+                            basketballInstance[activeBBallInstance].setCourtPositionChanged(true);
+                            basketballInstance[activeBBallInstance].setCourtPositionChangedType(PLAYERMOVECHANGE);
                             break;
                         case DOWN:
                             bballPos[0] -= 2;
@@ -1100,10 +1107,10 @@ void gameState::updateBasketballMovements()  // updates the basketball(s) moveme
                 else
                 {
                 }
-            }
+/*            }
             else
             {
-            }
+            }*/
         }
         activePlayerInstance[playerWithBall].setMovement(false);	// sets the movement to false for playerWithBall
     }
@@ -1111,7 +1118,7 @@ void gameState::updateBasketballMovements()  // updates the basketball(s) moveme
     {
         logMsg("shotTaken!");
     }
-    exit(0);
+   // exit(0);
 }
 
 

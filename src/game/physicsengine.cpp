@@ -125,7 +125,7 @@ physicsEngine::~physicsEngine()
     delete courtShape;
 
     //Free Bullet stuff.
-    delete debugDraw;
+    //delete debugDraw;
     delete world;
 
     delete solver;
@@ -194,8 +194,8 @@ void physicsEngine::setupState(void)
     boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 
     // Debug drawing!
-    debugDraw = new BtOgre::DebugDrawer(render->getMSceneMgr()->getRootSceneNode(), world);
-    world->setDebugDrawer(debugDraw);
+    //debugDraw = new BtOgre::DebugDrawer(render->getMSceneMgr()->getRootSceneNode(), world);
+    //world->setDebugDrawer(debugDraw);
 
     if (!playerPhysicsSetup)
     {
@@ -744,12 +744,14 @@ void physicsEngine::updatePositions()  // updates thr position of objects
             
                 logMsg("court position = " +convert->toString(courtPosition));
                 logMsg("new court position = " +convert->toString(newCourtPosition));
-                if (newCourtPosition.x != 0 && newCourtPosition.y != 0 && newCourtPosition.z != 0)
+                if (activePlayerInstance[z][y].getStartPosReached())
                 {
-                    activePlayerInstance[z][y].setCourtPositionChanged(true);
-                    activePlayerInstance[z][y].setCourtPositionChangedType(PHYSICSCHANGE);
-                    activePlayerInstance[z][y].setNewCourtPosition(newCourtPosition);
-
+                    if (newCourtPosition.x != 0 && newCourtPosition.y != 0 && newCourtPosition.z != 0)
+                    {
+                        activePlayerInstance[z][y].setCourtPositionChanged(true);
+                        activePlayerInstance[z][y].setCourtPositionChangedType(PHYSICSCHANGE);
+                        activePlayerInstance[z][y].setNewCourtPosition(newCourtPosition);
+                    }
                 }
             }
             ++y;
@@ -794,7 +796,7 @@ void physicsEngine::stepWorld() // steps the world of the physics simulation
 
     world->stepSimulation(changeInTime, 1, fixedTimeStep);
 //  logMsg("World->Step ");
-    debugDraw->step();
+//    debugDraw->step();
 
 }
 

@@ -117,7 +117,7 @@ public:
     void setCourtPositionChanged(bool set);  // sets the value of courtPositionChanged
 
     positionChangedTypes getCourtPositionChangedType();  // retrieves the value of courtPositionChangedType
-    void setPositionChangedType(positionChangedTypes set);  // sets the value of courtPositionChangedType
+    void setCourtPositionChangedType(positionChangedTypes set);  // sets the value of courtPositionChangedType
 
     bool loadModel();  // loads the 3D model from file specified in modelName
 
