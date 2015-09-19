@@ -1022,7 +1022,7 @@ void gameState::updateBasketballMovements()  // updates the basketball(s) moveme
                 }
         ++x;
     }
-    logMsg("bballplayerWithBall" + convert->toString(playerWithBall));
+    logMsg("bballplayerWithBall == " +convert->toString(playerWithBall));
 //    exit(0);
     bool shotTaken = activePlayerInstance[playerWithBall].getShotTaken();
 //    logMsg("teamWithBall" + convert->toString(teamWithBall));
@@ -1037,19 +1037,20 @@ void gameState::updateBasketballMovements()  // updates the basketball(s) moveme
 
         if (playerWithBall >= 0 && tipOffComplete == true)	// verifies that the playerWithBall variable is set to a valid number
         {
-    		
+            logMsg("bballPlayerWithBall still == " +convert->toString(playerWithBall));
             Ogre::Vector3 playerPos= activePlayerInstance[playerWithBall].getNode()->getPosition();	// stores the current position of player with ball
-
+            logMsg("bballHere?");
             Ogre::Vector3 bballPos = playerPos;
             Ogre::Vector3 bballCurrentPos = basketballInstance[activeBBallInstance].getNode()->getPosition();	// stores the current position of the basketball(s)
             btVector3 change; // = btVector3(0,0,0);
             btTransform transform;
 //            exit(0);
+            logMsg("bballHere??");
 
 
             if (activePlayerInstance[playerWithBall].getMovement())
             {
-                
+                logMsg("bballHere???");
                // if (playerDirection == oldPlayerDirection)
                // {
                     
@@ -1067,6 +1068,7 @@ void gameState::updateBasketballMovements()  // updates the basketball(s) moveme
                 //				basketballInstance[activeBBallInstance].getPhysBody()->translate(change);
                             basketballInstance[activeBBallInstance].getPhysBody()->setWorldTransform(transform);
                             */
+                            logMsg("bballPos == " +convert->toString(bballPos));
                             basketballInstance[activeBBallInstance].setNewCourtPosition(bballPos);
                             basketballInstance[activeBBallInstance].setCourtPositionChanged(true);
                             basketballInstance[activeBBallInstance].setCourtPositionChangedType(PLAYERMOVECHANGE);
@@ -1112,13 +1114,16 @@ void gameState::updateBasketballMovements()  // updates the basketball(s) moveme
             {
             }*/
         }
+        logMsg("bballHere????");
         activePlayerInstance[playerWithBall].setMovement(false);	// sets the movement to false for playerWithBall
+        logMsg("bballHere?????");
     }
     else
     {
         logMsg("shotTaken!");
     }
    // exit(0);
+    logMsg("bballThere?");
 }
 
 

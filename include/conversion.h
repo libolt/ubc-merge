@@ -258,10 +258,10 @@ class conversion  // class for conversion between data types
 
 
 
-        OpenSteer::Vec3 toOpenSteerVec3(Ogre::Vector3 vect);  // converts from Ogre::Vector3 to OpenSteer::Vec3
+        OpenSteer::Vec3 toOpenSteerVec3(const Ogre::Vector3 &vect);  // converts from Ogre::Vector3 to OpenSteer::Vec3
 
-        Ogre::Vector3 toOgreVector3(OpenSteer::Vec3 vect); // converts from OpenSteer::Vec3 to Ogre::Vector3
-        Ogre::Vector3 toOgreVector3(btVector3 vect); // converts from btVector3 to Ogre::Vector3
+        Ogre::Vector3 toOgreVector3(const OpenSteer::Vec3 &vect); // converts from OpenSteer::Vec3 to Ogre::Vector3
+        Ogre::Vector3 toOgreVector3(const btVector3 &vect); // converts from btVector3 to Ogre::Vector3
 
     protected:
     conversion();

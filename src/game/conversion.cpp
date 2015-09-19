@@ -1176,7 +1176,7 @@ void * conversion::voidPtr(size_t &data)  // converts from void * to void *
     return (const void PtrData);
 }*/
 
-OpenSteer::Vec3 conversion::toOpenSteerVec3(Ogre::Vector3 vect)  // converts from Ogre::Vector3 to OpenSteer::Vec3
+OpenSteer::Vec3 conversion::toOpenSteerVec3(const Ogre::Vector3 &vect)  // converts from Ogre::Vector3 to OpenSteer::Vec3
 {
 
     OpenSteer::Vec3 vec3;
@@ -1187,7 +1187,7 @@ OpenSteer::Vec3 conversion::toOpenSteerVec3(Ogre::Vector3 vect)  // converts fro
 
     return (vec3);
 }
-Ogre::Vector3 conversion::toOgreVector3(OpenSteer::Vec3 vect) // converts from OpenSteer::Vec3 to Ogre::Vector3
+Ogre::Vector3 conversion::toOgreVector3(const OpenSteer::Vec3 &vect) // converts from OpenSteer::Vec3 to Ogre::Vector3
 {
     Ogre::Vector3 vector3;
     vector3[0] = vect.x;
@@ -1197,7 +1197,7 @@ Ogre::Vector3 conversion::toOgreVector3(OpenSteer::Vec3 vect) // converts from O
     return (vector3);
 }
 
-Ogre::Vector3 conversion::toOgreVector3(btVector3 vect) // converts from btVector3 to Ogre::Vector3
+Ogre::Vector3 conversion::toOgreVector3(const btVector3 &vect) // converts from btVector3 to Ogre::Vector3
 {
     Ogre::Vector3 vector3;
     vector3[0] = vect.getX();
@@ -1206,51 +1206,3 @@ Ogre::Vector3 conversion::toOgreVector3(btVector3 vect) // converts from btVecto
 
     return (vector3);
 }
-/*
-template <typename T>
-std::string conversion::toString(const T& input)  // converts data to string);
-{
-    std::string data;
-    data = boost::lexical_cast<std::string>(input);
-    return(data);
-}
-*/
-
-/*
-template<typename T> inline std::string conversion::toString(const T& x)
-{
-  std::ostringstream out;
-  out << x;
-  return out.str();
-}
-template<> inline std::string conversion::toString<bool>(const bool& x)
-{
-  std::ostringstream out;
-  out << std::boolalpha << x;
-  return out.str();
-}
-template<> inline std::string conversion::toString<double>(const double& x)
-{
-  const int sigdigits = std::numeric_limits<double>::digits10;
-  // or perhaps std::numeric_limits<double>::max_digits10 if that is available on your compiler
-  std::ostringstream out;
-  out << std::setprecision(sigdigits) << x;
-  return out.str();
-}
-template<> inline std::string conversion::toString<float>(const float& x)
-{
-  const int sigdigits = std::numeric_limits<float>::digits10;
-  // or perhaps std::numeric_limits<float>::max_digits10 if that is available on your compiler
-  std::ostringstream out;
-  out << std::setprecision(sigdigits) << x;
-  return out.str();
-}
-template<> inline std::string conversion::toString<long double>(const long double& x)
-{
-  const int sigdigits = std::numeric_limits<long double>::digits10;
-  // or perhaps std::numeric_limits<long_double>::max_digits10 if that is available on your compiler
-  std::ostringstream out;
-  out << std::setprecision(sigdigits) << x;
-  return out.str();
-}
-*/
