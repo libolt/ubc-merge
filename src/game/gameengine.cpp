@@ -270,6 +270,8 @@ void gameEngine::processInput()  // processes game input
                     logMsg("inputHumanPlayer == " +convert->toString(humanPlayer));
                     logMsg("inputQueue.size = " +convert->toString(inputQueue.size()));
                     x = 0;
+                    int activeBBallInstance = gameS->getActiveBBallInstance();
+                    std::vector<basketballs> bballInstance = gameS->getBasketballInstance();
                     while (x < inputQueue.size())
                     {
                         logMsg("inputQueue[" +convert->toString(x) +"] = " +convert->toString(inputQueue[x]));
@@ -281,6 +283,7 @@ void gameEngine::processInput()  // processes game input
                                 activePlayerInstance[humanInstance].setDirection(UP);
                                 teamInstance[i].setActivePlayerInstance(activePlayerInstance);
                                 gameS->setTeamInstance(teamInstance);
+                                
                             break;
                             case INDOWN:
                                 activePlayerInstance[humanInstance].setMovement(true);
@@ -344,9 +347,24 @@ void gameEngine::processInput()  // processes game input
                             default:
                             break;
                         }
+                        
                         ++x;
                     }
-                    
+                    if (gameS->getTeamWithBall() == i)
+                    {
+                        if (activePlayerInstance[humanInstance].getMovement())
+                        {
+                            logMsg("human playerID == " +convert->toString(activePlayerInstance[humanInstance].getPlayerID()));
+                            logMsg("ball playerID == " +convert->toString(teamInstance[i].getPlayerWithBallID()));
+
+                            exit(0);
+                            if (activePlayerInstance[humanInstance].getPlayerID() == teamInstance[i].getPlayerWithBallID())
+                            {
+                                logMsg("human!");
+                                exit(0);
+                            }
+                        }
+                    }
                     gameS->setTeamInstance(teamInstance);
 
                     if (gameS->getGameType() == MULTI)

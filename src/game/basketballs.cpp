@@ -323,7 +323,7 @@ void basketballs::updatePosition() // updates the position of the basketball
     
     if (courtPositionChanged)
     {
-        
+        exit(0);
         switch (courtPositionChangedType)
         {
             case STARTCHANGE:
