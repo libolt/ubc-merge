@@ -795,6 +795,7 @@ void physicsEngine::stepWorld() // steps the world of the physics simulation
     logMsg("Change In Time = " + CIT);
 
     world->stepSimulation(changeInTime, 1, fixedTimeStep);
+    logMsg("crash at stepSimulation?");
 //  logMsg("World->Step ");
 //    debugDraw->step();
 

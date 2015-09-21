@@ -990,8 +990,8 @@ void gameState::updateDirectionsAndMovements()
     {
 //		logMsg("teamWithBall is " +convert->toString(teamWithBall));
 //		logMsg("playetWithBall is " +convert->toString(teamInstance[teamWithBall].getPlayerWithBall()));
-		updateBasketballMovements();	// updates the movement of basketball objec(s)
-		updateBasketballDirections(); // updates direction of basketball object(s)
+        updateBasketballMovements();	// updates the movement of basketball objec(s)
+        //updateBasketballDirections(); // updates direction of basketball object(s)
     }
     else
     {
@@ -1092,6 +1092,7 @@ void gameState::updateBasketballMovements()  // updates the basketball(s) moveme
                             change = BtOgre::Convert::toBullet(bballPos); // converts from Ogre::Vector3 to btVector3
                             transform.setOrigin(change);
                             basketballInstance[activeBBallInstance].getPhysBody()->setWorldTransform(transform);
+
                             break;
                         case RIGHT:
                             bballPos[0] += 2;
