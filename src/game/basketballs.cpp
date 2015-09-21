@@ -52,6 +52,7 @@
     dribblingStart = true;
     dribbling = false;
 
+    movement = false;
     teamNumber = 0;
     player = 0;
 
@@ -186,6 +187,16 @@ bool basketballs::getDribbling(void)  // retrieves the value of dribbling
 void basketballs::setDribbling(bool Dribbling)  // sets the value of dribbling
 {
     dribbling = Dribbling;
+}
+
+bool basketballs::getMovement()  // retrieves the value of movement
+{
+    return (movement);
+}
+
+void basketballs::setMovement(bool set)  // sets the value of movement
+{
+    movement = set;
 }
 
 std::string basketballs::getModelName()  // retrieves the value of modelName

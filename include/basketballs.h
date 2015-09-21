@@ -92,6 +92,9 @@ public:
     bool getDribbling();  // retrieves the value of dribbling
     void setDribbling(bool Dribbling);  // sets the value of dribbling
 
+    bool getMovement();  // retrieves the value of movement
+    void setMovement(bool set);  // sets the value of movement
+
     std::string getModelName();  // retrieves the value of modelName
     void setModelName(std::string name);  // sets the value of modelName
 
@@ -174,6 +177,8 @@ private:
     bool tipOff;  // defines whether or not tip off is executing
     bool dribblingStart;  // defines whether or not to start the dribbling animation
     bool dribbling;  // defines whether or not the ball is being dribbled
+
+    bool movement;  // basketball has been moved by an outside force.
 
     // stores the position of the player on the court in an Ogre::Vector3
     Ogre::Vector3 courtPosition;

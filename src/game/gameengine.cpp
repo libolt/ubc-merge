@@ -355,15 +355,18 @@ void gameEngine::processInput()  // processes game input
                         if (activePlayerInstance[humanInstance].getMovement())
                         {
                             logMsg("human playerID == " +convert->toString(activePlayerInstance[humanInstance].getPlayerID()));
+                            logMsg("ball player == " +convert->toString(teamInstance[i].getPlayerWithBall()));
                             logMsg("ball playerID == " +convert->toString(teamInstance[i].getPlayerWithBallID()));
-
-                            exit(0);
-                            if (activePlayerInstance[humanInstance].getPlayerID() == teamInstance[i].getPlayerWithBallID())
+                            if (activePlayerInstance[humanInstance].getPlayerID() == teamInstance[i].getPlayerWithBall())
                             {
-                                logMsg("human!");
-                                exit(0);
+                                bballInstance[activeBBallInstance].setMovement(true);
+                                gameS->setBasketballInstance(bballInstance);
                             }
                         }
+                    }
+                    if (gameS->getBasketballInstance().size() > 0)
+                    {
+                        logMsg("basketballmoved == " +convert->toString(bballInstance[activeBBallInstance].getMovement()));
                     }
                     gameS->setTeamInstance(teamInstance);
 
