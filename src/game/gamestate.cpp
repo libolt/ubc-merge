@@ -1014,10 +1014,10 @@ void gameState::updateBasketballMovements()  // updates the basketball(s) moveme
 //    exit(0);
     while (x < activePlayerInstance.size())
     {
-                if (activePlayerInstance[x].getPlayerID() == playerWithBallID)
-                {
-                    playerWithBall = x;
-                }
+        if (activePlayerInstance[x].getPlayerID() == playerWithBallID)
+        {
+            playerWithBall = x;
+        }
         ++x;
     }
     logMsg("bballplayerWithBall == " +convert->toString(playerWithBall));
@@ -1059,7 +1059,7 @@ void gameState::updateBasketballMovements()  // updates the basketball(s) moveme
                     basketballInstance[activeBBallInstance].getPhysBody()->setWorldTransform(transform);
                     */
                     basketballInstance[activeBBallInstance].setCourtPositionChanged(true);
-                    //exit(0);
+                    exit(0);
                     break;
                 case DOWN:
                     bballPos[0] -= 2;
