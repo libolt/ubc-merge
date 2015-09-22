@@ -269,7 +269,7 @@ bool basketballs::getCourtPositionChanged()  // retrieves the value of courtPosi
 }
 void basketballs::setCourtPositionChanged(bool set)  // sets the value of courtPositionChanged
 {
-    courtPosition = set;
+    courtPositionChanged = set;
 }
 
 positionChangedTypes basketballs::getCourtPositionChangedType()  // retrieves the value of courtPositionChangedType
@@ -334,7 +334,7 @@ void basketballs::updatePosition() // updates the position of the basketball
     
     if (courtPositionChanged)
     {
-        exit(0);
+        //exit(0);
         switch (courtPositionChangedType)
         {
             case STARTCHANGE:
@@ -377,7 +377,12 @@ void basketballs::updatePosition() // updates the position of the basketball
             break;
             case PLAYERMOVECHANGE:
                 logMsg("Updating basketball court position based on player movement");
-                exit(0);
+                node->translate(newCourtPosition);
+                physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
+                physBody->translate(physChange); // moves physics body in unison with the model
+                steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
+                courtPositionChanged = false;
+                courtPositionChangedType = NOCHANGE;
             break;
 
             default:
