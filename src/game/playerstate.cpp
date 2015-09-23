@@ -860,6 +860,107 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
 	return true;
 }
 
+void playerState::updatePlayerDirections()
+{
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    
+
+    directions playerDirection, oldPlayerDirection;
+    std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
+    std::vector<Ogre::SceneNode>::iterator playersIT;
+
+    if (oldPlayerDirection != playerDirection)
+    {
+            
+        switch (oldPlayerDirection)
+        {
+            case UP:
+                switch (playerDirection)
+                {
+                    case DOWN:
+                        activePlayerInstance[x].getNode()->yaw(Ogre::Degree (180));
+                    break;
+                    case LEFT:
+                        activePlayerInstance[x].getNode()->yaw(Ogre::Degree (270));
+                    break;
+                    case RIGHT:
+                        activePlayerInstance[x].getNode()->yaw(Ogre::Degree (90));
+                        exit(0);
+                    break;
+                    default:
+                    break;
+                }
+            break;
+            case DOWN:
+                switch (playerDirection)
+                {
+                    case UP:
+                        activePlayerInstance[x].getNode()->yaw(Ogre::Degree (180));
+                    break;
+                    case LEFT:
+                        activePlayerInstance[x].getNode()->yaw(Ogre::Degree (90));
+                    break;
+                    case RIGHT:
+                        activePlayerInstance[x].getNode()->yaw(Ogre::Degree (270));
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                    case LEFT:
+                        switch (playerDirection)
+                        {
+                            case UP:
+                                activePlayerInstance[x].getNode()->yaw(Ogre::Degree (90));
+                                break;
+                            case DOWN:
+                                activePlayerInstance[x].getNode()->yaw(Ogre::Degree (270));
+                                break;
+                            case RIGHT:
+                                activePlayerInstance[x].getNode()->yaw(Ogre::Degree (180));
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case RIGHT:
+                        switch (playerDirection)
+                        {
+                            case UP:
+                                activePlayerInstance[x].getNode()->yaw(Ogre::Degree (270));
+                                break;
+                            case DOWN:
+                                activePlayerInstance[x].getNode()->yaw(Ogre::Degree (90));
+                                break;
+                            case LEFT:
+                                activePlayerInstance[x].getNode()->yaw(Ogre::Degree (180));
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                default:
+                    break;
+            }
+        }
+        logMsg("directPlayerID == " +convert->toString(activePlayerInstance[x].getPlayerID()));
+        logMsg("directPlayerWithBall == " +convert->toString(playerWithBall));
+        if (activePlayerInstance[x].getPlayerID() != playerWithBall)
+        {
+            oldPlayerDirection = playerDirection;
+            activePlayerInstance[x].setOldDirection(oldPlayerDirection);  // copies contents of oldPlayerDirection to the oldDirection variable
+        }
+        else
+        {
+        }
+/*            }
+            ++y;
+        }
+*/
+        ++x;
+    }
+}
 void playerState::calculatePass()	// calculates which player to pass the ball to
 {
 //	exit(0);

@@ -248,6 +248,8 @@ class playerState
 
         bool updateCourtPosition();  // updates the X, Y and Z coordinates of the 3D model
 
+        void updatePlayerDirections();  // updates the direction players are facing
+
         void calculatePass();	// calculates which player to pass the ball to
 
         void shotLogic(Ogre::Vector3 playerPos);   // carries out basketball shot logic

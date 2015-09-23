@@ -22,7 +22,7 @@
 #define _ENUMS_H_
 
 	enum inputMaps { INNO, INUP, INDOWN, INLEFT, INRIGHT, INUPLEFT, INUPRIGHT, INDOWNLEFT, INDOWNRIGHT, INSHOOTBLOCK, INPASSSTEAL, INPAUSE, INSTARTSELECT, INQUIT, INBACKSPACE, INRETURN }; // map of human player input
-	enum directions { UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT };	// direction objects are moving
+	enum directions { NODIRECT, UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT };	// direction objects are moving
 	enum gameTypes { NOGAME, SINGLE, MULTI }; // defines whether a game is single or multi player
 	enum netGameTypes { CLIENT, SERVER}; // defines which type of network game this instance is running
 	enum quarters { FIRST, SECOND, THIRD, FOURTH }; // defines the quarters within the game

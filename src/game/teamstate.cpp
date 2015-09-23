@@ -938,15 +938,11 @@ void teamState::updatePlayerDirections()
 //    for (size_t i = 0; i < playerInstance.size(); ++i)
     while (x<activePlayerInstance.size())
     {
-/*        while (y>activePlayerID.size())
-        {
-            if (playerInstance[x].getPlayerID() == activePlayerID[y])
-            {
-*/
         playerDirection = activePlayerInstance[x].getDirection();
         oldPlayerDirection = activePlayerInstance[x].getOldDirection();
         if (oldPlayerDirection != playerDirection)
         {
+            
             /*
             std::string oldPlayerDirect = Ogre::SingConverter::toString(oldPlayerDirection[i]);
             std::string playerDirect = toString(playerDirection[i]);
@@ -970,6 +966,7 @@ void teamState::updatePlayerDirections()
                             break;
                         case RIGHT:
                             activePlayerInstance[x].getNode()->yaw(Ogre::Degree (90));
+                            exit(0);
                             break;
                         default:
                             break;
@@ -1027,7 +1024,8 @@ void teamState::updatePlayerDirections()
                     break;
             }
         }
-
+        logMsg("directPlayerID == " +convert->toString(activePlayerInstance[x].getPlayerID()));
+        logMsg("directPlayerWithBall == " +convert->toString(playerWithBall));
         if (activePlayerInstance[x].getPlayerID() != playerWithBall)
         {
             oldPlayerDirection = playerDirection;
