@@ -525,8 +525,8 @@ void teamState::updateState()	// updates the state of the object
         logMsg("Human player = " +convert->toString(humanPlayer));
                                         
         updatePlayerStates();
-		updatePlayerMovements();	// updates movement of player objects
-		updatePlayerDirections();	// updates the direction the players are facing
+        //updatePlayerMovements();	// updates movement of player objects
+        //updatePlayerDirections();	// updates the direction the players are facing
 //		exit(0);
 
 

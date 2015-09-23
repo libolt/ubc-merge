@@ -248,7 +248,9 @@ class playerState
 
         bool updateCourtPosition();  // updates the X, Y and Z coordinates of the 3D model
 
-        void updatePlayerDirections();  // updates the direction players are facing
+        void updateMovement();	// updates the movement status of the player
+
+        void updateDirection();  // updates the direction players the player is facing
 
         void calculatePass();	// calculates which player to pass the ball to
 

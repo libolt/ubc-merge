@@ -81,6 +81,8 @@ playerState::playerState()
     courtPositionChanged = false;
     // hack
     posChangeAmount = 0;
+    direction = NODIRECT;
+    oldDirection = NODIRECT;
 }
 
 playerState::~playerState()
@@ -734,7 +736,7 @@ bool playerState::loadModel()   // loads the player's 3D model from the file spe
 
 void playerState::updateState()
 {
-    //gameState *gameS = gameState::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
 	Ogre::Vector3 playerPos;
@@ -761,7 +763,26 @@ void playerState::updateState()
         }
         
     }
-
+    if (direction != NODIRECT)  // updates the direction the player is facing if it has changed
+    {
+        updateDirection();
+        updateMovement();
+        oldDirection = direction;
+        std::vector<teamState> teamInstance = gameS->getTeamInstance();
+        int playerWithBallID = teamInstance[teamNumber].getPlayerWithBall();
+        if (teamNumber = gameS->getTeamWithBall() && gameS->getTipOffComplete())
+        {
+            logMsg("dplayerWithBallID == " +convert->toString(playerWithBallID));
+            if (playerID == playerWithBallID && playerID >= 0)
+            {
+                logMsg("playerID == " +convert->toString(playerID));
+                int activeBBallInstance = gameS->getActiveBBallInstance();
+                std::vector<basketballs> = gameS->getBasketballInstance();
+//                exit(0);
+            }
+        }
+        direction = NODIRECT;
+    }
 }
 
 bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3D model
@@ -860,107 +881,190 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
 	return true;
 }
 
-void playerState::updatePlayerDirections()
+
+void playerState::updateDirection()
 {
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
-    
 
-    directions playerDirection, oldPlayerDirection;
     std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
-    std::vector<Ogre::SceneNode>::iterator playersIT;
 
-    if (oldPlayerDirection != playerDirection)
+    if (oldDirection != direction)
     {
             
-        switch (oldPlayerDirection)
+        switch (oldDirection)
         {
             case UP:
-                switch (playerDirection)
+                switch (direction)
                 {
                     case DOWN:
-                        activePlayerInstance[x].getNode()->yaw(Ogre::Degree (180));
+                        node->yaw(Ogre::Degree (180));
                     break;
                     case LEFT:
-                        activePlayerInstance[x].getNode()->yaw(Ogre::Degree (270));
+                        node->yaw(Ogre::Degree (270));
                     break;
                     case RIGHT:
-                        activePlayerInstance[x].getNode()->yaw(Ogre::Degree (90));
-                        exit(0);
+                        node->yaw(Ogre::Degree (90));
+//                        exit(0);
+                    break;
+                    default:
+                    break;
+                }
+//                exit(0);
+            break;
+            case DOWN:
+                switch (direction)
+                {
+                    case UP:
+                        node->yaw(Ogre::Degree (180));
+                    break;
+                    case LEFT:
+                        node->yaw(Ogre::Degree (90));
+                    break;
+                    case RIGHT:
+                        node->yaw(Ogre::Degree (270));
                     break;
                     default:
                     break;
                 }
             break;
-            case DOWN:
-                switch (playerDirection)
+            case LEFT:
+                switch (direction)
                 {
                     case UP:
-                        activePlayerInstance[x].getNode()->yaw(Ogre::Degree (180));
+                        node->yaw(Ogre::Degree (90));
                     break;
-                    case LEFT:
-                        activePlayerInstance[x].getNode()->yaw(Ogre::Degree (90));
+                    case DOWN:
+                        node->yaw(Ogre::Degree (270));
                     break;
                     case RIGHT:
-                        activePlayerInstance[x].getNode()->yaw(Ogre::Degree (270));
-                            break;
-                        default:
-                            break;
-                    }
+                        node->yaw(Ogre::Degree (180));
+                    break;
+                    default:
+                    break;
+                }
+            break;
+            case RIGHT:
+                switch (direction)
+                {
+                    case UP:
+                        node->yaw(Ogre::Degree (270));
+                    break;
+                    case DOWN:
+                        node->yaw(Ogre::Degree (90));
                     break;
                     case LEFT:
-                        switch (playerDirection)
-                        {
-                            case UP:
-                                activePlayerInstance[x].getNode()->yaw(Ogre::Degree (90));
-                                break;
-                            case DOWN:
-                                activePlayerInstance[x].getNode()->yaw(Ogre::Degree (270));
-                                break;
-                            case RIGHT:
-                                activePlayerInstance[x].getNode()->yaw(Ogre::Degree (180));
-                                break;
-                            default:
-                                break;
-                        }
-                        break;
-                    case RIGHT:
-                        switch (playerDirection)
-                        {
-                            case UP:
-                                activePlayerInstance[x].getNode()->yaw(Ogre::Degree (270));
-                                break;
-                            case DOWN:
-                                activePlayerInstance[x].getNode()->yaw(Ogre::Degree (90));
-                                break;
-                            case LEFT:
-                                activePlayerInstance[x].getNode()->yaw(Ogre::Degree (180));
-                                break;
-                            default:
-                                break;
-                        }
-                        break;
-                default:
+                        node->yaw(Ogre::Degree (180));
                     break;
-            }
+                    default:
+                    break;
+                }
+            break;
+            default:
+            break;
         }
-        logMsg("directPlayerID == " +convert->toString(activePlayerInstance[x].getPlayerID()));
-        logMsg("directPlayerWithBall == " +convert->toString(playerWithBall));
-        if (activePlayerInstance[x].getPlayerID() != playerWithBall)
+    }
+    logMsg("player Team Number == " +convert->toString(teamNumber));
+    //oldDirection = direction;
+    //direction = NODIRECT;
+}
+
+void playerState::updateMovement()	// updates movement status of the player
+{
+    //conversion *convert = conversion::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+
+    Ogre::Vector3 posChange;	// stores change in position
+    posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
+
+    if (movement)	// if true sets coordinate change accordingly
+    {
+//        exit(0);
+        switch (direction)
         {
-            oldPlayerDirection = playerDirection;
-            activePlayerInstance[x].setOldDirection(oldPlayerDirection);  // copies contents of oldPlayerDirection to the oldDirection variable
+            case UP:
+                posChange = Ogre::Vector3(0.0f, 0.0f, -0.400f);
+                logMsg("UP!");
+//                exit(0);
+            break;
+            case DOWN:
+                posChange = Ogre::Vector3(0.0f, 0.0f, 0.400f);
+            break;
+            case LEFT:
+                posChange = Ogre::Vector3(-0.400f, 0.0f, 0.0f);
+            break;
+            case RIGHT:
+                posChange = Ogre::Vector3(0.400f, 0.0f, 0.0f);
+            break;
+            case UPLEFT:
+                posChange = Ogre::Vector3(-0.400f, 0.0f, -0.400f);
+            break;
+            case UPRIGHT:
+                posChange = Ogre::Vector3(0.400f, 0.0f, -0.400f);
+            break;
+            case DOWNLEFT:
+                posChange = Ogre::Vector3(-0.400f, 0.0f, 0.400f);
+            break;
+            case DOWNRIGHT:
+                posChange = Ogre::Vector3(0.400f, 0.0f, 0.400f);
+            break;
         }
-        else
+
+/*        if (direction == UP)
         {
+            posChange = Ogre::Vector3(0.0f, 0.0f, -0.400f);
+            logMsg("UP!");
+                exit(0);
         }
-/*            }
-            ++y;
+        else if (direction == DOWN)
+        {
+            posChange = Ogre::Vector3(0.0f, 0.0f, 0.400f);
+        }
+        else if (direction == LEFT)
+        {
+//			    exit(0);
+
+            posChange = Ogre::Vector3(-0.400f, 0.0f, 0.0f);
+//			    playerInstance[i].getPhysBody()->setLinearVelocity(btVector3(0.4,0,0));
+        }
+        else if (direction == RIGHT)
+        {
+            posChange = Ogre::Vector3(0.400f, 0.0f, 0.0f);
+        }
+        else if (direction == UPLEFT)
+        {
+            posChange = Ogre::Vector3(-0.400f, 0.0f, -0.400f);
+        }
+        else if (direction == UPRIGHT)
+        {
+            posChange = Ogre::Vector3(0.400f, 0.0f, -0.400f);
+        }
+        else if (direction == DOWNLEFT)
+        {
+            posChange = Ogre::Vector3(-0.400f, 0.0f, 0.400f);
+        }
+        else if (direction == DOWNRIGHT)
+        {
+            posChange = Ogre::Vector3(0.400f, 0.0f, 0.400f);
         }
 */
-        ++x;
     }
+    else if (!movement)	// if false then sets their coordinate changes to 0.0
+    {
+        posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
+    }
+
+    if (posChange.x != 0 || posChange.y != 0 || posChange.z != 0)
+    {
+        newCourtPosition = posChange;	// sets the newCourtPosition for current playerInstance
+        courtPositionChanged = true;
+        courtPositionChangedType = INPUTCHANGE;
+        movement = false;
+    }
+
+//	exit(0);
 }
+
 void playerState::calculatePass()	// calculates which player to pass the ball to
 {
 //	exit(0);
