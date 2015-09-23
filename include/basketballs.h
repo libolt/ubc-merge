@@ -62,9 +62,6 @@ public:
     bool getMinHeightReached(void);  // retrieves the value of minHeightReached
     void setMinHeightReached(bool minHeightReached);  // sets minHeightReached
 
-    int getDirection(void); 	// retrieves the value of motion
-    void setDirection(int motion);  // sets the value of motion
-
     int getRotate(void);  // retrieves the value of rotate
     void setRotate(int rotate);	 // sets the value of rotate
 
@@ -95,6 +92,10 @@ public:
     bool getMovement();  // retrieves the value of movement
     void setMovement(bool set);  // sets the value of movement
 
+    directions getDirection();  // retrieves the value of direction
+    void setDirection(directions set);  // sets the value of direction 
+    
+    
     std::string getModelName();  // retrieves the value of modelName
     void setModelName(std::string name);  // sets the value of modelName
 
@@ -159,9 +160,6 @@ private:
     float minHeight;  // stores the value of the minimum height of the basketball
     bool minHeightReached;  // stores whether the minimum height has been reached
 
-
-    int direction;  // 0 = stopped 1 = up 2 = down 3 = left 4 = right
-
     int rotate;  // defines which way the basketball is rotated
 
     int teamNumber;	 // defines which team has the basketball
@@ -180,6 +178,8 @@ private:
 
     bool movement;  // basketball has been moved by an outside force.
 
+    directions direction;  // stores direction the ball has been moved
+    
     // stores the position of the player on the court in an Ogre::Vector3
     Ogre::Vector3 courtPosition;
 

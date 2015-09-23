@@ -34,7 +34,7 @@
     minHeight = 0;
     minHeightReached = false;
 
-    direction = 0;	// 0 = stopped 1 = up 2 = down 3 = left 4 = right
+    direction = NODIRECT;	
 
     rotate = 0;
 
@@ -105,16 +105,6 @@ bool basketballs::getMinHeightReached(void)  // retrieves the value of minHeight
 void basketballs::setMinHeightReached(bool reached)  // sets the value of minHeightReached
 {
     minHeightReached = reached;
-}
-
-
-int basketballs::getDirection(void)  // retrieves the value of direction
-{
-    return(direction);
-}
-void basketballs::setDirection(int Direction)  // sets the value of direction
-{
-    direction = Direction;
 }
 
 int basketballs::getRotate(void)  // retrieves the value of rotate
@@ -197,6 +187,15 @@ bool basketballs::getMovement()  // retrieves the value of movement
 void basketballs::setMovement(bool set)  // sets the value of movement
 {
     movement = set;
+}
+
+directions basketballs::getDirection()  // retrieves the value of direction
+{
+    return (direction);
+}
+void basketballs::setDirection(directions set)  // sets the value of direction 
+{
+    direction = set;
 }
 
 std::string basketballs::getModelName()  // retrieves the value of modelName

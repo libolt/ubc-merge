@@ -777,7 +777,7 @@ void playerState::updateState()
             {
                 logMsg("playerID == " +convert->toString(playerID));
                 int activeBBallInstance = gameS->getActiveBBallInstance();
-                std::vector<basketballs> = gameS->getBasketballInstance();
+                std::vector<basketballs> bballInstance = gameS->getBasketballInstance();
 //                exit(0);
             }
         }
