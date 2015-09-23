@@ -916,12 +916,9 @@ void teamState::updatePlayerStates()  // updates the states of active players
 
 void teamState::updatePlayerDirections()
 {
-    //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     
-//    playerState *player = players::Instance();
 
     directions playerDirection, oldPlayerDirection;
 //    std::vector<playerState> pInstance = getPlayerInstance();
