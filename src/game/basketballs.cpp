@@ -378,11 +378,13 @@ void basketballs::updatePosition() // updates the position of the basketball
             case PLAYERMOVECHANGE:
                 logMsg("Updating basketball court position based on player movement");
                 node->translate(newCourtPosition);
+                logMsg("bball newCourtPosition = " +convert->toString(newCourtPosition));
                 physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
                 physBody->translate(physChange); // moves physics body in unison with the model
                 steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
-                courtPositionChanged = false;
+                /*courtPositionChanged = false;
                 courtPositionChangedType = NOCHANGE;
+                */
             break;
 
             default:

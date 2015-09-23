@@ -440,6 +440,8 @@ bool gameState::createBasketballInstances()
     basketballs bballInstance;  // creates an instance of the basketballs class
     bballInstance.setModelName("bball.mesh");
     bballInstance.loadModel();
+    basketballSteer *bballSteer = new basketballSteer; // steer instance
+    bballInstance.setSteer(bballSteer);
     basketballInstance.push_back(bballInstance);
     return true;
 }
