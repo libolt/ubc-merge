@@ -92,6 +92,9 @@ public:
     bool getMovement();  // retrieves the value of movement
     void setMovement(bool set);  // sets the value of movement
 
+    bool getDirectChange(); // retrieves the value of directChange
+    void setDirectChange(bool set);  // sets the value of directChange
+
     directions getDirection();  // retrieves the value of direction
     void setDirection(directions set);  // sets the value of direction 
     
@@ -183,6 +186,7 @@ private:
     bool dribbling;  // defines whether or not the ball is being dribbled
 
     bool movement;  // basketball has been moved by an outside force.
+    bool directChange; // baskteball has changed direction
 
     directions direction;  // stores direction the ball has been moved
     directions oldDirection;  // stores the previous direction of the ball

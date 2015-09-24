@@ -54,6 +54,8 @@
     dribbling = false;
 
     movement = false;
+    directChange = false;
+
     teamNumber = 0;
     player = 0;
 
@@ -184,12 +186,19 @@ bool basketballs::getMovement()  // retrieves the value of movement
 {
     return (movement);
 }
-
 void basketballs::setMovement(bool set)  // sets the value of movement
 {
     movement = set;
 }
 
+bool basketballs::getDirectChange() // retrieves the value of directChange
+{
+    return (directChange);
+}
+void basketballs::setDirectChange(bool set)  // sets the value of directChange
+{
+    directChange = set;
+}
 directions basketballs::getDirection()  // retrieves the value of direction
 {
     return (direction);
@@ -329,12 +338,14 @@ Ogre::Vector3 basketballs::calculatePositionChange()
 
 void basketballs::updateState()  // updates the state of the basketball
 {
+    if (directChange)
+    {
+        updateDirection();
+        directChange = false;
+    }
+
     if (movement)
     {
-        if (direction != oldDirection)
-        {
-            updateDirection();
-        }
         updateMovement();
         movement = false;
     }
@@ -393,19 +404,30 @@ void basketballs::updatePosition() // updates the position of the basketball
                 exit(0);
             break;
             case PLAYERMOVECHANGE:
-                logMsg("Updating basketball court position based on player movement");
+                /*logMsg("Updating basketball court position based on player movement");
                 node->translate(newCourtPosition);
                 logMsg("bball newCourtPosition = " +convert->toString(newCourtPosition));
                 logMsg("bball node position" +convert->toString((node->getPosition())));
                 //exit(0);
                 physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
-                physBody->translate(physChange); // moves physics body in unison with the model
-                steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
+                //physBody->translate(physChange); // moves physics body in unison with the model
+                //steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
                 courtPositionChanged = false;
-                courtPositionChangedType = NOCHANGE;
-
+                courtPositionChangedType = NOCHANGE; */
+//                exit(0);
             break;
-
+            case PLAYERDIRECTCHANGE:
+               /* logMsg("Updating basketball court position based on player movement");
+                node->setPosition(newCourtPosition);
+                logMsg("bball newCourtPosition = " +convert->toString(newCourtPosition));
+                logMsg("bball node position" +convert->toString((node->getPosition())));
+                //exit(0);
+                physChange = BtOgre::Convert::toBullet(newCourtPosition); // converts from Ogre::Vector3 to btVector3
+                //physBody->translate(physChange); // moves physics body in unison with the model
+                //steer->setPosition(convert->toOpenSteerVec3(newCourtPosition));
+                courtPositionChanged = false;
+                courtPositionChangedType = NOCHANGE;*/
+            break;
             default:
             break;
         }
@@ -423,9 +445,12 @@ void basketballs::updatePosition() // updates the position of the basketball
 void basketballs::updateMovement()  // updates the basketball(s) movements
 {
     boost::shared_ptr<conversion> convert = conversion::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    std::vector<teamState> teamInstance = gameS->getTeamInstance();
+    size_t teamWithBall = gameS->getTeamWithBall();
     std::vector<playerState> activePlayerInstance = teamInstance[teamWithBall].getActivePlayerInstance();
-    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBall();
     size_t playerWithBall = -1;
+    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBallID();
     size_t x = 0;
     
     bool shotTaken = activePlayerInstance[playerWithBall].getShotTaken();
@@ -483,45 +508,36 @@ void basketballs::updateMovement()  // updates the basketball(s) movements
         courtPositionChangedType = PLAYERMOVECHANGE;
         //basketballInstance[activeBBallInstance].setMovement(false);
         //basketballInstance[activeBBallInstance] = bballInstance;
-    }
+
 }
 
 void basketballs::updateDirection()  // updates basketball direction(s)
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    std::vector<teamState> teamInstance = gameS->getTeamInstance();
+    size_t teamWithBall = gameS->getTeamWithBall();
     std::vector<playerState> activePlayerInstance = teamInstance[teamWithBall].getActivePlayerInstance();
     std::vector<int> activePlayerID = teamInstance[teamWithBall].getActivePlayerID();
     
     size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBall();
     size_t playerWithBall = -1;
+
+    bool tipOffComplete = gameS->getTipOffComplete();
     size_t x = 0;
-/*    while (x < activePlayerInstance.size())
-    {
-        size_t y = 0;
-        while (y < activePlayerID.size())
-        {
-            if (activePlayerID[y] == activePlayerInstance[x].getPlayerID())
-            {
-                playerWithBall = x;
-            }
-            ++y;
-        }
-        ++x;
-    }
-  */
+
     bool shotTaken = activePlayerInstance[playerWithBall].getShotTaken();
 
     if (!shotTaken)
     {
 
         Ogre::Vector3 posChange;
-        
+
         if (playerWithBall >= 0 && tipOffComplete == true)  // verifies that the playerWithBall variable is set to a valid number
         {
             Ogre::Vector3 playerPos= activePlayerInstance[playerWithBall].getNode()->getPosition();
-            Ogre::Vector3 bballCurrentPos = baskPosition;   // stores the current position of the basketball(s)
+            Ogre::Vector3 bballCurrentPos = courtPosition;   // stores the current position of the basketball(s)
 
             Ogre::Vector3 bballPos = playerPos;
             Ogre::Vector3 bballPosChange = Ogre::Vector3(0.0f,0.0f,0.0f);
@@ -532,61 +548,49 @@ void basketballs::updateDirection()  // updates basketball direction(s)
     //        logMsg("oldPlayerDirection = " + convert->toString(&oldPlayerDirection));
 
             logMsg("playerWithBall = " +convert->toString(playerWithBall));
-            if (playerDirection != oldPlayerDirection)
-            { /*b
-                switch (playerDirection)
+            if (direction != oldDirection)
+            {
+               /* switch (direction)
                 {
                     case UP:
                         bballPos[0] += 2;
                         bballPos[1] = bballCurrentPos[1]; // maintains the current height of the basketball on the court as the player and ball moves
                         bballPos[2] -= 2;
-        //              basketballInstance[activeBBallInstance].setPosChange(bballPosChange);   // sets the posChange for current basketballInstance
-                        basketballInstance[activeBBallInstance].getNode()->setPosition(bballPos);
-                        change = BtOgre::Convert::toBullet(bballPos); // converts from Ogre::Vector3 to btVector3
-                        transform.setOrigin(change);
-                        basketballInstance[activeBBallInstance].getPhysBody()->setWorldTransform(transform);
-                        break;
+        //              basketballInstance[activeBBallInstance].setPosChange(bballPosChange);   // sets the posChange for current basketballInstance                        
                     case DOWN:
                         bballPos[0] -= 2;
                         bballPos[1] = bballCurrentPos[1]; // maintains the current height of the basketball on the court as the player and ball moves
                         bballPos[2] += 2;
         //              basketballInstance[activeBBallInstance].setPosChange(bballPosChange);   // sets the posChange for current basketballInstance
-                        basketballInstance[activeBBallInstance].getNode()->setPosition(bballPos);
-                        change = BtOgre::Convert::toBullet(bballPos); // converts from Ogre::Vector3 to btVector3
-                        transform.setOrigin(change);
-                        basketballInstance[activeBBallInstance].getPhysBody()->setWorldTransform(transform);
                         break;
                     case LEFT:
                         bballPos[0] -= 2;
                         bballPos[1] = bballCurrentPos[1]; // maintains the current height of the basketball on the court as the player and ball moves
         //              exit(0);
         //              basketballInstance[activeBBallInstance].setPosChange(bballPosChange);   // sets the posChange for current basketballInstance
-                        basketballInstance[activeBBallInstance].getNode()->setPosition(bballPos);
-                        change = BtOgre::Convert::toBullet(bballPos); // converts from Ogre::Vector3 to btVector3
-                        transform.setOrigin(change);
-                        basketballInstance[activeBBallInstance].getPhysBody()->setWorldTransform(transform);
                         break;
                     case RIGHT:
                         bballPos[0] += 2;
                         bballPos[1] = bballCurrentPos[1]; // maintains the current height of the basketball on the court as the player and ball moves
         //              basketballInstance[activeBBallInstance].setPosChange(bballPosChange);   // sets the posChange for current basketballInstance
-                        basketballInstance[activeBBallInstance].getNode()->setPosition(bballPos);
-                        change = BtOgre::Convert::toBullet(bballPos); // converts from Ogre::Vector3 to btVector3
-                        transform.setOrigin(change);
-                        basketballInstance[activeBBallInstance].getPhysBody()->setWorldTransform(transform);
                         break;
                     default:
                         break;
                 }
                 */
+                newCourtPosition = bballPos;
+                courtPositionChanged = true;
+                courtPositionChangedType = PLAYERMOVECHANGE;
+//                exit(0);
+
     //      basketballInstance[activeBBallInstance].getPhysBody()->forceActivationState(ACTIVE_TAG);
             }
             else
             {
             }
         }
-        oldPlayerDirection = playerDirection;
-        activePlayerInstance[playerWithBall].setOldDirection(oldPlayerDirection);  // copies contents of oldPlayerDirection to the oldDirection variable
+        oldDirection = direction;
+        //activePlayerInstance[playerWithBall].setOldDirection(oldPlayerDirection);  // copies contents of oldPlayerDirection to the oldDirection variable
     }
     else
     {

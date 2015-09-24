@@ -769,8 +769,9 @@ bool gameState::updateState()
     physEngine->updateState();	// updates the state of the physics simulation
 //    exit(0);
 	physEngine->stepWorld();	// steps the physics simulation
-    logMsg("DirectionsAndMovement");
+/*    logMsg("DirectionsAndMovement");
     updateDirectionsAndMovements();
+*/
 //	exit(0);
 
     // updates the basketball(s) state

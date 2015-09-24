@@ -888,8 +888,10 @@ void playerState::updateDirection()
 {
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
-
-    std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
+    std::vector<teamState> teamInstance = gameS->getTeamInstance();
+    std::vector<basketballs> bballInstance = gameS->getBasketballInstance();
+    size_t activeBBallInstance = gameS->getActiveBBallInstance();
+    size_t playerWithBall = teamInstance[teamNumber].getPlayerWithBall();
 
     if (oldDirection != direction)
     {
@@ -967,6 +969,13 @@ void playerState::updateDirection()
         }
     }
     logMsg("player Team Number == " +convert->toString(teamNumber));
+    logMsg("directplayerWithBall == " +convert->toString(playerWithBall));
+    logMsg("directplayerID == " +convert->toString(playerID));
+    if (playerID == playerWithBall)
+    {
+        bballInstance[activeBBallInstance].setDirectChange(true);
+        gameS->setBasketballInstance(bballInstance);
+    }
     //oldDirection = direction;
     //direction = NODIRECT;
 }
@@ -975,6 +984,11 @@ void playerState::updateMovement()	// updates movement status of the player
 {
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    std::vector<teamState> teamInstance = gameS->getTeamInstance();
+    std::vector<basketballs> bballInstance = gameS->getBasketballInstance();
+    size_t activeBBallInstance = gameS->getActiveBBallInstance();
+    size_t playerWithBall = teamInstance[teamNumber].getPlayerWithBall();
 
     Ogre::Vector3 posChange;	// stores change in position
     posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
@@ -1012,44 +1026,12 @@ void playerState::updateMovement()	// updates movement status of the player
             break;
         }
 
-/*        if (direction == UP)
+        if (playerID == playerWithBall)
         {
-            posChange = Ogre::Vector3(0.0f, 0.0f, -0.400f);
-            logMsg("UP!");
-                exit(0);
-        }
-        else if (direction == DOWN)
-        {
-            posChange = Ogre::Vector3(0.0f, 0.0f, 0.400f);
-        }
-        else if (direction == LEFT)
-        {
-//			    exit(0);
+            bballInstance[activeBBallInstance].setMovement(true);
+            gameS->setBasketballInstance(bballInstance);
 
-            posChange = Ogre::Vector3(-0.400f, 0.0f, 0.0f);
-//			    playerInstance[i].getPhysBody()->setLinearVelocity(btVector3(0.4,0,0));
         }
-        else if (direction == RIGHT)
-        {
-            posChange = Ogre::Vector3(0.400f, 0.0f, 0.0f);
-        }
-        else if (direction == UPLEFT)
-        {
-            posChange = Ogre::Vector3(-0.400f, 0.0f, -0.400f);
-        }
-        else if (direction == UPRIGHT)
-        {
-            posChange = Ogre::Vector3(0.400f, 0.0f, -0.400f);
-        }
-        else if (direction == DOWNLEFT)
-        {
-            posChange = Ogre::Vector3(-0.400f, 0.0f, 0.400f);
-        }
-        else if (direction == DOWNRIGHT)
-        {
-            posChange = Ogre::Vector3(0.400f, 0.0f, 0.400f);
-        }
-*/
     }
     else if (!movement)	// if false then sets their coordinate changes to 0.0
     {
