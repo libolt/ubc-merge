@@ -95,7 +95,9 @@ public:
     directions getDirection();  // retrieves the value of direction
     void setDirection(directions set);  // sets the value of direction 
     
-    
+    directions getOldDirection();  // retrieves the value of oldDirection
+    void setOldDirection(directions set);  // sets the value of oldDirection 
+  
     std::string getModelName();  // retrieves the value of modelName
     void setModelName(std::string name);  // sets the value of modelName
 
@@ -129,6 +131,10 @@ public:
     
     void updatePosition();  // updates the position of the basketball
 
+    void updateMovement();  // updates the movement of basketball(s)
+    void updateDirection();  // updates the direction of basketball(s)
+
+    
     Ogre::Vector3 calculatePositionChange();  // calculates the change in position of the basketball model in x,y,z coordinates
 
     bool calculateShot();  // calculates the trajectory the basketball travels when shot
@@ -179,6 +185,7 @@ private:
     bool movement;  // basketball has been moved by an outside force.
 
     directions direction;  // stores direction the ball has been moved
+    directions oldDirection;  // stores the previous direction of the ball
     
     // stores the position of the player on the court in an Ogre::Vector3
     Ogre::Vector3 courtPosition;

@@ -134,8 +134,6 @@ public:
     void processNetworkPlayerEvents();  // processes player evernts received from network connection
     void updateDirectionsAndMovements();  // updates the movement and directions of game world objecxts
 //    void updatePlayerDirections();  // updates the direction players are facing
-    void updateBasketballMovements();  // updates the movement of basketball(s)
-    void updateBasketballDirections();  // updates the direction of basketball(s)
     bool assignHoopToTeams();  // assigns which hoop belongs to each team
     bool assignTeams();  // assigns the teams which are playing
     bool assignPlayers();  // assigns the players that are playing.
