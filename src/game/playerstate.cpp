@@ -855,7 +855,7 @@ bool playerState::updateCourtPosition()  // updates the XYZ coordinates of the 3
                 */
                 courtPositionChanged = false;
                 courtPositionChangedType = NOCHANGE;
-                //courtPosition = node->getPosition();
+                courtPosition = node->getPosition();
                 // exit(0);
             break;
 
@@ -893,7 +893,7 @@ void playerState::updateDirection()
     size_t activeBBallInstance = gameS->getActiveBBallInstance();
     size_t playerWithBall = teamInstance[teamNumber].getPlayerWithBall();
 
-    if (oldDirection != direction)
+    if (direction != oldDirection)
     {
             
         switch (oldDirection)
@@ -964,6 +964,25 @@ void playerState::updateDirection()
                     break;
                 }
             break;
+            case NODIRECT:
+            switch (direction)
+            {
+                case UP:
+                    node->yaw(Ogre::Degree (270));
+                break;
+                case DOWN:
+                    node->yaw(Ogre::Degree (90));
+                break;
+                case LEFT:
+                    node->yaw(Ogre::Degree (180));
+                break;
+                case RIGHT:
+                    node->yaw(Ogre::Degree (180));
+                break;
+                default:
+                break;
+            }
+            break;
             default:
             break;
         }
@@ -973,7 +992,10 @@ void playerState::updateDirection()
     logMsg("directplayerID == " +convert->toString(playerID));
     if (playerID == playerWithBall)
     {
+//        exit(0);
         bballInstance[activeBBallInstance].setDirectChange(true);
+        bballInstance[activeBBallInstance].setDirection(direction);
+
         gameS->setBasketballInstance(bballInstance);
     }
     //oldDirection = direction;
