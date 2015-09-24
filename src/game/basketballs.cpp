@@ -450,7 +450,7 @@ void basketballs::updateMovement()  // updates the basketball(s) movements
     size_t teamWithBall = gameS->getTeamWithBall();
     std::vector<playerState> activePlayerInstance = teamInstance[teamWithBall].getActivePlayerInstance();
     size_t playerWithBall = -1;
-    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBallID();
+    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBall();
     size_t x = 0;
     
     bool shotTaken = activePlayerInstance[playerWithBall].getShotTaken();
@@ -523,7 +523,7 @@ void basketballs::updateDirection()  // updates basketball direction(s)
     
     size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBall();
     size_t playerWithBall = -1;
-
+    logMsg("directplayerwithballID == " +convert->toString(playerWithBallID));
     bool tipOffComplete = gameS->getTipOffComplete();
     size_t x = 0;
 
@@ -531,9 +531,18 @@ void basketballs::updateDirection()  // updates basketball direction(s)
 
     if (!shotTaken)
     {
-
+        
         Ogre::Vector3 posChange;
-
+        while (x < activePlayerInstance.size())
+        {
+            if (activePlayerInstance[x].getPlayerID() == playerWithBallID)
+            {
+                playerWithBall = x;
+                break;
+            }
+            ++x;
+        }
+        
         if (playerWithBall >= 0 && tipOffComplete == true)  // verifies that the playerWithBall variable is set to a valid number
         {
             Ogre::Vector3 playerPos= activePlayerInstance[playerWithBall].getNode()->getPosition();
@@ -548,9 +557,10 @@ void basketballs::updateDirection()  // updates basketball direction(s)
     //        logMsg("oldPlayerDirection = " + convert->toString(&oldPlayerDirection));
 
             logMsg("playerWithBall = " +convert->toString(playerWithBall));
+            exit(0);
             if (direction != oldDirection)
             {
-               /* switch (direction)
+                switch (direction)
                 {
                     case UP:
                         bballPos[0] += 2;
@@ -566,7 +576,7 @@ void basketballs::updateDirection()  // updates basketball direction(s)
                     case LEFT:
                         bballPos[0] -= 2;
                         bballPos[1] = bballCurrentPos[1]; // maintains the current height of the basketball on the court as the player and ball moves
-        //              exit(0);
+                      exit(0);
         //              basketballInstance[activeBBallInstance].setPosChange(bballPosChange);   // sets the posChange for current basketballInstance
                         break;
                     case RIGHT:
@@ -577,7 +587,7 @@ void basketballs::updateDirection()  // updates basketball direction(s)
                     default:
                         break;
                 }
-                */
+                
                 newCourtPosition = bballPos;
                 courtPositionChanged = true;
                 courtPositionChangedType = PLAYERMOVECHANGE;
@@ -590,7 +600,6 @@ void basketballs::updateDirection()  // updates basketball direction(s)
             }
         }
         oldDirection = direction;
-        //activePlayerInstance[playerWithBall].setOldDirection(oldPlayerDirection);  // copies contents of oldPlayerDirection to the oldDirection variable
     }
     else
     {
