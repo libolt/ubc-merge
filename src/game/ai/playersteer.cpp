@@ -409,7 +409,7 @@ void playerSteer::checkCourtPosition()  // checks if the player's position has c
 {
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
-
+logMsg("checkCourtAlive!");
     comparison compare;
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     //std::vector<playerState> team0ActivePlayerInstance = teamInstance[0].getActivePlayerInstance();
@@ -419,6 +419,7 @@ void playerSteer::checkCourtPosition()  // checks if the player's position has c
     btVector3 physBodyChange; // = btVector3(0,0,0);
     btTransform physBodyTransform;
 
+    
     // updates player's position
     Ogre::Vector3 posChange = convert->toOgreVector3(position());
     Ogre::Vector3 *offenseStartPositions;
