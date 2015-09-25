@@ -264,6 +264,7 @@ void gameEngine::processInput()  // processes game input
                         if (activePlayerInstance[x].getPlayerID() == humanPlayer)
                         {
                             humanInstance = x;
+                            break;
                         }
                         ++x;
                     }
@@ -334,6 +335,7 @@ void gameEngine::processInput()  // processes game input
                                 gameS->setTeamInstance(teamInstance);
                             break;
                             case INPASSSTEAL:
+                                logMsg("inputTeamNumber == " +convert->toString(teamNumber));
                                 activePlayerInstance[humanInstance].setMovement(false);
                                 activePlayerInstance[humanInstance].setPassSteal(true);
                                 teamInstance[i].setActivePlayerInstance(activePlayerInstance);
@@ -350,6 +352,9 @@ void gameEngine::processInput()  // processes game input
                         
                         ++x;
                     }
+                    std::vector<teamState>
+                    std::vector<playerState> activePInstance = tInstance[i].getActivePlayerInstance();
+                    logMsg("inPassSteal == " +convert->toString(activePInstance[humanInstance].getPassSteal()));
                     if (gameS->getTeamWithBall() == i)
                     {
                         if (activePlayerInstance[humanInstance].getMovement())

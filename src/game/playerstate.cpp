@@ -1015,6 +1015,17 @@ void playerState::updateMovement()	// updates movement status of the player
     Ogre::Vector3 posChange;	// stores change in position
     posChange = Ogre::Vector3(0.0f, 0.0f, 0.0f);
 
+    logMsg("playerTeamNumber == " +convert->toString(teamNumber));
+    logMsg("passSteal ==  " +convert->toString(passSteal));
+
+    if (passSteal)
+    {
+        logMsg("passSteal!!");
+    }
+    else
+    {
+    }
+
     if (movement)	// if true sets coordinate change accordingly
     {
 //        exit(0);
