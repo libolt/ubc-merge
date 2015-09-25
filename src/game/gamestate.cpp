@@ -72,7 +72,7 @@ gameState::gameState()
     gameSetupComplete = false;
     tipOffComplete = false;
     ballTipped = false;
-    ballTippedToTeam = -1;
+    ballTippedToTeam = NOTEAM;
     ballTippedToPlayerID = -1;
     ballTippedToPosition = NONE;
     ballTipForceApplied = false;
@@ -233,13 +233,13 @@ void gameState::setBallTipped(bool tipped)  // sets the value of ballTipped
 	ballTipped = tipped;
 }
 
-int gameState::getBallTippedToTeam()  // retrieves the value of ballTippedToTeam
+teamTypes gameState::getBallTippedToTeam()  // retrieves the value of ballTippedToTeam
 {
 	return (ballTippedToTeam);
 }
-void gameState::setBallTippedToTeam(int team)  // sets the value of ballTippedToTeam
+void gameState::setBallTippedToTeam(teamTypes set)  // sets the value of ballTippedToTeam
 {
-	ballTippedToTeam = team;
+	ballTippedToTeam = set;
 }
 int gameState::getBallTippedToPlayerID()  // retrieves the value of ballTippedToPlayerID
 {
@@ -287,13 +287,13 @@ void gameState::setGameStarted(bool started)  // sets the value of gameStarted
     gameStarted = started;
 }
 
-int gameState::getTeamWithBall(void)  // retrieves the value of teamWithBall
+teamTypes gameState::getTeamWithBall(void)  // retrieves the value of teamWithBall
 {
 	return (teamWithBall);
 }
-void gameState::setTeamWithBall(int ball)  // sets the value of teamWithBall
+void gameState::setTeamWithBall(teamTypes set)  // sets the value of teamWithBall
 {
-	teamWithBall = ball;
+	teamWithBall = set;
 }
 
 int gameState::getBballBounce()  // retrieves the value of bballBounce
@@ -987,7 +987,7 @@ void gameState::updateDirectionsAndMovements()
 
     if (teamWithBall >= 0) // && playerHasBasketball)
     {
-//		logMsg("teamWithBall is " +convert->toString(teamWithBall));
+//		logMsg("teamWithBall ios " +convert->toString(teamWithBall));
 //		logMsg("playetWithBall is " +convert->toString(teamInstance[teamWithBall].getPlayerWithBall()));
 //        updateBasketballMovements();	// updates the movement of basketball objec(s)
         //updateBasketballDirections(); // updates direction of basketball object(s)

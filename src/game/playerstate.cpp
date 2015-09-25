@@ -34,7 +34,7 @@
 playerState::playerState()
 {
     playerID = 0;
-    teamNumber = -1;
+    teamType = NOTEAM;
     isActive = false;
     modelLoaded = false;
     networkControlled = false;
@@ -111,13 +111,13 @@ void playerState::setPlayerID(int id)
     playerID = id;
 }
 
-int playerState::getTeamNumber()  // retrieves the value of teamNumber
+teamTypes playerState::getTeamType()  // retrieves the value of teamNumber
 {
-    return (teamNumber);
+    return (teamType);
 }
-void playerState::setTeamNumber(int set)  // sets the value of teamNumber
+void playerState::setTeamType(teamTypes set)  // sets the value of teamNumber
 {
-    teamNumber = set;
+    teamType = set;
 }
 
 bool playerState::getNetworkControlled()
@@ -733,7 +733,6 @@ bool playerState::loadModel()   // loads the player's 3D model from the file spe
     initialized = true;
     return true;
 }
-
 void playerState::updateState()
 {
     boost::shared_ptr<conversion> convert = conversion::Instance();
@@ -763,6 +762,27 @@ void playerState::updateState()
         }
         
     }
+    
+    if (passSteal)
+    {
+        logMsg("passSteal!!");
+        logMsg("passSteal teamNumber == " +convert->toString(teamNumber));
+        logMsg("passSteal teamWithBall == " +convert->toString(gameS->getTeamWithBall()));
+        
+        if (teamNumber == gameS->getTeamWithBall())
+        {
+            calculatePass();
+        }
+        else
+        {
+            
+        }
+        
+    }
+    else
+    {
+    }
+    
     if (direction != NODIRECT)  // updates the direction the player is facing if it has changed
     {
         updateDirection();
@@ -1018,14 +1038,6 @@ void playerState::updateMovement()	// updates movement status of the player
     logMsg("playerTeamNumber == " +convert->toString(teamNumber));
     logMsg("passSteal ==  " +convert->toString(passSteal));
 
-    if (passSteal)
-    {
-        logMsg("passSteal!!");
-    }
-    else
-    {
-    }
-
     if (movement)	// if true sets coordinate change accordingly
     {
 //        exit(0);
@@ -1129,7 +1141,7 @@ void playerState::calculatePass()	// calculates which player to pass the ball to
 	passCalculated = true;
 //	logMsg("Player to pass to =   " +convert->toString(passToPlayer));
 
-//	exit(0);
+	exit(0);
 }
 
 void playerState::shotLogic(Ogre::Vector3 playerPos)

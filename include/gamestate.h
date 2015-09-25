@@ -55,8 +55,8 @@ public:
     bool getBallTipped();  // retrieves the value of the ballTipped
     void setBallTipped(bool tipped);  // sets the value of the ballTipped
 
-    int getBallTippedToTeam();  // retrieves the value of the ballTippedToTeam
-    void setBallTippedToTeam(int team);	 // sets the value of the ballTippedToTeam
+    teamTypes getBallTippedToTeam();  // retrieves the value of the ballTippedToTeam
+    void setBallTippedToTeam(teamTypes set);	 // sets the value of the ballTippedToTeam
 
     int getBallTippedToPlayerID();  // retrieves the value of the ballTippedToPlayerID
     void setBallTippedToPlayerID(int player);  // sets the value of the ballTippedToPlayerID
@@ -73,8 +73,8 @@ public:
     bool getGameStarted(void);  // retrieves the gameStarted value
     void setGameStarted(bool started);  // sets gameStarted value
 
-    int getTeamWithBall(void);  // retrieves teamWithBall value
-    void setTeamWithBall(int ball);	 // sets teamWithBall value
+    teamTypes getTeamWithBall(void);  // retrieves teamWithBall value
+    void setTeamWithBall(teamTypes set);	 // sets teamWithBall value
 
     int getBballBounce();  // retrieves the value of bballBounce
     void setBballBounce(int bounce);  // sets the value of bballBounce
@@ -216,7 +216,7 @@ private:
     int ballTippedToPlayerID;  // stores which player ID the ball has been tipped to
     playerPositions ballTippedToPosition;  // stores position that the ball is tipped to
 
-    int teamWithBall;  // stores which team has control of the basketball, valid values are 0 or 1
+    teamTypes teamWithBall;  // stores which team has control of the basketball, valid values are 0 or 1
 
     int bballBounce;  // stores which direction the ball is bouncing;
 
