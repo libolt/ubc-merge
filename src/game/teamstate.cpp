@@ -26,12 +26,15 @@
 #include "physicsengine.h"
 #include "players.h"
 #include "playersteer.h"
+#include "enums.h"
 
 //extern "C"
 //{
 teamState::teamState()
 {
-	teamNumber = -1;
+    //teamNumber = -1;
+    teamID = -1;
+    teamType = NOTEAM;
 	playerType = ' ';
     assists = 0;
     blocks = 0;
@@ -68,13 +71,31 @@ teamState::~teamState()
 {
 }
 
-int teamState::getTeamNumber()	// retrieves the value of teamNumber
+/*teamTypes teamState::getTeamType()	// retrieves the value of teamType
 {
-	return (teamNumber);
+    return (teamType);
 }
-void teamState::setTeamNumber(int number)	// sets the value of the teamNumber
+void teamState::setTeamType(teamTypes set)	// sets the value of the teamType
 {
-	teamNumber = number;
+    teamType = set;
+}
+*/
+int teamState::getID()	// retrieves the value of teamID
+{
+    return (teamID);
+}
+void teamState::setTeamID(int set)	// sets the value of teamID
+{
+    teamID = set;
+}
+
+teamTypes teamState::getTeamType()  // retrieves the value of teamType
+{
+ return (teamType);
+}
+void teamState::setTeamType(teamTypes set) // sets the value of teamType
+{
+    teamType = set;
 }
 
 std::string teamState::getPlayerType()	// retrieves the value of playerType
@@ -454,7 +475,7 @@ void teamState::updateState()	// updates the state of the object
 //			logMsg("Team with ball ==  "  +convert->toString(gameS->getTeamWithBall()));
 //			logMsg("Player with ball ==  "  +convert->toString(playerWithBall));
 
-			if (gameS->getTeamWithBall() == teamNumber) // checks if the team has the basketball
+            if (gameS->getTeamWithBall() == teamType) // checks if the team has the basketball
 			{
                 logMsg("tipoffcomplete playerWithBall == " +convert->toString(playerWithBall));
 
@@ -520,7 +541,7 @@ void teamState::updateState()	// updates the state of the object
 //				logMsg("Player with ball's current position: "  +convert->toString(activePlayerInstance[playerWithBall].getNode()->getPosition()));
 			}
 		}
-        logMsg("Team number = " +convert->toString(teamNumber));
+        logMsg("Team type = " +convert->toString(teamType));
 
         logMsg("Human player = " +convert->toString(humanPlayer));
                                         
@@ -538,7 +559,7 @@ void teamState::updateState()	// updates the state of the object
 		else
 		{
 		}
-//	logMsg("Team ==  "  +toString(teamNumber));
+//	logMsg("Team ==  "  +toString(teamType));
 
 		//		exit(0);
 	}
@@ -549,13 +570,13 @@ void teamState::updateState()	// updates the state of the object
 
 	if (gameS->getTipOffComplete())
 	{
-	    if (gameS->getTeamWithBall() == teamNumber)
+        if (gameS->getTeamWithBall() == teamType)
 	    {
-            offenseInstance->updateState(teamNumber);	// updates the state of the offenseInstance object
+            offenseInstance->updateState(teamType);	// updates the state of the offenseInstance object
 	    }
 	    else
 	    {
-	        defenseInstance->updateState(teamNumber); // updates the state of the defenseInstance object
+            defenseInstance->updateState(teamType); // updates the state of the defenseInstance object
 	    }
 	}
 	else
@@ -563,7 +584,7 @@ void teamState::updateState()	// updates the state of the object
 	}
 
 
-//   logMsg("team state updated = " +convert->toString(teamNumber));
+//   logMsg("team state updated = " +convert->toString(teamType));
 }
 
 bool teamState::createPlayerInstances()
@@ -599,9 +620,9 @@ bool teamState::createPlayerInstances()
         playerSteer *pSteer = new playerSteer; // steer instance
 
 //    	    logMsg("Player Team ID = " +convert->toString(playerDataInstance[i].getTeamID()));
-//    	    logMsg("Team Number = " +convert->toString(teamNumber));
+//    	    logMsg("Team Number = " +convert->toString(teamType));
 
-        if (playerDataInstance[i].getTeamID() == teamNumber)	// checks if player is assigned to this team
+        if (playerDataInstance[i].getTeamID() == teamID)	// checks if player is assigned to this team
         {
             id += 1;
             pInstance.setModelName(playerDataInstance[i].getModel());
@@ -609,11 +630,11 @@ bool teamState::createPlayerInstances()
             pInstance.setLastName(playerDataInstance[i].getLastName());    // copies the last name from the playerData std::vector to the pInstance class
             pInstance.setPlayerName(playerDataInstance[i].getFirstName() + " " +playerDataInstance[i].getLastName());
             pInstance.setPlayerID(playerDataInstance[i].getID());
-            pInstance.setTeamNumber(teamNumber);  // sets the team number the player belongs to
+            pInstance.setTeamType(teamType);  // sets the team number the player belongs to
             pInstance.setPrimaryPosition(playerDataInstance[i].getPrimaryPosition());    // copies the primary position from the playerData std::vector to the pInstance class
             pInstance.setSecondaryPosition(playerDataInstance[i].getSecondaryPosition());    // copies the secondary position from the playerData std::vector to the pInstance class
             pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
-            pSteer->setTeamNumber(teamNumber);
+            pSteer->setTeamType(teamType);
             //pSteer->setID(id);
 /*            if (pInstance.getPosition() == "PG")
             {
@@ -651,7 +672,7 @@ bool teamState::createPlayerInstances()
 //    std::vector <playerState>::iterator pInstanceIT;
 
     logMsg("before playerID");
-//        int playerID = teamStarterID[teamNumber][i];
+//        int playerID = teamStarterID[teamType][i];
 //        int playerID = activePlayerID[i];
 //        logMsg("ID " +convert->toString(i) +" = " +convert->toString(playerID));
     logMsg("activePlayerID.size() = " +convert->toString(activePlayerID.size()));
@@ -732,7 +753,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
 //    exit(0);
     // set initial player coordinates for the tipoff
 
-	if (teamNumber == 0)	// assigns the positions and directions for team 1 players
+    if (teamType == HOMETEAM)	// assigns the positions and directions for team 1 players
 	{
 		// assign positions
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
@@ -752,7 +773,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
         
         playerDirection = LEFT;
     }
-    else if (teamNumber == 1) // assigns the positions and directions for team 2 players
+    else if (teamType == AWAYTEAM) // assigns the positions and directions for team 2 players
     {
         float y = 0.0f;
         // assign positions
@@ -776,9 +797,9 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
         
 //        for (size_t i=0;i<5;++i)
         size_t i = 0;
-/*        while (i<teamStarterID[teamNumber].size())
+/*        while (i<teamStarterID[teamType].size())
         {
-            int playerID = teamStarterID[teamNumber][i];
+            int playerID = teamStarterID[teamType][i];
             logMsg("ID " +convert->toString(i) +" = " +convert->toString(playerID));
 */
         size_t x = 0;

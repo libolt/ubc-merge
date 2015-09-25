@@ -178,12 +178,12 @@ void offenseState::setupState()		// sets up initial state of the object
 //	startPositions[0] = Ogre::Vector3(5.0f,-13.5f,380.0f);
 }
 
-void offenseState::updateState(int teamNumber)	// updates the state of the object
+void offenseState::updateState(teamTypes teamType)	// updates the state of the object
 {
 	//gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
-    std::vector<playerState> activePlayerInstance = teamInstance[teamNumber].getActivePlayerInstance();
+    std::vector<playerState> activePlayerInstance = teamInstance[teamType].getActivePlayerInstance();
 
     if (!offenseSetup)
     {
@@ -194,7 +194,7 @@ void offenseState::updateState(int teamNumber)	// updates the state of the objec
         
 		executeOffense();
 	}
-    teamInstance[teamNumber].setActivePlayerInstance(activePlayerInstance);
+    teamInstance[teamType].setActivePlayerInstance(activePlayerInstance);
     gameS->setTeamInstance(teamInstance);
 
 }
@@ -288,13 +288,13 @@ void offenseState::executeOffense() // executes box offense
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<playerState> activePlayerInstance = teamInstance[gameS->getTeamWithBall()].getActivePlayerInstance();
 
-    int teamNumber = gameS->getTeamWithBall();
-    int playerWithBall = teamInstance[teamNumber].getPlayerWithBall();
+    teamTypes teamWithBall = gameS->getTeamWithBall();
+    int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
     playerSteer *pSteer;
 
     if (!allStartPositionsReached)	// checks if all players have reached their start positions for the offense being run
     {
-        logMsg("teamWithBallExecute == " +convert->toString(teamNumber));
+        logMsg("teamWithBallExecute == " +convert->toString(teamWithBall));
         logMsg("playerWithBallExecute == " +convert->toString(playerWithBall));
         size_t x = 0;
         while (x < activePlayerInstance.size())
@@ -379,7 +379,7 @@ void offenseState::executeOffense() // executes box offense
                                     }
                                     else //if (!executePositionReached[ID][x])
 					                {
-                                        logMsg("Team " +convert->toString(teamNumber) +" Player " +convert->toString(ID) +" Seeking Offense Execute Position!");
+                                        logMsg("Team " +convert->toString(teamWithBall) +" Player " +convert->toString(ID) +" Seeking Offense Execute Position!");
                                         OpenSteer::Vec3 executePosition = convert->toOpenSteerVec3(executePositions[ID][x]);
                                         pSteer->setSteerCoords(executePosition);
                                         float distToPosition = OpenSteer::Vec3::distance (pSteer->getSteerCoords(), pSteer->position());

@@ -40,8 +40,14 @@ public:
     teamState();
     ~teamState();
 
-    int getTeamNumber();	// retrieves the value of teamNumber
-    void setTeamNumber(int number);	// sets the value of teamNumber
+/*    int getTeamNumber();	// retrieves the value of teamNumber
+    void setTeamNumber(int set);	// sets the value of teamNumber
+*/
+    int getID();	// retrieves the value of teamID
+    void setTeamID(int set);	// sets the value of teamID
+
+    teamTypes getTeamType();  // retrieves the value of teamType
+    void setTeamType(teamTypes set); // sets the value of teamType
 
     std::string getPlayerType();	// retrieves the value of playerType
     void setPlayerType(std::string type);	// sets the value of playerType
@@ -167,6 +173,9 @@ protected:
 private:
 
     int teamNumber;	// stores which team number the object is
+    teamTypes teamType;  // stores which type of team this object is
+    int teamID;  // stores the ID number of the team;
+
     std::string playerType;	// stores the type of player in control of the team (human,network,ai) are valid values
     int assists;    // stores number of assists team has.
     int blocks; // stores the total number of blocks.

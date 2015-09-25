@@ -72,8 +72,8 @@ public:
     void passCollisionCheck();  // checks whether the ball has collided with the player being passed to
 
     
-    bool playerJump(int teamNumber, int playerID);  // calculates and executes player jumping in the air
-    bool shootBasketball(int teamNumber, int playerID);  // calculates and executes basketball being shot
+    bool playerJump(teamTypes teamType, int playerID);  // calculates and executes player jumping in the air
+    bool shootBasketball(teamTypes teamType, int playerID);  // calculates and executes basketball being shot
    
 protected:
     physicsEngine();

@@ -47,11 +47,11 @@ class playerState
 
 //        Ogre::Vector3 getNodePosition();  // retrieves the position of player node
 
-        int getPlayerID();  // retrieves the value of playerID
-        void setPlayerID(int id);  // sets the value of playerID
+        size_t getPlayerID();  // retrieves the value of playerID
+        void setPlayerID(size_t set);  // sets the value of playerID
 
-        teamTypes getTeamNumber();  // retrieves the value of teamNumber
-        void setTeamNumber(teamTypes set);  // sets the value of teamNumber
+        teamTypes getTeamType();  // retrieves the value of teamType
+        void setTeamType(teamTypes set);  // sets the value of teamType
         
         bool getNetworkControlled();  // retrieves the value of networkControlled
         void setNetworkControlled(bool controlled);  // sets the value of networkControlled
@@ -275,7 +275,7 @@ class playerState
 
         int weight; // stores the weight of the player in pounds.
 
-        int ID; // stores the unique ID of the player.
+        size_t ID; // stores the unique ID of the player.
 
         playerPositions primaryPosition; // stores the primary position of the player
         

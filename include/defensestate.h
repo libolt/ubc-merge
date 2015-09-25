@@ -32,7 +32,7 @@ public:
 
     void setupState();		// sets up initial state of the object
 
-    void updateState(int teamNumber);	// updates the state of the object
+    void updateState(teamTypes teamType);	// updates the state of the object
 
 private:
 

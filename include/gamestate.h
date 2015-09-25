@@ -212,7 +212,7 @@ private:
     bool ballTipped;  //	stores whether or not the ball has been tipped
     bool ballTipForceApplied;// stores whether or not force has been applied to tipped ball
     bool playerHasBasketball;  // stores whether or not a player has control of the basketball
-    int ballTippedToTeam;  //  stores which team the ball has been tipped to
+    teamTypes ballTippedToTeam;  //  stores which team the ball has been tipped to
     int ballTippedToPlayerID;  // stores which player ID the ball has been tipped to
     playerPositions ballTippedToPosition;  // stores position that the ball is tipped to
 

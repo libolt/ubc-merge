@@ -43,7 +43,7 @@ class playerSteer : public steering
         m_MyID = id;
 
 //    b_ImTeamA = true;
-		teamNumber = -1;
+        teamType = NOTEAM;
 	    ID = -1;
 	    counter = 0;
 		distToPosition = -1.0f;
@@ -64,11 +64,11 @@ class playerSteer : public steering
     }
 	~playerSteer();
 
-	int getTeamNumber(); // retrieves the value of team
-	void setTeamNumber(int team); // sets the value of team
+    teamTypes getTeamType(); // retrieves the value of teamType
+    void setTeamType(teamTypes set); // sets the value of teamType
 
-	int getID(); // retrieves the value of ID
-	void setID(int id); // sets the value of ID
+    size_t getID(); // retrieves the value of ID
+    void setID(size_t set); // sets the value of ID
 
     playerPositions getPlayerPosition();  // retrieves the value of playerPosition
     void setPlayerPosition(playerPositions set);  // sets the value of playerPosition
@@ -99,7 +99,7 @@ class playerSteer : public steering
     std::vector<playerSteer*>	m_AllPlayers;
     OpenSteer::Vec3 m_home;
     //Ball*	m_Ball;
-    int teamNumber;  // stores which team the player belongs to
+    teamTypes teamType;  // stores which team the player belongs to
     int		m_MyID;
     int ID; // Stores which player on the team the instance associates with
     playerPositions playerPosition;  // stores which position the player is playing

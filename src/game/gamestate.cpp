@@ -62,7 +62,7 @@ gameState::gameState()
     courtInstanceCreated = false;
 	teamInstancesCreated = false;
     gameStarted = false;
-    teamWithBall = -1;
+    teamWithBall = NOTEAM;
 
     selectedCourtDataInstance = -1;
     
@@ -453,8 +453,10 @@ bool gameState::createTeamInstances()
 	teamInstance.push_back(tInstance);	// adds empty teamState to teamInstance vector
 	teamInstance.push_back(tInstance);	// adds empty teamState to teamInstance vector
 
-	teamInstance[0].setTeamNumber(teamID[0]);
-	teamInstance[1].setTeamNumber(teamID[1]);
+    teamInstance[0].setTeamID(teamID[0]);
+    teamInstance[1].setTeamID(teamID[1]);
+    teamInstance[0].setTeamType(HOMETEAM);
+    teamInstance[1].setTeamType(AWAYTEAM);
     teamInstance[0].setHumanControlled(false);
     teamInstance[1].setHumanControlled(true);
 	teamInstance[0].setupState();

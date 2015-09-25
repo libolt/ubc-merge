@@ -167,6 +167,48 @@ std::string conversion::toString(const playerPositions &data) // converts player
     return(strData);
 }
 
+std::string conversion::toString(const teamTypes &data) // converts teamTypes data to string
+{
+    std::string strData;
+    switch (data)
+    {
+        case NOTEAM:
+            strData = "No Team";
+        break;
+        case HOMETEAM:
+            strData = "Home Team";
+        break;
+        case AWAYTEAM:
+            strData = "Away Team";
+        break;
+        default:
+            strData = "";
+        break;
+    }
+
+    return (strData);
+}
+
+std::string conversion::toString(const bool &data) // converts bool data to string
+{
+    std::string strData;
+
+    switch (data)
+    {
+        case true:
+            strData = "True";
+        break;
+        case false:
+            strData = "False";
+        break;
+        default:
+            strData = "";
+        break;
+    }
+
+    return (strData);
+}
+
 // convert to char
 char conversion::toChar(const std::string &data)  // converts from std::string to char
 {
