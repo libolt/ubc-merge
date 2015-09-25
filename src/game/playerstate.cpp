@@ -974,7 +974,7 @@ void playerState::updateDirection()
                     node->yaw(Ogre::Degree (90));
                 break;
                 case LEFT:
-                    node->yaw(Ogre::Degree (180));
+                    node->yaw(Ogre::Degree (0));
                 break;
                 case RIGHT:
                     node->yaw(Ogre::Degree (180));

@@ -14,13 +14,16 @@
 # Lots of simplifications by Adrian Friedli
 # > www.orxonox.net <
 
-FIND_PATH(BULLET_INCLUDE_DIRS Bullet-C-Api.h
+FIND_PATH(BULLET_INCLUDE_DIRS btBulletCollisionCommon.h
     PATHS
     $ENV{BULLET_HOME}/include
     $ENV{BULLET_ROOT}/src
+    /opt/include
+    /usr/local/include
     /usr/local
+    /usr/include
     /usr
-    PATH_SUFFIXES bullet
+    PATH_SUFFIXES bullet include/bullet
     )
 
 FIND_LIBRARY(BULLETDYNAMICS_LIBRARY_REL

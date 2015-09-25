@@ -750,7 +750,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
         startingPos.push_back(Ogre::Vector3(5.2f,yOffset,351.6f));
         startingPos.push_back(Ogre::Vector3(1.6f,yOffset,352.0f));
         
-        playerDirection = RIGHT;
+        playerDirection = LEFT;
     }
     else if (teamNumber == 1) // assigns the positions and directions for team 2 players
     {
@@ -768,7 +768,7 @@ void teamState::setPlayerStartPositions()	// sets the initial coordinates for th
         startingPos.push_back(Ogre::Vector3(4.4f,yOffset,348.8f));
         startingPos.push_back(Ogre::Vector3(-0.4f,yOffset,352.0f));
 
-        playerDirection = LEFT;
+        playerDirection = RIGHT;
     }
     
     if (startingPos.size() > 0)

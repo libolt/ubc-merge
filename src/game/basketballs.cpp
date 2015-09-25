@@ -486,20 +486,20 @@ void basketballs::updateMovement()  // updates the basketball(s) movements
         case UP:
             bballPos.x += 0;
             bballPos.y += 0; // maintains the current height of the basketball on the court as the player and ball moves
-            bballPos.z -= 0.400;
+            bballPos.z -= 0.200;
         break;
         case DOWN:
             bballPos.x += 0;
             bballPos.y += 0; // maintains the current height of the basketball on the court as the player and ball moves
-            bballPos.z += 0.400;
+            bballPos.z += 0.200;
         break;
         case LEFT:
-            bballPos.x -= 0.400;
+            bballPos.x -= 0.200;
             bballPos.y = 0;
             bballPos.z = 0;
         break;
         case RIGHT:
-            bballPos.x += 0.400;
+            bballPos.x += 0.200;
             bballPos.y += 0; // maintains the current height of the basketball on the court as the player and ball moves
             bballPos.z += 0;
         break;
@@ -583,24 +583,24 @@ void basketballs::updateDirection()  // updates basketball direction(s)
                 switch (direction)
                 {
                     case UP:
-                        bballPos[0] += 0.400;
+                        bballPos[0] += 0.200;
                         //bballPos[1] = bballCurrentPos[1]; // maintains the current height of the basketball on the court as the player and ball moves
-                        bballPos[2] -= 0.400;
+                        bballPos[2] -= 0.200;
         //              basketballInstance[activeBBallInstance].setPosChange(bballPosChange);   // sets the posChange for current basketballInstance                        
                     case DOWN:
-                        bballPos[0] -= 0.400;
+                        bballPos[0] -= 0.200;
                         //bballPos[1] = bballCurrentPos[1]; // maintains the current height of the basketball on the court as the player and ball moves
-                        bballPos[2] += 0.400;
+                        bballPos[2] += 0.200;
         //              basketballInstance[activeBBallInstance].setPosChange(bballPosChange);   // sets the posChange for current basketballInstance
                         break;
                     case LEFT:
-                        bballPos[0] -= 0.400;
+                        bballPos[0] -= 0.200;
                         //bballPos[1] = bballCurrentPos[1]; // maintains the current height of the basketball on the court as the player and ball moves
 //                      exit(0);
         //              basketballInstance[activeBBallInstance].setPosChange(bballPosChange);   // sets the posChange for current basketballInstance
                         break;
                     case RIGHT:
-                        bballPos[0] += 0.400;
+                        bballPos[0] += 0.200;
                         //bballPos[1] = bballCurrentPos[1]; // maintains the current height of the basketball on the court as the player and ball moves
         //              basketballInstance[activeBBallInstance].setPosChange(bballPosChange);   // sets the posChange for current basketballInstance
                         break;
