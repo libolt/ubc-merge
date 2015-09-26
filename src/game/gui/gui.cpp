@@ -636,6 +636,7 @@ void GUISystem::playerStartSelected()  // process player start selection
     {
         activePlayerID.push_back(teamStarterID[1][x]);
     }
+
     teamInstance[1].setActivePlayerID(activePlayerID);
     if (!teamInstance[1].getPlayerInstancesCreated())    // checks if playerInstances have been created
     {
@@ -643,10 +644,14 @@ void GUISystem::playerStartSelected()  // process player start selection
 //            exit(0);
         if (teamInstance[1].createPlayerInstances()) // creates the player instances based on playerIDS
         {
+//            exit(0);
+
             logMsg("Player instances created!");
             teamInstance[1].setPlayerInstancesCreated(true);
 //          exit(0);
         }
+//.        exit(0);
+
     }
     playerInstance.clear();
     playerInstance = teamInstance[1].getPlayerInstance();
@@ -691,6 +696,7 @@ void GUISystem::playerStartSelected()  // process player start selection
     hideActiveMenuWidgets();
     menuActive = false;
     gameS->setGameSetupComplete(true);
+//    exit(0);
 
 }
 

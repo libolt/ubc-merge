@@ -109,15 +109,18 @@ void playerSteer::reset(void)
 //    setMaxSpeed (10);         // velocity is clipped to this magnitude
     setMaxSpeed (20.0f);         // velocity is clipped to this magnitude
 
-//	logMsg("teamNumber = " +convert->toString(teamNumber));
 
     if (teamType != NOTEAM)
 	{
+        logMsg("teamType steer!");
 	    //gameState *gameS = gameState::Instance();
         boost::shared_ptr<gameState> gameS = gameState::Instance();
         
 	    std::vector<teamState> teamInstance = gameS->getTeamInstance();
+        logMsg("teamType == " +convert->toString(teamType));
         std::vector<playerState> activePlayerInstance = teamInstance[teamType].getActivePlayerInstance();
+        logMsg("teamType steer2!");
+
 	    OpenSteer::Vec3 playerSteerPos;
         std::vector< std::vector<int> > teamStarterID = gameS->getTeamStarterID();
         if(ID < 9 && ID >= 0)
@@ -214,7 +217,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 //	logMsg("Steer position = " +convert->toString(toOgreVector3(position())));
     logMsg("Team = " +convert->toString(teamType));
     logMsg("ID = " +convert->toString(ID));
-//    OpenSteer::Vec3 currentNodePos = toOpenSteerVec3(teamInstance[teamNumber].getActiePlayerInstance()[ID].getNodePosition());
+//    OpenSteer::Vec3 currentNodePos = toOpenSteerVec3(teamInstance[teamType].getActiePlayerInstance()[ID].getNodePosition());
 
 /*	if (position().x != currentNodePos.x || position().y != currentNodePos.y || position().z != currentNodePos.z)
 	{
@@ -409,7 +412,8 @@ void playerSteer::checkCourtPosition()  // checks if the player's position has c
 {
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
-logMsg("checkCourtAlive!");
+    logMsg("checkCourtAlive!");
+
     comparison compare;
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     //std::vector<playerState> team0ActivePlayerInstance = teamInstance[0].getActivePlayerInstance();

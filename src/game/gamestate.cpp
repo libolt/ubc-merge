@@ -769,7 +769,8 @@ bool gameState::updateState()
 
     logMsg("Physics");
     physEngine->updateState();	// updates the state of the physics simulation
-//    exit(0);
+    logMsg("stepWorld");
+    //    exit(0);
 	physEngine->stepWorld();	// steps the physics simulation
 /*    logMsg("DirectionsAndMovement");
     updateDirectionsAndMovements();

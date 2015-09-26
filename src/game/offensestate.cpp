@@ -312,6 +312,7 @@ void offenseState::executeOffense() // executes box offense
 
                 if (!startPositionReached[x])  // checks if each player has reached the start position
                 {
+                    logMsg("startPosition " +convert->toString(x) +" not reached!");
                     std::vector<Ogre::Vector3> steerCoords = plays[0].getStartPositions();
                     OpenSteer::Vec3 coords = convert->toOpenSteerVec3(startPositions[x]);
                     pSteer->setSteerCoords(coords);
@@ -425,8 +426,10 @@ bool offenseState::checkForDirective(playerPositions playerPosition) // checks i
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     
-	for (int x=0;x<playerDirective.size();++x)
-	{
+    size_t x = 0;
+    logMsg("playerDirective.size() == " +convert->toString(playerDirective.size()));
+    while (x < playerDirective.size())
+    {
         logMsg("playerPosition = " +convert->toString(playerDirective[x].getPlayerPosition()));
 		if (playerDirective[x].getPlayerPosition() == playerPosition)
 		{
@@ -441,12 +444,19 @@ bool offenseState::checkForDirective(playerPositions playerPosition) // checks i
 							switch (playerDirective[x].getPositionType())
 							{
 								case START:
-									if (!startPositionReached[playerDirective[x].getPlayerSet()])
+                                    logMsg("offense position type = START");
+                                    logMsg("startPositionReached.size() == " +convert->toString(startPositionReached.size()));
+                                    logMsg("x == " +convert->toString(x));
+                                    logMsg("playerSet == " +convert->toString(playerDirective[x].getPlayerSet()));
+                                    logMsg("startPositionReached == " +convert->toString(startPositionReached[playerDirective[x].getPlayerSet()]));
+                                    if (!startPositionReached[playerDirective[x].getPlayerSet()])
 									{
 										//exit(0);
 									}
+                                    logMsg("surived startPosition reached!");
 									break;
 								case EXECUTE:
+                                    logMsg("offense position type = EXECUTe");
 									if (!executePositionReached[playerDirective[x].getPlayerSet()][playerDirective[x].getPosition()])
 									{
 										return (false);
@@ -474,6 +484,7 @@ bool offenseState::checkForDirective(playerPositions playerPosition) // checks i
 				    break;
 			}
 		}
+        ++x;
 	}
 	return (true);
 }

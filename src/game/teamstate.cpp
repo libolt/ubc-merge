@@ -619,11 +619,12 @@ bool teamState::createPlayerInstances()
         playerState pInstance;  // creates a new instance of playerState
         playerSteer *pSteer = new playerSteer; // steer instance
 
-//    	    logMsg("Player Team ID = " +convert->toString(playerDataInstance[i].getTeamID()));
-//    	    logMsg("Team Number = " +convert->toString(teamType));
+            logMsg("Player Team ID = " +convert->toString(playerDataInstance[i].getTeamID()));
+            logMsg("Team ID = " +convert->toString(teamID));
 
         if (playerDataInstance[i].getTeamID() == teamID)	// checks if player is assigned to this team
         {
+            logMsg("teamID!!!!");
             id += 1;
             pInstance.setModelName(playerDataInstance[i].getModel());
             pInstance.setFirstName(playerDataInstance[i].getFirstName());  // copies the first name from the playerData std::vector to the pInstance class
@@ -631,10 +632,12 @@ bool teamState::createPlayerInstances()
             pInstance.setPlayerName(playerDataInstance[i].getFirstName() + " " +playerDataInstance[i].getLastName());
             pInstance.setPlayerID(playerDataInstance[i].getID());
             pInstance.setTeamType(teamType);  // sets the team number the player belongs to
+            logMsg("teamtype1");
             pInstance.setPrimaryPosition(playerDataInstance[i].getPrimaryPosition());    // copies the primary position from the playerData std::vector to the pInstance class
             pInstance.setSecondaryPosition(playerDataInstance[i].getSecondaryPosition());    // copies the secondary position from the playerData std::vector to the pInstance class
             pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
             pSteer->setTeamType(teamType);
+            logMsg("teamtyp2");
             //pSteer->setID(id);
 /*            if (pInstance.getPosition() == "PG")
             {
@@ -658,8 +661,11 @@ bool teamState::createPlayerInstances()
             }
 */
             pSteer->reset();
+            logMsg("psteer resset!");
             pInstance.setSteer(pSteer);
+            logMsg("steer set!");
             playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.
+            logMsg("pInstance set!");
             logMsg("steerID = " +convert->toString(pInstance.getSteer()->getID()));
             logMsg("player name = " +pInstance.getPlayerName());
         }
@@ -668,7 +674,6 @@ bool teamState::createPlayerInstances()
         }
         i++;
     }
-
 //    std::vector <playerState>::iterator pInstanceIT;
 
     logMsg("before playerID");
