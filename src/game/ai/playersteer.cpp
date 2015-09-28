@@ -382,6 +382,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 	}
 	else
 	{
+        logMsg("steernotteamwithball");
 		float distHomeToBall = OpenSteer::Vec3::distance (m_home, bballSteerPos);
 //		logMsg("m_home = " +convert->toString(toOgreVector3(m_home)));
 //		logMsg("distHomeToBall = " +convert->toString(distHomeToBall));
@@ -393,6 +394,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
         }
         else
         {
+            logMsg("update offense?");
             if (execute)
             {
 //			,	exit(0);
@@ -402,7 +404,7 @@ void playerSteer::update (const float currentTime, float elapsedTime)
 
 //		exit(0);
     }
-
+    logMsg("checking court position!");
     checkCourtPosition(); // checks if steering position matches court position
 	
     logMsg("Alive!");
@@ -495,6 +497,7 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
     OpenSteer::Vec3 seekTarget;
     distToPosition = OpenSteer::Vec3::distance (steerCoords, position());
 	
+
     size_t z = 0;
     while (z < teamInstance.size())
     {
@@ -512,8 +515,11 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
 	}
 	else
 	{
+        logMsg("not seeking!");
 //		startPositionReached[ID] = true;
-		positionReached[0] = true;
+        logMsg("positionReached size" +convert->toString(positionReached.size()));
+//		positionReached[0] = true;
+        logMsg("not seeked!");
 //		teamInstance[teamType].getOffenseInstance()->setStartPositionReached(startPositionReached);
 
 	}

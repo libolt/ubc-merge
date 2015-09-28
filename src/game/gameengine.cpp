@@ -261,6 +261,8 @@ void gameEngine::processInput()  // processes game input
                     size_t humanInstance = 11;
                     while (x < activePlayerInstance.size())
                     {
+                        logMsg("GEPlayerID == " +convert->toString(activePlayerInstance[x].getPlayerID()));
+                        logMsg("GEHumanPlayer == " +convert->toString(humanPlayer));
                         if (activePlayerInstance[x].getPlayerID() == humanPlayer)
                         {
                             humanInstance = x;
@@ -274,6 +276,7 @@ void gameEngine::processInput()  // processes game input
                     x = 0;
                     int activeBBallInstance = gameS->getActiveBBallInstance();
                     std::vector<basketballs> bballInstance = gameS->getBasketballInstance();
+                    logMsg("humanInstance.size() == " +convert->toString(humanInstance));
                     if (humanInstance < 11) // makes sure that the humanInstance is a valid number
                     {
                         while (x < inputQueue.size())
@@ -287,6 +290,7 @@ void gameEngine::processInput()  // processes game input
                                     activePlayerInstance[humanInstance].setDirection(UP);
                                     teamInstance[teamType].setActivePlayerInstance(activePlayerInstance);
                                     gameS->setTeamInstance(teamInstance);
+                                    exit(0);
 
                                 break;
                                 case INDOWN:

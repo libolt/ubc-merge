@@ -918,7 +918,6 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
             teamInstance[ballTippedToTeam].setPlayerWithBallDribbling(true);
             logMsg("gameS->getBallTippedToPlayer() = " +convert->toString(gameS->getBallTippedToPlayerID()));
             logMsg("playerWithBallTipped == " +convert->toString(teamInstance[ballTippedToTeam].getPlayerWithBall()));
-            //exit(0);
             int activeDefensivePlayer = -1;
             switch (ballTippedToTeam)
             {
@@ -946,6 +945,7 @@ void physicsEngine::tipOffCollisionCheck()  // checks whether team 1 or team 2's
 
             //          exit(0);
         }
+        logMsg("physHumanPlayer == " +convert->toString(teamInstance[ballTippedToTeam].getHumanPlayer()));
 
     }
     // checks if player 4 touched the basketball
