@@ -72,8 +72,14 @@ offenseState::offenseState() // constructor
 	loadPlays();
 }
 
-teamTypes getTeamType();  // retrieves the value of teamType
-void setTeamType(teamTypes set);  // sets the value of teamType
+teamTypes offenseState::getTeamType()  // retrieves the value of teamType
+{
+    return (teamType);
+}
+void offenseState::setTeamType(teamTypes set)  // sets the value of teamType
+{
+    teamType = set;
+}
 
 int offenseState::getSelectedOffense() // returns value of selectedOffense
 {
@@ -220,7 +226,14 @@ void offenseState::setupOffense() // sets up box offense
 
     quarters currentQuarter = gameS->getQuarter();  // gets the current quarter the game is in.
 
-    if (currentQuarter == FIRST || currentQuarter == SECOND && )
+    if (currentQuarter == FIRST || currentQuarter == SECOND)
+    {
+        if (teamType == HOMETEAM)
+        {
+            exit(0);
+        }
+    }
+    
 	// FIXME! Hard coded values need to be made dynamic
 	playName = "Box";
 	playTitle = "FlashHighPassLow";

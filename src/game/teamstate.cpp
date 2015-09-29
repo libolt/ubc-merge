@@ -458,11 +458,19 @@ void teamState::updateState()	// updates the state of the object
 		{
 			offenseInstance->setExecute(true);
 			defenseInstance->setExecute(false);
+            if (offenseInstance->getTeamType() !=  teamType)  // sets type of team for offense
+            {
+                offenseInstance->setTeamType(teamType);
+            }
 		}
 		else if (defense == true && offense == false)
 		{
 			offenseInstance->setExecute(false);
 			defenseInstance->setExecute(true);
+            if (defenseInstance->getTeamType() !=  teamType)  // sets type of team for defense
+            {
+                defenseInstance->setTeamType(teamType);
+            }
 		}
 		else
 		{

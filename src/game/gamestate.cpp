@@ -99,11 +99,11 @@ void gameState::setGameType(gameTypes type)	 // sets the value of gameType
 
 quarters gameState::getQuarter()  // retrieves the value of quarter
 {
-    return (quarters);
+    return (quarter);
 }
 void gameState::setQuarters(quarters set)  // sets he value of quarter
 {
-    quarters = set;
+    quarter = set;
 }
 
 bool gameState::getGameSetupComplete()  // retrieves the value of gameSetupComplete

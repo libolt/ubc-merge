@@ -21,12 +21,17 @@
 #ifndef _DEFENSESTATE_H_
 #define _DEFENSESTATE_H_
 
+#include "enums.h"
+
 class defenseState
 {
 public:
 
 	defenseState();	// constructor
 
+    teamTypes getTeamType();  // retrieves the value of teamType
+    void setTeamType(teamTypes set);  // sets the value of teamType
+    
     bool getExecute();	// retrieves the value of execute variable
     void setExecute(bool ex);	// sets the value of the execute variable
 
@@ -35,6 +40,8 @@ public:
     void updateState(teamTypes teamType);	// updates the state of the object
 
 private:
+
+    teamTypes teamType;  // stores the type of team on defense
 
 	bool execute;	// If set then execute the defense logic
 

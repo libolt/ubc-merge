@@ -29,6 +29,15 @@ defenseState::defenseState() // constructor
 	execute = false;
 }
 
+teamTypes defenseState::getTeamType()  // retrieves the value of teamType
+{
+    return (teamType);
+}
+void defenseState::setTeamType(teamTypes set)  // sets the value of teamType
+{
+    teamType = set;
+}
+
 bool defenseState::getExecute()	// retrieves the value of execute variable
 {
 	return (execute);

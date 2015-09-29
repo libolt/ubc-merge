@@ -172,6 +172,7 @@ private:
     static boost::shared_ptr<gameState> pInstance;
 
     gameTypes gameType;  // Indicates whether a single or multi player game is being played.
+    quarters quarter;  // stores the quarter currently being played
     bool gameSetupComplete;  // indicates whether initial game setup is complete.
     quarters currentQuarter;  // defines which quarter the game is in.
 
