@@ -46,6 +46,9 @@ public:
     gameTypes getGameType();  // retrieves the value of gameType
     void setGameType(gameTypes type);  // sets the value of gameType
 
+    quarters getQuarter();  // retrieves the value of quarter
+    void setQuarters(quarters set);  // sets he value of quarter
+
     bool getGameSetupComplete();  // retrieves the value of gameSetupComplete
     void setGameSetupComplete(bool complete);  // sets the value of gameSetupComplete
 

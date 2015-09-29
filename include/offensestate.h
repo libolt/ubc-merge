@@ -32,6 +32,9 @@ public:
 
 	offenseState(); // constructor
 
+    teamTypes getTeamType();  // retrieves the value of teamType
+    void setTeamType(teamTypes set);  // sets the value of teamType
+
 	int getSelectedOffense(); // returns value of selectedOffense
 	void setSelectedOffense(int selected); // sets the value of selectedOffense
 
@@ -77,6 +80,7 @@ public:
 
 private:
 
+    teamTypes teamType;
     int selectedOffense; // stores which offense is being run
 	std::string playName;  // stores the name of the offense being run
 	std::string playTitle;  // stores the type of offense being run

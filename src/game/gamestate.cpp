@@ -97,6 +97,15 @@ void gameState::setGameType(gameTypes type)	 // sets the value of gameType
 	gameType = type;
 }
 
+quarters gameState::getQuarter()  // retrieves the value of quarter
+{
+    return (quarters);
+}
+void gameState::setQuarters(quarters set)  // sets he value of quarter
+{
+    quarters = set;
+}
+
 bool gameState::getGameSetupComplete()  // retrieves the value of gameSetupComplete
 {
     return (gameSetupComplete);
@@ -457,8 +466,8 @@ bool gameState::createTeamInstances()
     teamInstance[1].setTeamID(teamID[1]);
     teamInstance[0].setTeamType(HOMETEAM);
     teamInstance[1].setTeamType(AWAYTEAM);
-    teamInstance[0].setHumanControlled(false);
-    teamInstance[1].setHumanControlled(true);
+    teamInstance[0].setHumanControlled(true);
+    teamInstance[1].setHumanControlled(false);
 	teamInstance[0].setupState();
 	teamInstance[1].setupState();
 //	exit(0);
@@ -665,6 +674,8 @@ bool gameState::setupState()
         }
     }
 
+    // sets the quarter being played to the first one.
+    quarter = FIRST;
 //    basketballInstance[activeBBallInstance].getNode()->setPosition(1.4f,5.0f,366.0f);
 
 

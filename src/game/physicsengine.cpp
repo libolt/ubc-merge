@@ -917,131 +917,93 @@ bool physicsEngine::tippedBallCollisionCheck()  // checks if ball has collided w
 //    {
 //      exit(0);
 //      logMsg("Physics team ball tipped to = " +convert->toString(ballTippedToTeam));
-        logMsg("ballTippedToTeam == " +convert->toString(ballTippedToTeam));
+    logMsg("ballTippedToTeam == " +convert->toString(ballTippedToTeam));
 
-        std::vector<playerState> activePlayerInstance = teamInstance[ballTippedToTeam].getActivePlayerInstance();
+    std::vector<playerState> activePlayerInstance = teamInstance[ballTippedToTeam].getActivePlayerInstance();
 //        exit(0);
 //      logMsg("basketballInstance size = " +convert->toString(basketballInstance.size()));
 //      logMsg("activePlayerInstance size = " + convert->toString(activePlayerInstance.size()));
 
-        logMsg("basketballInstance z pos = " +convert->toString(basketballInstance[activeBBallInstance].getNode()->getPosition().z));
-        logMsg("basketballInstance x pos = " +convert->toString(basketballInstance[activeBBallInstance].getNode()->getPosition().x));
-        logMsg("team == " +convert->toString(ballTippedToTeam));
-        logMsg("player == " +convert->toString(gameS->getBallTippedToPlayerID()));
-        size_t ballTippedToPlayerID = gameS->getBallTippedToPlayerID();
-        //size_t ballTippedToPlayerID = -1;
-        playerPositions ballTippedToPosition = NONE;
-        std::vector<int> activePlayerID = teamInstance[ballTippedToTeam].getActivePlayerID();
-        
-/*        while (x < activePlayerID.size())
-        {
-            if (activePlayerID[x] == ballTippedToPlayerID)
-            {
-                ballTippedToPlayer = x;
-            }
-            ++x;
-        }
-*/
-        //logMsg("team " +convert->toString(ballTippedToTeam) +" activePlayerInstance z pos = " +convert->toString(activePlayerInstance[ballTippedToPlayer].getNode()->getPosition().z));
-        //logMsg("team " +convert->toString(ballTippedToTeam) +" activePlayerInstance x pos = " +convert->toString(activePlayerInstance[ballTippedToPlayer].getNode()->getPosition().x));
-        
-        
-/*      size_t playerWithBallID = gameS->getBallTippedToPlayer();  // teamInstance[ballTippedToTeam].getPlayerWithBall();
-        
-        size_t ballTippedToPlayer = -1;
-        size_t x = 0;
-        while (x < activePlayerInstance.size())
-        {
-            size_t y = 0;
-            while (y < activePlayerID.size())
-            {
-                if (activePlayerID[y] == activePlayerInstance[x].getPlayerID())
-                {
-                    if (activePlayerInstance[x].getPlayerID() == gameS->getBallTippedToPlayer())
-                    {
-                        ballTippedToPlayer = x;
-                    }
-                }
-                ++y;
-            }
-            ++x;
-        }
-        */
-        logMsg("gameS->getBallTippedToPlayerID() == " +convert->toString(gameS->getBallTippedToPlayerID()));
+    logMsg("basketballInstance z pos = " +convert->toString(basketballInstance[activeBBallInstance].getNode()->getPosition().z));
+    logMsg("basketballInstance x pos = " +convert->toString(basketballInstance[activeBBallInstance].getNode()->getPosition().x));
+    logMsg("team == " +convert->toString(ballTippedToTeam));
+    logMsg("player == " +convert->toString(gameS->getBallTippedToPlayerID()));
+    size_t ballTippedToPlayerID = gameS->getBallTippedToPlayerID();
+    //size_t ballTippedToPlayerID = -1;
+    playerPositions ballTippedToPosition = NONE;
+    std::vector<int> activePlayerID = teamInstance[ballTippedToTeam].getActivePlayerID();
+
+    logMsg("gameS->getBallTippedToPlayerID() == " +convert->toString(gameS->getBallTippedToPlayerID()));
 //        logMsg("ballTippedToPlayer == " +convert->toString(ballTippedToPlayer));
-        size_t x = 0;
-        while (x < activePlayerInstance.size())
+    size_t x = 0;
+    while (x < activePlayerInstance.size())
+    {
+        if (activePlayerInstance[x].getPlayerID() == ballTippedToPlayerID)
         {
-            if (activePlayerInstance[x].getPlayerID() == ballTippedToPlayerID)
-            {
-                //exit(0);
-                world->contactPairTest(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[x].getPhysBody(), tippedBallResult);
-                break;
-            }
-            ++x;
+            //exit(0);
+            world->contactPairTest(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[x].getPhysBody(), tippedBallResult);
+            break;
         }
-        
-//        world->contactPairTest(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[ballTippedToPlayer].getPhysBody(), tipOffResult);
-//      exit(0);
-        if (!tippedBallResult.m_connected)
-        {
-        }
-        else
-        {
-//                      exit(0);
-            gameS->setBallTipForceApplied(false);
-            //          basketballInstance[activeBBallInstance].getPhysBody()->applyForce(btVector3(-1.0f, 0.50f, 0.0f),btVector3(0.0f,0.0f,0.0f));
-            //          basketballInstance[activeBBallInstance].getPhysBody()->forceActivationState(ISLAND_SLEEPING);
-            basketballInstance[activeBBallInstance].getPhysBody()->setLinearVelocity(btVector3(0, 0, 0));
-           // exit(0);
-            gameS->setTipOffComplete(true);
-            gameS->setBallTipped(false);
-            gameS->setTeamWithBall(ballTippedToTeam);
-            
-            logMsg("ballTippedToTeam ======>" + convert->toString(ballTippedToTeam));
+        ++x;
+    }
 
-            logMsg("ballTippedToPlayerID =======>" + convert->toString(gameS->getBallTippedToPlayerID()));
+    if (tippedBallResult.m_connected)
+    {
+        gameS->setBallTipForceApplied(false);
+        basketballInstance[activeBBallInstance].getPhysBody()->setLinearVelocity(btVector3(0, 0, 0));
+        gameS->setTipOffComplete(true);
+        gameS->setBallTipped(false);
+        gameS->setTeamWithBall(ballTippedToTeam);
+
+        logMsg("ballTippedToTeam ======>" + convert->toString(ballTippedToTeam));
+
+        logMsg("ballTippedToPlayerID =======>" + convert->toString(gameS->getBallTippedToPlayerID()));
 //          exit(0);
 
-           // teamInstance[ballTippedToTeam].setPlayerWithBall(activePlayerInstance[gameS->getBallTippedToPlayer()].getPlayerID());
-            teamInstance[ballTippedToTeam].setPlayerWithBall(gameS->getBallTippedToPlayerID());
-            if (teamInstance[ballTippedToTeam].getHumanControlled())
-            {
-                teamInstance[ballTippedToTeam].setHumanPlayer(gameS->getBallTippedToPlayerID());
-                logMsg("ball tipped to human playerID == " +convert->toString(gameS->getBallTippedToPlayerID()));
-               // exit(0);
-            }
-            teamInstance[ballTippedToTeam].setPlayerWithBallDribbling(true);
-            logMsg("gameS->getBallTippedToPlayer() = " +convert->toString(gameS->getBallTippedToPlayerID()));
-            logMsg("playerWithBallTipped == " +convert->toString(teamInstance[ballTippedToTeam].getPlayerWithBall()));
-            int activeDefensivePlayer = -1;
-            switch (ballTippedToTeam)
-            {
-                case 0:
-                    activeDefensivePlayer = teamInstance[1].getActivePlayerID()[0];
-                    teamInstance[AWAYTEAM].setHumanPlayer(activeDefensivePlayer);
-                    break;
-                case 1:
-                    activeDefensivePlayer = teamInstance[0].getActivePlayerID()[0];
-                    teamInstance[HOMETEAM].setHumanPlayer(activeDefensivePlayer);
-                    break;
-                default:
-                break;
-            }
-            //          gameS->setTeamInstance(teamInstance);
-
-            int humanPlayer = teamInstance[ballTippedToTeam].getHumanPlayer();
-            teamTypes teamWithBall = gameS->getBallTippedToTeam();
-            logMsg("teamWithBall === " + convert->toString(teamWithBall));
-            logMsg("playerWithBall === " + convert->toString(teamInstance[teamWithBall].getPlayerWithBall()));
-
-            logMsg("human player tipped to = " + convert->toString(humanPlayer));
-//          exit(0);
-            gameS->setTeamInstance(teamInstance);
-
-            //          exit(0);
+//            teamInstance[ballTippedToTeam].setPlayerWithBall(activePlayerInstance[gameS->getBallTippedToPlayer()].getPlayerID());
+        teamInstance[ballTippedToTeam].setPlayerWithBall(gameS->getBallTippedToPlayerID());
+        if (teamInstance[ballTippedToTeam].getHumanControlled())
+        {
+            teamInstance[ballTippedToTeam].setHumanPlayer(gameS->getBallTippedToPlayerID());
+            logMsg("ball tipped to human playerID == " +convert->toString(gameS->getBallTippedToPlayerID()));
+//            exit(0);
         }
-        logMsg("physHumanPlayer == " +convert->toString(teamInstance[ballTippedToTeam].getHumanPlayer()));
+        teamInstance[ballTippedToTeam].setPlayerWithBallDribbling(true);
+        logMsg("gameS->getBallTippedToPlayer() = " +convert->toString(gameS->getBallTippedToPlayerID()));
+        logMsg("playerWithBallTipped == " +convert->toString(teamInstance[ballTippedToTeam].getPlayerWithBall()));
+        int activeDefensivePlayer = -1;
+        switch (ballTippedToTeam)
+        {
+            case 0:
+                activeDefensivePlayer = teamInstance[1].getActivePlayerID()[0];
+                teamInstance[AWAYTEAM].setHumanPlayer(activeDefensivePlayer);
+                break;
+            case 1:
+                activeDefensivePlayer = teamInstance[0].getActivePlayerID()[0];
+                teamInstance[HOMETEAM].setHumanPlayer(activeDefensivePlayer);
+                break;
+            default:
+            break;
+        }
+        //          gameS->setTeamInstance(teamInstance);
+
+        int humanPlayer = teamInstance[ballTippedToTeam].getHumanPlayer();
+        teamTypes teamWithBall = gameS->getBallTippedToTeam();
+        gameS->setTeamInstance(teamInstance);
+        logMsg("teamWithBall === " + convert->toString(teamWithBall));
+        logMsg("playerWithBall === " + convert->toString(teamInstance[teamWithBall].getPlayerWithBall()));
+
+        std::vector<teamState> tInstance = gameS->getTeamInstance();
+        logMsg("human player tipped to == " +convert->toString(humanPlayer));
+        logMsg("instance human player == " +convert->toString(tInstance[teamWithBall].getPlayerWithBall()));
+//          exit(0);
+        return (true);
+        //          exit(0);
+    }
+    else
+    {
+    }
+    logMsg("physHumanPlayer == " +convert->toString(teamInstance[ballTippedToTeam].getHumanPlayer()));
 
     return (false);
 }

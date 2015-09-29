@@ -63,18 +63,17 @@ void defenseState::updateState(teamTypes teamOnDefense)	// updates the state of 
 //	exit(0);
 	if (execute)
 	{
-        /*
-	    exit(0);
-		for (int x=0;x<playerOInstance.size();++x)
-		{
-			playerOPos.push_back(playerOInstance[x].getNode()->getPosition());
-		}
+/*
+        for (int x=0;x<playerOInstance.size();++x)
+        {
+            playerOPos.push_back(playerOInstance[x].getNode()->getPosition());
+        }
 
-		for (int x=0;x<playerDInstance.size();++x)
-		{
-			playerDPos.push_back(playerDInstance[x].getNode()->getPosition());
-		}
-        */
+        for (int x=0;x<playerDInstance.size();++x)
+        {
+            playerDPos.push_back(playerDInstance[x].getNode()->getPosition());
+        }
+*/
 //        activePlayerInstance = teamInstance[1].getPlayerInstance();
         size_t x = 0;
         while (x<playerOInstance.size())

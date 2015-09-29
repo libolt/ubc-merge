@@ -72,6 +72,9 @@ offenseState::offenseState() // constructor
 	loadPlays();
 }
 
+teamTypes getTeamType();  // retrieves the value of teamType
+void setTeamType(teamTypes set);  // sets the value of teamType
+
 int offenseState::getSelectedOffense() // returns value of selectedOffense
 {
 	return (selectedOffense);
@@ -213,7 +216,11 @@ void offenseState::setupOffense() // sets up box offense
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
-    
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+
+    quarters currentQuarter = gameS->getQuarter();  // gets the current quarter the game is in.
+
+    if (currentQuarter == FIRST || currentQuarter == SECOND && )
 	// FIXME! Hard coded values need to be made dynamic
 	playName = "Box";
 	playTitle = "FlashHighPassLow";
