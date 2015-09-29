@@ -35,6 +35,9 @@ public:
     teamTypes getTeamType();  // retrieves the value of teamType
     void setTeamType(teamTypes set);  // sets the value of teamType
 
+    courtSide_t getCourtSide();  // retrieves the value of courtSide
+    void setCourtSide(courtSide_t set);  // sets the value of courtSide
+
 	int getSelectedOffense(); // returns value of selectedOffense
 	void setSelectedOffense(int selected); // sets the value of selectedOffense
 
@@ -80,7 +83,8 @@ public:
 
 private:
 
-    teamTypes teamType;
+    teamTypes teamType;  // stores whether the offense is being run by the home or away team.
+    courtSide_t courtSide;  // stores which side of the court the offense executes on.
     int selectedOffense; // stores which offense is being run
 	std::string playName;  // stores the name of the offense being run
 	std::string playTitle;  // stores the type of offense being run

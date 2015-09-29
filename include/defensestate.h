@@ -32,6 +32,9 @@ public:
     teamTypes getTeamType();  // retrieves the value of teamType
     void setTeamType(teamTypes set);  // sets the value of teamType
     
+    courtSide_t getCourtSide();  // retrieves the value of courtSide
+    void setCourtSide(courtSide_t set);  // sets the value of courtSide
+
     bool getExecute();	// retrieves the value of execute variable
     void setExecute(bool ex);	// sets the value of the execute variable
 
@@ -42,6 +45,7 @@ public:
 private:
 
     teamTypes teamType;  // stores the type of team on defense
+    courtSide_t courtSide;  // stores which side of the court the defense executes on.
 
 	bool execute;	// If set then execute the defense logic
 

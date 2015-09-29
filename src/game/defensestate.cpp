@@ -38,6 +38,15 @@ void defenseState::setTeamType(teamTypes set)  // sets the value of teamType
     teamType = set;
 }
 
+courtSide_t defenseState::getCourtSide()  // retrieves the value of courtSide
+{
+    return (courtSide);
+}
+void defenseState::setCourtSide(courtSide_t set)  // sets the value of courtSide
+{
+    courtSide = set;
+}
+
 bool defenseState::getExecute()	// retrieves the value of execute variable
 {
 	return (execute);

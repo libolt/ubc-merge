@@ -81,6 +81,15 @@ void offenseState::setTeamType(teamTypes set)  // sets the value of teamType
     teamType = set;
 }
 
+courtSide_t offenseState::getCourtSide()  // retrieves the value of courtSide
+{
+    return (courtSide);
+}
+void offenseState::setCourtSide(courtSide_t set)  // sets the value of courtSide
+{
+    courtSide = set;
+}
+
 int offenseState::getSelectedOffense() // returns value of selectedOffense
 {
 	return (selectedOffense);
@@ -226,18 +235,56 @@ void offenseState::setupOffense() // sets up box offense
 
     quarters currentQuarter = gameS->getQuarter();  // gets the current quarter the game is in.
 
-    if (currentQuarter == FIRST || currentQuarter == SECOND)
+    switch (currentQuarter)
     {
-        if (teamType == HOMETEAM)
-        {
-            exit(0);
-        }
+        case FIRST:
+        case SECOND:
+           switch (teamType)
+           {
+               case HOMETEAM:
+                   courtSide = RIGHTSIDE;
+               break;
+               case AWAYTEAM:
+                   courtSide = LEFTSIDE;
+               break;
+               default:
+               break;
+           }
+        break;
+    case THIRD:
+    case FOURTH:
+       switch (teamType)
+       {
+           case HOMETEAM:
+               courtSide = LEFTSIDE;
+           break;
+           case AWAYTEAM:
+               courtSide = RIGHTSIDE;
+           break;
+           default:
+           break;
+       }
+    break;
+    default:
+    break;
     }
     
 	// FIXME! Hard coded values need to be made dynamic
 	playName = "Box";
 	playTitle = "FlashHighPassLow";
-	
+
+    switch (courtSide)
+    {
+        case RIGHTSIDE:
+            playTitle.append("Right");
+        break;
+        case LEFTSIDE:
+            playTitle.append("Left");
+        break;
+        default:
+        break;
+    }
+
     logMsg("plays.size() = " +convert->toString(plays.size()));
     for (size_t x=0;x<plays.size();++x)
 	{
