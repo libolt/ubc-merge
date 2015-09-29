@@ -1043,7 +1043,7 @@ bool physicsEngine::tippedBallCollisionCheck()  // checks if ball has collided w
         }
         logMsg("physHumanPlayer == " +convert->toString(teamInstance[ballTippedToTeam].getHumanPlayer()));
 
-//    }
+    return (false);
 }
 
 void physicsEngine::ballDribbling() // simulates basketball dribble
