@@ -32,6 +32,7 @@
 #include "teamstate.h"
 #include "teamdata.h"
 #include "playerdata.h"
+#include "jumpballs.h"
 
 //using namespace std;
 class gameState
@@ -52,29 +53,15 @@ public:
     bool getGameSetupComplete();  // retrieves the value of gameSetupComplete
     void setGameSetupComplete(bool complete);  // sets the value of gameSetupComplete
 
-    bool getTipOffComplete();  // retrieves tipOffComplete value
-    void setTipOffComplete(bool complete);	// sets tipOffComplete value
-
-    bool getBallTipped();  // retrieves the value of the ballTipped
-    void setBallTipped(bool tipped);  // sets the value of the ballTipped
-
-    teamTypes getBallTippedToTeam();  // retrieves the value of the ballTippedToTeam
-    void setBallTippedToTeam(teamTypes set);	 // sets the value of the ballTippedToTeam
-
-    int getBallTippedToPlayerID();  // retrieves the value of the ballTippedToPlayerID
-    void setBallTippedToPlayerID(int player);  // sets the value of the ballTippedToPlayerID
-
-    playerPositions getBallTippedToPosition();  // retrieves the value of ballTippedToPosition
-    void setBallTippedToPosition(playerPositions set);  // sets the value of ballTippedToPosition
-    
-    bool getBallTipForceApplied();  // retrieves the value of ballTipForceApplied
-    void setBallTipForceApplied(bool tip);  // sets the value of ballTipForceApplied
 
     bool getPlayerHasBasketball();  // retrieves the value of playerHasBasketball
     void setPlayerHasBasketball(bool set);  // setd the value of playerHasBasketball
     
     bool getGameStarted(void);  // retrieves the gameStarted value
     void setGameStarted(bool started);  // sets gameStarted value
+
+    jumpBalls getJumpBall();  // retrieves the value of jumpBall
+    void setJumpBall(jumpBalls set);  // sets the value of jumpBall
 
     teamTypes getTeamWithBall(void);  // retrieves teamWithBall value
     void setTeamWithBall(teamTypes set);	 // sets teamWithBall value
@@ -211,14 +198,7 @@ private:
     bool sceneCreated;  // stores whether the scene has been created
     bool gameStarted;  // Determines whether or not a basketball game has been started
 
-    // Tip Offs
-    bool tipOffComplete;  // Determines whether or not game Tip Off has completed
-    bool ballTipped;  //	stores whether or not the ball has been tipped
-    bool ballTipForceApplied;// stores whether or not force has been applied to tipped ball
-    bool playerHasBasketball;  // stores whether or not a player has control of the basketball
-    teamTypes ballTippedToTeam;  //  stores which team the ball has been tipped to
-    int ballTippedToPlayerID;  // stores which player ID the ball has been tipped to
-    playerPositions ballTippedToPosition;  // stores position that the ball is tipped to
+    jumpBalls jumpBall; // instance that is used for jumpBall functions.
 
     teamTypes teamWithBall;  // stores which team has control of the basketball, valid values are 0 or 1
 

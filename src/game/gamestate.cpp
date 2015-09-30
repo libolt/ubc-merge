@@ -70,12 +70,7 @@ gameState::gameState()
 
     gameType = NOGAME;
     gameSetupComplete = false;
-    tipOffComplete = false;
-    ballTipped = false;
-    ballTippedToTeam = NOTEAM;
-    ballTippedToPlayerID = -1;
-    ballTippedToPosition = NONE;
-    ballTipForceApplied = false;
+
     playerHasBasketball = false;
     bballBounce = -1;
     currentQuarter = FIRST;
@@ -294,6 +289,15 @@ bool gameState::getGameStarted(void)  // retrieves the value of gameStarted
 void gameState::setGameStarted(bool started)  // sets the value of gameStarted
 {
     gameStarted = started;
+}
+
+jumpBalls gameState::getJumpBall()  // retrieves the value of jumpBall
+{
+ return (jumpBall);
+}
+void gameState::setJumpBall(jumpBalls set)  // sets the value of jumpBall
+{
+    jumpBall = set;
 }
 
 teamTypes gameState::getTeamWithBall(void)  // retrieves the value of teamWithBall
