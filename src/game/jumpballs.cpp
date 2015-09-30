@@ -128,6 +128,8 @@ void jumpBalls::setBBallVelocity(btVector3 set)  // sets the value of bballVeloc
 void jumpBalls::updateState()  // updates state of the jumpBalls instance
 {
     boost::shared_ptr<gameState> gameS = gameState::Instance();
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+
     std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
     jumpBalls jumpBall = gameS->getJumpBall();
     teamTypes ballTippedToTeam = jumpBall.getBallTippedToTeam();
@@ -138,17 +140,24 @@ void jumpBalls::updateState()  // updates state of the jumpBalls instance
     {
         case FIRST:
         case SECOND:
+            logMsg("jump First/Second quarter");
+            logMsg("ballTippedToTeam == " +convert->toString(ballTippedToTeam));
+//            exit(0);
             switch (ballTippedToTeam)
             {
                 case HOMETEAM:
                     bballVelocity.setX(20);
                     bballVelocity.setY(-1);
                     bballVelocity.setZ(0);
+                    logMsg("jump HOMETEAM bballVelocity == " +convert->toString(bballVelocity));
+
                 break;
                 case AWAYTEAM:
                     bballVelocity.setX(-20);
                     bballVelocity.setY(-1);
                     bballVelocity.setZ(0);
+                    logMsg("jump AWAYTEAM bballVelocity == " +convert->toString(bballVelocity));
+
                 break;
                 default:
                 break;
@@ -156,6 +165,7 @@ void jumpBalls::updateState()  // updates state of the jumpBalls instance
         break;
         case THIRD:
         case FOURTH:
+            logMsg("jump Third/Fourth quarter");
             switch (ballTippedToTeam)
             {
                 case HOMETEAM:
@@ -175,4 +185,5 @@ void jumpBalls::updateState()  // updates state of the jumpBalls instance
         default:
         break;
     }
+    logMsg("jump bballVelocity == " +convert->toString(bballVelocity));
 }

@@ -529,13 +529,13 @@ void physicsEngine::updateState()
         ++z;
     }
 
-    if (!jumpBall.getExecuteJumpBall())    // checks if jump ball needs to be executed
+    if (jumpBall.getExecuteJumpBall())    // checks if jump ball needs to be executed
     {
         logMsg("physics jump ball execution!");
-           
+//        exit(0);
         if (executeJumpBall())  // executes jump ball code until it returns true
         {
-            jumpBall.setExecuteJumpBall(true);
+            jumpBall.setExecuteJumpBall(false);
         }            
     }
     else //if (gameS->getTipOffComplete())
@@ -780,7 +780,7 @@ bool physicsEngine::executeJumpBall()  // handles jump ball execution and return
             }
         }
     }
-
+    gameS->setJumpBall(jumpBall);  // copies current jumpBall instance to the main one.
     return (false);
 }
 
@@ -793,7 +793,7 @@ bool physicsEngine::jumpBallCollisionCheck()  // checks whether team 1 or team 2
 
     jumpBalls jumpBall = gameS->getJumpBall();
 
-    teamTypes ballTippedToTeam = jumpBall.getBallTippedToTeam();
+    teamTypes ballTippedToTeam; // = jumpBall.getBallTippedToTeam();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
     size_t activeBBallInstance = gameS->getActiveBBallInstance();
@@ -849,15 +849,13 @@ bool physicsEngine::jumpBallCollisionCheck()  // checks whether team 1 or team 2
                         break;
                     }
                     
-                    jumpBall.setBallTippedToTeam(ballTippedToTeam);
                     logMsg("Tipped X = " +convert->toString(x));
                     i = 0;
                     logMsg("jumpBall.getBallTippedToTeam == " +convert->toString(jumpBall.getBallTippedToTeam()));
-                    teamTypes ballTippedToTeam = jumpBall.getBallTippedToTeam();
-
+//                    exit(0);
                     std::vector<int> activePlayerID = teamInstance[ballTippedToTeam].getActivePlayerID();
                     std::vector<playerState> activePlayerInstance = teamInstance[ballTippedToTeam].getActivePlayerInstance();
-                        
+
                     jumpBall.setBallTippedToPosition(PG);
                         
                     size_t y = 0;
@@ -874,13 +872,18 @@ bool physicsEngine::jumpBallCollisionCheck()  // checks whether team 1 or team 2
                         
                     logMsg("activeID[0] == " +convert->toString(activeID[0]));
                     logMsg("jumpBall.setBallTippedToPosition == " +convert->toString(jumpBall.getBallTippedToPosition()));
+                    jumpBall.setBallTippedToTeam(ballTippedToTeam);
                     jumpBall.setBallTipForceApplied(true);
+                    gameS->setJumpBall(jumpBall);
                     gameS->setTeamInstance(teamInstance);
+                    return(true);
+
                 }
                 else
                 {
                     logMsg("Ball Not Tipped");
                 }
+
             }
             else
             {
@@ -888,7 +891,6 @@ bool physicsEngine::jumpBallCollisionCheck()  // checks whether team 1 or team 2
             ++x;
         }
     }
-    gameS->setJumpBall(jumpBall);
 //  exit(0);
     gameS->setTeamInstance(teamInstance);
     return (false);
