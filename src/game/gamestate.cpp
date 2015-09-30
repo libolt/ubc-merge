@@ -573,6 +573,10 @@ bool gameState::executeTipOff()
         jumpBall.updateState();
         
     }
+    else
+    {
+        exit(0);
+    }
     return (true);
 }
 
