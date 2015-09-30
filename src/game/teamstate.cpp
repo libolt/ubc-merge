@@ -27,6 +27,7 @@
 #include "players.h"
 #include "playersteer.h"
 #include "enums.h"
+#include "jumpballs.h"
 
 //extern "C"
 //{
@@ -444,6 +445,8 @@ void teamState::updateState()	// updates the state of the object
 	boost::shared_ptr<gameState> gameS = gameState::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
 
+    jumpBalls jumpBall = gameS->getJumpBall();
+
     int activeBBallInstance = gameS->getActiveBBallInstance();
 
 //	logMsg("Updating team state " +convert->toString(teamNumber));
@@ -477,7 +480,7 @@ void teamState::updateState()	// updates the state of the object
 
 		}
 
-		if (gameS->getTipOffComplete())
+        if (jumpBall.getTipOffComplete())
 		{
 //			exit(0);
 //			logMsg("Team with ball ==  "  +convert->toString(gameS->getTeamWithBall()));
@@ -576,7 +579,7 @@ void teamState::updateState()	// updates the state of the object
 	}
 //	exit(0);
 
-	if (gameS->getTipOffComplete())
+    if (jumpBall.getTipOffComplete())
 	{
         if (gameS->getTeamWithBall() == teamType)
 	    {

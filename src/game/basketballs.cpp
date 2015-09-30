@@ -23,6 +23,7 @@
 #include "renderengine.h"
 #include "comparison.h"
 #include "logging.h"
+#include "jumpballs.h"
 
 #include <string>
 
@@ -531,8 +532,11 @@ void basketballs::updateDirection()  // updates basketball direction(s)
     
     size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBall();
     size_t playerWithBall = -1;
+
+    jumpBalls jumpBall = gameS->getJumpBall();
+
     logMsg("directplayerwithballID == " +convert->toString(playerWithBallID));
-    bool tipOffComplete = gameS->getTipOffComplete();
+    bool tipOffComplete = jumpBall.getTipOffComplete();
     size_t x = 0;
 
     bool shotTaken = activePlayerInstance[playerWithBall].getShotTaken();
@@ -625,6 +629,7 @@ void basketballs::updateDirection()  // updates basketball direction(s)
     {
 
     }
+    gameS->setJumpBall(jumpBall);
 }
 
 int basketballs::getPlayer()

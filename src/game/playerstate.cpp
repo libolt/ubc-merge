@@ -30,6 +30,7 @@
 #include "steering.h"
 #include "teamstate.h"
 #include "comparison.h"
+#include "jumpballs.h"
 
 playerState::playerState()
 {
@@ -726,6 +727,8 @@ void playerState::updateState()
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
+
+    jumpBalls jumpBall = gameS->getJumpBall();
 	Ogre::Vector3 playerPos;
  //   exit(0);
 //    if (shotTaken && !shotComplete)	// checks if a player takes a shot
@@ -778,7 +781,7 @@ void playerState::updateState()
         oldDirection = direction;
         std::vector<teamState> teamInstance = gameS->getTeamInstance();
         int playerWithBallID = teamInstance[teamType].getPlayerWithBall();
-        if (teamType == gameS->getTeamWithBall() && gameS->getTipOffComplete())
+        if (teamType == gameS->getTeamWithBall() && jumpBall.getTipOffComplete())
         {
             logMsg("dplayerWithBallID == " +convert->toString(playerWithBallID));
             if (playerID == playerWithBallID && playerID >= 0)

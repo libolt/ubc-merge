@@ -71,7 +71,7 @@ gameState::gameState()
     gameType = NOGAME;
     gameSetupComplete = false;
 
-    playerHasBasketball = false;
+    //playerHasBasketball = false;
     bballBounce = -1;
     currentQuarter = FIRST;
     gameTimeLeft = 0.0f;
@@ -217,68 +217,6 @@ std::vector <basketballs> gameState::getBasketballInstance()  // retrieves the v
  void gameState::setBasketballInstance(std::vector<basketballs> bballInstance)  // sets the value of basketballInstance
 {
     basketballInstance = bballInstance;
-}
-
-bool gameState::getTipOffComplete()  // retrieves the value of tipOffComplete
-{
-    return (tipOffComplete);
-}
-void gameState::setTipOffComplete(bool complete)  // sets the value of tipOffComplete
-{
-    tipOffComplete = complete;
-}
-
-bool gameState::getBallTipped()	 // retrieves the value of ballTipped
-{
-	return (ballTipped);
-}
-void gameState::setBallTipped(bool tipped)  // sets the value of ballTipped
-{
-	ballTipped = tipped;
-}
-
-teamTypes gameState::getBallTippedToTeam()  // retrieves the value of ballTippedToTeam
-{
-	return (ballTippedToTeam);
-}
-void gameState::setBallTippedToTeam(teamTypes set)  // sets the value of ballTippedToTeam
-{
-	ballTippedToTeam = set;
-}
-int gameState::getBallTippedToPlayerID()  // retrieves the value of ballTippedToPlayerID
-{
-	return (ballTippedToPlayerID);
-}
-void gameState::setBallTippedToPlayerID(int player)	 // sets the value of ballTippedToPlayerID
-{
-	ballTippedToPlayerID = player;
-}
-
-playerPositions gameState::getBallTippedToPosition()  // retrieves the value of ballTippedToPosition
-{
-    return (ballTippedToPosition);
-}
-void gameState::setBallTippedToPosition(playerPositions set)  // sets the value of ballTippedToPosition
-{
-    ballTippedToPosition = set;
-}
-
-bool gameState::getBallTipForceApplied()  // retrieves the value of ballTipForceApplied
-{
-	return (ballTipForceApplied);
-}
-void gameState::setBallTipForceApplied(bool tip)  // sets the value of ballTipForceApplied
-{
-	ballTipForceApplied = tip;
-}
-
-bool gameState::getPlayerHasBasketball()  // retrieves the value of playerHasBasketball
-{
-    return (playerHasBasketball);
-}
-void gameState::setPlayerHasBasketball(bool set)  // setd the value of playerHasBasketball
-{
-    playerHasBasketball = set;
 }
 
 bool gameState::getGameStarted(void)  // retrieves the value of gameStarted

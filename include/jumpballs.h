@@ -21,6 +21,11 @@
 #ifndef _JUMPBALLS_H_
 #define _JUMPBALLS_H_
 
+#include <vector>
+#include "LinearMath/btVector3.h"
+
+#include "enums.h"
+
 class jumpBalls
 {
     public:
@@ -51,7 +56,16 @@ class jumpBalls
     bool getBallTipForceApplied();  // retrieves the value of ballTipForceApplied
     void setBallTipForceApplied(bool tip);  // sets the value of ballTipForceApplied
 
-    void executeJumpBall();  // handles jump ball from any of the jump ball locations.
+    bool getSetupComplete();  // retrieves the value of setup
+    void setSetupComplete(bool set);  // sets the value of setup
+
+    bool getExecuteJumpBall();  // retrieves the value of executeJumpBall
+    void setExecuteJumpBall(bool set);  // sets the value of executeJumpBall
+
+    btVector3 getBBallVelocity();  // retrieves the value of bballVelocity
+    void setBBallVelocity(btVector3 set);  // sets the value of bballVelocity
+
+    void updateState();  // updates state of the jumpBalls instance
 
 
     private:
@@ -66,7 +80,9 @@ class jumpBalls
     teamTypes ballTippedToTeam;  //  stores which team the ball has been tipped to
     int ballTippedToPlayerID;  // stores which player ID the ball has been tipped to
     playerPositions ballTippedToPosition;  // stores position that the ball is tipped to
-
+    bool setupComplete;  // stores whether a jumpBall scenario has been setup.
+    bool executeJumpBall;  // stores whether or not to execute the jump ball sequence
+    btVector3 bballVelocity;  // stores the velocity of the basketball
 
 };
 

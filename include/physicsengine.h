@@ -70,6 +70,7 @@ public:
     bool tipOff();  // handles tipOff execution and returns true when complete
     bool jumpBallCollisionCheck();  // checks whether team 1 or team 2's center made contact with ball
     bool tippedBallCollisionCheck();  // checks if ball has collided with tipped to player
+    void tipBallToPlayer();  // moves the basketball to the player it was tipped to
     void ballDribbling();  // simulates basketball dribble
     void passCollisionCheck();  // checks whether the ball has collided with the player being passed to
 

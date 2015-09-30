@@ -18,9 +18,13 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "conversion.h"
+#include "gamestate.h"
+#include "comparison.h"
+#include "logging.h"
 #include "jumpballs.h"
 
-jumpballs::jumpballs()
+jumpBalls::jumpBalls()
 {
     tipOffComplete = false;
     ballTipped = false;
@@ -28,6 +32,8 @@ jumpballs::jumpballs()
     ballTippedToPlayerID = -1;
     ballTippedToPosition = NONE;
     ballTipForceApplied = false;
+    setupComplete = false;
+    executeJumpBall = false;
 }
 
 jumpBallLocations_t jumpBalls::getJumpBallLocation()  // retrieves teh value of jumpBallLocation
@@ -48,7 +54,134 @@ void jumpBalls::setJumpBallPlayer(std::vector<playerPositions> set)  // sets the
     jumpBallPlayer = set;
 }
 
-void jumpBalls::executeJumpBall()  // handles jump ball from any of the jump ball locations.
+bool jumpBalls::getTipOffComplete()  // retrieves the value of tipOffComplete
 {
+    return (tipOffComplete);
+}
+void jumpBalls::setTipOffComplete(bool complete)  // sets the value of tipOffComplete
+{
+    tipOffComplete = complete;
+}
 
+bool jumpBalls::getBallTipped()	 // retrieves the value of ballTipped
+{
+    return (ballTipped);
+}
+void jumpBalls::setBallTipped(bool tipped)  // sets the value of ballTipped
+{
+    ballTipped = tipped;
+}
+
+teamTypes jumpBalls::getBallTippedToTeam()  // retrieves the value of ballTippedToTeam
+{
+    return (ballTippedToTeam);
+}
+void jumpBalls::setBallTippedToTeam(teamTypes set)  // sets the value of ballTippedToTeam
+{
+    ballTippedToTeam = set;
+}
+int jumpBalls::getBallTippedToPlayerID()  // retrieves the value of ballTippedToPlayerID
+{
+    return (ballTippedToPlayerID);
+}
+void jumpBalls::setBallTippedToPlayerID(int player)	 // sets the value of ballTippedToPlayerID
+{
+    ballTippedToPlayerID = player;
+}
+
+playerPositions jumpBalls::getBallTippedToPosition()  // retrieves the value of ballTippedToPosition
+{
+    return (ballTippedToPosition);
+}
+void jumpBalls::setBallTippedToPosition(playerPositions set)  // sets the value of ballTippedToPosition
+{
+    ballTippedToPosition = set;
+}
+
+bool jumpBalls::getBallTipForceApplied()  // retrieves the value of ballTipForceApplied
+{
+    return (ballTipForceApplied);
+}
+void jumpBalls::setBallTipForceApplied(bool tip)  // sets the value of ballTipForceApplied
+{
+    ballTipForceApplied = tip;
+}
+
+bool jumpBalls::getSetupComplete()  // retrieves the value of setup
+{
+    return (setupComplete);
+}
+void jumpBalls::setSetupComplete(bool set)  // sets the value of setup
+{
+    setupComplete = set;
+}
+
+bool jumpBalls::getExecuteJumpBall()  // retrieves the value of executeJumpBall
+{
+    return (executeJumpBall);
+}
+void jumpBalls::setExecuteJumpBall(bool set)  // sets the value of executeJumpBall
+{
+    executeJumpBall = set;
+}
+
+btVector3 jumpBalls::getBBallVelocity()  // retrieves the value of bballVelocity
+{
+    return (bballVelocity);
+}
+void jumpBalls::setBBallVelocity(btVector3 set)  // sets the value of bballVelocity
+{
+    bballVelocity = set;
+}
+
+void updateState()  // updates state of the jumpBalls instance
+{
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
+    jumpBalls jumpBall = gameS->getJumpBall();
+    teamTypes ballTippedToTeam = jumpBall.getBallTippedToTeam();
+    quarters quarter = gameS->getQuarter();
+    int activeBBallInstance = gameS->getActiveBBallInstance();
+
+    switch (quarter)
+    {
+        case FIRST:
+        case SECOND:
+            switch (ballTippedToTeam)
+            {
+                case HOMETEAM:
+                    bballVelocity.setX(20);
+                    bballVelocity.setY(-1);
+                    bballVelocity.setZ(0);
+                break;
+                case AWAYTEAM:
+                    bballVelocity.setX(-20);
+                    bballVelocity.setY(-1);
+                    bballVelocity.setZ(0);
+                break;
+                default:
+                break;
+            }
+        break;
+        case THIRD:
+        case FOURTH:
+            switch (ballTippedToTeam)
+            {
+                case HOMETEAM:
+                    bballVelocity.setX(-20);
+                    bballVelocity.setY(-1);
+                    bballVelocity.setZ(0);
+                break;
+                case AWAYTEAM:
+                    bballVelocity.setX(20);
+                    bballVelocity.setY(-1);
+                    bballVelocity.setZ(0);
+                break;
+                default:
+                break;
+            }
+        break;
+        default:
+        break;
+    }
 }
