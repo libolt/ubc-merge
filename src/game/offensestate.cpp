@@ -242,10 +242,10 @@ void offenseState::setupOffense() // sets up box offense
            switch (teamType)
            {
                case HOMETEAM:
-                   courtSide = RIGHTSIDE;
+                   courtSide = LEFTSIDE;
                break;
                case AWAYTEAM:
-                   courtSide = LEFTSIDE;
+                   courtSide = RIGHTSIDE;
                break;
                default:
                break;
@@ -256,10 +256,10 @@ void offenseState::setupOffense() // sets up box offense
        switch (teamType)
        {
            case HOMETEAM:
-               courtSide = LEFTSIDE;
+               courtSide = RIGHTSIDE;
            break;
            case AWAYTEAM:
-               courtSide = RIGHTSIDE;
+               courtSide = LEFTSIDE;
            break;
            default:
            break;
