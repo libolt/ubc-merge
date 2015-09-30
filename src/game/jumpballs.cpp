@@ -26,7 +26,6 @@
 
 jumpBalls::jumpBalls()
 {
-    tipOffComplete = false;
     ballTipped = false;
     ballTippedToTeam = NOTEAM;
     ballTippedToPlayerID = -1;
@@ -34,6 +33,7 @@ jumpBalls::jumpBalls()
     ballTipForceApplied = false;
     setupComplete = false;
     executeJumpBall = false;
+    
 }
 
 jumpBallLocations_t jumpBalls::getJumpBallLocation()  // retrieves teh value of jumpBallLocation
@@ -52,15 +52,6 @@ std::vector<playerPositions> jumpBalls::getJumpBallPlayer()  // retrieves the va
 void jumpBalls::setJumpBallPlayer(std::vector<playerPositions> set)  // sets the value of jumpBallPlayer
 {
     jumpBallPlayer = set;
-}
-
-bool jumpBalls::getTipOffComplete()  // retrieves the value of tipOffComplete
-{
-    return (tipOffComplete);
-}
-void jumpBalls::setTipOffComplete(bool complete)  // sets the value of tipOffComplete
-{
-    tipOffComplete = complete;
 }
 
 bool jumpBalls::getBallTipped()	 // retrieves the value of ballTipped
@@ -134,7 +125,7 @@ void jumpBalls::setBBallVelocity(btVector3 set)  // sets the value of bballVeloc
     bballVelocity = set;
 }
 
-void updateState()  // updates state of the jumpBalls instance
+void jumpBalls::updateState()  // updates state of the jumpBalls instance
 {
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();

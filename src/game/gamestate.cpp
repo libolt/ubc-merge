@@ -63,7 +63,8 @@ gameState::gameState()
 	teamInstancesCreated = false;
     gameStarted = false;
     teamWithBall = NOTEAM;
-
+    tipOffSetupComplete = false;
+    tipOffComplete = false;
     selectedCourtDataInstance = -1;
     
     activeBBallInstance = -1;
@@ -236,6 +237,24 @@ jumpBalls gameState::getJumpBall()  // retrieves the value of jumpBall
 void gameState::setJumpBall(jumpBalls set)  // sets the value of jumpBall
 {
     jumpBall = set;
+}
+
+bool gameState::getTipOffSetupComplete()  // retrieves the value of tipOffSetupComplete
+{
+    return (tipOffSetupComplete);
+}
+void gameState::setTipOffSetupComplete(bool set)  // sets the value of tipOffSetupComplete
+{
+    tipOffSetupComplete = set;
+}
+
+bool gameState::getTipOffComplete()  // retrieves the value of tipOffComplete
+{
+    return (tipOffComplete);
+}
+void gameState::setTipOffComplete(bool set)  // sets the value of tipOffComplete
+{
+    tipOffComplete = set;
 }
 
 teamTypes gameState::getTeamWithBall(void)  // retrieves the value of teamWithBall
@@ -521,41 +540,40 @@ void gameState::setHoopStartPositions()  // sets the initial coordinates for the
 // sets up tip off conditions
 bool gameState::setupTipOff()
 {
-//    basketballs *basketball = basketballs::Instance();
-//    gameState *gameS = gameState::Instance();
-//    players *player = players::Instance();
-    teams *team = teams::Instance();
+    teamTypes currentTeam = jumpBall.getBallTippedToTeam();
 
-//    std::vector<basketballs> basketballInstance = getBasketballInstance();
-//    SceneNode *bball;
-/*    bball = basketballInstance[activeBBallInstance].getNode();
-    bball->setPosition(1.4f,5.0f,352.0f);
-    basketballInstance[activeBBallInstance].setNode(bball);
-    basketballInstance[activeBBallInstance].setTipOffStart(true);
-    setBasketballInstance(basketballInstance);
-*/
-//    std::vector<int> playerIDS = getPlayerID();
-//    std::vector <playerState> pInstance = getPlayerInstance();
-//    std::vector <Ogre::SceneNode*> playerNodes = player->getNode();
-
-//    setPlayerStartPositions();	// sets starting positions for the players
-
-//    player->setNode(playerNodes);   // copies playerNodes std::vector to Node std::vector in players class
-    return true;
+    std::vector<playerPositions> jumpBallPlayer = jumpBall.getJumpBallPlayer();
+    if (teamWithBall == NOTEAM && teamInstancesCreated)
+    {
+        if (!jumpBall.getSetupComplete())
+        {
+            jumpBall.setJumpBallLocation(CENTERCIRCLE);
+            jumpBallPlayer.clear();
+            jumpBallPlayer.push_back(C);
+            jumpBallPlayer.push_back(C);
+            jumpBall.setJumpBallPlayer(jumpBallPlayer);
+            jumpBall.setSetupComplete(true);
+            jumpBall.setExecuteJumpBall(true);
+            return (true);
+        }
+        else
+        {
+            
+        }
+    }
+    return (false);
 }
 
 // executes tip off
 bool gameState::executeTipOff()
 {
- //   gameState *gameS = gameState::Instance();
-    players *player = players::Instance();
 
-    std::vector<basketballs> basketballInstance = getBasketballInstance();
-
-//    basketballInstance[activeBBallInstance].nodeChangePosition(basketballInstance[activeBBallInstance].calculatePositionChange());
-//exit(0);
-//   setBasketballInstance(basketballInstance);
-    return true;
+    if (jumpBall.getExecuteJumpBall())
+    {
+        jumpBall.updateState();
+        
+    }
+    return (true);
 }
 
 // sets up the game condition
@@ -650,14 +668,11 @@ bool gameState::setupState()
     }
 //	loads("../../data/players/players.xml");
 
-    setupTipOff();	// sets up tip off conditions
+    if (!tipOffSetupComplete)
+    {
+        tipOffSetupComplete = setupTipOff();	// sets up tip off conditions
+    }
 
-/*    teamWithBall = 0;	// FIXME! Temporarily hard code team controlling ball
-	teamInstance[0].setPlayerWithBall(0);
-	teamInstance[0].setPlayerWithBallDribbling(true);
-	tipOffComplete = true;
-	teamInstance[0].setHumanPlayer(0);
-	*/
     return true;
 
 //#endif
@@ -682,9 +697,6 @@ bool gameState::updateState()
     timing timer = gameE->getTimer();
     Ogre::Vector3 playerPos;
 
-//	std::vector<basketballs> basketballInstance = getBasketballInstance();
-	// sets up and starts the dribbling animation
-//	basketballInstance[activeBBallInstance].setDribblingStart(true);
     basketballInstance[activeBBallInstance].setPlayer(5);
 
     if (network->getPacketReceived())	// checks if a packet was received by network engine
@@ -693,9 +705,12 @@ bool gameState::updateState()
     }
     logMsg("network events processed");
 
-    for (int x=0; x<5;++x)
+    if (!tipOffComplete)  // calls tip off execution
     {
-//    	logMsg("Player Position " +convert->toString(x) +" = " +convert->toString(teamInstance[1].getPlayerInstance()[x].getNodePosition()));
+        if (executeTipOff())
+        {
+            tipOffComplete = true;
+        }
     }
 
 	if (teamWithBall >= 0)

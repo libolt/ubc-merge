@@ -781,7 +781,7 @@ void playerState::updateState()
         oldDirection = direction;
         std::vector<teamState> teamInstance = gameS->getTeamInstance();
         int playerWithBallID = teamInstance[teamType].getPlayerWithBall();
-        if (teamType == gameS->getTeamWithBall() && jumpBall.getTipOffComplete())
+        if (teamType == gameS->getTeamWithBall() && gameS->getTipOffComplete())
         {
             logMsg("dplayerWithBallID == " +convert->toString(playerWithBallID));
             if (playerID == playerWithBallID && playerID >= 0)

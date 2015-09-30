@@ -529,13 +529,13 @@ void physicsEngine::updateState()
         ++z;
     }
 
-    if (!jumpBall.getTipOffComplete())    // checks if tip off has finishedd
+    if (!jumpBall.getExecuteJumpBall())    // checks if jump ball needs to be executed
     {
-        logMsg("tipOff not complete!");
+        logMsg("physics jump ball execution!");
            
-        if (tipOff())  // executes tip off code until it returns true
+        if (executeJumpBall())  // executes jump ball code until it returns true
         {
-            jumpBall.setTipOffComplete(true);
+            jumpBall.setExecuteJumpBall(true);
         }            
     }
     else //if (gameS->getTipOffComplete())
@@ -746,7 +746,7 @@ void physicsEngine::stepWorld() // steps the world of the physics simulation
 
 }
 
-bool physicsEngine::tipOff()  // handles tipOff execution and returns true when complete
+bool physicsEngine::executeJumpBall()  // handles jump ball execution and returns true when complete
 {
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
@@ -763,25 +763,21 @@ bool physicsEngine::tipOff()  // handles tipOff execution and returns true when 
     std::vector<playerPositions> jumpBallPlayer = jumpBall.getJumpBallPlayer();
     if (gameS->getTeamWithBall() == NOTEAM && gameS->getTeamInstancesCreated())
     {
-        if (!jumpBall.getSetupComplete())
-        {
-            jumpBall.setJumpBallLocation(CENTERCIRCLE);
-            jumpBallPlayer.clear();
-            jumpBallPlayer.push_back(C);
-            jumpBallPlayer.push_back(C);
-            jumpBall.setJumpBallPlayer(jumpBallPlayer);
-            jumpBall.setSetupComplete(true);
-            jumpBall.setExecuteJumpBall(true);
-            gameS->setJumpBall(jumpBall);
-        }
+        
         if (!jumpBall.getBallTipped())
         {
-            jumpBallCollisionCheck();  // checks if a center has tipped the ball
+            if (jumpBallCollisionCheck())  // checks if a center has tipped the ball
+            {
+                jumpBall.setBallTipped(true);
+            }
         }
         else
         {
             tipBallToPlayer();  // moves the baskteball towards the player it was tipped to
-            tippedBallCollisionCheck();  // checks if player has received the basketball
+            if (tippedBallCollisionCheck())  // checks if player has received the basketball
+            {
+                return (true);
+            }
         }
     }
 
@@ -839,7 +835,7 @@ bool physicsEngine::jumpBallCollisionCheck()  // checks whether team 1 or team 2
                 if (jumpBallResult.m_connected)
                 {
                     logMsg("Ball Tipped");
-                    jumpBall.setBallTipped(true);
+                    //jumpBall.setBallTipped(true);
                     teamTypes currentTeam = NOTEAM;
                     switch (x)  // sets the appropriate team to tip the ball to.
                     {
@@ -946,7 +942,7 @@ bool physicsEngine::tippedBallCollisionCheck()  // checks if ball has collided w
     {
         jumpBall.setBallTipForceApplied(false);
         basketballInstance[activeBBallInstance].getPhysBody()->setLinearVelocity(btVector3(0, 0, 0));
-        jumpBall.setTipOffComplete(true);
+//        jumpBall.setTipOffComplete(true);
         jumpBall.setBallTipped(false);
         gameS->setTeamWithBall(ballTippedToTeam);
 
@@ -1006,12 +1002,14 @@ bool physicsEngine::tippedBallCollisionCheck()  // checks if ball has collided w
 
 void physicsEngine::tipBallToPlayer()  // moves the basketball to the player it was tipped to
 {
+    boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
     jumpBalls jumpBall = gameS->getJumpBall();
 
     int activeBBallInstance = gameS->getActiveBBallInstance();
     btVector3 bballVelocity = jumpBall.getBBallVelocity();
+    logMsg("bballVelocity == " +convert->toString(bballVelocity));
     basketballInstance[activeBBallInstance].getPhysBody()->setLinearVelocity(bballVelocity);
     gameS->setBasketballInstance(basketballInstance);
 }

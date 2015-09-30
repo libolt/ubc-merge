@@ -120,6 +120,12 @@ public:
     std::vector <hoopState> getHoopInstance();  // retrieves the value of hoopInstance
     void setHoopInstance(std::vector<hoopState> Instance);  // sets the value of hoopInstance
 
+    bool getTipOffSetupComplete();  // retrieves the value of tipOffSetupComplete
+    void setTipOffSetupComplete(bool set);  // sets the value of tipOffSetupComplete
+
+    bool getTipOffComplete();  // retrieves the value of tipOffComplete
+    void setTipOffComplete(bool set);  // sets the value of tipOffComplete
+
     void processNetworkEvents();  // processes events received from network connection.
     void processNetworkPlayerEvents();  // processes player evernts received from network connection
     void updateDirectionsAndMovements();  // updates the movement and directions of game world objecxts
@@ -197,6 +203,8 @@ private:
     bool teamInstancesCreated;  // stores whether team instances have been created
     bool sceneCreated;  // stores whether the scene has been created
     bool gameStarted;  // Determines whether or not a basketball game has been started
+    bool tipOffSetupComplete;  // Determines whether or not game Tip Off has been setup
+    bool tipOffComplete;  // Determines whether or not game Tip Off has completed
 
     jumpBalls jumpBall; // instance that is used for jumpBall functions.
 

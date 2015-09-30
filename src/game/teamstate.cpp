@@ -480,7 +480,7 @@ void teamState::updateState()	// updates the state of the object
 
 		}
 
-        if (jumpBall.getTipOffComplete())
+        if (gameS->getTipOffComplete())
 		{
 //			exit(0);
 //			logMsg("Team with ball ==  "  +convert->toString(gameS->getTeamWithBall()));
@@ -579,7 +579,7 @@ void teamState::updateState()	// updates the state of the object
 	}
 //	exit(0);
 
-    if (jumpBall.getTipOffComplete())
+    if (gameS->getTipOffComplete())
 	{
         if (gameS->getTeamWithBall() == teamType)
 	    {

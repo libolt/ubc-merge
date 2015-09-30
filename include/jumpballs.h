@@ -38,9 +38,6 @@ class jumpBalls
     std::vector<playerPositions> getJumpBallPlayer();  // retrieves the value of jumpBallPlayer
     void setJumpBallPlayer(std::vector<playerPositions> set);  // sets the value of jumpBallPlayer
 
-    bool getTipOffComplete();  // retrieves tipOffComplete value
-    void setTipOffComplete(bool complete);	// sets tipOffComplete value
-
     bool getBallTipped();  // retrieves the value of the ballTipped
     void setBallTipped(bool tipped);  // sets the value of the ballTipped
 
@@ -67,13 +64,11 @@ class jumpBalls
 
     void updateState();  // updates state of the jumpBalls instance
 
-
     private:
 
-    // Tip Off and jump balls
+    
     jumpBallLocations_t jumpBallLocation;  // sets where the jump ball is to be held
     std::vector<playerPositions> jumpBallPlayer;  // stores which two players will be jumping for the ball
-    bool tipOffComplete;  // Determines whether or not game Tip Off has completed
     bool ballTipped;  //	stores whether or not the ball has been tipped
     bool ballTipForceApplied;// stores whether or not force has been applied to tipped ball
     bool playerHasBasketball;  // stores whether or not a player has control of the basketball

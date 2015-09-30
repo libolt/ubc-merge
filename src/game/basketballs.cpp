@@ -536,7 +536,7 @@ void basketballs::updateDirection()  // updates basketball direction(s)
     jumpBalls jumpBall = gameS->getJumpBall();
 
     logMsg("directplayerwithballID == " +convert->toString(playerWithBallID));
-    bool tipOffComplete = jumpBall.getTipOffComplete();
+    bool tipOffComplete = gameS->getTipOffComplete();
     size_t x = 0;
 
     bool shotTaken = activePlayerInstance[playerWithBall].getShotTaken();
