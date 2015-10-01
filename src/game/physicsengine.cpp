@@ -766,9 +766,13 @@ bool physicsEngine::executeJumpBall()  // handles jump ball execution and return
         
         if (!jumpBall.getBallTipped())
         {
-            if (jumpBallCollisionCheck())  // checks if a center has tipped the ball
+            if (jumpBallCollisionCheck() != NOTEAM)  // checks if a center has tipped the ball
             {
+                logMsg("tipteam = " +convert->toString(jumpBallCollisionCheck()));
+                //exit(0);
+                
                 jumpBall.setBallTipped(true);
+                
             }
         }
         else
@@ -776,6 +780,7 @@ bool physicsEngine::executeJumpBall()  // handles jump ball execution and return
             tipBallToPlayer();  // moves the baskteball towards the player it was tipped to
             if (tippedBallCollisionCheck())  // checks if player has received the basketball
             {
+                exit(0);
                 return (true);
             }
         }
@@ -786,7 +791,7 @@ bool physicsEngine::executeJumpBall()  // handles jump ball execution and return
 
 
 
-bool physicsEngine::jumpBallCollisionCheck()  // checks whether team 1 or team 2's center has made contact with the ball
+teamTypes physicsEngine::jumpBallCollisionCheck()  // checks whether team 1 or team 2's center has made contact with the ball
 {
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
@@ -876,7 +881,7 @@ bool physicsEngine::jumpBallCollisionCheck()  // checks whether team 1 or team 2
                     jumpBall.setBallTipForceApplied(true);
                     gameS->setJumpBall(jumpBall);
                     gameS->setTeamInstance(teamInstance);
-                    return(true);
+                    return(ballTippedToTeam);
 
                 }
                 else
@@ -893,7 +898,7 @@ bool physicsEngine::jumpBallCollisionCheck()  // checks whether team 1 or team 2
     }
 //  exit(0);
     gameS->setTeamInstance(teamInstance);
-    return (false);
+    return (NOTEAM);
 }
 
 bool physicsEngine::tippedBallCollisionCheck()  // checks if ball has collided with tipped to player

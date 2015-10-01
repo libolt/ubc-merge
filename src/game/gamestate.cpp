@@ -573,6 +573,7 @@ bool gameState::executeTipOff()
     {
         if (gameS->getTeamWithBall() != NOTEAM)
         {
+            exit(0);
             return (true);
         }
         else

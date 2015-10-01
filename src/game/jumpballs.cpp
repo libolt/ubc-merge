@@ -136,7 +136,8 @@ void jumpBalls::updateState()  // updates state of the jumpBalls instance
     quarters quarter = gameS->getQuarter();
     int activeBBallInstance = gameS->getActiveBBallInstance();
 
-
+    if (ballTipped)
+    {
     switch (quarter)
     {
         case FIRST:
@@ -151,14 +152,14 @@ void jumpBalls::updateState()  // updates state of the jumpBalls instance
                     bballVelocity.setY(-1);
                     bballVelocity.setZ(0);
                     logMsg("jump HOMETEAM bballVelocity == " +convert->toString(bballVelocity));
-
+                    
                 break;
                 case AWAYTEAM:
                     bballVelocity.setX(-20);
                     bballVelocity.setY(-1);
                     bballVelocity.setZ(0);
                     logMsg("jump AWAYTEAM bballVelocity == " +convert->toString(bballVelocity));
-
+                    exit(0);
                 break;
                 default:
                 break;
@@ -185,6 +186,7 @@ void jumpBalls::updateState()  // updates state of the jumpBalls instance
         break;
         default:
         break;
+    }
     }
     logMsg("jump bballVelocity == " +convert->toString(bballVelocity));
 }
