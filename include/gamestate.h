@@ -61,7 +61,7 @@ public:
     void setGameStarted(bool started);  // sets gameStarted value
 
     jumpBalls getJumpBall();  // retrieves the value of jumpBall
-    void setJumpBall(jumpBalls set);  // sets the value of jumpBall
+    void setJumpBall(jumpBalls &set);  // sets the value of jumpBall
 
     teamTypes getTeamWithBall(void);  // retrieves teamWithBall value
     void setTeamWithBall(teamTypes set);	 // sets teamWithBall value

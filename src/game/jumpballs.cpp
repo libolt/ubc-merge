@@ -120,7 +120,7 @@ btVector3 jumpBalls::getBBallVelocity()  // retrieves the value of bballVelocity
 {
     return (bballVelocity);
 }
-void jumpBalls::setBBallVelocity(btVector3 set)  // sets the value of bballVelocity
+void jumpBalls::setBBallVelocity(const btVector3 &set)  // sets the value of bballVelocity
 {
     bballVelocity = set;
 }

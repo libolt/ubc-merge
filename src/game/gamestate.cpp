@@ -234,7 +234,7 @@ jumpBalls gameState::getJumpBall()  // retrieves the value of jumpBall
 {
  return (jumpBall);
 }
-void gameState::setJumpBall(jumpBalls set)  // sets the value of jumpBall
+void gameState::setJumpBall(jumpBalls &set)  // sets the value of jumpBall
 {
     jumpBall = set;
 }

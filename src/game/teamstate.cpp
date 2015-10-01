@@ -581,6 +581,8 @@ void teamState::updateState()	// updates the state of the object
 
     if (gameS->getTipOffComplete())
 	{
+        logMsg("tipOff Complete!");
+        exit(0);
         if (gameS->getTeamWithBall() == teamType)
 	    {
             offenseInstance->updateState(teamType);	// updates the state of the offenseInstance object
@@ -1252,6 +1254,7 @@ void teamState::updatePositions()
         activePlayerInstance[x].updateCourtPosition();
         x++;
     }
+    logMsg("courtPosition updated!!");
 
 }
 

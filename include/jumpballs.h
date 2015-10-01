@@ -60,7 +60,7 @@ class jumpBalls
     void setExecuteJumpBall(bool set);  // sets the value of executeJumpBall
 
     btVector3 getBBallVelocity();  // retrieves the value of bballVelocity
-    void setBBallVelocity(btVector3 set);  // sets the value of bballVelocity
+    void setBBallVelocity(const btVector3 &set);  // sets the value of bballVelocity
 
     void updateState();  // updates state of the jumpBalls instance
 
