@@ -951,7 +951,7 @@ bool physicsEngine::tippedBallCollisionCheck()  // checks if ball has collided w
         logMsg("ballTippedToTeam ======>" + convert->toString(ballTippedToTeam));
 
         logMsg("ballTippedToPlayerID =======>" + convert->toString(jumpBall.getBallTippedToPlayerID()));
-//          exit(0);
+          exit(0);
 
 //            teamInstance[ballTippedToTeam].setPlayerWithBall(activePlayerInstance[gameS->getBallTippedToPlayer()].getPlayerID());
         teamInstance[ballTippedToTeam].setPlayerWithBall(jumpBall.getBallTippedToPlayerID());

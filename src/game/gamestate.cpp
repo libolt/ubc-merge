@@ -567,17 +567,24 @@ bool gameState::setupTipOff()
 // executes tip off
 bool gameState::executeTipOff()
 {
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
     if (jumpBall.getExecuteJumpBall())
     {
-        jumpBall.updateState();
-        
+        if (gameS->getTeamWithBall() != NOTEAM)
+        {
+            return (true);
+        }
+        else
+        {
+            jumpBall.updateState();
+        }
     }
     else
     {
-        exit(0);
+//        exit(0);
     }
-    return (true);
+    return (false);
 }
 
 // sets up the game condition
@@ -585,9 +592,7 @@ bool gameState::setupState()
 {
 	//AISystem *ai = AISystem::Instance();
     boost::shared_ptr<AISystem> ai = AISystem::Instance();
-    players *player = players::Instance();
     boost::shared_ptr<renderEngine> render = renderEngine::Instance();
-    teams *team = teams::Instance();
     boost::shared_ptr<loader> load = loader::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
@@ -713,7 +718,8 @@ bool gameState::updateState()
     {
         if (executeTipOff())
         {
-            tipOffComplete = true;
+            //tipOffComplete = true;
+            exit(0);
         }
     }
 

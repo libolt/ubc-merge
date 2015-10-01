@@ -136,6 +136,7 @@ void jumpBalls::updateState()  // updates state of the jumpBalls instance
     quarters quarter = gameS->getQuarter();
     int activeBBallInstance = gameS->getActiveBBallInstance();
 
+
     switch (quarter)
     {
         case FIRST:
