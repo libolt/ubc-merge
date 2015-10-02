@@ -535,13 +535,17 @@ void physicsEngine::updateState()
 //        exit(0);
         if (executeJumpBall())  // executes jump ball code until it returns true
         {
+           
             jumpBall.setExecuteJumpBall(false);
+            gameS->setJumpBall(jumpBall);
         }            
     }
-    else //if (gameS->getTipOffComplete())
+    else //if (!jumpBall.getExecuteJumpBall())
     {
+        
         if (teamWithBall != NOTEAM)
         {
+            exit(0);
             z = 0;
             while (z < teamInstance.size())
             {
@@ -620,6 +624,7 @@ void physicsEngine::updateState()
         }
         else
         {
+            logMsg("execJump teamWithBall == "+convert->toString(teamWithBall));
         }
 
 /*        for (unsigned int x=0;x<teamInstance.size();++x)    // saves changes made to the activePlayerInstance objects
@@ -755,7 +760,7 @@ bool physicsEngine::executeJumpBall()  // handles jump ball execution and return
     int activeBBallInstance = gameS->getActiveBBallInstance();
 
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
-    std::vector<playerState> activePlayerInstance;
+    std::vector< std::vector<playerState> > activePlayerInstance;
 
     jumpBalls jumpBall = gameS->getJumpBall();
 
@@ -763,31 +768,55 @@ bool physicsEngine::executeJumpBall()  // handles jump ball execution and return
 
     std::vector<playerPositions> jumpBallPlayer = jumpBall.getJumpBallPlayer();
 
-    size_t x = 0;
-    while (x < teamInstance.size())
+    std::vector<size_t> jumpPlayerInstance;  // stores playerID of players jumping for the ball
+    
+    if (gameS->getTeamWithBall() == NOTEAM && gameS->getTeamInstancesCreated())
     {
-        activePlayerInstance.clear();
-        activePlayerInstance = teamInstance[x].getActivePlayerInstance();
-        size_t i = 0;
-        size_t centerID = 0;
-        while (i < activePlayerInstance.size()) // loops until the activePlayerInstance is found that is currently playing center
-        {
-            if (activePlayerInstance[i].getActivePosition() == C)
+        size_t x = 0;
+        while (x < teamInstance.size())
+        {    
+            //activePlayerInstance.clear();
+            activePlayerInstance.push_back(teamInstance[x].getActivePlayerInstance());
+            size_t i = 0;
+            
+            while (i < activePlayerInstance[x].size()) // loops until the activePlayerInstance is found that is currently playing center
             {
-                centerID = i;
-                logMsg("centerID = " +convert->toString(centerID));
-                logMsg("PlayerName = " +activePlayerInstance[i].getPlayerName());
-                logMsg("ModelLoaded = " +convert->toString(activePlayerInstance[i].getModelLoaded()));
-//                exit(0);
+                logMsg("jump i == " +convert->toString(i));
+                if (activePlayerInstance[x][i].getActivePosition() == C)
+                {
+                    
+                    logMsg("jumpPlayerInstance = " +convert->toString(i));
+                   // logMsg("PlayerName = " +activePlayerInstance[x][i].getPlayerName());
+                    logMsg("ModelLoaded = " +convert->toString(activePlayerInstance[x][i].getModelLoaded()));
+//                    exit(0);
+                    //jumpPlayerID.push_back(activePlayerInstance[i].getPlayerID());
+                    jumpPlayerInstance.push_back(i);
+                }
+                i++;
+                //teamTypes teamType = teamInstance[x].getTeamType();
+                //size_t player = 4;
+                //bool collCheck = collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[centerID].getPhysBody());
+                //logMsg("Team " +convert->toString(teamType) +" player " +convert->toString(player) +" collCheck == " +convert->toString(collCheck));
             }
-            i++;
-            teamTypes teamType = teamInstance[x].getTeamType();
-            size_t player = 4;
-            bool collCheck = collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[centerID].getPhysBody());
-            logMsg("Team " +convert->toString(teamType) +" player " +convert->toString(player) +" collCheck == " +convert->toString(collCheck));
-
+            ++x;
         }
-        ++x;
+        logMsg("jumpPlayerID.size() = " +convert->toString(jumpPlayerInstance.size()));
+        teamTypes teamType = teamInstance[0].getTeamType();
+        bool collCheck = collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[0][jumpPlayerInstance[0]].getPhysBody());
+        if (collCheck)
+        {
+            return (true);
+        }
+        logMsg("Team " +convert->toString(teamType) +" playerInstance " +convert->toString(jumpPlayerInstance[0]) +" collCheck == " +convert->toString(collCheck));
+        teamType = teamInstance[1].getTeamType();
+        collCheck = collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[1][jumpPlayerInstance[1]].getPhysBody());
+        if (collCheck)
+        {
+            return (true);
+        }
+        logMsg("Team " +convert->toString(teamType) +" playerID " +convert->toString(jumpPlayerInstance[1]) +" collCheck == " +convert->toString(collCheck));
+
+//        exit(0);
     }
     if (gameS->getTeamWithBall() == NOTEAM && gameS->getTeamInstancesCreated())
     {
