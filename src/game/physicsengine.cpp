@@ -755,12 +755,40 @@ bool physicsEngine::executeJumpBall()  // handles jump ball execution and return
     int activeBBallInstance = gameS->getActiveBBallInstance();
 
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
+    std::vector<playerState> activePlayerInstance;
 
     jumpBalls jumpBall = gameS->getJumpBall();
 
     teamTypes currentTeam = jumpBall.getBallTippedToTeam();
 
     std::vector<playerPositions> jumpBallPlayer = jumpBall.getJumpBallPlayer();
+
+    size_t x = 0;
+    while (x < teamInstance.size())
+    {
+        activePlayerInstance.clear();
+        activePlayerInstance = teamInstance[x].getActivePlayerInstance();
+        size_t i = 0;
+        size_t centerID = 0;
+        while (i < activePlayerInstance.size()) // loops until the activePlayerInstance is found that is currently playing center
+        {
+            if (activePlayerInstance[i].getActivePosition() == C)
+            {
+                centerID = i;
+                logMsg("centerID = " +convert->toString(centerID));
+                logMsg("PlayerName = " +activePlayerInstance[i].getPlayerName());
+                logMsg("ModelLoaded = " +convert->toString(activePlayerInstance[i].getModelLoaded()));
+//                exit(0);
+            }
+            i++;
+            teamTypes teamType = teamInstance[x].getTeamType();
+            size_t player = 4;
+            bool collCheck = collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[centerID].getPhysBody());
+            logMsg("Team " +convert->toString(teamType) +" player " +convert->toString(player) +" collCheck == " +convert->toString(collCheck));
+
+        }
+        ++x;
+    }
     if (gameS->getTeamWithBall() == NOTEAM && gameS->getTeamInstancesCreated())
     {
         
@@ -1118,6 +1146,21 @@ void physicsEngine::ballDribbling() // simulates basketball dribble
     {
     }
 
+}
+
+bool physicsEngine::collisionCheck(btRigidBody *objectA, btRigidBody *objectB)  // tests whther or not two objects have collided
+{
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    MyContactResultCallback collisionResult;
+
+    world->contactPairTest(objectA, objectB, collisionResult);
+    logMsg("collisionResult = " +convert->toString(collisionResult.m_connected));
+    if (collisionResult.m_connected)
+    {
+        logMsg("Collided!");
+        return (true);
+    }
+    return (false);
 }
 
 void physicsEngine::passCollisionCheck()    // checks whether the ball has collided with the player being passed to

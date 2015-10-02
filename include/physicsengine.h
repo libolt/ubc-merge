@@ -74,7 +74,8 @@ public:
     void ballDribbling();  // simulates basketball dribble
     void passCollisionCheck();  // checks whether the ball has collided with the player being passed to
 
-    
+    bool collisionCheck(btRigidBody *objectA,btRigidBody *objectB);  // tests whther or not two objects have collided
+
     bool playerJump(teamTypes teamType, int playerID);  // calculates and executes player jumping in the air
     bool shootBasketball(teamTypes teamType, int playerID);  // calculates and executes basketball being shot
    
