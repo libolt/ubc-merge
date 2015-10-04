@@ -535,7 +535,7 @@ void physicsEngine::updateState()
 //        exit(0);
         if (executeJumpBall())  // executes jump ball code until it returns true
         {
-           
+           exit(0);
             jumpBall.setExecuteJumpBall(false);
             gameS->setJumpBall(jumpBall);
         }            
@@ -805,6 +805,7 @@ bool physicsEngine::executeJumpBall()  // handles jump ball execution and return
         bool collCheck = collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[0][jumpPlayerInstance[0]].getPhysBody());
         if (collCheck)
         {
+            logMsg("team 0 center collided with ball");
             return (true);
         }
         logMsg("Team " +convert->toString(teamType) +" playerInstance " +convert->toString(jumpPlayerInstance[0]) +" collCheck == " +convert->toString(collCheck));
@@ -812,9 +813,10 @@ bool physicsEngine::executeJumpBall()  // handles jump ball execution and return
         collCheck = collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[1][jumpPlayerInstance[1]].getPhysBody());
         if (collCheck)
         {
+            logMsg("team 1 center collided with ball");
             return (true);
         }
-        logMsg("Team " +convert->toString(teamType) +" playerID " +convert->toString(jumpPlayerInstance[1]) +" collCheck == " +convert->toString(collCheck));
+        logMsg("Team " +convert->toString(teamType) +" playerInstance " +convert->toString(jumpPlayerInstance[1]) +" collCheck == " +convert->toString(collCheck));
 
 //        exit(0);
     }
