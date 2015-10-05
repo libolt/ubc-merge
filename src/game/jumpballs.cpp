@@ -22,6 +22,7 @@
 #include "gamestate.h"
 #include "comparison.h"
 #include "logging.h"
+#include "physicsengine.h"
 #include "jumpballs.h"
 
 jumpBalls::jumpBalls()
@@ -125,7 +126,103 @@ void jumpBalls::setBBallVelocity(const btVector3 &set)  // sets the value of bba
     bballVelocity = set;
 }
 
-void jumpBalls::updateState()  // updates state of the jumpBalls instance
+bool jumpBalls::updateState()  // updates state of the jumpBalls instance
+{
+
+    if (!jumpBallComplete)
+    {
+        if (!ballTipped)
+        {
+            ballTipped = jumpBallExecute();  // executes jump ball until ball is tipped
+        }
+        else
+        {
+            jumpBallComplete = tipToPlayer();
+        }
+
+    }
+
+    else
+    {
+        return (true);
+    }
+    return (false);  // returns false until jump ball has completed
+}
+
+bool jumpBalls::jumpBallExecute() // initiates jump ball from jump ball circle
+{
+
+    boost::shared_ptr<conversion> convert = conversion::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+    boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
+
+    std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
+    int activeBBallInstance = gameS->getActiveBBallInstance();
+
+    std::vector<teamState> teamInstance = gameS->getTeamInstance();
+    std::vector< std::vector<playerState> > activePlayerInstance;
+
+
+    //teamTypes currentTeam = jumpBall.getBallTippedToTeam();
+
+    //std::vector<playerPositions> jumpBallPlayer = jumpBall.getJumpBallPlayer();
+
+    std::vector<size_t> jumpPlayerInstance;  // stores playerID of players jumping for the ball
+
+    if (gameS->getTeamWithBall() == NOTEAM && gameS->getTeamInstancesCreated())
+    {
+        size_t x = 0;
+        while (x < teamInstance.size())
+        {
+            //activePlayerInstance.clear();
+            activePlayerInstance.push_back(teamInstance[x].getActivePlayerInstance());
+            size_t i = 0;
+
+            while (i < activePlayerInstance[x].size()) // loops until the activePlayerInstance is found that is currently playing center
+            {
+                logMsg("jump i == " +convert->toString(i));
+                if (activePlayerInstance[x][i].getActivePosition() == C)
+                {
+
+                    logMsg("jumpPlayerInstance = " +convert->toString(i));
+                   // logMsg("PlayerName = " +activePlayerInstance[x][i].getPlayerName());
+                    logMsg("ModelLoaded = " +convert->toString(activePlayerInstance[x][i].getModelLoaded()));
+    //                    exit(0);
+                    //jumpPlayerID.push_back(activePlayerInstance[i].getPlayerID());
+                    jumpPlayerInstance.push_back(i);
+                }
+                i++;
+                //teamTypes teamType = teamInstance[x].getTeamType();
+                //size_t player = 4;
+                //bool collCheck = collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[centerID].getPhysBody());
+                //logMsg("Team " +convert->toString(teamType) +" player " +convert->toString(player) +" collCheck == " +convert->toString(collCheck));
+            }
+            ++x;
+        }
+        logMsg("jumpPlayerID.size() = " +convert->toString(jumpPlayerInstance.size()));
+        teamTypes teamType = teamInstance[0].getTeamType();
+        bool collCheck = physEngine->collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[0][jumpPlayerInstance[0]].getPhysBody());
+        if (collCheck)
+        {
+            logMsg("team 0 center collided with ball");
+            return (true);
+        }
+        logMsg("Team " +convert->toString(teamType) +" playerInstance " +convert->toString(jumpPlayerInstance[0]) +" collCheck == " +convert->toString(collCheck));
+        teamType = teamInstance[1].getTeamType();
+        collCheck = physEngine->collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[1][jumpPlayerInstance[1]].getPhysBody());
+        if (collCheck)
+        {
+            logMsg("team 1 center collided with ball");
+            return (true);
+        }
+        logMsg("Team " +convert->toString(teamType) +" playerInstance " +convert->toString(jumpPlayerInstance[1]) +" collCheck == " +convert->toString(collCheck));
+
+    //        exit(0);
+    }
+    return (false);  // executeJumpBall has not completed
+}
+
+bool jumpBalls::tipToPlayer()  // tips the basketball to the appropriate player
 {
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
@@ -136,57 +233,70 @@ void jumpBalls::updateState()  // updates state of the jumpBalls instance
     quarters quarter = gameS->getQuarter();
     int activeBBallInstance = gameS->getActiveBBallInstance();
 
+    if (quarter == NOQUARTER)
+    {
+        exit(0);
+    }
+/*    else if (quarter == FIRST)
+    {
+        exit(0);
+    }
+*/
     if (ballTipped)
     {
-    switch (quarter)
-    {
-        case FIRST:
-        case SECOND:
-            logMsg("jump First/Second quarter");
-            logMsg("ballTippedToTeam == " +convert->toString(ballTippedToTeam));
-//            exit(0);
-            switch (ballTippedToTeam)
-            {
-                case HOMETEAM:
-                    bballVelocity.setX(20);
-                    bballVelocity.setY(-1);
-                    bballVelocity.setZ(0);
-                    logMsg("jump HOMETEAM bballVelocity == " +convert->toString(bballVelocity));
-                    
-                break;
-                case AWAYTEAM:
-                    bballVelocity.setX(-20);
-                    bballVelocity.setY(-1);
-                    bballVelocity.setZ(0);
-                    logMsg("jump AWAYTEAM bballVelocity == " +convert->toString(bballVelocity));
-                    exit(0);
-                break;
-                default:
-                break;
-            }
-        break;
-        case THIRD:
-        case FOURTH:
-            logMsg("jump Third/Fourth quarter");
-            switch (ballTippedToTeam)
-            {
-                case HOMETEAM:
-                    bballVelocity.setX(-20);
-                    bballVelocity.setY(-1);
-                    bballVelocity.setZ(0);
-                break;
-                case AWAYTEAM:
-                    bballVelocity.setX(20);
-                    bballVelocity.setY(-1);
-                    bballVelocity.setZ(0);
-                break;
-                default:
-                break;
-            }
-        break;
-        default:
-        break;
-    }
+        switch (quarter)
+        {
+            case FIRST:
+            case SECOND:
+                logMsg("jump First/Second quarter");
+                logMsg("ballTippedToTeam == " +convert->toString(ballTippedToTeam));
+                exit(0);
+                switch (ballTippedToTeam)
+                {
+                    case HOMETEAM:
+                        bballVelocity.setX(20);
+                        bballVelocity.setY(-1);
+                        bballVelocity.setZ(0);
+                        logMsg("jump HOMETEAM bballVelocity == " +convert->toString(bballVelocity));
+                        return (true);
+
+                    break;
+                    case AWAYTEAM:
+                        bballVelocity.setX(-20);
+                        bballVelocity.setY(-1);
+                        bballVelocity.setZ(0);
+                        logMsg("jump AWAYTEAM bballVelocity == " +convert->toString(bballVelocity));
+                        return (true);
+                    break;
+                    default:
+                    break;
+                }
+            break;
+            case THIRD:
+            case FOURTH:
+                logMsg("jump Third/Fourth quarter");
+                switch (ballTippedToTeam)
+                {
+                    case HOMETEAM:
+                        bballVelocity.setX(-20);
+                        bballVelocity.setY(-1);
+                        bballVelocity.setZ(0);
+                        return (true);
+                    break;
+                    case AWAYTEAM:
+                        bballVelocity.setX(20);
+                        bballVelocity.setY(-1);
+                        bballVelocity.setZ(0);
+                        return (true);
+                    break;
+                    default:
+                    break;
+                }
+            break;
+            default:
+            break;
+        }
     }
     logMsg("jump bballVelocity == " +convert->toString(bballVelocity));
+    return (false);  // tipToPlayer has not completed
 }

@@ -62,7 +62,11 @@ class jumpBalls
     btVector3 getBBallVelocity();  // retrieves the value of bballVelocity
     void setBBallVelocity(const btVector3 &set);  // sets the value of bballVelocity
 
-    void updateState();  // updates state of the jumpBalls instance
+    bool updateState();  // updates state of the jumpBalls instance until jump ball has completed
+
+    bool jumpBallExecute(); // initiates jump ball from jump ball circle
+
+    bool tipToPlayer();  // tips the basketball to the appropriate player
 
     private:
 
@@ -76,6 +80,7 @@ class jumpBalls
     int ballTippedToPlayerID;  // stores which player ID the ball has been tipped to
     playerPositions ballTippedToPosition;  // stores position that the ball is tipped to
     bool setupComplete;  // stores whether a jumpBall scenario has been setup.
+    bool jumpBallComplete;  // jump ball code has completed and a player is in control of the baskteball
     bool executeJumpBall;  // stores whether or not to execute the jump ball sequence
     btVector3 bballVelocity;  // stores the velocity of the basketball
 

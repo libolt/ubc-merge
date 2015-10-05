@@ -74,7 +74,7 @@ gameState::gameState()
 
     //playerHasBasketball = false;
     bballBounce = -1;
-    currentQuarter = FIRST;
+    quarter = NOQUARTER;
     gameTimeLeft = 0.0f;
     quarterTimeLeft = 0.0f;
     finished = false;
@@ -567,23 +567,13 @@ bool gameState::setupTipOff()
 // executes tip off
 bool gameState::executeTipOff()
 {
-    boost::shared_ptr<gameState> gameS = gameState::Instance();
-
-    if (jumpBall.getExecuteJumpBall())
+    if (!jumpBall.updateState())
     {
-        if (gameS->getTeamWithBall() != NOTEAM)
-        {
-            exit(0);
-            return (true);
-        }
-        else
-        {
-            jumpBall.updateState();
-        }
+        logMsg("tipOff not complete!");
     }
     else
     {
-//        exit(0);
+        return (true);
     }
     return (false);
 }

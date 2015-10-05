@@ -529,7 +529,7 @@ void physicsEngine::updateState()
         ++z;
     }
 
-    if (jumpBall.getExecuteJumpBall())    // checks if jump ball needs to be executed
+/*    if (jumpBall.getExecuteJumpBall())    // checks if jump ball needs to be executed
     {
         logMsg("physics jump ball execution!");
 //        exit(0);
@@ -540,11 +540,14 @@ void physicsEngine::updateState()
             gameS->setJumpBall(jumpBall);
         }            
     }
-    else //if (!jumpBall.getExecuteJumpBall())
+*/
+
+/*    else //if (!jumpBall.getExecuteJumpBall())
     {
-        
+*/
         if (teamWithBall != NOTEAM)
         {
+            logMsg("physics teamWithBall  == " +convert->toString(teamWithBall));
             exit(0);
             z = 0;
             while (z < teamInstance.size())
@@ -637,7 +640,8 @@ void physicsEngine::updateState()
         }
 */
         gameS->setTeamInstance(teamInstance);
-    }
+//    }
+
     updatePositions();  // updates the positions of game objects
 
 }
@@ -820,7 +824,7 @@ bool physicsEngine::executeJumpBall()  // handles jump ball execution and return
 
 //        exit(0);
     }
-    if (gameS->getTeamWithBall() == NOTEAM && gameS->getTeamInstancesCreated())
+/*    if (gameS->getTeamWithBall() == NOTEAM && gameS->getTeamInstancesCreated())
     {
         
         if (!jumpBall.getBallTipped())
@@ -844,6 +848,7 @@ bool physicsEngine::executeJumpBall()  // handles jump ball execution and return
             }
         }
     }
+*/
     gameS->setJumpBall(jumpBall);  // copies current jumpBall instance to the main one.
     return (false);
 }
