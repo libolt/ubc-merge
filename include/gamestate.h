@@ -131,8 +131,6 @@ public:
     void updateDirectionsAndMovements();  // updates the movement and directions of game world objecxts
 //    void updatePlayerDirections();  // updates the direction players are facing
     bool assignHoopToTeams();  // assigns which hoop belongs to each team
-    bool assignTeams();  // assigns the teams which are playing
-    bool assignPlayers();  // assigns the players that are playing.
     bool setupEnvironment();  // sets up the 3D environment for the game
     void setBasketballStartPositions();  // sets the initial coordinates for the basketball(s).
     void setCourtStartPositions();  // sets the initial coordinates for the court(s).
