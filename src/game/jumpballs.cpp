@@ -128,24 +128,31 @@ void jumpBalls::setBBallVelocity(const btVector3 &set)  // sets the value of bba
 
 bool jumpBalls::updateState()  // updates state of the jumpBalls instance
 {
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
 
-    if (!jumpBallComplete)
+    if (gameS->getTeamWithBall() == NOTEAM && gameS->getTeamInstancesCreated())
     {
-        if (!ballTipped)
+        if (!jumpBallComplete)
         {
-            ballTipped = jumpBallExecute();  // executes jump ball until ball is tipped
+            if (ballTippedToTeam != NOTEAM)
+            {
+                exit(0);
+            }
+            if (!ballTipped)
+            {
+                ballTipped = jumpBallExecute();  // executes jump ball until ball is tipped
+            }
+            else
+            {
+                jumpBallComplete = tipToPlayer();
+            }
         }
-        else
-        {
-            jumpBallComplete = tipToPlayer();
-        }
-
     }
-
     else
     {
         return (true);
     }
+    
     return (false);  // returns false until jump ball has completed
 }
 
@@ -162,63 +169,62 @@ bool jumpBalls::jumpBallExecute() // initiates jump ball from jump ball circle
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector< std::vector<playerState> > activePlayerInstance;
 
-
-    //teamTypes currentTeam = jumpBall.getBallTippedToTeam();
-
-    //std::vector<playerPositions> jumpBallPlayer = jumpBall.getJumpBallPlayer();
-
     std::vector<size_t> jumpPlayerInstance;  // stores playerID of players jumping for the ball
-
-    if (gameS->getTeamWithBall() == NOTEAM && gameS->getTeamInstancesCreated())
+    
+    size_t x = 0;
+    while (x < teamInstance.size())
     {
-        size_t x = 0;
-        while (x < teamInstance.size())
+        //activePlayerInstance.clear();
+        activePlayerInstance.push_back(teamInstance[x].getActivePlayerInstance());
+        size_t i = 0;
+
+        while (i < activePlayerInstance[x].size()) // loops until the activePlayerInstance is found that is currently playing center
         {
-            //activePlayerInstance.clear();
-            activePlayerInstance.push_back(teamInstance[x].getActivePlayerInstance());
-            size_t i = 0;
-
-            while (i < activePlayerInstance[x].size()) // loops until the activePlayerInstance is found that is currently playing center
+            logMsg("jump i == " +convert->toString(i));
+            if (activePlayerInstance[x][i].getActivePosition() == C)
             {
-                logMsg("jump i == " +convert->toString(i));
-                if (activePlayerInstance[x][i].getActivePosition() == C)
-                {
-
-                    logMsg("jumpPlayerInstance = " +convert->toString(i));
-                   // logMsg("PlayerName = " +activePlayerInstance[x][i].getPlayerName());
-                    logMsg("ModelLoaded = " +convert->toString(activePlayerInstance[x][i].getModelLoaded()));
+                logMsg("jumpPlayerInstance = " +convert->toString(i));
+                 // logMsg("PlayerName = " +activePlayerInstance[x][i].getPlayerName());
+                logMsg("ModelLoaded = " +convert->toString(activePlayerInstance[x][i].getModelLoaded()));
     //                    exit(0);
-                    //jumpPlayerID.push_back(activePlayerInstance[i].getPlayerID());
-                    jumpPlayerInstance.push_back(i);
-                }
-                i++;
-                //teamTypes teamType = teamInstance[x].getTeamType();
+                //jumpPlayerID.push_back(activePlayerInstance[i].getPlayerID());
+                jumpPlayerInstance.push_back(i);
+            }
+            i++;
+              //teamTypes teamType = teamInstance[x].getTeamType();
                 //size_t player = 4;
                 //bool collCheck = collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[centerID].getPhysBody());
                 //logMsg("Team " +convert->toString(teamType) +" player " +convert->toString(player) +" collCheck == " +convert->toString(collCheck));
-            }
-            ++x;
         }
-        logMsg("jumpPlayerID.size() = " +convert->toString(jumpPlayerInstance.size()));
-        teamTypes teamType = teamInstance[0].getTeamType();
-        bool collCheck = physEngine->collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[0][jumpPlayerInstance[0]].getPhysBody());
-        if (collCheck)
-        {
-            logMsg("team 0 center collided with ball");
-            return (true);
-        }
-        logMsg("Team " +convert->toString(teamType) +" playerInstance " +convert->toString(jumpPlayerInstance[0]) +" collCheck == " +convert->toString(collCheck));
-        teamType = teamInstance[1].getTeamType();
-        collCheck = physEngine->collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[1][jumpPlayerInstance[1]].getPhysBody());
-        if (collCheck)
-        {
-            logMsg("team 1 center collided with ball");
-            return (true);
-        }
-        logMsg("Team " +convert->toString(teamType) +" playerInstance " +convert->toString(jumpPlayerInstance[1]) +" collCheck == " +convert->toString(collCheck));
-
-    //        exit(0);
+        ++x;
     }
+    logMsg("jumpPlayerID.size() = " +convert->toString(jumpPlayerInstance.size()));
+    teamTypes teamType = teamInstance[0].getTeamType();
+    bool collCheck = physEngine->collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[0][jumpPlayerInstance[0]].getPhysBody());
+    if (collCheck)
+    {
+        logMsg("team 0 center collided with ball");
+        ballTippedToTeam = HOMETEAM;
+        ballTippedToPosition = PG;
+    }
+    logMsg("Team " +convert->toString(teamType) +" playerInstance " +convert->toString(jumpPlayerInstance[0]) +" collCheck == " +convert->toString(collCheck));
+    teamType = teamInstance[1].getTeamType();
+    collCheck = physEngine->collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[1][jumpPlayerInstance[1]].getPhysBody());
+    if (collCheck)
+    {
+        logMsg("team 1 center collided with ball");
+        ballTippedToTeam = AWAYTEAM;
+        ballTippedToPosition = PG;
+    }
+    logMsg("Team " +convert->toString(teamType) +" playerInstance " +convert->toString(jumpPlayerInstance[1]) +" collCheck == " +convert->toString(collCheck));
+
+    if (ballTippedToTeam != NOTEAM)
+    {
+        
+        return (true);
+    }
+    //        exit(0);
+
     return (false);  // executeJumpBall has not completed
 }
 
@@ -228,29 +234,42 @@ bool jumpBalls::tipToPlayer()  // tips the basketball to the appropriate player
     boost::shared_ptr<conversion> convert = conversion::Instance();
 
     std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
+    std::vector<teamState> teamInstance = gameS->getTeamInstance();
+    std::vector<playerState> activePlayerInstance;
     jumpBalls jumpBall = gameS->getJumpBall();
     teamTypes ballTippedToTeam = jumpBall.getBallTippedToTeam();
     quarters quarter = gameS->getQuarter();
     int activeBBallInstance = gameS->getActiveBBallInstance();
 
-    if (quarter == NOQUARTER)
+    activePlayerInstance = teamInstance[ballTippedToTeam].getActivePlayerInstance();
+    
+
+
+    size_t y = 0;
+    while (y < activePlayerInstance.size())
     {
-        exit(0);
+        if (activePlayerInstance[y].getActivePosition() == jumpBall.getBallTippedToPosition())
+        {
+            ballTippedToPlayerID = activePlayerInstance[y].getPlayerID();
+            break;
+        }
+        ++y;
     }
-/*    else if (quarter == FIRST)
+
+
+    if (!ballTipForceApplied)
     {
-        exit(0);
-    }
-*/
-    if (ballTipped)
-    {
+        if (ballTippedToTeam != NOTEAM)
+        {
+            exit(0);
+        }
         switch (quarter)
         {
             case FIRST:
             case SECOND:
                 logMsg("jump First/Second quarter");
                 logMsg("ballTippedToTeam == " +convert->toString(ballTippedToTeam));
-                exit(0);
+//                    exit(0);
                 switch (ballTippedToTeam)
                 {
                     case HOMETEAM:
@@ -258,14 +277,16 @@ bool jumpBalls::tipToPlayer()  // tips the basketball to the appropriate player
                         bballVelocity.setY(-1);
                         bballVelocity.setZ(0);
                         logMsg("jump HOMETEAM bballVelocity == " +convert->toString(bballVelocity));
+                        ballTipForceApplied = true;
+                        exit(0);
                         return (true);
-
                     break;
                     case AWAYTEAM:
                         bballVelocity.setX(-20);
                         bballVelocity.setY(-1);
                         bballVelocity.setZ(0);
                         logMsg("jump AWAYTEAM bballVelocity == " +convert->toString(bballVelocity));
+                        ballTipForceApplied = true;
                         return (true);
                     break;
                     default:
@@ -281,12 +302,14 @@ bool jumpBalls::tipToPlayer()  // tips the basketball to the appropriate player
                         bballVelocity.setX(-20);
                         bballVelocity.setY(-1);
                         bballVelocity.setZ(0);
+                        ballTipForceApplied = true;
                         return (true);
                     break;
                     case AWAYTEAM:
                         bballVelocity.setX(20);
                         bballVelocity.setY(-1);
                         bballVelocity.setZ(0);
+                        ballTipForceApplied = true;
                         return (true);
                     break;
                     default:
@@ -297,6 +320,11 @@ bool jumpBalls::tipToPlayer()  // tips the basketball to the appropriate player
             break;
         }
     }
+    else
+    {
+        exit(0);
+    }
+ 
     logMsg("jump bballVelocity == " +convert->toString(bballVelocity));
     return (false);  // tipToPlayer has not completed
 }

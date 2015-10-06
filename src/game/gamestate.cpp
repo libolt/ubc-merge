@@ -634,11 +634,11 @@ bool gameState::updateState()
         if (executeTipOff())
         {
             //tipOffComplete = true;
-            exit(0);
+          //  exit(0);
         }
     }
 
-	if (teamWithBall >= 0)
+	if (teamWithBall != NOTEAM)
 	{
 //		logMsg("teamWithBall is " +convert->toString(teamWithBall));
 //        logMsg("playetWithBall is " +convert->toString(teamInstance[teamWithBall].getPlayerWithBall()));

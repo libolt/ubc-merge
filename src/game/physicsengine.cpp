@@ -548,7 +548,7 @@ void physicsEngine::updateState()
         if (teamWithBall != NOTEAM)
         {
             logMsg("physics teamWithBall  == " +convert->toString(teamWithBall));
-            exit(0);
+            //exit(0);
             z = 0;
             while (z < teamInstance.size())
             {
