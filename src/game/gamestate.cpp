@@ -494,6 +494,7 @@ bool gameState::executeTipOff()
     if (!jumpBall.updateState())
     {
         logMsg("tipOff not complete!");
+//        exit(0);
     }
     else
     {

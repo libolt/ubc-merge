@@ -755,7 +755,7 @@ void physicsEngine::stepWorld() // steps the world of the physics simulation
 
 }
 
-bool physicsEngine::executeJumpBall()  // handles jump ball execution and returns true when complete
+/*bool physicsEngine::executeJumpBall()  // handles jump ball execution and returns true when complete
 {
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
@@ -824,7 +824,7 @@ bool physicsEngine::executeJumpBall()  // handles jump ball execution and return
 
 //        exit(0);
     }
-/*    if (gameS->getTeamWithBall() == NOTEAM && gameS->getTeamInstancesCreated())
+    if (gameS->getTeamWithBall() == NOTEAM && gameS->getTeamInstancesCreated())
     {
         
         if (!jumpBall.getBallTipped())
@@ -848,7 +848,7 @@ bool physicsEngine::executeJumpBall()  // handles jump ball execution and return
             }
         }
     }
-*/
+
     gameS->setJumpBall(jumpBall);  // copies current jumpBall instance to the main one.
     return (false);
 }
@@ -1084,7 +1084,7 @@ void physicsEngine::tipBallToPlayer()  // moves the basketball to the player it 
     basketballInstance[activeBBallInstance].getPhysBody()->setLinearVelocity(bballVelocity);
     gameS->setBasketballInstance(basketballInstance);
 }
-
+*/
 void physicsEngine::ballDribbling() // simulates basketball dribble
 {
     //conversion *convert = conversion::Instance();
@@ -1133,7 +1133,7 @@ void physicsEngine::ballDribbling() // simulates basketball dribble
 //  bballPhysBody->checkCollideWith(courtPhysBody);
     world->contactPairTest(bballPhysBody, courtPhysBody, courtCollisionResult);
 //    logMsg("court collision " +convert->toString(courtCollisionResult));
-/*  int numManifolds = world->getDispatcher()->getNumManifolds();
+  int numManifolds = world->getDispatcher()->getNumManifolds();
     for (int i = 0; i<numManifolds; i++)
     {
         btPersistentManifold* contactManifold = world->getDispatcher()->getManifoldByIndexInternal(i);
@@ -1163,7 +1163,7 @@ void physicsEngine::ballDribbling() // simulates basketball dribble
                 }
             }
         }
-    }*/
+    }
     int dee = 0;
 
     logMsg("basketball - court collision tested");
@@ -1183,6 +1183,7 @@ void physicsEngine::ballDribbling() // simulates basketball dribble
     }
 
 }
+
 
 bool physicsEngine::collisionCheck(btRigidBody *objectA, btRigidBody *objectB)  // tests whther or not two objects have collided
 {

@@ -67,10 +67,11 @@ public:
     void updatePositions();  // updates thr position of objects
     void stepWorld();  // steps the physics simulation
 
-    bool executeJumpBall();  // handles jump ball execution and returns true when complete
+/*    bool executeJumpBall();  // handles jump ball execution and returns true when complete
     teamTypes jumpBallCollisionCheck();  // checks whether team 1 or team 2's center made contact with ball
     bool tippedBallCollisionCheck();  // checks if ball has collided with tipped to player
     void tipBallToPlayer();  // moves the basketball to the player it was tipped to
+*/
     void ballDribbling();  // simulates basketball dribble
     void passCollisionCheck();  // checks whether the ball has collided with the player being passed to
 
