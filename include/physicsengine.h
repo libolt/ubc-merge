@@ -55,6 +55,12 @@ public:
     bool getPassCollision();  // retrieves the value of the passCollision variable
     void setPassCollision(bool collision);  // sets the value of the passCollision variable
 
+    btVector3 getBasketballVelocity();  // retrieves the value of basketballVelocity
+    void setBasketballVelocity(const btVector3 &set);  // sets the value of basketballVelocity
+
+    bool getBasketballVelocitySet();  // retrieves the value of basketballVelocitySet
+    void setBasketballVelocitySet(bool set);  // sets the value of basketballVelocitySet
+
     void setupState();  // sets up state of physics engine.
 
     // sets up object physics
@@ -114,6 +120,8 @@ private:
  //   btBvhTriangleMeshShape *basketballShape;
     btCollisionShape *basketballShape;  // stores the shape of the basketball shape
     BtOgre::RigidBodyState *basketballBodyState;  // stores the state of the basketball
+    btVector3 basketballVelocity;  // stores the velocity of the basketball
+    bool basketballVelocitySet;  // stores whether the velocity of the basketball has been set
 
     // timer variables
     btScalar changeInTime;  // stores the change in time between loops

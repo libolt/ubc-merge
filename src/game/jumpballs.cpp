@@ -138,20 +138,23 @@ bool jumpBalls::updateState()  // updates state of the jumpBalls instance
         {
             if (ballTippedToTeam != NOTEAM)
             {
-                logMsg("ballTippedToTeam == " +convert->toString(ballTippedToTeam));
-                exit(0);
+
+//                exit(0);
             }
             if (!ballTipped)
             {
                 ballTipped = jumpBallExecute();  // executes jump ball until ball is tipped
                 logMsg ("Ball Tippped!");
-                exit(0);
+//                exit(0);
             }
             else
             {
                 jumpBallComplete = tipToPlayer();
+                logMsg("jumpBallComplete == " +convert->toString(jumpBallComplete));
             }
         }
+        logMsg("ballTipped == " +convert->toString(ballTipped));
+        logMsg("ballTippedToTeam == " +convert->toString(ballTippedToTeam));
     }
     else
     {
@@ -163,7 +166,7 @@ bool jumpBalls::updateState()  // updates state of the jumpBalls instance
 
 bool jumpBalls::jumpBallExecute() // initiates jump ball from jump ball circle
 {
-    exit(0);
+//    exit(0);
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
@@ -231,7 +234,8 @@ bool jumpBalls::jumpBallExecute() // initiates jump ball from jump ball circle
         return (true);
     }
     //        exit(0);
-
+    logMsg("Execute ballTippedToTeam == " +convert->toString(ballTippedToTeam));
+    logMsg("Execute ballTippedToPosition == " +convert->toString(ballTippedToPosition));
     return (false);  // executeJumpBall has not completed
 }
 
@@ -268,14 +272,14 @@ bool jumpBalls::tipToPlayer()  // tips the basketball to the appropriate player
     {
         if (ballTippedToTeam != NOTEAM)
         {
-            exit(0);
+//            exit(0);
         }
         switch (quarter)
         {
             case FIRST:
             case SECOND:
                 logMsg("jump First/Second quarter");
-                logMsg("ballTippedToTeam == " +convert->toString(ballTippedToTeam));
+                logMsg("quarter ballTippedToTeam == " +convert->toString(ballTippedToTeam));
 //                    exit(0);
                 switch (ballTippedToTeam)
                 {
@@ -285,8 +289,8 @@ bool jumpBalls::tipToPlayer()  // tips the basketball to the appropriate player
                         bballVelocity.setZ(0);
                         logMsg("jump HOMETEAM bballVelocity == " +convert->toString(bballVelocity));
                         ballTipForceApplied = true;
-                        exit(0);
-                        return (true);
+//                        exit(0);
+//                        return (true);
                     break;
                     case AWAYTEAM:
                         bballVelocity.setX(-20);
@@ -294,7 +298,7 @@ bool jumpBalls::tipToPlayer()  // tips the basketball to the appropriate player
                         bballVelocity.setZ(0);
                         logMsg("jump AWAYTEAM bballVelocity == " +convert->toString(bballVelocity));
                         ballTipForceApplied = true;
-                        return (true);
+//                        return (true);
                     break;
                     default:
                     break;
@@ -310,14 +314,14 @@ bool jumpBalls::tipToPlayer()  // tips the basketball to the appropriate player
                         bballVelocity.setY(-1);
                         bballVelocity.setZ(0);
                         ballTipForceApplied = true;
-                        return (true);
+//                        return (true);
                     break;
                     case AWAYTEAM:
                         bballVelocity.setX(20);
                         bballVelocity.setY(-1);
                         bballVelocity.setZ(0);
                         ballTipForceApplied = true;
-                        return (true);
+//                        return (true);
                     break;
                     default:
                     break;
@@ -329,7 +333,9 @@ bool jumpBalls::tipToPlayer()  // tips the basketball to the appropriate player
     }
     else
     {
-        exit(0);
+        logMsg("ballTipForceApplied!");
+        return(true);
+//        exit(0);
     }
  
     logMsg("jump bballVelocity == " +convert->toString(bballVelocity));

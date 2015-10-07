@@ -189,6 +189,27 @@ void physicsEngine::setPassCollision(bool collision)    // sets the value of pas
 {
     passCollision = collision;
 }
+
+btVector3 physicsEngine::getBasketballVelocity()  // retrieves the value of basketballVelocity
+{
+    return (basketballVelcotiy);
+}
+void physicsEngine::setBasketballVelocity(const btVector3 &set)  // sets the value of basketballVelocity
+{
+    basketballVelocity = set;
+}
+
+
+bool physicsEngine::getBasketballVelocitySet()  // retrieves the value of basketballVelocitySet
+{
+    return (true);
+}
+
+void physicsEngine::setBasketballVelocitySet(bool set)  // sets the value of basketballVelocitySet
+{
+    basketballVelocitySet = set;
+}
+
 void physicsEngine::setupState(void)
 {
 
