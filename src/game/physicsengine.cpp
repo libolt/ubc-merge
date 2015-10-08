@@ -192,7 +192,7 @@ void physicsEngine::setPassCollision(bool collision)    // sets the value of pas
 
 btVector3 physicsEngine::getBasketballVelocity()  // retrieves the value of basketballVelocity
 {
-    return (basketballVelcotiy);
+    return (basketballVelocity);
 }
 void physicsEngine::setBasketballVelocity(const btVector3 &set)  // sets the value of basketballVelocity
 {

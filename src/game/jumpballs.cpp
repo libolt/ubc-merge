@@ -130,43 +130,53 @@ bool jumpBalls::updateState()  // updates state of the jumpBalls instance
 {
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
+   
+    logMsg("updating jumpBall state!");
+    logMsg("gameS->getTeamWithBall() == " +convert->toString(gameS->getTeamWithBall()));
 
-    if (gameS->getTeamWithBall() == NOTEAM && gameS->getTeamInstancesCreated())
+    if (gameS->getTeamWithBall() == NOTEAM) //&& gameS->getTeamInstancesCreated())
     {
-        
+        logMsg("teamWithBall = NOTEAM");
+//        exit(0);
+        logMsg("jumpBallComplete == " +convert->toString(jumpBallComplete));
         if (!jumpBallComplete)
         {
-            if (ballTippedToTeam != NOTEAM)
-            {
-
-//                exit(0);
-            }
+            logMsg("jump ball not complete");
+            logMsg("not complete ballTipped == " +convert->toString(ballTipped));
+//            exit(0);
             if (!ballTipped)
             {
                 ballTipped = jumpBallExecute();  // executes jump ball until ball is tipped
-                logMsg ("Ball Tippped!");
+                logMsg ("Ball Tippped? " +convert->toString(ballTipped));
 //                exit(0);
             }
             else
             {
                 jumpBallComplete = tipToPlayer();
                 logMsg("jumpBallComplete == " +convert->toString(jumpBallComplete));
+//                exit(0);
             }
+        }
+        else
+        {
+            logMsg("teamWithBall = " +convert->toString(gameS->getTeamInstancesCreated()));
         }
         logMsg("ballTipped == " +convert->toString(ballTipped));
         logMsg("ballTippedToTeam == " +convert->toString(ballTippedToTeam));
     }
     else
     {
+        logMsg("gameS->getTeamWithBall() == " +convert->toString(gameS->getTeamWithBall()));
         return (true);
     }
     
+    logMsg("jumpBall return(false)");
     return (false);  // returns false until jump ball has completed
 }
 
 bool jumpBalls::jumpBallExecute() // initiates jump ball from jump ball circle
 {
-//    exit(0);
+    exit(0);
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
@@ -198,6 +208,10 @@ bool jumpBalls::jumpBallExecute() // initiates jump ball from jump ball circle
                 //jumpPlayerID.push_back(activePlayerInstance[i].getPlayerID());
                 jumpPlayerInstance.push_back(i);
             }
+            else
+            {
+                
+            }
             i++;
               //teamTypes teamType = teamInstance[x].getTeamType();
                 //size_t player = 4;
@@ -207,24 +221,52 @@ bool jumpBalls::jumpBallExecute() // initiates jump ball from jump ball circle
         ++x;
     }
     logMsg("jumpPlayerID.size() = " +convert->toString(jumpPlayerInstance.size()));
+    exit(0);
     teamTypes teamType = teamInstance[0].getTeamType();
     bool collCheck = false;
     collCheck = physEngine->collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[0][jumpPlayerInstance[0]].getPhysBody());
-    if (collCheck)
+    size_t y = 0;
+    playerState activePInstance;
+    while (y < teamInstance.size())
     {
-        logMsg("team 0 center collided with ball");
-        ballTippedToTeam = HOMETEAM;
-        ballTippedToPosition = PG;
+        switch(teamInstance[y].getTeamType())
+        {
+            case HOMETEAM:
+                activePInstance = activePlayerInstance[0][jumpPlayerInstance[0]];
+            break;
+            case AWAYTEAM:
+                activePInstance = activePlayerInstance[1][jumpPlayerInstance[1]];
+            break;
+            default:
+            break;
+        }
+        exit(0);
+        if (physEngine->collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePInstance.getPhysBody()))
+        {
+            logMsg("team 0 center collided with ball");
+            ballTippedToTeam = HOMETEAM;
+            ballTippedToPosition = PG;
+            exit(0);
         
-    }
-    logMsg("Team " +convert->toString(teamType) +" playerInstance " +convert->toString(jumpPlayerInstance[0]) +" collCheck == " +convert->toString(collCheck));
-    teamType = teamInstance[1].getTeamType();
-    collCheck = physEngine->collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[1][jumpPlayerInstance[1]].getPhysBody());
-    if (collCheck)
-    {
-        logMsg("team 1 center collided with ball");
-        ballTippedToTeam = AWAYTEAM;
-        ballTippedToPosition = PG;
+        }
+        else
+        {
+        
+        }
+/*        logMsg("Team " +convert->toString(teamType) +" playerInstance " +convert->toString(jumpPlayerInstance[0]) +" collCheck == " +convert->toString(collCheck));
+        teamType = teamInstance[1].getTeamType();
+        collCheck = physEngine->collisionCheck(basketballInstance[activeBBallInstance].getPhysBody(), activePlayerInstance[1][jumpPlayerInstance[1]].getPhysBody());
+        if (collCheck)
+        {
+            logMsg("team 1 center collided with ball");
+            ballTippedToTeam = AWAYTEAM;
+            ballTippedToPosition = PG;
+        }
+        else
+        {
+        
+        }*/
+        ++y;
     }
     logMsg("Team " +convert->toString(teamType) +" playerInstance " +convert->toString(jumpPlayerInstance[1]) +" collCheck == " +convert->toString(collCheck));
 
@@ -232,6 +274,10 @@ bool jumpBalls::jumpBallExecute() // initiates jump ball from jump ball circle
     {
 //        exit(0);
         return (true);
+    }
+    else
+    {
+//        exit(0);
     }
     //        exit(0);
     logMsg("Execute ballTippedToTeam == " +convert->toString(ballTippedToTeam));
