@@ -87,6 +87,9 @@ physicsEngine::physicsEngine()
     pairCollided = false;
     passCollision = false;
 
+    basketballVelocitySet = false;
+    basketballVelocity = btVector3(0,0,0);
+
     beginShotPos = btVector3(0,0,0);
     beginShotDistance = btVector3(0,0,0);
     beginShotForce = btVector3(0,0,0);
@@ -669,6 +672,31 @@ void physicsEngine::updateState()
 
 void physicsEngine::updatePositions()  // updates thr position of objects
 {
+    updateBasketballPosition();  // updates the position of the basketball on the court
+    updatePlayerPositions();  // updates the position of the players on the court
+}
+
+void physicsEngine::updateBasketballPosition()  // updates the position of basketball object(s)
+{
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+
+    size_t activeBBallInstance = gameS->getActiveBBallInstance();
+    std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
+
+    if (basketballVelocitySet)
+    {
+//        exit(0);
+        basketballInstance[activeBBallInstance].getPhysBody()->setLinearVelocity(basketballVelocity);
+    }
+    else
+    {
+//        basketballInstance[activeBBallInstance].getPhysBody()->setLinearVelocity(btVector3(0,0,0));
+
+    }
+}
+
+void physicsEngine::updatePlayerPositions()  // updates the position of player objecgts
+{
     boost::shared_ptr<conversion> convert = conversion::Instance();
     //gameEngine *gameE = gameEngine::Instance();
     //boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
@@ -679,7 +707,7 @@ void physicsEngine::updatePositions()  // updates thr position of objects
 //    teamState *teamS = teamState::Instance();
 
     comparison compare;
-    
+
     int activeBBallInstance = gameS->getActiveBBallInstance();
 
     teamTypes teamWithBall = gameS->getTeamWithBall();
@@ -702,13 +730,13 @@ void physicsEngine::updatePositions()  // updates thr position of objects
             {
                 logMsg("phys update human == " +convert->toString(teamInstance[z].getHumanPlayer()));
                 humanInstance = teamInstance[z].getHumanPlayer();
-                
+
             }
             if (y != humanInstance && !activePlayerInstance[z][y].getCourtPositionChanged())
             {
                 btTransform transform = activePlayerInstance[z][y].getPhysBody()->getWorldTransform();
                 btVector3 physPos = transform.getOrigin();
-            
+
                 Ogre::Vector3 courtPosition = activePlayerInstance[z][y].getCourtPosition();
                 Ogre::Vector3 newCourtPosition;
                 logMsg("comparing court position");
@@ -716,7 +744,7 @@ void physicsEngine::updatePositions()  // updates thr position of objects
                 {
                     newCourtPosition = compare.OgreVector3ToBTVector3Result(courtPosition,physPos);
                 }
-            
+
                 logMsg("court position = " +convert->toString(courtPosition));
                 logMsg("new court position = " +convert->toString(newCourtPosition));
                 if (activePlayerInstance[z][y].getStartPosReached())
@@ -735,7 +763,6 @@ void physicsEngine::updatePositions()  // updates thr position of objects
     ++z;
     }
     gameS->setTeamInstance(teamInstance);
-    
 }
 
 void physicsEngine::stepWorld() // steps the world of the physics simulation

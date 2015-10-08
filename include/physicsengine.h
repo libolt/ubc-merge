@@ -71,6 +71,8 @@ public:
 
     void updateState();  // updates the state of the physics engine.
     void updatePositions();  // updates thr position of objects
+    void updateBasketballPosition();  // updates the position of basketball object(s)
+    void updatePlayerPositions();  // updates the position of player objecgts
     void stepWorld();  // steps the physics simulation
 
 /*    bool executeJumpBall();  // handles jump ball execution and returns true when complete

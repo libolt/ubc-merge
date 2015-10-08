@@ -77,7 +77,8 @@ class jumpBalls
     bool ballTipForceApplied;// stores whether or not force has been applied to tipped ball
     bool playerHasBasketball;  // stores whether or not a player has control of the basketball
     teamTypes ballTippedToTeam;  //  stores which team the ball has been tipped to
-    int ballTippedToPlayerID;  // stores which player ID the ball has been tipped to
+    size_t ballTippedToPlayerID;  // stores which player ID the ball has been tipped to
+    size_t ballTippedToPlayerInstance;  // stores which player instance the ball has been tipped to
     playerPositions ballTippedToPosition;  // stores position that the ball is tipped to
     bool setupComplete;  // stores whether a jumpBall scenario has been setup.
     bool jumpBallComplete;  // jump ball code has completed and a player is in control of the baskteball
