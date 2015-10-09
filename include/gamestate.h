@@ -45,20 +45,20 @@ public:
     ~gameState();
 
     gameTypes getGameType();  // retrieves the value of gameType
-    void setGameType(gameTypes type);  // sets the value of gameType
+    void setGameType(gameTypes set);  // sets the value of gameType
 
     quarters getQuarter();  // retrieves the value of quarter
     void setQuarters(quarters set);  // sets he value of quarter
 
     bool getGameSetupComplete();  // retrieves the value of gameSetupComplete
-    void setGameSetupComplete(bool complete);  // sets the value of gameSetupComplete
+    void setGameSetupComplete(bool set);  // sets the value of gameSetupComplete
 
 
     bool getPlayerHasBasketball();  // retrieves the value of playerHasBasketball
     void setPlayerHasBasketball(bool set);  // setd the value of playerHasBasketball
     
     bool getGameStarted(void);  // retrieves the gameStarted value
-    void setGameStarted(bool started);  // sets gameStarted value
+    void setGameStarted(bool set);  // sets gameStarted value
 
     jumpBalls getJumpBall();  // retrieves the value of jumpBall
     void setJumpBall(jumpBalls &set);  // sets the value of jumpBall
@@ -66,14 +66,14 @@ public:
     teamTypes getTeamWithBall(void);  // retrieves teamWithBall value
     void setTeamWithBall(teamTypes set);	 // sets teamWithBall value
 
-    int getBballBounce();  // retrieves the value of bballBounce
-    void setBballBounce(int bounce);  // sets the value of bballBounce
+    size_t getBballBounce();  // retrieves the value of bballBounce
+    void setBballBounce(size_t set);  // sets the value of bballBounce
 
     bool getCourtDataLoaded();  // retrieves the value of courtDataLoaded
-    void setCourtDataLoaded(bool loaded);  // sets the value of courtDataLoaded
+    void setCourtDataLoaded(bool set);  // sets the value of courtDataLoaded
 
-    int getSelectedCourtDataInstance();  // retrieves the value of selectedCourtDataInstance
-    void setSelectedCourtDataInstance(int selected);  // sets the value of selectedCourtDataInstance
+    size_t getSelectedCourtDataInstance();  // retrieves the value of selectedCourtDataInstance
+    void setSelectedCourtDataInstance(size_t set);  // sets the value of selectedCourtDataInstance
 
     bool getCourtInstanceCreated();  // retrieves the value of courtInstanceCreated
     void setCourtInstanceCreated(bool created);  // sets the value of courtInstanceCreated
@@ -82,43 +82,43 @@ public:
     void setCourdModelLoaded(bool set);  // sets the value of courtModelLoaded
 
     bool getTeamInstancesCreated();	 // retrieves the value of teamInstancesCreated
-    void setTeamInstancesCreated(bool created);	 // sets the value of teamInstancesCreated
+    void setTeamInstancesCreated(bool set);	 // sets the value of teamInstancesCreated
 
     bool getBasketballModelLoaded();  // retrieves the value of basketballModelLoaded
-    void setBasketballModelLoaded(bool loaded);	 // sets the value of basketballModelLoaded
+    void setBasketballModelLoaded(bool set);	 // sets the value of basketballModelLoaded
 
     std::vector<teamData> getTeamDataInstance();  // retrieves the value of teamDataInstance
-    void setTeamDataInstance(std::vector<teamData> instance);  // sets the value of teamDataInstance;
+    void setTeamDataInstance(std::vector<teamData> set);  // sets the value of teamDataInstance;
 
     std::vector<playerData> getPlayerDataInstance();  // retrieves the value of playerDataInstance
-    void setPlayerDataInstances(std::vector<playerData> instance);  // sets the value of playerDataInstance;
+    void setPlayerDataInstances(std::vector<playerData> set);  // sets the value of playerDataInstance;
 
     std::vector<courtData> getCourtDataInstance();  // retrieves the value of courtDataInstance
-    void setCourtDataInstance(std::vector<courtData> instance);  // sets the value of courtDataInstance
+    void setCourtDataInstance(std::vector<courtData> set);  // sets the value of courtDataInstance
 
-    int getActiveBBallInstance();  // retrieves the value of activeBBallInstance
-    void setActiveBBallInstance(int set);  // sets the value of activeBBallInstance
+    size_t getActiveBBallInstance();  // retrieves the value of activeBBallInstance
+    void setActiveBBallInstance(size_t set);  // sets the value of activeBBallInstance
 
-    std::vector<int> getTeamID(void);  // retrieves the value of teamID
-    void setTeamID(std::vector<int> ID);  // sets the value of teamID
+    std::vector<size_t> getTeamID(void);  // retrieves the value of teamID
+    void setTeamID(std::vector<size_t> set);  // sets the value of teamID
 
-    std::vector<int> getPlayerID(void);  // retrieves the value of playerID
-    void setPlayerID(std::vector<int> ID);  // sets the value of playerID
+    std::vector<size_t> getPlayerID(void);  // retrieves the value of playerID
+    void setPlayerID(std::vector<size_t> set);  // sets the value of playerID
 
-    std::vector< std::vector<int> > getTeamStarterID();  // retrieves value of teamStarterID
-    void setTeamStarterID(std::vector< std::vector<int> > ID);  // sets the value of teamStarterID
+    std::vector< std::vector<size_t> > getTeamStarterID();  // retrieves value of teamStarterID
+    void setTeamStarterID(std::vector< std::vector<size_t> > set);  // sets the value of teamStarterID
 
     std::vector <basketballs> getBasketballInstance();  // retrieves the value of basketballInstance
-    void setBasketballInstance(std::vector<basketballs> bballInstance);  // sets the value of basketballInstance
+    void setBasketballInstance(std::vector<basketballs> set);  // sets the value of basketballInstance
 
     std::vector <teamState> getTeamInstance();  // retireves the value of teamInstance
-    void setTeamInstance(std::vector<teamState> Instance);  // sets the value of teamInstance
+    void setTeamInstance(std::vector<teamState> set);  // sets the value of teamInstance
 
     std::vector <courtState> getCourtInstance();  // retrieves the value of courtInstance
-    void setCourtInstance(std::vector<courtState> Instance);  // sets the value of courtInstance
+    void setCourtInstance(std::vector<courtState> set);  // sets the value of courtInstance
 
     std::vector <hoopState> getHoopInstance();  // retrieves the value of hoopInstance
-    void setHoopInstance(std::vector<hoopState> Instance);  // sets the value of hoopInstance
+    void setHoopInstance(std::vector<hoopState> set);  // sets the value of hoopInstance
 
     bool getTipOffSetupComplete();  // retrieves the value of tipOffSetupComplete
     void setTipOffSetupComplete(bool set);  // sets the value of tipOffSetupComplete
@@ -176,12 +176,12 @@ private:
     std::vector<playerData> playerDataInstance;  // stores the vector of the players loaded from the xml files
     std::vector<courtData> courtDataInstance;  // stores the vector the courts loaded from the xml files
 
-    int selectedCourtDataInstance;  // stores which court should be loaded by courtInstance
+    size_t selectedCourtDataInstance;  // stores which court should be loaded by courtInstance
     
-    std::vector<int> teamID;  // std::vector that stores the IDs of the 2 teams currently playing
-    std::vector<int> playerID;  // std::vector that stores the IDs of the players currently being used.
+    std::vector<size_t> teamID;  // std::vector that stores the IDs of the 2 teams currently playing
+    std::vector<size_t> playerID;  // std::vector that stores the IDs of the players currently being used.
 
-    std::vector< std::vector<int> > teamStarterID;  // stores the selected starters for each team
+    std::vector< std::vector<size_t> > teamStarterID;  // stores the selected starters for each team
 
 
     std::vector <basketballs> basketballInstance;  // creates instance of the basketballs class
@@ -190,7 +190,7 @@ private:
 
     std::vector <teamState>  teamInstance;  // creates instance of the teamState class
 
-    int activeBBallInstance;  // stores which instance of the baskteball class is active
+    size_t activeBBallInstance;  // stores which instance of the baskteball class is active
 
     bool basketballModelLoaded;  // stores whether basketball model has been loaded
     bool courtModelLoaded;  // stores whether court model has been loaded
@@ -208,7 +208,7 @@ private:
 
     teamTypes teamWithBall;  // stores which team has control of the basketball, valid values are 0 or 1
 
-    int bballBounce;  // stores which direction the ball is bouncing;
+    size_t bballBounce;  // stores which direction the ball is bouncing;
 
 };
 

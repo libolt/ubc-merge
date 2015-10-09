@@ -156,48 +156,48 @@ void gameState::setCourtDataInstance(std::vector<courtData> instance)  // sets t
 	courtDataInstance = instance;
 }
 
-int gameState::getActiveBBallInstance()  // retrieves the value of activeBBallInstance
+size_t gameState::getActiveBBallInstance()  // retrieves the value of activeBBallInstance
 {
     return (activeBBallInstance);
 }
-void gameState::setActiveBBallInstance(int set)  // sets the value of activeBBallInstance
+void gameState::setActiveBBallInstance(size_t set)  // sets the value of activeBBallInstance
 {
     activeBBallInstance = set;
 }
 
-int gameState::getSelectedCourtDataInstance()  // retrieves the value of selectedCourtDataInstance
+size_t gameState::getSelectedCourtDataInstance()  // retrieves the value of selectedCourtDataInstance
 {
     return (selectedCourtDataInstance);
 }
-void gameState::setSelectedCourtDataInstance(int selected) // sets the value of selectedCourtDataInstance
+void gameState::setSelectedCourtDataInstance(size_t selected) // sets the value of selectedCourtDataInstance
 {
     selectedCourtDataInstance = selected;
 }
 
-std::vector<int> gameState::getTeamID(void)  // retrieves the value of teamID
+std::vector<size_t> gameState::getTeamID(void)  // retrieves the value of teamID
 {
     return (teamID);
 }
-void gameState::setTeamID(std::vector<int> ID)  // sets the value of teamID
+void gameState::setTeamID(std::vector<size_t> ID)  // sets the value of teamID
 {
     teamID = ID;
 }
 
-std::vector<int> gameState::getPlayerID(void)  // retrieves the value of playerID
+std::vector<size_t> gameState::getPlayerID(void)  // retrieves the value of playerID
 {
     return (playerID);
 }
-void gameState::setPlayerID(std::vector<int> ID)  // sets the value of playerID
+void gameState::setPlayerID(std::vector<size_t> ID)  // sets the value of playerID
 {
     playerID = ID;
 }
 
-std::vector< std::vector<int> > gameState::getTeamStarterID()  // retrieves value of teamStarterID
+std::vector< std::vector<size_t> > gameState::getTeamStarterID()  // retrieves value of teamStarterID
 {
     return (teamStarterID);
 }
 
-void gameState::setTeamStarterID(std::vector< std::vector<int> > ID)  // sets the value of teamStarterID
+void gameState::setTeamStarterID(std::vector< std::vector<size_t> > ID)  // sets the value of teamStarterID
 {
     teamStarterID = ID;
 }
@@ -266,11 +266,11 @@ void gameState::setTeamWithBall(teamTypes set)  // sets the value of teamWithBal
 	teamWithBall = set;
 }
 
-int gameState::getBballBounce()  // retrieves the value of bballBounce
+size_t gameState::getBballBounce()  // retrieves the value of bballBounce
 {
 	return (bballBounce);
 }
-void gameState::setBballBounce(int bounce)  // sets the value of bballBounce
+void gameState::setBballBounce(size_t bounce)  // sets the value of bballBounce
 {
 	bballBounce = bounce;
 }
@@ -684,8 +684,8 @@ bool gameState::updateState()
 //    cout << "Calced Pos change = " << basketballInstance[activeBBallInstance].calculatePositionChange() << endl;
 //    basketballInstance[activeBBallInstance].nodeChangePosition(basketballInstance[activeBBallInstance].calculatePositionChange());
 
-    std::vector<int> playerDirection = player->getPlayerDirection(); // stores contents of playerDirectdion from players class in local variable
-    std::vector<int> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable
+//    std::vector<size_t> playerDirection = player->getPlayerDirection(); // stores contents of playerDirectdion from players class in local variable
+//    std::vector<size_t> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable
 
     // Initiates offense or defense for a team depending on value of teamWithBall
     if (teamWithBall == 0)	// if 0 puts team 0 on offense and team 1 on defense
@@ -768,8 +768,8 @@ void gameState::processNetworkPlayerEvents()  // processes player events from ne
 	std::stringstream strStream;
     std::vector<playerState> activePlayerInstance;
 	std::string receivedData = network->getReceivedData();	// stores receivedData value
-	int playerNumber = -1; // stores which player the data is for
-	int iterator;	// iterator for match loop
+	size_t playerNumber = -1; // stores which player the data is for
+	size_t iterator;	// iterator for match loop
 
 	logMsg("received Data === " +receivedData);
 	strStream << receivedData;

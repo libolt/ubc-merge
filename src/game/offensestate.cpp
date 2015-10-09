@@ -356,17 +356,19 @@ void offenseState::executeOffense() // executes box offense
     std::vector<playerState> activePlayerInstance = teamInstance[gameS->getTeamWithBall()].getActivePlayerInstance();
 
     teamTypes teamWithBall = gameS->getTeamWithBall();
-    int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
+    size_t playerWithBallInstance = teamInstance[teamWithBall].getPlayerWithBallInstance();
+    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBallID();
+
     playerSteer *pSteer;
 
     if (!allStartPositionsReached)	// checks if all players have reached their start positions for the offense being run
     {
         logMsg("teamWithBallExecute == " +convert->toString(teamWithBall));
-        logMsg("playerWithBallExecute == " +convert->toString(playerWithBall));
+        logMsg("playerWithBallInstanceExecute == " +convert->toString(playerWithBallInstance));
         size_t x = 0;
         while (x < activePlayerInstance.size())
         {
-            if ( activePlayerInstance[x].getPlayerID() != playerWithBall)
+            if ( activePlayerInstance[x].getPlayerID() != playerWithBallID)
             {
                 logMsg("activeSteerInstanceID == " +convert->toString(activePlayerInstance[x].getPlayerID()));
                 pSteer = activePlayerInstance[x].getSteer();
@@ -418,7 +420,7 @@ void offenseState::executeOffense() // executes box offense
             {
                 if (allExecutionsReached < 4)
                 {
-                    if (ID != playerWithBall)
+                    if (ID != playerWithBallInstance)
                     {
                         pSteer = activePlayerInstance[ID].getSteer();
                         bool directiveComplete = checkForDirective(pSteer->getPlayerPosition());  // checks if player must follow directive before executing

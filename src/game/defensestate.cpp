@@ -71,8 +71,8 @@ void defenseState::updateState(teamTypes teamOnDefense)	// updates the state of 
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<playerState> playerDInstance = teamInstance[teamOnDefense].getActivePlayerInstance();
     std::vector<playerState> playerOInstance = teamInstance[teamWithBall].getActivePlayerInstance();
-    std::vector<int> activeDID = teamInstance[teamOnDefense].getActivePlayerID();
-    std::vector<int> activeOID = teamInstance[teamWithBall].getActivePlayerID();
+    std::vector<size_t> activeDID = teamInstance[teamOnDefense].getActivePlayerID();
+    std::vector<size_t> activeOID = teamInstance[teamWithBall].getActivePlayerID();
     std::vector<Ogre::Vector3> playerOPos;  // stores positions of offensive players
     std::vector<Ogre::Vector3> playerDPos;  // stores positions of defensive players
 

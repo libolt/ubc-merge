@@ -304,7 +304,7 @@ bool physicsEngine::setupPlayerPhysics()
         // loops through physics objects for all players
         size_t i = 0;
         size_t j = 0;
-        std::vector<int> activeID = teamInstance[x].getActivePlayerID();
+        std::vector<size_t> activeID = teamInstance[x].getActivePlayerID();
 
 //      for (size_t i=0; i<activePlayerInstance.size(); ++i)
         while (i<activePlayerInstance.size())
@@ -534,12 +534,12 @@ void physicsEngine::updateState()
 
     comparison compare;
     
-    int activeBBallInstance = gameS->getActiveBBallInstance();
+    size_t activeBBallInstance = gameS->getActiveBBallInstance();
 
     jumpBalls jumpBall = gameS->getJumpBall();  // gets the jumpBall instance
 
     teamTypes teamWithBall = gameS->getTeamWithBall();
-    int playerWithBall;
+    size_t playerWithBallID;
     logMsg("Updating Physics Engine State");
 
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
@@ -620,13 +620,13 @@ void physicsEngine::updateState()
 //              logMsg("A Team Has Ball");
 
            // activePlayerInstance = teamInstance[teamWithBall].getActivePlayerInstance();
-            playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
-            logMsg("Player with ball =====" +convert->toString(playerWithBall));
+            playerWithBallID = teamInstance[teamWithBall].getPlayerWithBallID();
+            logMsg("Player with ball ID ==" +convert->toString(playerWithBallID));
             size_t x = 0;
             size_t playerWithBallInstance = -1;
             while (x < activePlayerInstance[teamWithBall].size())
             {
-                if (activePlayerInstance[teamWithBall][x].getPlayerID() == playerWithBall)
+                if (activePlayerInstance[teamWithBall][x].getPlayerID() == playerWithBallID)
                 {
                     playerWithBallInstance = x;
                     break;
@@ -1206,7 +1206,8 @@ void physicsEngine::ballDribbling() // simulates basketball dribble
                 // ZOMG A COLLISIONNNNNNNNNNN ...
                 if ((btRigidBody*)obA == bballPhysBody || (btRigidBody*)obB == courtPhysBody)
                 {
-                    exit(0);
+                    logMsg("ball collided with court!");
+                   // exit(0);
                     // myRigidBodyPtrA totally just collided with something ... if I care what then I have to code more
                 }
             }
@@ -1263,8 +1264,8 @@ void physicsEngine::passCollisionCheck()    // checks whether the ball has colli
 
     int activeBBallInstance = gameS->getActiveBBallInstance();
 
-    int playerWithBall = teamInstance[teamWithBall].getPlayerWithBall();
-    int passToPlayer = activePlayerInstance[playerWithBall].getPassToPlayer();
+    size_t playerWithBallInstance = teamInstance[teamWithBall].getPlayerWithBallInstance();
+    size_t passToPlayer = activePlayerInstance[playerWithBallInstance].getPassToPlayer();
     MyContactResultCallback passCollisionResult;
     logMsg("Basketball Coords = " +convert->toString(basketballInstance[activeBBallInstance].getNode()->getPosition()));
     logMsg("Player to pass to = " +convert->toString(passToPlayer));
@@ -1296,7 +1297,7 @@ bool physicsEngine::playerJump(teamTypes teamType, int playerID)  // calculates 
     std::vector<courtState> courtInstance = gameS->getCourtInstance();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<playerState> activePlayerInstance = teamInstance[teamType].getActivePlayerInstance();
-    std::vector<int> activePlayerID = teamInstance[teamType].getActivePlayerID();
+    std::vector<size_t> activePlayerID = teamInstance[teamType].getActivePlayerID();
     btVector3 playerJumpBeginPos;
     btVector3 playerJumpEndPos;
     size_t x = 0;

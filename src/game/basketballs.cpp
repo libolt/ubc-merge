@@ -451,7 +451,7 @@ void basketballs::updateMovement()  // updates the basketball(s) movements
     size_t teamWithBall = gameS->getTeamWithBall();
     std::vector<playerState> activePlayerInstance = teamInstance[teamWithBall].getActivePlayerInstance();
     size_t playerWithBall = -1;
-    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBall();
+    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBallInstance();
     size_t x = 0;
     
     bool shotTaken = activePlayerInstance[playerWithBall].getShotTaken();
@@ -528,18 +528,19 @@ void basketballs::updateDirection()  // updates basketball direction(s)
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     size_t teamWithBall = gameS->getTeamWithBall();
     std::vector<playerState> activePlayerInstance = teamInstance[teamWithBall].getActivePlayerInstance();
-    std::vector<int> activePlayerID = teamInstance[teamWithBall].getActivePlayerID();
+    std::vector<size_t> activePlayerID = teamInstance[teamWithBall].getActivePlayerID();
     
-    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBall();
-    size_t playerWithBall = -1;
+    size_t playerWithBallInstance = teamInstance[teamWithBall].getPlayerWithBallInstance();
+    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBallID();
+
 
     jumpBalls jumpBall = gameS->getJumpBall();
 
-    logMsg("directplayerwithballID == " +convert->toString(playerWithBallID));
+    logMsg("directplayerwithballInstance == " +convert->toString(playerWithBallInstance));
     bool tipOffComplete = gameS->getTipOffComplete();
     size_t x = 0;
 
-    bool shotTaken = activePlayerInstance[playerWithBall].getShotTaken();
+    bool shotTaken = activePlayerInstance[playerWithBallInstance].getShotTaken();
 
     if (!shotTaken)
     {
@@ -549,15 +550,15 @@ void basketballs::updateDirection()  // updates basketball direction(s)
         {
             if (activePlayerInstance[x].getPlayerID() == playerWithBallID)
             {
-                playerWithBall = x;
+                playerWithBallInstance = x;
                 break;
             }
             ++x;
         }
         
-        if (playerWithBall >= 0 && tipOffComplete == true)  // verifies that the playerWithBall variable is set to a valid number
+        if (playerWithBallInstance >= 0 && playerWithBallInstance < 10 && tipOffComplete == true)  // verifies that the playerWithBall variable is set to a valid number
         {
-            Ogre::Vector3 playerPos= activePlayerInstance[playerWithBall].getNode()->getPosition();
+            Ogre::Vector3 playerPos= activePlayerInstance[playerWithBallInstance].getNode()->getPosition();
             Ogre::Vector3 bballCurrentPos;
 
             Ogre::Vector3 bballPos = playerPos;
@@ -568,7 +569,7 @@ void basketballs::updateDirection()  // updates basketball direction(s)
     //        logMsg("playerDirection = " + convert->toString(&playerDirection));
     //        logMsg("oldPlayerDirection = " + convert->toString(&oldPlayerDirection));
 
-            logMsg("playerWithBall = " +convert->toString(playerWithBall));
+            logMsg("playerWithBallInstance = " +convert->toString(playerWithBallInstance));
 //            exit(0);
 
             if (courtPosition.x == 0 && courtPosition.y == 0 && courtPosition.z == 0)

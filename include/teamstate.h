@@ -43,71 +43,71 @@ public:
 /*    int getTeamNumber();	// retrieves the value of teamNumber
     void setTeamNumber(int set);	// sets the value of teamNumber
 */
-    int getID();	// retrieves the value of teamID
-    void setTeamID(int set);	// sets the value of teamID
+    size_t getID();	// retrieves the value of teamID
+    void setTeamID(size_t set);	// sets the value of teamID
 
     teamTypes getTeamType();  // retrieves the value of teamType
     void setTeamType(teamTypes set); // sets the value of teamType
 
     std::string getPlayerType();	// retrieves the value of playerType
-    void setPlayerType(std::string type);	// sets the value of playerType
+    void setPlayerType(std::string set);	// sets the value of playerType
 
-    int getAssists();   // retrieves the value of assists
-    void setAssists(int assist);    // sets the value of assists
+    size_t getAssists();   // retrieves the value of assists
+    void setAssists(size_t set);    // sets the value of assists
 
-    int getBlocks();    // retrieves the value of blocks
-    void setBlocks(int block);  // sets the value of blocks
+    size_t getBlocks();    // retrieves the value of blocks
+    void setBlocks(size_t set);  // sets the value of blocks
 
-    int getFouls(); // retrieves the value of fouls
-    void setFouls(int foul);    // sets the value of fouls
+    size_t getFouls(); // retrieves the value of fouls
+    void setFouls(size_t set);    // sets the value of fouls
 
-    int getRebounds();  // retrieves the value of rebounds
-    void setRebounds(int rebound);  // sets the value of rebounds
+    size_t getRebounds();  // retrieves the value of rebounds
+    void setRebounds(size_t set);  // sets the value of rebounds
 
-    int getOffensiveRebounds(); // retrieves the value of offensiveRebounds
-    void setOffensiveRebounds(int rebounds);    // sets the value of offensiveRebounds
+    size_t getOffensiveRebounds(); // retrieves the value of offensiveRebounds
+    void setOffensiveRebounds(size_t set);    // sets the value of offensiveRebounds
 
-    int getDefensiveRebounds(); // retrieves the value of defensiveRebounds
-    void setDefensiveRebounds(int rebounds);    // sets the value of defensiveRebounds
+    size_t getDefensiveRebounds(); // retrieves the value of defensiveRebounds
+    void setDefensiveRebounds(size_t set);    // sets the value of defensiveRebounds
 
-    int getSteals();    // retrieves the value of steals
-    void setSteals(int steal);  // sets the value of steals
+    size_t getSteals();    // retrieves the value of steals
+    void setSteals(size_t set);  // sets the value of steals
 
-    int getTechnicals();    // retrieves the value of technicals
-    void setTechnicals(int technical);  // sets the value of technicals
+    size_t getTechnicals();    // retrieves the value of technicals
+    void setTechnicals(size_t set);  // sets the value of technicals
 
-    int getTimeouts();  // retrieves the value of timeouts
-    void setTimeouts(int timeout);  // sets the value of timeouts
+    size_t getTimeouts();  // retrieves the value of timeouts
+    void setTimeouts(size_t set);  // sets the value of timeouts
 
-    int getTurnovers(); // retrieves the value of turnovers
-    void setTurnovers(int turnover);    // sets the value of turnovers
+    size_t getTurnovers(); // retrieves the value of turnovers
+    void setTurnovers(size_t set);    // sets the value of turnovers
 
-    int getFieldGoalsAttempted();   // retrieves the value of fieldGoalsAttempted
-    void setFieldGoalsAttempted(int fieldGoals);    // sets the value of fieldGoalsAttempted
+    size_t getFieldGoalsAttempted();   // retrieves the value of fieldGoalsAttempted
+    void setFieldGoalsAttempted(size_t set);    // sets the value of fieldGoalsAttempted
 
-    int getFieldGoalsMade();    // retrieves the value of fieldGoalsMade
-    void setFieldGoalsMade(int fieldGoals); // sets the value of fieldGoalsMade
+    size_t getFieldGoalsMade();    // retrieves the value of fieldGoalsMade
+    void setFieldGoalsMade(size_t set); // sets the value of fieldGoalsMade
 
-    int getThreePointersAttempted();   // retrieves the value of threePointersAttempted
-    void setThreePointersAttempted(int threePointers);  // sets the value of threePointersAttempted
+    size_t getThreePointersAttempted();   // retrieves the value of threePointersAttempted
+    void setThreePointersAttempted(size_t set);  // sets the value of threePointersAttempted
 
-    int getThreePointersMade();    // retrieves the value of threePointersMade
-    void setThreePointersMade(int threePointers);   // sets the value of threePointersMade
+    size_t getThreePointersMade();    // retrieves the value of threePointersMade
+    void setThreePointersMade(size_t set);   // sets the value of threePointersMade
 
-    int getFreeThrowsAttempted();   // retrieves the value of freeThrowsAttempted
-    void setFreeThrowsAttempted(int freeThrows);    // sets the value of freeThrowsAttempted
+    size_t getFreeThrowsAttempted();   // retrieves the value of freeThrowsAttempted
+    void setFreeThrowsAttempted(size_t set);    // sets the value of freeThrowsAttempted
 
-    int getFreeThrowsMade();    // retrieves the value of freeThrowsMade
-    void setFreeThrowsMade(int freeThrows); // sets the value of freeThrowsMade
+    size_t getFreeThrowsMade();    // retrieves the value of freeThrowsMade
+    void setFreeThrowsMade(size_t set); // sets the value of freeThrowsMade
 
-    std::vector<int> getPlayerID();  // retrieves the value of playerID
-    void setPlayerID(std::vector<int> ID);   // sets the value of playerID
+    std::vector<size_t> getPlayerID();  // retrieves the value of playerID
+    void setPlayerID(std::vector<size_t> set);   // sets the value of playerID
 
-    std::vector<int> getActivePlayerID();  // retrieves the value of activePlayerID
-    void setActivePlayerID(std::vector<int> ID);   // sets the value of activePlayerID
+    std::vector<size_t> getActivePlayerID();  // retrieves the value of activePlayerID
+    void setActivePlayerID(std::vector<size_t> set);   // sets the value of activePlayerID
 
-    std::vector<int> getStarterID(); // retrieves the value of starterID
-    void setStarterID(std::vector<int> ID);  // sets the value of starterID
+    std::vector<size_t> getStarterID(); // retrieves the value of starterID
+    void setStarterID(std::vector<size_t> set);  // sets the value of starterID
 
     bool getOffense();	// retrieves the value of offense
     void setOffense(bool set);	// sets the value of offense
@@ -116,37 +116,37 @@ public:
     void setDefense(bool set);	// sets the value of defense
 
     std::vector <playerState> getPlayerInstance();  // retrieves the value of playerInstance
-    void setPlayerInstance(std::vector<playerState> pInstance); // sets the value of  playerInstance
+    void setPlayerInstance(std::vector<playerState> set); // sets the value of  playerInstance
 
     std::vector <playerState> getActivePlayerInstance();  // retrieves the value of activePlayerInstance
-    void setActivePlayerInstance(std::vector<playerState> pInstance); // sets the value of activePlayerInstance
+    void setActivePlayerInstance(std::vector<playerState> set); // sets the value of activePlayerInstance
 
     bool getPlayerInstancesCreated();	// retrieves the value of the playerInstancesCreated
-    void setPlayerInstancesCreated(bool created);	// sets the value of the playerInstancesCreated
+    void setPlayerInstancesCreated(bool set);	// sets the value of the playerInstancesCreated
 
-    int getPlayerWithBallID();    // retrieves the value of the playerWithBallID
-    void setPlayerWithBallID(int ball);   // sets the value of the playerWithBallID
+    size_t getPlayerWithBallID();    // retrieves the value of the playerWithBallID
+    void setPlayerWithBallID(size_t set);   // sets the value of the playerWithBallID
 
-    int getPlayerWithBall();	// retrieves the value of the playerWithBall
-    void setPlayerWithBall(int ball);	// sets the value of the playerWithBall
+    size_t getPlayerWithBallInstance();	// retrieves the value of the playerWithBall
+    void setPlayerWithBallInstance(size_t set);	// sets the value of the playerWithBall
 
     bool getPlayerWithBallDribbling();	// retrieves the value of the playerWithBallDribbling
-    void setPlayerWithBallDribbling(bool dribbling);	// sets the value of the playerWithBallDribbling
+    void setPlayerWithBallDribbling(bool set);	// sets the value of the playerWithBallDribbling
 
     bool getHumanControlled();		// retrieves the value of the humanControlled
-    void setHumanControlled(bool controlled);		// sets the value of the humanControlled
+    void setHumanControlled(bool set);		// sets the value of the humanControlled
 
-    int getHumanPlayer();		// retrieves the value of the humanPlayer
-    void setHumanPlayer(int player);	// sets the value of the human player
+    size_t getHumanPlayer();		// retrieves the value of the humanPlayer
+    void setHumanPlayer(size_t set);	// sets the value of the human player
 
-    int getHoop();  // retrieves the value of hoop
-    void setHoop(int set); // sets the value of hoop
+    size_t getHoop();  // retrieves the value of hoop
+    void setHoop(size_t set); // sets the value of hoop
 
     offenseState *getOffenseInstance();	// retrievers the value of offenseInstance
-    void setOffenseInstance(offenseState *instance);	// sets the value of offenseInstance
+    void setOffenseInstance(offenseState *set);	// sets the value of offenseInstance
 
     defenseState *getDefenseInstance();	// retrieves the value of defenseInstance
-    void setDefenseInstance(defenseState *instance);	// sets the value of defenseInstance
+    void setDefenseInstance(defenseState *set);	// sets the value of defenseInstance
 
     bool getStateSet(); // retrieves the value of stateSet
     void setStateSet(bool set); // sets the value of stateSet
@@ -172,32 +172,32 @@ public:
 protected:
 private:
 
-    int teamNumber;	// stores which team number the object is
+    size_t teamNumber;	// stores which team number the object is
     teamTypes teamType;  // stores which type of team this object is
-    int teamID;  // stores the ID number of the team;
+    size_t teamID;  // stores the ID number of the team;
 
     std::string playerType;	// stores the type of player in control of the team (human,network,ai) are valid values
-    int assists;    // stores number of assists team has.
-    int blocks; // stores the total number of blocks.
-    int fouls;  // stores the total number of fouls.
-    int rebounds; // stores the total number of rebounds.
-    int offensiveRebounds;  // stores the total number of offensive rebounds.
-    int defensiveRebounds;   // stores the total number of defensive rebounds.
-    int steals; // stores the total number of steals.
-    int technicals; // stores the total number of technical fouls commited.
-    int timeouts;   // stores the total number of timeouts available.
-    int turnovers;  // stores the total number turnovers.
-    int fieldGoalsAttempted; // stores the total number of field goals attempted.
-    int fieldGoalsMade; // stores the total number of field goals made.
-    int threePointersAttempted; // stores the total number of 3 pointers attempted.
-    int threePointersMade;  // stores the total number of 3 pointers made.
-    int freeThrowsAttempted;    // stores the total number of free throws attempted.
-    int freeThrowsMade; // stores the total number of free throws made.
+    size_t assists;    // stores number of assists team has.
+    size_t blocks; // stores the total number of blocks.
+    size_t fouls;  // stores the total number of fouls.
+    size_t rebounds; // stores the total number of rebounds.
+    size_t offensiveRebounds;  // stores the total number of offensive rebounds.
+    size_t defensiveRebounds;   // stores the total number of defensive rebounds.
+    size_t steals; // stores the total number of steals.
+    size_t technicals; // stores the total number of technical fouls commited.
+    size_t timeouts;   // stores the total number of timeouts available.
+    size_t turnovers;  // stores the total number turnovers.
+    size_t fieldGoalsAttempted; // stores the total number of field goals attempted.
+    size_t fieldGoalsMade; // stores the total number of field goals made.
+    size_t threePointersAttempted; // stores the total number of 3 pointers attempted.
+    size_t threePointersMade;  // stores the total number of 3 pointers made.
+    size_t freeThrowsAttempted;    // stores the total number of free throws attempted.
+    size_t freeThrowsMade; // stores the total number of free throws made.
 
-    std::vector<int> playerID;    // stores the player IDs from the teams class
-    std::vector<int> activePlayerID; // stores which players are currently on the court.
+    std::vector<size_t> playerID;    // stores the player IDs from the teams class
+    std::vector<size_t> activePlayerID; // stores which players are currently on the court.
 //        std::vector<int> activeID;
-    std::vector<int> starterID;  // stores the IDs of which players are listed as starters.
+    std::vector<size_t> starterID;  // stores the IDs of which players are listed as starters.
 
     bool offense;	// if set then the team is on offense
     bool defense;	// if set then the team is on defense
@@ -207,14 +207,14 @@ private:
 
     std::vector <std::string> playerModelsLoaded; // creates a vector of strings that holds the models which are loaded
     bool playerInstancesCreated;	// stores whether player instances have been created
-    int playerWithBallID; // stores the ID of the player that has the ball
-    int playerWithBall;	// stores which player has control of the basketball, valid values are 0 - 4
+    size_t playerWithBallID; // stores the ID of the player that has the ball
+    size_t playerWithBallInstance;	// stores which player has control of the basketball, valid values are 0 - 4
     bool playerWithBallDribbling;	// stores whether the player with the ball is dribbling
 
     bool humanControlled;	// stores whether the team object is controlled by a human player;
-    int humanPlayer;	// stores which player is human controlled
+    size_t humanPlayer;	// stores which player is human controlled
 
-    int hoop;  // holds which hoop the team is shooting on
+    size_t hoop;  // holds which hoop the team is shooting on
     offenseState *offenseInstance;
     defenseState *defenseInstance;
 

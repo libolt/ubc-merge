@@ -122,7 +122,7 @@ void playerSteer::reset(void)
         logMsg("teamType steer2!");
 
 	    OpenSteer::Vec3 playerSteerPos;
-        std::vector< std::vector<int> > teamStarterID = gameS->getTeamStarterID();
+        std::vector< std::vector<size_t> > teamStarterID = gameS->getTeamStarterID();
         if(ID < 9 && ID >= 0)
         {
 //	        if (gameS->getTipOffComplete())
@@ -489,8 +489,8 @@ void playerSteer::updateOffense(const float currentTime, const float elapsedTime
     //std::vector<playerState> team0ActivePlayerInstance = teamInstance[0].getActivePlayerInstance();
     //std::vector<playerState> team1ActivePlayerInstance = teamInstance[1].getActivePlayerInstance();
     std::vector<std::vector<playerState> > activePlayerInstance;
-    std::vector<int> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
-    std::vector<int> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
+    std::vector<size_t> team0ActivePlayerID = teamInstance[0].getActivePlayerID();
+    std::vector<size_t> team1ActivePlayerID = teamInstance[1].getActivePlayerID();
 
     std::vector<bool> startPositionReached = teamInstance[teamType].getOffenseInstance()->getStartPositionReached();
 

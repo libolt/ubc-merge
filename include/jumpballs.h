@@ -44,8 +44,8 @@ class jumpBalls
     teamTypes getBallTippedToTeam();  // retrieves the value of the ballTippedToTeam
     void setBallTippedToTeam(teamTypes set);	 // sets the value of the ballTippedToTeam
 
-    int getBallTippedToPlayerID();  // retrieves the value of the ballTippedToPlayerID
-    void setBallTippedToPlayerID(int player);  // sets the value of the ballTippedToPlayerID
+    size_t getBallTippedToPlayerID();  // retrieves the value of the ballTippedToPlayerID
+    void setBallTippedToPlayerID(size_t player);  // sets the value of the ballTippedToPlayerID
 
     playerPositions getBallTippedToPosition();  // retrieves the value of ballTippedToPosition
     void setBallTippedToPosition(playerPositions set);  // sets the value of ballTippedToPosition

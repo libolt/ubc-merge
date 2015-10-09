@@ -465,7 +465,7 @@ void GUISystem::teamsSelected()  // processes team selection
     //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     
-    std::vector<int> teamID;
+    std::vector<size_t> teamID;
     teamID.push_back(team0SelectBox->getIndexSelected());
     teamID.push_back(team1SelectBox->getIndexSelected());
     gameS->setTeamID(teamID);
@@ -485,11 +485,11 @@ void GUISystem::playerStartSelected()  // process player start selection
 //        exit(0);
     std::vector<std::string> team0Starters;
     std::vector<std::string> team1Starters;
-    std::vector<int> starters; // used for initial creatio  of teamStarterID vector
+    std::vector<size_t> starters; // used for initial creatio  of teamStarterID vector
     std::vector<playerState> playerInstance;
     std::vector<playerState> activePlayerInstance;
 
-    int IDs = 0;
+    size_t IDs = 0;
     while (teamStarterID.size() < 2)
     {
         teamStarterID.push_back(starters);
@@ -580,7 +580,7 @@ void GUISystem::playerStartSelected()  // process player start selection
 
     gameS->setTeamStarterID(teamStarterID); // sets the selected starters for both teams in gameState class
 
-    std::vector<int> activePlayerID;
+    std::vector<size_t> activePlayerID;
 
     for (size_t x=0;x<5;++x)
     {

@@ -73,11 +73,11 @@ void jumpBalls::setBallTippedToTeam(teamTypes set)  // sets the value of ballTip
 {
     ballTippedToTeam = set;
 }
-int jumpBalls::getBallTippedToPlayerID()  // retrieves the value of ballTippedToPlayerID
+size_t jumpBalls::getBallTippedToPlayerID()  // retrieves the value of ballTippedToPlayerID
 {
     return (ballTippedToPlayerID);
 }
-void jumpBalls::setBallTippedToPlayerID(int player)	 // sets the value of ballTippedToPlayerID
+void jumpBalls::setBallTippedToPlayerID(size_t player)	 // sets the value of ballTippedToPlayerID
 {
     ballTippedToPlayerID = player;
 }
@@ -163,7 +163,7 @@ bool jumpBalls::updateState()  // updates state of the jumpBalls instance
         else
         {
             logMsg("teamWithBall = " +convert->toString(gameS->getTeamWithBall()));
-            exit(0);
+//            exit(0);
         }
         logMsg("ballTipped == " +convert->toString(ballTipped));
         logMsg("ballTippedToTeam == " +convert->toString(ballTippedToTeam));
@@ -186,7 +186,7 @@ bool jumpBalls::jumpBallExecute() // initiates jump ball from jump ball circle
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
 
     std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
-    int activeBBallInstance = gameS->getActiveBBallInstance();
+    size_t activeBBallInstance = gameS->getActiveBBallInstance();
 
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector< std::vector<playerState> > activePlayerInstance;
@@ -401,6 +401,10 @@ bool jumpBalls::tipToPlayer()  // tips the basketball to the appropriate player
             {
  //               exit(0);
                 gameS->setTeamWithBall(ballTippedToTeam);
+                teamInstance[ballTippedToTeam].setPlayerWithBallID(ballTippedToPlayerID);
+                teamInstance[ballTippedToTeam].setPlayerWithBallInstance(ballTippedToPlayerInstance);
+                gameS->setTeamInstance(teamInstance);
+                physEngine->setBasketballVelocitySet(false);
                 return(true);
 
             }
