@@ -144,7 +144,7 @@ bool jumpBalls::updateState()  // updates state of the jumpBalls instance
         {
             logMsg("jump ball not complete");
             logMsg("not complete ballTipped == " +convert->toString(ballTipped));
-//            exit(0);
+//            tipoff complete!exit(0);
             if (!ballTipped)
             {
                 ballTipped = jumpBallExecute();  // executes jump ball until ball is tipped
@@ -403,8 +403,32 @@ bool jumpBalls::tipToPlayer()  // tips the basketball to the appropriate player
                 gameS->setTeamWithBall(ballTippedToTeam);
                 teamInstance[ballTippedToTeam].setPlayerWithBallID(ballTippedToPlayerID);
                 teamInstance[ballTippedToTeam].setPlayerWithBallInstance(ballTippedToPlayerInstance);
-                gameS->setTeamInstance(teamInstance);
                 physEngine->setBasketballVelocitySet(false);
+                teamInstance[ballTippedToTeam].setPlayerWithBallDribbling(true);
+                if (teamInstance[ballTippedToTeam].getHumanControlled())
+                {
+                    teamInstance[ballTippedToTeam].setHumanPlayer(ballTippedToPlayerID);
+                    logMsg("ball tipped to human playerID == " +convert->toString(jumpBall.getBallTippedToPlayerID()));
+        //            exit(0);
+                }
+                logMsg("jumpBall.getBallTippedToPlayer() = " +convert->toString(jumpBall.getBallTippedToPlayerID()));
+                logMsg("playerWithBallInstanceTipped == " +convert->toString(teamInstance[ballTippedToTeam].getPlayerWithBallInstance()));
+                int activeDefensivePlayer = 9999;
+                switch (ballTippedToTeam)
+                {
+                    case 0:
+                        activeDefensivePlayer = teamInstance[1].getActivePlayerID()[0];
+                        teamInstance[AWAYTEAM].setHumanPlayer(activeDefensivePlayer);
+                        break;
+                    case 1:
+                        activeDefensivePlayer = teamInstance[0].getActivePlayerID()[0];
+                        teamInstance[HOMETEAM].setHumanPlayer(activeDefensivePlayer);
+                        break;
+                    default:
+                    break;
+                }
+                gameS->setTeamInstance(teamInstance);
+
                 return(true);
 
             }

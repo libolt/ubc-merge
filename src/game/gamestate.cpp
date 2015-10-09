@@ -634,8 +634,8 @@ bool gameState::updateState()
     {
         if (executeTipOff())
         {
-            //tipOffComplete = true;
-          //  exit(0);
+            tipOffComplete = true;
+//            exit(0);
         }
     }
 

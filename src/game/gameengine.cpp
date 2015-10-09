@@ -272,7 +272,7 @@ void gameEngine::processInput()  // processes game input
                                         activePlayerInstance[humanInstance].setDirection(UP);
                                         teamInstance[inputIterator].setActivePlayerInstance(activePlayerInstance);
                                         gameS->setTeamInstance(teamInstance);
-                                        exit(0);
+//                                        exit(0);
 
                                     break;
                                     case INDOWN:
@@ -555,7 +555,7 @@ void gameEngine::gameLoop()	// Main Game Loop
             network->setIsClient(true);
         }
 
-        if (gameS->getGameType() == MULTI && network->getTeamType() < 0)
+        if (gameS->getGameType() == MULTI && network->getTeamType() == NOTEAM)
         {
             if (network->getIsServer())
             {
