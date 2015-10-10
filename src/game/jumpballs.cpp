@@ -35,6 +35,7 @@ jumpBalls::jumpBalls()
     ballTipForceApplied = false;
     setupComplete = false;
     executeJumpBall = false;
+    jumpBallComplete = false;
     
 }
 
@@ -131,17 +132,18 @@ bool jumpBalls::updateState()  // updates state of the jumpBalls instance
 {
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-   
     logMsg("updating jumpBall state!");
     logMsg("gameS->getTeamWithBall() == " +convert->toString(gameS->getTeamWithBall()));
 
     if (gameS->getTeamWithBall() == NOTEAM) //&& gameS->getTeamInstancesCreated())
     {
+
         logMsg("teamWithBall = NOTEAM");
 //        exit(0);
         logMsg("jumpBallComplete == " +convert->toString(jumpBallComplete));
         if (!jumpBallComplete)
         {
+//            exit(0);
             logMsg("jump ball not complete");
             logMsg("not complete ballTipped == " +convert->toString(ballTipped));
 //            tipoff complete!exit(0);
@@ -153,7 +155,7 @@ bool jumpBalls::updateState()  // updates state of the jumpBalls instance
             }
             else
             {
-
+//                exit(0);
                 jumpBallComplete = tipToPlayer();
 
                 logMsg("jumpBallComplete == " +convert->toString(jumpBallComplete));
@@ -224,6 +226,7 @@ bool jumpBalls::jumpBallExecute() // initiates jump ball from jump ball circle
         }
         ++x;
     }
+//    exit(0);
     logMsg("jumpPlayerID.size() = " +convert->toString(jumpPlayerInstance.size()));
 //    exit(0);
 //    teamTypes teamType = teamInstance[0].getTeamType();
