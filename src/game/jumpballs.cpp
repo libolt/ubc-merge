@@ -404,6 +404,7 @@ bool jumpBalls::tipToPlayer()  // tips the basketball to the appropriate player
             {
  //               exit(0);
                 gameS->setTeamWithBall(ballTippedToTeam);
+                logMsg("ballTippedToPlayerID == " +convert->toString(ballTippedToPlayerID));
                 teamInstance[ballTippedToTeam].setPlayerWithBallID(ballTippedToPlayerID);
                 teamInstance[ballTippedToTeam].setPlayerWithBallInstance(ballTippedToPlayerInstance);
                 physEngine->setBasketballVelocitySet(false);

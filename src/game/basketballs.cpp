@@ -341,16 +341,22 @@ void basketballs::updateState()  // updates the state of the basketball
 {
     if (directChange)
     {
+        logMsg("updating direction!");
         updateDirection();
         directChange = false;
+        logMsg("direction updated!");
     }
 
     if (movement)
     {
+        logMsg("updating movement!");
         updateMovement();
         movement = false;
+        logMsg("movement updated!");
     }
+    logMsg("updating position!");
     updatePosition();
+    logMsg("position updated!");
 }
 
 void basketballs::updatePosition() // updates the position of the basketball
@@ -450,25 +456,16 @@ void basketballs::updateMovement()  // updates the basketball(s) movements
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     size_t teamWithBall = gameS->getTeamWithBall();
     std::vector<playerState> activePlayerInstance = teamInstance[teamWithBall].getActivePlayerInstance();
-    size_t playerWithBall = -1;
-    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBallInstance();
+    size_t playerWithBallInstance = teamInstance[teamWithBall].getPlayerWithBallInstance();
+    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBallID();
     size_t x = 0;
     
-    bool shotTaken = activePlayerInstance[playerWithBall].getShotTaken();
+    bool shotTaken = activePlayerInstance[playerWithBallInstance].getShotTaken();
     Ogre::Vector3 bballPos;
     Ogre::Vector3 bballCurrentPos;  // stores the current position of the basketball(s)
     Ogre::Vector3 playerPos;
-
+    logMsg("playerWithBallInstance == " +convert->toString(playerWithBallInstance));
     logMsg("playerWithBallID == " +convert->toString(playerWithBallID));
-    while (x < activePlayerInstance.size())
-    {
-        if (activePlayerInstance[x].getPlayerID() == playerWithBallID)
-        {
-            playerWithBall = x;
-            break;
-        }
-        ++x;
-    }
 
     if (courtPosition.x == 0 && courtPosition.y == 0 && courtPosition.z == 0)
     {
@@ -478,7 +475,7 @@ void basketballs::updateMovement()  // updates the basketball(s) movements
     {
         bballCurrentPos = courtPosition;
     }
-    playerPos = activePlayerInstance[playerWithBall].getCourtPosition();    // stores the current position of player with ball
+    playerPos = activePlayerInstance[playerWithBallInstance].getCourtPosition();    // stores the current position of player with ball
     //bballPos = bballCurrentPos;
     bballPos = Ogre::Vector3(0,0,0);
     logMsg("bballHere???");

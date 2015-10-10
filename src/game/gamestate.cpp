@@ -673,7 +673,7 @@ bool gameState::updateState()
 
     // updates the basketball(s) state
     basketballInstance[activeBBallInstance].updateState();
-    
+    logMsg("Updated basketball state!");
 //    exit(0);
 //    renderBall();
 //    SceneNode *bball = basketballInstance[activeBBallInstance].getNode();
