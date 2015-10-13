@@ -36,6 +36,7 @@
 #include "BtOgreExtras.h"
 
 #include "basketballsteer.h"
+#include "basketballphysics.h"
 #include "enums.h"
 
 class basketballs
@@ -113,6 +114,9 @@ public:
     btRigidBody *getPhysBody();	 // retrieves the value of physBody
     void setPhysBody(btRigidBody *body);  // sets the value of physBody
 
+    basketballPhysics getPhysics();  // retrieves the value of physics
+    void setPhysics(basketballPhysics set);  // sets the value of physics
+
     basketballSteer *getSteer();  // retrieves the value of steer
     void setSteer(basketballSteer *set);  // sets the value of steer
     
@@ -160,6 +164,8 @@ private:
 
     // stores the physics object that represents the player
     btRigidBody *physBody;
+
+    basketballPhysics physics;  // instanciates an object to handle the physics for the basketball
 
     basketballSteer *steer;  // instance of the basketballSteer class
 

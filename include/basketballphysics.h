@@ -30,6 +30,9 @@
 class basketballPhysics
 {
     public:
+
+        basketballPhysics();  // initializer
+
         btCollisionShape *getBasketballShape();  // retrieves the value of basketballShape
         void setBasketballShape(btCollisionShape *set);  // sets the value of basketballShape
 
@@ -38,12 +41,15 @@ class basketballPhysics
 
         bool setupPhysics();  // sets up basketball physics
 
+        void updateState();  // updates the basketball physics state
+
     private:
         btCollisionShape *basketballShape;  // stores the shape of the basketball shape
         BtOgre::RigidBodyState *basketballBodyState;  // stores the state of the basketball
 
         int bballCollidesWith;	// determines what the basketball collides with
 
+        bool physicsSetup;  // stores whether the basketblal physics have been setup.
 };
 
 #endif // BASKETBALLPHYSICS_H

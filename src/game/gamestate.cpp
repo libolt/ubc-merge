@@ -52,13 +52,13 @@ boost::shared_ptr<gameState> gameState::Instance()
 
 gameState::gameState()
 {
-	basketballModelLoaded = false;
-	courtModelLoaded = false;
-	hoopModelLoaded = false;
-	setupEnvironmentCompleted = false;
+    basketballInstancesCreated = false;
+    courtModelLoaded = false;
+    hoopModelLoaded = false;
+    setupEnvironmentCompleted = false;
     courtDataLoaded = false;
     courtInstanceCreated = false;
-	teamInstancesCreated = false;
+    teamInstancesCreated = false;
     gameStarted = false;
     teamWithBall = NOTEAM;
     tipOffSetupComplete = false;
@@ -310,13 +310,13 @@ void gameState::setTeamInstancesCreated(bool created)  // sets the value of team
 	teamInstancesCreated = created;
 }
 
-bool gameState::getBasketballModelLoaded()  // gets the value of basketballModelLoaded
+bool gameState::getBasketballInstancesCreated()  // gets the value of basketballInstancesCreated
 {
-	return (basketballModelLoaded);
+	return (basketballInstancesCreated);
 }
-void gameState::setBasketballModelLoaded(bool loaded)  // sets the value of basketballModelLoaded
+void gameState::setBasketballInstancesCreated(bool set)  // sets the value of basketballInstancesCreated
 {
-	basketballModelLoaded = loaded;
+	basketballInstancesCreated = set;
 }
 
 bool gameState::assignHoopToTeams()  // assigns which hoop belongs to each team
@@ -522,11 +522,11 @@ bool gameState::setupState()
         }
     }
 
-    if (!basketballModelLoaded)	// checks if court model has been loaded
+    if (!basketballInstancesCreated)	// checks if court model has been loaded
     {
     	if (createBasketballInstances()) // creates the basketball instances
     	{
-    		basketballModelLoaded = true;
+    		basketballInstancesCreated = true;
     	}
 
         // FIXEME! this should not be hard coded

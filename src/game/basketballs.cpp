@@ -255,6 +255,15 @@ void basketballs::setPhysBody(btRigidBody *body)  // sets physBody variable
     physBody = body;
 }
 
+basketballPhysics basketballs::getPhysics()  // retrieves the value of physics
+{
+    return (physics);
+}
+void basketballs::setPhysics(basketballPhysics set)  // sets the value of physics
+{
+    physics = set;
+}
+
 basketballSteer *basketballs::getSteer()  // retrieves the value of steer
 {
     return (steer);

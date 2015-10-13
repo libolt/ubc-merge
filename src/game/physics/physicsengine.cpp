@@ -74,7 +74,7 @@ physicsEngine::physicsEngine()
 //    BtOgre::RigidBodyState *state;
 
     courtCollidesWith = COL_BBALL | COL_TEAM1 | COL_TEAM2;  // determines what the court collides with
-    bballCollidesWith = COL_COURT; // | COL_TEAM1 | COL_TEAM2;  // determines what the basketball collides with
+//    bballCollidesWith = COL_COURT; // | COL_TEAM1 | COL_TEAM2;  // determines what the basketball collides with
     team1CollidesWith = COL_COURT; // | COL_BBALL | COL_TEAM2;  // determines what team1 collides with
     team2CollidesWith = COL_COURT; // | COL_BBALL | COL_TEAM1;  // determiens what team2 collides with
 
@@ -273,7 +273,7 @@ void physicsEngine::setupState(void)
     {
     }
 
-    if (!basketballPhysicsSetup)
+/*    if (!basketballPhysicsSetup)
     {
         if (setupBasketballPhysics()) // sets up physics state for basketball
         {
@@ -286,6 +286,7 @@ void physicsEngine::setupState(void)
     else
     {
     }
+*/
 
 }
 
@@ -315,6 +316,14 @@ void physicsEngine::updateState()
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector <std::vector<playerState> > activePlayerInstance;
     std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
+
+    if (gameS->getBasketballInstancesCreated())
+    {
+        basketballInstance[activeBBallInstance].getPhysics().updateState();
+    }
+    else
+    {
+    }
 
     size_t z = 0;
     while (z < teamInstance.size())

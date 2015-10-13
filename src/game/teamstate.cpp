@@ -448,7 +448,7 @@ void teamState::updateState()	// updates the state of the object
     size_t activeBBallInstance = gameS->getActiveBBallInstance();
 
 //	logMsg("Updating team state " +convert->toString(teamNumber));
-	if (gameS->getBasketballModelLoaded() && playerInstancesCreated)
+	if (gameS->getBasketballInstancesCreated() && playerInstancesCreated)
 	{
 		std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
 

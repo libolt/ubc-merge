@@ -84,8 +84,8 @@ public:
     bool getTeamInstancesCreated();	 // retrieves the value of teamInstancesCreated
     void setTeamInstancesCreated(bool set);	 // sets the value of teamInstancesCreated
 
-    bool getBasketballModelLoaded();  // retrieves the value of basketballModelLoaded
-    void setBasketballModelLoaded(bool set);	 // sets the value of basketballModelLoaded
+    bool getBasketballInstancesCreated();  // retrieves the value of basketballInstancesCreated
+    void setBasketballInstancesCreated(bool set);   // sets the value of basketballInstancesCreated
 
     std::vector<teamData> getTeamDataInstance();  // retrieves the value of teamDataInstance
     void setTeamDataInstance(std::vector<teamData> set);  // sets the value of teamDataInstance;
@@ -192,7 +192,8 @@ private:
 
     size_t activeBBallInstance;  // stores which instance of the baskteball class is active
 
-    bool basketballModelLoaded;  // stores whether basketball model has been loaded
+    bool basketballInstancesCreated;  // stores whether basketball instance(s) have been created
+ 
     bool courtModelLoaded;  // stores whether court model has been loaded
     bool hoopModelLoaded;  // stores whether the hoop model has been loaded
     bool setupEnvironmentCompleted;  // stores whether environment has been setup

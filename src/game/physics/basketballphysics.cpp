@@ -22,6 +22,13 @@
 #include "physicsengine.h"
 #include "gamestate.h"
 
+basketballPhysics::basketballPhysics()  // initializer
+{
+    bballCollidesWith = COL_COURT; // | COL_TEAM1 | COL_TEAM2;  // determines what the basketball collides with
+
+    physicsSetup = false;
+}
+
 btCollisionShape *basketballPhysics::getBasketballShape()  // retrieves the value of basketballShape
 {
     return (basketballShape);
@@ -90,4 +97,21 @@ bool basketballPhysics::setupPhysics()
     gameS->setBasketballInstance(basketballInstance);
 
     return true;
+}
+
+void basketballPhysics::updateState()  // updates basketball physics state
+{
+    if (!physicsSetup)
+    {
+        if (setupPhysics()) // sets up physics state for basketball
+        {
+            physicsSetup = true;
+        }
+        else
+        {
+        }
+    }
+    else
+    {
+    }
 }
