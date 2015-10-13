@@ -18,14 +18,35 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "basketballphysics.h"
 #include "physicsengine.h"
 #include "gamestate.h"
 
-bool physicsEngine::setupBasketballPhysics()
+btCollisionShape *basketballPhysics::getBasketballShape()  // retrieves the value of basketballShape
+{
+    return (basketballShape);
+}
+void basketballPhysics::setBasketballShape(btCollisionShape *set)  // sets the value of basketballShape
+{
+    basketballShape = set;
+}
+
+BtOgre::RigidBodyState *basketballPhysics::getBasketballBodyState()  // retrieves the value of basketballBodyState
+{
+    return (basketballBodyState);
+}
+
+void basketballPhysics::setBasketBallBodyState(BtOgre::RigidBodyState *set)  // sets the value of basketballBodyState
+{
+    basketballBodyState = set;
+}
+
+bool basketballPhysics::setupPhysics()
 {
 //    basketballs *bball = basketballs::Instance();
     //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
+    boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
 
     std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
     int activeBBallInstance = gameS->getActiveBBallInstance();
@@ -60,7 +81,10 @@ bool physicsEngine::setupBasketballPhysics()
     //    bballBody->setCollisionFlags(bballBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
     basketballInstance[activeBBallInstance].setPhysBody(bballBody);
 
+    btDynamicsWorld *world = physEngine->getWorld();
     world->addRigidBody(basketballInstance[activeBBallInstance].getPhysBody(), COL_BBALL, bballCollidesWith);
+    physEngine->setWorld(world);
+
 //    world->addRigidBody(basketballInstance[activeBBallInstance].getPhysBody());
 
     gameS->setBasketballInstance(basketballInstance);

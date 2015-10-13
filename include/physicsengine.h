@@ -63,10 +63,12 @@ public:
     bool getBasketballVelocitySet();  // retrieves the value of basketballVelocitySet
     void setBasketballVelocitySet(bool set);  // sets the value of basketballVelocitySet
 
+    btDynamicsWorld *getWorld();  // retrieves the value of world
+    void setWorld(btDynamicsWorld *set);  // sets the value of world
+\
     void setupState();  // sets up state of physics engine.
 
     // sets up object physics
-    bool setupBasketballPhysics();  // sets up basketball physics
     bool setupCourtPhysics();  // sets up court physics
     bool setupHoopPhysics();  // sets up hoop physics
     bool setupPlayerPhysics();  // setsup up player physics
@@ -95,7 +97,6 @@ private:
     //static physicsEngine *pInstance;
     static boost::shared_ptr<physicsEngine> pInstance;
 
-
     btDynamicsWorld *world;  // stores the physics world
     BtOgre::DebugDrawer *debugDraw;  // used to draw debug shapes for objects
 //    btAxisSweep3 *broadPhase;
@@ -117,8 +118,7 @@ private:
     // basketball
 //    btRigidBody *basketballBody;
  //   btBvhTriangleMeshShape *basketballShape;
-    btCollisionShape *basketballShape;  // stores the shape of the basketball shape
-    BtOgre::RigidBodyState *basketballBodyState;  // stores the state of the basketball
+
     btVector3 basketballVelocity;  // stores the velocity of the basketball
     bool basketballVelocitySet;  // stores whether the velocity of the basketball has been set
 
@@ -138,7 +138,6 @@ private:
     // collisions
     int courtCollidesWith;	// determines what the court collides with
     int hoopCollidesWith;  // determines what the hoop collides with
-    int bballCollidesWith;	// determines what the basketball collides with
     int team1CollidesWith;	// determines what team1 collides with
     int team2CollidesWith;  // | COL_BBALL | COL_TEAM1;	// determiens what team2 collides with
 

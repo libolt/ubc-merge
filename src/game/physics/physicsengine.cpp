@@ -212,6 +212,15 @@ void physicsEngine::setBasketballVelocitySet(bool set)  // sets the value of bas
     basketballVelocitySet = set;
 }
 
+btDynamicsWorld *physicsEngine::getWorld()  // retrieves the value of world
+{
+    return (world);
+}
+void physicsEngine::setWorld(btDynamicsWorld *set)  // sets the value of world
+{
+    world = set;
+}
+
 void physicsEngine::setupState(void)
 {
 
