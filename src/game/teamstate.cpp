@@ -24,7 +24,6 @@
 #include "gamestate.h"
 #include "logging.h"
 #include "physicsengine.h"
-#include "players.h"
 #include "playersteer.h"
 #include "enums.h"
 #include "jumpballs.h"
@@ -601,11 +600,7 @@ void teamState::updateState()	// updates the state of the object
 
 bool teamState::createPlayerInstances()
 {
-//    players *player = players::Instance();
-
-    //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
 
     std::vector< std::vector<size_t> > teamStarterID = gameS->getTeamStarterID();

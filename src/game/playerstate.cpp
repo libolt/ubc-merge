@@ -1137,9 +1137,9 @@ void playerState::calculatePass()	// calculates which player to pass the ball to
 
 void playerState::shotLogic(Ogre::Vector3 playerPos)
 {
-	/*S
-    players *player = players::Instance();
-//    Ogre::Vector3 playerPos;
+    /*S
+
+    //    Ogre::Vector3 playerPos;
     std::vector<basketballs> basketballInstance = getBasketballInstance();
     std::vector<playerState> pInstance = getPlayerInstance();
 

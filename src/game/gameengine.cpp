@@ -53,12 +53,6 @@ gameEngine::gameEngine()
 //    : player[0](0),
  // playerNode[0](0)
 {
-    for (int it = 0; it < 10; it++)
-    {
-        playerDirection[it] = 0;
-        oldPlayerDirection[it] = 0;
-    }
-
     x = 0;
     y = 0;
     i = 0;
@@ -382,23 +376,14 @@ void gameEngine::processInput()  // processes game input
 
 void gameEngine::gameLoop()	// Main Game Loop
 {
-    //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
-    //GUISystem *gui = GUISystem::Instance();
     boost::shared_ptr<GUISystem> gui = GUISystem::Instance();
-    //inputSystem *input = inputSystem::Instance();
     boost::shared_ptr<inputSystem> input = inputSystem::Instance();
-//    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
     boost::shared_ptr<renderEngine> render = renderEngine::Instance();
-
-    //networkEngine *network = networkEngine::Instance();
     boost::shared_ptr<networkEngine> network = networkEngine::Instance();
-    //    soundEngine *sound = soundEngine::Instance();
     boost::shared_ptr<soundEngine> sound = soundEngine::Instance();
 
-//    players *player = players::Instance();
 
     networkPlayerStateObject netPStateObj;
 

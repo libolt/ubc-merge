@@ -28,10 +28,8 @@
 #include "logging.h"
 #include "networkplayerstateobject.h"
 #include "playerdata.h"
-#include "players.h"
 #include "physicsengine.h"
 #include "renderengine.h"
-#include "teams.h"
 #include "timing.h"
 
 //extern "C"
@@ -608,16 +606,10 @@ bool gameState::updateState()
 {
 //    logMsg("Updating gameState Logic");
 
-    //AISystem *ai = AISystem::Instance();
     boost::shared_ptr<AISystem> ai = AISystem::Instance();
-    //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    //gameEngine *gameE = gameEngine::Instance();
     boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
-	//networkEngine *network = networkEngine::Instance();
     boost::shared_ptr<networkEngine> network = networkEngine::Instance();
-    players *player = players::Instance();
-//    boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
     timing timer = gameE->getTimer();
     Ogre::Vector3 playerPos;

@@ -29,6 +29,8 @@
 #include "BulletDynamics/Dynamics/btRigidBody.h"
 #include <boost/shared_ptr.hpp>
 
+#include "enums.h"
+
 class physicsEngine
 {
 public:

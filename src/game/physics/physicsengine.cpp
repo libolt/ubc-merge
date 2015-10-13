@@ -23,7 +23,6 @@
 #include "gamestate.h"
 #include "input.h"
 #include "logging.h"
-#include "players.h"
 #include "playerstate.h"
 #include "physicsengine.h"
 #include "renderengine.h"
@@ -281,244 +280,6 @@ void physicsEngine::setupState(void)
 
 }
 
-bool physicsEngine::setupPlayerPhysics()
-{
-    //conversion *convert = conversion::Instance();
-    boost::shared_ptr<conversion> convert = conversion::Instance();
-    //gameState *gameS = gameState::Instance();
-    boost::shared_ptr<gameState> gameS = gameState::Instance();
-    players *player = players::Instance();
-
-    std::vector<teamState> teamInstance = gameS->getTeamInstance();
-
-    for (size_t x=0; x<teamInstance.size();++x)
-    {
-        std::vector<playerState> activePlayerInstance = teamInstance[x].getActivePlayerInstance();
-
-        btRigidBody *playerBody;
-        btCollisionShape *playerShape;
-        BtOgre::RigidBodyState *playerBodyState;
-
-        logMsg("activePlayerInstance.size = " +convert->toString(activePlayerInstance.size()));
-
-        // loops through physics objects for all players
-        size_t i = 0;
-        size_t j = 0;
-        std::vector<size_t> activeID = teamInstance[x].getActivePlayerID();
-
-//      for (size_t i=0; i<activePlayerInstance.size(); ++i)
-        while (i<activePlayerInstance.size())
-        {
-            logMsg("Converting Mesh to Shape");
-//                    exit(0);
-            // create shape
-            logMsg("Converting " +activePlayerInstance[i].getPlayerName() +"'s Mesh");
-            BtOgre::StaticMeshToShapeConverter converter(activePlayerInstance[i].getModel());
-
-            logMsg("Creating capsule");
-            playerShape = converter.createCapsule();
-
-            // calculates inertia
-            btScalar mass = 1;
-            btVector3 inertia, inertia2;
-            inertia = btVector3(0,0,0);
-            logMsg("Calculating local inertia");
-            playerShape->calculateLocalInertia(mass, inertia);
-
-            //Create BtOgre MotionState (connects Ogre and Bullet).
-        //    BtOgre::RigidBodyState *bodyState = new BtOgre::RigidBodyState(pInstance[2].getNode());
-
-            logMsg("Creating Body State");
-            playerBodyState = new BtOgre::RigidBodyState(activePlayerInstance[i].getNode());
-//        playerBodyState.at(i) = new btDefaultMotionState(btform(btQuaternion(0,0,0,1),btVector3(10.0f,-13.5f,380.0f)));
-            //Create the Body.
-    //        playerBody.at(i) = new btRigidBody(mass, playerBodyState.at(i), playerShape.at(i), inertia);
-            logMsg("Creating Rigid Body");
-            playerBody = new btRigidBody(mass, playerBodyState, playerShape, inertia);
-     //       playerBody->setActivationState(DISABLE_DEACTIVATION);
-
-            logMsg("Setting PhysBody");
-            activePlayerInstance[i].setPhysBody(playerBody);
-    //        world->addRigidBody(playerBody.at(i));
-            if (x == 0)
-            {
-                logMsg("Setting Team 0 Player  Activation State");
-                //activePlayerInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
-                logMsg("team = " + convert->toString(x));
-
-                logMsg("Adding Rigid Body to world");
-                world->addRigidBody(activePlayerInstance[i].getPhysBody(), COL_TEAM1, team1CollidesWith);
-    //          world->addRigidBody(pInstance[i].getPhysBody());
-            }
-            else if (x == 1)
-            {
-                logMsg("Setting Team 1 Player  Activation State");
-             //   activePlayerInstance[i].getPhysBody()->setActivationState(DISABLE_SIMULATION);
-                logMsg("team = " + convert->toString(x));
-
-                logMsg("Adding Rigid Body to world");
-                world->addRigidBody(activePlayerInstance[i].getPhysBody(), COL_TEAM2, team2CollidesWith);
-    //          world->addRigidBody(pInstance[i].getPhysBody());
-
-            }
-            else
-            {
-            }
-            i++;
-        }
-//        exit(0);
-        teamInstance[x].setActivePlayerInstance(activePlayerInstance);
-    }
-//  activePlayerInstance[0].getPhysBody()->translate(btVector3 (0,1,0));
-//    playerShape.push_back(*shape);
-    for (int x=0;x<2; ++x)
-    {
-        std::vector<playerState> activePlayerInstance = teamInstance[x].getActivePlayerInstance();
-
-        logMsg("activePlayerInstance.size = " + convert->toString(activePlayerInstance.size()));
-    }
-    gameS->setTeamInstance(teamInstance);   // stores all the changes to the teamInstance
-//    exit(0);
-return true;
-}
-
-bool physicsEngine::setupCourtPhysics()
-{
-//    courtState *courtS = courtState::Instance();
-    //gameState *gameS = gameState::Instance();
-    boost::shared_ptr<gameState> gameS = gameState::Instance();
-
-    std::vector<courtState> courtInstance = gameS->getCourtInstance();
-    btRigidBody *courtBody;
-    btScalar mass = 0;
-    btVector3 inertia, inertia2;
-    inertia = btVector3(0,0,0);
-
-
-    //Create the ground shape.
-    BtOgre::StaticMeshToShapeConverter converter(courtInstance.at(0).getModel());
-//    courtShape = converter.createTrimesh();
-    courtShape = converter.createBox();
-//    courtShape = new btStaticPlaneShape(btVector3(0,1,0),1);
-//    courtShape->;
-//s    courtShape->
-    //Create MotionState (no need for BtOgre here, you can use it if you want to though).
-//    courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-25,0)));
-    courtBodyState = new BtOgre::RigidBodyState(courtInstance[0].getNode());
-//    courtBodyState = new BtOgre::RigidBodyState(courtInstance.at(0).getNode());
-    btRigidBody::btRigidBodyConstructionInfo info(mass,courtBodyState,courtShape,inertia); //motion state would actually be non-null in most real usages
-    info.m_restitution = 1.0f;
-    info.m_friction = 15.5f;
-
-
-    //Create the Body.
-//    courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
-    courtBody = new btRigidBody(info);
-
-    courtInstance[0].setPhysBody(courtBody);
-    world->addRigidBody(courtInstance[0].getPhysBody(), COL_COURT, courtCollidesWith);
-//    world->addRigidBody(courtBody);
-//    courtInstance[0].getPhysBody()->setActivationState(ACTIVE_TAG);
-               
-    gameS->setCourtInstance(courtInstance);
-
-    return true;
-}
-
-bool physicsEngine::setupHoopPhysics()
-{
-//    courtState *courtS = courtState::Instance();
-    //gameState *gameS = gameState::Instance();
-    boost::shared_ptr<gameState> gameS = gameState::Instance();
-
-    std::vector<hoopState> hoopInstance = gameS->getHoopInstance();
-    btRigidBody *hoopBody;
-    btScalar mass = 0;
-    btVector3 inertia, inertia2;
-    inertia = btVector3(0,0,0);
-
-    size_t x = 0;
-    while (x<hoopInstance.size())
-    {
-        btCollisionShape *hoopShape;
-        BtOgre::RigidBodyState *hoopBodyState;
-
-        //Create the ground shape.
-        BtOgre::StaticMeshToShapeConverter converter(hoopInstance.at(x).getModel());
-    //    courtShape = converter.createTrimesh();
-        hoopShape = converter.createBox();
-    //    courtShape = new btStaticPlaneShape(btVector3(0,1,0),1);
-    //    courtShape->;
-    //s    courtShape->
-        //Create MotionState (no need for BtOgre here, you can use it if you want to though).
-    //    courtBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-25,0)));
-        hoopBodyState = new BtOgre::RigidBodyState(hoopInstance[x].getNode());
-    //    courtBodyState = new BtOgre::RigidBodyState(courtInstance.at(0).getNode());
-        btRigidBody::btRigidBodyConstructionInfo info(mass,hoopBodyState,hoopShape,inertia); //motion state would actually be non-null in most real usages
-        info.m_restitution = 1.0f;
-        info.m_friction = 15.5f;
-
-
-        //Create the Body.
-    //    courtBody = new btRigidBody(0, courtBodyState, courtShape, btVector3(0,0,0));
-        hoopBody = new btRigidBody(info);
-
-        hoopInstance[x].setPhysBody(hoopBody);
-    //    world->addRigiBody(courtInstance[0].getPhysBody(), COL_COURT, courtCollidesWith);
-        world->addRigidBody(hoopBody, COL_HOOP, hoopCollidesWith);
-        ++x;
-    }
-    gameS->setHoopInstance(hoopInstance);
-
-    return (true);
-}
-
-bool physicsEngine::setupBasketballPhysics()
-{
-//    basketballs *bball = basketballs::Instance();
-    //gameState *gameS = gameState::Instance();
-    boost::shared_ptr<gameState> gameS = gameState::Instance();
-
-    std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
-    int activeBBallInstance = gameS->getActiveBBallInstance();
-
-    btRigidBody *bballBody;
-
-    //Create the basketball shape.
-    BtOgre::StaticMeshToShapeConverter converter(basketballInstance.at(0).getModel());
-    basketballShape = converter.createSphere();
-
-
-    btScalar mass = 0.62f;
-    btVector3 inertia, inertia2;
-    inertia = btVector3(0,0,0);
-    basketballShape->calculateLocalInertia(mass, inertia);
-
-    basketballBodyState = new BtOgre::RigidBodyState(basketballInstance.at(0).getNode());
-
-    btRigidBody::btRigidBodyConstructionInfo info(mass,basketballBodyState,basketballShape,inertia); //motion state would actually be non-null in most real usages
-    info.m_restitution = 0.85f;
-//    info.m_friction = 2.0f;
-
-    //Create MotionState (no need for BtOgre here, you can use it if you want to though).
-//    basketballBodyState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,0,0)));
-
-    //Create BtOgre MotionState (connects Ogre and Bullet).
-
-    //Create the Body.
-//    bballBody = new btRigidBody(mass, basketballBodyState, basketballShape, inertia);
-    bballBody = new btRigidBody(info);
-//    bballBody->setActivationState(DISABLE_DEACTIVATION);
-    //    bballBody->setCollisionFlags(bballBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
-    basketballInstance[activeBBallInstance].setPhysBody(bballBody);
-
-    world->addRigidBody(basketballInstance[activeBBallInstance].getPhysBody(), COL_BBALL, bballCollidesWith);
-//    world->addRigidBody(basketballInstance[activeBBallInstance].getPhysBody());
-
-    gameS->setBasketballInstance(basketballInstance);
-
-    return true;
-}
 
 void physicsEngine::updateState()
 {
@@ -586,7 +347,7 @@ void physicsEngine::updateState()
                     logMsg("Team " +convert->toString(z) +" player " +convert->toString(y) +" pActivePhys == " +convert->toString(physPos));
                     logMsg("Team " +convert->toString(z) +" player " +convert->toString(y) +" pActiveCourt == " +convert->toString(courtPos));
                     logMsg("Team " +convert->toString(z) +" player " +convert->toString(y) +" pActiveSteer == " +convert->toString(steerPos));
-                    /*if (activePlayerInstance[z][y].getCourtPositionChangedType() == NOCHANGE)
+                    if (activePlayerInstance[z][y].getCourtPositionChangedType() == NOCHANGE)
                     {
                         if (!compare.OgreVector3ToBTVector3(courtPos, physPos))
                         {
@@ -594,11 +355,12 @@ void physicsEngine::updateState()
                             activePlayerInstance[z][y].setCourtPositionChangedType(PHYSICSCHANGE);
                             //exit(0);
                         }
-                    }*/
+                    }
                     ++y;
                 }
                 ++z;
             }
+
     //      exit(0);
             if (teamInstance[teamWithBall].getPlayerWithBallDribbling()) // checks if the player with ball is dribbling and updates accordingly
             {
