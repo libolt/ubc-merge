@@ -317,8 +317,10 @@ void physicsEngine::updateState()
     std::vector <std::vector<playerState> > activePlayerInstance;
     std::vector<basketballs> basketballInstance = gameS->getBasketballInstance();
 
+    exit(0);
     if (gameS->getBasketballInstancesCreated())
     {
+        exit(0);
         basketballInstance[activeBBallInstance].getPhysics().updateState();
     }
     else
