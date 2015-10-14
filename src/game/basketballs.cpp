@@ -60,9 +60,12 @@
     teamNumber = 0;
     player = 0;
 
+    modelNeedsLoaded = false;
+    modelLoaded = false;
     courtPosition = Ogre::Vector3(0,0,0);
     newCourtPosition = Ogre::Vector3(0,0,0);
     courtPositionChanged = false;
+    number = 999999;
 
 }
 
@@ -79,52 +82,52 @@ float basketballs::getMaxHeight(void)  // retrieves the value of maxHeight
 {
     return(maxHeight);
 }
-void basketballs::setMaxHeight(float MaxHeight)  // sets the value og maxHeight
+void basketballs::setMaxHeight(float set)  // sets the value og maxHeight
 {
-    maxHeight = MaxHeight;
+    maxHeight = set;
 }
 
 bool basketballs::getMaxHeightReached(void)  // retrieves the value of maxHeightReached
 {
     return(maxHeightReached);
 }
-void basketballs::setMaxHeightReached(bool reached)  // sets the value of maxHeightReachef
+void basketballs::setMaxHeightReached(bool set)  // sets the value of maxHeightReachef
 {
-    maxHeightReached = reached;
+    maxHeightReached = set;
 }
 
 float basketballs::getMinHeight(void)  // retrieves the value minHeight
 {
     return(minHeight);
 }
-void basketballs::setMinHeight(float MinHeight)  // sets the value of minHeight
+void basketballs::setMinHeight(float set)  // sets the value of minHeight
 {
-    minHeight = MinHeight;
+    minHeight = set;
 }
 
 bool basketballs::getMinHeightReached(void)  // retrieves the value of minHeightReached
 {
     return(minHeightReached);
 }
-void basketballs::setMinHeightReached(bool reached)  // sets the value of minHeightReached
+void basketballs::setMinHeightReached(bool set)  // sets the value of minHeightReached
 {
-    minHeightReached = reached;
+    minHeightReached = set;
 }
 
-int basketballs::getRotate(void)  // retrieves the value of rotate
+size_t basketballs::getRotate(void)  // retrieves the value of rotate
 {
     return (rotate);
 }
-void basketballs::setRotate(int Rotate)  // sets the value of rotate
+void basketballs::setRotate(size_t set)  // sets the value of rotate
 {
-    rotate = Rotate;
+    rotate = set;
 }
 
-int basketballs::getTeamNumber(void)  // retrieves the value of teamNumber
+size_t basketballs::getTeamNumber(void)  // retrieves the value of teamNumber
 {
     return(teamNumber);
 }
-void basketballs::setTeamNumber(int set)  // sets the value of teamNumber
+void basketballs::setTeamNumber(size_t set)  // sets the value of teamNumber
 {
     teamNumber = set;
 }
@@ -133,54 +136,54 @@ Ogre::Vector3 basketballs::getVelocity(void)  // retrieves the value of velocity
 {
     return(velocity);
 }
-void basketballs::setVelocity(Ogre::Vector3 Velocity)  // sets the value of velocity
+void basketballs::setVelocity(Ogre::Vector3 set)  // sets the value of velocity
 {
-    velocity = Velocity;
+    velocity = set;
 }
 
 Ogre::Vector3 basketballs::getStartCoords(void)  // retrieves the value of startCoords
 {
     return(startCoords);
 }
-void basketballs::setStartCoords(Ogre::Vector3 start) // sets the value of startCoords
+void basketballs::setStartCoords(Ogre::Vector3 set) // sets the value of startCoords
 {
-    startCoords = start;
+    startCoords = set;
 }
 
 bool basketballs::getTipOffStart()  // retroeves the value of tipOffStart
 {
     return (tipOffStart);
 }
-void basketballs::setTipOffStart(bool start)  // sets the value of tipOffStart
+void basketballs::setTipOffStart(bool set)  // sets the value of tipOffStart
 {
-    tipOffStart = start;
+    tipOffStart = set;
 }
 
 bool basketballs::getTipOff()  // retrieves the value of tipOff
 {
     return (tipOff);
 }
-void basketballs::setTipOff(bool TipOff)  // sets the value of tipOff
+void basketballs::setTipOff(bool set)  // sets the value of tipOff
 {
-    tipOff = TipOff;
+    tipOff = set;
 }
 
 bool basketballs::getDribblingStart(void)  // retrieves the value of dribblingStart
 {
     return (dribblingStart);
 }
-void basketballs::setDribblingStart(bool start)  // sets the value of dribblingStart
+void basketballs::setDribblingStart(bool set)  // sets the value of dribblingStart
 {
-    dribblingStart = start;
+    dribblingStart = set;
 }
 
 bool basketballs::getDribbling(void)  // retrieves the value of dribbling
 {
     return (dribbling);
 }
-void basketballs::setDribbling(bool Dribbling)  // sets the value of dribbling
+void basketballs::setDribbling(bool set)  // sets the value of dribbling
 {
-    dribbling = Dribbling;
+    dribbling = set;
 }
 
 bool basketballs::getMovement()  // retrieves the value of movement
@@ -222,27 +225,27 @@ std::string basketballs::getModelName()  // retrieves the value of modelName
 {
     return (modelName);
 }
- void basketballs::setModelName(string name)  // sets the value of modelName
+ void basketballs::setModelName(string set)  // sets the value of modelName
 {
-    modelName = name;
+    modelName = set;
 }
 
 Ogre::Entity *basketballs::getModel()  // retrieves the value of model
 {
     return (model);
 }
- void basketballs::setModel(Ogre::Entity *Model)  // sets the value of model
+ void basketballs::setModel(Ogre::Entity *set)  // sets the value of model
 {
-    model = Model;
+    model = set;
 }
 
 Ogre::SceneNode *basketballs::getNode()  // retrieves the value of node
 {
     return (node);
 }
-void basketballs::setNode(Ogre::SceneNode *Node)  // sets the value of node
+void basketballs::setNode(Ogre::SceneNode *set)  // sets the value of node
 {
-    node = Node;
+    node = set;
 }
 
 btRigidBody *basketballs::getPhysBody()	 // retrieves physBody variable
@@ -250,9 +253,9 @@ btRigidBody *basketballs::getPhysBody()	 // retrieves physBody variable
     return (physBody);
 }
 
-void basketballs::setPhysBody(btRigidBody *body)  // sets physBody variable
+void basketballs::setPhysBody(btRigidBody *set)  // sets physBody variable
 {
-    physBody = body;
+    physBody = set;
 }
 
 basketballPhysics basketballs::getPhysics()  // retrieves the value of physics
@@ -271,6 +274,25 @@ basketballSteer *basketballs::getSteer()  // retrieves the value of steer
 void basketballs::setSteer(basketballSteer *set)  // sets the value of steer
 {
     steer = set;
+}
+
+bool basketballs::getModelNeedsLoaded()  // retrieves the value of modelNeedsLoaded
+{
+    return (modelNeedsLoaded);
+}
+void basketballs::setModelNeedsLoaded(bool set)  // sets the value of modelNeedsLoaded
+{
+    modelNeedsLoaded = set;
+}
+
+bool basketballs::getModelLoaded()  // retrieves the value of modelLoaded
+{
+    return (modelLoaded);
+}
+
+void basketballs::setModelLoaded(bool set)  // sets the value of modelLoaded
+{
+    modelLoaded = set;
 }
 
 Ogre::Vector3 basketballs::getCourtPosition()  // retrieves the value of courtPosition
@@ -309,6 +331,15 @@ void basketballs::setCourtPositionChangedType(positionChangedTypes set)  // sets
     courtPositionChangedType = set;
 }
 
+size_t basketballs::getNumber()  // retrieves the value of number
+{
+    return (number);
+}
+void basketballs::setNumber(size_t set)  // sets the value of number
+{
+    number = set;
+    physics.setNumber(set); // sets the physics number as well
+}
 
 bool basketballs::loadModel()  // loads the 3D model
 {
@@ -348,6 +379,15 @@ Ogre::Vector3 basketballs::calculatePositionChange()
 
 void basketballs::updateState()  // updates the state of the basketball
 {
+    if (modelNeedsLoaded)
+    {
+        if (loadModel())
+        {
+            modelNeedsLoaded = false;
+            modelLoaded = true;
+        }
+    }
+
     if (directChange)
     {
         logMsg("updating direction!");
@@ -639,12 +679,12 @@ void basketballs::updateDirection()  // updates basketball direction(s)
     gameS->setJumpBall(jumpBall);
 }
 
-int basketballs::getPlayer()
+size_t basketballs::getPlayer()
 {
     return (player);
 }
 
-void basketballs::setPlayer(int Player)
+void basketballs::setPlayer(size_t Player)
 {
     player = Player;
 }

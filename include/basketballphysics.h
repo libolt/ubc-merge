@@ -39,7 +39,12 @@ class basketballPhysics
         BtOgre::RigidBodyState *getBasketballBodyState();  // retrieves the value of basketballBodyState
         void setBasketBallBodyState(BtOgre::RigidBodyState *set);  // sets the value of basketballBodyState
 
+        size_t getNumber();  // retrieves the value of number
+        void setNumber(size_t set);  // sets the value of number
+
         bool setupPhysics();  // sets up basketball physics
+
+        bool setupState();  // sets up the state of the basketballPhysics object
 
         void updateState();  // updates the basketball physics state
 
@@ -50,6 +55,8 @@ class basketballPhysics
         int bballCollidesWith;	// determines what the basketball collides with
 
         bool physicsSetup;  // stores whether the basketblal physics have been setup.
+
+        size_t number;  // stores the number of the object
 };
 
 #endif // BASKETBALLPHYSICS_H

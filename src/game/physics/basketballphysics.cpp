@@ -27,6 +27,10 @@ basketballPhysics::basketballPhysics()  // initializer
     bballCollidesWith = COL_COURT; // | COL_TEAM1 | COL_TEAM2;  // determines what the basketball collides with
 
     physicsSetup = false;
+
+    number = 999999;
+
+    setupState();
 }
 
 btCollisionShape *basketballPhysics::getBasketballShape()  // retrieves the value of basketballShape
@@ -48,6 +52,15 @@ void basketballPhysics::setBasketBallBodyState(BtOgre::RigidBodyState *set)  // 
     basketballBodyState = set;
 }
 
+size_t basketballPhysics::getNumber()  // retrieves the value of number
+{
+    return (number);
+}
+void basketballPhysics::setNumber(size_t set)  // sets the value of number
+{
+    number = set;
+}
+
 bool basketballPhysics::setupPhysics()
 {
 //    basketballs *bball = basketballs::Instance();
@@ -61,8 +74,16 @@ bool basketballPhysics::setupPhysics()
     btRigidBody *bballBody;
 
     //Create the basketball shape.
-    BtOgre::StaticMeshToShapeConverter converter(basketballInstance.at(0).getModel());
-    basketballShape = converter.createSphere();
+    if (number != 999999 && basketballInstance[number].getModelLoaded())
+    {
+        BtOgre::StaticMeshToShapeConverter converter(basketballInstance[number].getModel());
+        basketballShape = converter.createSphere();
+    }
+    else
+    {
+        basketballInstance[number].setModelNeedsLoaded(true);
+    }
+
 
 
     btScalar mass = 0.62f;
@@ -70,7 +91,7 @@ bool basketballPhysics::setupPhysics()
     inertia = btVector3(0,0,0);
     basketballShape->calculateLocalInertia(mass, inertia);
 
-    basketballBodyState = new BtOgre::RigidBodyState(basketballInstance.at(0).getNode());
+    basketballBodyState = new BtOgre::RigidBodyState(basketballInstance[number].getNode());
 
     btRigidBody::btRigidBodyConstructionInfo info(mass,basketballBodyState,basketballShape,inertia); //motion state would actually be non-null in most real usages
     info.m_restitution = 0.85f;
@@ -99,7 +120,7 @@ bool basketballPhysics::setupPhysics()
     return true;
 }
 
-void basketballPhysics::updateState()  // updates basketball physics state
+bool basketballPhysics::setupState()  // sets up the state of the basketballPhysics object
 {
     if (!physicsSetup)
     {
@@ -114,4 +135,9 @@ void basketballPhysics::updateState()  // updates basketball physics state
     else
     {
     }
+    return (true);
+}
+void basketballPhysics::updateState()  // updates basketball physics state
+{
+
 }

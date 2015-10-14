@@ -334,6 +334,8 @@ bool gameState::createBasketballInstances()
     bballInstance.loadModel();
     basketballSteer *bballSteer = new basketballSteer; // steer instance
     bballInstance.setSteer(bballSteer);
+    bballInstance.setNumber(0);
+    bballInstance.setModelNeedsLoaded(true);
     basketballInstance.push_back(bballInstance);
     return true;
 }
@@ -614,6 +616,8 @@ bool gameState::updateState()
     timing timer = gameE->getTimer();
     Ogre::Vector3 playerPos;
 
+    basketballInstance[activeBBallInstance].updateState();
+
     basketballInstance[activeBBallInstance].setPlayer(5);
 
     if (network->getPacketReceived())	// checks if a packet was received by network engine
@@ -664,7 +668,6 @@ bool gameState::updateState()
 //	exit(0);
 
     // updates the basketball(s) state
-    basketballInstance[activeBBallInstance].updateState();
     logMsg("Updated basketball state!");
 //    exit(0);
 //    renderBall();
