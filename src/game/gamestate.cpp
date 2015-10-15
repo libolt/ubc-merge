@@ -329,13 +329,19 @@ bool gameState::assignHoopToTeams()  // assigns which hoop belongs to each team
 // creates basketball Instances
 bool gameState::createBasketballInstances()
 {
+    logMsg("creating temporary baskteball instance");
     basketballs bballInstance;  // creates an instance of the basketballs class
+    logMsg("setting model name");
     bballInstance.setModelName("bball.mesh");
+    logMsg("loading model");
     bballInstance.loadModel();
+    logMsg("creating steer object");
     basketballSteer *bballSteer = new basketballSteer; // steer instance
     bballInstance.setSteer(bballSteer);
+    logMsg("setting instance number");
     bballInstance.setNumber(0);
-    bballInstance.setModelNeedsLoaded(true);
+
+//    bballInstance.setModelNeedsLoaded(true);
     basketballInstance.push_back(bballInstance);
     return true;
 }
@@ -517,6 +523,7 @@ bool gameState::setupState()
 
     if (!courtModelLoaded)
     {
+        logMsg("creating court instances!");
         if (createCourtInstances())  // creates the court instances
         {
             courtModelLoaded = true;
@@ -526,6 +533,7 @@ bool gameState::setupState()
 
     if (!basketballInstancesCreated)	// checks if court model has been loaded
     {
+        logMsg("creating basketball instances!");
     	if (createBasketballInstances()) // creates the basketball instances
     	{
     		basketballInstancesCreated = true;
@@ -537,6 +545,7 @@ bool gameState::setupState()
 
     if (!hoopModelLoaded)
     {
+        logMsg("creating hoop instances!");
         if (createHoopInstances())  // creates the hoop instances
         {
         	hoopModelLoaded = true;
