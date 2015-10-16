@@ -30,7 +30,7 @@ basketballPhysics::basketballPhysics()  // initializer
 
     number = 999999;
 
-    setupState();
+//    setupState();
 }
 
 btCollisionShape *basketballPhysics::getBasketballShape()  // retrieves the value of basketballShape
@@ -74,7 +74,7 @@ bool basketballPhysics::setupPhysics()
     btRigidBody *bballBody;
 
     //Create the basketball shape.
-    if (number != 999999 && basketballInstance[number].getModelLoaded())
+    if (number != 999999 && basketballInstance[number].getModelLoaded() && gameS->getBasketballInstancesCreated())
     {
         BtOgre::StaticMeshToShapeConverter converter(basketballInstance[number].getModel());
         basketballShape = converter.createSphere();
@@ -122,6 +122,11 @@ bool basketballPhysics::setupPhysics()
 
 bool basketballPhysics::setupState()  // sets up the state of the basketballPhysics object
 {
+
+    return (true);
+}
+void basketballPhysics::updateState()  // updates basketball physics state
+{
     if (!physicsSetup)
     {
         if (setupPhysics()) // sets up physics state for basketball
@@ -135,9 +140,4 @@ bool basketballPhysics::setupState()  // sets up the state of the basketballPhys
     else
     {
     }
-    return (true);
-}
-void basketballPhysics::updateState()  // updates basketball physics state
-{
-
 }

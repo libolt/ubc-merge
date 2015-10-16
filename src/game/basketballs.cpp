@@ -29,8 +29,6 @@
 
  basketballs::basketballs()
 {
-     exit(0);
-     logMsg("basketballs constructor!");
 //    playerControlBasketball = -1;
     maxHeight = 0;
     maxHeightReached = false;
