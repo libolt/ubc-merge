@@ -1,8 +1,25 @@
+APP_CFLAGS := -fno-lto
+APP_CPPFLAGS := -fno-lto
+APP_LDFLAGS := -fno-lto 
+
 LOCAL_PATH := $(call my-dir)
+
 BUILD_ROOT := ../../..
 UBC_DEPENDS_PATH := $(BUILD_ROOT)/ubc-depends
 UBC_DEPENDS_LIB_PATH := $(UBC_DEPENDS_PATH)/lib
 UBC_DEPENDS_INC_PATH := $(UBC_DEPENDS_PATH)/include
+
+
+   include $(CLEAR_VARS)
+   LOCAL_MODULE := Native-App-Glue-Prebuilt
+   LOCAL_SRC_FILES := $(UBC_DEPENDS_LIB_PATH)/libandroid_native_app_glue.a
+   include $(PREBUILT_STATIC_LIBRARY)
+   
+   include $(CLEAR_VARS)
+   LOCAL_MODULE := Cpu-Features-Prebuilt
+   LOCAL_SRC_FILES := $(UBC_DEPENDS_LIB_PATH)/libcpufeatures.a
+   include $(PREBUILT_STATIC_LIBRARY)
+   
 
    include $(CLEAR_VARS)
    LOCAL_MODULE := ALMixer-Prebuilt
@@ -198,8 +215,8 @@ UBC_DEPENDS_INC_PATH := $(UBC_DEPENDS_PATH)/include
 
 include $(CLEAR_VARS)
 LOCAL_SHARED_LIBRARIES  := ALMixer-Prebuilt OpeanAL-Prebuilt OGG-Prebuilt Vorbis-Prebuilt  SDL2-Prebuilt 
-LOCAL_STATIC_LIBRARIES  := Boost-System-Prebuilt MyGUIOgrePlatform-Prebuilt MyGUIEngine-Prebuilt TinyXML2-Prebuilt BtOgre-Prebuilt BulletDynamics-Prebuilt BulletCollision-Prebuilt BulletSoftbody-Prebuilt BulletLinearMath-Prebuilt OgreRTShaderSystem-Prebuilt OgreRenderSystem_GLES2-Prebuilt OgreMain-Prebuilt OgreParticleFXPlugin-Prebuilt OpenSteer-Prebuilt Boost-Thread-Prebuilt Boost-Chrono-Prebuilt FreeImage-Prebuilt ZZipLib-Prebuilt FreeType-Prebuilt ENet-Prebuilt
- # BtOgre-Prebuilt  BulletCollision-Prebuilt BulletDynamics-Prebuilt BulletSoftbody-Prebuilt BulletLinearMath-Prebuilt Boost-Atomic-Prebuilt Boost-Chrono-Prebuilt Boost-System-Prebuilt Boost-Thread-Prebuilt 
+LOCAL_STATIC_LIBRARIES  := Boost-System-Prebuilt MyGUIOgrePlatform-Prebuilt MyGUIEngine-Prebuilt TinyXML2-Prebuilt BtOgre-Prebuilt BulletDynamics-Prebuilt BulletCollision-Prebuilt BulletSoftbody-Prebuilt BulletLinearMath-Prebuilt OgreRTShaderSystem-Prebuilt OgreRenderSystem_GLES2-Prebuilt OgreMain-Prebuilt OgreParticleFXPlugin-Prebuilt OpenSteer-Prebuilt Boost-Thread-Prebuilt Boost-Chrono-Prebuilt FreeImage-Prebuilt ZZipLib-Prebuilt FreeType-Prebuilt ENet-Prebuilt Native-App-Glue-Prebuilt Cpu-Features-Prebuilt 
+ # BtOgre-Prebuilt  BulletCollision-Prebuilt BulletDynamics-Prebuilt BulletSoftbody-Prebuilt BulletLinearMath-Prebuilt Boost-Atomic-Prebuilt Boost-Chrono-Prebuilt Boost-System-Prebuilt Boost-Thread-Prebuilt Native-App-Glue-Prebuilt Cpu-Features-Prebuilt 
 #LOCAL_SHARED_LIBRARIES  += OgreMain-Prebuilt OgreOverlay-Prebuilt OgreProperty-Prebuilt OgreRTShaderSystem-Prebuilt OgreRenderSystem_GLES2-Prebuilt
 #LOCAl_STATIC_LIBRARIES  += 
 #LOCAL_SHARED_LIBRARIES  += FreeImage-Prebuilt FreeType-Prebuilt 
@@ -260,52 +277,22 @@ LOCAL_SRC_FILES := \
                        $(wildcard $(LOCAL_PATH)/../../src/game/network/*.cpp)) \
                    $(subst $(LOCAL_PATH)/,, \
                        $(wildcard $(LOCAL_PATH)/../../src/game/sound/*.cpp)) \
-
-
-#LOCAL_SRC_FILES := ../../src/game/SDL_android_main.c \
-#LOCAL_SRC_FILES += ../../src/game/ai/basketballsteer.cpp \
-#LOCAL_SRC_FILES += ../../src/game/courtdata.cpp \
-#LOCAL_SRC_FILES += ../../src/game/courtstate.cpp \
-#LOCAL_SRC_FILES += ../../src/game/defensestate.cpp \
-#LOCAL_SRC_FILES += ../../src/game/gameengine.cpp \
-#LOCAL_SRC_FILES += ../../src/game/gamestate.cpp \
-#LOCAL_SRC_FILES += ../../src/game/gui.cpp \
-#LOCAL_SRC_FILES += ../../src/game/hoop.cpp \
-#LOCAL_SRC_FILES += ../../src/game/input.cpp \
-#LOCAL_SRC_FILES += ../../src/game/load.cpp \
-#LOCAL_SRC_FILES += ../../src/game/logging.cpp \
-#LOCAL_SRC_FILES += ../../src/game/networkengine.cpp \ 
-#LOCAL_SRC_FILES += ../../src/game/networkobject.cpp \
-#LOCAL_SRC_FILES += ../../src/game/networkgamedataobject.cpp \
-#LOCAL_SRC_FILES += ../../src/game/networkgamestateobject.cpp \
-#LOCAL_SRC_FILES += ../../src/game/networkplayerdataobject.cpp \
-#LOCAL_SRC_FILES += ../../src/game/networkplayerstateobject.cpp \
-#LOCAL_SRC_FILES += ../../src/game/networkteamdataobject.cpp \
-#LOCAL_SRC_FILES += ../../src/game/networkteamstateobject.cpp \
-#LOCAL_SRC_FILES += ../../src/game/offensestate.cpp \
-#LOCAL_SRC_FILES += ../../src/game/offenseplays.cpp \
-#LOCAL_SRC_FILES += ../../src/game/physicsengine.cpp \
-#LOCAL_SRC_FILES += ../../src/game/playerdata.cpp \
-#LOCAL_SRC_FILES += ../../src/game/players.cpp \
-#LOCAL_SRC_FILES += ../../src/game/playerstate.cpp \
-#LOCAL_SRC_FILES += ../../src/game/ai/playersteer.cpp \
-#LOCAL_SRC_FILES += ../../src/game/ai/playersteerplugin.cpp \
-#LOCAL_SRC_FILES += ../../src/game/renderengine.cpp \
-#LOCAL_SRC_FILES += ../../src/game/ai/steering.cpp \
-#LOCAL_SRC_FILES += ../../src/game/sound/soundengine.cpp \
-#LOCAL_SRC_FILES += ../../src/game/teamdata.cpp \
-#LOCAL_SRC_FILES += ../../src/game/teams.cpp \
-#LOCAL_SRC_FILES += ../../src/game/teamstate.cpp \
-#LOCAL_SRC_FILES += ../../src/game/ubcapp.cpp \
-#LOCAL_SRC_FILES += ../../src/game/userinput.cpp 
+                   $(subst $(LOCAL_PATH)/,, \
+                       $(wildcard $(LOCAL_PATH)/../../src/game/physics/*.cpp)) \
 
 
 LOCAL_LDLIBS	:= -landroid -lc -lm -ldl -llog -lEGL -lGLESv1_CM -lGLESv2 
 
-LOCAL_CFLAGS := -w -fPIC -frtti -fexceptions -fpermissive -x c++ -D___ANDROID___ -DANDROID -DZZIP_OMIT_CONFIG_H -std=c++11  $(COMMON_FLAGS_LIST) 
+LOCAL_CFLAGS := -w -fno-lto -fPIC -frtti -fexceptions -fpermissive -x c++ -D___ANDROID___ -DANDROID -DZZIP_OMIT_CONFIG_H -std=c++11  $(COMMON_FLAGS_LIST) 
+LOCAL_CPPFLAGS := -fno-lto
+LOCAL_LDFLAGS := -fno-lto
+APP_CFLAGS := -fno-lto
+APP_CPPFLAGS := -fno-lto
+APP_LDFLAGS := -fno-lto
+
 #LOCAL_CPPFLAGS :=  $(COMMON_FLAGS_LIST) -DOGRE_NO_GLES3_SUPPORT=1
 include $(BUILD_SHARED_LIBRARY)
 
-$(call import-module,android/cpufeatures) 
-$(call import-module,android/native_app_glue) 
-$(CALL IMPORT-MODULE,ENet-Prebuilt)
+#$(call import-module,android/cpufeatures) 
+#$(call import-module,android/native_app_glue) 
+#$(CALL IMPORT-MODULE,ENet-Prebuilt)
