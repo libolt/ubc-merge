@@ -126,6 +126,9 @@ public:
     bool getModelLoaded();  // retrieves the value of modelLoaded
     void setModelLoaded(bool set);  // sets the value of modelLoaded
 
+    bool getNumberSet();  // retrieves the value of numberSet
+    void setNumberSet(bool set);  // sets the value of numberSet
+    
     Ogre::Vector3 getCourtPosition();  // retrieves the value of courtPosition
     void setCourtPosition(Ogre::Vector3 set);  // sets the value of courtPosition
 
@@ -182,6 +185,8 @@ private:
 
     bool modelLoaded;  // stores whether the 3D model of the basketball has been loaded
 
+    bool numberSet;  // stores whether the the instance number had been set
+    
     float maxHeight;  // stores the maximum height pf the basketball
     bool maxHeightReached;  // stores whether the maximum height has been reached
 

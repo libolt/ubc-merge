@@ -334,7 +334,11 @@ bool gameState::createBasketballInstances()
     logMsg("setting model name");
     bballInstance.setModelName("bball.mesh");
     logMsg("loading model");
-    bballInstance.loadModel();
+    if (bballInstance.loadModel())
+    {
+        bballInstance.setModelNeedsLoaded(false);
+        bballInstance.setModelLoaded(true);
+    }
     logMsg("creating steer object");
     basketballSteer *bballSteer = new basketballSteer; // steer instance
     bballInstance.setSteer(bballSteer);

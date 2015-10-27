@@ -135,7 +135,10 @@ bool jumpBalls::updateState()  // updates state of the jumpBalls instance
     logMsg("updating jumpBall state!");
     logMsg("gameS->getTeamWithBall() == " +convert->toString(gameS->getTeamWithBall()));
 
-    if (gameS->getTeamWithBall() == NOTEAM) //&& gameS->getTeamInstancesCreated())
+    size_t activeBBallInstance = gameS->getActiveBBallInstance();
+    std::vector<basketballs> basketBallInstance = gameS->getBasketballInstance();
+    bool bballPhysicsSetup = basketBallInstance[activeBBallInstance].getPhysics().getPhysicsSetup();
+    if (gameS->getTeamWithBall() == NOTEAM && bballPhysicsSetup) //&& gameS->getTeamInstancesCreated())
     {
 
         logMsg("teamWithBall = NOTEAM");

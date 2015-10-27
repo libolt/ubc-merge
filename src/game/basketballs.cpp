@@ -62,6 +62,8 @@
 
     modelNeedsLoaded = false;
     modelLoaded = false;
+    numberSet = false;
+    
     courtPosition = Ogre::Vector3(0,0,0);
     newCourtPosition = Ogre::Vector3(0,0,0);
     courtPositionChanged = false;
@@ -289,10 +291,18 @@ bool basketballs::getModelLoaded()  // retrieves the value of modelLoaded
 {
     return (modelLoaded);
 }
-
 void basketballs::setModelLoaded(bool set)  // sets the value of modelLoaded
 {
     modelLoaded = set;
+}
+
+bool basketballs::getNumberSet()  // retrieves the value of numberSet
+{
+    return (numberSet);
+}
+void basketballs::setNumberSet(bool set)  // sets the value of numberSet
+{
+    numberSet = set;
 }
 
 Ogre::Vector3 basketballs::getCourtPosition()  // retrieves the value of courtPosition
@@ -339,6 +349,7 @@ void basketballs::setNumber(size_t set)  // sets the value of number
 {
     number = set;
     physics.setNumber(set); // sets the physics number as well
+    numberSet = true;
 }
 
 bool basketballs::loadModel()  // loads the 3D model
@@ -379,15 +390,22 @@ Ogre::Vector3 basketballs::calculatePositionChange()
 
 void basketballs::updateState()  // updates the state of the basketball
 {
+    
     if (modelNeedsLoaded)
     {
+//        exit(0);
         if (loadModel())
         {
             modelNeedsLoaded = false;
             modelLoaded = true;
+            
         }
     }
 
+    if (numberSet)  // runs the physics update code
+    {
+        physics.updateState();
+    }
     if (directChange)
     {
         logMsg("updating direction!");
