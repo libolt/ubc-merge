@@ -560,7 +560,7 @@ void teamState::updateState()	// updates the state of the object
 //		exit(0);
 
 
-		if (physEngine->getPlayerPhysicsSetup())	// makes sure player physics are setup before modifying physics positions
+/*		if (physEngine->getPlayerPhysicsSetup())	// makes sure player physics are setup before modifying physics positions
 		{
 			updatePositions();
 //            exit(0);
@@ -568,6 +568,7 @@ void teamState::updateState()	// updates the state of the object
 		else
 		{
 		}
+*/
 //	logMsg("Team ==  "  +toString(teamType));
 
 		//		exit(0);

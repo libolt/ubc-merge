@@ -23,7 +23,35 @@
 #include "physicsengine.h"
 #include "logging.h"
 
-bool physicsEngine::setupPlayerPhysics()
+playerPhysics::playerPhysics()  // constructor
+{
+    
+}
+
+bool playerPhysics::setupState()  // sets up state of player physics
+{
+    return (false);
+}
+
+void playerPhysics::updateState()  // updates the state of player physics
+{
+    if (!physicsSetup)
+    {
+        if (setupPhysics()) // sets up physics state for players
+        {
+//            exit(0);
+            physicsSetup = true;
+        }
+        else
+        {
+        }
+    }
+    else
+    {
+    }
+}
+
+bool playerPhysics::setupPhysics()  // sets up playerPhysics
 {
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();

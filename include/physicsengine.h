@@ -39,9 +39,7 @@ public:
 
     ~physicsEngine();	// destructor
 
-    bool getPlayerPhysicsSetup();  // retrieves the value of the playerPhysicsSetup variable
-    void setPlayerPhysicsSetup(bool setup);	 // sets the value of the playerPhysicsSetup variable
-
+    
     bool getBasketballlPhysicsSetup();  // retrieves the value of the playerPhysicsSetup variable
     void setBasketballPhysicsSetup(bool setup);	 // sets the value of the playerPhysicsSetup variable
 
@@ -71,8 +69,7 @@ public:
     // sets up object physics
     bool setupCourtPhysics();  // sets up court physics
     bool setupHoopPhysics();  // sets up hoop physics
-    bool setupPlayerPhysics();  // setsup up player physics
-
+    
     void updateState();  // updates the state of the physics engine.
     void updatePositions();  // updates thr position of objects
     void updateBasketballPosition();  // updates the position of basketball object(s)

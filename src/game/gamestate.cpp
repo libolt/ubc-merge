@@ -344,7 +344,7 @@ bool gameState::createBasketballInstances()
     bballInstance.setSteer(bballSteer);
     logMsg("setting instance number");
     bballInstance.setNumber(0);
-
+    bballInstance.setNumberSet(true);
 //    bballInstance.setModelNeedsLoaded(true);
     basketballInstance.push_back(bballInstance);
     return true;

@@ -21,5 +21,24 @@
 #ifndef _PLAYERPHYSICS_H_
 #define _PLAYERPHYSICS_H_
 
+class playerPhysics
+{
+    public:
+    
+        bool getPhysicsSetup();  // retrieves the value of the playerPhysicsSetup variable
+        void setPhysicsSetup(bool setup);  // sets the value of the playerPhysicsSetup variable
+
+        playerPhysics();  // constructor
+
+        bool setupPhysics();  // sets up player physics
+
+        bool setupState();  // sets up state of player physics
+        
+        void updateState();  // updates the state of player physics
+        
+    private:
+    
+};
+
 #endif // PLAYERPHYSICS_H
 
