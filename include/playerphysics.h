@@ -37,7 +37,8 @@ class playerPhysics
         void updateState();  // updates the state of player physics
         
     private:
-    
+        bool physicsSetup;  // determines whether all players' physics bodies have been setup
+
 };
 
 #endif // PLAYERPHYSICS_H

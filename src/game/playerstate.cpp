@@ -462,11 +462,11 @@ void playerState::setPhysBody(btRigidBody *set)  	// sets physBody
 	physBody = set;
 }
 
-playerPhysics getPhysics()  // retrieves the value of physics
+playerPhysics playerState::getPhysics()  // retrieves the value of physics
 {
     return (physics);
 }
-void setPhysics(playerPhysics set)  // sets the value of physics 
+void playerState::setPhysics(playerPhysics set)  // sets the value of physics
 {
     physics = set;
 }
@@ -576,7 +576,7 @@ size_t playerState::getPassToPlayer()	// retrieves the value of the passToPlayer
 }
 void playerState::setPassToPlayer(size_t set)	// sets the value of the passToPlayer
 {
-	passToPlayer = player;
+    passToPlayer = set;
 }
 
 bool playerState::getShotTaken()  // retrieves the value of shotTaken

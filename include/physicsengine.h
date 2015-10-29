@@ -123,7 +123,6 @@ private:
     btScalar changeInTime;  // stores the change in time between loops
     btScalar oldTime;  // stores the previous loops time
 
-    bool playerPhysicsSetup;  // determines whether all players' physics bodies have been setup
     bool basketballPhysicsSetup; // determines whether all basketballs' physics bodies have been setup
     bool courtPhysicsSetup;  // determines whether the court's physics body has been setup
 	bool hoopPhysicsSetup;  // determines whether all hoop' physics bodies have been setup

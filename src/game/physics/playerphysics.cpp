@@ -25,7 +25,8 @@
 
 playerPhysics::playerPhysics()  // constructor
 {
-    
+    physicsSetup = false;
+
 }
 
 bool playerPhysics::getPhysicsSetup() // retrieves the value of physicsSetup
@@ -34,7 +35,7 @@ bool playerPhysics::getPhysicsSetup() // retrieves the value of physicsSetup
 }
 void playerPhysics::setPhysicsSetup(bool set)       // sets the value of physicsSetup
 {
-    playerPhysicsSetup = setup;
+    physicsSetup = set;
 }
 
 bool playerPhysics::setupState()  // sets up state of player physics
@@ -64,9 +65,10 @@ bool playerPhysics::setupPhysics()  // sets up playerPhysics
 {
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
+    boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
 
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
-
+    btDynamicsWorld *world;
     for (size_t x=0; x<teamInstance.size();++x)
     {
         std::vector<playerState> activePlayerInstance = teamInstance[x].getActivePlayerInstance();
@@ -123,7 +125,10 @@ bool playerPhysics::setupPhysics()  // sets up playerPhysics
                 logMsg("team = " + convert->toString(x));
 
                 logMsg("Adding Rigid Body to world");
+                world = physEngine->getWorld();
                 world->addRigidBody(activePlayerInstance[i].getPhysBody(), COL_TEAM1, team1CollidesWith);
+                physEngine->setWorld(world);
+
     //          world->addRigidBody(pInstance[i].getPhysBody());
             }
             else if (x == 1)
@@ -133,7 +138,9 @@ bool playerPhysics::setupPhysics()  // sets up playerPhysics
                 logMsg("team = " + convert->toString(x));
 
                 logMsg("Adding Rigid Body to world");
+                world = physEngine->getWorld();
                 world->addRigidBody(activePlayerInstance[i].getPhysBody(), COL_TEAM2, team2CollidesWith);
+                physEngine->setWorld(world);
     //          world->addRigidBody(pInstance[i].getPhysBody());
 
             }

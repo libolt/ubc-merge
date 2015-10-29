@@ -78,7 +78,6 @@ physicsEngine::physicsEngine()
     team1CollidesWith = COL_COURT; // | COL_BBALL | COL_TEAM2;  // determines what team1 collides with
     team2CollidesWith = COL_COURT; // | COL_BBALL | COL_TEAM1;  // determiens what team2 collides with
 
-    playerPhysicsSetup = false;
     basketballPhysicsSetup = false;
     courtPhysicsSetup = false;
     hoopPhysicsSetup = false;
