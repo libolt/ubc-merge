@@ -138,15 +138,6 @@ physicsEngine::~physicsEngine()
 
 }
 
-bool physicsEngine::getPlayerPhysicsSetup() // retrieves the value of the playerPhysicsSetup variable
-{
-    return (playerPhysicsSetup);
-}
-void physicsEngine::setPlayerPhysicsSetup(bool setup)       // sets the value of the playerPhysicsSetup variable
-{
-    playerPhysicsSetup = setup;
-}
-
 bool physicsEngine::getBasketballlPhysicsSetup()    // retrieves the value of the playerPhysicsSetup variable
 {
     return (basketballPhysicsSetup);
@@ -230,7 +221,7 @@ void physicsEngine::setupState(void)
     debugDraw = new BtOgre::DebugDrawer(render->getMSceneMgr()->getRootSceneNode(), world);
     world->setDebugDrawer(debugDraw);
 
-    if (!playerPhysicsSetup)
+/*    if (!playerPhysicsSetup)
     {
         if (setupPlayerPhysics()) // sets up physics state for players
         {
@@ -244,7 +235,7 @@ void physicsEngine::setupState(void)
     else
     {
     }
-
+    */
     if (!courtPhysicsSetup)
     {
         if (setupCourtPhysics()) // sets up physics state for court

@@ -28,6 +28,15 @@ playerPhysics::playerPhysics()  // constructor
     
 }
 
+bool playerPhysics::getPhysicsSetup() // retrieves the value of physicsSetup
+{
+    return (physicsSetup);
+}
+void playerPhysics::setPhysicsSetup(bool set)       // sets the value of physicsSetup
+{
+    playerPhysicsSetup = setup;
+}
+
 bool playerPhysics::setupState()  // sets up state of player physics
 {
     return (false);
@@ -146,5 +155,5 @@ bool playerPhysics::setupPhysics()  // sets up playerPhysics
     }
     gameS->setTeamInstance(teamInstance);   // stores all the changes to the teamInstance
 //    exit(0);
-return true;
+    return true;
 }

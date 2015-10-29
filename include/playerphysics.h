@@ -25,8 +25,8 @@ class playerPhysics
 {
     public:
     
-        bool getPhysicsSetup();  // retrieves the value of the playerPhysicsSetup variable
-        void setPhysicsSetup(bool setup);  // sets the value of the playerPhysicsSetup variable
+        bool getPhysicsSetup();  // retrieves the value of physicsSetup
+        void setPhysicsSetup(bool set);  // sets the value of physicsSetup
 
         playerPhysics();  // constructor
 
