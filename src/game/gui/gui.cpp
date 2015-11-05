@@ -465,7 +465,7 @@ void GUISystem::teamsSelected()  // processes team selection
     //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     
-    std::vector<int> teamID;
+    std::vector<size_t> teamID;
     teamID.push_back(team0SelectBox->getIndexSelected());
     teamID.push_back(team1SelectBox->getIndexSelected());
     gameS->setTeamID(teamID);
@@ -485,11 +485,11 @@ void GUISystem::playerStartSelected()  // process player start selection
 //        exit(0);
     std::vector<std::string> team0Starters;
     std::vector<std::string> team1Starters;
-    std::vector<int> starters; // used for initial creatio  of teamStarterID vector
+    std::vector<size_t> starters; // used for initial creatio  of teamStarterID vector
     std::vector<playerState> playerInstance;
     std::vector<playerState> activePlayerInstance;
 
-    int IDs = 0;
+    size_t IDs = 0;
     while (teamStarterID.size() < 2)
     {
         teamStarterID.push_back(starters);
@@ -580,7 +580,7 @@ void GUISystem::playerStartSelected()  // process player start selection
 
     gameS->setTeamStarterID(teamStarterID); // sets the selected starters for both teams in gameState class
 
-    std::vector<int> activePlayerID;
+    std::vector<size_t> activePlayerID;
 
     for (size_t x=0;x<5;++x)
     {
@@ -636,6 +636,7 @@ void GUISystem::playerStartSelected()  // process player start selection
     {
         activePlayerID.push_back(teamStarterID[1][x]);
     }
+
     teamInstance[1].setActivePlayerID(activePlayerID);
     if (!teamInstance[1].getPlayerInstancesCreated())    // checks if playerInstances have been created
     {
@@ -643,10 +644,14 @@ void GUISystem::playerStartSelected()  // process player start selection
 //            exit(0);
         if (teamInstance[1].createPlayerInstances()) // creates the player instances based on playerIDS
         {
+//            exit(0);
+
             logMsg("Player instances created!");
             teamInstance[1].setPlayerInstancesCreated(true);
 //          exit(0);
         }
+//.        exit(0);
+
     }
     playerInstance.clear();
     playerInstance = teamInstance[1].getPlayerInstance();
@@ -681,8 +686,16 @@ void GUISystem::playerStartSelected()  // process player start selection
         i++;
     }
 
-    gameS->setTeamInstance(teamInstance); // sets the teamInstance vector
-
+    if (teamInstance[0].getPlayerInstancesCreated() && teamInstance[1].getPlayerInstancesCreated())
+    {
+        gameS->setTeamInstance(teamInstance); // sets the teamInstance vector
+        gameS->setGameSetupComplete(true);
+    }
+    else
+    {
+        logMsg("Team Instances NOT created!");
+        exit(0);
+    }
 
     logMsg("team 0 C selectbox id = " +convert->toString(teamStarterID[0][1]));
     logMsg("team 0 starter 0 = " +convert->toString(teamStarterID[0][0]));
@@ -690,7 +703,7 @@ void GUISystem::playerStartSelected()  // process player start selection
 //        exit(0);
     hideActiveMenuWidgets();
     menuActive = false;
-    gameS->setGameSetupComplete(true);
+//    exit(0);
 
 }
 

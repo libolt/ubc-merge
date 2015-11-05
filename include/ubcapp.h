@@ -40,7 +40,6 @@
 #include "gameengine.h"
 #include "gamestate.h"
 #include "input.h"
-#include "players.h"
 #include "playerdata.h"
 #include "playerstate.h"
 

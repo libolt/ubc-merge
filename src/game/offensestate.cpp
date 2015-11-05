@@ -72,6 +72,24 @@ offenseState::offenseState() // constructor
 	loadPlays();
 }
 
+teamTypes offenseState::getTeamType()  // retrieves the value of teamType
+{
+    return (teamType);
+}
+void offenseState::setTeamType(teamTypes set)  // sets the value of teamType
+{
+    teamType = set;
+}
+
+courtSide_t offenseState::getCourtSide()  // retrieves the value of courtSide
+{
+    return (courtSide);
+}
+void offenseState::setCourtSide(courtSide_t set)  // sets the value of courtSide
+{
+    courtSide = set;
+}
+
 int offenseState::getSelectedOffense() // returns value of selectedOffense
 {
 	return (selectedOffense);
@@ -178,12 +196,12 @@ void offenseState::setupState()		// sets up initial state of the object
 //	startPositions[0] = Ogre::Vector3(5.0f,-13.5f,380.0f);
 }
 
-void offenseState::updateState(int teamNumber)	// updates the state of the object
+void offenseState::updateState(teamTypes teamType)	// updates the state of the object
 {
 	//gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
-    std::vector<playerState> activePlayerInstance = teamInstance[teamNumber].getActivePlayerInstance();
+    std::vector<playerState> activePlayerInstance = teamInstance[teamType].getActivePlayerInstance();
 
     if (!offenseSetup)
     {
@@ -194,7 +212,7 @@ void offenseState::updateState(int teamNumber)	// updates the state of the objec
         
 		executeOffense();
 	}
-    teamInstance[teamNumber].setActivePlayerInstance(activePlayerInstance);
+    teamInstance[teamType].setActivePlayerInstance(activePlayerInstance);
     gameS->setTeamInstance(teamInstance);
 
 }
@@ -213,11 +231,60 @@ void offenseState::setupOffense() // sets up box offense
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
+    boost::shared_ptr<gameState> gameS = gameState::Instance();
+
+    quarters currentQuarter = gameS->getQuarter();  // gets the current quarter the game is in.
+
+    switch (currentQuarter)
+    {
+        case FIRST:
+        case SECOND:
+           switch (teamType)
+           {
+               case HOMETEAM:
+                   courtSide = LEFTSIDE;
+               break;
+               case AWAYTEAM:
+                   courtSide = RIGHTSIDE;
+               break;
+               default:
+               break;
+           }
+        break;
+    case THIRD:
+    case FOURTH:
+       switch (teamType)
+       {
+           case HOMETEAM:
+               courtSide = RIGHTSIDE;
+           break;
+           case AWAYTEAM:
+               courtSide = LEFTSIDE;
+           break;
+           default:
+           break;
+       }
+    break;
+    default:
+    break;
+    }
     
 	// FIXME! Hard coded values need to be made dynamic
 	playName = "Box";
 	playTitle = "FlashHighPassLow";
-	
+
+    switch (courtSide)
+    {
+        case RIGHTSIDE:
+            playTitle.append("Right");
+        break;
+        case LEFTSIDE:
+            playTitle.append("Left");
+        break;
+        default:
+        break;
+    }
+
     logMsg("plays.size() = " +convert->toString(plays.size()));
     for (size_t x=0;x<plays.size();++x)
 	{
@@ -288,18 +355,20 @@ void offenseState::executeOffense() // executes box offense
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
     std::vector<playerState> activePlayerInstance = teamInstance[gameS->getTeamWithBall()].getActivePlayerInstance();
 
-    int teamNumber = gameS->getTeamWithBall();
-    int playerWithBall = teamInstance[teamNumber].getPlayerWithBall();
+    teamTypes teamWithBall = gameS->getTeamWithBall();
+    size_t playerWithBallInstance = teamInstance[teamWithBall].getPlayerWithBallInstance();
+    size_t playerWithBallID = teamInstance[teamWithBall].getPlayerWithBallID();
+
     playerSteer *pSteer;
 
     if (!allStartPositionsReached)	// checks if all players have reached their start positions for the offense being run
     {
-        logMsg("teamWithBallExecute == " +convert->toString(teamNumber));
-        logMsg("playerWithBallExecute == " +convert->toString(playerWithBall));
+        logMsg("teamWithBallExecute == " +convert->toString(teamWithBall));
+        logMsg("playerWithBallInstanceExecute == " +convert->toString(playerWithBallInstance));
         size_t x = 0;
         while (x < activePlayerInstance.size())
         {
-            if ( activePlayerInstance[x].getPlayerID() != playerWithBall)
+            if ( activePlayerInstance[x].getPlayerID() != playerWithBallID)
             {
                 logMsg("activeSteerInstanceID == " +convert->toString(activePlayerInstance[x].getPlayerID()));
                 pSteer = activePlayerInstance[x].getSteer();
@@ -312,6 +381,7 @@ void offenseState::executeOffense() // executes box offense
 
                 if (!startPositionReached[x])  // checks if each player has reached the start position
                 {
+                    logMsg("startPosition " +convert->toString(x) +" not reached!");
                     std::vector<Ogre::Vector3> steerCoords = plays[0].getStartPositions();
                     OpenSteer::Vec3 coords = convert->toOpenSteerVec3(startPositions[x]);
                     pSteer->setSteerCoords(coords);
@@ -350,7 +420,7 @@ void offenseState::executeOffense() // executes box offense
             {
                 if (allExecutionsReached < 4)
                 {
-                    if (ID != playerWithBall)
+                    if (ID != playerWithBallInstance)
                     {
                         pSteer = activePlayerInstance[ID].getSteer();
                         bool directiveComplete = checkForDirective(pSteer->getPlayerPosition());  // checks if player must follow directive before executing
@@ -379,7 +449,7 @@ void offenseState::executeOffense() // executes box offense
                                     }
                                     else //if (!executePositionReached[ID][x])
 					                {
-                                        logMsg("Team " +convert->toString(teamNumber) +" Player " +convert->toString(ID) +" Seeking Offense Execute Position!");
+                                        logMsg("Team " +convert->toString(teamWithBall) +" Player " +convert->toString(ID) +" Seeking Offense Execute Position!");
                                         OpenSteer::Vec3 executePosition = convert->toOpenSteerVec3(executePositions[ID][x]);
                                         pSteer->setSteerCoords(executePosition);
                                         float distToPosition = OpenSteer::Vec3::distance (pSteer->getSteerCoords(), pSteer->position());
@@ -425,8 +495,10 @@ bool offenseState::checkForDirective(playerPositions playerPosition) // checks i
     //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     
-	for (int x=0;x<playerDirective.size();++x)
-	{
+    size_t x = 0;
+    logMsg("playerDirective.size() == " +convert->toString(playerDirective.size()));
+    while (x < playerDirective.size())
+    {
         logMsg("playerPosition = " +convert->toString(playerDirective[x].getPlayerPosition()));
 		if (playerDirective[x].getPlayerPosition() == playerPosition)
 		{
@@ -441,12 +513,19 @@ bool offenseState::checkForDirective(playerPositions playerPosition) // checks i
 							switch (playerDirective[x].getPositionType())
 							{
 								case START:
-									if (!startPositionReached[playerDirective[x].getPlayerSet()])
+                                    logMsg("offense position type = START");
+                                    logMsg("startPositionReached.size() == " +convert->toString(startPositionReached.size()));
+                                    logMsg("x == " +convert->toString(x));
+                                    logMsg("playerSet == " +convert->toString(playerDirective[x].getPlayerSet()));
+                                    logMsg("startPositionReached == " +convert->toString(startPositionReached[playerDirective[x].getPlayerSet()]));
+                                    if (!startPositionReached[playerDirective[x].getPlayerSet()])
 									{
 										//exit(0);
 									}
+                                    logMsg("surived startPosition reached!");
 									break;
 								case EXECUTE:
+                                    logMsg("offense position type = EXECUTe");
 									if (!executePositionReached[playerDirective[x].getPlayerSet()][playerDirective[x].getPosition()])
 									{
 										return (false);
@@ -474,6 +553,7 @@ bool offenseState::checkForDirective(playerPositions playerPosition) // checks i
 				    break;
 			}
 		}
+        ++x;
 	}
 	return (true);
 }

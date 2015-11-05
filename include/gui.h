@@ -365,10 +365,10 @@ private:
 
     std::vector< std::vector<std::string> > playerNames;
     std::vector< std::vector<std::string> > playerPositions;
-    std::vector< std::vector<int> > playerIDs;  // stores player IDs for each team
-    std::vector< std::vector<int> > team0IDs;
-    std::vector< std::vector<int> > team1IDs;
-    std::vector< std::vector<int> > teamStarterID; // stores the selected starters for each team
+    std::vector< std::vector<size_t> > playerIDs;  // stores player IDs for each team
+    std::vector< std::vector<size_t> > team0IDs;
+    std::vector< std::vector<size_t> > team1IDs;
+    std::vector< std::vector<size_t> > teamStarterID; // stores the selected starters for each team
 };
 
 #endif // GUI_H_INCLUDED

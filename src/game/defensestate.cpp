@@ -29,6 +29,24 @@ defenseState::defenseState() // constructor
 	execute = false;
 }
 
+teamTypes defenseState::getTeamType()  // retrieves the value of teamType
+{
+    return (teamType);
+}
+void defenseState::setTeamType(teamTypes set)  // sets the value of teamType
+{
+    teamType = set;
+}
+
+courtSide_t defenseState::getCourtSide()  // retrieves the value of courtSide
+{
+    return (courtSide);
+}
+void defenseState::setCourtSide(courtSide_t set)  // sets the value of courtSide
+{
+    courtSide = set;
+}
+
 bool defenseState::getExecute()	// retrieves the value of execute variable
 {
 	return (execute);
@@ -42,39 +60,38 @@ void defenseState::setupState()		// sets up initial state of the object
 {
 
 }
-void defenseState::updateState(int teamNumber)	// updates the state of the object
+void defenseState::updateState(teamTypes teamOnDefense)	// updates the state of the object
 {
     //conversion *convert = conversion::Instance();
 	boost::shared_ptr<conversion> convert = conversion::Instance();
     //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
-	int teamWithBall = gameS->getTeamWithBall();
+    teamTypes teamWithBall = gameS->getTeamWithBall();
 
 	std::vector<teamState> teamInstance = gameS->getTeamInstance();
-    std::vector<playerState> playerDInstance = teamInstance[teamNumber].getActivePlayerInstance();
+    std::vector<playerState> playerDInstance = teamInstance[teamOnDefense].getActivePlayerInstance();
     std::vector<playerState> playerOInstance = teamInstance[teamWithBall].getActivePlayerInstance();
-    std::vector<int> activeDID = teamInstance[teamNumber].getActivePlayerID();
-    std::vector<int> activeOID = teamInstance[teamWithBall].getActivePlayerID();
+    std::vector<size_t> activeDID = teamInstance[teamOnDefense].getActivePlayerID();
+    std::vector<size_t> activeOID = teamInstance[teamWithBall].getActivePlayerID();
     std::vector<Ogre::Vector3> playerOPos;  // stores positions of offensive players
     std::vector<Ogre::Vector3> playerDPos;  // stores positions of defensive players
 
-    int humanPlayer = teamInstance[teamNumber].getHumanPlayer();
+    int humanPlayer = teamInstance[teamOnDefense].getHumanPlayer();
     int numPlayers = activeDID.size(); // stores the number of players on the court per team
 //	exit(0);
 	if (execute)
 	{
-        /*
-	    exit(0);
-		for (int x=0;x<playerOInstance.size();++x)
-		{
-			playerOPos.push_back(playerOInstance[x].getNode()->getPosition());
-		}
+/*
+        for (int x=0;x<playerOInstance.size();++x)
+        {
+            playerOPos.push_back(playerOInstance[x].getNode()->getPosition());
+        }
 
-		for (int x=0;x<playerDInstance.size();++x)
-		{
-			playerDPos.push_back(playerDInstance[x].getNode()->getPosition());
-		}
-        */
+        for (int x=0;x<playerDInstance.size();++x)
+        {
+            playerDPos.push_back(playerDInstance[x].getNode()->getPosition());
+        }
+*/
 //        activePlayerInstance = teamInstance[1].getPlayerInstance();
         size_t x = 0;
         while (x<playerOInstance.size())
@@ -466,7 +483,7 @@ void defenseState::updateState(int teamNumber)	// updates the state of the objec
 //		}
 	}
 
-    teamInstance[teamNumber].setActivePlayerInstance(playerDInstance);
+    teamInstance[teamOnDefense].setActivePlayerInstance(playerDInstance);
     gameS->setTeamInstance(teamInstance);
 
 }

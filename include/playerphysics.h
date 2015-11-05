@@ -18,37 +18,31 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef _DEFENSESTATE_H_
-#define _DEFENSESTATE_H_
+#ifndef _PLAYERPHYSICS_H_
+#define _PLAYERPHYSICS_H_
 
-#include "enums.h"
-
-class defenseState
+class playerPhysics
 {
-public:
-
-	defenseState();	// constructor
-
-    teamTypes getTeamType();  // retrieves the value of teamType
-    void setTeamType(teamTypes set);  // sets the value of teamType
+    public:
     
-    courtSide_t getCourtSide();  // retrieves the value of courtSide
-    void setCourtSide(courtSide_t set);  // sets the value of courtSide
+        bool getPhysicsSetup();  // retrieves the value of physicsSetup
+        void setPhysicsSetup(bool set);  // sets the value of physicsSetup
+        
+        bool getStateSet();  // retrieves the value of stateSet
+        void setStateSet(bool set);  // sets the value of stateSet
+        
+        playerPhysics();  // constructor
 
-    bool getExecute();	// retrieves the value of execute variable
-    void setExecute(bool ex);	// sets the value of the execute variable
+        bool setupPhysics();  // sets up player physics
 
-    void setupState();		// sets up initial state of the object
-
-    void updateState(teamTypes teamType);	// updates the state of the object
-
-private:
-
-    teamTypes teamType;  // stores the type of team on defense
-    courtSide_t courtSide;  // stores which side of the court the defense executes on.
-
-	bool execute;	// If set then execute the defense logic
-
+        bool setupState();  // sets up state of player physics
+        
+        void updateState();  // updates the state of player physics
+        
+    private:
+        bool physicsSetup;  // determines whether all players' physics bodies have been setup
+        bool stateSet;  // if true then the player physics state has been set
 };
 
-#endif
+#endif // PLAYERPHYSICS_H
+

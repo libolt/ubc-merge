@@ -30,9 +30,7 @@
 #include "load.h"
 #include "logging.h"
 #include "playerdata.h"
-#include "players.h"
 #include "renderengine.h"
-#include "teams.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
 #include "android.h"
@@ -405,7 +403,6 @@ bool loader::loadTeamListFile(string fileName)
     boost::shared_ptr<conversion> convert = conversion::Instance();
     
     boost::shared_ptr<renderEngine> render = renderEngine::Instance();
-    teams *team = teams::Instance();
 
     std::vector<std::string> teamName;
     std::vector<std::string> files;
@@ -493,10 +490,7 @@ bool loader::loadTeamListFile(string fileName)
 
 teamData loader::loadTeamFile(string fileName)
 {
-//    teams *team = teams::Instance();
-    //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    //gameState *gameS = gameState::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 	std::vector<teamData> teamDataInstance = gameS->getTeamDataInstance();
@@ -642,11 +636,9 @@ std::vector<playerData> loader::loadPlayers()
 // loads XML file containing list of players and the files representing them
 bool loader::loadPlayerListFile( string fileName)
 {
-    //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<renderEngine> render = renderEngine::Instance();
     std::vector<std::string> playerFiles;
-    players *player = players::Instance();
 
     std::string fileContents;
     tinyxml2::XMLDocument doc;

@@ -28,10 +28,8 @@
 #include "logging.h"
 #include "networkplayerstateobject.h"
 #include "playerdata.h"
-#include "players.h"
 #include "physicsengine.h"
 #include "renderengine.h"
-#include "teams.h"
 #include "timing.h"
 
 //extern "C"
@@ -54,31 +52,27 @@ boost::shared_ptr<gameState> gameState::Instance()
 
 gameState::gameState()
 {
-	basketballModelLoaded = false;
-	courtModelLoaded = false;
-	hoopModelLoaded = false;
-	setupEnvironmentCompleted = false;
+    basketballInstancesCreated = false;
+    courtModelLoaded = false;
+    hoopModelLoaded = false;
+    setupEnvironmentCompleted = false;
     courtDataLoaded = false;
     courtInstanceCreated = false;
-	teamInstancesCreated = false;
+    teamInstancesCreated = false;
     gameStarted = false;
-    teamWithBall = -1;
-
+    teamWithBall = NOTEAM;
+    tipOffSetupComplete = false;
+    tipOffComplete = false;
     selectedCourtDataInstance = -1;
     
     activeBBallInstance = -1;
 
     gameType = NOGAME;
     gameSetupComplete = false;
-    tipOffComplete = false;
-    ballTipped = false;
-    ballTippedToTeam = -1;
-    ballTippedToPlayerID = -1;
-    ballTippedToPosition = NONE;
-    ballTipForceApplied = false;
-    playerHasBasketball = false;
+
+    //playerHasBasketball = false;
     bballBounce = -1;
-    currentQuarter = FIRST;
+    quarter = NOQUARTER;
     gameTimeLeft = 0.0f;
     quarterTimeLeft = 0.0f;
     finished = false;
@@ -95,6 +89,15 @@ gameTypes gameState::getGameType()  // retrieves the value of gameType
 void gameState::setGameType(gameTypes type)	 // sets the value of gameType
 {
 	gameType = type;
+}
+
+quarters gameState::getQuarter()  // retrieves the value of quarter
+{
+    return (quarter);
+}
+void gameState::setQuarters(quarters set)  // sets he value of quarter
+{
+    quarter = set;
 }
 
 bool gameState::getGameSetupComplete()  // retrieves the value of gameSetupComplete
@@ -151,48 +154,48 @@ void gameState::setCourtDataInstance(std::vector<courtData> instance)  // sets t
 	courtDataInstance = instance;
 }
 
-int gameState::getActiveBBallInstance()  // retrieves the value of activeBBallInstance
+size_t gameState::getActiveBBallInstance()  // retrieves the value of activeBBallInstance
 {
     return (activeBBallInstance);
 }
-void gameState::setActiveBBallInstance(int set)  // sets the value of activeBBallInstance
+void gameState::setActiveBBallInstance(size_t set)  // sets the value of activeBBallInstance
 {
     activeBBallInstance = set;
 }
 
-int gameState::getSelectedCourtDataInstance()  // retrieves the value of selectedCourtDataInstance
+size_t gameState::getSelectedCourtDataInstance()  // retrieves the value of selectedCourtDataInstance
 {
     return (selectedCourtDataInstance);
 }
-void gameState::setSelectedCourtDataInstance(int selected) // sets the value of selectedCourtDataInstance
+void gameState::setSelectedCourtDataInstance(size_t selected) // sets the value of selectedCourtDataInstance
 {
     selectedCourtDataInstance = selected;
 }
 
-std::vector<int> gameState::getTeamID(void)  // retrieves the value of teamID
+std::vector<size_t> gameState::getTeamID(void)  // retrieves the value of teamID
 {
     return (teamID);
 }
-void gameState::setTeamID(std::vector<int> ID)  // sets the value of teamID
+void gameState::setTeamID(std::vector<size_t> ID)  // sets the value of teamID
 {
     teamID = ID;
 }
 
-std::vector<int> gameState::getPlayerID(void)  // retrieves the value of playerID
+std::vector<size_t> gameState::getPlayerID(void)  // retrieves the value of playerID
 {
     return (playerID);
 }
-void gameState::setPlayerID(std::vector<int> ID)  // sets the value of playerID
+void gameState::setPlayerID(std::vector<size_t> ID)  // sets the value of playerID
 {
     playerID = ID;
 }
 
-std::vector< std::vector<int> > gameState::getTeamStarterID()  // retrieves value of teamStarterID
+std::vector< std::vector<size_t> > gameState::getTeamStarterID()  // retrieves value of teamStarterID
 {
     return (teamStarterID);
 }
 
-void gameState::setTeamStarterID(std::vector< std::vector<int> > ID)  // sets the value of teamStarterID
+void gameState::setTeamStarterID(std::vector< std::vector<size_t> > ID)  // sets the value of teamStarterID
 {
     teamStarterID = ID;
 }
@@ -215,68 +218,6 @@ std::vector <basketballs> gameState::getBasketballInstance()  // retrieves the v
     basketballInstance = bballInstance;
 }
 
-bool gameState::getTipOffComplete()  // retrieves the value of tipOffComplete
-{
-    return (tipOffComplete);
-}
-void gameState::setTipOffComplete(bool complete)  // sets the value of tipOffComplete
-{
-    tipOffComplete = complete;
-}
-
-bool gameState::getBallTipped()	 // retrieves the value of ballTipped
-{
-	return (ballTipped);
-}
-void gameState::setBallTipped(bool tipped)  // sets the value of ballTipped
-{
-	ballTipped = tipped;
-}
-
-int gameState::getBallTippedToTeam()  // retrieves the value of ballTippedToTeam
-{
-	return (ballTippedToTeam);
-}
-void gameState::setBallTippedToTeam(int team)  // sets the value of ballTippedToTeam
-{
-	ballTippedToTeam = team;
-}
-int gameState::getBallTippedToPlayerID()  // retrieves the value of ballTippedToPlayerID
-{
-	return (ballTippedToPlayerID);
-}
-void gameState::setBallTippedToPlayerID(int player)	 // sets the value of ballTippedToPlayerID
-{
-	ballTippedToPlayerID = player;
-}
-
-playerPositions gameState::getBallTippedToPosition()  // retrieves the value of ballTippedToPosition
-{
-    return (ballTippedToPosition);
-}
-void gameState::setBallTippedToPosition(playerPositions set)  // sets the value of ballTippedToPosition
-{
-    ballTippedToPosition = set;
-}
-
-bool gameState::getBallTipForceApplied()  // retrieves the value of ballTipForceApplied
-{
-	return (ballTipForceApplied);
-}
-void gameState::setBallTipForceApplied(bool tip)  // sets the value of ballTipForceApplied
-{
-	ballTipForceApplied = tip;
-}
-
-bool gameState::getPlayerHasBasketball()  // retrieves the value of playerHasBasketball
-{
-    return (playerHasBasketball);
-}
-void gameState::setPlayerHasBasketball(bool set)  // setd the value of playerHasBasketball
-{
-    playerHasBasketball = set;
-}
-
 bool gameState::getGameStarted(void)  // retrieves the value of gameStarted
 {
     return(gameStarted);
@@ -287,20 +228,47 @@ void gameState::setGameStarted(bool started)  // sets the value of gameStarted
     gameStarted = started;
 }
 
-int gameState::getTeamWithBall(void)  // retrieves the value of teamWithBall
+jumpBalls gameState::getJumpBall()  // retrieves the value of jumpBall
+{
+ return (jumpBall);
+}
+void gameState::setJumpBall(jumpBalls &set)  // sets the value of jumpBall
+{
+    jumpBall = set;
+}
+
+bool gameState::getTipOffSetupComplete()  // retrieves the value of tipOffSetupComplete
+{
+    return (tipOffSetupComplete);
+}
+void gameState::setTipOffSetupComplete(bool set)  // sets the value of tipOffSetupComplete
+{
+    tipOffSetupComplete = set;
+}
+
+bool gameState::getTipOffComplete()  // retrieves the value of tipOffComplete
+{
+    return (tipOffComplete);
+}
+void gameState::setTipOffComplete(bool set)  // sets the value of tipOffComplete
+{
+    tipOffComplete = set;
+}
+
+teamTypes gameState::getTeamWithBall(void)  // retrieves the value of teamWithBall
 {
 	return (teamWithBall);
 }
-void gameState::setTeamWithBall(int ball)  // sets the value of teamWithBall
+void gameState::setTeamWithBall(teamTypes set)  // sets the value of teamWithBall
 {
-	teamWithBall = ball;
+	teamWithBall = set;
 }
 
-int gameState::getBballBounce()  // retrieves the value of bballBounce
+size_t gameState::getBballBounce()  // retrieves the value of bballBounce
 {
 	return (bballBounce);
 }
-void gameState::setBballBounce(int bounce)  // sets the value of bballBounce
+void gameState::setBballBounce(size_t bounce)  // sets the value of bballBounce
 {
 	bballBounce = bounce;
 }
@@ -342,13 +310,13 @@ void gameState::setTeamInstancesCreated(bool created)  // sets the value of team
 	teamInstancesCreated = created;
 }
 
-bool gameState::getBasketballModelLoaded()  // gets the value of basketballModelLoaded
+bool gameState::getBasketballInstancesCreated()  // gets the value of basketballInstancesCreated
 {
-	return (basketballModelLoaded);
+	return (basketballInstancesCreated);
 }
-void gameState::setBasketballModelLoaded(bool loaded)  // sets the value of basketballModelLoaded
+void gameState::setBasketballInstancesCreated(bool set)  // sets the value of basketballInstancesCreated
 {
-	basketballModelLoaded = loaded;
+	basketballInstancesCreated = set;
 }
 
 bool gameState::assignHoopToTeams()  // assigns which hoop belongs to each team
@@ -358,90 +326,26 @@ bool gameState::assignHoopToTeams()  // assigns which hoop belongs to each team
     return (true);
 }
 
-// assigns teams that are playing to the game state machine
-bool gameState::assignTeams()
-{
-    logMsg("assigning teams");
-    exit(0);
-//    gameState *gameS = gameState::Instance();
-
-    // sets the teams that are playing to teamID
-    std::vector<int> teamIDS;
-    teamID.push_back(1);	// hard codes team with ID = 1 as first team, code needs reworking
-    teamID.push_back(2);	// hard codes team with ID = 2 as second team, code needs reworking
-//    gameS->setTeamID(teamIDS);
-
-    return true;
-}
-
-// assigns the players that are playing to the game state machine
-bool gameState::assignPlayers()
-{
-    logMsg("assigning players");
-    exit(0);
-    //gameState *gameS = gameState::Instance();
-    boost::shared_ptr<gameState> gameS = gameState::Instance();
-    
-    players *player = players::Instance();
-    teams *team = teams::Instance();
-
-    std::vector<teamData> teamN = team->getTeamArray(); // stores the contents of teamArray in teamN
-//    boost::shared_ptr<teamData> teamN; // = team->getTeamArray(); // stores the contents of teamArray in teamN
-    // sets the players used on both teams
-    std::vector<int> team1Starters;  // stores team 1 starters
-    std::vector<int> team2Starters;  // stores team 2 starters
-    for (size_t x = 0; x < teamN.size(); ++x)      // loops through teamN std::vector
-    {
-        if (teamN[x].getID() == teamID[0])     // checks if teamN's ID matches that of teamIDS[0]
-        {
-
-        //    team1Starters = teamN[x].getStarters();     // copies the starters to the team1Starters std::vector
-            exit(0);
-        }
-        else if (teamN[x].getID() == teamID[1])        // checks if teamN's ID matches taht of teamIDs[1]
-        {
-            team2Starters = teamN[x].getStarters();     // copies the startesr to the team2Starters std::vector
-        }
-        else
-        {
-        }
-
-    }
-
-    std::vector <int> playerIDS = gameS->getPlayerID();      // stores the values of playerID in playerIDS std::vector
-    std::vector <int>::iterator playersIT;   // iterator for the playerIDS std::vector
-
-    // loops through team 1 starters and assigns them to playerIDS std::vector
-    for (playersIT = team1Starters.begin(); playersIT != team1Starters.end(); ++playersIT)
-    {
-    	logMsg("playersIT == "  +*playersIT);
-        playerIDS.push_back(*playersIT);
-    }
-
-    // loops through team 2 starters and assigns them to playerIDS std::vector
-    for (playersIT = team2Starters.begin(); playersIT != team2Starters.end(); ++playersIT)
-    {
-        playerIDS.push_back(*playersIT);
-    }
-
-    // sets value of playerID in gameState class
-    gameS->setPlayerID(playerIDS);
-
-
-    return true;
-}
-
-// creates the player Instances for the particular game
-
-
 // creates basketball Instances
 bool gameState::createBasketballInstances()
 {
+    logMsg("creating temporary baskteball instance");
     basketballs bballInstance;  // creates an instance of the basketballs class
+    logMsg("setting model name");
     bballInstance.setModelName("bball.mesh");
-    bballInstance.loadModel();
+    logMsg("loading model");
+    if (bballInstance.loadModel())
+    {
+        bballInstance.setModelNeedsLoaded(false);
+        bballInstance.setModelLoaded(true);
+    }
+    logMsg("creating steer object");
     basketballSteer *bballSteer = new basketballSteer; // steer instance
     bballInstance.setSteer(bballSteer);
+    logMsg("setting instance number");
+    bballInstance.setNumber(0);
+    bballInstance.setNumberSet(true);
+//    bballInstance.setModelNeedsLoaded(true);
     basketballInstance.push_back(bballInstance);
     return true;
 }
@@ -453,10 +357,12 @@ bool gameState::createTeamInstances()
 	teamInstance.push_back(tInstance);	// adds empty teamState to teamInstance vector
 	teamInstance.push_back(tInstance);	// adds empty teamState to teamInstance vector
 
-	teamInstance[0].setTeamNumber(teamID[0]);
-	teamInstance[1].setTeamNumber(teamID[1]);
-    teamInstance[0].setHumanControlled(false);
-    teamInstance[1].setHumanControlled(true);
+    teamInstance[0].setTeamID(teamID[0]);
+    teamInstance[1].setTeamID(teamID[1]);
+    teamInstance[0].setTeamType(HOMETEAM);
+    teamInstance[1].setTeamType(AWAYTEAM);
+    teamInstance[0].setHumanControlled(true);
+    teamInstance[1].setHumanControlled(false);
 	teamInstance[0].setupState();
 	teamInstance[1].setupState();
 //	exit(0);
@@ -568,41 +474,43 @@ void gameState::setHoopStartPositions()  // sets the initial coordinates for the
 // sets up tip off conditions
 bool gameState::setupTipOff()
 {
-//    basketballs *basketball = basketballs::Instance();
-//    gameState *gameS = gameState::Instance();
-//    players *player = players::Instance();
-    teams *team = teams::Instance();
+    teamTypes currentTeam = jumpBall.getBallTippedToTeam();
 
-//    std::vector<basketballs> basketballInstance = getBasketballInstance();
-//    SceneNode *bball;
-/*    bball = basketballInstance[activeBBallInstance].getNode();
-    bball->setPosition(1.4f,5.0f,352.0f);
-    basketballInstance[activeBBallInstance].setNode(bball);
-    basketballInstance[activeBBallInstance].setTipOffStart(true);
-    setBasketballInstance(basketballInstance);
-*/
-//    std::vector<int> playerIDS = getPlayerID();
-//    std::vector <playerState> pInstance = getPlayerInstance();
-//    std::vector <Ogre::SceneNode*> playerNodes = player->getNode();
-
-//    setPlayerStartPositions();	// sets starting positions for the players
-
-//    player->setNode(playerNodes);   // copies playerNodes std::vector to Node std::vector in players class
-    return true;
+    std::vector<playerPositions> jumpBallPlayer = jumpBall.getJumpBallPlayer();
+    if (teamWithBall == NOTEAM && teamInstancesCreated)
+    {
+        if (!jumpBall.getSetupComplete())
+        {
+            jumpBall.setJumpBallLocation(CENTERCIRCLE);
+            jumpBallPlayer.clear();
+            jumpBallPlayer.push_back(C);
+            jumpBallPlayer.push_back(C);
+            jumpBall.setJumpBallPlayer(jumpBallPlayer);
+            jumpBall.setSetupComplete(true);
+            jumpBall.setExecuteJumpBall(true);
+            return (true);
+        }
+        else
+        {
+            
+        }
+    }
+    return (false);
 }
 
 // executes tip off
 bool gameState::executeTipOff()
 {
- //   gameState *gameS = gameState::Instance();
-    players *player = players::Instance();
-
-    std::vector<basketballs> basketballInstance = getBasketballInstance();
-
-//    basketballInstance[activeBBallInstance].nodeChangePosition(basketballInstance[activeBBallInstance].calculatePositionChange());
-//exit(0);
-//   setBasketballInstance(basketballInstance);
-    return true;
+    if (!jumpBall.updateState())
+    {
+        logMsg("tipOff not complete!");
+//        exit(0);
+    }
+    else
+    {
+        return (true);
+    }
+    return (false);
 }
 
 // sets up the game condition
@@ -610,9 +518,7 @@ bool gameState::setupState()
 {
 	//AISystem *ai = AISystem::Instance();
     boost::shared_ptr<AISystem> ai = AISystem::Instance();
-    players *player = players::Instance();
     boost::shared_ptr<renderEngine> render = renderEngine::Instance();
-    teams *team = teams::Instance();
     boost::shared_ptr<loader> load = loader::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
@@ -621,6 +527,7 @@ bool gameState::setupState()
 
     if (!courtModelLoaded)
     {
+        logMsg("creating court instances!");
         if (createCourtInstances())  // creates the court instances
         {
             courtModelLoaded = true;
@@ -628,11 +535,12 @@ bool gameState::setupState()
         }
     }
 
-    if (!basketballModelLoaded)	// checks if court model has been loaded
+    if (!basketballInstancesCreated)	// checks if court model has been loaded
     {
+        logMsg("creating basketball instances!");
     	if (createBasketballInstances()) // creates the basketball instances
     	{
-    		basketballModelLoaded = true;
+    		basketballInstancesCreated = true;
     	}
 
         // FIXEME! this should not be hard coded
@@ -641,6 +549,7 @@ bool gameState::setupState()
 
     if (!hoopModelLoaded)
     {
+        logMsg("creating hoop instances!");
         if (createHoopInstances())  // creates the hoop instances
         {
         	hoopModelLoaded = true;
@@ -663,6 +572,8 @@ bool gameState::setupState()
         }
     }
 
+    // sets the quarter being played to the first one.
+    quarter = FIRST;
 //    basketballInstance[activeBBallInstance].getNode()->setPosition(1.4f,5.0f,366.0f);
 
 
@@ -695,14 +606,11 @@ bool gameState::setupState()
     }
 //	loads("../../data/players/players.xml");
 
-    setupTipOff();	// sets up tip off conditions
+    if (!tipOffSetupComplete)
+    {
+        tipOffSetupComplete = setupTipOff();	// sets up tip off conditions
+    }
 
-/*    teamWithBall = 0;	// FIXME! Temporarily hard code team controlling ball
-	teamInstance[0].setPlayerWithBall(0);
-	teamInstance[0].setPlayerWithBallDribbling(true);
-	tipOffComplete = true;
-	teamInstance[0].setHumanPlayer(0);
-	*/
     return true;
 
 //#endif
@@ -713,37 +621,36 @@ bool gameState::updateState()
 {
 //    logMsg("Updating gameState Logic");
 
-    //AISystem *ai = AISystem::Instance();
     boost::shared_ptr<AISystem> ai = AISystem::Instance();
-    //conversion *convert = conversion::Instance();
     boost::shared_ptr<conversion> convert = conversion::Instance();
-    //gameEngine *gameE = gameEngine::Instance();
     boost::shared_ptr<gameEngine> gameE = gameEngine::Instance();
-	//networkEngine *network = networkEngine::Instance();
     boost::shared_ptr<networkEngine> network = networkEngine::Instance();
-    players *player = players::Instance();
-//    boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
     timing timer = gameE->getTimer();
     Ogre::Vector3 playerPos;
 
-//	std::vector<basketballs> basketballInstance = getBasketballInstance();
-	// sets up and starts the dribbling animation
-//	basketballInstance[activeBBallInstance].setDribblingStart(true);
+    basketballInstance[activeBBallInstance].updateState();
+
     basketballInstance[activeBBallInstance].setPlayer(5);
 
+    if (gameSetupComplete)
+    {
     if (network->getPacketReceived())	// checks if a packet was received by network engine
     {
     	processNetworkEvents();	// processes data received from the network
     }
     logMsg("network events processed");
 
-    for (int x=0; x<5;++x)
+    if (!tipOffComplete)  // calls tip off execution
     {
-//    	logMsg("Player Position " +convert->toString(x) +" = " +convert->toString(teamInstance[1].getPlayerInstance()[x].getNodePosition()));
+        if (executeTipOff())
+        {
+            tipOffComplete = true;
+//            exit(0);
+        }
     }
 
-	if (teamWithBall >= 0)
+	if (teamWithBall != NOTEAM)
 	{
 //		logMsg("teamWithBall is " +convert->toString(teamWithBall));
 //        logMsg("playetWithBall is " +convert->toString(teamInstance[teamWithBall].getPlayerWithBall()));
@@ -767,7 +674,8 @@ bool gameState::updateState()
 
     logMsg("Physics");
     physEngine->updateState();	// updates the state of the physics simulation
-//    exit(0);
+    logMsg("stepWorld");
+    //    exit(0);
 	physEngine->stepWorld();	// steps the physics simulation
 /*    logMsg("DirectionsAndMovement");
     updateDirectionsAndMovements();
@@ -775,8 +683,7 @@ bool gameState::updateState()
 //	exit(0);
 
     // updates the basketball(s) state
-    basketballInstance[activeBBallInstance].updateState();
-    
+    logMsg("Updated basketball state!");
 //    exit(0);
 //    renderBall();
 //    SceneNode *bball = basketballInstance[activeBBallInstance].getNode();
@@ -787,8 +694,8 @@ bool gameState::updateState()
 //    cout << "Calced Pos change = " << basketballInstance[activeBBallInstance].calculatePositionChange() << endl;
 //    basketballInstance[activeBBallInstance].nodeChangePosition(basketballInstance[activeBBallInstance].calculatePositionChange());
 
-    std::vector<int> playerDirection = player->getPlayerDirection(); // stores contents of playerDirectdion from players class in local variable
-    std::vector<int> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable
+//    std::vector<size_t> playerDirection = player->getPlayerDirection(); // stores contents of playerDirectdion from players class in local variable
+//    std::vector<size_t> oldPlayerDirection = player->getOldPlayerDirection();   // stores contents of oldPlayerDirection form players in local variable
 
     // Initiates offense or defense for a team depending on value of teamWithBall
     if (teamWithBall == 0)	// if 0 puts team 0 on offense and team 1 on defense
@@ -821,6 +728,7 @@ bool gameState::updateState()
     }
     else
     {
+    }
     }
 //	logMsg("gameState logic updated");
 //    exit(0);
@@ -871,8 +779,8 @@ void gameState::processNetworkPlayerEvents()  // processes player events from ne
 	std::stringstream strStream;
     std::vector<playerState> activePlayerInstance;
 	std::string receivedData = network->getReceivedData();	// stores receivedData value
-	int playerNumber = -1; // stores which player the data is for
-	int iterator;	// iterator for match loop
+	size_t playerNumber = -1; // stores which player the data is for
+	size_t iterator;	// iterator for match loop
 
 	logMsg("received Data === " +receivedData);
 	strStream << receivedData;

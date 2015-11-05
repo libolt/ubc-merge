@@ -55,13 +55,13 @@ bool GUISystem::addCourtSelectionMenuData() // adds data to Player Start Selecti
     }
     courtDataInstance = gameS->getCourtDataInstance();
     
-    for (int x=0;x<courtDataInstance.size();++x)
+    for (size_t x=0;x<courtDataInstance.size();++x)
     {
         courtName.push_back(courtDataInstance[x].getName());
     }
     
     logMsg("courtName = " +courtName[0]);
-    int i = 0;
+    size_t i = 0;
     while (i<courtName.size())
     {
         courtSelectBox->addItem(courtName[i]);
@@ -84,17 +84,17 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
     playerDataInstance = load->loadPlayers();
     gameS->setPlayerDataInstances(playerDataInstance);
 
-    std::vector<int> overAllRatings;
+    std::vector<size_t> overAllRatings;
     std::vector<std::string> pNames;
     std::vector<std::string> pPositions;
-    std::vector<int> pIDs;
-    std::vector< std::vector<int> > overallRatings;
-    std::vector<int> overall;
+    std::vector<size_t> pIDs;
+    std::vector< std::vector<size_t> > overallRatings;
+    std::vector<size_t> overall;
 
-    int overallRatingsSize = 0;
-    int flag = 1;
-    int temp = 0;
-    int tempID = 0;
+    size_t overallRatingsSize = 0;
+    size_t flag = 1;
+    size_t temp = 0;
+    size_t tempID = 0;
     string tempName;
     string tempPosition;
 
@@ -116,11 +116,11 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
         logMsg("teamID == " +convert->toString(gameS->getTeamID()[1]));
         if (playerDataInstance[i].getTeamID() == gameS->getTeamID()[0])
         {
-            int overallRating = playerDataInstance[i].getOverallRating();
+            size_t overallRating = playerDataInstance[i].getOverallRating();
             std::string playerOverallRating = convert->toString(overallRating);
             std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName() +" " +convert->toString(playerDataInstance[i].getPrimaryPosition()); // +"            "; // +playerOverallRating;
             std::string playerPosition = convert->toString(playerDataInstance[i].getPrimaryPosition());
-            int playerID = playerDataInstance[i].getID();
+            size_t playerID = playerDataInstance[i].getID();
 
             playerNames[0].push_back(playerName);
             playerPositions[0].push_back(playerPosition);
@@ -130,12 +130,12 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
 
         if (playerDataInstance[i].getTeamID() == gameS->getTeamID()[1])
         {
-            int overallRating = playerDataInstance[i].getOverallRating();
+            size_t overallRating = playerDataInstance[i].getOverallRating();
             std::string playerOverallRating = convert->toString(overallRating);
             std::string playerName = playerDataInstance[i].getFirstName() +" " +playerDataInstance[i].getLastName( ) +" " +convert->toString(playerDataInstance[i].getPrimaryPosition()); // +"            "; // +playerOverallRating;
             bool playerNameLengthReached = false;
             std::string playerPosition = convert->toString(playerDataInstance[i].getPrimaryPosition());
-            int playerID = playerDataInstance[i].getID();
+            size_t playerID = playerDataInstance[i].getID();
 
             playerNames[1].push_back(playerName);
             playerPositions[1].push_back(playerPosition);
@@ -219,7 +219,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
     }
     logMsg("overallRating after = " +convert->toString(overallRatings[1][0]));
 
-    std::vector<int> starters; // used for initial creatio  of teamStarterID vector
+    std::vector<size_t> starters; // used for initial creatio  of teamStarterID vector
 //    starters.push_back(1);
     for (size_t i=0;i<5;++i)
     {
@@ -227,7 +227,7 @@ void GUISystem::addPlayerStartSelectionMenuData() // adds data to Player Start S
         team1IDs.push_back(starters);
     }
 
-    int startID = 0;
+    size_t startID = 0;
 /*    for (size_t i=0;i<5;++i)
     {
 

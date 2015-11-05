@@ -38,8 +38,7 @@
 
 //using namespace std;
 
-enum packetType { PLAYER, BALL, COURT };
-enum packetData { MOVE, SHOOT, PASS };
+
 //enum movementDirection { FORWARD, BACKWARD, LEFT, RIGHT };
 
 class networkEngine
@@ -53,8 +52,8 @@ class networkEngine
 //    networkEngine();
     ~networkEngine();
 
-    int getTeamNumber();  // returns the value of teamNumber
-    void setTeamNumber(int set);  // sets the value of teamNumber
+    teamTypes getTeamType();  // returns the value of teamType
+    void setTeamType(teamTypes set);  // sets the value of teamType
     
     bool getIsClient();	// returns the value of the isClient variable
     void setIsClient(bool client);	// sets the value of the isClient variable
@@ -137,7 +136,7 @@ class networkEngine
     ENetPacket *packet;
 
     netGameTypes netGameType;   // stores what type of network game this instance is
-    int teamNumber; // stores which team the network player is on
+    teamTypes teamType; // stores which team the network player is on
     // FiXME! deprecated in favor of netGameTypes
     bool isClient;	// stores whether or not this instance is the client
     bool isServer; // stores whethr or not this instance is the server

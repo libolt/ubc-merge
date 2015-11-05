@@ -32,7 +32,6 @@
 #include "logging.h"
 #include "physicsengine.h"
 #include "soundengine.h"
-#include "teams.h"
 
 #define FREEIMAGE_LIB
 #include "FreeImage.h"
@@ -715,8 +714,6 @@ logMsg("Alive?");
 */
 //    GUISystem *gui = GUISystem::Instance();
 //    gameEngine *gameE = gameEngine::Instance();
-//    teams *team = teams::Instance();
-//    players *player = players::Instance();
 //    basketballs *basketball = basketballs::Instance();
 //    boost::shared_ptr<renderEngine> render = renderEngine::Instance();
 

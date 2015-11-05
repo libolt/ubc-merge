@@ -29,6 +29,8 @@
 #include "BulletDynamics/Dynamics/btRigidBody.h"
 #include <boost/shared_ptr.hpp>
 
+#include "enums.h"
+
 class physicsEngine
 {
 public:
@@ -37,9 +39,7 @@ public:
 
     ~physicsEngine();	// destructor
 
-    bool getPlayerPhysicsSetup();  // retrieves the value of the playerPhysicsSetup variable
-    void setPlayerPhysicsSetup(bool setup);	 // sets the value of the playerPhysicsSetup variable
-
+    
     bool getBasketballlPhysicsSetup();  // retrieves the value of the playerPhysicsSetup variable
     void setBasketballPhysicsSetup(bool setup);	 // sets the value of the playerPhysicsSetup variable
 
@@ -55,25 +55,40 @@ public:
     bool getPassCollision();  // retrieves the value of the passCollision variable
     void setPassCollision(bool collision);  // sets the value of the passCollision variable
 
+    btVector3 getBasketballVelocity();  // retrieves the value of basketballVelocity
+    void setBasketballVelocity(const btVector3 &set);  // sets the value of basketballVelocity
+
+    bool getBasketballVelocitySet();  // retrieves the value of basketballVelocitySet
+    void setBasketballVelocitySet(bool set);  // sets the value of basketballVelocitySet
+
+    btDynamicsWorld *getWorld();  // retrieves the value of world
+    void setWorld(btDynamicsWorld *set);  // sets the value of world
+
+    size_t getTeam1CollidesWith();  // retrieves the value of team1CollidesWith
+    void setTeam1CollidesWith(size_t set); // sets the vslue of team1CollidesWith
+    
+    size_t getTeam2CollidesWith();  // retrieves the value of team2CollidesWith
+    void setTeam2CollidesWith(size_t set); // sets the vslue of team2CollidesWith
+  
     void setupState();  // sets up state of physics engine.
 
     // sets up object physics
-    bool setupBasketballPhysics();  // sets up basketball physics
     bool setupCourtPhysics();  // sets up court physics
     bool setupHoopPhysics();  // sets up hoop physics
-    bool setupPlayerPhysics();  // setsup up player physics
-
+    
     void updateState();  // updates the state of the physics engine.
     void updatePositions();  // updates thr position of objects
+    void updateBasketballPosition();  // updates the position of basketball object(s)
+    void updatePlayerPositions();  // updates the position of player objecgts
     void stepWorld();  // steps the physics simulation
 
-    void tipOffCollisionCheck();  // checks whether team 1 or team 2's center made contact with ball
     void ballDribbling();  // simulates basketball dribble
     void passCollisionCheck();  // checks whether the ball has collided with the player being passed to
 
-    
-    bool playerJump(int teamNumber, int playerID);  // calculates and executes player jumping in the air
-    bool shootBasketball(int teamNumber, int playerID);  // calculates and executes basketball being shot
+    bool collisionCheck(btRigidBody *objectA,btRigidBody *objectB);  // tests whther or not two objects have collided
+
+    bool playerJump(teamTypes teamType, int playerID);  // calculates and executes player jumping in the air
+    bool shootBasketball(teamTypes teamType, int playerID);  // calculates and executes basketball being shot
    
 protected:
     physicsEngine();
@@ -84,7 +99,6 @@ private:
 
     //static physicsEngine *pInstance;
     static boost::shared_ptr<physicsEngine> pInstance;
-
 
     btDynamicsWorld *world;  // stores the physics world
     BtOgre::DebugDrawer *debugDraw;  // used to draw debug shapes for objects
@@ -107,14 +121,14 @@ private:
     // basketball
 //    btRigidBody *basketballBody;
  //   btBvhTriangleMeshShape *basketballShape;
-    btCollisionShape *basketballShape;  // stores the shape of the basketball shape
-    BtOgre::RigidBodyState *basketballBodyState;  // stores the state of the basketball
+
+    btVector3 basketballVelocity;  // stores the velocity of the basketball
+    bool basketballVelocitySet;  // stores whether the velocity of the basketball has been set
 
     // timer variables
     btScalar changeInTime;  // stores the change in time between loops
     btScalar oldTime;  // stores the previous loops time
 
-    bool playerPhysicsSetup;  // determines whether all players' physics bodies have been setup
     bool basketballPhysicsSetup; // determines whether all basketballs' physics bodies have been setup
     bool courtPhysicsSetup;  // determines whether the court's physics body has been setup
 	bool hoopPhysicsSetup;  // determines whether all hoop' physics bodies have been setup
@@ -126,9 +140,8 @@ private:
     // collisions
     int courtCollidesWith;	// determines what the court collides with
     int hoopCollidesWith;  // determines what the hoop collides with
-    int bballCollidesWith;	// determines what the basketball collides with
-    int team1CollidesWith;	// determines what team1 collides with
-    int team2CollidesWith;  // | COL_BBALL | COL_TEAM1;	// determiens what team2 collides with
+    size_t team1CollidesWith;	// determines what team1 collides with
+    size_t team2CollidesWith;  // | COL_BBALL | COL_TEAM1;	// determiens what team2 collides with
 
 
     // shooting variables

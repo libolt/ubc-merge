@@ -26,11 +26,10 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/chrono/system_clocks.hpp>
 
-#include "players.h"
 #include "threads.h"
 #include "timing.h"
 
-class gameEngine : public players
+class gameEngine
 {
 
 public:

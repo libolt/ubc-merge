@@ -35,7 +35,7 @@ networkEngine::networkEngine()
     initialize();
     counter = 0;
     clientID = 0;
-    teamNumber = -1;
+    teamType = NOTEAM;
     clientEstablishedConnection = false;
     serverReceivedConnection = false;
     serverSetupComplete = false;
@@ -64,13 +64,13 @@ boost::shared_ptr<networkEngine> networkEngine::Instance()
     return pInstance; // address of sole instance
 }
 
-int networkEngine::getTeamNumber()  // returns the value of teamNumber
+teamTypes networkEngine::getTeamType()  // returns the value of teamType
 {
-    return (teamNumber);
+    return (teamType);
 }
-void networkEngine::setTeamNumber(int set)  // sets the value of teamNumber
+void networkEngine::setTeamType(teamTypes set)  // sets the value of teamType
 {
-    teamNumber = set;
+    teamType = set;
 }
 
 bool networkEngine::getIsClient()	// returns the value of the isClient variable
@@ -484,8 +484,8 @@ void networkEngine::processLocalInput()  // processes local input for sending to
 
     
     std::vector<teamState> teamInstance = gameS->getTeamInstance();
-    int humanControlled = teamInstance[teamNumber].getHumanControlled();
-    int humanPlayer = teamInstance[teamNumber].getHumanPlayer();
+    int humanControlled = teamInstance[teamType].getHumanControlled();
+    int humanPlayer = teamInstance[teamType].getHumanPlayer();
     
 //                              logMsg("INPUT MAP ======== "  +toString(inputMap));
     std::string packetData;
@@ -500,7 +500,7 @@ void networkEngine::processLocalInput()  // processes local input for sending to
             case INUP:
 //                                      packetData = "player0up";
                 netPStateObj.setPacketType(3);
-                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setTeamID(teamType);
                 netPStateObj.setPlayerID(humanPlayer);
                 netPStateObj.setMovement(true);
                 netPStateObj.setDirection(0);
@@ -510,7 +510,7 @@ void networkEngine::processLocalInput()  // processes local input for sending to
             case INDOWN:
 //                                      packetData = "player0down";
                 netPStateObj.setPacketType(3);
-                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setTeamID(teamType);
                 netPStateObj.setPlayerID(humanPlayer);
                 netPStateObj.setMovement(true);
                 netPStateObj.setDirection(1);
@@ -520,7 +520,7 @@ void networkEngine::processLocalInput()  // processes local input for sending to
             case INLEFT:
 //                                      packetData = "player0left";
                 netPStateObj.setPacketType(3);
-                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setTeamID(teamType);
                 netPStateObj.setPlayerID(humanPlayer);
                 netPStateObj.setMovement(true);
                 netPStateObj.setDirection(2);
@@ -530,7 +530,7 @@ void networkEngine::processLocalInput()  // processes local input for sending to
             case INRIGHT:
 //                                      packetData = "player0right";
                 netPStateObj.setPacketType(3);
-                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setTeamID(teamType);
                 netPStateObj.setPlayerID(humanPlayer);
                 netPStateObj.setMovement(true);
                 netPStateObj.setDirection(3);
@@ -540,7 +540,7 @@ void networkEngine::processLocalInput()  // processes local input for sending to
             case INUPLEFT:
 //                                      packetData = "player0upleft";
                 netPStateObj.setPacketType(3);
-                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setTeamID(teamType);
                 netPStateObj.setPlayerID(humanPlayer);
                 netPStateObj.setMovement(true);
                 netPStateObj.setDirection(4);
@@ -550,7 +550,7 @@ void networkEngine::processLocalInput()  // processes local input for sending to
             case INUPRIGHT:
 //                                      packetData = "player0upright";
                 netPStateObj.setPacketType(3);
-                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setTeamID(teamType);
                 netPStateObj.setPlayerID(humanPlayer);
                 netPStateObj.setMovement(true);
                 netPStateObj.setDirection(5);
@@ -560,7 +560,7 @@ void networkEngine::processLocalInput()  // processes local input for sending to
             case INDOWNLEFT:
 //                                      packetData = "player0downleft";
                 netPStateObj.setPacketType(3);
-                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setTeamID(teamType);
                 netPStateObj.setPlayerID(humanPlayer);
                 netPStateObj.setMovement(true);
                 netPStateObj.setDirection(6);
@@ -570,7 +570,7 @@ void networkEngine::processLocalInput()  // processes local input for sending to
             case INDOWNRIGHT:
 //                                      packetData = "player0downright";
                 netPStateObj.setPacketType(3);
-                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setTeamID(teamType);
                 netPStateObj.setPlayerID(humanPlayer);
                 netPStateObj.setMovement(true);
                 netPStateObj.setDirection(7);
@@ -579,7 +579,7 @@ void networkEngine::processLocalInput()  // processes local input for sending to
             break;
             case INSHOOTBLOCK:
                 netPStateObj.setPacketType(3);
-                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setTeamID(teamType);
                 netPStateObj.setPlayerID(humanPlayer);
                 netPStateObj.setMovement(false);
                 netPStateObj.setShootBlock(true);
@@ -588,7 +588,7 @@ void networkEngine::processLocalInput()  // processes local input for sending to
             break;
             case INPASSSTEAL:
                 netPStateObj.setPacketType(3);
-                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setTeamID(teamType);
                 netPStateObj.setPlayerID(humanPlayer);
                 netPStateObj.setMovement(false);
                 netPStateObj.setPassSteal(true);
@@ -603,7 +603,7 @@ void networkEngine::processLocalInput()  // processes local input for sending to
             default:
             /*
                 netPStateObj.setPacketType(3);
-                netPStateObj.setTeamID(teamNumber);
+                netPStateObj.setTeamID(teamType);
                 netPStateObj.setPlayerID(1);
                 std::stringstream ss;
                 ss << netPStateObj;
