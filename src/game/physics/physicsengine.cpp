@@ -211,6 +211,24 @@ void physicsEngine::setWorld(btDynamicsWorld *set)  // sets the value of world
     world = set;
 }
 
+size_t physicsEngine::getTeam1CollidesWith()  // retrieves the value of team1CollidesWith
+{
+    return (team1CollidesWith);
+}
+void physicsEngine::setTeam1CollidesWith(size_t set) // sets the vslue of team1CollidesWith
+{
+    team1CollidesWith = set;
+}
+
+size_t physicsEngine::getTeam2CollidesWith()  // retrieves the value of team2CollidesWith
+{
+    return (team2CollidesWith);
+}
+void physicsEngine::setTeam2CollidesWith(size_t set) // k the vslue of team2CollidesWith
+{
+    team2CollidesWith = set;
+}
+
 void physicsEngine::setupState(void)
 {
 

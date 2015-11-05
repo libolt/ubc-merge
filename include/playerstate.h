@@ -223,11 +223,11 @@ class playerState
         bool getJumpComplete();  // retrieves the value of jumpComplete
         void setJumpComplete(bool set);  // sets the value of jumpComplete
 
-		bool getOffenseSet(void); // retrieves the value of offenseState
-		void setOffenseSet(bool set);  // sets the value of offenseState
+		bool getOffenseSet(void); // retrieves the value of offenseSet
+		void setOffenseSet(bool set);  // sets the value of offenseSet
 
-		bool getDefenseSet(void); // retrieves the value of defenseState
-		void setDefenseSet(bool set);  // sets the value of defenseState
+		bool getDefenseSet(void); // retrieves the value of defenseSet
+		void setDefenseSet(bool set);  // sets the value of defenseSet
 
         Ogre::Vector3 getCourtPosition(); // retrieves the value of courtPosition
         void setCourtPosition(Ogre::Vector3 set);  // sets the value of courtPosition
@@ -241,6 +241,9 @@ class playerState
         positionChangedTypes getCourtPositionChangedType();  // retrieves the value of courtPositionChangedType
         void setCourtPositionChangedType(positionChangedTypes set);  // sets the value of courtPositionChangedType
 
+        bool getStateSet();  // retrieves the value of stateSet
+        void setStateSet(bool set);  // sets the value of stateSet
+        
         bool getInitialized(void); // retreives the value of initialized
         void setInitialized(bool set); // sets the value of initialized
 
@@ -415,6 +418,7 @@ class playerState
         // stores what subsystem changed the position of the player
         positionChangedTypes courtPositionChangedType;
 
+        bool stateSet;  // if true the playerState object has been set to initial state
         // temporary hack
         bool initialized;
         

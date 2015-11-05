@@ -80,6 +80,7 @@ playerState::playerState()
     jumpComplete = false;
     courtPosition = Ogre::Vector3(0.0f,0.0f,0.0f);
     courtPositionChanged = false;
+    stateSet = false;
     // hack
     posChangeAmount = 0;
     direction = NODIRECT;
@@ -642,20 +643,20 @@ void playerState::setJumpComplete(bool set)  // sets the value of jumpComplete
     jumpComplete = set;
 }
 
-bool playerState::getOffenseSet() // retrieves the value of offenseState
+bool playerState::getOffenseSet() // retrieves the value of offenseSet
 {
 	return (offenseSet);
 }
-void playerState::setOffenseSet(bool set)  // sets the value of offenseState
+void playerState::setOffenseSet(bool set)  // sets the value of offenseSet
 {
 	offenseSet = set;
 }
 
-bool playerState::getDefenseSet() // retrieves the value of defenseState
+bool playerState::getDefenseSet() // retrieves the value of defenseSet
 {
 	return (defenseSet);
 }
-void playerState::setDefenseSet(bool set)  // sets the value of defenseState
+void playerState::setDefenseSet(bool set)  // sets the value of defenseSet
 {
 	defenseSet = set;
 }
@@ -694,6 +695,15 @@ positionChangedTypes playerState::getCourtPositionChangedType()  // retrieves th
 void playerState::setCourtPositionChangedType(positionChangedTypes set)  // sets the value of courtPositionChangedType
 {
     courtPositionChangedType = set;
+}
+
+bool playerState::getStateSet()  // retrieves the value of stateSet
+{
+    return (stateSet);
+}
+void playerState::setStateSet(bool set)  // sets the value of stateSet
+{
+    stateSet = set;
 }
 
 bool playerState::getInitialized() // retreives the value of initialized
@@ -739,7 +749,12 @@ void playerState::updateState()
 
     jumpBalls jumpBall = gameS->getJumpBall();
 	Ogre::Vector3 playerPos;
- //   exit(0);
+
+    if (physics.getStateSet())
+    {
+        logMsg("playerState::updateState");
+        exit(0);
+    }
 //    if (shotTaken && !shotComplete)	// checks if a player takes a shot
 
     

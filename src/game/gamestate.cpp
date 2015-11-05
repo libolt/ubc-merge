@@ -633,6 +633,8 @@ bool gameState::updateState()
 
     basketballInstance[activeBBallInstance].setPlayer(5);
 
+    if (gameSetupComplete)
+    {
     if (network->getPacketReceived())	// checks if a packet was received by network engine
     {
     	processNetworkEvents();	// processes data received from the network
@@ -726,6 +728,7 @@ bool gameState::updateState()
     }
     else
     {
+    }
     }
 //	logMsg("gameState logic updated");
 //    exit(0);

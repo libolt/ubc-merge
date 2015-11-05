@@ -207,6 +207,7 @@ private:
 
     std::vector <std::string> playerModelsLoaded; // creates a vector of strings that holds the models which are loaded
     bool playerInstancesCreated;	// stores whether player instances have been created
+    size_t playerInstanceCreatedCount;  // stores number of playerInstances that have been created
     size_t playerWithBallID; // stores the ID of the player that has the ball
     size_t playerWithBallInstance;	// stores which player has control of the basketball, valid values are 0 - 4
     bool playerWithBallDribbling;	// stores whether the player with the ball is dribbling

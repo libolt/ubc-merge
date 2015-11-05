@@ -27,7 +27,10 @@ class playerPhysics
     
         bool getPhysicsSetup();  // retrieves the value of physicsSetup
         void setPhysicsSetup(bool set);  // sets the value of physicsSetup
-
+        
+        bool getStateSet();  // retrieves the value of stateSet
+        void setStateSet(bool set);  // sets the value of stateSet
+        
         playerPhysics();  // constructor
 
         bool setupPhysics();  // sets up player physics
@@ -38,7 +41,7 @@ class playerPhysics
         
     private:
         bool physicsSetup;  // determines whether all players' physics bodies have been setup
-
+        bool stateSet;  // if true then the player physics state has been set
 };
 
 #endif // PLAYERPHYSICS_H

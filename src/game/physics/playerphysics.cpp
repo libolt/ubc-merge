@@ -26,6 +26,7 @@
 playerPhysics::playerPhysics()  // constructor
 {
     physicsSetup = false;
+    stateSet = false;
 
 }
 
@@ -38,8 +39,22 @@ void playerPhysics::setPhysicsSetup(bool set)       // sets the value of physics
     physicsSetup = set;
 }
 
+bool playerPhysics::getStateSet()  // retrieves the value of stateSet
+{
+    return (stateSet);
+}
+void playerPhysics::setStateSet(bool set)  // sets the value of stateSet
+{
+    stateSet = set;
+}
+
 bool playerPhysics::setupState()  // sets up state of player physics
 {
+    if (setupPhysics())
+    {
+        physicsSetup = true;
+        return (true);
+    }
     return (false);
 }
 
@@ -58,11 +73,13 @@ void playerPhysics::updateState()  // updates the state of player physics
     }
     else
     {
+        stateSet = true;
     }
 }
 
 bool playerPhysics::setupPhysics()  // sets up playerPhysics
 {
+//    exit(0);
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();
@@ -126,6 +143,7 @@ bool playerPhysics::setupPhysics()  // sets up playerPhysics
 
                 logMsg("Adding Rigid Body to world");
                 world = physEngine->getWorld();
+                size_t team1CollidesWith = physEngine->getTeam1CollidesWith();
                 world->addRigidBody(activePlayerInstance[i].getPhysBody(), COL_TEAM1, team1CollidesWith);
                 physEngine->setWorld(world);
 
@@ -139,6 +157,7 @@ bool playerPhysics::setupPhysics()  // sets up playerPhysics
 
                 logMsg("Adding Rigid Body to world");
                 world = physEngine->getWorld();
+                size_t team2CollidesWith = physEngine->getTeam2CollidesWith();
                 world->addRigidBody(activePlayerInstance[i].getPhysBody(), COL_TEAM2, team2CollidesWith);
                 physEngine->setWorld(world);
     //          world->addRigidBody(pInstance[i].getPhysBody());

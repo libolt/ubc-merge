@@ -74,6 +74,7 @@ void basketballPhysics::setPhysicsSetup(bool set)  // sets the value of physicsS
 
 bool basketballPhysics::setupPhysics()
 {
+    exit(0);
     boost::shared_ptr<conversion> convert = conversion::Instance();
     boost::shared_ptr<gameState> gameS = gameState::Instance();
     boost::shared_ptr<physicsEngine> physEngine = physicsEngine::Instance();

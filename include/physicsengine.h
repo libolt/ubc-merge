@@ -63,7 +63,13 @@ public:
 
     btDynamicsWorld *getWorld();  // retrieves the value of world
     void setWorld(btDynamicsWorld *set);  // sets the value of world
-\
+
+    size_t getTeam1CollidesWith();  // retrieves the value of team1CollidesWith
+    void setTeam1CollidesWith(size_t set); // sets the vslue of team1CollidesWith
+    
+    size_t getTeam2CollidesWith();  // retrieves the value of team2CollidesWith
+    void setTeam2CollidesWith(size_t set); // sets the vslue of team2CollidesWith
+  
     void setupState();  // sets up state of physics engine.
 
     // sets up object physics
@@ -134,8 +140,8 @@ private:
     // collisions
     int courtCollidesWith;	// determines what the court collides with
     int hoopCollidesWith;  // determines what the hoop collides with
-    int team1CollidesWith;	// determines what team1 collides with
-    int team2CollidesWith;  // | COL_BBALL | COL_TEAM1;	// determiens what team2 collides with
+    size_t team1CollidesWith;	// determines what team1 collides with
+    size_t team2CollidesWith;  // | COL_BBALL | COL_TEAM1;	// determiens what team2 collides with
 
 
     // shooting variables

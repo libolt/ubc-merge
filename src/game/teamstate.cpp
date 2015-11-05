@@ -54,6 +54,7 @@ teamState::teamState()
     defenseInstance = new defenseState;
 
 	playerInstancesCreated = false;
+    playerInstanceCreatedCount = 0;
     playerWithBallInstance = -1;
     playerWithBallID = -1;
     playerWithBallDribbling = false;
@@ -626,7 +627,7 @@ bool teamState::createPlayerInstances()
 
         playerState pInstance;  // creates a new instance of playerState
         playerSteer *pSteer = new playerSteer; // steer instance
-
+        playerPhysics pPhysics;
             logMsg("Player Team ID = " +convert->toString(playerDataInstance[i].getTeamID()));
             logMsg("Team ID = " +convert->toString(teamID));
 
@@ -644,34 +645,21 @@ bool teamState::createPlayerInstances()
             pInstance.setPrimaryPosition(playerDataInstance[i].getPrimaryPosition());    // copies the primary position from the playerData std::vector to the pInstance class
             pInstance.setSecondaryPosition(playerDataInstance[i].getSecondaryPosition());    // copies the secondary position from the playerData std::vector to the pInstance class
             pInstance.setPosChange(Ogre::Vector3(0.0f,0.0f,0.0f));
-            pSteer->setTeamType(teamType);
-            logMsg("teamtyp2");
-            //pSteer->setID(id);
-/*            if (pInstance.getPosition() == "PG")
-            {
-                pSteer->setPlayerposition(PG);
-            }
-            else if (pInstance.getPosition() == "SG")
-            {
-                pSteer->setPlayerposition(SG);
-            }
-            else if (pInstance.getPosition() == "SF")
-            {
-                pSteer->setPlayerposition(SF);
-            }
-            else if (pInstance.getPosition() == "PF")
-            {
-                pSteer->setPlayerposition(PF);
-            }
-            else if (pInstance.getPosition() == "C")
-            {
-                pSteer->setPlayerposition(C);
-            }
-*/
+//            pSteer->setTeamType(teamType);
+//            logMsg("teamtyp2");
             pSteer->reset();
             logMsg("psteer resset!");
             pInstance.setSteer(pSteer);
             logMsg("steer set!");
+            if (pPhysics.setupState())
+            {
+                pInstance.setPhysics(pPhysics);
+            }
+            else
+            {
+                logMsg("Unable to setup Player Physics!");
+                exit(0);
+            }
             playerInstance.push_back(pInstance);    // adds pInstance to the playerInstance std::vector.
             logMsg("pInstance set!");
             logMsg("steerID = " +convert->toString(pInstance.getSteer()->getID()));
