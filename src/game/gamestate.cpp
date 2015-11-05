@@ -987,7 +987,7 @@ void gameState::updateDirectionsAndMovements()
 
     if (teamWithBall >= 0) // && playerHasBasketball)
     {
-//		logMsg("teamWithBall is " +convert->toString(teamWithBall));
+//		logMsg("teamWithBall ios " +convert->toString(teamWithBall));
 //		logMsg("playetWithBall is " +convert->toString(teamInstance[teamWithBall].getPlayerWithBall()));
 //        updateBasketballMovements();	// updates the movement of basketball objec(s)
         //updateBasketballDirections(); // updates direction of basketball object(s)
