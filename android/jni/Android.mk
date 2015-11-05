@@ -2,6 +2,7 @@ APP_CFLAGS := -fno-lto
 APP_CPPFLAGS := -fno-lto
 APP_LDFLAGS := -fno-lto 
 
+
 LOCAL_PATH := $(call my-dir)
 
 BUILD_ROOT := ../../..
