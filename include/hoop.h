@@ -58,6 +58,9 @@ class hoopState
     btRigidBody *getPhysBody();	// retrieves physBody variable
     void setPhysBody(btRigidBody *body);	// sets physBody variable
 
+    bool getStateSet();  // retrieves the value of stateSet
+    void setStateSet(bool set);  // sets the value of stateSet
+        
     // loads the 3D Model and attaches it to the node as well as sets coordinates
     bool loadModel();
 
@@ -72,6 +75,8 @@ class hoopState
 
     // stores the physics object that represents the player
     btRigidBody *physBody;
+
+    bool stateSet;  // if true then the hoop state has been set
 
 };
 

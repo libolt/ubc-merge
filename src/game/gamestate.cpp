@@ -77,6 +77,7 @@ gameState::gameState()
     quarterTimeLeft = 0.0f;
     finished = false;
 
+    stateSet = false;
 }
 gameState::~gameState()
 {
@@ -317,6 +318,15 @@ bool gameState::getBasketballInstancesCreated()  // gets the value of basketball
 void gameState::setBasketballInstancesCreated(bool set)  // sets the value of basketballInstancesCreated
 {
 	basketballInstancesCreated = set;
+}
+
+bool gameState::getStateSet()  // retrieves the value of stateSet
+{
+    return (stateSet);
+}
+void gameState::setStateSet(bool set)  // sets the value of stateSet
+{
+    stateSet = set;
 }
 
 bool gameState::assignHoopToTeams()  // assigns which hoop belongs to each team

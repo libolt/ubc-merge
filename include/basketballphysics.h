@@ -42,6 +42,9 @@ class basketballPhysics
         size_t getNumber();  // retrieves the value of number
         void setNumber(size_t set);  // sets the value of number
 
+        bool getStateSet();  // retrieves the value of stateSet
+        void setStateSet(bool set);  // sets the value of stateSet
+        
         bool getPhysicsSetup();  // retrieves the value of physicsSetup
         void setPhysicsSetup(bool set);  // sets the value of physicsSetup
         
@@ -60,6 +63,9 @@ class basketballPhysics
         bool physicsSetup;  // stores whether the basketblal physics have been setup.
 
         size_t number;  // stores the number of the object
+
+        bool stateSet;  // if true then the basketball physics state has been set
+
 };
 
 #endif // BASKETBALLPHYSICS_H

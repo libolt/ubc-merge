@@ -32,6 +32,7 @@ basketballPhysics::basketballPhysics()  // initializer
 
     number = 999999;
 
+    stateSet = false;
 //    setupState();
 }
 
@@ -70,6 +71,15 @@ bool basketballPhysics::getPhysicsSetup()  // retrieves the value of physicsSetu
 void basketballPhysics::setPhysicsSetup(bool set)  // sets the value of physicsSetup
 {
     physicsSetup = set;
+}
+
+bool basketballPhysics::getStateSet()  // retrieves the value of stateSet
+{
+    return (stateSet);
+}
+void basketballPhysics::setStateSet(bool set)  // sets the value of stateSet
+{
+    stateSet = set;
 }
 
 bool basketballPhysics::setupPhysics()

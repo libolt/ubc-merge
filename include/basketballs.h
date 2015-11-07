@@ -141,6 +141,10 @@ public:
     positionChangedTypes getCourtPositionChangedType();  // retrieves the value of courtPositionChangedType
     void setCourtPositionChangedType(positionChangedTypes set);  // sets the value of courtPositionChangedType
 
+    bool getStateSet();  // retrieves the value of stateSet
+    void setStateSet(bool set);  // sets the value of stateSet
+        
+    
     size_t getNumber();  // retrieves the value of number
     void setNumber(size_t set);  // sets the value of number
 
@@ -228,6 +232,8 @@ private:
 
     // stores what subsystem changed the position of the baskteball
     positionChangedTypes courtPositionChangedType;
+
+    bool stateSet;  // if true then the basketball state is set
 };
 
 #endif

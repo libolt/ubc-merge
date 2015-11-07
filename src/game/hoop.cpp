@@ -24,6 +24,7 @@
 
 hoopState::hoopState()
 {
+    stateSet = false;
 }
 
 hoopState::~hoopState()
@@ -91,6 +92,14 @@ void hoopState::setPhysBody(btRigidBody *body)	// sets physBody variable
 
 }
 
+bool hoopState::getStateSet()  // retrieves the value of stateSet
+{
+    return (stateSet);
+}
+void hoopState::setStateSet(bool set)  // sets the value of stateSet
+{
+    stateSet = set;
+}
 
 // loads the 3D Model and attaches it to the node as well as sets coordinates
 bool hoopState::loadModel()
