@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<Player>
+    <ID>36</ID>
+    <TeamID>2</TeamID>
+    <Name>
+        <First>Rick</First>
+        <Last>Witherspoon</Last>
+    </Name>
+    <Age>26</Age>
+    <Height>81</Height>
+    <Weight>230</Weight>
+    <Model>Player.mesh</Model>
+    <PrimaryPosition>SF</PrimaryPosition>
+    <SecondaryPosition>NONE</SecondaryPosition>
+    <Shooting>73</Shooting>
+    <Freethrow>80</Freethrow>
+    <Layup>75</Layup>
+    <Dunk>75</Dunk>
+    <Inside>70</Inside>
+    <Midrange>69</Midrange>
+    <ThreePoint>35</ThreePoint>
+    <BallHandling>62</BallHandling>
+    <BallSecurity>45</BallSecurity>
+    <Passing>52</Passing>
+    <PickSetting>63</PickSetting>
+    <OffenseAwareness>74</OffenseAwareness>
+    <DefenseAwareness>62</DefenseAwareness>
+    <OffenseRebound>68</OffenseRebound>
+    <DefenseRebound>70</DefenseRebound>
+    <Blocking>72</Blocking>
+    <Stealing>63</Stealing>
+    <InteriorDefense>45</InteriorDefense>
+    <MidrangeDefense>63</MidrangeDefense>
+    <PerimeterDefense>60</PerimeterDefense>
+    <Hustle>54</Hustle>
+    <Speed>76</Speed>
+    <Quickness>73</Quickness>
+    <Fatigue>68</Fatigue>
+    <Durability>65</Durability>
+    <Demeanor>68</Demeanor>
+    <Improvability>79</Improvability>
+</Player>

@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<Player>
+    <ID>17</ID>
+    <TeamID>3</TeamID>
+    <Name>
+        <First>Victor</First>
+        <Last>Chemkov</Last>
+    </Name>
+    <Age>35</Age>
+    <Height>80</Height>
+    <Weight>246</Weight>
+    <Model>Player.mesh</Model>
+    <PrimaryPosition>PF</PrimaryPosition>
+    <SecondaryPosition>SF</SecondaryPosition>
+    <Shooting>70</Shooting>
+    <Freethrow>69</Freethrow>
+    <Layup>56</Layup>
+    <Dunk>72</Dunk>
+    <Inside>23</Inside>
+    <Midrange>67</Midrange>
+    <ThreePoint>60</ThreePoint>
+    <BallHandling>32</BallHandling>
+    <BallSecurity>55</BallSecurity>
+    <Passing>21</Passing>
+    <PickSetting>74</PickSetting>
+    <OffenseAwareness>68</OffenseAwareness>
+    <DefenseAwareness>65</DefenseAwareness>
+    <OffenseRebound>32</OffenseRebound>
+    <DefenseRebound>35</DefenseRebound>
+    <Blocking>54</Blocking>
+    <Stealing>78</Stealing>
+    <InteriorDefense>68</InteriorDefense>
+    <MidrangeDefense>54</MidrangeDefense>
+    <PerimeterDefense>21</PerimeterDefense>
+    <Hustle>77</Hustle>
+    <Speed>83</Speed>
+    <Quickness>45</Quickness>
+    <Fatigue>45</Fatigue>
+    <Durability>63</Durability>
+    <Demeanor>80</Demeanor>
+    <Improvability>88</Improvability>
+</Player>

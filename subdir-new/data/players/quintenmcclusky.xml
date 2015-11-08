@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<Player>
+    <ID>30</ID>
+    <TeamID>1</TeamID>
+    <Name>
+        <First>Quinten</First>
+        <Last>McClusky</Last>
+    </Name>
+    <Age>22</Age>
+    <Height>83</Height>
+    <Weight>237</Weight>
+    <Model>Player.mesh</Model>
+    <PrimaryPosition>PF</PrimaryPosition>
+    <SecondaryPosition>SF</SecondaryPosition>
+    <Shooting>68</Shooting>
+    <Freethrow>73</Freethrow>
+    <Layup>78</Layup>
+    <Dunk>75</Dunk>
+    <Inside>65</Inside>
+    <Midrange>78</Midrange>
+    <ThreePoint>60</ThreePoint>
+    <BallHandling>47</BallHandling>
+    <BallSecurity>66</BallSecurity>
+    <Passing>42</Passing>
+    <PickSetting>73</PickSetting>
+    <OffenseAwareness>52</OffenseAwareness>
+    <DefenseAwareness>53</DefenseAwareness>
+    <OffenseRebound>43</OffenseRebound>
+    <DefenseRebound>45</DefenseRebound>
+    <Blocking>57</Blocking>
+    <Stealing>35</Stealing>
+    <InteriorDefense>45</InteriorDefense>
+    <MidrangeDefense>40</MidrangeDefense>
+    <PerimeterDefense>32</PerimeterDefense>
+    <Hustle>65</Hustle>
+    <Speed>78</Speed>
+    <Quickness>81</Quickness>
+    <Fatigue>82</Fatigue>
+    <Durability>71</Durability>
+    <Demeanor>36</Demeanor>
+    <Improvability>85</Improvability>
+</Player>

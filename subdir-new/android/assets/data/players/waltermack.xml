@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<Player>
+    <ID>31</ID>
+    <TeamID>1</TeamID>
+    <Name>
+        <First>Walter</First>
+        <Last>Mack</Last>
+    </Name>
+    <Age>26</Age>
+    <Height>84</Height>
+    <Weight>257</Weight>
+    <Model>Player.mesh</Model>
+    <PrimaryPosition>C</PrimaryPosition>
+    <SecondaryPosition>NONE</SecondaryPosition>
+    <Shooting>75</Shooting>
+    <Freethrow>82</Freethrow>
+    <Layup>65</Layup>
+    <Dunk>68</Dunk>
+    <Inside>62</Inside>
+    <Midrange>72</Midrange>
+    <ThreePoint>90</ThreePoint>
+    <BallHandling>67</BallHandling>
+    <BallSecurity>65</BallSecurity>
+    <Passing>54</Passing>
+    <PickSetting>83</PickSetting>
+    <OffenseAwareness>81</OffenseAwareness>
+    <DefenseAwareness>75</DefenseAwareness>
+    <OffenseRebound>45</OffenseRebound>
+    <DefenseRebound>66</DefenseRebound>
+    <Blocking>34</Blocking>
+    <Stealing>73</Stealing>
+    <InteriorDefense>68</InteriorDefense>
+    <MidrangeDefense>74</MidrangeDefense>
+    <PerimeterDefense>88</PerimeterDefense>
+    <Hustle>72</Hustle>
+    <Speed>68</Speed>
+    <Quickness>52</Quickness>
+    <Fatigue>73</Fatigue>
+    <Durability>79</Durability>
+    <Demeanor>23</Demeanor>
+    <Improvability>83</Improvability>
+</Player>

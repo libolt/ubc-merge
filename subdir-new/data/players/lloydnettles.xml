@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<Player>
+    <ID>23</ID>
+    <TeamID>0</TeamID>
+    <Name>
+        <First>Lloyd</First>
+        <Last>Nettles</Last>
+    </Name>
+    <Age>33</Age>
+    <Height>83</Height>
+    <Weight>245</Weight>
+    <Model>Player.mesh</Model>
+    <PrimaryPosition>PF</PrimaryPosition>
+    <SecondaryPosition>SF</SecondaryPosition>
+    <Shooting>75</Shooting>
+    <Freethrow>79</Freethrow>
+    <Layup>80</Layup>
+    <Dunk>85</Dunk>
+    <Inside>75</Inside>
+    <Midrange>65</Midrange>
+    <ThreePoint>30</ThreePoint>
+    <BallHandling>35</BallHandling>
+    <BallSecurity>47</BallSecurity>
+    <Passing>63</Passing>
+    <PickSetting>80</PickSetting>
+    <OffenseAwareness>89</OffenseAwareness>
+    <DefenseAwareness>77</DefenseAwareness>
+    <OffenseRebound>75</OffenseRebound>
+    <DefenseRebound>84</DefenseRebound>
+    <Blocking>71</Blocking>
+    <Stealing>24</Stealing>
+    <InteriorDefense>70</InteriorDefense>
+    <MidrangeDefense>54</MidrangeDefense>
+    <PerimeterDefense>32</PerimeterDefense>
+    <Hustle>69</Hustle>
+    <Speed>75</Speed>
+    <Quickness>78</Quickness>
+    <Fatigue>82</Fatigue>
+    <Durability>81</Durability>
+    <Demeanor>57</Demeanor>
+    <Improvability>90</Improvability>
+</Player>

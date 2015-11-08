@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<Player>
+    <ID>21</ID>
+    <TeamID>0</TeamID>
+    <Name>
+        <First>Van</First>
+        <Last>Carlson</Last>
+    </Name>
+    <Age>26</Age>
+    <Height>80</Height>
+    <Weight>215</Weight>
+    <Model>Player.mesh</Model>
+    <PrimaryPosition>SG</PrimaryPosition>
+    <SecondaryPosition>NONE</SecondaryPosition>
+    <Shooting>75</Shooting>
+    <Freethrow>77</Freethrow>
+    <Layup>71</Layup>
+    <Dunk>80</Dunk>
+    <Inside>65</Inside>
+    <Midrange>89</Midrange>
+    <ThreePoint>72</ThreePoint>
+    <BallHandling>65</BallHandling>
+    <BallSecurity>60</BallSecurity>
+    <Passing>65</Passing>
+    <PickSetting>43</PickSetting>
+    <OffenseAwareness>76</OffenseAwareness>
+    <DefenseAwareness>32</DefenseAwareness>
+    <OffenseRebound>40</OffenseRebound>
+    <DefenseRebound>41</DefenseRebound>
+    <Blocking>55</Blocking>
+    <Stealing>67</Stealing>
+    <InteriorDefense>12</InteriorDefense>
+    <MidrangeDefense>53</MidrangeDefense>
+    <PerimeterDefense>55</PerimeterDefense>
+    <Hustle>68</Hustle>
+    <Speed>78</Speed>
+    <Quickness>82</Quickness>
+    <Fatigue>79</Fatigue>
+    <Durability>69</Durability>
+    <Demeanor>55</Demeanor>
+    <Improvability>86</Improvability>
+</Player>

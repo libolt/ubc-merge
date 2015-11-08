@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<Player>
+    <ID>47</ID>
+    <TeamID>3</TeamID>
+    <Name>
+        <First>Leon</First>
+        <Last>Fastbener</Last>
+    </Name>
+    <Age>19</Age>
+    <Height>81</Height>
+    <Weight>215</Weight>
+    <Model>Player.mesh</Model>
+    <PrimaryPosition>SF</PrimaryPosition>
+    <SecondaryPosition>SG</SecondaryPosition>
+    <Shooting>85</Shooting>
+    <Freethrow>85</Freethrow>
+    <Layup>77</Layup>
+    <Dunk>72</Dunk>
+    <Inside>69</Inside>
+    <Midrange>80</Midrange>
+    <ThreePoint>75</ThreePoint>
+    <BallHandling>68</BallHandling>
+    <BallSecurity>73</BallSecurity>
+    <Passing>42</Passing>
+    <PickSetting>55</PickSetting>
+    <OffenseAwareness>63</OffenseAwareness>
+    <DefenseAwareness>70</DefenseAwareness>
+    <OffenseRebound>45</OffenseRebound>
+    <DefenseRebound>77</DefenseRebound>
+    <Blocking>70</Blocking>
+    <Stealing>70</Stealing>
+    <InteriorDefense>65</InteriorDefense>
+    <MidrangeDefense>76</MidrangeDefense>
+    <PerimeterDefense>80</PerimeterDefense>
+    <Hustle>55</Hustle>
+    <Speed>88</Speed>
+    <Quickness>82</Quickness>
+    <Fatigue>55</Fatigue>
+    <Durability>45</Durability>
+    <Demeanor>21</Demeanor>
+    <Improvability>88</Improvability>
+</Player>

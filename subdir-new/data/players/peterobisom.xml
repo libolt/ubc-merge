@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<Player>
+    <ID>24</ID>
+    <TeamID>0</TeamID>
+    <Name>
+        <First>Pete</First>
+        <Last>Robisom</Last>
+    </Name>
+    <Age>24</Age>
+    <Height>85</Height>
+    <Weight>267</Weight>
+    <Model>Player.mesh</Model>
+    <PrimaryPosition>C</PrimaryPosition>
+    <SecondaryPosition>NONE</SecondaryPosition>
+    <Shooting>55</Shooting>
+    <Freethrow>54</Freethrow>
+    <Layup>52</Layup>
+    <Dunk>67</Dunk>
+    <Inside>52</Inside>
+    <Midrange>43</Midrange>
+    <ThreePoint>11</ThreePoint>
+    <BallHandling>34</BallHandling>
+    <BallSecurity>21</BallSecurity>
+    <Passing>16</Passing>
+    <PickSetting>79</PickSetting>
+    <OffenseAwareness>25</OffenseAwareness>
+    <DefenseAwareness>62</DefenseAwareness>
+    <OffenseRebound>35</OffenseRebound>
+    <DefenseRebound>55</DefenseRebound>
+    <Blocking>54</Blocking>
+    <Stealing>19</Stealing>
+    <InteriorDefense>56</InteriorDefense>
+    <MidrangeDefense>36</MidrangeDefense>
+    <PerimeterDefense>14</PerimeterDefense>
+    <Hustle>25</Hustle>
+    <Speed>34</Speed>
+    <Quickness>21</Quickness>
+    <Fatigue>54</Fatigue>
+    <Durability>68</Durability>
+    <Demeanor>89</Demeanor>
+    <Improvability>70</Improvability>
+</Player>
